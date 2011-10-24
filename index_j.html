@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tide - Japanese (soon) &mdash; Tide v1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Tide v1.0.0 documentation" href="index.html" />
+    <link rel="prev" title="Tide - English" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Tide - English"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Tide v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tide-japanese-soon">
+<h1>Tide - Japanese (soon)<a class="headerlink" href="#tide-japanese-soon" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Tide (Time-Indexed Data Entries) is a library for recording and playing
+back data indexed along a single axis, typically time. It is not
+described as &#8220;for storing and retrieving;&#8221; the library is optimised for
+data streams, not data tables. It is particularly suited to applications
+that must record one or more streams of data in such a way that the data
+can be replayed at a later date, maintaining the timing information of
+the data. A common application is recording data streams from a robot&#8217;s
+sensors and playing those streams back in real-time later on for testing
+software.</p>
+</div>
+<div class="section" id="requirements">
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
+<p>Tide uses the <a class="reference external" href="http://www.cmake.org/">CMake build system</a>. You will need at least version
+2.8 to be able to build the component.</p>
+<p>Tide runs on Linux, Mac OS X and Windows.</p>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="binary">
+<h2>Binary<a class="headerlink" href="#binary" title="Permalink to this headline">¶</a></h2>
+<p>No binary installers are currently available.</p>
+</div>
+<div class="section" id="from-source">
+<h2>From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h2>
+<p>Follow these steps to install Tide from source in any operating system:</p>
+<ul>
+<li><p class="first">Download the source, either from the repository or a source archive,
+and extract it somewhere:</p>
+<div class="highlight-python"><pre>tar -xvzf tide-1.0.0.tar.gz</pre>
+</div>
+</li>
+<li><p class="first">Change to the directory containing the extracted source:</p>
+<div class="highlight-python"><pre>cd tide-1.0.0</pre>
+</div>
+</li>
+<li><p class="first">Create a directory called <tt class="docutils literal"><span class="pre">build</span></tt>:</p>
+<div class="highlight-python"><pre>mkdir build</pre>
+</div>
+</li>
+<li><p class="first">Change to that directory:</p>
+<div class="highlight-python"><pre>cd build</pre>
+</div>
+</li>
+<li><p class="first">Run cmake or cmake-gui:</p>
+<div class="highlight-python"><pre>cmake ../</pre>
+</div>
+</li>
+<li><p class="first">If no errors occurred, run make:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">make</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Finally, install the library. Ensure the necessary permissions to
+install into the chosen prefix are available:</p>
+<div class="highlight-python"><pre>make install</pre>
+</div>
+</li>
+<li><p class="first">The install destination can be changed by executing ccmake and changing
+the variable <tt class="docutils literal"><span class="pre">CMAKE_INSTALL_PREFIX</span></tt>:</p>
+<div class="highlight-python"><pre>ccmake ../</pre>
+</div>
+</li>
+</ul>
+<p>The library is now ready to use. You can use it in your own CMake projects with
+the following line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">find_package</span><span class="p">(</span><span class="n">tide</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you are not using CMake, a pkg-config file is available, <tt class="docutils literal"><span class="pre">tide.pc</span></tt>.
+Be sure to add the pkg-config location below the Tide install prefix to
+the <tt class="docutils literal"><span class="pre">PKG_CONFIG_PATH</span></tt> environment variable. If you installed into
+<tt class="docutils literal"><span class="pre">/usr/local</span></tt>, this will be:</p>
+<div class="highlight-python"><pre>/usr/local/lib/pkgconfig</pre>
+</div>
+<p>or:</p>
+<div class="highlight-python"><pre>/usr/local/lib64/pkgconfig</pre>
+</div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>Full API documentation is available with the library. It is generated
+using Doxygen and Sphinx. If you installed from source, you must have
+Doxygen and Sphinx installed and set <tt class="docutils literal"><span class="pre">BUILD_DOCUMENTATION</span></tt> to <tt class="docutils literal"><span class="pre">ON</span></tt>
+in CMake. The documentation is also <a class="reference external" href="http://gbiggs.github.com/tide/">available online</a>.</p>
+</div>
+<div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>Simple usage examples are provided in the <tt class="docutils literal"><span class="pre">examples/</span></tt> directory of the
+source. For more complex examples, see the sourcecode of the tools
+included with Tide.</p>
+</div>
+<div class="section" id="tools">
+<h1>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h1>
+<p>Tide includes several useful tools. These tools are designed to
+introspect and manipulate Tide objects.</p>
+</div>
+<div class="section" id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>1.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Initial release.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+<p>This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tide - Japanese (soon)</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#binary">Binary</a></li>
+<li><a class="reference internal" href="#from-source">From source</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#tools">Tools</a></li>
+<li><a class="reference internal" href="#changelog">Changelog</a><ul>
+<li><a class="reference internal" href="#id1">1.0</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Tide - English</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index_j.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Tide - English"
+             >previous</a> |</li>
+        <li><a href="index.html">Tide v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Geoffrey Biggs.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

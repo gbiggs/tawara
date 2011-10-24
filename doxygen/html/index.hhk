@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__exceptions.html"><param name="Name" value="Exceptions"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__implementations.html"><param name="Name" value="Implementations"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__interface.html"><param name="Name" value="Interface"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a4cc0e56da6b98fbe818927949aefee50"><param name="Name" value="mode_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f"><param name="Name" value="MODE_APPEND"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646"><param name="Name" value="MODE_READ"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670"><param name="Name" value="MODE_WRITE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a06c952cae8c5289e3e6efb60bf049c0b"><param name="Name" value="name_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="null__stream_8h.html"><param name="Name" value="null_stream.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="NullOStream"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="null_stream.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html"><param name="Name" value="tide"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_no_name.html"><param name="Name" value="tide::NoName"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html"><param name="Name" value="tide::Tide"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a680a642acd4086f581fcb089addaeff7"><param name="Name" value="Tide"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887"><param name="Name" value="~Tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_tide_error.html"><param name="Name" value="tide::TideError"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html"><param name="Name" value="tide::TideFile"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a4cc0e56da6b98fbe818927949aefee50"><param name="Name" value="mode_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a06c952cae8c5289e3e6efb60bf049c0b"><param name="Name" value="name_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aab9512268f26e5c69e51addfe5feb770"><param name="Name" value="TideFile"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#acb05d7fe3f05f21bd392671a4cf365c6"><param name="Name" value="verb_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aa34d1b76521ba2ba21b88c0e9107411a"><param name="Name" value="~TideFile"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html"><param name="Name" value="tide"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f"><param name="Name" value="MODE_APPEND"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646"><param name="Name" value="MODE_READ"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670"><param name="Name" value="MODE_WRITE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="NullOStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a680a642acd4086f581fcb089addaeff7"><param name="Name" value="Tide"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="win__dll_8h.html#adedfce2bc7606d774db0029a38b3d68e"><param name="Name" value="TIDE_EXPORT"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aab9512268f26e5c69e51addfe5feb770"><param name="Name" value="TideFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__utilities.html"><param name="Name" value="Utilities"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#acb05d7fe3f05f21bd392671a4cf365c6"><param name="Name" value="verb_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="win__dll_8h.html"><param name="Name" value="win_dll.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887"><param name="Name" value="~Tide"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aa34d1b76521ba2ba21b88c0e9107411a"><param name="Name" value="~TideFile"></OBJECT>
+</UL>
+</BODY>
+</HTML>

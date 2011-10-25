@@ -31,6 +31,8 @@
 #include <tide/tide.h>
 #include <tide/win_dll.h>
 
+#include <fstream>
+#include <iostream>
 #include <string>
 
 /// \addtogroup implementations Implementations
@@ -68,9 +70,17 @@ namespace tide
             virtual ~TideFile();
 
         protected:
+            /// The name of the file to be operated on.
             std::string name_;
+            /// The open-mode of the file, one of the values of \ref MODE
             MODE mode_;
+            /// The verbose output destination.
             std::ostream& verb_;
+            /// The file being operated on.
+            std::fstream file_;
+
+            /// \brief Opens the target file.
+            void open();
     }; // class TideFile
 }; // namespace tide
 

@@ -25,11 +25,13 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <cstdio>
 #include <gtest/gtest.h>
 #include <tide/tide_file.h>
 #include <tide/exceptions.h>
 
-TEST(OpenFile, NoFileName)
+
+TEST(OpenFile, NoName)
 {
     // Create an instance of a TIDE object without specifying a file name
     EXPECT_THROW(tide::TideFile("", tide::MODE_READ), tide::NoName);
@@ -42,6 +44,11 @@ TEST(OpenFile, NoFileName)
 
 TEST(OpenFile, NewObject)
 {
+    // Create a new object
+    /*EXPECT_NOTHROW(
+    {
+        tide::TideFile t(tmpnam(), tide::MODE_
+    });*/
 }
 
 TEST(OpenFile, ExistingFilePresentOverwrite)
@@ -54,6 +61,10 @@ TEST(OpenFile, ExistingFilePresentNoOverwrite)
 
 TEST(OpenFile, OpenForReadingNotExist)
 {
+    EXPECT_THROW(tide::TideFile("file_that_does_not_exist", tide::MODE_READ),
+        tide::NoObject);
+    EXPECT_THROW(tide::TideFile("file_that_does_not_exist", tide::MODE_READ,
+        std::clog), tide::NoObject);
 }
 
 TEST(OpenFile, NotEBMLFile)

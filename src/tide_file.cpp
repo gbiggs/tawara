@@ -43,8 +43,11 @@ TideFile::TideFile(std::string name, MODE mode)
 {
     if (name == "")
     {
+        verb_ << "No name provided to TideFile()\n";
         throw NoName();
     }
+
+    open();
 }
 
 
@@ -54,12 +57,42 @@ TideFile::TideFile(std::string name, MODE mode, std::ostream& verb_out)
 {
     if (name == "")
     {
+        verb_ << "No name provided to TideFile()\n";
         throw NoName();
     }
+
+    open();
 }
 
 
 TideFile::~TideFile()
 {
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+// Private methods
+//////////////////////////////////////////////////////////////////////////////
+
+void TideFile::open()
+{
+    switch(mode_)
+    {
+        case MODE_READ:
+            file_.open(name_.c_str(), std::ios::in);
+            if (!file_)
+            {
+                verb_ << "Failed to open file " << name_ <<
+                    ": File not found\n";
+                throw NoObject() << error_name(name_);
+            }
+            break;
+        case MODE_WRITE:
+            // out|trunc
+            break;
+        case MODE_APPEND:
+            // out|app
+            break;
+    }
 }
 

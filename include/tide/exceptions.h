@@ -41,8 +41,31 @@ namespace tide
     /// \brief Base error type.
     struct TideError : virtual std::exception, virtual boost::exception {};
 
-    /// \brief No name error.
+//////////////////////////////////////////////////////////////////////////////
+// Error types
+//////////////////////////////////////////////////////////////////////////////
+
+    /** \brief No name error.
+     *
+     * Encountered when passing an empty string as the name for a new Tide
+     * instance.
+     */
     struct NoName : virtual TideError {};
+
+    /** \brief Object does not exist error.
+     *
+     * Usually encountered when attempting to create a new Tide instance in
+     * read mode based on a name that is not in use (in other words, the file
+     * does not exist).
+     */
+    struct NoObject : virtual TideError {};
+
+//////////////////////////////////////////////////////////////////////////////
+// Error information tags
+//////////////////////////////////////////////////////////////////////////////
+
+    /// \brief Name of the Tide object.
+    typedef boost::error_info<struct tag_name, std::string> error_name;
 }; // namespace tide
 
 /// @}

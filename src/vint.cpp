@@ -164,8 +164,65 @@ uint64_t tide::decode_vint(uint8_t const* buffer, size_t n)
 }
 
 
-void write_vint(uint64_t integer, std::ostream& file)
+std::ostream& write_vint(uint64_t integer, std::ostream& output)
 {
+    unsigned int shifts(0);
+    uint8_t mask(0);
+
+    if (integer < 0x80)
+    {
+        shifts = 0;
+        mask = 0x80;
+    }
+    else if (integer < 0x4000)
+    {
+        shifts = 1;
+        mask = 0x40;
+    }
+    else if (integer < 0x200000)
+    {
+        shifts = 2;
+        mask = 0x20;
+    }
+    else if (integer < 0x10000000)
+    {
+        shifts = 3;
+        mask = 0x10;
+    }
+    else if (integer < 0x800000000)
+    {
+        shifts = 4;
+        mask = 0x08;
+    }
+    else if (integer < 0x40000000000)
+    {
+        shifts = 5;
+        mask = 0x04;
+    }
+    else if (integer < 0x2000000000000)
+    {
+        shifts = 6;
+        mask = 0x02;
+    }
+    else if (integer < 0x100000000000000)
+    {
+        shifts = 7;
+        mask = 0x01;
+    }
+    else
+    {
+        throw VarIntTooBig() << err_varint(integer) << err_bufsize(n);
+    }
+
+    // Write the first byte with its length indicator
+    output.put(((integer >> shifts * 8) & 0xFF) | mask);
+    // Write the remaining bytes
+    for (int ii(1); ii <= shifts; ++ii)
+    {
+        output.put((integer >> (shifts - ii) * 8) & 0xFF);
+    }
+
+    return output;
 }
 
 

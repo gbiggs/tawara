@@ -38,9 +38,9 @@ namespace tide
 
     uint64_t decode_vint(uint8_t const* buffer, size_t n);
 
-    void write_vint(uint64_t integer, std::ostream& file);
+    std::ostream& write_vint(uint64_t integer, std::ostream& output);
 
-    uint64_t read_vint(std::istream& file);
+    uint64_t read_vint(std::istream& input);
 }; // namespace tide
 
 #endif // TIDE_VINT_H_

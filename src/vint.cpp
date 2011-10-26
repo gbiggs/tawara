@@ -29,8 +29,10 @@
 #include <tide/exceptions.h>
 
 
-uint8_t* tide::encode_vint(int64_t integer, uint8_t* buffer, size_t n)
+uint8_t* tide::encode_vint(uint64_t integer, uint8_t* buffer, size_t n)
 {
+    assert(n > 0);
+
     unsigned int shifts(0);
     uint8_t mask(0);
 
@@ -82,7 +84,7 @@ uint8_t* tide::encode_vint(int64_t integer, uint8_t* buffer, size_t n)
     // Buffer size must be at least the number of shifts + 1
     if (n < shifts + 1)
     {
-        throw VarIntTooBig() << err_varint(integer) << err_bufsize(n);
+        throw BufferTooSmall() << err_varint(integer) << err_bufsize(n);
     }
 
     for(int ii(shifts); ii > 0; --ii)
@@ -95,9 +97,11 @@ uint8_t* tide::encode_vint(int64_t integer, uint8_t* buffer, size_t n)
 }
 
 
-int64_t tide::decode_vint(uint8_t const* buffer)
+uint64_t tide::decode_vint(uint8_t const* buffer, size_t n)
 {
-    int64_t result(0);
+    assert(n > 0);
+
+    uint64_t result(0);
     int to_copy(0);
     if (buffer[0] >= 0x80) // 1 byte
     {
@@ -144,6 +148,12 @@ int64_t tide::decode_vint(uint8_t const* buffer)
         // All bits zero is invalid
         throw InvalidVarInt();
     }
+
+    if (n <= to_copy)
+    {
+        throw BufferTooSmall() << err_bufsize(n);
+    }
+
     // Copy the remaining bytes
     for (int ii(1); ii < to_copy + 1; ++ii)
     {
@@ -154,12 +164,12 @@ int64_t tide::decode_vint(uint8_t const* buffer)
 }
 
 
-void write_vint(int64_t integer, std::ostream& file)
+void write_vint(uint64_t integer, std::ostream& file)
 {
 }
 
 
-int64_t read_vint(std::istream& file)
+uint64_t read_vint(std::istream& file)
 {
 }
 

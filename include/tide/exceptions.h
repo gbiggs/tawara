@@ -75,8 +75,8 @@ namespace tide
     /** \brief An invalid variable-length integer was found.
      *
      * Encountered when reading a value stored as a variable-length integer,
-     * such as a tag or an element size value. This indicates that the file is
-     * corrupted.
+     * such as a tag or an element size value, that is incorrectly-formatted.
+     * This indicates that the file is corrupted.
      *
      * An err_pos tag will often be included indicating where the bad
      * variable-length integer was encountered.
@@ -96,6 +96,16 @@ namespace tide
      * that the variable-length integer was to be written to.
      */
     struct VarIntTooBig : virtual TideError {};
+
+    /** \brief A buffer was too small for the data.
+     *
+     * Encountered in any situation where data will be written to a buffer. For
+     * example, attempting to write a large variable-length integer to a buffer
+     * too small to hold all the bytes will trigger this error.
+     *
+     * The err_bufsize tag may be included to indicate the size of the buffer.
+     */
+    struct BufferTooSmall : virtual TideError {};
 
 //////////////////////////////////////////////////////////////////////////////
 // Error information tags

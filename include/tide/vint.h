@@ -34,13 +34,13 @@
 
 namespace tide
 {
-    uint8_t* encode_vint(int64_t integer, uint8_t* buffer, size_t size);
+    uint8_t* encode_vint(uint64_t integer, uint8_t* buffer, size_t n);
 
-    int64_t decode_vint(uint8_t const* buffer);
+    uint64_t decode_vint(uint8_t const* buffer, size_t n);
 
-    void write_vint(int64_t integer, std::ostream& file);
+    void write_vint(uint64_t integer, std::ostream& file);
 
-    int64_t read_vint(std::istream& file);
+    uint64_t read_vint(std::istream& file);
 }; // namespace tide
 
 #endif // TIDE_VINT_H_

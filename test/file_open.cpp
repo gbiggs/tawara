@@ -25,10 +25,16 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <boost/filesystem.hpp>
 #include <cstdio>
 #include <gtest/gtest.h>
 #include <tide/tide_file.h>
 #include <tide/exceptions.h>
+
+#include "test_consts.h"
+
+#include <boost/iostreams/device/null.hpp>
+#include <boost/iostreams/stream.hpp>
 
 
 TEST(OpenFile, NoName)
@@ -37,10 +43,12 @@ TEST(OpenFile, NoName)
     EXPECT_THROW(tide::TideFile("", tide::MODE_READ), tide::NoName);
     EXPECT_THROW(tide::TideFile("", tide::MODE_WRITE), tide::NoName);
     // Versions with a stream object (different constructor)
-    tide::NullOStream elog;
-    EXPECT_THROW(tide::TideFile("", tide::MODE_READ, elog), tide::NoName);
-    EXPECT_THROW(tide::TideFile("", tide::MODE_WRITE, elog), tide::NoName);
+    boost::iostreams::stream<boost::iostreams::null_sink> null;
+    null.open(boost::iostreams::null_sink());
+    EXPECT_THROW(tide::TideFile("", tide::MODE_READ, null), tide::NoName);
+    EXPECT_THROW(tide::TideFile("", tide::MODE_WRITE, null), tide::NoName);
 }
+
 
 TEST(OpenFile, NewObject)
 {
@@ -51,25 +59,44 @@ TEST(OpenFile, NewObject)
     });*/
 }
 
+
 TEST(OpenFile, ExistingFilePresentOverwrite)
 {
+    // After truncation, the file size should not be zero due to the EBML
+    // header added upon opening
+    // ASSERT_?(file size != sizeof(not_ebml.tide.in))
 }
+
 
 TEST(OpenFile, ExistingFilePresentNoOverwrite)
 {
 }
 
+
 TEST(OpenFile, OpenForReadingNotExist)
 {
     EXPECT_THROW(tide::TideFile("file_that_does_not_exist", tide::MODE_READ),
         tide::NoObject);
+    boost::iostreams::stream<boost::iostreams::null_sink> null;
+    null.open(boost::iostreams::null_sink());
     EXPECT_THROW(tide::TideFile("file_that_does_not_exist", tide::MODE_READ,
-        std::clog), tide::NoObject);
+        null), tide::NoObject);
 }
+
 
 TEST(OpenFile, NotEBMLFile)
 {
+    boost::filesystem::path not_ebml(test_bin_dir / "not_ebml.tide");
+    boost::filesystem3::copy(test_source_dir / "not_ebml.tide.in", not_ebml);
+    EXPECT_THROW(tide::TideFile(not_ebml.native(), tide::MODE_READ),
+        tide::NotTide);
+    EXPECT_THROW(tide::TideFile(not_ebml.string(), tide::MODE_APPEND),
+        tide::NotTide);
+    // MODE_WRITE should truncate the file, and so not complain
+    EXPECT_NO_THROW(tide::TideFile(not_ebml.string(), tide::MODE_WRITE));
+    boost::filesystem::remove(not_ebml);
 }
+
 
 TEST(OpenFile, NotTIDEFile)
 {

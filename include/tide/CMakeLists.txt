@@ -1,6 +1,5 @@
 set(hdrs tide.h
     exceptions.h
-    null_stream.h
     win_dll.h
     tide_file.h)
 

@@ -1,6 +1,6 @@
 /* TIDE
  *
- * Header file for a null-output stream using Boost.Iostreams.
+ * Variable-length integer header file.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,29 +25,23 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_NULL_STREAM_H_)
-#define TIDE_NULL_STREAM_H_
+#if !defined(TIDE_VINT_H_)
+#define TIDE_VINT_H_
 
-#include <boost/iostreams/stream.hpp>
-
-/// \addtogroup utilities Utilities
-/// @{
+#include <cstddef>
+#include <iostream>
+#include <stdint.h>
 
 namespace tide
 {
-    /** \brief A null implementation of the std::ostream interface.
-     *
-     * This std::ostream implementation ignores every write, effectively
-     * discarding the data into the ether. Use it for the verbose output of a
-     * Tide object to disable verbose information output.
-     */
-    typedef boost::iostreams::stream<boost::iostreams::basic_null_device<char,
-            boost::iostreams::output> >
-                NullOStream;
+    uint8_t* encode_vint(int64_t integer, uint8_t* buffer, size_t size);
+
+    int64_t decode_vint(uint8_t const* buffer);
+
+    void write_vint(int64_t integer, std::ostream& file);
+
+    int64_t read_vint(std::istream& file);
 }; // namespace tide
 
-/// @}
-// group utilities
-
-#endif // TIDE_NULL_STREAM_H_
+#endif // TIDE_VINT_H_
 

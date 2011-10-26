@@ -6,9 +6,14 @@ endif(NOT GTEST_FOUND)
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})
 
-set(srcs file_open.cpp)
+set(srcs file_open.cpp
+    test_vint.cpp)
 
-add_executable(all_tests ${srcs})
+set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
+configure_file("test_consts.h.in" ${test_consts})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+add_executable(all_tests ${srcs} ${test_consts})
 target_link_libraries(all_tests tide ${Boost_LIBRARIES} ${GTEST_BOTH_LIBRARIES})
 if(CMAKE_VERSION VERSION_LESS 2.8.4)
     add_test(AllTests all_tests)

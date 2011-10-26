@@ -71,9 +71,9 @@ namespace tide
 
         protected:
             /// The name of the file to be operated on.
-            std::string name_;
+            std::string const name_;
             /// The open-mode of the file, one of the values of \ref MODE
-            MODE mode_;
+            MODE const mode_;
             /// The verbose output destination.
             std::ostream& verb_;
             /// The file being operated on.
@@ -81,6 +81,10 @@ namespace tide
 
             /// \brief Opens the target file.
             void open();
+            /// \brief Finalises and closes the target file.
+            void close();
+            /// \brief Checks that the EBML header is intact and correct
+            bool validate_ebml_header();
     }; // class TideFile
 }; // namespace tide
 

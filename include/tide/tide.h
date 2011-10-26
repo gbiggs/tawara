@@ -28,10 +28,10 @@
 #if !defined(TIDE_TIDE_H_)
 #define TIDE_TIDE_H_
 
-#include <tide/null_stream.h>
 #include <tide/win_dll.h>
 
 #include <boost/utility.hpp>
+#include <iostream>
 #include <string>
 
 /// \addtogroup interface Interface
@@ -84,12 +84,12 @@ namespace tide
              * by implementation.
              * \param[in] mode The open mode, one of the possible values
              * defined by \ref MODE.
-             * \param[in] verb_out Output ostream for the verbose output. Pass
+             * \param[in] verb_out Output stream for the verbose output. Pass
              * in a null stream (e.g. a stream constructed using
-             * boost::iostreams::basic_null_device, which is the default) to
-             * disable verbose output.
+             * boost::iostreams::null_sink) to disable verbose output.
              */
-            Tide(std::string name, MODE mode, std::ostream& verb_out) {};
+            Tide(std::string name, MODE mode, std::ostream& verb_out)
+            {};
 
             /** \brief Destroy the Tide object.
              *

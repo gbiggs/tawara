@@ -1,4 +1,5 @@
-set(srcs tide_file.cpp)
+set(srcs tide_file.cpp
+    vint.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 

@@ -57,15 +57,61 @@ namespace tide
      * Usually encountered when attempting to create a new Tide instance in
      * read mode based on a name that is not in use (in other words, the file
      * does not exist).
+     *
+     * Often, an err_name tag will be attached.
      */
     struct NoObject : virtual TideError {};
+
+    /** \brief Object is not a Tide object.
+     *
+     * Usually encountered when trying to open an existing name (either for
+     * reading or appending) that is not a Tide object (e.g. a file that is not
+     * a Tide file).
+     *
+     * Often, an err_name tag will be attached.
+     */
+    struct NotTide : virtual TideError {};
+
+    /** \brief An invalid variable-length integer was found.
+     *
+     * Encountered when reading a value stored as a variable-length integer,
+     * such as a tag or an element size value. This indicates that the file is
+     * corrupted.
+     *
+     * An err_pos tag will often be included indicating where the bad
+     * variable-length integer was encountered.
+     */
+    struct InvalidVarInt : virtual TideError {};
+
+    /** \brief A variable-length integer is too large to be encoded.
+     *
+     * Encountered when encoding an integer as a variable-length integer for
+     * writing to a Tide object. The maximum allowable size of a
+     * variable-length integer is given in the EBML specification.
+     *
+     * The err_varint tag will often be included, indicating the value that
+     * was attempted to be encoded.
+     *
+     * The err_bufsize tag may be included to indicate the size of a buffer
+     * that the variable-length integer was to be written to.
+     */
+    struct VarIntTooBig : virtual TideError {};
 
 //////////////////////////////////////////////////////////////////////////////
 // Error information tags
 //////////////////////////////////////////////////////////////////////////////
 
     /// \brief Name of the Tide object.
-    typedef boost::error_info<struct tag_name, std::string> error_name;
+    typedef boost::error_info<struct tag_name, std::string> err_name;
+
+    /// \brief Position in a Tide object, e.g. byte offset from the start.
+    typedef boost::error_info<struct tag_pos, long long int> err_pos;
+
+    /// \brief Value of a variable-length integer.
+    typedef boost::error_info<struct tag_varint, long long int> err_varint;
+
+    /// \brief The size of a buffer.
+    typedef boost::error_info<struct tag_bufsize, size_t> err_bufsize;
 }; // namespace tide
 
 /// @}

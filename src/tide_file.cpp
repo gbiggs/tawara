@@ -28,7 +28,6 @@
 #include <tide/tide_file.h>
 
 #include <tide/exceptions.h>
-#include <tide/null_stream.h>
 
 using namespace tide;
 
@@ -84,7 +83,11 @@ void TideFile::open()
             {
                 verb_ << "Failed to open file " << name_ <<
                     ": File not found\n";
-                throw NoObject() << error_name(name_);
+                throw NoObject() << err_name(name_);
+            }
+            if (!validate_ebml_header())
+            {
+                throw NotTide() << err_name(name_);
             }
             break;
         case MODE_WRITE:
@@ -92,7 +95,23 @@ void TideFile::open()
             break;
         case MODE_APPEND:
             // out|app
+            // Check if the file size is zero
+            /*new_file = false;
+            if (boost::filesystem::file_size(name_) == 0)
+            {
+                new_file = true;
+            }
+            file_.open(name_.c_str(), std::ios::out | std::ios::app);*/
             break;
     }
+}
+
+
+bool TideFile::validate_ebml_header()
+{
+    // Preserve the current read position
+    // Seek to the start of the file
+    // Read an element from the file
+    // Validate its values
 }
 

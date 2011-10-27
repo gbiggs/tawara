@@ -84,6 +84,25 @@ TEST(OpenFile, OpenForReadingNotExist)
 }
 
 
+TEST(OpenFile, OpenForAppending)
+{
+    boost::filesystem::path existing(test_bin_dir / "existing.tide");
+
+    EXPECT_NO_THROW(tide::TideFile(existing.string(), tide::MODE_APPEND));
+    EXPECT_EQ(true, boost::filesystem::is_regular_file(existing));
+    boost::filesystem::remove(existing);
+
+    boost::filesystem3::copy(test_source_dir / "empty_ebml.tide.in", existing);
+    EXPECT_NO_THROW(tide::TideFile(existing.string(), tide::MODE_APPEND));
+    boost::filesystem::remove(existing);
+
+    boost::filesystem3::copy(test_source_dir / "not_ebml.tide.in", existing);
+    EXPECT_THROW(tide::TideFile(existing.string(), tide::MODE_APPEND),
+        tide::NotTide);
+    boost::filesystem::remove(existing);
+}
+
+
 TEST(OpenFile, NotEBMLFile)
 {
     boost::filesystem::path not_ebml(test_bin_dir / "not_ebml.tide");

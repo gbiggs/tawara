@@ -29,7 +29,48 @@
 #include <tide/exceptions.h>
 
 
-uint8_t* tide::encode_vint(uint64_t integer, uint8_t* buffer, size_t n)
+size_t tide::vint::coded_size(uint64_t integer)
+{
+    if (integer < 0x80)
+    {
+        return 1;
+    }
+    else if (integer < 0x4000)
+    {
+        return 2;
+    }
+    else if (integer < 0x200000)
+    {
+        return 3;
+    }
+    else if (integer < 0x10000000)
+    {
+        return 4;
+    }
+    else if (integer < 0x800000000)
+    {
+        return 5;
+    }
+    else if (integer < 0x40000000000)
+    {
+        return 6;
+    }
+    else if (integer < 0x2000000000000)
+    {
+        return 7;
+    }
+    else if (integer < 0x100000000000000)
+    {
+        return 8;
+    }
+    else
+    {
+        throw tide::VarIntTooBig() << tide::err_varint(integer);
+    }
+}
+
+
+size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n)
 {
     assert(n > 0);
 
@@ -78,13 +119,15 @@ uint8_t* tide::encode_vint(uint64_t integer, uint8_t* buffer, size_t n)
     }
     else
     {
-        throw VarIntTooBig() << err_varint(integer) << err_bufsize(n);
+        throw tide::VarIntTooBig() << tide::err_varint(integer) <<
+            tide::err_bufsize(n);
     }
 
     // Buffer size must be at least the number of shifts + 1
     if (n < shifts + 1)
     {
-        throw BufferTooSmall() << err_varint(integer) << err_bufsize(n);
+        throw tide::BufferTooSmall() << tide::err_varint(integer) <<
+            tide::err_bufsize(n) << tide::err_reqsize(shifts + 1);
     }
 
     for(int ii(shifts); ii > 0; --ii)
@@ -93,16 +136,16 @@ uint8_t* tide::encode_vint(uint64_t integer, uint8_t* buffer, size_t n)
     }
     buffer[0] = ((integer >> shifts * 8) & 0xFF) | mask;
 
-    return buffer;
+    return shifts + 1;
 }
 
 
-uint64_t tide::decode_vint(uint8_t const* buffer, size_t n)
+uint64_t tide::vint::decode(uint8_t const* buffer, size_t n)
 {
     assert(n > 0);
 
     uint64_t result(0);
-    int to_copy(0);
+    size_t to_copy(0);
     if (buffer[0] >= 0x80) // 1 byte
     {
         result = buffer[0] & 0x7F;
@@ -128,17 +171,17 @@ uint64_t tide::decode_vint(uint8_t const* buffer, size_t n)
         result = buffer[0] & 0x07;
         to_copy = 4;
     }
-    else if (buffer[0] >= 0x04) // 5 bytes
+    else if (buffer[0] >= 0x04) // 6 bytes
     {
         result = buffer[0] & 0x03;
         to_copy = 5;
     }
-    else if (buffer[0] >= 0x02) // 5 bytes
+    else if (buffer[0] >= 0x02) // 7 bytes
     {
         result = buffer[0] & 0x01;
         to_copy = 6;
     }
-    else if (buffer[0] == 0x01) // 5 bytes
+    else if (buffer[0] == 0x01) // 8 bytes
     {
         // The first byte is not part of the result in this case
         to_copy = 7;
@@ -146,16 +189,17 @@ uint64_t tide::decode_vint(uint8_t const* buffer, size_t n)
     else
     {
         // All bits zero is invalid
-        throw InvalidVarInt();
+        throw tide::InvalidVarInt();
     }
 
     if (n <= to_copy)
     {
-        throw BufferTooSmall() << err_bufsize(n);
+        throw tide::BufferTooSmall() << tide::err_bufsize(n) <<
+            tide::err_reqsize(to_copy);
     }
 
     // Copy the remaining bytes
-    for (int ii(1); ii < to_copy + 1; ++ii)
+    for (size_t ii(1); ii < to_copy + 1; ++ii)
     {
         result <<= 8;
         result += buffer[ii];
@@ -164,7 +208,8 @@ uint64_t tide::decode_vint(uint8_t const* buffer, size_t n)
 }
 
 
-std::ostream& write_vint(uint64_t integer, std::ostream& output)
+std::basic_ostream<uint8_t>& tide::vint::write(uint64_t integer,
+        std::basic_ostream<uint8_t>& output)
 {
     unsigned int shifts(0);
     uint8_t mask(0);
@@ -211,22 +256,92 @@ std::ostream& write_vint(uint64_t integer, std::ostream& output)
     }
     else
     {
-        throw VarIntTooBig() << err_varint(integer) << err_bufsize(n);
+        throw tide::VarIntTooBig() << tide::err_varint(integer);
     }
 
     // Write the first byte with its length indicator
     output.put(((integer >> shifts * 8) & 0xFF) | mask);
     // Write the remaining bytes
-    for (int ii(1); ii <= shifts; ++ii)
+    for (unsigned int ii(1); ii <= shifts; ++ii)
     {
         output.put((integer >> (shifts - ii) * 8) & 0xFF);
+    }
+    if (!output)
+    {
+        throw tide::WriteError() << tide::err_pos(output.tellp());
     }
 
     return output;
 }
 
 
-uint64_t read_vint(std::istream& file)
+uint64_t tide::vint::read(std::basic_istream<uint8_t>& input)
 {
+    uint64_t result(0);
+    std::streamsize to_copy(0);
+    uint8_t buffer[8];
+
+    // Read the first byte
+    buffer[0] = input.get();
+    // Check the size
+    if (buffer[0] >= 0x80) // 1 byte
+    {
+        result = buffer[0] & 0x7F;
+        to_copy = 0;
+    }
+    else if (buffer[0] >= 0x40) // 2 bytes
+    {
+        result = buffer[0] & 0x3F;
+        to_copy = 1;
+    }
+    else if (buffer[0] >= 0x20) // 3 bytes
+    {
+        result = buffer[0] & 0x1F;
+        to_copy = 2;
+    }
+    else if (buffer[0] >= 0x10) // 4 bytes
+    {
+        result = buffer[0] & 0x0F;
+        to_copy = 3;
+    }
+    else if (buffer[0] >= 0x08) // 5 bytes
+    {
+        result = buffer[0] & 0x07;
+        to_copy = 4;
+    }
+    else if (buffer[0] >= 0x04) // 6 bytes
+    {
+        result = buffer[0] & 0x03;
+        to_copy = 5;
+    }
+    else if (buffer[0] >= 0x02) // 7 bytes
+    {
+        result = buffer[0] & 0x01;
+        to_copy = 6;
+    }
+    else if (buffer[0] == 0x01) // 8 bytes
+    {
+        // The first byte is not part of the result in this case
+        to_copy = 7;
+    }
+    else
+    {
+        // All bits zero is invalid
+        throw tide::InvalidVarInt();
+    }
+
+    // Copy the remaining bytes
+    input.read(&buffer[1], to_copy);
+    if (!input)
+    {
+        throw tide::ReadError() << tide::err_pos(input.tellg());
+    }
+
+    for (std::streamsize ii(1); ii < to_copy + 1; ++ii)
+    {
+        result <<= 8;
+        result += buffer[ii];
+    }
+    return result;
 }
 

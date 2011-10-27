@@ -27,14 +27,15 @@
 
 #include <tide/tide_file.h>
 
+#include <boost/filesystem.hpp>
 #include <tide/exceptions.h>
 
 using namespace tide;
 
 
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 TideFile::TideFile(std::string name, MODE mode)
     : Tide(name, mode),
@@ -69,9 +70,9 @@ TideFile::~TideFile()
 }
 
 
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // Private methods
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 void TideFile::open()
 {
@@ -89,19 +90,36 @@ void TideFile::open()
             {
                 throw NotTide() << err_name(name_);
             }
+            // Also check if the file still has stuff to read? ie is not eof
             break;
         case MODE_WRITE:
             // out|trunc
             break;
         case MODE_APPEND:
-            // out|app
             // Check if the file size is zero
-            /*new_file = false;
-            if (boost::filesystem::file_size(name_) == 0)
+            bool new_file(false);
+            if (!boost::filesystem::is_regular_file(name_))
             {
+                verb_ << "File to append to, " << name_ <<
+                    ", does not exist.\n";
                 new_file = true;
             }
-            file_.open(name_.c_str(), std::ios::out | std::ios::app);*/
+            else if (boost::filesystem::file_size(name_) == 0)
+            {
+                verb_ << "Existing file " << name_ << " is empty.\n";
+                new_file = true;
+            }
+            file_.open(name_.c_str(), std::ios::out | std::ios::app);
+            if (!file_)
+            {
+                verb_ << "Failed to open file " << name_ <<
+                    '\n';
+                throw NoObject() << err_name(name_);
+            }
+            if (!validate_ebml_header())
+            {
+                throw NotTide() << err_name(name_);
+            }
             break;
     }
 }
@@ -113,5 +131,6 @@ bool TideFile::validate_ebml_header()
     // Seek to the start of the file
     // Read an element from the file
     // Validate its values
+    return false;
 }
 

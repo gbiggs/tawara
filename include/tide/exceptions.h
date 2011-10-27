@@ -41,9 +41,9 @@ namespace tide
     /// \brief Base error type.
     struct TideError : virtual std::exception, virtual boost::exception {};
 
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // Error types
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
     /** \brief No name error.
      *
@@ -104,12 +104,49 @@ namespace tide
      * too small to hold all the bytes will trigger this error.
      *
      * The err_bufsize tag may be included to indicate the size of the buffer.
+     *
+     * The err_reqsize tag may be included to indicate the required size.
      */
     struct BufferTooSmall : virtual TideError {};
 
-//////////////////////////////////////////////////////////////////////////////
+    /** \brief A read error was encountered during a read.
+     *
+     * This error may occur anywhere that involves reading a file or file-like
+     * stream. It most commonly indicates an end-of-file error, i.e. a
+     * truncated file.
+     *
+     * The err_name tag may be included to indicate the name of the file.
+     *
+     * The err_pos tag may be included to indicate where in the file the error
+     * occured.
+     */
+    struct ReadError : virtual TideError {};
+
+    /** \brief A write error was encountered during a write.
+     *
+     * This error may occur anywhere that involves writing a file or file-like
+     * stream. It most commonly indicates that there is no more space available
+     * for writing to.
+     *
+     * The err_name tag may be included to indicate the name of the file.
+     *
+     * The err_pos tag may be included to indicate where in the file the error
+     * occured.
+     */
+    struct WriteError : virtual TideError {};
+
+    /** \brief An invalid Element ID was provided.
+     *
+     * When setting the ID of an Element, if the ID is one of the invalid
+     * values, this error will occur.
+     *
+     * The err_id tag may be provided, indicating the invalid ID.
+     */
+    struct InvalidElementID : virtual TideError {};
+
+///////////////////////////////////////////////////////////////////////////////
 // Error information tags
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
     /// \brief Name of the Tide object.
     typedef boost::error_info<struct tag_name, std::string> err_name;
@@ -122,6 +159,12 @@ namespace tide
 
     /// \brief The size of a buffer.
     typedef boost::error_info<struct tag_bufsize, size_t> err_bufsize;
+
+    /// \brief The required size of a buffer.
+    typedef boost::error_info<struct tag_reqsize, size_t> err_reqsize;
+
+    /// \brief An Element ID.
+    typedef boost::error_info<struct tag_id, size_t> err_id;
 }; // namespace tide
 
 /// @}

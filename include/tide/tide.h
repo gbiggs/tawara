@@ -34,7 +34,7 @@
 #include <iostream>
 #include <string>
 
-/// \addtogroup interface Interface
+/// \addtogroup interfaces Interfaces
 /// @{
 
 namespace tide
@@ -94,7 +94,7 @@ namespace tide
             /** \brief Destroy the Tide object.
              *
              * All resources used by the object will be cleaned up when its
-             * destructor is called. Any other objects, such as Channel or Tag
+             * destructor is called. Any other objects, such as Element
              * objects, referencing this Tide object will become invalid and
              * should not be used. Behaviour if they are used is undefined.
              */
@@ -103,7 +103,7 @@ namespace tide
 }; // namespace tide
 
 /// @}
-// group interface
+// group interfaces
 
 #endif // TIDE_TIDE_H_
 

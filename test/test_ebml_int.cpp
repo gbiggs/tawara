@@ -1,6 +1,6 @@
 /* TIDE
  *
- * Variable-length integer tests.
+ * EBML integer tests.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -27,7 +27,7 @@
 
 #include <gtest/gtest.h>
 #include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <tide/ebml_int.h>
 
 #include "test_consts.h"
 
@@ -61,6 +61,135 @@
         return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
             b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
     }
+}
+
+
+TEST(EBMLInt, CodedSizeUnsigned)
+{
+    // 1 byte
+    EXPECT_EQ(1, tide::ebml_int::coded_size_unsigned(0x00));
+    EXPECT_EQ(1, tide::ebml_int::coded_size_unsigned(0x01));
+    EXPECT_EQ(1, tide::ebml_int::coded_size_unsigned(0x7F));
+    EXPECT_EQ(1, tide::ebml_int::coded_size_unsigned(0xFF));
+    // 2 bytes
+    EXPECT_EQ(2, tide::ebml_int::coded_size_unsigned(0x0100));
+    EXPECT_EQ(2, tide::ebml_int::coded_size_unsigned(0x0101));
+    EXPECT_EQ(2, tide::ebml_int::coded_size_unsigned(0x7FFF));
+    EXPECT_EQ(2, tide::ebml_int::coded_size_unsigned(0xFFFF));
+    // 3 bytes
+    EXPECT_EQ(3, tide::ebml_int::coded_size_unsigned(0x010000));
+    EXPECT_EQ(3, tide::ebml_int::coded_size_unsigned(0x010001));
+    EXPECT_EQ(3, tide::ebml_int::coded_size_unsigned(0x7FFFFF));
+    EXPECT_EQ(3, tide::ebml_int::coded_size_unsigned(0xFFFFFF));
+    // 4 bytes
+    EXPECT_EQ(4, tide::ebml_int::coded_size_unsigned(0x01000000));
+    EXPECT_EQ(4, tide::ebml_int::coded_size_unsigned(0x01000001));
+    EXPECT_EQ(4, tide::ebml_int::coded_size_unsigned(0x7FFFFFFF));
+    EXPECT_EQ(4, tide::ebml_int::coded_size_unsigned(0xFFFFFFFF));
+    // 5 bytes
+    EXPECT_EQ(5, tide::ebml_int::coded_size_unsigned(0x0100000000));
+    EXPECT_EQ(5, tide::ebml_int::coded_size_unsigned(0x0100000001));
+    EXPECT_EQ(5, tide::ebml_int::coded_size_unsigned(0x7FFFFFFFFF));
+    EXPECT_EQ(5, tide::ebml_int::coded_size_unsigned(0xFFFFFFFFFF));
+    // 6 bytes
+    EXPECT_EQ(6, tide::ebml_int::coded_size_unsigned(0x010000000000));
+    EXPECT_EQ(6, tide::ebml_int::coded_size_unsigned(0x010000000001));
+    EXPECT_EQ(6, tide::ebml_int::coded_size_unsigned(0x7FFFFFFFFFFF));
+    EXPECT_EQ(6, tide::ebml_int::coded_size_unsigned(0xFFFFFFFFFFFF));
+    // 7 bytes
+    EXPECT_EQ(7, tide::ebml_int::coded_size_unsigned(0x010000000000));
+    EXPECT_EQ(7, tide::ebml_int::coded_size_unsigned(0x010000000001));
+    EXPECT_EQ(7, tide::ebml_int::coded_size_unsigned(0x7FFFFFFFFFFF));
+    EXPECT_EQ(7, tide::ebml_int::coded_size_unsigned(0xFFFFFFFFFFFF));
+    // 8 bytes
+    EXPECT_EQ(8, tide::ebml_int::coded_size_unsigned(0x01000000000000));
+    EXPECT_EQ(8, tide::ebml_int::coded_size_unsigned(0x01000000000001));
+    EXPECT_EQ(8, tide::ebml_int::coded_size_unsigned(0x7FFFFFFFFFFFFF));
+    EXPECT_EQ(8, tide::ebml_int::coded_size_unsigned(0xFFFFFFFFFFFFFF));
+}
+
+
+TEST(EBMLInt, CodedSizeSigned)
+{
+    // 1 byte
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0x00));
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0x01));
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0x7F));
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0x80)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFF)); // -0
+    // 2 bytes
+    EXPECT_EQ(2, tide::ebml_int::coded_size_signed(0x0100));
+    EXPECT_EQ(2, tide::ebml_int::coded_size_signed(0x0101));
+    EXPECT_EQ(2, tide::ebml_int::coded_size_signed(0x7FFF));
+    EXPECT_EQ(2, tide::ebml_int::coded_size_signed(0x8000)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFF)); // -0
+    // 3 bytes
+    EXPECT_EQ(3, tide::ebml_int::coded_size_signed(0x010000));
+    EXPECT_EQ(3, tide::ebml_int::coded_size_signed(0x010001));
+    EXPECT_EQ(3, tide::ebml_int::coded_size_signed(0x7FFFFF));
+    EXPECT_EQ(3, tide::ebml_int::coded_size_signed(0x800000)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFF)); // -0
+    // 4 bytes
+    EXPECT_EQ(4, tide::ebml_int::coded_size_signed(0x01000000));
+    EXPECT_EQ(4, tide::ebml_int::coded_size_signed(0x01000001));
+    EXPECT_EQ(4, tide::ebml_int::coded_size_signed(0x7FFFFFFF));
+    EXPECT_EQ(4, tide::ebml_int::coded_size_signed(0x80000000)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFF)); // -0
+    // 5 bytes
+    EXPECT_EQ(5, tide::ebml_int::coded_size_signed(0x0100000000));
+    EXPECT_EQ(5, tide::ebml_int::coded_size_signed(0x0100000001));
+    EXPECT_EQ(5, tide::ebml_int::coded_size_signed(0x7FFFFFFFFF));
+    EXPECT_EQ(5, tide::ebml_int::coded_size_signed(0x8000000000)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFF)); // -0
+    // 6 bytes
+    EXPECT_EQ(6, tide::ebml_int::coded_size_signed(0x010000000000));
+    EXPECT_EQ(6, tide::ebml_int::coded_size_signed(0x010000000001));
+    EXPECT_EQ(6, tide::ebml_int::coded_size_signed(0x7FFFFFFFFFFF));
+    EXPECT_EQ(6, tide::ebml_int::coded_size_signed(0x800000000000)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFFFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFFFF)); // -0
+    // 7 bytes
+    EXPECT_EQ(7, tide::ebml_int::coded_size_signed(0x01000000000000));
+    EXPECT_EQ(7, tide::ebml_int::coded_size_signed(0x01000000000001));
+    EXPECT_EQ(7, tide::ebml_int::coded_size_signed(0x7FFFFFFFFFFFFF));
+    EXPECT_EQ(7, tide::ebml_int::coded_size_signed(0x80000000000000)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFFFFFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFFFFFF)); // -0
+    // 8 bytes
+    EXPECT_EQ(8, tide::ebml_int::coded_size_signed(0x0100000000000000));
+    EXPECT_EQ(8, tide::ebml_int::coded_size_signed(0x0100000000000001));
+    EXPECT_EQ(8, tide::ebml_int::coded_size_signed(0x7FFFFFFFFFFFFFFF));
+    EXPECT_EQ(8, tide::ebml_int::coded_size_signed(0x8000000000000000)); // -max
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFFFFFFFE)); // -1
+    EXPECT_EQ(1, tide::ebml_int::coded_size_signed(0xFFFFFFFFFFFFFFFF)); // -0
+}
+
+
+TEST(EBMLInt, EncodeUnsigned)
+{
+    uint8_t buffer[8], expected[8];
+    memset(buffer, 0, sizeof(buffer));
+    memset(expected, 0, sizeof(expected));
+}
+
+
+TEST(EBMLInt, EncodeSigned)
+{
+}
+
+
+TEST(EBMLInt, DecodeUnsigned)
+{
+}
+
+
+TEST(EBMLInt, DecodeSigned)
+{
 }
 
 
@@ -675,4 +804,5 @@ TEST(VIntStream, TooBig)
             tide::VarIntTooBig);
     EXPECT_EQ(0, buffer.str().size());
 }
+
 

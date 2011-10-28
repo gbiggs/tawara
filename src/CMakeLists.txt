@@ -1,8 +1,7 @@
 set(srcs tide_file.cpp
     vint.cpp
     ebml_int.cpp
-    element.cpp
-    uint_element.cpp)
+    element.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 

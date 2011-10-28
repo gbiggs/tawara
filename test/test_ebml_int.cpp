@@ -169,7 +169,7 @@ TEST(EBMLInt, EncodeUnsigned)
     memset(expected, 0, sizeof(expected));
     // 0 bytes
     expected[0] = 0xFF;
-    buffers[0] = 0xFF;
+    buffer[0] = 0xFF;
     // This is checking that the buffer is untouched for zero
     EXPECT_EQ(0, tide::ebml_int::encode_u(0x00, buffer, 1));
     EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
@@ -294,11 +294,11 @@ TEST(EBMLInt, EncodeUnsigned)
     EXPECT_EQ(8, tide::ebml_int::encode_u(0xFFFFFFFFFFFFFFFFl, buffer, 8));
     EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
     // Test that buffer size is not dictating the outcome
-    expected[0] = 0x00;
-    EXPECT_EQ(1, tide::ebml_int::encode_u(0x00, buffer, 8));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
     expected[0] = 0x01;
     EXPECT_EQ(1, tide::ebml_int::encode_u(0x01, buffer, 8));
+    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
+    expected[0] = 0x7F;
+    EXPECT_EQ(1, tide::ebml_int::encode_u(0x7F, buffer, 8));
     EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
 }
 
@@ -454,6 +454,16 @@ TEST(EBMLInt, EncodeSigned)
     memset(expected, 0xFF, 8);
     expected[0] = 0x7F;
     EXPECT_EQ(8, tide::ebml_int::encode_s(0x7FFFFFFFFFFFFFFFl, buffer, 8));
+    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
+    // Test that buffer size is not dictating the outcome
+    memset(buffer, 0x00, sizeof(buffer));
+    memset(expected, 0x00, sizeof(expected));
+    expected[0] = 0x01;
+    EXPECT_EQ(1, tide::ebml_int::encode_s(0x01, buffer, 8));
+    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
+    memset(expected, 0x00, sizeof(expected));
+    expected[0] = 0x7F;
+    EXPECT_EQ(1, tide::ebml_int::encode_s(0x7F, buffer, 8));
     EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
 }
 

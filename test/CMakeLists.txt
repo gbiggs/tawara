@@ -10,7 +10,8 @@ set(srcs file_open.cpp
     test_vint.cpp
     test_ebml_int.cpp
     test_element.cpp
-    test_uint_element.cpp)
+    test_uint_element.cpp
+    test_int_element.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

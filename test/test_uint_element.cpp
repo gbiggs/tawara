@@ -26,7 +26,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/uint_element.h>
+#include <tide/prim_element.h>
 #include <tide/exceptions.h>
 
 #include "test_consts.h"
@@ -48,8 +48,8 @@ TEST(UIntElement, CopyConstruction)
 {
     EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1)).id());
     EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1, 1)).id());
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1, 2)).value());
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1, 2)).get_default());
+    EXPECT_EQ(1, tide::UIntElement(tide::UIntElement(1234, 1, 2)).value());
+    EXPECT_EQ(2, tide::UIntElement(tide::UIntElement(1234, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
     EXPECT_THROW(tide::UIntElement(tide::UIntElement(0x00, 1)),

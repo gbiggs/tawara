@@ -26,75 +26,75 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/uint_element.h>
+#include <tide/int_element.h>
 #include <tide/exceptions.h>
 
 #include "test_consts.h"
 
-TEST(UIntElement, Construction)
+TEST(IntElement, Construction)
 {
-    EXPECT_EQ(1234, tide::UIntElement(1234, 1).id());
-    EXPECT_THROW(tide::UIntElement(0x00, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFFFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFFFFFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFFFFFFFF, 1), tide::InvalidElementID);
+    EXPECT_EQ(1234, tide::IntElement(1234, 1).id());
+    EXPECT_THROW(tide::IntElement(0x00, 1), tide::InvalidElementID);
+    EXPECT_THROW(tide::IntElement(0xFF, 1), tide::InvalidElementID);
+    EXPECT_THROW(tide::IntElement(0xFFFF, 1), tide::InvalidElementID);
+    EXPECT_THROW(tide::IntElement(0xFFFFFF, 1), tide::InvalidElementID);
+    EXPECT_THROW(tide::IntElement(0xFFFFFFFF, 1), tide::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(tide::UIntElement(0x00, 1, 1), tide::InvalidElementID);
+    EXPECT_THROW(tide::IntElement(0x00, 1, 1), tide::InvalidElementID);
 }
 
 
-TEST(UIntElement, CopyConstruction)
+TEST(IntElement, CopyConstruction)
 {
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1)).id());
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1, 1)).id());
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1, 2)).value());
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1, 2)).get_default());
+    EXPECT_EQ(1234, tide::IntElement(tide::IntElement(1234, 1)).id());
+    EXPECT_EQ(1234, tide::IntElement(tide::IntElement(1234, 1, 2)).id());
+    EXPECT_EQ(1234, tide::IntElement(tide::IntElement(1234, 1, 2)).value());
+    EXPECT_EQ(1234, tide::IntElement(tide::IntElement(1234, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(tide::UIntElement(tide::UIntElement(0x00, 1)),
+    EXPECT_THROW(tide::IntElement(tide::IntElement(0x00, 1)),
             tide::InvalidElementID);
 }
 
 
-TEST(UIntElement, SetID)
+TEST(IntElement, SetID)
 {
-    tide::UIntElement e(1234, 1);
+    tide::IntElement e(1234, 1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0x00), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFFFF),
+    EXPECT_THROW(tide::IntElement(1, 1).id(0x00), tide::InvalidElementID);
+    EXPECT_THROW(tide::IntElement(1, 1).id(0xFF), tide::InvalidElementID);
+    EXPECT_THROW(tide::IntElement(1, 1).id(0xFFFF),
             tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFFFFFF),
+    EXPECT_THROW(tide::IntElement(1, 1).id(0xFFFFFF),
             tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFFFFFFFF),
+    EXPECT_THROW(tide::IntElement(1, 1).id(0xFFFFFFFF),
             tide::InvalidElementID);
 }
 
 
-TEST(UIntElement, Assignment)
+TEST(IntElement, Assignment)
 {
-    tide::UIntElement e1(1, 1), e2(2, 2);
+    tide::IntElement e1(1, 1), e2(2, 2);
     e2 = e1;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    tide::UIntElement e3(1, 1, 1), e4(2, 2, 2);
+    tide::IntElement e3(1, 1, 1), e4(2, 2, 2);
     e4 = e3;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_EQ(e3.get_default(), e4.get_default());
 
-    tide::UIntElement e5(1, 1, 1), e6(2, 2);
+    tide::IntElement e5(1, 1, 1), e6(2, 2);
     e6 = e5;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_EQ(e5.get_default(), e6.get_default());
 
-    tide::UIntElement e7(1, 1), e8(2, 2, 2);
+    tide::IntElement e7(1, 1), e8(2, 2, 2);
     e8 = e7;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -103,12 +103,12 @@ TEST(UIntElement, Assignment)
 }
 
 
-TEST(UIntElement, Default)
+TEST(IntElement, Default)
 {
-    EXPECT_FALSE(tide::UIntElement(1234, 1).has_default());
-    EXPECT_TRUE(tide::UIntElement(1234, 1, 1).has_default());
+    EXPECT_FALSE(tide::IntElement(1234, 1).has_default());
+    EXPECT_TRUE(tide::IntElement(1234, 1, 1).has_default());
 
-    tide::UIntElement e1(1234, 1, 1);
+    tide::IntElement e1(1234, 1, 1);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -117,7 +117,7 @@ TEST(UIntElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    tide::UIntElement e2(1234, 1);
+    tide::IntElement e2(1234, 1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -125,7 +125,7 @@ TEST(UIntElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::UIntElement e3(1234, 1);
+    tide::IntElement e3(1234, 1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -136,17 +136,17 @@ TEST(UIntElement, Default)
 }
 
 
-TEST(UIntElement, Value)
+TEST(IntElement, Value)
 {
-    EXPECT_EQ(1, tide::UIntElement(1234, 1).value());
-    EXPECT_EQ(1, tide::UIntElement(1234, 1, 2).value());
+    EXPECT_EQ(1, tide::IntElement(1234, 1).value());
+    EXPECT_EQ(1, tide::IntElement(1234, 1, 2).value());
 
-    tide::UIntElement e1(1234, 1);
+    tide::IntElement e1(1234, 1);
     EXPECT_EQ(1, e1.value());
     e1.value(2);
     EXPECT_EQ(2, e1.value());
 
-    tide::UIntElement e2(1234, 1, 2);
+    tide::IntElement e2(1234, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
 }

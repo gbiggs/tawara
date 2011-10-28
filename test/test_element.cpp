@@ -33,7 +33,7 @@
 
 TEST(Element, Construction)
 {
-    EXPECT_EQ(1234, tide::Element(1234).get_id());
+    EXPECT_EQ(1234, tide::Element(1234).id());
     EXPECT_THROW(tide::Element(0x00), tide::InvalidElementID);
     EXPECT_THROW(tide::Element(0xFF), tide::InvalidElementID);
     EXPECT_THROW(tide::Element(0xFFFF), tide::InvalidElementID);
@@ -44,7 +44,7 @@ TEST(Element, Construction)
 
 TEST(Element, CopyConstruction)
 {
-    EXPECT_EQ(1234, tide::Element(tide::Element(1234)).get_id());
+    EXPECT_EQ(1234, tide::Element(tide::Element(1234)).id());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
     EXPECT_THROW(tide::Element(tide::Element(0x00)), tide::InvalidElementID);
@@ -54,13 +54,13 @@ TEST(Element, CopyConstruction)
 TEST(Element, SetID)
 {
     tide::Element e(1234);
-    e.set_id(9999999);
-    EXPECT_EQ(9999999, e.get_id());
-    EXPECT_THROW(tide::Element(1).set_id(0x00), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).set_id(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).set_id(0xFFFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).set_id(0xFFFFFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).set_id(0xFFFFFFFF), tide::InvalidElementID);
+    e.id(9999999);
+    EXPECT_EQ(9999999, e.id());
+    EXPECT_THROW(tide::Element(1).id(0x00), tide::InvalidElementID);
+    EXPECT_THROW(tide::Element(1).id(0xFF), tide::InvalidElementID);
+    EXPECT_THROW(tide::Element(1).id(0xFFFF), tide::InvalidElementID);
+    EXPECT_THROW(tide::Element(1).id(0xFFFFFF), tide::InvalidElementID);
+    EXPECT_THROW(tide::Element(1).id(0xFFFFFFFF), tide::InvalidElementID);
 }
 
 
@@ -68,6 +68,6 @@ TEST(Element, Assignment)
 {
     tide::Element e1(1), e2(2);
     e2 = e1;
-    EXPECT_EQ(e1.get_id(), e2.get_id());
+    EXPECT_EQ(e1.id(), e2.id());
 }
 

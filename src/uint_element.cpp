@@ -1,6 +1,6 @@
 /* TIDE
  *
- * Source file for the file implementation of the TIDE interface.
+ * Source file for the unsigned integer element object.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,7 +25,7 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tide/element.h>
+#include <tide/uint_element.h>
 
 #include <tide/exceptions.h>
 
@@ -35,33 +35,24 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-Element::Element(uint32_t id)
-    : id_(id)
+UIntElement::UIntElement(uint32_t id, uint64_t value)
+    : Element(id),
+    value_(value), default_(0), has_default_(false)
 {
-    if (id_ == 0 ||
-            id_ == 0xFF ||
-            id_ == 0xFFFF ||
-            id_ == 0xFFFFFF ||
-            id_ == 0xFFFFFFFF ||
-            id_ > 0x100000000)
-    {
-        throw InvalidElementID() << err_id(id_);
-    }
 }
 
 
-Element::Element(Element const& rhs)
-    : id_(rhs.id_)
+UIntElement::UIntElement(uint32_t id, uint64_t value, uint64_t default_value)
+    : Element(id),
+    value_(value), default_(default_value), has_default_(true)
 {
-    if (id_ == 0 ||
-            id_ == 0xFF ||
-            id_ == 0xFFFF ||
-            id_ == 0xFFFFFF ||
-            id_ == 0xFFFFFFFF ||
-            id_ > 0x100000000)
-    {
-        throw InvalidElementID() << err_id(id_);
-    }
+}
+
+
+UIntElement::UIntElement(UIntElement const& rhs)
+    : Element(rhs),
+    value_(rhs.value_), default_(rhs.default_), has_default_(rhs.has_default_)
+{
 }
 
 
@@ -69,36 +60,29 @@ Element::Element(Element const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-void Element::set_id(uint32_t id)
+void UIntElement::set_default(uint64_t default_value)
 {
-    if (id == 0 ||
-            id == 0xFF ||
-            id == 0xFFFF ||
-            id == 0xFFFFFF ||
-            id == 0xFFFFFFFF ||
-            id > 0x100000000)
-    {
-        throw InvalidElementID() << err_id(id);
-    }
-    id_ = id;
+    default_ = default_value;
+    has_default_ = true;
 }
 
+
+uint64_t UIntElement::remove_default()
+{
+    has_default_ = false;
+    return default_;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-Element& Element::operator=(Element const& rhs)
+UIntElement& UIntElement::operator=(UIntElement const& rhs)
 {
-    if (rhs.id_ == 0 ||
-            rhs.id_ == 0xFF ||
-            rhs.id_ == 0xFFFF ||
-            rhs.id_ == 0xFFFFFF ||
-            rhs.id_ == 0xFFFFFFFF ||
-            rhs.id_ > 0x100000000)
-    {
-        throw InvalidElementID() << err_id(rhs.id_);
-    }
-    id_ = rhs.id_;
+    Element::operator=(rhs);
+    value_ = rhs.value_;
+    default_ = rhs.default_;
+    has_default_ = rhs.has_default_;
     return *this;
 }
+

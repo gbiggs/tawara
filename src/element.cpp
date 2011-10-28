@@ -69,7 +69,7 @@ Element::Element(Element const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-void Element::set_id(uint32_t id)
+void Element::id(uint32_t id)
 {
     if (id == 0 ||
             id == 0xFF ||
@@ -102,3 +102,4 @@ Element& Element::operator=(Element const& rhs)
     id_ = rhs.id_;
     return *this;
 }
+

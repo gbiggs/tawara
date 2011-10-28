@@ -124,7 +124,7 @@ namespace tide
          * \param[in] n The number of bytes from the buffer to read.
          * \return The decoded unsigned integer.
          */
-        uint64_t decode_s(uint8_t const* buffer, size_t n);
+        int64_t decode_s(uint8_t const* buffer, size_t n);
     }; // namespace ebml_int
 }; // namespace tide
 

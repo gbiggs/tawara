@@ -25,7 +25,7 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tide/coded_int.h>
+#include <tide/ebml_int.h>
 #include <tide/exceptions.h>
 
 
@@ -43,19 +43,19 @@ size_t tide::ebml_int::coded_size_u(uint64_t integer)
     {
         return 3;
     }
-    else if (integer <= 0xFFFFFFFF)
+    else if (integer <= 0xFFFFFFFFl)
     {
         return 4;
     }
-    else if (integer <= 0xFFFFFFFFFF)
+    else if (integer <= 0xFFFFFFFFFFl)
     {
         return 5;
     }
-    else if (integer <= 0xFFFFFFFFFFFF)
+    else if (integer <= 0xFFFFFFFFFFFFl)
     {
         return 6;
     }
-    else if (integer <= 0xFFFFFFFFFFFFFF)
+    else if (integer <= 0xFFFFFFFFFFFFFFl)
     {
         return 7;
     }
@@ -80,19 +80,19 @@ size_t tide::ebml_int::coded_size_s(int64_t integer)
     {
         return 3;
     }
-    else if (integer >= -0x80000000 && integer <= 0x7FFFFFFF)
+    else if (integer >= -0x80000000l && integer <= 0x7FFFFFFFl)
     {
         return 4;
     }
-    else if (integer >= -0x8000000000 && integer <= 0x7FFFFFFFFF)
+    else if (integer >= -0x8000000000l && integer <= 0x7FFFFFFFFFl)
     {
         return 5;
     }
-    else if (integer >= -0x800000000000 && integer <= 0x7FFFFFFFFFFF)
+    else if (integer >= -0x800000000000l && integer <= 0x7FFFFFFFFFFFl)
     {
         return 6;
     }
-    else if (integer >= -0x80000000000000 && integer <= 0x7FFFFFFFFFFFFF)
+    else if (integer >= -0x80000000000000l && integer <= 0x7FFFFFFFFFFFFFl)
     {
         return 7;
     }
@@ -106,7 +106,7 @@ size_t tide::ebml_int::coded_size_s(int64_t integer)
 size_t tide::ebml_int::encode_u(uint64_t integer, uint8_t* buffer,
         size_t n)
 {
-    size_t size(coded_size(integer));
+    size_t size(coded_size_u(integer));
     if (n < size)
     {
         throw tide::BufferTooSmall() << tide::err_bufsize(n) <<
@@ -125,7 +125,7 @@ size_t tide::ebml_int::encode_u(uint64_t integer, uint8_t* buffer,
 size_t tide::ebml_int::encode_s(int64_t integer, uint8_t* buffer,
         size_t n)
 {
-    size_t size(coded_size(integer));
+    size_t size(coded_size_s(integer));
     if (n < size)
     {
         throw tide::BufferTooSmall() << tide::err_bufsize(n) <<
@@ -156,15 +156,15 @@ uint64_t tide::ebml_int::decode_u(uint8_t const* buffer, size_t n)
 int64_t tide::ebml_int::decode_s(uint8_t const* buffer, size_t n)
 {
     int64_t result(0);
+    if (buffer[0] & 0x80)
+    {
+        // Negative value
+        result = -1;
+    }
     for (size_t ii(0); ii < n; ++ii)
     {
         result <<= 8;
         result |= buffer[ii];
-    }
-    if (buffer[0] & 0x80)
-    {
-        // Negative value
-        result *= -1;
     }
     return result;
 }

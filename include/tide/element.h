@@ -91,7 +91,7 @@ namespace tide
              * advantage of this, you should use higher IDs for elements that
              * occur less frequently, such as the top-level elements.
              */
-            uint32_t get_id() const { return id_; }
+            uint32_t id() const { return id_; }
 
             /** \brief Set the element's ID.
              *
@@ -100,7 +100,7 @@ namespace tide
              * \param[in] id The element's new ID, as an unsigned integer up to
              * 28 bits.
              */
-            void set_id(uint32_t id);
+            void id(uint32_t id);
 
             /// \brief Assignment operator.
             virtual Element& operator=(Element const& rhs);

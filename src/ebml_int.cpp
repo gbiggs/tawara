@@ -31,7 +31,11 @@
 
 size_t tide::ebml_int::coded_size_u(uint64_t integer)
 {
-    if (integer <= 0xFF)
+    if (integer == 0)
+    {
+        return 0;
+    }
+    else if (integer <= 0xFF)
     {
         return 1;
     }
@@ -68,7 +72,11 @@ size_t tide::ebml_int::coded_size_u(uint64_t integer)
 
 size_t tide::ebml_int::coded_size_s(int64_t integer)
 {
-    if (integer >= -0x80 && integer <= 0x7F)
+    if (integer == 0)
+    {
+        return 0;
+    }
+    else if (integer >= -0x80 && integer <= 0x7F)
     {
         return 1;
     }
@@ -106,6 +114,11 @@ size_t tide::ebml_int::coded_size_s(int64_t integer)
 size_t tide::ebml_int::encode_u(uint64_t integer, uint8_t* buffer,
         size_t n)
 {
+    if (integer == 0)
+    {
+        // Zero values are encoded as nothing
+        return 0;
+    }
     size_t size(coded_size_u(integer));
     if (n < size)
     {
@@ -125,6 +138,11 @@ size_t tide::ebml_int::encode_u(uint64_t integer, uint8_t* buffer,
 size_t tide::ebml_int::encode_s(int64_t integer, uint8_t* buffer,
         size_t n)
 {
+    if (integer == 0)
+    {
+        // Zero values are encoded as nothing
+        return 0;
+    }
     size_t size(coded_size_s(integer));
     if (n < size)
     {
@@ -156,6 +174,11 @@ uint64_t tide::ebml_int::decode_u(uint8_t const* buffer, size_t n)
 int64_t tide::ebml_int::decode_s(uint8_t const* buffer, size_t n)
 {
     int64_t result(0);
+    if (n == 0)
+    {
+        // Zero-length value means a zero-value integer
+        return 0;
+    }
     if (buffer[0] & 0x80)
     {
         // Negative value

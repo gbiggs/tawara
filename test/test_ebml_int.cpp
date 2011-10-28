@@ -71,8 +71,9 @@ namespace ebml_int
 
 TEST(EBMLInt, CodedSizeUnsigned)
 {
+    // 0 bytes
+    EXPECT_EQ(0, tide::ebml_int::coded_size_u(0x00));
     // 1 byte
-    EXPECT_EQ(1, tide::ebml_int::coded_size_u(0x00));
     EXPECT_EQ(1, tide::ebml_int::coded_size_u(0x01));
     EXPECT_EQ(1, tide::ebml_int::coded_size_u(0x7F));
     EXPECT_EQ(1, tide::ebml_int::coded_size_u(0xFF));
@@ -116,9 +117,10 @@ TEST(EBMLInt, CodedSizeUnsigned)
 
 TEST(EBMLInt, CodedSizeSigned)
 {
+    // 0 bytes
+    EXPECT_EQ(0, tide::ebml_int::coded_size_s(0));
     // 1 byte
     EXPECT_EQ(1, tide::ebml_int::coded_size_s(-1));
-    EXPECT_EQ(1, tide::ebml_int::coded_size_s(0));
     EXPECT_EQ(1, tide::ebml_int::coded_size_s(1));
     EXPECT_EQ(1, tide::ebml_int::coded_size_s(-0x80));
     EXPECT_EQ(1, tide::ebml_int::coded_size_s(0x7F));
@@ -165,10 +167,13 @@ TEST(EBMLInt, EncodeUnsigned)
     uint8_t buffer[8], expected[8];
     memset(buffer, 0, sizeof(buffer));
     memset(expected, 0, sizeof(expected));
-    // 1 byte
-    expected[0] = 0x00;
-    EXPECT_EQ(1, tide::ebml_int::encode_u(0x00, buffer, 1));
+    // 0 bytes
+    expected[0] = 0xFF;
+    buffers[0] = 0xFF;
+    // This is checking that the buffer is untouched for zero
+    EXPECT_EQ(0, tide::ebml_int::encode_u(0x00, buffer, 1));
     EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
+    // 1 byte
     expected[0] = 0x01;
     EXPECT_EQ(1, tide::ebml_int::encode_u(0x01, buffer, 1));
     EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
@@ -303,12 +308,14 @@ TEST(EBMLInt, EncodeSigned)
     uint8_t buffer[8], expected[8];
     memset(buffer, 0, sizeof(buffer));
     memset(expected, 0, sizeof(expected));
+    // 0 bytes
+    buffer[0] = 0xFF;
+    expected[0] = 0xFF;
+    EXPECT_EQ(0, tide::ebml_int::encode_s(0, buffer, 1));
+    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
     // 1 byte
     expected[0] = 0xFF;
     EXPECT_EQ(1, tide::ebml_int::encode_s(-1, buffer, 1));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
-    expected[0] = 0x00;
-    EXPECT_EQ(1, tide::ebml_int::encode_s(0, buffer, 1));
     EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
     expected[0] = 0x01;
     EXPECT_EQ(1, tide::ebml_int::encode_s(1, buffer, 1));
@@ -454,9 +461,10 @@ TEST(EBMLInt, EncodeSigned)
 TEST(EBMLInt, DecodeUnsigned)
 {
     uint8_t buffer[8];
-    // 1 byte
     memset(buffer, 0x00, sizeof(buffer));
-    EXPECT_EQ(0, tide::ebml_int::decode_u(buffer, 1));
+    // 0 bytes
+    EXPECT_EQ(0, tide::ebml_int::decode_u(buffer, 0));
+    // 1 byte
     buffer[0] = 0x01;
     EXPECT_EQ(1, tide::ebml_int::decode_u(buffer, 1));
     buffer[0] = 0x7F;
@@ -545,14 +553,14 @@ TEST(EBMLInt, DecodeUnsigned)
 TEST(EBMLInt, DecodeSigned)
 {
     uint8_t buffer[8];
-    // 1 byte
     memset(buffer, 0x00, sizeof(buffer));
+    // 0 bytes
+    EXPECT_EQ(0, tide::ebml_int::decode_s(buffer, 0));
+    // 1 byte
     buffer[0] = 0x80;
     EXPECT_EQ(-0x80, tide::ebml_int::decode_s(buffer, 1));
     buffer[0] = 0xFF;
     EXPECT_EQ(-1, tide::ebml_int::decode_s(buffer, 1));
-    buffer[0] = 0x00;
-    EXPECT_EQ(0, tide::ebml_int::decode_s(buffer, 1));
     buffer[0] = 0x7F;
     EXPECT_EQ(0x7F, tide::ebml_int::decode_s(buffer, 1));
     // 2 bytes
@@ -660,9 +668,10 @@ TEST(EBMLInt, EncodeDecodeUnsigned)
 {
     uint8_t buffer[8];
     memset(buffer, 0, sizeof(8));
-    // 1 byte
+    // 0 bytes
     tide::ebml_int::encode_u(0, buffer, 1);
-    EXPECT_EQ(0, tide::ebml_int::decode_u(buffer, 1));
+    EXPECT_EQ(0, tide::ebml_int::decode_u(buffer, 0));
+    // 1 byte
     tide::ebml_int::encode_u(1, buffer, 1);
     EXPECT_EQ(1, tide::ebml_int::decode_u(buffer, 1));
     tide::ebml_int::encode_u(0x7F, buffer, 1);
@@ -739,13 +748,14 @@ TEST(EBMLInt, EncodeDecodeSigned)
 {
     uint8_t buffer[8];
     memset(buffer, 0, sizeof(8));
+    // 0 bytes
+    tide::ebml_int::encode_s(0, buffer, 1);
+    EXPECT_EQ(0, tide::ebml_int::decode_s(buffer, 1));
     // 1 byte
     tide::ebml_int::encode_s(-0x80, buffer, 1);
     EXPECT_EQ(-0x80, tide::ebml_int::decode_s(buffer, 1));
     tide::ebml_int::encode_s(-1, buffer, 1);
     EXPECT_EQ(-1, tide::ebml_int::decode_s(buffer, 1));
-    tide::ebml_int::encode_s(0, buffer, 1);
-    EXPECT_EQ(0, tide::ebml_int::decode_s(buffer, 1));
     tide::ebml_int::encode_s(0x7F, buffer, 1);
     EXPECT_EQ(0x7F, tide::ebml_int::decode_s(buffer, 1));
     // 2 bytes

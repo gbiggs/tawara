@@ -25,8 +25,8 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_INT_ELEMENT_H_)
-#define TIDE_INT_ELEMENT_H_
+#if !defined(TIDE_PRIM_ELEMENT_H_)
+#define TIDE_PRIM_ELEMENT_H_
 
 #include <tide/element.h>
 #include <tide/win_dll.h>
@@ -145,51 +145,10 @@ namespace tide
             T default_;
             bool has_default_;
     }; // class Element
-
-    /** Signed integer primitive element.
-     *
-     * This element stores an signed integer. The maximum size of the value
-     * is -2^32 to 2^32 - 1 (i.e. 64 bits).
-     */
-    typedef PrimitiveElement<int64_t> IntElement;
-
-    /** Unsigned integer primitive element.
-     *
-     * This element stores an unsigned integer. The maximum size of the value
-     * is 2^64.
-     */
-    typedef PrimitiveElement<uint64_t> UIntElement;
-
-    /** Float primitive element.
-     *
-     * This element stores an IEEE floating-point number. 4-byte and 8-byte
-     * floats are allowed.
-     */
-    typedef PrimitiveElement<double> FloatElement;
-
-    /** String primitive element.
-     *
-     * This element stores a UTF-8 string. Upon writing to a store, the string
-     * may or may not be padded with null bytes.
-     */
-    typedef PrimitiveElement<std::string> StringElement;
-
-    /** Date primitive element.
-     *
-     * This element stores a date. A date is represented as a signed, 64-bit
-     * integer giving the number of nanoseconds since 2001-01-01 00:00:00.
-     */
-    typedef PrimitiveElement<int64_t> DateElement;
-
-    /** Binary primitive element.
-     *
-     * This element stores a block of opaque binary data.
-     */
-    typedef PrimitiveElement<std::basic_string<uint8_t> > BinaryElement;
 }; // namespace tide
 
 /// @}
 /// group interfaces
 
-#endif // TIDE_INT_ELEMENT_H_
+#endif // TIDE_PRIM_ELEMENT_H_
 

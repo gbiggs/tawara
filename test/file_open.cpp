@@ -121,3 +121,10 @@ TEST(OpenFile, NotTIDEFile)
 {
 }
 
+
+TEST(OpenFile, NotStartWith1A)
+{
+    // EBML files are supposed to ignore everything up to the first occurence
+    // of 0x1A.
+}
+

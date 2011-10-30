@@ -30,6 +30,8 @@
 
 #include <tide/win_dll.h>
 
+#include <ios>
+#include <iostream>
 #include <stdint.h>
 
 
@@ -105,6 +107,28 @@ namespace tide
             /// \brief Assignment operator.
             virtual Element& operator=(Element const& rhs);
 
+            /** \brief Element storage.
+             *
+             * Writes the element to a byte store providing a std::ostream
+             * interface.
+             *
+             * \return The number of bytes written.
+             */
+            virtual std::streamsize write(std::ostream& output) = 0;
+
+            /** \brief Element loading.
+             *
+             * Reads the element from a byte store providing a std::ostream
+             * interface.
+             *
+             * This method assumes that the Element ID has already been read
+             * (and thus used to construct the Element instance doing the
+             * reading), which means that the file's read pointer should be
+             * positioned at the first byte of the element's size.
+             *
+             * \return The number of bytes read.
+             */
+            virtual std::streamsize read(std::istream& input) = 0;
         private:
             uint32_t id_;
     }; // class Element

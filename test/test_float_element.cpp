@@ -26,7 +26,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/prim_element.h>
+#include <tide/float_element.h>
 #include <tide/exceptions.h>
 
 #include "test_consts.h"

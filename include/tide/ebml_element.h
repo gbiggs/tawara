@@ -46,7 +46,7 @@ namespace tide
      * and required storage size, as well as child elements. Specialisations
      * are required to provide data access.
      */
-    class TIDE_EXPORT EBMLElement
+    class TIDE_EXPORT EBMLElement : public Element
     {
         public:
             /** \brief Create a new Element.

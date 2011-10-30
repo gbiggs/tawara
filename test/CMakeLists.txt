@@ -6,12 +6,13 @@ endif(NOT GTEST_FOUND)
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})
 
-set(srcs file_open.cpp
+set(srcs utils.cpp
+    file_open.cpp
     test_vint.cpp
     test_ebml_int.cpp
     test_element.cpp
-    test_uint_element.cpp
     test_int_element.cpp
+    test_uint_element.cpp
     test_float_element.cpp
     test_date_element.cpp
     test_string_element.cpp

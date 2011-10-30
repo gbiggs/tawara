@@ -30,38 +30,7 @@
 #include <tide/vint.h>
 
 #include "test_consts.h"
-
-
-::testing::AssertionResult buffers_eq(char const* b1_expr, char const* b2_expr,
-        char const* n_expr, uint8_t const* b1, uint8_t const* b2, size_t n)
-{
-    if (strncmp(reinterpret_cast<char const*>(b1),
-            reinterpret_cast<char const*>(b2), n) == 0)
-    {
-        return ::testing::AssertionSuccess();
-    }
-    else
-    {
-        std::stringstream b1_str;
-        b1_str << std::hex;
-        b1_str.width(2);
-        b1_str.fill('0');
-        for (size_t ii(0); ii < n; ++ii)
-        {
-            b1_str << static_cast<int>(b1[ii]);
-        }
-        std::stringstream b2_str;
-        b2_str << std::hex;
-        b2_str.width(2);
-        b2_str.fill('0');
-        for (size_t ii(0); ii < n; ++ii)
-        {
-            b2_str << static_cast<int>(b2[ii]);
-        }
-        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
-            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
-    }
-}
+#include "utils.h"
 
 
 TEST(VInt, Encode)
@@ -72,57 +41,57 @@ TEST(VInt, Encode)
     // 1xxxxxxx
     expected[0] = 0x80;
     EXPECT_EQ(1, tide::vint::encode(0x00, buffer, 1));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 1);
     expected[0] = 0x81;
     EXPECT_EQ(1, tide::vint::encode(0x01, buffer, 1));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 1);
     expected[0] = 0x97;
     EXPECT_EQ(1, tide::vint::encode(0x17, buffer, 1));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 1);
     expected[0] = 0xC0;
     EXPECT_EQ(1, tide::vint::encode(0x40, buffer, 1));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 1);
     expected[0] = 0xFF;
     EXPECT_EQ(1, tide::vint::encode(0x7F, buffer, 1));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 1);
     memset(expected, 0, sizeof(expected));
     memset(buffer, 0, sizeof(buffer));
     // 01xxxxxx xxxxxxxx
     expected[0] = 0x80; expected[1] = 0x00;
     EXPECT_EQ(1, tide::vint::encode(0x0000, buffer, 2));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 2);
     expected[0] = 0x81; expected[1] = 0x00;
     EXPECT_EQ(1, tide::vint::encode(0x0001, buffer, 2));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 2);
     expected[0] = 0x4B; expected[1] = 0x35;
     EXPECT_EQ(2, tide::vint::encode(0x0B35, buffer, 2));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 2);
     expected[0] = 0x60; expected[1] = 0x00;
     EXPECT_EQ(2, tide::vint::encode(0x2000, buffer, 2));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 2);
     expected[0] = 0x7F; expected[1] = 0xFF;
     EXPECT_EQ(2, tide::vint::encode(0x3FFF, buffer, 2));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 2);
     memset(expected, 0, sizeof(expected));
     memset(buffer, 0, sizeof(buffer));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     expected[0] = 0x80; expected[1] = 0x00;
     EXPECT_EQ(1, tide::vint::encode(0x0000000000000000, buffer, 8));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 8);
     expected[0] = 0x81; expected[1] = 0x00;
     EXPECT_EQ(1, tide::vint::encode(0x0000000000000001, buffer, 8));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 8);
     memset(expected, 0xFF, sizeof(expected));
     expected[0] = 0x01;
     EXPECT_EQ(8, tide::vint::encode(0xFFFFFFFFFFFFFF, buffer, 8));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 8);
     // EBML tag
     memset(expected, 0, sizeof(expected));
     memset(buffer, 0, sizeof(buffer));
     expected[0] = 0x1A; expected[1] = 0x45; expected[2] = 0xDF;
     expected[3] = 0xA3;
     EXPECT_EQ(4, tide::vint::encode(0x0A45DFA3, buffer, 4));
-    EXPECT_PRED_FORMAT3(buffers_eq, expected, buffer, 4);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 4);
     // The remainder are done in the EncodeDecode test for simplicity
 }
 
@@ -323,10 +292,10 @@ TEST(VInt, TooBig)
     memset(empty, 0, sizeof(empty));
     EXPECT_THROW(tide::vint::encode(0x100000000000001, buffer, 8),
             tide::VarIntTooBig);
-    EXPECT_PRED_FORMAT3(buffers_eq, buffer, empty, 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, buffer, empty, 8);
     EXPECT_THROW(tide::vint::encode(0xFFFFFFFFFFFFFFFF, buffer, 8),
             tide::VarIntTooBig);
-    EXPECT_PRED_FORMAT3(buffers_eq, buffer, empty, 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, buffer, empty, 8);
 }
 
 
@@ -371,64 +340,64 @@ TEST(VIntStream, Encode)
     // 1xxxxxxx
     expected.put(0x80);
     tide::vint::write(0x00, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x81);
     tide::vint::write(0x01, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x97);
     tide::vint::write(0x17, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0xC0);
     tide::vint::write(0x40, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0xFF);
     tide::vint::write(0x7F, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     // 01xxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x80); expected.put(0x00);
     tide::vint::write(0x0000, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x81); expected.put(0x00);
     tide::vint::write(0x0001, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x4B); expected.put(0x35);
     tide::vint::write(0x0B35, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x60); expected.put(0x00);
     tide::vint::write(0x2000, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x7F); expected.put(0xFF);
     tide::vint::write(0x3FFF, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x80); expected.put(0x00);
     tide::vint::write(0x0000000000000000, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x81); expected.put(0x00);
     tide::vint::write(0x0000000000000001, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x01);
@@ -437,14 +406,14 @@ TEST(VIntStream, Encode)
         expected.put(0xFF);
     }
     tide::vint::write(0xFFFFFFFFFFFFFF, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
     // EBML tag
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x1A); expected.put(0x45); expected.put(0xDF);
     expected.put(0xA3);
     tide::vint::write(0x0A45DFA3, buffer);
-    EXPECT_PRED_FORMAT3(buffers_eq, expected.str().c_str(), buffer.str().c_str(), 4);
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 4);
     // The remainder are done in the EncodeDecode test for simplicity
 }
 

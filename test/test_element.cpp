@@ -31,42 +31,63 @@
 
 #include "test_consts.h"
 
+
+// Fake Element implementation
+class FakeElement : public tide::Element
+{
+    public:
+        FakeElement(uint32_t id)
+            : Element(id)
+        {
+        }
+
+        std::streamsize write(std::ostream& output)
+        {
+            return 0;
+        }
+
+        std::streamsize read(std::istream& input)
+        {
+            return 0;
+        }
+}; // class FakeElement
+
 TEST(Element, Construction)
 {
-    EXPECT_EQ(1234, tide::Element(1234).id());
-    EXPECT_THROW(tide::Element(0x00), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(0xFFFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(0xFFFFFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(0xFFFFFFFF), tide::InvalidElementID);
+    EXPECT_EQ(1234, FakeElement(1234).id());
+    EXPECT_THROW(FakeElement(0x00), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFF), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFFFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFFFFFFFF), tide::InvalidElementID);
 }
 
 
 TEST(Element, CopyConstruction)
 {
-    EXPECT_EQ(1234, tide::Element(tide::Element(1234)).id());
+    EXPECT_EQ(1234, FakeElement(FakeElement(1234)).id());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(tide::Element(tide::Element(0x00)), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(FakeElement(0x00)), tide::InvalidElementID);
 }
 
 
 TEST(Element, SetID)
 {
-    tide::Element e(1234);
+    FakeElement e(1234);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(tide::Element(1).id(0x00), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).id(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).id(0xFFFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).id(0xFFFFFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::Element(1).id(0xFFFFFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(1).id(0x00), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(1).id(0xFF), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(1).id(0xFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(1).id(0xFFFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakeElement(1).id(0xFFFFFFFF), tide::InvalidElementID);
 }
 
 
 TEST(Element, Assignment)
 {
-    tide::Element e1(1), e2(2);
+    FakeElement e1(1), e2(2);
     e2 = e1;
     EXPECT_EQ(e1.id(), e2.id());
 }

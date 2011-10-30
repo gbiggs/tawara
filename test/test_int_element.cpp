@@ -25,8 +25,8 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <tide/int_element.h>
 #include <gtest/gtest.h>
-#include <tide/prim_element.h>
 #include <tide/exceptions.h>
 
 #include "test_consts.h"
@@ -149,5 +149,16 @@ TEST(IntElement, Value)
     tide::IntElement e2(1234, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
+}
+
+
+TEST(IntElement, Write)
+{
+    std::stringstream output;
+}
+
+
+TEST(IntElement, Read)
+{
 }
 

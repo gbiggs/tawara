@@ -860,146 +860,145 @@ TEST(EBMLIntStream, WriteUnsigned)
     buffer.put(0xFF);
     // This is checking that the buffer is untouched for zero
     EXPECT_EQ(0, tide::ebml_int::write_u(0x00, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 1 byte
     buffer.str(std::string());
     expected[0] = 0x01;
     EXPECT_EQ(1, tide::ebml_int::write_u(0x01, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x7F;
     EXPECT_EQ(1, tide::ebml_int::write_u(0x7F, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(1, tide::ebml_int::write_u(0xFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 2 bytes
     buffer.str(std::string());
     expected[0] = 0x01; expected.push_back(0x00);
     EXPECT_EQ(2, tide::ebml_int::write_u(0x0100, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
-    expected.str(std::string());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01; expected[1] = 0x01;
     EXPECT_EQ(2, tide::ebml_int::write_u(0x0101, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x7F; expected[1] = 0xFF;
     EXPECT_EQ(2, tide::ebml_int::write_u(0x7FFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF; expected[1] = 0xFF;
     EXPECT_EQ(2, tide::ebml_int::write_u(0xFFFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 3 bytes
     buffer.str(std::string());
     expected[0] = 0x01; expected.push_back(0x00);
     EXPECT_EQ(3, tide::ebml_int::write_u(0x010000, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01; expected[2] = 0x01;
     EXPECT_EQ(3, tide::ebml_int::write_u(0x010001, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x7F; expected[1] = 0xFF; expected[2] = 0xFF;
     EXPECT_EQ(3, tide::ebml_int::write_u(0x7FFFFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(3, tide::ebml_int::write_u(0xFFFFFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 4 bytes
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[0] = 0x01; expected.push_back(0x00);
     EXPECT_EQ(4, tide::ebml_int::write_u(0x01000000, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01; expected[3] = 0x01;
     EXPECT_EQ(4, tide::ebml_int::write_u(0x01000001, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(4, tide::ebml_int::write_u(0x7FFFFFFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(4, tide::ebml_int::write_u(0xFFFFFFFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 5 bytes
     buffer.str(std::string());
     expected[0] = 0x01; expected.push_back(0x00);
     EXPECT_EQ(5, tide::ebml_int::write_u(0x0100000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01; expected[4] = 0x01;
     EXPECT_EQ(5, tide::ebml_int::write_u(0x0100000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(5, tide::ebml_int::write_u(0x7FFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(5, tide::ebml_int::write_u(0xFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 6 bytes
     buffer.str(std::string());
     expected[0] = 0x01; expected.push_back(0x00);
     EXPECT_EQ(6, tide::ebml_int::write_u(0x010000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01; expected[5] = 0x01;
     EXPECT_EQ(6, tide::ebml_int::write_u(0x010000000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(6, tide::ebml_int::write_u(0x7FFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(6, tide::ebml_int::write_u(0xFFFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 7 bytes
     buffer.str(std::string());
     expected[0] = 0x01; expected.push_back(0x00);
     EXPECT_EQ(7, tide::ebml_int::write_u(0x01000000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01; expected[6] = 0x01;
     EXPECT_EQ(7, tide::ebml_int::write_u(0x01000000000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(7, tide::ebml_int::write_u(0x7FFFFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(7, tide::ebml_int::write_u(0xFFFFFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 8 bytes
     buffer.str(std::string());
     expected[0] = 0x01; expected.push_back(0x00);
     EXPECT_EQ(8, tide::ebml_int::write_u(0x0100000000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01; expected[7] = 0x01;
     EXPECT_EQ(8, tide::ebml_int::write_u(0x0100000000000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(8, tide::ebml_int::write_u(0x7FFFFFFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(8, tide::ebml_int::write_u(0xFFFFFFFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
 }
 
 
@@ -1013,168 +1012,168 @@ TEST(EBMLIntStream, WriteSigned)
     buffer.put(0xFF);
     // This is checking that the buffer is untouched for zero
     EXPECT_EQ(0, tide::ebml_int::write_s(0, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 1 byte
     buffer.str(std::string());
     expected[0] = 0xFF;
     EXPECT_EQ(1, tide::ebml_int::write_s(-1, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x01;
     EXPECT_EQ(1, tide::ebml_int::write_s(1, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x80;
     EXPECT_EQ(1, tide::ebml_int::write_s(-0x80, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x7F;
     EXPECT_EQ(1, tide::ebml_int::write_s(0x7F, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 2 bytes
     buffer.str(std::string());
     expected[0] = 0xFF; expected.push_back(0x7F);
     EXPECT_EQ(2, tide::ebml_int::write_s(-0x81, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x00; expected[1] = 0x80;
     EXPECT_EQ(2, tide::ebml_int::write_s(0x80, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x80; expected[1] = 0x00;
     EXPECT_EQ(2, tide::ebml_int::write_s(-0x8000, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected[0] = 0x7F; expected[1] = 0xFF;
     EXPECT_EQ(2, tide::ebml_int::write_s(0x7FFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 3 bytes
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected.push_back(0xFF);
     expected[1] = 0x7F;
     EXPECT_EQ(3, tide::ebml_int::write_s(-0x8001, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[1] = 0x80;
     EXPECT_EQ(3, tide::ebml_int::write_s(0x8000, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[0] = 0x80;
     EXPECT_EQ(3, tide::ebml_int::write_s(-0x800000, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(3, tide::ebml_int::write_s(0x7FFFFF, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 4 bytes
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F; expected.push_back(0xFF);
     EXPECT_EQ(4, tide::ebml_int::write_s(-0x800001, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[1] = 0x80;
     EXPECT_EQ(4, tide::ebml_int::write_s(0x800000, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[0] = 0x80;
     EXPECT_EQ(4, tide::ebml_int::write_s(-0x80000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(4, tide::ebml_int::write_s(0x7FFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 5 bytes
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[1] = 0x7F; expected.push_back(0xFF);
     EXPECT_EQ(5, tide::ebml_int::write_s(-0x80000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[1] = 0x80;
     EXPECT_EQ(5, tide::ebml_int::write_s(0x80000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[0] = 0x80;
     EXPECT_EQ(5, tide::ebml_int::write_s(-0x8000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(5, tide::ebml_int::write_s(0x7FFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 6 bytes
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[1] = 0x7F; expected.push_back(0xFF);
     EXPECT_EQ(6, tide::ebml_int::write_s(0x8000000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[1] = 0x80;
     EXPECT_EQ(6, tide::ebml_int::write_s(0x8000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[0] = 0x80;
     EXPECT_EQ(6, tide::ebml_int::write_s(-0x800000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(6, tide::ebml_int::write_s(0x7FFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 7 bytes
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[1] = 0x7F; expected.push_back(0xFF);
     EXPECT_EQ(7, tide::ebml_int::write_s(-0x800000000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[1] = 0x80;
     EXPECT_EQ(7, tide::ebml_int::write_s(0x800000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x80;
     EXPECT_EQ(7, tide::ebml_int::write_s(-0x80000000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(7, tide::ebml_int::write_s(0x7FFFFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     // 8 bytes
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[1] = 0x7F; expected.push_back(0xFF);
     EXPECT_EQ(8, tide::ebml_int::write_s(-0x80000000000001l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0x00);
     expected[1] = 0x80;
     EXPECT_EQ(8, tide::ebml_int::write_s(0x80000000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x80;
     EXPECT_EQ(8, tide::ebml_int::write_s(-0x8000000000000000l, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
     buffer.str(std::string());
     expected.replace(expected.begin(), expected.end(), 1, 0xFF);
     expected[0] = 0x7F;
     EXPECT_EQ(8, tide::ebml_int::write_s(0x7FFFFFFFFFFFFFFFl, buffer));
-    EXPECT_PRED_FORMAT3(test_utils::std_buffers_eq, expected, buffer);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected, buffer.str());
 }
 
 
@@ -1287,7 +1286,7 @@ TEST(EBMLIntStream, ReadSigned)
     buffer << 0x7F; fill_buffer(buffer, 0xFF, 2);
     EXPECT_EQ(0xFFFFFF, tide::ebml_int::read_u(buffer, 3));
     // 4 bytes
-    buffer << 0xFF << 7F; fill_buffer(buffer, 0xFF, 2);
+    buffer << 0xFF << 0x7F; fill_buffer(buffer, 0xFF, 2);
     EXPECT_EQ(-0x800001, tide::ebml_int::read_u(buffer, 4));
     buffer << 0x00 << 0x80; fill_buffer(buffer, 0x00, 2);
     EXPECT_EQ(0x800000, tide::ebml_int::read_u(buffer, 4));
@@ -1296,7 +1295,7 @@ TEST(EBMLIntStream, ReadSigned)
     buffer << 0x7F; fill_buffer(buffer, 0xFF, 3);
     EXPECT_EQ(0x7FFFFFFFl, tide::ebml_int::read_u(buffer, 4));
     // 5 bytes
-    buffer << 0xFF << 7F; fill_buffer(buffer, 0xFF, 3);
+    buffer << 0xFF << 0x7F; fill_buffer(buffer, 0xFF, 3);
     EXPECT_EQ(-0x800000001l, tide::ebml_int::read_u(buffer, 5));
     buffer << 0x00 << 0x80; fill_buffer(buffer, 0x00, 3);
     EXPECT_EQ(0x80000000l, tide::ebml_int::read_u(buffer, 5));
@@ -1305,8 +1304,8 @@ TEST(EBMLIntStream, ReadSigned)
     buffer << 0x7F; fill_buffer(buffer, 0xFF, 4);
     EXPECT_EQ(0x7FFFFFFFFFl, tide::ebml_int::read_u(buffer, 5));
     // 6 bytes
-    buffer << 0xFF << 7F; fill_buffer(buffer, 0xFF, 4);
-    EXPECT_EQ(-0x8000000001l;, tide::ebml_int::read_u(buffer, 6));
+    buffer << 0xFF << 0x7F; fill_buffer(buffer, 0xFF, 4);
+    EXPECT_EQ(-0x8000000001l, tide::ebml_int::read_u(buffer, 6));
     buffer << 0x00 << 0x80; fill_buffer(buffer, 0x00, 4);
     EXPECT_EQ(0x8000000000l, tide::ebml_int::read_u(buffer, 6));
     buffer << 0x80; fill_buffer(buffer, 0x00, 5);
@@ -1314,7 +1313,7 @@ TEST(EBMLIntStream, ReadSigned)
     buffer << 0x7F; fill_buffer(buffer, 0xFF, 5);
     EXPECT_EQ(0x7FFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 6));
     // 7 bytes
-    buffer << 0xFF << 7F; fill_buffer(buffer, 0xFF, 5);
+    buffer << 0xFF << 0x7F; fill_buffer(buffer, 0xFF, 5);
     EXPECT_EQ(-0x800000000001l, tide::ebml_int::read_u(buffer, 7));
     buffer << 0x00 << 0x80; fill_buffer(buffer, 0x00, 5);
     EXPECT_EQ(0x800000000000l, tide::ebml_int::read_u(buffer, 7));
@@ -1323,7 +1322,7 @@ TEST(EBMLIntStream, ReadSigned)
     buffer << 0x7F; fill_buffer(buffer, 0xFF, 6);
     EXPECT_EQ(0x7FFFFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 7));
     // 8 bytes
-    buffer << 0xFF << 7F; fill_buffer(buffer, 0xFF, 6);
+    buffer << 0xFF << 0x7F; fill_buffer(buffer, 0xFF, 6);
     EXPECT_EQ(-0x80000000000001l, tide::ebml_int::read_u(buffer, 8));
     buffer << 0x00 << 0x80; fill_buffer(buffer, 0x00, 6);
     EXPECT_EQ(0x80000000000000l, tide::ebml_int::read_u(buffer, 8));
@@ -1338,157 +1337,163 @@ TEST(EBMLIntStream, WriteReadUnsigned)
 {
     std::stringstream buffer;
     // 0 bytes
-    tide::ebml_int::write_u(0, buffer, 1);
+    tide::ebml_int::write_u(0, buffer);
     EXPECT_EQ(0, tide::ebml_int::read_u(buffer, 0));
     // 1 byte
-    tide::ebml_int::write_u(1, buffer, 1);
+    tide::ebml_int::write_u(1, buffer);
     EXPECT_EQ(1, tide::ebml_int::read_u(buffer, 1));
-    tide::ebml_int::write_u(0x7F, buffer, 1);
+    tide::ebml_int::write_u(0x7F, buffer);
     EXPECT_EQ(0x7F, tide::ebml_int::read_u(buffer, 1));
-    tide::ebml_int::write_u(0xFF, buffer, 1);
+    tide::ebml_int::write_u(0xFF, buffer);
     EXPECT_EQ(0xFF, tide::ebml_int::read_u(buffer, 1));
     // 2 bytes
-    tide::ebml_int::write_u(0x100, buffer, 2);
+    tide::ebml_int::write_u(0x100, buffer);
     EXPECT_EQ(0x100, tide::ebml_int::read_u(buffer, 2));
-    tide::ebml_int::write_u(0x101, buffer, 2);
+    tide::ebml_int::write_u(0x101, buffer);
     EXPECT_EQ(0x101, tide::ebml_int::read_u(buffer, 2));
-    tide::ebml_int::write_u(0x7FFF, buffer, 2);
+    tide::ebml_int::write_u(0x7FFF, buffer);
     EXPECT_EQ(0x7FFF, tide::ebml_int::read_u(buffer, 2));
-    tide::ebml_int::write_u(0xFFFF, buffer, 2);
+    tide::ebml_int::write_u(0xFFFF, buffer);
     EXPECT_EQ(0xFFFF, tide::ebml_int::read_u(buffer, 2));
     // 3 bytes
-    tide::ebml_int::write_u(0x10000, buffer, 3);
+    tide::ebml_int::write_u(0x10000, buffer);
     EXPECT_EQ(0x10000, tide::ebml_int::read_u(buffer, 3));
-    tide::ebml_int::write_u(0x10001, buffer, 3);
+    tide::ebml_int::write_u(0x10001, buffer);
     EXPECT_EQ(0x10001, tide::ebml_int::read_u(buffer, 3));
-    tide::ebml_int::write_u(0x7FFFFF, buffer, 3);
+    tide::ebml_int::write_u(0x7FFFFF, buffer);
     EXPECT_EQ(0x7FFFFF, tide::ebml_int::read_u(buffer, 3));
-    tide::ebml_int::write_u(0xFFFFFF, buffer, 3);
+    tide::ebml_int::write_u(0xFFFFFF, buffer);
     EXPECT_EQ(0xFFFFFF, tide::ebml_int::read_u(buffer, 3));
     // 4 bytes
-    tide::ebml_int::write_u(0x1000000l, buffer, 4);
+    tide::ebml_int::write_u(0x1000000l, buffer);
     EXPECT_EQ(0x1000000l, tide::ebml_int::read_u(buffer, 4));
-    tide::ebml_int::write_u(0x1000001l, buffer, 4);
+    tide::ebml_int::write_u(0x1000001l, buffer);
     EXPECT_EQ(0x1000001l, tide::ebml_int::read_u(buffer, 4));
-    tide::ebml_int::write_u(0x7FFFFFFFl, buffer, 4);
+    tide::ebml_int::write_u(0x7FFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFl, tide::ebml_int::read_u(buffer, 4));
-    tide::ebml_int::write_u(0xFFFFFFFFl, buffer, 4);
+    tide::ebml_int::write_u(0xFFFFFFFFl, buffer);
     EXPECT_EQ(0xFFFFFFFFl, tide::ebml_int::read_u(buffer, 4));
     // 5 bytes
-    tide::ebml_int::write_u(0x100000000l, buffer, 5);
+    tide::ebml_int::write_u(0x100000000l, buffer);
     EXPECT_EQ(0x100000000l, tide::ebml_int::read_u(buffer, 5));
-    tide::ebml_int::write_u(0x100000001l, buffer, 5);
+    tide::ebml_int::write_u(0x100000001l, buffer);
     EXPECT_EQ(0x100000001l, tide::ebml_int::read_u(buffer, 5));
-    tide::ebml_int::write_u(0x7FFFFFFFFFl, buffer, 5);
+    tide::ebml_int::write_u(0x7FFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFl, tide::ebml_int::read_u(buffer, 5));
-    tide::ebml_int::write_u(0xFFFFFFFFFFl, buffer, 5);
+    tide::ebml_int::write_u(0xFFFFFFFFFFl, buffer);
     EXPECT_EQ(0xFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 5));
     // 6 bytes
-    tide::ebml_int::write_u(0x10000000000l, buffer, 6);
+    tide::ebml_int::write_u(0x10000000000l, buffer);
     EXPECT_EQ(0x10000000000l, tide::ebml_int::read_u(buffer, 6));
-    tide::ebml_int::write_u(0x10000000001l, buffer, 6);
+    tide::ebml_int::write_u(0x10000000001l, buffer);
     EXPECT_EQ(0x10000000001l, tide::ebml_int::read_u(buffer, 6));
-    tide::ebml_int::write_u(0x7FFFFFFFFFFFl, buffer, 6);
+    tide::ebml_int::write_u(0x7FFFFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 6));
-    tide::ebml_int::write_u(0xFFFFFFFFFFFFl, buffer, 6);
+    tide::ebml_int::write_u(0xFFFFFFFFFFFFl, buffer);
     EXPECT_EQ(0xFFFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 6));
     // 7 bytes
-    tide::ebml_int::write_u(0x1000000000000l, buffer, 7);
+    tide::ebml_int::write_u(0x1000000000000l, buffer);
     EXPECT_EQ(0x1000000000000l, tide::ebml_int::read_u(buffer, 7));
-    tide::ebml_int::write_u(0x1000000000001l, buffer, 7);
+    tide::ebml_int::write_u(0x1000000000001l, buffer);
     EXPECT_EQ(0x1000000000001l, tide::ebml_int::read_u(buffer, 7));
-    tide::ebml_int::write_u(0x7FFFFFFFFFFFFFl, buffer, 7);
+    tide::ebml_int::write_u(0x7FFFFFFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 7));
-    tide::ebml_int::write_u(0xFFFFFFFFFFFFFFl, buffer, 7);
+    tide::ebml_int::write_u(0xFFFFFFFFFFFFFFl, buffer);
     EXPECT_EQ(0xFFFFFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 7));
     // 8 bytes
-    tide::ebml_int::write_u(0x100000000000000l, buffer, 8);
+    tide::ebml_int::write_u(0x100000000000000l, buffer);
     EXPECT_EQ(0x100000000000000l, tide::ebml_int::read_u(buffer, 8));
-    tide::ebml_int::write_u(0x100000000000001l, buffer, 8);
+    tide::ebml_int::write_u(0x100000000000001l, buffer);
     EXPECT_EQ(0x100000000000001l, tide::ebml_int::read_u(buffer, 8));
-    tide::ebml_int::write_u(0x7FFFFFFFFFFFFFFFl, buffer, 8);
+    tide::ebml_int::write_u(0x7FFFFFFFFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 8));
-    tide::ebml_int::write_u(0xFFFFFFFFFFFFFFFFl, buffer, 8);
+    tide::ebml_int::write_u(0xFFFFFFFFFFFFFFFFl, buffer);
     EXPECT_EQ(0xFFFFFFFFFFFFFFFFl, tide::ebml_int::read_u(buffer, 8));
 }
 
 
 TEST(EBMLIntStream, WriteReadSigned)
 {
-    uint8_t buffer[8];
-    memset(buffer, 0, sizeof(8));
+    std::stringstream buffer;
     // 0 bytes
-    tide::ebml_int::write_s(0, buffer, 1);
+    tide::ebml_int::write_s(0, buffer);
     EXPECT_EQ(0, tide::ebml_int::read_s(buffer, 1));
     // 1 byte
-    tide::ebml_int::write_s(-0x80, buffer, 1);
+    tide::ebml_int::write_s(-0x80, buffer);
     EXPECT_EQ(-0x80, tide::ebml_int::read_s(buffer, 1));
-    tide::ebml_int::write_s(-1, buffer, 1);
+    tide::ebml_int::write_s(-1, buffer);
     EXPECT_EQ(-1, tide::ebml_int::read_s(buffer, 1));
-    tide::ebml_int::write_s(0x7F, buffer, 1);
+    tide::ebml_int::write_s(0x7F, buffer);
     EXPECT_EQ(0x7F, tide::ebml_int::read_s(buffer, 1));
     // 2 bytes
-    tide::ebml_int::write_s(-0x81, buffer, 2);
+    tide::ebml_int::write_s(-0x81, buffer);
     EXPECT_EQ(-0x81, tide::ebml_int::read_s(buffer, 2));
-    tide::ebml_int::write_s(0x80, buffer, 2);
+    tide::ebml_int::write_s(0x80, buffer);
     EXPECT_EQ(0x80, tide::ebml_int::read_s(buffer, 2));
-    tide::ebml_int::write_s(-0x8000, buffer, 2);
+    tide::ebml_int::write_s(-0x8000, buffer);
     EXPECT_EQ(-0x8000, tide::ebml_int::read_s(buffer, 2));
-    tide::ebml_int::write_s(0x7FFF, buffer, 2);
+    tide::ebml_int::write_s(0x7FFF, buffer);
     EXPECT_EQ(0x7FFF, tide::ebml_int::read_s(buffer, 2));
     // 3 bytes
-    tide::ebml_int::write_s(-0x8001, buffer, 3);
+    tide::ebml_int::write_s(-0x8001, buffer);
     EXPECT_EQ(-0x8001, tide::ebml_int::read_s(buffer, 3));
-    tide::ebml_int::write_s(0x8000, buffer, 3);
+    tide::ebml_int::write_s(0x8000, buffer);
     EXPECT_EQ(0x8000, tide::ebml_int::read_s(buffer, 3));
-    tide::ebml_int::write_s(-0x800000, buffer, 3);
+    tide::ebml_int::write_s(-0x800000, buffer);
     EXPECT_EQ(-0x800000, tide::ebml_int::read_s(buffer, 3));
-    tide::ebml_int::write_s(0x7FFFFF, buffer, 3);
+    tide::ebml_int::write_s(0x7FFFFF, buffer);
     EXPECT_EQ(0x7FFFFF, tide::ebml_int::read_s(buffer, 3));
     // 4 bytes
-    tide::ebml_int::write_s(-0x800001l, buffer, 4);
+    tide::ebml_int::write_s(-0x800001l, buffer);
     EXPECT_EQ(-0x800001l, tide::ebml_int::read_s(buffer, 4));
-    tide::ebml_int::write_s(0x800000l, buffer, 4);
+    tide::ebml_int::write_s(0x800000l, buffer);
     EXPECT_EQ(0x800000l, tide::ebml_int::read_s(buffer, 4));
-    tide::ebml_int::write_s(-0x80000000l, buffer, 4);
+    tide::ebml_int::write_s(-0x80000000l, buffer);
     EXPECT_EQ(-0x80000000l, tide::ebml_int::read_s(buffer, 4));
-    tide::ebml_int::write_s(0x7FFFFFFFl, buffer, 4);
+    tide::ebml_int::write_s(0x7FFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFl, tide::ebml_int::read_s(buffer, 4));
     // 5 bytes
-    tide::ebml_int::write_s(-0x80000001l, buffer, 5);
+    tide::ebml_int::write_s(-0x80000001l, buffer);
     EXPECT_EQ(-0x80000001l, tide::ebml_int::read_s(buffer, 5));
-    tide::ebml_int::write_s(0x80000000l, buffer, 5);
+    tide::ebml_int::write_s(0x80000000l, buffer);
     EXPECT_EQ(0x80000000l, tide::ebml_int::read_s(buffer, 5));
-    tide::ebml_int::write_s(-0x8000000000l, buffer, 5);
+    tide::ebml_int::write_s(-0x8000000000l, buffer);
     EXPECT_EQ(-0x8000000000l, tide::ebml_int::read_s(buffer, 5));
-    tide::ebml_int::write_s(0x7FFFFFFFFFl, buffer, 5);
+    tide::ebml_int::write_s(0x7FFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFl, tide::ebml_int::read_s(buffer, 5));
     // 6 bytes
-    tide::ebml_int::write_s(-0x8000000001l, buffer, 6);
+    tide::ebml_int::write_s(-0x8000000001l, buffer);
     EXPECT_EQ(-0x8000000001l, tide::ebml_int::read_s(buffer, 6));
-    tide::ebml_int::write_s(0x8000000000l, buffer, 6);
+    tide::ebml_int::write_s(0x8000000000l, buffer);
     EXPECT_EQ(0x8000000000l, tide::ebml_int::read_s(buffer, 6));
-    tide::ebml_int::write_s(-0x800000000000l, buffer, 6);
+    tide::ebml_int::write_s(-0x800000000000l, buffer);
     EXPECT_EQ(-0x800000000000l, tide::ebml_int::read_s(buffer, 6));
-    tide::ebml_int::write_s(0x7FFFFFFFFFFFl, buffer, 6);
+    tide::ebml_int::write_s(0x7FFFFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFFFl, tide::ebml_int::read_s(buffer, 6));
     // 7 bytes
-    tide::ebml_int::write_s(-0x800000000001l, buffer, 7);
+    tide::ebml_int::write_s(-0x800000000001l, buffer);
     EXPECT_EQ(-0x800000000001l, tide::ebml_int::read_s(buffer, 7));
-    tide::ebml_int::write_s(0x800000000000l, buffer, 7);
+    tide::ebml_int::write_s(0x800000000000l, buffer);
     EXPECT_EQ(0x800000000000l, tide::ebml_int::read_s(buffer, 7));
-    tide::ebml_int::write_s(-0x80000000000000l, buffer, 7);
+    tide::ebml_int::write_s(-0x80000000000000l, buffer);
     EXPECT_EQ(-0x80000000000000l, tide::ebml_int::read_s(buffer, 7));
-    tide::ebml_int::write_s(0x7FFFFFFFFFFFFFl, buffer, 7);
+    tide::ebml_int::write_s(0x7FFFFFFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFFFFFl, tide::ebml_int::read_s(buffer, 7));
     // 8 bytes
-    tide::ebml_int::write_s(-0x80000000000001l, buffer, 8);
+    tide::ebml_int::write_s(-0x80000000000001l, buffer);
     EXPECT_EQ(-0x80000000000001l, tide::ebml_int::read_s(buffer, 8));
-    tide::ebml_int::write_s(0x80000000000000l, buffer, 8);
+    tide::ebml_int::write_s(0x80000000000000l, buffer);
     EXPECT_EQ(0x80000000000000l, tide::ebml_int::read_s(buffer, 8));
-    tide::ebml_int::write_s(-0x8000000000000000l, buffer, 8);
+    tide::ebml_int::write_s(-0x8000000000000000l, buffer);
     EXPECT_EQ(-0x8000000000000000l, tide::ebml_int::read_s(buffer, 8));
-    tide::ebml_int::write_s(0x7FFFFFFFFFFFFFFFl, buffer, 8);
+    tide::ebml_int::write_s(0x7FFFFFFFFFFFFFFFl, buffer);
     EXPECT_EQ(0x7FFFFFFFFFFFFFFFl, tide::ebml_int::read_s(buffer, 8));
+}
+
+
+TEST(EBMLIntStream, ReadError)
+{
+    std::istringstream buffer;
+    EXPECT_THROW(tide::ebml_int::read_s(buffer, 8), tide::ReadError);
 }
 

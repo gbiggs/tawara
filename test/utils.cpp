@@ -136,3 +136,17 @@
     }
 }
 
+
+::testing::AssertionResult test_utils::int_pairs_eq(char const* p1_expr,
+        char const* p2_expr, std::pair<uint64_t, size_t> const& p1,
+        std::pair<uint64_t, size_t> const& p2)
+{
+    if (p1 != p2)
+    {
+        return ::testing::AssertionFailure() << p1_expr << " (" << p1.first <<
+            ", " << p1.second << ") != " << p2_expr << " (" << p2.first <<
+            ", " << p2.second << ")";
+    }
+    return ::testing::AssertionSuccess();
+}
+

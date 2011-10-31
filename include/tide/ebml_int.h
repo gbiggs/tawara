@@ -128,7 +128,7 @@ namespace tide
          * \return The number of bytes written.
          * \exception WriteError if there is an error writing the output stream.
          */
-        size_t write_s(uint64_t integer, std::ostream& output);
+        size_t write_s(int64_t integer, std::ostream& output);
 
         /** \brief Decode an unsigned integer from a buffer.
          *
@@ -176,7 +176,7 @@ namespace tide
          * \return The decoded signed integer.
          * \exception ReadError if there is an error reading the input stream.
          */
-        uint64_t read_s(std::istream& input, size_t n);
+        int64_t read_s(std::istream& input, size_t n);
     }; // namespace ebml_int
 }; // namespace tide
 

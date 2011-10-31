@@ -50,6 +50,12 @@ namespace test_utils
 ::testing::AssertionResult std_buffers_eq(char const* b1_expr,
         char const* b2_expr, std::string const& b1, std::string const& b2);
 
+// Tests if two std::pair<uint64_t, size_t> values are equal because gtest
+// can't figure it out for itself nor print the result.
+::testing::AssertionResult int_pairs_eq(char const* p1_expr,
+        char const* p2_expr, std::pair<uint64_t, size_t> const& p1,
+        std::pair<uint64_t, size_t> const& p2);
+
 }; // test_utils
 
 #endif // TIDE_TEST_UTILS_H_

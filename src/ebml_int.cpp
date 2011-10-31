@@ -154,6 +154,30 @@ size_t tide::ebml_int::encode_s(int64_t integer, uint8_t* buffer,
 }
 
 
+size_t tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
+{
+    return 0;
+}
+
+
+size_t tide::ebml_int::write_s(int64_t integer, std::ostream& output)
+{
+    return 0;
+}
+
+
+uint64_t tide::ebml_int::read_u(std::istream& input, size_t n)
+{
+    return 0;
+}
+
+
+int64_t tide::ebml_int::read_s(std::istream& input, size_t n)
+{
+    return 0;
+}
+
+
 uint64_t tide::ebml_int::decode_u(uint8_t const* buffer, size_t n)
 {
     uint64_t result(0);

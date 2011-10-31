@@ -102,39 +102,40 @@ TEST(VInt, Decode)
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
     buffer[0] = 0x80;
-    EXPECT_EQ(0x00, tide::vint::decode(buffer, 1));
+    EXPECT_EQ(std::make_pair(0x00, 1), tide::vint::decode(buffer, 1));
     buffer[0] = 0x81;
-    EXPECT_EQ(0x01, tide::vint::decode(buffer, 1));
+    EXPECT_EQ(std::make_pair(0x01, 1), tide::vint::decode(buffer, 1));
     buffer[0] = 0x97;
-    EXPECT_EQ(0x17, tide::vint::decode(buffer, 1));
+    EXPECT_EQ(std::make_pair(0x17, 1), tide::vint::decode(buffer, 1));
     buffer[0] = 0xC0;
-    EXPECT_EQ(0x40, tide::vint::decode(buffer, 1));
+    EXPECT_EQ(std::make_pair(0x40, 1), tide::vint::decode(buffer, 1));
     buffer[0] = 0xFF;
-    EXPECT_EQ(0x7F, tide::vint::decode(buffer, 1));
+    EXPECT_EQ(std::make_pair(0x7F, 1), tide::vint::decode(buffer, 1));
     // 01xxxxxx xxxxxxxx
     buffer[0] = 0x40; buffer[1] = 0x00;
-    EXPECT_EQ(0x0000, tide::vint::decode(buffer, 2));
+    EXPECT_EQ(std::make_pair(0x0000, 2), tide::vint::decode(buffer, 2));
     buffer[0] = 0x40; buffer[1] = 0x01;
-    EXPECT_EQ(0x0001, tide::vint::decode(buffer, 2));
+    EXPECT_EQ(std::make_pair(0x0001, 2), tide::vint::decode(buffer, 2));
     buffer[0] = 0x4B; buffer[1] = 0x35;
-    EXPECT_EQ(0x0B35, tide::vint::decode(buffer, 2));
+    EXPECT_EQ(std::make_pair(0x0B35, 2), tide::vint::decode(buffer, 2));
     buffer[0] = 0x60; buffer[1] = 0x00;
-    EXPECT_EQ(0x2000, tide::vint::decode(buffer, 2));
+    EXPECT_EQ(std::make_pair(0x2000, 2), tide::vint::decode(buffer, 2));
     buffer[0] = 0x7F; buffer[1] = 0xFF;
-    EXPECT_EQ(0x3FFF, tide::vint::decode(buffer, 2));
+    EXPECT_EQ(std::make_pair(0x3FFF, 2), tide::vint::decode(buffer, 2));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     memset(buffer, 0, sizeof(buffer));
     buffer[0] = 0x01;
-    EXPECT_EQ(0x00000000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x00000000, 8), tide::vint::decode(buffer, 8));
     buffer[7] = 0x01;
-    EXPECT_EQ(0x00000001, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x00000001, 8), tide::vint::decode(buffer, 8));
     memset(buffer, 0xFF, sizeof(buffer));
     buffer[0] = 0x01;
-    EXPECT_EQ(0xFFFFFFFFFFFFFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0xFFFFFFFFFFFFFF, 8),
+            tide::vint::decode(buffer, 8));
     // EBML tag
     memset(buffer, 0, sizeof(buffer));
     buffer[0] = 0x1A; buffer[1] = 0x45; buffer[2] = 0xDF; buffer[3] = 0xA3;
-    EXPECT_EQ(0x0A45DFA3, tide::vint::decode(buffer, 4));
+    EXPECT_EQ(std::make_pair(0x0A45DFA3, 4), tide::vint::decode(buffer, 4));
     // The remainder are done in the EncodeDecode test for simplicity
 }
 
@@ -145,50 +146,53 @@ TEST(VInt, EncodeDecode)
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
     EXPECT_EQ(1, tide::vint::encode(0x00, buffer, 8));
-    EXPECT_EQ(0x00, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x00, 1), tide::vint::decode(buffer, 8));
     EXPECT_EQ(1, tide::vint::encode(0x01, buffer, 8));
-    EXPECT_EQ(0x01, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x01, 1), tide::vint::decode(buffer, 8));
     EXPECT_EQ(1, tide::vint::encode(0x7F, buffer, 8));
-    EXPECT_EQ(0x7F, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x7F, 1), tide::vint::decode(buffer, 8));
     // 01xxxxxx xxxxxxxx
     EXPECT_EQ(2, tide::vint::encode(0x80, buffer, 8));
-    EXPECT_EQ(0x80, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x80, 2), tide::vint::decode(buffer, 8));
     EXPECT_EQ(2, tide::vint::encode(0x81, buffer, 8));
-    EXPECT_EQ(0x81, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x81, 2), tide::vint::decode(buffer, 8));
     EXPECT_EQ(2, tide::vint::encode(0x3FFF, buffer, 8));
-    EXPECT_EQ(0x3FFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x3FFF, 2), tide::vint::decode(buffer, 8));
     // 001xxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(3, tide::vint::encode(0x4000, buffer, 8));
-    EXPECT_EQ(0x4000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x4000, 3), tide::vint::decode(buffer, 8));
     EXPECT_EQ(3, tide::vint::encode(0x60000, buffer, 8));
-    EXPECT_EQ(0x60000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x60000, 3), tide::vint::decode(buffer, 8));
     EXPECT_EQ(3, tide::vint::encode(0x1FFFFF, buffer, 8));
-    EXPECT_EQ(0x1FFFFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x1FFFFF, 3), tide::vint::decode(buffer, 8));
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(4, tide::vint::encode(0x200000, buffer, 8));
-    EXPECT_EQ(0x200000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x200000, 4), tide::vint::decode(buffer, 8));
     EXPECT_EQ(4, tide::vint::encode(0xFFFFFFF, buffer, 8));
-    EXPECT_EQ(0xFFFFFFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0xFFFFFFF, 4), tide::vint::decode(buffer, 8));
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(5, tide::vint::encode(0x10000000, buffer, 8));
-    EXPECT_EQ(0x10000000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x10000000, 5), tide::vint::decode(buffer, 8));
     EXPECT_EQ(5, tide::vint::encode(0x7FFFFFFFF, buffer, 8));
-    EXPECT_EQ(0x7FFFFFFFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x7FFFFFFFF, 5), tide::vint::decode(buffer, 8));
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(6, tide::vint::encode(0x800000000, buffer, 8));
-    EXPECT_EQ(0x800000000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x800000000, 6), tide::vint::decode(buffer, 8));
     EXPECT_EQ(6, tide::vint::encode(0X3FFFFFFFFFF, buffer, 8));
-    EXPECT_EQ(0X3FFFFFFFFFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0X3FFFFFFFFFF, 6), tide::vint::decode(buffer, 8));
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(7, tide::vint::encode(0x40000000000, buffer, 8));
-    EXPECT_EQ(0x40000000000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x40000000000, 7), tide::vint::decode(buffer, 8));
     EXPECT_EQ(7, tide::vint::encode(0X1FFFFFFFFFFFF, buffer, 8));
-    EXPECT_EQ(0X1FFFFFFFFFFFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0X1FFFFFFFFFFFF, 7),
+            tide::vint::decode(buffer, 8));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(8, tide::vint::encode(0x2000000000000, buffer, 8));
-    EXPECT_EQ(0x2000000000000, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0x2000000000000, 8),
+            tide::vint::decode(buffer, 8));
     EXPECT_EQ(8, tide::vint::encode(0X0FFFFFFFFFFFFFF, buffer, 8));
-    EXPECT_EQ(0X0FFFFFFFFFFFFFF, tide::vint::decode(buffer, 8));
+    EXPECT_EQ(std::make_pair(0X0FFFFFFFFFFFFFF, 8),
+            tide::vint::decode(buffer, 8));
 }
 
 
@@ -333,70 +337,70 @@ TEST(VInt, CodedSize)
 }
 
 
-TEST(VIntStream, Encode)
+TEST(VIntStream, Write)
 {
     std::basic_ostringstream<uint8_t> buffer;
     std::basic_ostringstream<uint8_t> expected;
     // 1xxxxxxx
     expected.put(0x80);
-    tide::vint::write(0x00, buffer);
+    EXPECT_EQ(1, tide::vint::write(0x00, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x81);
-    tide::vint::write(0x01, buffer);
+    EXPECT_EQ(1, tide::vint::write(0x01, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x97);
-    tide::vint::write(0x17, buffer);
+    EXPECT_EQ(1, tide::vint::write(0x17, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0xC0);
-    tide::vint::write(0x40, buffer);
+    EXPECT_EQ(1, tide::vint::write(0x40, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0xFF);
-    tide::vint::write(0x7F, buffer);
+    EXPECT_EQ(1, tide::vint::write(0x7F, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 1);
     // 01xxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x80); expected.put(0x00);
-    tide::vint::write(0x0000, buffer);
+    EXPECT_EQ(2, tide::vint::write(0x0000, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x81); expected.put(0x00);
-    tide::vint::write(0x0001, buffer);
+    EXPECT_EQ(2, tide::vint::write(0x0001, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x4B); expected.put(0x35);
-    tide::vint::write(0x0B35, buffer);
+    EXPECT_EQ(2, tide::vint::write(0x0B35, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x60); expected.put(0x00);
-    tide::vint::write(0x2000, buffer);
+    EXPECT_EQ(2, tide::vint::write(0x2000, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x7F); expected.put(0xFF);
-    tide::vint::write(0x3FFF, buffer);
+    EXPECT_EQ(2, tide::vint::write(0x3FFF, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 2);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x80); expected.put(0x00);
-    tide::vint::write(0x0000000000000000, buffer);
+    EXPECT_EQ(8, tide::vint::write(0x0000000000000000, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x81); expected.put(0x00);
-    tide::vint::write(0x0000000000000001, buffer);
+    EXPECT_EQ(8, tide::vint::write(0x0000000000000001, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
@@ -405,44 +409,44 @@ TEST(VIntStream, Encode)
     {
         expected.put(0xFF);
     }
-    tide::vint::write(0xFFFFFFFFFFFFFF, buffer);
+    EXPECT_EQ(8, tide::vint::write(0xFFFFFFFFFFFFFF, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 8);
     // EBML tag
     buffer.str(std::basic_string<uint8_t>());
     expected.str(std::basic_string<uint8_t>());
     expected.put(0x1A); expected.put(0x45); expected.put(0xDF);
     expected.put(0xA3);
-    tide::vint::write(0x0A45DFA3, buffer);
+    EXPECT_EQ(4, tide::vint::write(0x0A45DFA3, buffer));
     EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected.str().c_str(), buffer.str().c_str(), 4);
     // The remainder are done in the EncodeDecode test for simplicity
 }
 
 
-TEST(VIntStream, Decode)
+TEST(VIntStream, Read)
 {
     std::basic_stringstream<uint8_t> buffer;
     // 1xxxxxxx
     buffer.put(0x80);
-    EXPECT_EQ(0x00, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x00, 1), tide::vint::read(buffer));
     buffer.put(0x81);
-    EXPECT_EQ(0x01, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x01, 1), tide::vint::read(buffer));
     buffer.put(0x97);
-    EXPECT_EQ(0x17, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x17, 1), tide::vint::read(buffer));
     buffer.put(0xC0);
-    EXPECT_EQ(0x40, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x40, 1), tide::vint::read(buffer));
     buffer.put(0xFF);
-    EXPECT_EQ(0x7F, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x7F, 1), tide::vint::read(buffer));
     // 01xxxxxx xxxxxxxx
     buffer.put(0x40); buffer.put(0x00);
-    EXPECT_EQ(0x0000, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x0000, 2), tide::vint::read(buffer));
     buffer.put(0x40); buffer.put(0x01);
-    EXPECT_EQ(0x0001, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x0001, 2), tide::vint::read(buffer));
     buffer.put(0x4B); buffer.put(0x35);
-    EXPECT_EQ(0x0B35, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x0B35, 2), tide::vint::read(buffer));
     buffer.put(0x60); buffer.put(0x00);
-    EXPECT_EQ(0x2000, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x2000, 2), tide::vint::read(buffer));
     buffer.put(0x7F); buffer.put(0xFF);
-    EXPECT_EQ(0x3FFF, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x3FFF, 2), tide::vint::read(buffer));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
     buffer.put(0x01);
@@ -450,7 +454,7 @@ TEST(VIntStream, Decode)
     {
         buffer.put(0x00);
     }
-    EXPECT_EQ(0x00000000, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x00000000, 8), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
     buffer.put(0x01);
     for (int ii(0); ii < 6; ii++)
@@ -458,89 +462,89 @@ TEST(VIntStream, Decode)
         buffer.put(0x00);
     }
     buffer.put(0x01);
-    EXPECT_EQ(0x00000001, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x00000001, 8), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
     buffer.put(0x01);
     for (int ii(0); ii < 7; ii++)
     {
         buffer.put(0xFF);
     }
-    EXPECT_EQ(0xFFFFFFFFFFFFFF, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0xFFFFFFFFFFFFFF, 8), tide::vint::read(buffer));
     // EBML tag
     buffer.str(std::basic_string<uint8_t>());
     buffer.put(0x1A); buffer.put(0x45); buffer.put(0xDF); buffer.put(0xA3);
-    EXPECT_EQ(0x0A45DFA3, tide::vint::read(buffer));
+    EXPECT_EQ(std::make_pair(0x0A45DFA3, 4), tide::vint::read(buffer));
     // The remainder are done in the EncodeDecode test for simplicity
 }
 
 
-TEST(VIntStream, EncodeDecode)
+TEST(VIntStream, WriteRead)
 {
     std::basic_stringstream<uint8_t> buffer;
     // 1xxxxxxx
-    tide::vint::write(0x00, buffer);
-    EXPECT_EQ(0x00, tide::vint::read(buffer));
+    EXPECT_EQ(1, tide::vint::write(0x00, buffer));
+    EXPECT_EQ(std::make_pair(0x00, 1), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x01, buffer);
-    EXPECT_EQ(0x01, tide::vint::read(buffer));
+    EXPECT_EQ(1, tide::vint::write(0x01, buffer));
+    EXPECT_EQ(std::make_pair(0x01, 1), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x7F, buffer);
-    EXPECT_EQ(0x7F, tide::vint::read(buffer));
+    EXPECT_EQ(1, tide::vint::write(0x7F, buffer));
+    EXPECT_EQ(std::make_pair(0x7F, 1), tide::vint::read(buffer));
     // 01xxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x80, buffer);
-    EXPECT_EQ(0x80, tide::vint::read(buffer));
+    EXPECT_EQ(2, tide::vint::write(0x80, buffer));
+    EXPECT_EQ(std::make_pair(0x80, 2), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x81, buffer);
-    EXPECT_EQ(0x81, tide::vint::read(buffer));
+    EXPECT_EQ(2, tide::vint::write(0x81, buffer));
+    EXPECT_EQ(std::make_pair(0x81, 2), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x3FFF, buffer);
-    EXPECT_EQ(0x3FFF, tide::vint::read(buffer));
+    EXPECT_EQ(2, tide::vint::write(0x3FFF, buffer));
+    EXPECT_EQ(std::make_pair(0x3FFF, 2), tide::vint::read(buffer));
     // 001xxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x4000, buffer);
-    EXPECT_EQ(0x4000, tide::vint::read(buffer));
+    EXPECT_EQ(3, tide::vint::write(0x4000, buffer));
+    EXPECT_EQ(std::make_pair(0x4000, 3), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x60000, buffer);
-    EXPECT_EQ(0x60000, tide::vint::read(buffer));
+    EXPECT_EQ(3, tide::vint::write(0x60000, buffer));
+    EXPECT_EQ(std::make_pair(0x60000, 3), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x1FFFFF, buffer);
-    EXPECT_EQ(0x1FFFFF, tide::vint::read(buffer));
+    EXPECT_EQ(3, tide::vint::write(0x1FFFFF, buffer));
+    EXPECT_EQ(std::make_pair(0x1FFFFF, 3), tide::vint::read(buffer));
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x200000, buffer);
-    EXPECT_EQ(0x200000, tide::vint::read(buffer));
+    EXPECT_EQ(4, tide::vint::write(0x200000, buffer));
+    EXPECT_EQ(std::make_pair(0x200000, 4), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0xFFFFFFF, buffer);
-    EXPECT_EQ(0xFFFFFFF, tide::vint::read(buffer));
+    EXPECT_EQ(4, tide::vint::write(0xFFFFFFF, buffer));
+    EXPECT_EQ(std::make_pair(0xFFFFFFF, 4), tide::vint::read(buffer));
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x10000000, buffer);
-    EXPECT_EQ(0x10000000, tide::vint::read(buffer));
+    EXPECT_EQ(5, tide::vint::write(0x10000000, buffer));
+    EXPECT_EQ(std::make_pair(0x10000000, 5), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x7FFFFFFFF, buffer);
-    EXPECT_EQ(0x7FFFFFFFF, tide::vint::read(buffer));
+    EXPECT_EQ(5, tide::vint::write(0x7FFFFFFFF, buffer));
+    EXPECT_EQ(std::make_pair(0x7FFFFFFFF, 5), tide::vint::read(buffer));
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x800000000, buffer);
-    EXPECT_EQ(0x800000000, tide::vint::read(buffer));
+    EXPECT_EQ(6, tide::vint::write(0x800000000, buffer));
+    EXPECT_EQ(std::make_pair(0x800000000, 6), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0X3FFFFFFFFFF, buffer);
-    EXPECT_EQ(0X3FFFFFFFFFF, tide::vint::read(buffer));
+    EXPECT_EQ(6, tide::vint::write(0X3FFFFFFFFFF, buffer));
+    EXPECT_EQ(std::make_pair(0X3FFFFFFFFFF, 6), tide::vint::read(buffer));
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x40000000000, buffer);
-    EXPECT_EQ(0x40000000000, tide::vint::read(buffer));
+    EXPECT_EQ(7, tide::vint::write(0x40000000000, buffer));
+    EXPECT_EQ(std::make_pair(0x40000000000, 7), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0X1FFFFFFFFFFFF, buffer);
-    EXPECT_EQ(0X1FFFFFFFFFFFF, tide::vint::read(buffer));
+    EXPECT_EQ(7, tide::vint::write(0X1FFFFFFFFFFFF, buffer));
+    EXPECT_EQ(std::make_pair(0X1FFFFFFFFFFFF, 7), tide::vint::read(buffer));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0x2000000000000, buffer);
-    EXPECT_EQ(0x2000000000000, tide::vint::read(buffer));
+    EXPECT_EQ(8, tide::vint::write(0x2000000000000, buffer));
+    EXPECT_EQ(std::make_pair(0x2000000000000, 8), tide::vint::read(buffer));
     buffer.str(std::basic_string<uint8_t>());
-    tide::vint::write(0X0FFFFFFFFFFFFFF, buffer);
-    EXPECT_EQ(0X0FFFFFFFFFFFFFF, tide::vint::read(buffer));
+    EXPECT_EQ(8, tide::vint::write(0X0FFFFFFFFFFFFFF, buffer));
+    EXPECT_EQ(std::make_pair(0X0FFFFFFFFFFFFFF, 8), tide::vint::read(buffer));
 }
 
 

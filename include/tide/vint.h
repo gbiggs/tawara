@@ -123,6 +123,9 @@ namespace tide
          * \param[in] input The std::istream object to read bytes from.
          * \return A pair containing the value read in the first and the number
          * of bytes read from the stream in the second.
+         * \exception InvalidVarInt if the variable-length integer in the byte
+         * stream is invalid.
+         * \exception ReadError if there is an error reading the input stream.
          */
         std::pair<uint64_t, size_t> read(std::istream& input);
     }; // namespace vint

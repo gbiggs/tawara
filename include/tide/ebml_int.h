@@ -104,6 +104,32 @@ namespace tide
          */
         size_t encode_s(int64_t integer, uint8_t* buffer, size_t n);
 
+        /** \brief Encode and write an unsigned integer into a byte stream.
+         *
+         * This function performs the same task as tide::ebml_int::encode_u(),
+         * but instead of writing to a basic buffer, it writes to a
+         * std::ostream object.
+         *
+         * \param[in] integer The integer to encode.
+         * \param[in] output The std::ostream object to write to.
+         * \return The number of bytes written.
+         * \exception WriteError if there is an error writing the output stream.
+         */
+        size_t write_u(uint64_t integer, std::ostream& output);
+
+        /** \brief Encode and write a signed integer into a byte stream.
+         *
+         * This function performs the same task as tide::ebml_int::encode_s(),
+         * but instead of writing to a basic buffer, it writes to a
+         * std::ostream object.
+         *
+         * \param[in] integer The integer to encode.
+         * \param[in] output The std::ostream object to write to.
+         * \return The number of bytes written.
+         * \exception WriteError if there is an error writing the output stream.
+         */
+        size_t write_s(uint64_t integer, std::ostream& output);
+
         /** \brief Decode an unsigned integer from a buffer.
          *
          * Decodes the unsigned integer stored in the buffer according to the
@@ -115,7 +141,7 @@ namespace tide
          */
         uint64_t decode_u(uint8_t const* buffer, size_t n);
 
-        /** \brief Decode an unsigned integer from a buffer.
+        /** \brief Decode a signed integer from a buffer.
          *
          * Decodes the unsigned integer stored in the buffer according to the
          * EBML specification for unsigned integers.
@@ -125,6 +151,32 @@ namespace tide
          * \return The decoded unsigned integer.
          */
         int64_t decode_s(uint8_t const* buffer, size_t n);
+
+        /** \brief Read and decode an unsigned integer from a byte stream.
+         *
+         * This function performs the same task as tide::ebml_int::decode_u(),
+         * but instead of reading from a basic buffer, it reads from a
+         * std::istream object.
+         *
+         * \param[in] input The std::istream object to read from.
+         * \param[in] n The number of bytes from the buffer to read.
+         * \return The decoded unsigned integer.
+         * \exception ReadError if there is an error reading the input stream.
+         */
+        uint64_t read_u(std::istream& input, size_t n);
+
+        /** \brief Read and decode a signed integer from a byte stream.
+         *
+         * This function performs the same task as tide::ebml_int::decode_s(),
+         * but instead of reading from a basic buffer, it reads from a
+         * std::istream object.
+         *
+         * \param[in] input The std::istream object to read from.
+         * \param[in] n The number of bytes from the buffer to read.
+         * \return The decoded signed integer.
+         * \exception ReadError if there is an error reading the input stream.
+         */
+        uint64_t read_s(std::istream& input, size_t n);
     }; // namespace ebml_int
 }; // namespace tide
 

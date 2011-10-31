@@ -32,6 +32,7 @@
 #include <istream>
 #include <ostream>
 #include <stdint.h>
+#include <utility>
 
 /// \addtogroup utilities Utilities
 /// @{
@@ -68,9 +69,9 @@ namespace tide
 
         /** \brief Encode an unsigned integer into a buffer.
          *
-         * Encodes an unsigned integer according to the EBML specification for
-         * variable-length integers. Leading zero bits are used to indicate the
-         * length of the encoded integer in bytes.
+         * Encodes an unsigned variable-length integer according to the EBML
+         * specification. Leading zero bits are used to indicate the length of
+         * the encoded integer in bytes.
          *
          * \param[in] integer The integer to encode.
          * \param[in] buffer A pointer to the buffer into which to put the
@@ -90,18 +91,40 @@ namespace tide
          *
          * \param[in] buffer The buffer holding the raw data.
          * \param[in] n The length of the buffer available for reading.
-         * \return The decoded unsigned integer.
+         * \return A pair containing the decoded unsigned integer in the first
+         * and the number of bytes used from the buffer in the second.
          * \exception InvalidVarInt if the first byte in the buffer is
          * zero, an invalid starting byte for a variable-length integer.
          * \exception BufferTooSmall if the expected encoded length of the
          * variable-length integer is larger than the available buffer length.
          */
-        uint64_t decode(uint8_t const* buffer, size_t n);
+        std::pair<uint64_t, size_t> decode(uint8_t const* buffer, size_t n);
 
-        std::basic_ostream<uint8_t>& write(uint64_t integer,
-                std::basic_ostream<uint8_t>& output);
+        /** \brief Encode an unsigned integer and write it to an output stream.
+         *
+         * This function performs the same task as tide::vint::encode(), but it
+         * writes the result to a std::ostream instead of a simple buffer.
+         *
+         * \param[in] integer The integer to encode.
+         * \param[in] output The std::ostream object to write the encoded
+         * integer to.
+         * \return The number of bytes written.
+         * \exception VarIntTooBig if the integer is above the maximum value
+         * for variable-length integers (0xFFFFFFFFFFFFFF).
+         * \exception WriteError if there is an error writing to the stream.
+         */
+        size_t write(uint64_t integer, std::ostream& output);
 
-        uint64_t read(std::basic_istream<uint8_t>& input);
+        /** \brief Decode an unsigned integer from an input stream.
+         *
+         * This function performs the same task as tide::vint::decode(), but it
+         * reads the bytes from the input stream rather than a simple buffer.
+         *
+         * \param[in] input The std::istream object to read bytes from.
+         * \return A pair containing the value read in the first and the number
+         * of bytes read from the stream in the second.
+         */
+        std::pair<uint64_t, size_t> read(std::istream& input);
     }; // namespace vint
 }; // namespace tide
 

@@ -26,17 +26,29 @@
  */
 
 #include <tide/int_element.h>
+#include <tide/ebml_int.h>
+#include <tide/vint.h>
 
 using namespace tide;
 
 
-std::streamsize IntElement::write(std::ostream& output)
+///////////////////////////////////////////////////////////////////////////////
+// I/O
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize IntElement::write_id(std::ostream& output)
+{
+    //vint::write(id_, output);
+    return 0;
+}
+
+std::streamsize IntElement::write_body(std::ostream& output)
 {
     return 0;
 }
 
 
-std::streamsize IntElement::read(std::istream& input)
+std::streamsize IntElement::read_body(std::istream& input)
 {
     return 0;
 }

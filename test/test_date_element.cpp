@@ -1,6 +1,6 @@
 /* TIDE
  *
- * Unsigned integer element tests.
+ * Date element tests.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group

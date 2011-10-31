@@ -99,3 +99,40 @@
     }
 }
 
+
+::testing::AssertionResult test_utils::std_buffers_eq(char const* b1_expr,
+        char const* b2_expr, std::string const& b1, std::string const& b2)
+{
+    if (b1.size() != b2.size())
+    {
+        return ::testing::AssertionFailure() << b1_expr << " length (" <<
+            b1.size() << ") != " << b2_expr << " length (" << b2.size() << ')';
+    }
+    if (strncmp(reinterpret_cast<char const*>(b1.c_str()),
+            reinterpret_cast<char const*>(b2.c_str()), b1.size()) == 0)
+    {
+        return ::testing::AssertionSuccess();
+    }
+    else
+    {
+        std::stringstream b1_str;
+        b1_str << std::hex;
+        b1_str.width(2);
+        b1_str.fill('0');
+        for (size_t ii(0); ii < b1.size(); ++ii)
+        {
+            b1_str << static_cast<int>(b1[ii]);
+        }
+        std::stringstream b2_str;
+        b2_str << std::hex;
+        b2_str.width(2);
+        b2_str.fill('0');
+        for (size_t ii(0); ii < b2.size(); ++ii)
+        {
+            b2_str << static_cast<int>(b2[ii]);
+        }
+        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
+            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
+    }
+}
+

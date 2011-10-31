@@ -47,11 +47,9 @@ namespace tide
      * zero or more sub-elements. Each element has a unique ID within the
      * format.
      *
-     * This interface is very generic. It provides access to the element's ID.
-     * Specialisations are required to provide data access, typically in the
-     * form of members. Futher specialisations of those should provide
-     * facilities for reading from and writing to a store, such as an EBML
-     * file.
+     * This interface provides the most basic element facilities. It provides
+     * the element's ID and an abstract interface to read and write elements to
+     * a byte stream.
      */
     class TIDE_EXPORT Element
     {
@@ -93,7 +91,7 @@ namespace tide
              * advantage of this, you should use higher IDs for elements that
              * occur less frequently, such as the top-level elements.
              */
-            uint32_t id() const { return id_; }
+            virtual uint32_t id() const { return id_; }
 
             /** \brief Set the element's ID.
              *
@@ -102,23 +100,43 @@ namespace tide
              * \param[in] id The element's new ID, as an unsigned integer up to
              * 28 bits.
              */
-            void id(uint32_t id);
+            virtual void id(uint32_t id);
 
             /// \brief Assignment operator.
             virtual Element& operator=(Element const& rhs);
 
-            /** \brief Element storage.
+            /** \brief Element writing.
              *
-             * Writes the element to a byte store providing a std::ostream
-             * interface.
+             * Writes the entire element, including its ID, body size and body
+             * data, to a byte stream providing a std::ostream interface.
+             *
+             * \param[in] output The destination byte stream to write to.
+             * \return The number of bytes written.
+             */
+            virtual std::streamsize write(std::ostream& output);
+
+            /** \brief Element ID writing.
+             *
+             * Writes the element's EBML ID to a byte stream providing a
+             * std::ostream interface. Up to 4 bytes may be written.
+             *
+             * \param[in] output The destination byte stream to write to.
+             * \return The number of bytes written.
+             */
+            virtual std::streamsize write_id(std::ostream& output) = 0;
+
+            /** \brief Element body writing.
+             *
+             * Writes the element's size and body to a byte stream providing a
+             * std::ostream interface.
              *
              * \return The number of bytes written.
              */
-            virtual std::streamsize write(std::ostream& output) = 0;
+            virtual std::streamsize write_body(std::ostream& output) = 0;
 
-            /** \brief Element loading.
+            /** \brief Element body loading.
              *
-             * Reads the element from a byte store providing a std::ostream
+             * Reads the element from a byte stream providing a std::ostream
              * interface.
              *
              * This method assumes that the Element ID has already been read
@@ -128,8 +146,8 @@ namespace tide
              *
              * \return The number of bytes read.
              */
-            virtual std::streamsize read(std::istream& input) = 0;
-        private:
+            virtual std::streamsize read_body(std::istream& input) = 0;
+        protected:
             uint32_t id_;
     }; // class Element
 }; // namespace tide

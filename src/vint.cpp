@@ -74,13 +74,15 @@ size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n)
 {
     assert(n > 0);
 
+    // Short-circuit optimisations for common values
     unsigned int shifts(0);
     uint8_t mask(0);
 
     if (integer < 0x80)
     {
-        shifts = 0;
-        mask = 0x80;
+        // Short-circuit the byte-copying machinery.
+        buffer[0] = integer | 0x80;
+        return 1;
     }
     else if (integer < 0x4000)
     {
@@ -140,7 +142,7 @@ size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n)
 }
 
 
-uint64_t tide::vint::decode(uint8_t const* buffer, size_t n)
+std::pair<uint64_t, size_t> tide::vint::decode(uint8_t const* buffer, size_t n)
 {
     assert(n > 0);
 
@@ -148,8 +150,8 @@ uint64_t tide::vint::decode(uint8_t const* buffer, size_t n)
     size_t to_copy(0);
     if (buffer[0] >= 0x80) // 1 byte
     {
-        result = buffer[0] & 0x7F;
-        to_copy = 0;
+        // There will be no extra bytes to copy.
+        return std::make_pair(buffer[0] & 0x7F, 1);
     }
     else if (buffer[0] >= 0x40) // 2 bytes
     {
@@ -204,20 +206,20 @@ uint64_t tide::vint::decode(uint8_t const* buffer, size_t n)
         result <<= 8;
         result += buffer[ii];
     }
-    return result;
+    return std::make_pair(result, to_copy + 1);
 }
 
 
-std::basic_ostream<uint8_t>& tide::vint::write(uint64_t integer,
-        std::basic_ostream<uint8_t>& output)
+size_t tide::vint::write(uint64_t integer, std::ostream& output)
 {
     unsigned int shifts(0);
     uint8_t mask(0);
 
     if (integer < 0x80)
     {
-        shifts = 0;
-        mask = 0x80;
+        // Short-circuit the byte-copying machinery.
+        output.put(integer | 0x80);
+        return 1;
     }
     else if (integer < 0x4000)
     {
@@ -271,23 +273,22 @@ std::basic_ostream<uint8_t>& tide::vint::write(uint64_t integer,
         throw tide::WriteError() << tide::err_pos(output.tellp());
     }
 
-    return output;
+    return shifts + 1;
 }
 
 
-uint64_t tide::vint::read(std::basic_istream<uint8_t>& input)
+std::pair<uint64_t, size_t> tide::vint::read(std::istream& input)
 {
     uint64_t result(0);
     std::streamsize to_copy(0);
-    uint8_t buffer[8];
+    char buffer[8];
 
     // Read the first byte
     buffer[0] = input.get();
     // Check the size
     if (buffer[0] >= 0x80) // 1 byte
     {
-        result = buffer[0] & 0x7F;
-        to_copy = 0;
+        return std::make_pair(buffer[0] & 0x7F, 1);
     }
     else if (buffer[0] >= 0x40) // 2 bytes
     {
@@ -342,6 +343,6 @@ uint64_t tide::vint::read(std::basic_istream<uint8_t>& input)
         result <<= 8;
         result += buffer[ii];
     }
-    return result;
+    return std::make_pair(result, to_copy + 1);
 }
 

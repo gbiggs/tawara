@@ -46,6 +46,10 @@ namespace test_utils
         std::basic_string<uint8_t> const& b1,
         std::basic_string<uint8_t> const& b2);
 
+// Tests if two std::string buffers are equal.
+::testing::AssertionResult std_buffers_eq(char const* b1_expr,
+        char const* b2_expr, std::string const& b1, std::string const& b2);
+
 }; // test_utils
 
 #endif // TIDE_TEST_UTILS_H_

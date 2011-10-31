@@ -1,6 +1,6 @@
 /* TIDE
  *
- * Unsigned integer element tests.
+ * Signed integer element tests.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,11 +25,50 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tide/int_element.h>
 #include <gtest/gtest.h>
+#include <tide/ebml_int.h>
 #include <tide/exceptions.h>
+#include <tide/int_element.h>
+#include <tide/vint.h>
 
 #include "test_consts.h"
+#include "utils.h"
+
+
+namespace test_intel
+{
+
+void fill_buffer(std::string& b, uint32_t id, int64_t data,
+        bool write_id, bool write_body)
+{
+    uint8_t temp[8];
+    size_t n(0), size(0);
+    if (write_id)
+    {
+        n = tide::vint::encode(id, temp, 8);
+        for (size_t ii(0); ii < n; ++ii)
+        {
+            b.push_back(temp[n]);
+        }
+    }
+    if (write_body)
+    {
+        size = tide::ebml_int::coded_size_s(data);
+        n = tide::vint::encode(size, temp, 8);
+        for (size_t ii(0); ii < n; ++ii)
+        {
+            b.push_back(temp[n]);
+        }
+        n = tide::ebml_int::encode_s(data, temp, 8);
+        for (size_t ii(0); ii < n; ++ii)
+        {
+            b.push_back(temp[n]);
+        }
+    }
+}
+
+}; // namespace test_intel
+
 
 TEST(IntElement, Construction)
 {
@@ -154,7 +193,43 @@ TEST(IntElement, Value)
 
 TEST(IntElement, Write)
 {
-    std::stringstream output;
+    std::ostringstream output;
+    std::string expected;
+    tide::IntElement e1(0x01, 2);
+
+    test_intel::fill_buffer(expected, 0x01, 2, false, true);
+    e1.write_body(output);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_intel::fill_buffer(expected, 0x01, 2, true, false);
+    e1.write_id(output);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_intel::fill_buffer(expected, 0x01, 2, true, true);
+    e1.write(output);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    e1.value(-0x839F18AA);
+
+    test_intel::fill_buffer(expected, 0x01, 2, false, true);
+    e1.write_body(output);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_intel::fill_buffer(expected, 0x01, 2, true, false);
+    e1.write_id(output);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_intel::fill_buffer(expected, 0x01, 2, true, true);
+    e1.write(output);
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
 

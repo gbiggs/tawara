@@ -1,6 +1,6 @@
 /* TIDE
  *
- * Source file for the file implementation of the TIDE interface.
+ * Source file for the void element object.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,41 +25,26 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tide/element.h>
+#include <tide/void_element.h>
 
 #include <tide/exceptions.h>
 
 using namespace tide;
 
+
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-Element::Element(uint32_t id)
-    : id_(id)
+VoidElement::VoidElement(size_t size, bool fill)
+    : Element(0xEC), size_(size), fill_(fill)
 {
-    if (id_ == 0 ||
-            id_ == 0xFF ||
-            id_ == 0xFFFF ||
-            id_ == 0xFFFFFF ||
-            id_ == 0xFFFFFFFF)
-    {
-        throw InvalidElementID() << err_id(id_);
-    }
 }
 
 
-Element::Element(Element const& rhs)
-    : id_(rhs.id_)
+VoidElement::VoidElement(VoidElement const& rhs)
+    : Element(rhs), size_(rhs.size_), fill_(rhs.fill_)
 {
-    if (id_ == 0 ||
-            id_ == 0xFF ||
-            id_ == 0xFFFF ||
-            id_ == 0xFFFFFF ||
-            id_ == 0xFFFFFFFF)
-    {
-        throw InvalidElementID() << err_id(id_);
-    }
 }
 
 
@@ -67,17 +52,9 @@ Element::Element(Element const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-void Element::id(uint32_t id)
+void VoidElement::id(uint32_t id)
 {
-    if (id == 0 ||
-            id == 0xFF ||
-            id == 0xFFFF ||
-            id == 0xFFFFFF ||
-            id == 0xFFFFFFFF)
-    {
-        throw InvalidElementID() << err_id(id);
-    }
-    id_ = id;
+    throw InvalidElementID() << err_id(id);
 }
 
 
@@ -85,17 +62,11 @@ void Element::id(uint32_t id)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-Element& Element::operator=(Element const& rhs)
+VoidElement& VoidElement::operator=(VoidElement const& rhs)
 {
-    if (rhs.id_ == 0 ||
-            rhs.id_ == 0xFF ||
-            rhs.id_ == 0xFFFF ||
-            rhs.id_ == 0xFFFFFF ||
-            rhs.id_ == 0xFFFFFFFF)
-    {
-        throw InvalidElementID() << err_id(rhs.id_);
-    }
-    id_ = rhs.id_;
+    Element::operator=(rhs);
+    size_ = rhs.size_;
+    fill_ = rhs.fill_;
     return *this;
 }
 
@@ -104,8 +75,19 @@ Element& Element::operator=(Element const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize Element::write(std::ostream& output)
+std::streamsize VoidElement::write_id(std::ostream& output)
 {
-    return write_id(output) + write_body(output);
+    return 0;
+}
+
+std::streamsize VoidElement::write_body(std::ostream& output)
+{
+    return 0;
+}
+
+
+std::streamsize VoidElement::read_body(std::istream& input)
+{
+    return 0;
 }
 

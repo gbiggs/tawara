@@ -114,11 +114,6 @@ size_t tide::ebml_int::coded_size_s(int64_t integer)
 size_t tide::ebml_int::encode_u(uint64_t integer, uint8_t* buffer,
         size_t n)
 {
-    if (integer == 0)
-    {
-        // Zero values are encoded as nothing
-        return 0;
-    }
     size_t size(coded_size_u(integer));
     if (n < size)
     {

@@ -30,13 +30,22 @@
 using namespace tide;
 
 
-std::streamsize StringElement::write(std::ostream& output)
+///////////////////////////////////////////////////////////////////////////////
+// I/O
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize StringElement::write_id(std::ostream& output)
+{
+    return 0;
+}
+
+std::streamsize StringElement::write_body(std::ostream& output)
 {
     return 0;
 }
 
 
-std::streamsize StringElement::read(std::istream& input)
+std::streamsize StringElement::read_body(std::istream& input)
 {
     return 0;
 }

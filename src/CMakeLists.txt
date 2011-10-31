@@ -7,7 +7,8 @@ set(srcs tide_file.cpp
     float_element.cpp
     string_element.cpp
     date_element.cpp
-    binary_element.cpp)
+    binary_element.cpp
+    void_element.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 

@@ -30,13 +30,22 @@
 using namespace tide;
 
 
-std::streamsize DateElement::write(std::ostream& output)
+///////////////////////////////////////////////////////////////////////////////
+// I/O
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize DateElement::write_id(std::ostream& output)
+{
+    return 0;
+}
+
+std::streamsize DateElement::write_body(std::ostream& output)
 {
     return 0;
 }
 
 
-std::streamsize DateElement::read(std::istream& input)
+std::streamsize DateElement::read_body(std::istream& input)
 {
     return 0;
 }

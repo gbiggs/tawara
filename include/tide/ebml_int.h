@@ -25,8 +25,8 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_VINT_H_)
-#define TIDE_VINT_H_
+#if !defined(TIDE_EBML_INT_H_)
+#define TIDE_EBML_INT_H_
 
 #include <cstddef>
 #include <istream>
@@ -128,6 +128,6 @@ namespace tide
     }; // namespace ebml_int
 }; // namespace tide
 
-#endif // TIDE_VINT_H_
+#endif // TIDE_EBML_INT_H_
 
 

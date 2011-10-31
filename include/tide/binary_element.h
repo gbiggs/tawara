@@ -70,19 +70,28 @@ namespace tide
             {
             }
 
-            /** \brief Element storage.
+            /** \brief Element ID writing.
              *
-             * Writes the element to a byte store providing a std::ostream
-             * interface.
+             * Writes the element's EBML ID to a byte stream providing a
+             * std::ostream interface. Up to 4 bytes may be written.
              *
              * \param[in] output The destination byte stream to write to.
              * \return The number of bytes written.
              */
-            virtual std::streamsize write(std::ostream& output);
+            virtual std::streamsize write_id(std::ostream& output);
 
-            /** \brief Element loading.
+            /** \brief Element body writing.
              *
-             * Reads the element from a byte store providing a std::ostream
+             * Writes the element's size and body to a byte stream providing a
+             * std::ostream interface.
+             *
+             * \return The number of bytes written.
+             */
+            virtual std::streamsize write_body(std::ostream& output);
+
+            /** \brief Element body loading.
+             *
+             * Reads the element from a byte stream providing a std::ostream
              * interface.
              *
              * This method assumes that the Element ID has already been read
@@ -90,10 +99,9 @@ namespace tide
              * reading), which means that the file's read pointer should be
              * positioned at the first byte of the element's size.
              *
-             * \param[in] input The source byte stream to read from.
              * \return The number of bytes read.
              */
-            virtual std::streamsize read(std::istream& input);
+            virtual std::streamsize read_body(std::istream& input);
     }; // class BinaryElement
 }; // namespace tide
 

@@ -25,13 +25,14 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test_consts.h"
-#include "utils.h"
+#include <tide/binary_element.h>
 
 #include <gtest/gtest.h>
 #include <string>
-#include <tide/binary_element.h>
 #include <tide/exceptions.h>
+
+#include "test_consts.h"
+#include "test_utils.h"
 
 
 class BinaryElementTest : public ::testing::Test

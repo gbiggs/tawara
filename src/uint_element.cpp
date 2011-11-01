@@ -27,26 +27,63 @@
 
 #include <tide/uint_element.h>
 
+#include <tide/ebml_int.h>
+#include <tide/vint.h>
+
 using namespace tide;
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+UIntElement& UIntElement::operator=(uint64_t const& rhs)
+{
+    value_ = rhs;
+    return *this;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize UIntElement::write_id(std::ostream& output)
+std::streamsize UIntElement::write_id(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    return tide::vint::write(id_, output);
 }
 
-std::streamsize UIntElement::write_body(std::ostream& output)
+std::streamsize UIntElement::write_body(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    size_t result(0);
+
+    result += tide::vint::write(size(), output);
+    result += tide::ebml_int::write_u(value_, output);
+    return result;
 }
 
 
-std::streamsize UIntElement::read_body(std::istream& input)
+std::streamsize UIntElement::read_body(std::basic_istream<uint8_t>& input)
 {
-    return 0;
+    std::pair<uint64_t, size_t> result;
+
+    result = tide::vint::read(input);
+    value_ = tide::ebml_int::read_u(input, result.first);
+    return result.second + result.first;
+}
+
+
+size_t UIntElement::size() const
+{
+    return tide::ebml_int::coded_size_u(value_);
+}
+
+
+size_t UIntElement::total_size() const
+{
+    size_t data_size(size());
+    // The size value will always be 1 byte, as the data cannot use more than 8
+    // bytes.
+    return tide::vint::coded_size(id_) + 1 + data_size;
 }
 

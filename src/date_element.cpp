@@ -27,26 +27,73 @@
 
 #include <tide/date_element.h>
 
+#include <tide/ebml_int.h>
+#include <tide/exceptions.h>
+#include <tide/vint.h>
+
 using namespace tide;
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+DateElement& DateElement::operator=(int64_t const& rhs)
+{
+    value_ = rhs;
+    return *this;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize DateElement::write_id(std::ostream& output)
+std::streamsize DateElement::write_id(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    return tide::vint::write(id_, output);
 }
 
-std::streamsize DateElement::write_body(std::ostream& output)
+std::streamsize DateElement::write_body(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    size_t result = tide::vint::write(size(), output);
+    output.write(reinterpret_cast<uint8_t*>(&value_), 8);
+    return result + 8;
 }
 
 
-std::streamsize DateElement::read_body(std::istream& input)
+std::streamsize DateElement::read_body(std::basic_istream<uint8_t>& input)
 {
-    return 0;
+    std::pair<uint64_t, size_t> result;
+
+    result = tide::vint::read(input);
+    if (result.first != 8)
+    {
+        throw BadElementLength() << err_pos(input.tellg()) << err_id(id_) <<
+            err_valid_sizes(std::vector<size_t>(1, 8)) <<
+            err_el_size(result.first);
+    }
+    input.read(reinterpret_cast<uint8_t*>(&value_), 8);
+    if (!input)
+    {
+        throw ReadError() << err_pos(input.tellg());
+    }
+    return result.second + 8;
+}
+
+
+size_t DateElement::size() const
+{
+    // Dates are always stored as the full 8 bytes
+    return 8;
+}
+
+
+size_t DateElement::total_size() const
+{
+    size_t data_size(size());
+    // The size value will always be 1 byte, as the data cannot use more than 8
+    // bytes.
+    return tide::vint::coded_size(id_) + 1 + data_size;
 }
 

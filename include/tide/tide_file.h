@@ -32,7 +32,7 @@
 #include <tide/win_dll.h>
 
 #include <fstream>
-#include <iostream>
+#include <ostream>
 #include <string>
 
 /// \addtogroup implementations Implementations

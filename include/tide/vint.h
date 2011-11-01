@@ -103,31 +103,33 @@ namespace tide
         /** \brief Encode an unsigned integer and write it to an output stream.
          *
          * This function performs the same task as tide::vint::encode(), but it
-         * writes the result to a std::ostream instead of a simple buffer.
+         * writes the result to a std::basic_ostream<uint8_t> instead of a
+         * simple buffer.
          *
          * \param[in] integer The integer to encode.
-         * \param[in] output The std::ostream object to write the encoded
-         * integer to.
+         * \param[in] output The std::basic_ostream<uint8_t> object to write
+         * the encoded integer to.
          * \return The number of bytes written.
          * \exception VarIntTooBig if the integer is above the maximum value
          * for variable-length integers (0xFFFFFFFFFFFFFF).
          * \exception WriteError if there is an error writing to the stream.
          */
-        size_t write(uint64_t integer, std::ostream& output);
+        size_t write(uint64_t integer, std::basic_ostream<uint8_t>& output);
 
         /** \brief Decode an unsigned integer from an input stream.
          *
          * This function performs the same task as tide::vint::decode(), but it
          * reads the bytes from the input stream rather than a simple buffer.
          *
-         * \param[in] input The std::istream object to read bytes from.
+         * \param[in] input The std::basic_istream<uint8_t> object to read
+         * bytes from.
          * \return A pair containing the value read in the first and the number
          * of bytes read from the stream in the second.
          * \exception InvalidVarInt if the variable-length integer in the byte
          * stream is invalid.
          * \exception ReadError if there is an error reading the input stream.
          */
-        std::pair<uint64_t, size_t> read(std::istream& input);
+        std::pair<uint64_t, size_t> read(std::basic_istream<uint8_t>& input);
     }; // namespace vint
 }; // namespace tide
 

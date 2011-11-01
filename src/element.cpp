@@ -104,7 +104,7 @@ Element& Element::operator=(Element const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize Element::write(std::ostream& output)
+std::streamsize Element::write(std::basic_ostream<uint8_t>& output)
 {
     return write_id(output) + write_body(output);
 }

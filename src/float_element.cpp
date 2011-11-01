@@ -27,26 +27,98 @@
 
 #include <tide/float_element.h>
 
+#include <tide/exceptions.h>
+#include <tide/vint.h>
+#include <vector>
+
 using namespace tide;
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+FloatElement& FloatElement::operator=(double const& rhs)
+{
+    value_ = rhs;
+    return *this;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize FloatElement::write_id(std::ostream& output)
+std::streamsize FloatElement::write_id(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    return tide::vint::write(id_, output);
 }
 
-std::streamsize FloatElement::write_body(std::ostream& output)
+std::streamsize FloatElement::write_body(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    size_t result(0);
+    result += tide::vint::write(size(), output);
+    switch(prec_)
+    {
+        case EBML_FLOAT_PREC_SINGLE:
+            float tmp(value_);
+            output.write(reinterpret_cast<uint8_t*>(&tmp), 4);
+            result += 4;
+            break;
+        case EBML_FLOAT_PREC_DOUBLE:
+            output.write(reinterpret_cast<uint8_t*>(&value_), 8);
+            result += 8;
+            break;
+    };
+    return result;
 }
 
 
-std::streamsize FloatElement::read_body(std::istream& input)
+std::streamsize FloatElement::read_body(std::basic_istream<uint8_t>& input)
 {
-    return 0;
+    std::pair<uint64_t, size_t> result;
+
+    result = tide::vint::read(input);
+    if (result.first == 4)
+    {
+        float tmp(0);
+        input.read(reinterpret_cast<uint8_t*>(&tmp), 4);
+        value_ = tmp;
+        prec_ = EBML_FLOAT_PREC_SINGLE;
+    }
+    else if (result.first == 8)
+    {
+        double tmp(0);
+        input.read(reinterpret_cast<uint8_t*>(&tmp), 8);
+        value_ = tmp;
+        prec_ = EBML_FLOAT_PREC_SINGLE;
+    }
+    else
+    {
+        std::vector<size_t> valid_sizes;
+        valid_sizes.push_back(4); valid_sizes.push_back(8);
+        throw BadElementLength() << err_pos(input.tellg()) << err_id(id_) <<
+            err_valid_sizes(valid_sizes) << err_el_size(result.first);
+    }
+}
+
+
+size_t FloatElement::size() const
+{
+    switch(prec_)
+    {
+        case EBML_FLOAT_PREC_SINGLE:
+            return 4;
+        case EBML_FLOAT_PREC_DOUBLE:
+            return 8;
+    };
+}
+
+
+size_t FloatElement::total_size() const
+{
+    // Float elements are always 4 or 8 bytes, so the data value will always be
+    // 1 byte.
+    return tide::vint::coded_size(id_) + 1 + size();
 }
 

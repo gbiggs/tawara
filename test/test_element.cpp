@@ -41,22 +41,22 @@ class FakeElement : public tide::Element
         {
         }
 
-        std::streamsize write(std::ostream& output)
+        std::streamsize write(std::basic_ostream<uint8_t>& output)
         {
             return 0;
         }
 
-        std::streamsize write_id(std::ostream& output)
+        std::streamsize write_id(std::basic_ostream<uint8_t>& output)
         {
             return 0;
         }
 
-        std::streamsize write_body(std::ostream& output)
+        std::streamsize write_body(std::basic_ostream<uint8_t>& output)
         {
             return 0;
         }
 
-        std::streamsize read_body(std::istream& input)
+        std::streamsize read_body(std::basic_istream<uint8_t>& input)
         {
             return 0;
         }

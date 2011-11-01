@@ -25,7 +25,7 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "utils.h"
+#include "test_utils.h"
 
 #include <gtest/gtest.h>
 
@@ -79,20 +79,16 @@
     else
     {
         std::stringstream b1_str;
-        b1_str << std::hex;
-        b1_str.width(2);
-        b1_str.fill('0');
         for (size_t ii(0); ii < b1.size(); ++ii)
         {
-            b1_str << static_cast<int>(b1[ii]);
+            b1_str << std::hex << std::setw(2) << std::setfill('0') <<
+                (static_cast<unsigned int>(b1[ii]) & 0xFF);
         }
         std::stringstream b2_str;
-        b2_str << std::hex;
-        b2_str.width(2);
-        b2_str.fill('0');
         for (size_t ii(0); ii < b2.size(); ++ii)
         {
-            b2_str << static_cast<int>(b2[ii]);
+            b2_str << std::hex << std::setw(2) << std::setfill('0') <<
+                (static_cast<unsigned int>(b2[ii]) & 0xFF);
         }
         return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
             b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
@@ -121,7 +117,7 @@
         b1_str.fill('0');
         for (size_t ii(0); ii < b1.size(); ++ii)
         {
-            b1_str << static_cast<int>(b1[ii]);
+            b1_str << (static_cast<unsigned int>(b1[ii]) & 0xFF) << ' ';
         }
         std::stringstream b2_str;
         b2_str << std::hex;
@@ -129,10 +125,11 @@
         b2_str.fill('0');
         for (size_t ii(0); ii < b2.size(); ++ii)
         {
-            b2_str << static_cast<int>(b2[ii]);
+            b2_str << (static_cast<unsigned int>(b2[ii]) & 0xFF) << ' ';
         }
-        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
-            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
+        return ::testing::AssertionFailure() << b1_expr << " (" << b1.size() <<
+            ") : 0x" << b1_str.str() << '\t' << b2_expr << " (" << b2.size() <<
+            ") : 0x" << b2_str.str();
     }
 }
 

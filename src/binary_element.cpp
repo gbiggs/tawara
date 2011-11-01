@@ -27,26 +27,53 @@
 
 #include <tide/binary_element.h>
 
+#include <tide/vint.h>
+
 using namespace tide;
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+BinaryElement& BinaryElement::operator=(std::basic_string<uint8_t> const& rhs)
+{
+    value_ = rhs;
+    return *this;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize BinaryElement::write_id(std::ostream& output)
+std::streamsize BinaryElement::write_id(std::basic_ostream<uint8_t>& output)
 {
     return 0;
 }
 
-std::streamsize BinaryElement::write_body(std::ostream& output)
+std::streamsize BinaryElement::write_body(std::basic_ostream<uint8_t>& output)
 {
     return 0;
 }
 
 
-std::streamsize BinaryElement::read_body(std::istream& input)
+std::streamsize BinaryElement::read_body(std::basic_istream<uint8_t>& input)
 {
     return 0;
+}
+
+
+size_t BinaryElement::size() const
+{
+    return 0;
+}
+
+
+size_t BinaryElement::total_size() const
+{
+    size_t data_size(size());
+    return tide::vint::coded_size(id_) + tide::vint::coded_size(data_size) +
+        data_size;
 }
 

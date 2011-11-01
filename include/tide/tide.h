@@ -31,7 +31,8 @@
 #include <tide/win_dll.h>
 
 #include <boost/utility.hpp>
-#include <iostream>
+#include <ostream>
+#include <stdint.h>
 #include <string>
 
 /// \addtogroup interfaces Interfaces

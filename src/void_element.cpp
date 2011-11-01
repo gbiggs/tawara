@@ -28,6 +28,7 @@
 #include <tide/void_element.h>
 
 #include <tide/exceptions.h>
+#include <tide/vint.h>
 
 using namespace tide;
 
@@ -58,6 +59,13 @@ void VoidElement::id(uint32_t id)
 }
 
 
+size_t VoidElement::total_size() const
+{
+    // ID is always 1 byte
+    return 1 + tide::vint::coded_size(size_) + size_;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
@@ -75,18 +83,18 @@ VoidElement& VoidElement::operator=(VoidElement const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize VoidElement::write_id(std::ostream& output)
+std::streamsize VoidElement::write_id(std::basic_ostream<uint8_t>& output)
 {
     return 0;
 }
 
-std::streamsize VoidElement::write_body(std::ostream& output)
+std::streamsize VoidElement::write_body(std::basic_ostream<uint8_t>& output)
 {
     return 0;
 }
 
 
-std::streamsize VoidElement::read_body(std::istream& input)
+std::streamsize VoidElement::read_body(std::basic_istream<uint8_t>& input)
 {
     return 0;
 }

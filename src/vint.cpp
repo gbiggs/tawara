@@ -73,6 +73,7 @@ size_t tide::vint::coded_size(uint64_t integer)
 size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n)
 {
     assert(n > 0);
+    assert(n <= 8);
 
     // Short-circuit optimisations for common values
     unsigned int shifts(0);
@@ -145,6 +146,7 @@ size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n)
 std::pair<uint64_t, size_t> tide::vint::decode(uint8_t const* buffer, size_t n)
 {
     assert(n > 0);
+    assert(n <= 8);
 
     uint64_t result(0);
     size_t to_copy(0);
@@ -210,7 +212,7 @@ std::pair<uint64_t, size_t> tide::vint::decode(uint8_t const* buffer, size_t n)
 }
 
 
-size_t tide::vint::write(uint64_t integer, std::ostream& output)
+size_t tide::vint::write(uint64_t integer, std::basic_ostream<uint8_t>& output)
 {
     unsigned int shifts(0);
     uint8_t mask(0);
@@ -219,6 +221,10 @@ size_t tide::vint::write(uint64_t integer, std::ostream& output)
     {
         // Short-circuit the byte-copying machinery.
         output.put(integer | 0x80);
+        if (!output)
+        {
+            throw tide::WriteError() << tide::err_pos(output.tellp());
+        }
         return 1;
     }
     else if (integer < 0x4000)
@@ -277,14 +283,18 @@ size_t tide::vint::write(uint64_t integer, std::ostream& output)
 }
 
 
-std::pair<uint64_t, size_t> tide::vint::read(std::istream& input)
+std::pair<uint64_t, size_t> tide::vint::read(std::basic_istream<uint8_t>& input)
 {
     uint64_t result(0);
     std::streamsize to_copy(0);
-    char buffer[8];
+    uint8_t buffer[8];
 
     // Read the first byte
-    buffer[0] = input.get();
+    input.read(buffer, 1);
+    if (input.fail())
+    {
+        throw tide::ReadError() << tide::err_pos(input.tellg());
+    }
     // Check the size
     if (buffer[0] >= 0x80) // 1 byte
     {
@@ -333,7 +343,7 @@ std::pair<uint64_t, size_t> tide::vint::read(std::istream& input)
 
     // Copy the remaining bytes
     input.read(&buffer[1], to_copy);
-    if (!input)
+    if (input.fail())
     {
         throw tide::ReadError() << tide::err_pos(input.tellg());
     }

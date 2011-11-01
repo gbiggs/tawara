@@ -81,6 +81,16 @@ namespace tide
             size_t size() const { return size_; }
             /// \brief Set the size of this element.
             void size(size_t size) { size_ = size; }
+
+            /** \brief Get the total size of the element.
+             *
+             * Returns the size, in bytes, required to store this entire
+             * element, including its ID, data size value and body.
+             *
+             * \return The size of the entire element, in bytes.
+             */
+            size_t total_size() const;
+
             /** \brief Get the fill setting.
              *
              * A void element may fill its body when written. This is typically
@@ -102,17 +112,17 @@ namespace tide
             /** \brief Element ID writing.
              *
              * Writes the element's EBML ID to a byte stream providing a
-             * std::ostream interface. Up to 4 bytes may be written.
+             * std::basic_ostream<uint8_t> interface. Up to 4 bytes may be written.
              *
              * \param[in] output The destination byte stream to write to.
              * \return The number of bytes written.
              */
-            virtual std::streamsize write_id(std::ostream& output);
+            virtual std::streamsize write_id(std::basic_ostream<uint8_t>& output);
 
             /** \brief Element body writing.
              *
              * Writes the element's size and body to a byte stream providing a
-             * std::ostream interface.
+             * std::basic_ostream<uint8_t> interface.
              *
              * Void elements may or may not fill their body with 0x00, based on
              * the setting of the fill member property. Whether or not the body
@@ -122,11 +132,11 @@ namespace tide
              *
              * \return The number of bytes written.
              */
-            virtual std::streamsize write_body(std::ostream& output);
+            virtual std::streamsize write_body(std::basic_ostream<uint8_t>& output);
 
             /** \brief Element body loading.
              *
-             * Reads the element from a byte stream providing a std::ostream
+             * Reads the element from a byte stream providing a std::basic_ostream<uint8_t>
              * interface.
              *
              * This method assumes that the Element ID has already been read
@@ -136,7 +146,7 @@ namespace tide
              *
              * \return The number of bytes read.
              */
-            virtual std::streamsize read_body(std::istream& input);
+            virtual std::streamsize read_body(std::basic_istream<uint8_t>& input);
 
         private:
             /// The size of space to reserve in the byte stream.

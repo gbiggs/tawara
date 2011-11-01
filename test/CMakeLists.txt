@@ -6,7 +6,7 @@ endif(NOT GTEST_FOUND)
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})
 
-set(srcs utils.cpp
+set(srcs test_utils.cpp
     file_open.cpp
     test_vint.cpp
     test_ebml_int.cpp

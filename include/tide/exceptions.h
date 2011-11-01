@@ -32,6 +32,8 @@
 
 #include <boost/exception/all.hpp>
 #include <exception>
+#include <stdint.h>
+#include <vector>
 
 /// \addtogroup exceptions Exceptions
 /// @{
@@ -144,6 +146,28 @@ namespace tide
      */
     struct InvalidElementID : virtual TideError {};
 
+    /** \brief A fixed-length element is truncated or lengthened in the file.
+     *
+     * Some elements are stored with a fixed length in the file:
+     * - Date elements are always 8 bytes.
+     * - Float elements are 4 or 8 bytes, depending on necessary size.
+     *
+     * If one of these elements is found with an incorrect size, this error is
+     * raised.
+     *
+     * The err_pos tag may be included to indicate where in the file the error
+     * occured.
+     *
+     * The err_id tag may be provided to indicate the ID of the element that is
+     * corrupted.
+     *
+     * The err_el_size tag may be provided, giving the size found.
+     *
+     * The err_valid_sizes tag may be provided, giving the valid sizes.
+     */
+    struct BadElementLength : virtual TideError {};
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags
 ///////////////////////////////////////////////////////////////////////////////
@@ -152,10 +176,10 @@ namespace tide
     typedef boost::error_info<struct tag_name, std::string> err_name;
 
     /// \brief Position in a Tide object, e.g. byte offset from the start.
-    typedef boost::error_info<struct tag_pos, long long int> err_pos;
+    typedef boost::error_info<struct tag_pos, std::streamsize> err_pos;
 
     /// \brief Value of a variable-length integer.
-    typedef boost::error_info<struct tag_varint, long long int> err_varint;
+    typedef boost::error_info<struct tag_varint, uint64_t> err_varint;
 
     /// \brief The size of a buffer.
     typedef boost::error_info<struct tag_bufsize, size_t> err_bufsize;
@@ -164,7 +188,14 @@ namespace tide
     typedef boost::error_info<struct tag_reqsize, size_t> err_reqsize;
 
     /// \brief An Element ID.
-    typedef boost::error_info<struct tag_id, size_t> err_id;
+    typedef boost::error_info<struct tag_id, uint32_t> err_id;
+
+    /// \brief A set of valid element sizes.
+    typedef boost::error_info<struct tag_valid_sizes, std::vector<size_t> >
+        err_valid_sizes;
+
+    /// \brief The size of an element.
+    typedef boost::error_info<struct tag_el_size, size_t> err_el_size;
 }; // namespace tide
 
 /// @}

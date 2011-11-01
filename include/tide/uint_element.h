@@ -69,29 +69,37 @@ namespace tide
             {
             }
 
+            /// \brief Value assignment operator.
+            virtual UIntElement& operator=(uint64_t const& rhs);
+
             /** \brief Element ID writing.
              *
              * Writes the element's EBML ID to a byte stream providing a
-             * std::ostream interface. Up to 4 bytes may be written.
+             * std::basic_ostream<uint8_t> interface. Up to 4 bytes may be
+             * written.
              *
              * \param[in] output The destination byte stream to write to.
              * \return The number of bytes written.
+             * \exception WriteError if an error occurs writing data.
              */
-            virtual std::streamsize write_id(std::ostream& output);
+            virtual std::streamsize write_id(
+                    std::basic_ostream<uint8_t>& output);
 
             /** \brief Element body writing.
              *
              * Writes the element's size and body to a byte stream providing a
-             * std::ostream interface.
+             * std::basic_ostream<uint8_t> interface.
              *
              * \return The number of bytes written.
+             * \exception WriteError if an error occurs writing data.
              */
-            virtual std::streamsize write_body(std::ostream& output);
+            virtual std::streamsize write_body(
+                    std::basic_ostream<uint8_t>& output);
 
             /** \brief Element body loading.
              *
-             * Reads the element from a byte stream providing a std::ostream
-             * interface.
+             * Reads the element from a byte stream providing a
+             * std::basic_ostream<uint8_t> interface.
              *
              * This method assumes that the Element ID has already been read
              * (and thus used to construct the Element instance doing the
@@ -99,8 +107,31 @@ namespace tide
              * positioned at the first byte of the element's size.
              *
              * \return The number of bytes read.
+             * \exception ReadError if an error occurs reading data.
              */
-            virtual std::streamsize read_body(std::istream& input);
+            virtual std::streamsize read_body(
+                    std::basic_istream<uint8_t>& input);
+
+            /** \brief Get the size of the body of this element.
+             *
+             * Returns the size, in bytes, required to store this element's
+             * body. This does not include the space required by the ID or the
+             * data size value.
+             *
+             * See also total_size().
+             *
+             * \return The size of the element's body, in bytes.
+             */
+            virtual size_t size() const;
+
+            /** \brief Get the total size of the element.
+             *
+             * Returns the size, in bytes, required to store this entire
+             * element, including its ID, data size value and body.
+             *
+             * \return The size of the entire element, in bytes.
+             */
+            virtual size_t total_size() const;
     }; // class UIntElement
 }; // namespace tide
 

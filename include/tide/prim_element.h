@@ -108,6 +108,9 @@ namespace tide
                 return *this;
             }
 
+            /// \brief Value assignment operator.
+            virtual PrimitiveElement& operator=(T const& rhs) = 0;
+
             /// \brief Get the value.
             virtual T value() const { return value_; }
             /// \brief Set the value.
@@ -140,7 +143,28 @@ namespace tide
             virtual bool is_default() const
                 { return value_ == default_ && has_default_; }
 
-        private:
+            /** \brief Get the size of the body of this element.
+             *
+             * Returns the size, in bytes, required to store this element's
+             * body. This does not include the space required by the ID or the
+             * data size value.
+             *
+             * See also total_size().
+             *
+             * \return The size of the element's body, in bytes.
+             */
+            virtual size_t size() const = 0;
+
+            /** \brief Get the total size of the element.
+             *
+             * Returns the size, in bytes, required to store this entire
+             * element, including its ID, data size value and body.
+             *
+             * \return The size of the entire element, in bytes.
+             */
+            virtual size_t total_size() const = 0;
+
+        protected:
             T value_;
             T default_;
             bool has_default_;

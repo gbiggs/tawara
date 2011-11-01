@@ -102,10 +102,13 @@ TEST(VoidElement, Size)
 {
     tide::VoidElement e1(8);
     EXPECT_EQ(8, e1.size());
-    e1.size(16);
-    EXPECT_EQ(16, e1.size());
+    EXPECT_EQ(10, e1.total_size());
+    e1.size(16000);
+    EXPECT_EQ(16000, e1.size());
+    EXPECT_EQ(16003, e1.total_size());
     e1.size(4);
     EXPECT_EQ(4, e1.size());
+    EXPECT_EQ(6, e1.total_size());
 }
 
 

@@ -108,35 +108,35 @@ namespace tide
             /** \brief Element writing.
              *
              * Writes the entire element, including its ID, body size and body
-             * data, to a byte stream providing a std::ostream interface.
+             * data, to a byte stream providing a std::basic_ostream<uint8_t> interface.
              *
              * \param[in] output The destination byte stream to write to.
              * \return The number of bytes written.
              */
-            virtual std::streamsize write(std::ostream& output);
+            virtual std::streamsize write(std::basic_ostream<uint8_t>& output);
 
             /** \brief Element ID writing.
              *
              * Writes the element's EBML ID to a byte stream providing a
-             * std::ostream interface. Up to 4 bytes may be written.
+             * std::basic_ostream<uint8_t> interface. Up to 4 bytes may be written.
              *
              * \param[in] output The destination byte stream to write to.
              * \return The number of bytes written.
              */
-            virtual std::streamsize write_id(std::ostream& output) = 0;
+            virtual std::streamsize write_id(std::basic_ostream<uint8_t>& output) = 0;
 
             /** \brief Element body writing.
              *
              * Writes the element's size and body to a byte stream providing a
-             * std::ostream interface.
+             * std::basic_ostream<uint8_t> interface.
              *
              * \return The number of bytes written.
              */
-            virtual std::streamsize write_body(std::ostream& output) = 0;
+            virtual std::streamsize write_body(std::basic_ostream<uint8_t>& output) = 0;
 
             /** \brief Element body loading.
              *
-             * Reads the element from a byte stream providing a std::ostream
+             * Reads the element from a byte stream providing a std::basic_ostream<uint8_t>
              * interface.
              *
              * This method assumes that the Element ID has already been read
@@ -146,7 +146,7 @@ namespace tide
              *
              * \return The number of bytes read.
              */
-            virtual std::streamsize read_body(std::istream& input) = 0;
+            virtual std::streamsize read_body(std::basic_istream<uint8_t>& input) = 0;
         protected:
             uint32_t id_;
     }; // class Element

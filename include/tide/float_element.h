@@ -40,9 +40,9 @@ namespace tide
     enum EBMLFloatPrec
     {
         /// Single precision
-        EBML_FLOAT_PREC_SINGLE;
+        EBML_FLOAT_PREC_SINGLE,
         /// Double precision
-        EBML_FLOAT_PREC_DOUBLE;
+        EBML_FLOAT_PREC_DOUBLE
     };
 
     /** Float primitive element.
@@ -59,8 +59,10 @@ namespace tide
              * bits.
              * \param[in] value The element's value.
              * \param[in] precision The element's precision, single or double.
+             * This only has an effect when writing the float to file.
              */
-            FloatElement(uint32_t id, double value, EBMLFloatPrec precision)
+            FloatElement(uint32_t id, double value,
+                    EBMLFloatPrec precision=EBML_FLOAT_PREC_DOUBLE)
                 : PrimitiveElement<double>(id, value), prec_(precision)
             {
             }
@@ -71,14 +73,28 @@ namespace tide
              * bits.
              * \param[in] value The element's value.
              * \param[in] precision The element's precision, single or double.
+             * This only has an effect when writing the float to a file.
              * \param[in] default_value The default value of the element.
              */
-            FloatElement(uint32_t id, double value, EBMLFloatPrec precision,
-                    double default_value)
+            FloatElement(uint32_t id, double value, double default_value,
+                    EBMLFloatPrec precision=EBML_FLOAT_PREC_DOUBLE)
                 : PrimitiveElement<double>(id, value, default_value),
                 prec_(precision)
             {
             }
+
+            /** \brief Get the precision setting.
+             *
+             * This value determines if the float is single or double
+             * precision. The precision value has no effect until the float is
+             * written to a file, at which point single-precision floats are
+             * written using 4 bytes while double-precision floats are written
+             * using 8 bytes.
+             */
+            virtual EBMLFloatPrec precision() const { return prec_; }
+            /// \brief Set the precision setting
+            virtual void precision(EBMLFloatPrec precision)
+            { prec_ = precision; }
 
             /// \brief Value assignment operator.
             virtual FloatElement& operator=(double const& rhs);

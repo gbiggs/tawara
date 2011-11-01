@@ -58,6 +58,10 @@ std::streamsize DateElement::write_body(std::basic_ostream<uint8_t>& output)
 {
     size_t result = tide::vint::write(size(), output);
     output.write(reinterpret_cast<uint8_t*>(&value_), 8);
+    if (!output)
+    {
+        throw WriteError() << err_pos(output.tellp());
+    }
     return result + 8;
 }
 

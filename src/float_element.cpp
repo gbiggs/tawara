@@ -56,17 +56,26 @@ std::streamsize FloatElement::write_id(std::basic_ostream<uint8_t>& output)
 
 std::streamsize FloatElement::write_body(std::basic_ostream<uint8_t>& output)
 {
+    float tmp(0);
     size_t result(0);
     result += tide::vint::write(size(), output);
     switch(prec_)
     {
         case EBML_FLOAT_PREC_SINGLE:
-            float tmp(value_);
+            tmp = value_;
             output.write(reinterpret_cast<uint8_t*>(&tmp), 4);
+            if (!output)
+            {
+                throw WriteError() << err_pos(output.tellp());
+            }
             result += 4;
             break;
         case EBML_FLOAT_PREC_DOUBLE:
             output.write(reinterpret_cast<uint8_t*>(&value_), 8);
+            if (!output)
+            {
+                throw WriteError() << err_pos(output.tellp());
+            }
             result += 8;
             break;
     };
@@ -83,15 +92,25 @@ std::streamsize FloatElement::read_body(std::basic_istream<uint8_t>& input)
     {
         float tmp(0);
         input.read(reinterpret_cast<uint8_t*>(&tmp), 4);
+        if (!input)
+        {
+            throw ReadError() << err_pos(input.tellg());
+        }
         value_ = tmp;
         prec_ = EBML_FLOAT_PREC_SINGLE;
+        return result.second + 4;
     }
     else if (result.first == 8)
     {
         double tmp(0);
         input.read(reinterpret_cast<uint8_t*>(&tmp), 8);
+        if (!input)
+        {
+            throw ReadError() << err_pos(input.tellg());
+        }
         value_ = tmp;
-        prec_ = EBML_FLOAT_PREC_SINGLE;
+        prec_ = EBML_FLOAT_PREC_DOUBLE;
+        return result.second + 8;
     }
     else
     {

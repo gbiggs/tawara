@@ -66,25 +66,46 @@ BinaryElement& BinaryElement::operator=(std::basic_string<uint8_t> const& rhs)
 
 std::streamsize BinaryElement::write_id(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    return tide::vint::write(id_, output);
 }
 
 
 std::streamsize BinaryElement::write_body(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    size_t result(0);
+
+    result += tide::vint::write(size(), output);
+    output.write(value_);
+    if (!output)
+    {
+        throw WriteError() << err_pos(output.tellp());
+    }
+    return result + value_.size();
 }
 
 
 std::streamsize BinaryElement::read_body(std::basic_istream<uint8_t>& input)
 {
-    return 0;
+    std::pair<uint64_t, size_t> result;
+
+    // Read the body size
+    result = tide::vint::read(input);
+    // Read the string itself
+    // TODO Fix this to use proper string assignment
+    value_.reserve(result.first);
+    std::streampos start(input.tellg());
+    input.read(value_.c_str(), result.first);
+    std::streampos end(input.tellg());
+    std::cout << "Read from " << start << " to " << end << " (" << end - start <<
+        ")\n";
+
+    return result.second + result.first;
 }
 
 
 size_t BinaryElement::size() const
 {
-    return 0;
+    return value_.size();
 }
 
 

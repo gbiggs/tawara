@@ -98,7 +98,17 @@ std::streamsize StringElement::read_body(std::basic_istream<uint8_t>& input)
 {
     std::pair<uint64_t, size_t> result;
 
+    // Read the body size
     result = tide::vint::read(input);
+    // Read the string itself
+    // TODO Fix this to use proper string assignment
+    value_.reserve(result.first);
+    std::streampos start(input.tellg());
+    input.read(reinterpret_cast<uint8_t*>(value_.c_str()), result.first);
+    std::streampos end(input.tellg());
+    std::cout << "Read from " << start << " to " << end << " (" << end - start <<
+        ")\n";
+
     return result.second + result.first;
 }
 

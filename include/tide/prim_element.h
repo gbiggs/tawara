@@ -87,27 +87,6 @@ namespace tide
             {
             }
 
-            /// \brief Copy constructor.
-            PrimitiveElement(PrimitiveElement const& rhs)
-                : Element(rhs),
-                value_(rhs.value_), default_(rhs.default_),
-                has_default_(rhs.has_default_)
-            {
-            }
-
-            /// \brief Destructor.
-            virtual ~PrimitiveElement() {};
-
-            /// \brief Assignment operator.
-            virtual PrimitiveElement& operator=(PrimitiveElement const& rhs)
-            {
-                Element::operator=(rhs);
-                value_ = rhs.value_;
-                default_ = rhs.default_;
-                has_default_ = rhs.has_default_;
-                return *this;
-            }
-
             /// \brief Value assignment operator.
             virtual PrimitiveElement& operator=(T const& rhs) = 0;
 

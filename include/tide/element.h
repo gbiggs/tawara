@@ -61,13 +61,13 @@ namespace tide
              */
             Element(uint32_t id);
 
-            /// \brief Copy constructor.
-            Element(Element const& rhs);
-
             /// \brief Destructor.
             virtual ~Element() {};
 
             /** Get the element's ID.
+             */
+            virtual uint32_t id() const { return id_; }
+            /** \brief Set the element's ID.
              *
              * The element's ID is an unsigned integer with a maximum size of
              * 28 bits. Some IDs are invalid:
@@ -90,20 +90,11 @@ namespace tide
              * synchronisation in the event of file corruption. To take
              * advantage of this, you should use higher IDs for elements that
              * occur less frequently, such as the top-level elements.
-             */
-            virtual uint32_t id() const { return id_; }
-
-            /** \brief Set the element's ID.
-             *
-             * \see get_id for a description of the element ID.
              *
              * \param[in] id The element's new ID, as an unsigned integer up to
              * 28 bits.
              */
             virtual void id(uint32_t id);
-
-            /// \brief Assignment operator.
-            virtual Element& operator=(Element const& rhs);
 
             /** \brief Element writing.
              *

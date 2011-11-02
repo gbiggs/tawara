@@ -27,9 +27,29 @@
 
 #include <tide/string_element.h>
 
+#include <tide/exceptions.h>
 #include <tide/vint.h>
 
 using namespace tide;
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+StringElement::StringElement(uint32_t id, std::string value)
+    : PrimitiveElement<std::string>(id, value),
+    padding_(0)
+{
+}
+
+
+StringElement::StringElement(uint32_t id, std::string value,
+        std::string default_value)
+    : PrimitiveElement<std::string>(id, value, default_value),
+    padding_(0)
+{
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,24 +69,43 @@ StringElement& StringElement::operator=(std::string const& rhs)
 
 std::streamsize StringElement::write_id(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    return tide::vint::write(id_, output);
 }
+
 
 std::streamsize StringElement::write_body(std::basic_ostream<uint8_t>& output)
 {
-    return 0;
+    size_t result(0);
+
+    result += tide::vint::write(size(), output);
+    output.write(reinterpret_cast<uint8_t const*>(value_.c_str()),
+            value_.size());
+    result += value_.size();
+    if (!output)
+    {
+        throw WriteError() << err_pos(output.tellp());
+    }
+    for (size_t ii(0); ii < padding_; ++ii)
+    {
+        output.put(0x00);
+        ++result;
+    }
+    return result;
 }
 
 
 std::streamsize StringElement::read_body(std::basic_istream<uint8_t>& input)
 {
-    return 0;
+    std::pair<uint64_t, size_t> result;
+
+    result = tide::vint::read(input);
+    return result.second + result.first;
 }
 
 
 size_t StringElement::size() const
 {
-    return 0;
+    return value_.size() + padding_;
 }
 
 

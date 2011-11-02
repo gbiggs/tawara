@@ -135,6 +135,12 @@ TEST(DateElement, Assignment)
     EXPECT_EQ(e7.id(), e8.id());
     EXPECT_EQ(e7.has_default(), e8.has_default());
     EXPECT_EQ(e7.get_default(), e8.get_default());
+
+    int v(-15000);
+    e8 = v;
+    EXPECT_EQ(v, e8.value());
+    e8 = 320000;
+    EXPECT_EQ(320000, e8.value());
 }
 
 

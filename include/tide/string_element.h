@@ -52,10 +52,7 @@ namespace tide
              * bits.
              * \param[in] value The element's value.
              */
-            StringElement(uint32_t id, std::string value)
-                : PrimitiveElement<std::string>(id, value)
-            {
-            }
+            StringElement(uint32_t id, std::string value);
 
             /** \brief Create a new string element with a default value.
              *
@@ -65,13 +62,21 @@ namespace tide
              * \param[in] default_value The default value of the element.
              */
             StringElement(uint32_t id, std::string value,
-                    std::string default_value)
-                : PrimitiveElement<std::string>(id, value, default_value)
-            {
-            }
+                    std::string default_value);
 
             /// \brief Value assignment operator.
             virtual StringElement& operator=(std::string const& rhs);
+
+            /// \brief Get the amount of padding used.
+            virtual uint64_t padding() const { return padding_; }
+            /** \brief Set the amount of padding to use.
+             *
+             * Strings can be zero-padded at the end. This is particularly
+             * useful when overwriting an existing string with one that is
+             * shorter, so that the file does not need to be rewritten or a
+             * void element used.
+             */
+            virtual void padding(uint64_t padding) { padding_ = padding; }
 
             /** \brief Element ID writing.
              *
@@ -133,6 +138,9 @@ namespace tide
              * \return The size of the entire element, in bytes.
              */
             virtual size_t total_size() const;
+
+        protected:
+            uint64_t padding_;
     }; // class StringElement
 }; // namespace tide
 

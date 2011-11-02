@@ -35,6 +35,22 @@ using namespace tide;
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+DateElement::DateElement(uint32_t id, int64_t value)
+    : PrimitiveElement<int64_t>(id, value)
+{
+}
+
+
+DateElement::DateElement(uint32_t id, int64_t value, int64_t default_value)
+    : PrimitiveElement<int64_t>(id, value, default_value)
+{
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -53,6 +69,7 @@ std::streamsize DateElement::write_id(std::basic_ostream<uint8_t>& output)
 {
     return tide::vint::write(id_, output);
 }
+
 
 std::streamsize DateElement::write_body(std::basic_ostream<uint8_t>& output)
 {

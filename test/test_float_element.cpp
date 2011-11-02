@@ -42,7 +42,7 @@ size_t fill_buffer(std::basic_string<uint8_t>& b, uint32_t id, double data,
         bool write_id, bool write_body, bool double_prec)
 {
     uint8_t temp[8];
-    size_t n(0), size(0), total(0);
+    size_t n(0), total(0);
     if (write_id)
     {
         n = tide::vint::encode(id, temp, 8);

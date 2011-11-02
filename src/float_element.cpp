@@ -35,6 +35,24 @@ using namespace tide;
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+FloatElement::FloatElement(uint32_t id, double value, EBMLFloatPrec precision)
+    : PrimitiveElement<double>(id, value), prec_(precision)
+{
+}
+
+
+FloatElement::FloatElement(uint32_t id, double value, double default_value,
+        EBMLFloatPrec precision)
+    : PrimitiveElement<double>(id, value, default_value),
+    prec_(precision)
+{
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -53,6 +71,7 @@ std::streamsize FloatElement::write_id(std::basic_ostream<uint8_t>& output)
 {
     return tide::vint::write(id_, output);
 }
+
 
 std::streamsize FloatElement::write_body(std::basic_ostream<uint8_t>& output)
 {

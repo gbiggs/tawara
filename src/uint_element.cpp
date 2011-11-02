@@ -34,6 +34,22 @@ using namespace tide;
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+UIntElement::UIntElement(uint32_t id, uint64_t value)
+    : PrimitiveElement<uint64_t>(id, value)
+{
+}
+
+
+UIntElement::UIntElement(uint32_t id, uint64_t value, uint64_t default_value)
+    : PrimitiveElement<uint64_t>(id, value, default_value)
+{
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +68,7 @@ std::streamsize UIntElement::write_id(std::basic_ostream<uint8_t>& output)
 {
     return tide::vint::write(id_, output);
 }
+
 
 std::streamsize UIntElement::write_body(std::basic_ostream<uint8_t>& output)
 {

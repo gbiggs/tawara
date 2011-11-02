@@ -33,6 +33,23 @@ using namespace tide;
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+BinaryElement::BinaryElement(uint32_t id, std::basic_string<uint8_t> value) :
+    PrimitiveElement<std::basic_string<uint8_t> >(id, value)
+{
+}
+
+
+BinaryElement::BinaryElement(uint32_t id, std::basic_string<uint8_t> value,
+        std::basic_string<uint8_t> default_value) :
+    PrimitiveElement<std::basic_string<uint8_t> >(id, value, default_value)
+{
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -51,6 +68,7 @@ std::streamsize BinaryElement::write_id(std::basic_ostream<uint8_t>& output)
 {
     return 0;
 }
+
 
 std::streamsize BinaryElement::write_body(std::basic_ostream<uint8_t>& output)
 {

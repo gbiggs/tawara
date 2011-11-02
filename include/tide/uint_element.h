@@ -52,10 +52,7 @@ namespace tide
              * bits.
              * \param[in] value The element's value.
              */
-            UIntElement(uint32_t id, uint64_t value)
-                : PrimitiveElement<uint64_t>(id, value)
-            {
-            }
+            UIntElement(uint32_t id, uint64_t value);
 
             /** \brief Create a new unsigned integer element with a default value.
              *
@@ -64,10 +61,7 @@ namespace tide
              * \param[in] value The element's value.
              * \param[in] default_value The default value of the element.
              */
-            UIntElement(uint32_t id, uint64_t value, uint64_t default_value)
-                : PrimitiveElement<uint64_t>(id, value, default_value)
-            {
-            }
+            UIntElement(uint32_t id, uint64_t value, uint64_t default_value);
 
             /// \brief Value assignment operator.
             virtual UIntElement& operator=(uint64_t const& rhs);

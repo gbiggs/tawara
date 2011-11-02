@@ -51,8 +51,7 @@ namespace tide
              * bits.
              * \param[in] value The element's value.
              */
-            BinaryElement(uint32_t id, std::basic_string<uint8_t> value) :
-                PrimitiveElement<std::basic_string<uint8_t> >(id, value) { }
+            BinaryElement(uint32_t id, std::basic_string<uint8_t> value);
 
             /** \brief Create a new binary element with a default value.
              *
@@ -62,9 +61,7 @@ namespace tide
              * \param[in] default_value The default value of the element.
              */
             BinaryElement(uint32_t id, std::basic_string<uint8_t> value,
-                    std::basic_string<uint8_t> default_value) :
-                PrimitiveElement<std::basic_string<uint8_t> >(id, value,
-                        default_value) { }
+                    std::basic_string<uint8_t> default_value);
 
             /// \brief Value assignment operator.
             virtual BinaryElement& operator=( std::basic_string<uint8_t> const&

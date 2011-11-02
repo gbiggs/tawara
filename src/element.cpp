@@ -49,20 +49,6 @@ Element::Element(uint32_t id)
 }
 
 
-Element::Element(Element const& rhs)
-    : id_(rhs.id_)
-{
-    if (id_ == 0 ||
-            id_ == 0xFF ||
-            id_ == 0xFFFF ||
-            id_ == 0xFFFFFF ||
-            id_ == 0xFFFFFFFF)
-    {
-        throw InvalidElementID() << err_id(id_);
-    }
-}
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
@@ -78,25 +64,6 @@ void Element::id(uint32_t id)
         throw InvalidElementID() << err_id(id);
     }
     id_ = id;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// Operators
-///////////////////////////////////////////////////////////////////////////////
-
-Element& Element::operator=(Element const& rhs)
-{
-    if (rhs.id_ == 0 ||
-            rhs.id_ == 0xFF ||
-            rhs.id_ == 0xFFFF ||
-            rhs.id_ == 0xFFFFFF ||
-            rhs.id_ == 0xFFFFFFFF)
-    {
-        throw InvalidElementID() << err_id(rhs.id_);
-    }
-    id_ = rhs.id_;
-    return *this;
 }
 
 

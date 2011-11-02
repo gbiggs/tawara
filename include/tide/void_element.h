@@ -57,12 +57,6 @@ namespace tide
              */
             VoidElement(size_t size, bool fill=false);
 
-            /// \brief Copy constructor.
-            VoidElement(VoidElement const& rhs);
-
-            /// \brief Assignment operator.
-            virtual VoidElement& operator=(VoidElement const& rhs);
-
             /// \brief Get the element's ID.
             virtual uint32_t id() const { return id_; }
 
@@ -73,13 +67,13 @@ namespace tide
              */
             virtual void id(uint32_t id);
 
-            /** \brief Get the size of this element.
+            /// \brief Get the size of this element.
+            size_t size() const { return size_; }
+            /** \brief Set the size of this element.
              *
              * A void element has a size value, given in bytes, which
              * determines how much space it reserves in the byte stream.
              */
-            size_t size() const { return size_; }
-            /// \brief Set the size of this element.
             void size(size_t size) { size_ = size; }
 
             /** \brief Get the total size of the element.
@@ -91,7 +85,9 @@ namespace tide
              */
             size_t total_size() const;
 
-            /** \brief Get the fill setting.
+            /// \brief Get the fill setting.
+            bool fill() const { return fill_; }
+            /** \brief Set the fill setting.
              *
              * A void element may fill its body when written. This is typically
              * used when writing it at the end of a byte stream, such as
@@ -105,8 +101,6 @@ namespace tide
              * remainder of the element's body being left as-is. Set fill to
              * false for this style of writing.
              */
-            bool fill() const { return fill_; }
-            /// \brief Set the fill setting.
             void fill(bool fill) { fill_ = fill; }
 
             /** \brief Element ID writing.

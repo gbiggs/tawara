@@ -64,19 +64,19 @@ size_t VoidElement::total_size() const
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize VoidElement::write_id(std::basic_ostream<uint8_t>& output)
+std::streamsize VoidElement::write_id(std::ostream& output)
 {
     return 0;
 }
 
 
-std::streamsize VoidElement::write_body(std::basic_ostream<uint8_t>& output)
+std::streamsize VoidElement::write_body(std::ostream& output)
 {
     return 0;
 }
 
 
-std::streamsize VoidElement::read_body(std::basic_istream<uint8_t>& input)
+std::streamsize VoidElement::read_body(std::istream& input)
 {
     return 0;
 }

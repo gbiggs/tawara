@@ -35,7 +35,7 @@
 
 TEST(VInt, Encode)
 {
-    uint8_t expected[8], buffer[8];
+    char expected[8], buffer[8];
     memset(expected, 0, sizeof(expected));
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
@@ -98,7 +98,7 @@ TEST(VInt, Encode)
 
 TEST(VInt, Decode)
 {
-    uint8_t buffer[8];
+    char buffer[8];
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
     buffer[0] = 0x80;
@@ -155,7 +155,7 @@ TEST(VInt, Decode)
 
 TEST(VInt, EncodeDecode)
 {
-    uint8_t buffer[8];
+    char buffer[8];
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
     EXPECT_EQ(1, tide::vint::encode(0x00, buffer, 8));
@@ -227,7 +227,7 @@ TEST(VInt, EncodeDecode)
 
 TEST(VInt, NoTail)
 {
-    uint8_t buffer[8];
+    char buffer[8];
     // 1xxxxxxx - No tail necessary
     buffer[0] = 0x80;
     EXPECT_NO_THROW(tide::vint::decode(buffer, 1));
@@ -257,7 +257,7 @@ TEST(VInt, NoTail)
 
 TEST(VInt, BufferTooSmall)
 {
-    uint8_t buffer[8];
+    char buffer[8];
     // 1xxxxxxx will assert
     // 01xxxxxx xxxxxxxx
     EXPECT_THROW(tide::vint::encode(0x80, buffer, 1), tide::BufferTooSmall);
@@ -278,7 +278,7 @@ TEST(VInt, BufferTooSmall)
 
 TEST(VInt, TailTooShort)
 {
-    uint8_t buffer[8];
+    char buffer[8];
     // 1xxxxxxx - No tail necessary
     buffer[0] = 0x80;
     EXPECT_NO_THROW(tide::vint::decode(buffer, 1));
@@ -308,7 +308,7 @@ TEST(VInt, TailTooShort)
 
 TEST(VInt, NoMarker)
 {
-    uint8_t buffer[8];
+    char buffer[8];
     // 1xxxxxxx - Success
     buffer[0] = 0x80;
     EXPECT_NO_THROW(tide::vint::decode(buffer, 1));
@@ -320,7 +320,7 @@ TEST(VInt, NoMarker)
 
 TEST(VInt, TooBig)
 {
-    uint8_t buffer[8], empty[8];
+    char buffer[8], empty[8];
     memset(buffer, 0, sizeof(buffer));
     memset(empty, 0, sizeof(empty));
     EXPECT_THROW(tide::vint::encode(0x100000000000001, buffer, 8),
@@ -368,8 +368,8 @@ TEST(VInt, CodedSize)
 
 TEST(VIntStream, Write)
 {
-    std::basic_ostringstream<uint8_t> buffer;
-    std::basic_ostringstream<uint8_t> expected;
+    std::ostringstream buffer;
+    std::ostringstream expected;
     // 1xxxxxxx
     expected.put(0x80);
     EXPECT_EQ(1, tide::vint::write(0x00, buffer));
@@ -427,7 +427,7 @@ TEST(VIntStream, Write)
 
 TEST(VIntStream, Read)
 {
-    std::basic_stringstream<uint8_t> buffer;
+    std::stringstream buffer;
     // 1xxxxxxx
     buffer.put(0x80);
     EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0x00, 1),
@@ -493,7 +493,7 @@ TEST(VIntStream, Read)
 
 TEST(VIntStream, WriteRead)
 {
-    std::basic_stringstream<uint8_t> buffer;
+    std::stringstream buffer;
     // 1xxxxxxx
     EXPECT_EQ(1, tide::vint::write(0x00, buffer));
     EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0x00, 1),
@@ -564,7 +564,7 @@ TEST(VIntStream, WriteRead)
 
 TEST(VIntStream, NoTail)
 {
-    std::basic_stringstream<uint8_t> buffer;
+    std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
     buffer.put(0x80);
     EXPECT_NO_THROW(tide::vint::read(buffer));
@@ -594,7 +594,7 @@ TEST(VIntStream, NoTail)
 
 TEST(VIntStream, TailTooShort)
 {
-    std::basic_stringstream<uint8_t> buffer;
+    std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
     buffer.put(0x80);
     EXPECT_NO_THROW(tide::vint::read(buffer));
@@ -627,7 +627,7 @@ TEST(VIntStream, TailTooShort)
 
 TEST(VIntStream, NoMarker)
 {
-    std::basic_stringstream<uint8_t> buffer;
+    std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
     buffer.put(0x80);
     EXPECT_NO_THROW(tide::vint::read(buffer));
@@ -639,7 +639,7 @@ TEST(VIntStream, NoMarker)
 
 TEST(VIntStream, TooBig)
 {
-    std::basic_stringstream<uint8_t> buffer;
+    std::stringstream buffer;
     EXPECT_THROW(tide::vint::write(0x100000000000001, buffer),
             tide::VarIntTooBig);
     EXPECT_EQ(0, buffer.str().size());

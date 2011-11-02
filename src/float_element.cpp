@@ -67,13 +67,13 @@ FloatElement& FloatElement::operator=(double const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize FloatElement::write_id(std::basic_ostream<uint8_t>& output)
+std::streamsize FloatElement::write_id(std::ostream& output)
 {
     return tide::vint::write(id_, output);
 }
 
 
-std::streamsize FloatElement::write_body(std::basic_ostream<uint8_t>& output)
+std::streamsize FloatElement::write_body(std::ostream& output)
 {
     float tmp(0);
     size_t result(0);
@@ -82,7 +82,7 @@ std::streamsize FloatElement::write_body(std::basic_ostream<uint8_t>& output)
     {
         case EBML_FLOAT_PREC_SINGLE:
             tmp = value_;
-            output.write(reinterpret_cast<uint8_t*>(&tmp), 4);
+            output.write(reinterpret_cast<char*>(&tmp), 4);
             if (!output)
             {
                 throw WriteError() << err_pos(output.tellp());
@@ -90,7 +90,7 @@ std::streamsize FloatElement::write_body(std::basic_ostream<uint8_t>& output)
             result += 4;
             break;
         case EBML_FLOAT_PREC_DOUBLE:
-            output.write(reinterpret_cast<uint8_t*>(&value_), 8);
+            output.write(reinterpret_cast<char*>(&value_), 8);
             if (!output)
             {
                 throw WriteError() << err_pos(output.tellp());
@@ -102,7 +102,7 @@ std::streamsize FloatElement::write_body(std::basic_ostream<uint8_t>& output)
 }
 
 
-std::streamsize FloatElement::read_body(std::basic_istream<uint8_t>& input)
+std::streamsize FloatElement::read_body(std::istream& input)
 {
     std::pair<uint64_t, size_t> result;
 
@@ -110,7 +110,7 @@ std::streamsize FloatElement::read_body(std::basic_istream<uint8_t>& input)
     if (result.first == 4)
     {
         float tmp(0);
-        input.read(reinterpret_cast<uint8_t*>(&tmp), 4);
+        input.read(reinterpret_cast<char*>(&tmp), 4);
         if (!input)
         {
             throw ReadError() << err_pos(input.tellg());
@@ -122,7 +122,7 @@ std::streamsize FloatElement::read_body(std::basic_istream<uint8_t>& input)
     else if (result.first == 8)
     {
         double tmp(0);
-        input.read(reinterpret_cast<uint8_t*>(&tmp), 8);
+        input.read(reinterpret_cast<char*>(&tmp), 8);
         if (!input)
         {
             throw ReadError() << err_pos(input.tellg());

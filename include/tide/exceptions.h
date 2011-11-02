@@ -121,6 +121,9 @@ namespace tide
      *
      * The err_pos tag may be included to indicate where in the file the error
      * occured.
+     *
+     * The err_reqsize tag may be included to indicate the size of the read
+     * that was attempted.
      */
     struct ReadError : virtual TideError {};
 
@@ -184,7 +187,7 @@ namespace tide
     /// \brief The size of a buffer.
     typedef boost::error_info<struct tag_bufsize, size_t> err_bufsize;
 
-    /// \brief The required size of a buffer.
+    /// \brief The required size of a buffer or a file read.
     typedef boost::error_info<struct tag_reqsize, size_t> err_reqsize;
 
     /// \brief An Element ID.

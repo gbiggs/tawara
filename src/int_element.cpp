@@ -63,13 +63,13 @@ IntElement& IntElement::operator=(int64_t const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize IntElement::write_id(std::basic_ostream<uint8_t>& output)
+std::streamsize IntElement::write_id(std::ostream& output)
 {
     return tide::vint::write(id_, output);
 }
 
 
-std::streamsize IntElement::write_body(std::basic_ostream<uint8_t>& output)
+std::streamsize IntElement::write_body(std::ostream& output)
 {
     size_t result(0);
 
@@ -79,7 +79,7 @@ std::streamsize IntElement::write_body(std::basic_ostream<uint8_t>& output)
 }
 
 
-std::streamsize IntElement::read_body(std::basic_istream<uint8_t>& input)
+std::streamsize IntElement::read_body(std::istream& input)
 {
     std::pair<uint64_t, size_t> result;
 

@@ -71,7 +71,7 @@ void Element::id(uint32_t id)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize Element::write(std::basic_ostream<uint8_t>& output)
+std::streamsize Element::write(std::ostream& output)
 {
     return write_id(output) + write_body(output);
 }

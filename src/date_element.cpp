@@ -65,16 +65,16 @@ DateElement& DateElement::operator=(int64_t const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize DateElement::write_id(std::basic_ostream<uint8_t>& output)
+std::streamsize DateElement::write_id(std::ostream& output)
 {
     return tide::vint::write(id_, output);
 }
 
 
-std::streamsize DateElement::write_body(std::basic_ostream<uint8_t>& output)
+std::streamsize DateElement::write_body(std::ostream& output)
 {
     size_t result = tide::vint::write(size(), output);
-    output.write(reinterpret_cast<uint8_t*>(&value_), 8);
+    output.write(reinterpret_cast<char*>(&value_), 8);
     if (!output)
     {
         throw WriteError() << err_pos(output.tellp());
@@ -83,7 +83,7 @@ std::streamsize DateElement::write_body(std::basic_ostream<uint8_t>& output)
 }
 
 
-std::streamsize DateElement::read_body(std::basic_istream<uint8_t>& input)
+std::streamsize DateElement::read_body(std::istream& input)
 {
     std::pair<uint64_t, size_t> result;
 
@@ -94,7 +94,7 @@ std::streamsize DateElement::read_body(std::basic_istream<uint8_t>& input)
             err_valid_sizes(std::vector<size_t>(1, 8)) <<
             err_el_size(result.first);
     }
-    input.read(reinterpret_cast<uint8_t*>(&value_), 8);
+    input.read(reinterpret_cast<char*>(&value_), 8);
     if (!input)
     {
         throw ReadError() << err_pos(input.tellg());

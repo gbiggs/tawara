@@ -67,19 +67,18 @@ StringElement& StringElement::operator=(std::string const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize StringElement::write_id(std::basic_ostream<uint8_t>& output)
+std::streamsize StringElement::write_id(std::ostream& output)
 {
     return tide::vint::write(id_, output);
 }
 
 
-std::streamsize StringElement::write_body(std::basic_ostream<uint8_t>& output)
+std::streamsize StringElement::write_body(std::ostream& output)
 {
     size_t result(0);
 
     result += tide::vint::write(size(), output);
-    output.write(reinterpret_cast<uint8_t const*>(value_.c_str()),
-            value_.size());
+    output.write(value_.c_str(), value_.size());
     result += value_.size();
     if (!output)
     {
@@ -94,21 +93,21 @@ std::streamsize StringElement::write_body(std::basic_ostream<uint8_t>& output)
 }
 
 
-std::streamsize StringElement::read_body(std::basic_istream<uint8_t>& input)
+std::streamsize StringElement::read_body(std::istream& input)
 {
     std::pair<uint64_t, size_t> result;
 
     // Read the body size
     result = tide::vint::read(input);
     // Read the string itself
-    // TODO Fix this to use proper string assignment
-    value_.reserve(result.first);
-    std::streampos start(input.tellg());
-    input.read(reinterpret_cast<uint8_t*>(value_.c_str()), result.first);
-    std::streampos end(input.tellg());
-    std::cout << "Read from " << start << " to " << end << " (" << end - start <<
-        ")\n";
-
+    std::vector<char> tmp(result.first);
+    input.read(&tmp[0], result.first);
+    if (!input)
+    {
+        throw ReadError() << err_pos(input.tellg()) <<
+            err_reqsize(result.first);
+    }
+    std::string(tmp.begin(), tmp.end()).swap(value_);
     return result.second + result.first;
 }
 

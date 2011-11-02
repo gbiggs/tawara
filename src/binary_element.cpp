@@ -27,6 +27,7 @@
 
 #include <tide/binary_element.h>
 
+#include <tide/exceptions.h>
 #include <tide/vint.h>
 
 using namespace tide;
@@ -36,15 +37,15 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-BinaryElement::BinaryElement(uint32_t id, std::basic_string<uint8_t> value) :
-    PrimitiveElement<std::basic_string<uint8_t> >(id, value)
+BinaryElement::BinaryElement(uint32_t id, std::vector<char> value) :
+    PrimitiveElement<std::vector<char> >(id, value)
 {
 }
 
 
-BinaryElement::BinaryElement(uint32_t id, std::basic_string<uint8_t> value,
-        std::basic_string<uint8_t> default_value) :
-    PrimitiveElement<std::basic_string<uint8_t> >(id, value, default_value)
+BinaryElement::BinaryElement(uint32_t id, std::vector<char> value,
+        std::vector<char> default_value) :
+    PrimitiveElement<std::vector<char> >(id, value, default_value)
 {
 }
 
@@ -53,7 +54,7 @@ BinaryElement::BinaryElement(uint32_t id, std::basic_string<uint8_t> value,
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-BinaryElement& BinaryElement::operator=(std::basic_string<uint8_t> const& rhs)
+BinaryElement& BinaryElement::operator=(std::vector<char> const& rhs)
 {
     value_ = rhs;
     return *this;
@@ -64,18 +65,18 @@ BinaryElement& BinaryElement::operator=(std::basic_string<uint8_t> const& rhs)
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize BinaryElement::write_id(std::basic_ostream<uint8_t>& output)
+std::streamsize BinaryElement::write_id(std::ostream& output)
 {
     return tide::vint::write(id_, output);
 }
 
 
-std::streamsize BinaryElement::write_body(std::basic_ostream<uint8_t>& output)
+std::streamsize BinaryElement::write_body(std::ostream& output)
 {
     size_t result(0);
 
     result += tide::vint::write(size(), output);
-    output.write(value_);
+    output.write(&value_[0], value_.size());
     if (!output)
     {
         throw WriteError() << err_pos(output.tellp());
@@ -84,21 +85,21 @@ std::streamsize BinaryElement::write_body(std::basic_ostream<uint8_t>& output)
 }
 
 
-std::streamsize BinaryElement::read_body(std::basic_istream<uint8_t>& input)
+std::streamsize BinaryElement::read_body(std::istream& input)
 {
     std::pair<uint64_t, size_t> result;
 
     // Read the body size
     result = tide::vint::read(input);
-    // Read the string itself
-    // TODO Fix this to use proper string assignment
-    value_.reserve(result.first);
-    std::streampos start(input.tellg());
-    input.read(value_.c_str(), result.first);
-    std::streampos end(input.tellg());
-    std::cout << "Read from " << start << " to " << end << " (" << end - start <<
-        ")\n";
-
+    // Read the binary data itself
+    std::vector<char> tmp(result.first);
+    input.read(&tmp[0], result.first);
+    if (!input)
+    {
+        throw ReadError() << err_pos(input.tellg()) <<
+            err_reqsize(result.first);
+    }
+    tmp.swap(value_);
     return result.second + result.first;
 }
 

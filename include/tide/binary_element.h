@@ -32,6 +32,7 @@
 #include <tide/win_dll.h>
 
 #include <stdint.h>
+#include <vector>
 
 /// \addtogroup implementations Implementations
 /// @{
@@ -42,7 +43,7 @@ namespace tide
      *
      * This element stores a block of opaque binary data.
      */
-    class TIDE_EXPORT BinaryElement : public PrimitiveElement<std::basic_string<uint8_t> >
+    class TIDE_EXPORT BinaryElement : public PrimitiveElement<std::vector<char> >
     {
         public:
             /** \brief Create a new binary element with no default.
@@ -51,7 +52,7 @@ namespace tide
              * bits.
              * \param[in] value The element's value.
              */
-            BinaryElement(uint32_t id, std::basic_string<uint8_t> value);
+            BinaryElement(uint32_t id, std::vector<char> value);
 
             /** \brief Create a new binary element with a default value.
              *
@@ -60,41 +61,37 @@ namespace tide
              * \param[in] value The element's value.
              * \param[in] default_value The default value of the element.
              */
-            BinaryElement(uint32_t id, std::basic_string<uint8_t> value,
-                    std::basic_string<uint8_t> default_value);
+            BinaryElement(uint32_t id, std::vector<char> value,
+                    std::vector<char> default_value);
 
             /// \brief Value assignment operator.
-            virtual BinaryElement& operator=( std::basic_string<uint8_t> const&
-                    rhs);
+            virtual BinaryElement& operator=(std::vector<char> const& rhs);
 
             /** \brief Element ID writing.
              *
              * Writes the element's EBML ID to a byte stream providing a
-             * std::basic_ostream<uint8_t> interface. Up to 4 bytes may be
-             * written.
+             * std::ostream interface. Up to 4 bytes may be written.
              *
              * \param[in] output The destination byte stream to write to.
              * \return The number of bytes written.
              * \exception WriteError if an error occurs writing data.
              */
-            virtual std::streamsize write_id( std::basic_ostream<uint8_t>&
-                    output);
+            virtual std::streamsize write_id(std::ostream& output);
 
             /** \brief Element body writing.
              *
              * Writes the element's size and body to a byte stream providing a
-             * std::basic_ostream<uint8_t> interface.
+             * std::ostream interface.
              *
              * \return The number of bytes written.
              * \exception WriteError if an error occurs writing data.
              */
-            virtual std::streamsize write_body( std::basic_ostream<uint8_t>&
-                    output);
+            virtual std::streamsize write_body(std::ostream& output);
 
             /** \brief Element body loading.
              *
-             * Reads the element from a byte stream providing a
-             * std::basic_ostream<uint8_t> interface.
+             * Reads the element from a byte stream providing a std::istream
+             * interface.
              *
              * This method assumes that the Element ID has already been read
              * (and thus used to construct the Element instance doing the
@@ -104,8 +101,7 @@ namespace tide
              * \return The number of bytes read.
              * \exception ReadError if an error occurs reading data.
              */
-            virtual std::streamsize read_body( std::basic_istream<uint8_t>&
-                    input);
+            virtual std::streamsize read_body(std::istream& input);
 
             /** \brief Get the size of the body of this element.
              *

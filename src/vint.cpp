@@ -212,7 +212,7 @@ std::pair<uint64_t, size_t> tide::vint::decode(uint8_t const* buffer, size_t n)
 }
 
 
-size_t tide::vint::write(uint64_t integer, std::basic_ostream<uint8_t>& output)
+size_t tide::vint::write(uint64_t integer, std::ostream& output)
 {
     unsigned int shifts(0);
     uint8_t mask(0);
@@ -283,14 +283,14 @@ size_t tide::vint::write(uint64_t integer, std::basic_ostream<uint8_t>& output)
 }
 
 
-std::pair<uint64_t, size_t> tide::vint::read(std::basic_istream<uint8_t>& input)
+std::pair<uint64_t, size_t> tide::vint::read(std::istream& input)
 {
     uint64_t result(0);
     std::streamsize to_copy(0);
     uint8_t buffer[8];
 
     // Read the first byte
-    input.read(buffer, 1);
+    input.read(reinterpret_cast<char*>(buffer), 1);
     if (input.fail())
     {
         throw tide::ReadError() << tide::err_pos(input.tellg());
@@ -342,7 +342,7 @@ std::pair<uint64_t, size_t> tide::vint::read(std::basic_istream<uint8_t>& input)
     }
 
     // Copy the remaining bytes
-    input.read(&buffer[1], to_copy);
+    input.read(reinterpret_cast<char*>(&buffer[1]), to_copy);
     if (input.fail())
     {
         throw tide::ReadError() << tide::err_pos(input.tellg());

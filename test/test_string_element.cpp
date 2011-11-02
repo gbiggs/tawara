@@ -38,26 +38,23 @@
 namespace test_strel
 {
 
-size_t fill_buffer(std::basic_string<uint8_t>& b, uint32_t id,
+size_t fill_buffer(std::string& b, uint32_t id,
         std::string data, uint64_t padding, bool write_id, bool write_body)
 {
-    uint8_t temp[8];
+    char temp[8];
     size_t n(0), total(0);
     if (write_id)
     {
-        n = tide::vint::encode(id, temp, 8);
+        n = tide::vint::encode(id, reinterpret_cast<uint8_t*>(temp), 8);
         b.append(temp, 0, n);
         total += n;
     }
     if (write_body)
     {
-        n = tide::vint::encode(data.size(), temp, 8);
+        n = tide::vint::encode(data.size(), reinterpret_cast<uint8_t*>(temp), 8);
         b.append(temp, 0, n);
         total += n;
-        for (size_t ii(0); ii < data.size(); ++ii)
-        {
-            b.push_back(data[ii]);
-        }
+        b.append(data);
         total += data.size();
         for (size_t ii(0); ii < padding; ++ii)
         {
@@ -227,8 +224,8 @@ TEST(StringElement, Padding)
 
 TEST(StringElement, Write)
 {
-    std::basic_ostringstream<uint8_t> output;
-    std::basic_string<uint8_t> expected;
+    std::ostringstream output;
+    std::string expected;
     std::string value("12345");
     uint64_t padding(0);
 
@@ -239,14 +236,14 @@ TEST(StringElement, Write)
     EXPECT_EQ(1 + value.size() + padding, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + value.size() + padding,
             e1.write(output));
@@ -261,14 +258,14 @@ TEST(StringElement, Write)
     EXPECT_EQ(1 + value.size() + padding, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + value.size() + padding,
             e1.write(output));
@@ -284,14 +281,14 @@ TEST(StringElement, Write)
     EXPECT_EQ(1 + value.size() + padding, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + value.size() + padding,
             e1.write(output));
@@ -307,14 +304,14 @@ TEST(StringElement, Write)
     EXPECT_EQ(1 + value.size() + padding, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + value.size() + padding,
             e1.write(output));
@@ -324,8 +321,8 @@ TEST(StringElement, Write)
 
 TEST(StringElement, Read)
 {
-    std::basic_istringstream<uint8_t> input;
-    std::basic_string<uint8_t> input_val;
+    std::istringstream input;
+    std::string input_val;
     std::string value("12345");
     uint64_t padding(0);
 
@@ -345,7 +342,7 @@ TEST(StringElement, Read)
     e.set_default("1");
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
@@ -362,7 +359,7 @@ TEST(StringElement, Read)
     e.set_default("1");
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
@@ -379,7 +376,7 @@ TEST(StringElement, Read)
     e.set_default("1");
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
@@ -396,7 +393,7 @@ TEST(StringElement, Read)
     e.set_default("1");
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
@@ -407,7 +404,7 @@ TEST(StringElement, Read)
 
     // Test for ReadError exception
     value = "12345";
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);

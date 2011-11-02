@@ -38,20 +38,20 @@
 namespace test_datel
 {
 
-size_t fill_buffer(std::basic_string<uint8_t>& b, uint32_t id, int64_t data,
+size_t fill_buffer(std::string& b, uint32_t id, int64_t data,
         bool write_id, bool write_body)
 {
-    uint8_t temp[8];
+    char temp[8];
     size_t n(0), total(0);
     if (write_id)
     {
-        n = tide::vint::encode(id, temp, 8);
+        n = tide::vint::encode(id, reinterpret_cast<uint8_t*>(temp), 8);
         b.append(temp, 0, n);
         total += n;
     }
     if (write_body)
     {
-        n = tide::vint::encode(8, temp, 8);
+        n = tide::vint::encode(8, reinterpret_cast<uint8_t*>(temp), 8);
         b.append(temp, 0, n);
         total += n;
         for (size_t ii(0); ii < 8; ++ii)
@@ -195,8 +195,8 @@ TEST(DateElement, Value)
 
 TEST(DateElement, Write)
 {
-    std::basic_ostringstream<uint8_t> output;
-    std::basic_string<uint8_t> expected;
+    std::ostringstream output;
+    std::string expected;
     int64_t value(2);
 
     tide::DateElement e1(0x01, value);
@@ -205,14 +205,14 @@ TEST(DateElement, Write)
     EXPECT_EQ(1 + 8, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x01, value, true, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x01, value, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -224,14 +224,14 @@ TEST(DateElement, Write)
     EXPECT_EQ(1 + 8, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x01, value, true, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x01, value, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -240,8 +240,8 @@ TEST(DateElement, Write)
 
 TEST(DateElement, Read)
 {
-    std::basic_istringstream<uint8_t> input;
-    std::basic_string<uint8_t> input_val;
+    std::istringstream input;
+    std::string input_val;
     int64_t value(5);
 
     tide::DateElement e(0x01, 0);
@@ -256,7 +256,7 @@ TEST(DateElement, Read)
     e.set_default(0);
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_datel::fill_buffer(input_val, 0x01, value, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + 8, e.read_body(input));
@@ -265,13 +265,13 @@ TEST(DateElement, Read)
     EXPECT_FALSE(e.is_default());
 
     // Test for BadElementLength exception
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_datel::fill_buffer(input_val, 0x01, value, false, true);
     input_val[0] = 0x05;
     input.str(input_val);
     EXPECT_THROW(e.read_body(input), tide::BadElementLength);
     // Test for ReadError exception
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_datel::fill_buffer(input_val, 0x01, value, false, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);

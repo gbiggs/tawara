@@ -87,7 +87,7 @@ namespace tide
          * \exception BufferTooSmall if the integer is above the maximum size
          * that can fit in the available buffer space.
          */
-        size_t encode_u(uint64_t integer, char* buffer, size_t n);
+        size_t encode_u(uint64_t integer, uint8_t* buffer, size_t n);
 
         /** \brief Encode a signed integer into a buffer.
          *
@@ -102,7 +102,7 @@ namespace tide
          * \exception BufferTooSmall if the integer is above the maximum size
          * that can fit in the available buffer space.
          */
-        size_t encode_s(int64_t integer, char* buffer, size_t n);
+        size_t encode_s(int64_t integer, uint8_t* buffer, size_t n);
 
         /** \brief Encode and write an unsigned integer into a byte stream.
          *
@@ -139,7 +139,7 @@ namespace tide
          * \param[in] n The number of bytes from the buffer to read.
          * \return The decoded unsigned integer.
          */
-        uint64_t decode_u(char const* buffer, size_t n);
+        uint64_t decode_u(uint8_t const* buffer, size_t n);
 
         /** \brief Decode a signed integer from a buffer.
          *
@@ -150,7 +150,7 @@ namespace tide
          * \param[in] n The number of bytes from the buffer to read.
          * \return The decoded unsigned integer.
          */
-        int64_t decode_s(char const* buffer, size_t n);
+        int64_t decode_s(uint8_t const* buffer, size_t n);
 
         /** \brief Read and decode an unsigned integer from a byte stream.
          *

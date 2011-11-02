@@ -38,14 +38,14 @@
 namespace test_flel
 {
 
-size_t fill_buffer(std::basic_string<uint8_t>& b, uint32_t id, double data,
+size_t fill_buffer(std::string& b, uint32_t id, double data,
         bool write_id, bool write_body, bool double_prec)
 {
-    uint8_t temp[8];
+    char temp[8];
     size_t n(0), total(0);
     if (write_id)
     {
-        n = tide::vint::encode(id, temp, 8);
+        n = tide::vint::encode(id, reinterpret_cast<uint8_t*>(temp), 8);
         b.append(temp, 0, n);
         total += n;
     }
@@ -53,18 +53,18 @@ size_t fill_buffer(std::basic_string<uint8_t>& b, uint32_t id, double data,
     {
         if (double_prec)
         {
-            n = tide::vint::encode(8, temp, 8);
+            n = tide::vint::encode(8, reinterpret_cast<uint8_t*>(temp), 8);
             b.append(temp, 0, n);
-            memcpy(temp, reinterpret_cast<uint8_t*>(&data), 8);
+            memcpy(temp, reinterpret_cast<char*>(&data), 8);
             b.append(temp, 0, 8);
             total += n + 8;
         }
         else
         {
-            n = tide::vint::encode(4, temp, 8);
+            n = tide::vint::encode(4, reinterpret_cast<uint8_t*>(temp), 8);
             b.append(temp, 0, n);
             float data_fl(data);
-            memcpy(temp, reinterpret_cast<uint8_t*>(&data_fl), 4);
+            memcpy(temp, reinterpret_cast<char*>(&data_fl), 4);
             b.append(temp, 0, 4);
             total += n + 4;
         }
@@ -255,8 +255,8 @@ TEST(FloatElement, Precision)
 
 TEST(FloatElement, Write)
 {
-    std::basic_ostringstream<uint8_t> output;
-    std::basic_string<uint8_t> expected;
+    std::ostringstream output;
+    std::string expected;
     double value(2.7182818284590451);
 
     tide::FloatElement e1(0x01, value, tide::EBML_FLOAT_PREC_DOUBLE);
@@ -265,14 +265,14 @@ TEST(FloatElement, Write)
     EXPECT_EQ(9, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x01, value, true, false, true);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x01, value, true, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 9, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -285,14 +285,14 @@ TEST(FloatElement, Write)
     EXPECT_EQ(5, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x01, value, true, false, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
-    output.str(std::basic_string<uint8_t>());
-    std::basic_string<uint8_t>().swap(expected);
+    output.str(std::string());
+    std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x01, value, true, true, false);
     EXPECT_EQ(tide::vint::coded_size(1) + 5, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -301,8 +301,8 @@ TEST(FloatElement, Write)
 
 TEST(FloatElement, Read)
 {
-    std::basic_istringstream<uint8_t> input;
-    std::basic_string<uint8_t> input_val;
+    std::istringstream input;
+    std::string input_val;
     double value(23.14069);
 
     tide::FloatElement e(0x01, 0);
@@ -318,7 +318,7 @@ TEST(FloatElement, Read)
     e.set_default(0);
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, false);
     input.str(input_val);
     EXPECT_EQ(5, e.read_body(input));
@@ -328,12 +328,12 @@ TEST(FloatElement, Read)
     EXPECT_EQ(tide::EBML_FLOAT_PREC_SINGLE, e.precision());
 
     // Test for ReadError exception
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);
     // Test for ReadError exception
-    std::basic_string<uint8_t>().swap(input_val);
+    std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);

@@ -111,7 +111,7 @@ size_t tide::ebml_int::coded_size_s(int64_t integer)
 }
 
 
-size_t tide::ebml_int::encode_u(uint64_t integer, char* buffer, size_t n)
+size_t tide::ebml_int::encode_u(uint64_t integer, uint8_t* buffer, size_t n)
 {
     assert(n <= 8);
 
@@ -136,7 +136,7 @@ size_t tide::ebml_int::encode_u(uint64_t integer, char* buffer, size_t n)
 }
 
 
-size_t tide::ebml_int::encode_s(int64_t integer, char* buffer, size_t n)
+size_t tide::ebml_int::encode_s(int64_t integer, uint8_t* buffer, size_t n)
 {
     assert(n <= 8);
 
@@ -163,13 +163,13 @@ size_t tide::ebml_int::encode_s(int64_t integer, char* buffer, size_t n)
 
 size_t tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
 {
-    char tmp[8];
+    uint8_t tmp[8];
     size_t size(0);
 
     size = encode_u(integer, tmp, 8);
     if (size != 0)
     {
-        output.write(tmp, size);
+        output.write(reinterpret_cast<char*>(tmp), size);
         if (!output)
         {
             throw tide::WriteError() << tide::err_pos(output.tellp());
@@ -181,13 +181,13 @@ size_t tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
 
 size_t tide::ebml_int::write_s(int64_t integer, std::ostream& output)
 {
-    char tmp[8];
+    uint8_t tmp[8];
     size_t size(0);
 
     size = encode_s(integer, tmp, 8);
     if (size != 0)
     {
-        output.write(tmp, size);
+        output.write(reinterpret_cast<char*>(tmp), size);
         if (!output)
         {
             throw tide::WriteError() << tide::err_pos(output.tellp());
@@ -197,7 +197,7 @@ size_t tide::ebml_int::write_s(int64_t integer, std::ostream& output)
 }
 
 
-uint64_t tide::ebml_int::decode_u(char const* buffer, size_t n)
+uint64_t tide::ebml_int::decode_u(uint8_t const* buffer, size_t n)
 {
     assert(n <= 8);
 
@@ -217,7 +217,7 @@ uint64_t tide::ebml_int::decode_u(char const* buffer, size_t n)
 }
 
 
-int64_t tide::ebml_int::decode_s(char const* buffer, size_t n)
+int64_t tide::ebml_int::decode_s(uint8_t const* buffer, size_t n)
 {
     assert(n <= 8);
 
@@ -246,8 +246,8 @@ uint64_t tide::ebml_int::read_u(std::istream& input, size_t n)
 {
     assert(n <= 8);
 
-    char tmp[8];
-    input.read(tmp, n);
+    uint8_t tmp[8];
+    input.read(reinterpret_cast<char*>(tmp), n);
     if (!input)
     {
         throw tide::ReadError() << tide::err_pos(input.tellg());
@@ -260,8 +260,8 @@ int64_t tide::ebml_int::read_s(std::istream& input, size_t n)
 {
     assert(n <= 8);
 
-    char tmp[8];
-    input.read(tmp, n);
+    uint8_t tmp[8];
+    input.read(reinterpret_cast<char*>(tmp), n);
     if (!input)
     {
         throw tide::ReadError() << tide::err_pos(input.tellg());

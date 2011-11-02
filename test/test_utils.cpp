@@ -29,6 +29,7 @@
 
 #include <gtest/gtest.h>
 
+
 ::testing::AssertionResult test_utils::buffers_eq(char const* b1_expr, char const* b2_expr,
         char const* n_expr, uint8_t const* b1, uint8_t const* b2, size_t n)
 {
@@ -112,24 +113,52 @@
     else
     {
         std::stringstream b1_str;
-        b1_str << std::hex;
-        b1_str.width(2);
-        b1_str.fill('0');
         for (size_t ii(0); ii < b1.size(); ++ii)
         {
-            b1_str << (static_cast<unsigned int>(b1[ii]) & 0xFF) << ' ';
+            b1_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(b1[ii] & 0xFF);
         }
         std::stringstream b2_str;
-        b2_str << std::hex;
-        b2_str.width(2);
-        b2_str.fill('0');
         for (size_t ii(0); ii < b2.size(); ++ii)
         {
-            b2_str << (static_cast<unsigned int>(b2[ii]) & 0xFF) << ' ';
+            b2_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(b2[ii] & 0xFF);
         }
-        return ::testing::AssertionFailure() << b1_expr << " (" << b1.size() <<
-            ") : 0x" << b1_str.str() << '\t' << b2_expr << " (" << b2.size() <<
-            ") : 0x" << b2_str.str();
+        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
+            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
+    }
+}
+
+
+::testing::AssertionResult test_utils::std_vectors_eq(char const* b1_expr,
+        char const* b2_expr, std::vector<char> const& b1,
+        std::vector<char> const& b2)
+{
+    if (b1.size() != b2.size())
+    {
+        return ::testing::AssertionFailure() << b1_expr << " length (" <<
+            b1.size() << ") != " << b2_expr << " length (" << b2.size() << ')';
+    }
+    if (b1 == b2)
+    {
+        return ::testing::AssertionSuccess();
+    }
+    else
+    {
+        std::stringstream b1_str;
+        for (size_t ii(0); ii < b1.size(); ++ii)
+        {
+            b1_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(b1[ii] & 0xFF);
+        }
+        std::stringstream b2_str;
+        for (size_t ii(0); ii < b2.size(); ++ii)
+        {
+            b2_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(b2[ii] & 0xFF);
+        }
+        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
+            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
     }
 }
 

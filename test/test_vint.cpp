@@ -35,7 +35,7 @@
 
 TEST(VInt, Encode)
 {
-    char expected[8], buffer[8];
+    uint8_t expected[8], buffer[8];
     memset(expected, 0, sizeof(expected));
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
@@ -98,7 +98,7 @@ TEST(VInt, Encode)
 
 TEST(VInt, Decode)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
     buffer[0] = 0x80;
@@ -155,7 +155,7 @@ TEST(VInt, Decode)
 
 TEST(VInt, EncodeDecode)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     memset(buffer, 0, sizeof(buffer));
     // 1xxxxxxx
     EXPECT_EQ(1, tide::vint::encode(0x00, buffer, 8));
@@ -227,7 +227,7 @@ TEST(VInt, EncodeDecode)
 
 TEST(VInt, NoTail)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     // 1xxxxxxx - No tail necessary
     buffer[0] = 0x80;
     EXPECT_NO_THROW(tide::vint::decode(buffer, 1));
@@ -257,7 +257,7 @@ TEST(VInt, NoTail)
 
 TEST(VInt, BufferTooSmall)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     // 1xxxxxxx will assert
     // 01xxxxxx xxxxxxxx
     EXPECT_THROW(tide::vint::encode(0x80, buffer, 1), tide::BufferTooSmall);
@@ -278,7 +278,7 @@ TEST(VInt, BufferTooSmall)
 
 TEST(VInt, TailTooShort)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     // 1xxxxxxx - No tail necessary
     buffer[0] = 0x80;
     EXPECT_NO_THROW(tide::vint::decode(buffer, 1));
@@ -308,7 +308,7 @@ TEST(VInt, TailTooShort)
 
 TEST(VInt, NoMarker)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     // 1xxxxxxx - Success
     buffer[0] = 0x80;
     EXPECT_NO_THROW(tide::vint::decode(buffer, 1));
@@ -320,7 +320,7 @@ TEST(VInt, NoMarker)
 
 TEST(VInt, TooBig)
 {
-    char buffer[8], empty[8];
+    uint8_t buffer[8], empty[8];
     memset(buffer, 0, sizeof(buffer));
     memset(empty, 0, sizeof(empty));
     EXPECT_THROW(tide::vint::encode(0x100000000000001, buffer, 8),

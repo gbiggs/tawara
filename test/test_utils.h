@@ -50,6 +50,11 @@ namespace test_utils
 ::testing::AssertionResult std_buffers_eq(char const* b1_expr,
         char const* b2_expr, std::string const& b1, std::string const& b2);
 
+// Tests if two std::vector<char> buffers are equal.
+::testing::AssertionResult std_vectors_eq(char const* b1_expr,
+        char const* b2_expr, std::vector<char> const& b1,
+        std::vector<char> const& b2);
+
 // Tests if two std::pair<uint64_t, size_t> values are equal because gtest
 // can't figure it out for itself nor print the result.
 ::testing::AssertionResult int_pairs_eq(char const* p1_expr,

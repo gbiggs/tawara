@@ -129,7 +129,7 @@ TEST(EBMLInt, CodedSizeSigned)
 
 TEST(EBMLInt, EncodeUnsigned)
 {
-    char buffer[8], expected[8];
+    uint8_t buffer[8], expected[8];
     memset(buffer, 0, sizeof(buffer));
     memset(expected, 0, sizeof(expected));
     // 0 bytes
@@ -270,7 +270,7 @@ TEST(EBMLInt, EncodeUnsigned)
 
 TEST(EBMLInt, EncodeSigned)
 {
-    char buffer[8], expected[8];
+    uint8_t buffer[8], expected[8];
     memset(buffer, 0, sizeof(buffer));
     memset(expected, 0, sizeof(expected));
     // 0 bytes
@@ -435,7 +435,7 @@ TEST(EBMLInt, EncodeSigned)
 
 TEST(EBMLInt, DecodeUnsigned)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     memset(buffer, 0x00, sizeof(buffer));
     // 0 bytes
     EXPECT_EQ(0, tide::ebml_int::decode_u(buffer, 0));
@@ -527,7 +527,7 @@ TEST(EBMLInt, DecodeUnsigned)
 
 TEST(EBMLInt, DecodeSigned)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     memset(buffer, 0x00, sizeof(buffer));
     // 0 bytes
     EXPECT_EQ(0, tide::ebml_int::decode_s(buffer, 0));
@@ -641,7 +641,7 @@ TEST(EBMLInt, DecodeSigned)
 
 TEST(EBMLInt, EncodeDecodeUnsigned)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     memset(buffer, 0, sizeof(8));
     // 0 bytes
     tide::ebml_int::encode_u(0, buffer, 1);
@@ -721,7 +721,7 @@ TEST(EBMLInt, EncodeDecodeUnsigned)
 
 TEST(EBMLInt, EncodeDecodeSigned)
 {
-    char buffer[8];
+    uint8_t buffer[8];
     memset(buffer, 0, sizeof(8));
     // 0 bytes
     tide::ebml_int::encode_s(0, buffer, 1);
@@ -842,7 +842,7 @@ TEST(EBMLInt, BufferTooSmall)
 }
 
 
-void fill_buffer(std::stringstream& buf, char c, size_t n)
+void fill_buffer(std::stringstream& buf, uint8_t c, size_t n)
 {
     for (size_t ii(0); ii < n; ++ii)
     {

@@ -51,7 +51,8 @@ size_t fill_buffer(std::string& b, uint32_t id,
     }
     if (write_body)
     {
-        n = tide::vint::encode(data.size(), reinterpret_cast<uint8_t*>(temp), 8);
+        n = tide::vint::encode(data.size() + padding,
+                reinterpret_cast<uint8_t*>(temp), 8);
         b.append(temp, 0, n);
         total += n;
         b.append(data);
@@ -254,6 +255,8 @@ TEST(StringElement, Write)
     e1.value(value);
     e1.padding(padding);
 
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, false, true);
     EXPECT_EQ(1 + value.size() + padding, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -277,6 +280,8 @@ TEST(StringElement, Write)
     e1.value(value);
     e1.padding(padding);
 
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, false, true);
     EXPECT_EQ(1 + value.size() + padding, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -300,6 +305,8 @@ TEST(StringElement, Write)
     e1.value(value);
     e1.padding(padding);
 
+    output.str(std::string());
+    std::string().swap(expected);
     test_strel::fill_buffer(expected, 0x01, value, padding, false, true);
     EXPECT_EQ(1 + value.size() + padding, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -337,6 +344,8 @@ TEST(StringElement, Read)
     // String without padding
     value = "1234567890";
     padding = 0;
+    std::string value_padded(value);
+    value_padded.append(padding, '\0');
     e.value("1");
     e.padding(0);
     e.set_default("1");
@@ -346,7 +355,7 @@ TEST(StringElement, Read)
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
-    EXPECT_EQ(value, e.value());
+    EXPECT_EQ(value_padded, e.value());
     EXPECT_EQ(padding, e.padding());
     EXPECT_EQ("1", e.get_default());
     EXPECT_FALSE(e.is_default());
@@ -354,6 +363,8 @@ TEST(StringElement, Read)
     // String with padding
     value = "1234567890";
     padding = 5;
+    value_padded = value;
+    value_padded.append(padding, '\0');
     e.value("1");
     e.padding(0);
     e.set_default("1");
@@ -363,14 +374,16 @@ TEST(StringElement, Read)
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
-    EXPECT_EQ(value, e.value());
-    EXPECT_EQ(padding, e.padding());
+    EXPECT_EQ(value_padded, e.value());
+    EXPECT_EQ(0, e.padding());
     EXPECT_EQ("1", e.get_default());
     EXPECT_FALSE(e.is_default());
 
     // Zero-length string
     value = "";
     padding = 0;
+    value_padded = value;
+    value_padded.append(padding, '\0');
     e.value("1");
     e.padding(0);
     e.set_default("1");
@@ -380,14 +393,16 @@ TEST(StringElement, Read)
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
-    EXPECT_EQ(value, e.value());
-    EXPECT_EQ(padding, e.padding());
+    EXPECT_EQ(value_padded, e.value());
+    EXPECT_EQ(0, e.padding());
     EXPECT_EQ("1", e.get_default());
     EXPECT_FALSE(e.is_default());
 
     // Zero-length string with padding
     value = "";
     padding = 5;
+    value_padded = value;
+    value_padded.append(padding, '\0');
     e.value("1");
     e.padding(0);
     e.set_default("1");
@@ -397,8 +412,8 @@ TEST(StringElement, Read)
     test_strel::fill_buffer(input_val, 0x01, value, padding, false, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
-    EXPECT_EQ(value, e.value());
-    EXPECT_EQ(padding, e.padding());
+    EXPECT_EQ(value_padded, e.value());
+    EXPECT_EQ(0, e.padding());
     EXPECT_EQ("1", e.get_default());
     EXPECT_FALSE(e.is_default());
 

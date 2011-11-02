@@ -83,16 +83,17 @@
         for (size_t ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
-                (static_cast<unsigned int>(b1[ii]) & 0xFF);
+                +(b1[ii] & 0xFF) << ' ';
         }
         std::stringstream b2_str;
         for (size_t ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
-                (static_cast<unsigned int>(b2[ii]) & 0xFF);
+                +(b2[ii] & 0xFF) << ' ';
         }
-        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
-            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
+        return ::testing::AssertionFailure() << b1_expr << " (" << b1.size() <<
+            "):\t0x" << b1_str.str() << '\n' << b2_expr << " (" << b2.size() <<
+            "):\t\t0x" << b2_str.str();
     }
 }
 
@@ -116,16 +117,17 @@
         for (size_t ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
-                +(b1[ii] & 0xFF);
+                +(b1[ii] & 0xFF) << ' ';
         }
         std::stringstream b2_str;
         for (size_t ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
-                +(b2[ii] & 0xFF);
+                +(b2[ii] & 0xFF) << ' ';
         }
-        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
-            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
+        return ::testing::AssertionFailure() << b1_expr << " (" << b1.size() <<
+            "):\t0x" << b1_str.str() << '\n' << b2_expr << " (" << b2.size() <<
+            "):\t\t0x" << b2_str.str();
     }
 }
 

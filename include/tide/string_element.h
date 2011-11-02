@@ -75,6 +75,9 @@ namespace tide
              * useful when overwriting an existing string with one that is
              * shorter, so that the file does not need to be rewritten or a
              * void element used.
+             *
+             * Management of this value is the responsibility of the user of
+             * the StringElement. It will never be adjusted automatically.
              */
             virtual void padding(uint64_t padding) { padding_ = padding; }
 

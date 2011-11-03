@@ -26,10 +26,13 @@
  */
 
 #include <tide/void_element.h>
+
 #include <gtest/gtest.h>
 #include <tide/exceptions.h>
+#include <tide/string_element.h>
 
 #include "test_consts.h"
+
 
 TEST(VoidElement, Construction)
 {
@@ -69,10 +72,20 @@ TEST(VoidElement, CopyConstruction)
 }
 
 
-TEST(VoidElement, SetID)
+TEST(VoidElement, CopyElement)
 {
-    EXPECT_THROW(tide::VoidElement(8).id(0x01), tide::InvalidElementID);
-    EXPECT_THROW(tide::VoidElement(8).id(0x7F), tide::InvalidElementID);
+    tide::StringElement se(1, "12345");
+
+    size_t se_size(se.total_size());
+    VoidElement ve1(se);
+    EXPECT_EQ(se_size, ve1.total_size());
+    EXPECT_EQ(se_size - 1, ve1.size());
+    EXPECT_FALSE(ve1.fill());
+
+    VoidElement ve2(se, true);
+    EXPECT_EQ(se_size, ve2.total_size());
+    EXPECT_EQ(se_size - 1, ve2.size());
+    EXPECT_TRUE(ve2.fill());
 }
 
 

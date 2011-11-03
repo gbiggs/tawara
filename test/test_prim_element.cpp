@@ -25,7 +25,7 @@
  * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tide/element.h>
+#include <tide/prim_element.h>
 
 #include <gtest/gtest.h>
 #include <tide/exceptions.h>
@@ -33,11 +33,11 @@
 #include "test_consts.h"
 
 
-// Fake Element implementation
-class FakeElement : public tide::Element
+// Fake PrimitiveElement implementation
+class FakePrimElement : public tide::PrimitiveElement<int>
 {
     public:
-        FakeElement(uint32_t id)
+        FakePrimElement(uint32_t id)
             : Element(id)
         {
         }
@@ -66,33 +66,49 @@ class FakeElement : public tide::Element
         {
             return 0;
         }
-}; // class FakeElement
+}; // class FakePrimElement
 
 
-TEST(Element, Construction)
+TEST(PrimElement, Construction)
 {
-    EXPECT_EQ(1234, FakeElement(1234).id());
-    EXPECT_THROW(FakeElement(0x00), tide::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFFFF), tide::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFFFFFF), tide::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFFFFFFFF), tide::InvalidElementID);
+    EXPECT_EQ(1234, FakePrimElement(1234).id());
+    EXPECT_THROW(FakePrimElement(0x00), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFF), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFFFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFFFFFFFF), tide::InvalidElementID);
 }
 
 
-TEST(Element, CopyConstruction)
+TEST(PrimElement, CopyConstruction)
 {
-    EXPECT_EQ(1234, FakeElement(FakeElement(1234)).id());
+    EXPECT_EQ(1234, FakePrimElement(FakePrimElement(1234, 16)).id());
+    EXPECT_EQ(16, FakePrimElement(FakePrimElement(1234, 16)).value());
+    EXPECT_EQ(55, FakePrimElement(FakePrimElement(1234, 16, 55)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(FakeElement(FakeElement(0x00)), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(FakePrimElement(0x00)), tide::InvalidElementID);
 }
 
 
-TEST(Element, Assignment)
+TEST(PrimElement, SetID)
 {
-    FakeElement e1(1), e2(2);
+    FakePrimElement e(1234);
+    e.id(9999999);
+    EXPECT_EQ(9999999, e.id());
+    EXPECT_THROW(FakePrimElement(1).id(0x00), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFF), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFFFFFF), tide::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFFFFFFFF), tide::InvalidElementID);
+}
+
+
+TEST(PrimElement, Assignment)
+{
+    FakePrimElement e1(1, 1), e2(2, 2);
     e2 = e1;
     EXPECT_EQ(e1.id(), e2.id());
+    EXPECT_EQ(e1.value(), e2.value());
 }
 

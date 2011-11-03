@@ -57,15 +57,17 @@ namespace tide
              */
             VoidElement(size_t size, bool fill=false);
 
-            /// \brief Get the element's ID.
-            virtual uint32_t id() const { return id_; }
-
-            /** \brief The ID of a void element cannot be changed.
+            /** \brief Create a new VoidElement that replaces another element.
              *
-             * \param[in] id Ignored.
-             * \exception InvalidElementID is raised for any value passed.
+             * This constructor creates a VoidElement with its fill set to the
+             * necessary size to completely and exactly cover the element
+             * passed to it.
+             *
+             * \param[in] element The element to replace.
+             * \param[in] fill Whether to fill the space in the file with
+             * zeros.
              */
-            virtual void id(uint32_t id);
+            VoidElement(Element const& element, bool fill=false);
 
             /// \brief Get the size of this element.
             size_t size() const { return size_; }

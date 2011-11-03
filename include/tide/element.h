@@ -65,9 +65,6 @@ namespace tide
             virtual ~Element() {};
 
             /** Get the element's ID.
-             */
-            virtual uint32_t id() const { return id_; }
-            /** \brief Set the element's ID.
              *
              * The element's ID is an unsigned integer with a maximum size of
              * 28 bits. Some IDs are invalid:
@@ -90,11 +87,8 @@ namespace tide
              * synchronisation in the event of file corruption. To take
              * advantage of this, you should use higher IDs for elements that
              * occur less frequently, such as the top-level elements.
-             *
-             * \param[in] id The element's new ID, as an unsigned integer up to
-             * 28 bits.
              */
-            virtual void id(uint32_t id);
+            virtual uint32_t id() const { return id_; }
 
             /** \brief Element writing.
              *
@@ -138,6 +132,28 @@ namespace tide
              * \return The number of bytes read.
              */
             virtual std::streamsize read_body(std::istream& input) = 0;
+
+            /** \brief Get the size of the body of this element.
+             *
+             * Returns the size, in bytes, required to store this element's
+             * body. This does not include the space required by the ID or the
+             * data size value.
+             *
+             * See also total_size().
+             *
+             * \return The size of the element's body, in bytes.
+             */
+            virtual size_t size() const = 0;
+
+            /** \brief Get the total size of the element.
+             *
+             * Returns the size, in bytes, required to store this entire
+             * element, including its ID, data size value and body.
+             *
+             * \return The size of the entire element, in bytes.
+             */
+            virtual size_t total_size() const = 0;
+
         protected:
             uint32_t id_;
     }; // class Element

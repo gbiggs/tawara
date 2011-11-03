@@ -29,6 +29,7 @@
 #define TIDE_PRIM_ELEMENT_H_
 
 #include <tide/element.h>
+#include <tide/exceptions.h>
 #include <tide/win_dll.h>
 
 #include <stdint.h>
@@ -74,6 +75,7 @@ namespace tide
                 value_(value), has_default_(false)
             {
             }
+
             /** \brief Create a signed integer element with a default value.
              *
              * \param[in] id The element's ID, as an unsigned integer up to 28
@@ -88,7 +90,32 @@ namespace tide
             }
 
             /// \brief Value assignment operator.
-            virtual PrimitiveElement& operator=(T const& rhs) = 0;
+            virtual PrimitiveElement& operator=(T const& rhs)
+            {
+                value_ = rhs;
+                return *this;
+            }
+
+            /// Get the element's ID.
+            virtual uint32_t id() const { return Element::id(); }
+
+            /** \brief Set the element's ID.
+             *
+             * \param[in] id The element's new ID, as an unsigned integer up to
+             * 28 bits.
+             */
+            virtual void id(uint32_t id)
+            {
+                if (id == 0 ||
+                        id == 0xFF ||
+                        id == 0xFFFF ||
+                        id == 0xFFFFFF ||
+                        id == 0xFFFFFFFF)
+                {
+                    throw InvalidElementID() << err_id(id);
+                }
+                id_ = id;
+            }
 
             /// \brief Get the value.
             virtual T value() const { return value_; }
@@ -121,27 +148,6 @@ namespace tide
              */
             virtual bool is_default() const
                 { return value_ == default_ && has_default_; }
-
-            /** \brief Get the size of the body of this element.
-             *
-             * Returns the size, in bytes, required to store this element's
-             * body. This does not include the space required by the ID or the
-             * data size value.
-             *
-             * See also total_size().
-             *
-             * \return The size of the element's body, in bytes.
-             */
-            virtual size_t size() const = 0;
-
-            /** \brief Get the total size of the element.
-             *
-             * Returns the size, in bytes, required to store this entire
-             * element, including its ID, data size value and body.
-             *
-             * \return The size of the entire element, in bytes.
-             */
-            virtual size_t total_size() const = 0;
 
         protected:
             T value_;

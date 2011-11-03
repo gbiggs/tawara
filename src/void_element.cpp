@@ -43,15 +43,21 @@ VoidElement::VoidElement(size_t size, bool fill)
 }
 
 
+VoidElement::VoidElement(Element const& element, bool fill)
+    : Element(0xEC), fill_(fill)
+{
+    // Set this element's size from the total size of the element to replace
+    // minus one byte for the void element's ID.
+    size_ = element.total_size() - 1;
+    // Subtract off the size required to store this element's data size.
+    size_t data_size_size_1(tide::vint::coded_size(size_ - 1));
+    size_t data_size_size_2(tide::vint::coded_size(size_ - 2));
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
-
-void VoidElement::id(uint32_t id)
-{
-    throw InvalidElementID() << err_id(id);
-}
-
 
 size_t VoidElement::total_size() const
 {

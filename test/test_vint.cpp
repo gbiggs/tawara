@@ -96,6 +96,42 @@ TEST(VInt, Encode)
 }
 
 
+TEST(VInt, EncodeWithSize)
+{
+    uint8_t expected[8], buffer[8];
+    memset(expected, 0, sizeof(expected));
+    memset(buffer, 0, sizeof(buffer));
+
+    // 1-byte integer in 2 bytes
+    expected[0] = 0x40; expected[1] = 0x09;
+    EXPECT_EQ(2, tide::vint::encode(0x09, buffer, 2, 2));
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 2);
+    // 1-byte integer in 8 bytes
+    memset(buffer, 0, sizeof(buffer));
+    expected[0] = 0x01; expected[1] = 0x00; expected[7] = 0x09;
+    EXPECT_EQ(8, tide::vint::encode(0x09, buffer, 8, 8));
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 8);
+    // 3-byte integer in 5 bytes
+    memset(buffer, 0, sizeof(buffer));
+    memset(&expected[2], 0x01, 3);
+    expected[0] = 0x08; expected[1] = 0x00;
+    EXPECT_EQ(5, tide::vint::encode(0x010101, buffer, 5, 5));
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 5);
+    // 7-byte integer in 8 bytes
+    memset(buffer, 0, sizeof(buffer));
+    memset(expected, 0x02, sizeof(expected));
+    expected[0] = 0x01;
+    EXPECT_EQ(8, tide::vint::encode(0x02020202020202, buffer, 8, 8));
+    EXPECT_PRED_FORMAT3(test_utils::buffers_eq, expected, buffer, 8);
+
+    // Test throwing
+    EXPECT_THROW(tide::vint::encode(0x0101, buffer, 3, 1),
+            tide::SpecSizeTooSmall);
+    EXPECT_THROW(tide::vint::encode(0x0101, buffer, 1, 3),
+            tide::BufferTooSmall);
+}
+
+
 TEST(VInt, Decode)
 {
     uint8_t buffer[8];
@@ -221,6 +257,16 @@ TEST(VInt, EncodeDecode)
             tide::vint::decode(buffer, 8));
     EXPECT_EQ(8, tide::vint::encode(0X0FFFFFFFFFFFFFFl, buffer, 8));
     EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0X0FFFFFFFFFFFFFFl, 8),
+            tide::vint::decode(buffer, 8));
+    // Integers written with extra bytes
+    EXPECT_EQ(4, tide::vint::encode(0x01, buffer, 8, 4));
+    EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0x01, 4),
+            tide::vint::decode(buffer, 8));
+    EXPECT_EQ(5, tide::vint::encode(0x200000, buffer, 8, 5));
+    EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0x200000, 5),
+            tide::vint::decode(buffer, 8));
+    EXPECT_EQ(8, tide::vint::encode(0X1FFFFFFFFFFFFl, buffer, 8, 8));
+    EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0X1FFFFFFFFFFFFl, 8),
             tide::vint::decode(buffer, 8));
 }
 
@@ -373,55 +419,104 @@ TEST(VIntStream, Write)
     // 1xxxxxxx
     expected.put(0x80);
     EXPECT_EQ(1, tide::vint::write(0x00, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x81);
     EXPECT_EQ(1, tide::vint::write(0x01, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x97);
     EXPECT_EQ(1, tide::vint::write(0x17, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0xC0);
     EXPECT_EQ(1, tide::vint::write(0x40, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0xFF);
     EXPECT_EQ(1, tide::vint::write(0x7F, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     // 01xxxxxx xxxxxxxx
     expected.put(0x80);
     EXPECT_EQ(1, tide::vint::write(0x0000, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x81);
     EXPECT_EQ(1, tide::vint::write(0x0001, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x4B); expected.put(0x35);
     EXPECT_EQ(2, tide::vint::write(0x0B35, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x60); expected.put(0x00);
     EXPECT_EQ(2, tide::vint::write(0x2000, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x7F); expected.put(0xFF);
     EXPECT_EQ(2, tide::vint::write(0x3FFF, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     expected.put(0x80);
     EXPECT_EQ(1, tide::vint::write(0x0000000000000000, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x81);
     EXPECT_EQ(1, tide::vint::write(0x0000000000000001, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     expected.put(0x01);
     for (int ii(0); ii < 7; ii++)
     {
         expected.put(0xFF);
     }
     EXPECT_EQ(8, tide::vint::write(0xFFFFFFFFFFFFFF, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     // EBML tag
     expected.put(0x1A); expected.put(0x45); expected.put(0xDF);
     expected.put(0xA3);
     EXPECT_EQ(4, tide::vint::write(0x0A45DFA3, buffer));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(), buffer.str());
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
     // The remainder are done in the EncodeDecode test for simplicity
+}
+
+
+TEST(VInt, WriteWithSize)
+{
+    std::ostringstream buffer;
+    std::ostringstream expected;
+
+    // 1-byte integer in 2 bytes
+    expected.put(0x40); expected.put(0x09);
+    EXPECT_EQ(2, tide::vint::write(0x09, buffer, 2));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
+    // 1-byte integer in 8 bytes
+    expected.put(0x01);
+    for(int ii(0); ii < 6; ++ii) { expected.put(0x00); }
+    expected.put(0x09);
+    EXPECT_EQ(8, tide::vint::write(0x09, buffer, 8));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
+    // 3-byte integer in 5 bytes
+    expected.put(0x08); expected.put(0x00);
+    expected.put(0x01); expected.put(0x01); expected.put(0x01);
+    EXPECT_EQ(5, tide::vint::write(0x010101, buffer, 5));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
+    // 7-byte integer in 8 bytes
+    expected.put(0x01);
+    for(int ii(0); ii < 7; ++ii) { expected.put(0x02); }
+    EXPECT_EQ(8, tide::vint::write(0x02020202020202, buffer, 8));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            buffer.str());
+
+    // Test throwing
+    EXPECT_THROW(tide::vint::write(0x0101, buffer, 1), tide::SpecSizeTooSmall);
 }
 
 
@@ -558,6 +653,16 @@ TEST(VIntStream, WriteRead)
             tide::vint::read(buffer));
     EXPECT_EQ(8, tide::vint::write(0X0FFFFFFFFFFFFFFl, buffer));
     EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0X0FFFFFFFFFFFFFFl, 8),
+            tide::vint::read(buffer));
+    // Integers written with extra bytes
+    EXPECT_EQ(4, tide::vint::write(0x01, buffer, 4));
+    EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0x01, 4),
+            tide::vint::read(buffer));
+    EXPECT_EQ(7, tide::vint::write(0x10000000, buffer, 7));
+    EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0x10000000, 7),
+            tide::vint::read(buffer));
+    EXPECT_EQ(8, tide::vint::write(0x40000000000l, buffer, 8));
+    EXPECT_PRED_FORMAT2(test_utils::int_pairs_eq, std::make_pair(0x40000000000l, 8),
             tide::vint::read(buffer));
 }
 

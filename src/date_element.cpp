@@ -62,6 +62,26 @@ DateElement& DateElement::operator=(int64_t const& rhs)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Accessors
+///////////////////////////////////////////////////////////////////////////////
+
+size_t DateElement::size() const
+{
+    // Dates are always stored as the full 8 bytes
+    return 8;
+}
+
+
+size_t DateElement::total_size() const
+{
+    size_t data_size(size());
+    // The size value will always be 1 byte, as the data cannot use more than 8
+    // bytes.
+    return tide::vint::coded_size(id_) + 1 + data_size;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -100,21 +120,5 @@ std::streamsize DateElement::read_body(std::istream& input)
         throw ReadError() << err_pos(input.tellg());
     }
     return result.second + 8;
-}
-
-
-size_t DateElement::size() const
-{
-    // Dates are always stored as the full 8 bytes
-    return 8;
-}
-
-
-size_t DateElement::total_size() const
-{
-    size_t data_size(size());
-    // The size value will always be 1 byte, as the data cannot use more than 8
-    // bytes.
-    return tide::vint::coded_size(id_) + 1 + data_size;
 }
 

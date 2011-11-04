@@ -99,6 +99,24 @@ namespace tide
      */
     struct VarIntTooBig : virtual TideError {};
 
+    /** \brief A specified size for a variable-length integer is too small.
+     *
+     * Encountered when encoding a variable-length integer into a fixed size.
+     * Usually, this is a size that is larger than would normally be necessary,
+     * but if the variable-length integer requires more bytes than the
+     * specified fixed size, this error will occur.
+     *
+     * The err_varint tag may be included, indicating the value that was
+     * attempted to be encoded.
+     *
+     * The err_reqsize tag may be included, indicating the size is required to
+     * encode the integer.
+     *
+     * The err_specsize tag may be included, giving the size that was
+     * requested.
+     */
+    struct SpecSizeTooSmall : virtual TideError {};
+
     /** \brief A buffer was too small for the data.
      *
      * Encountered in any situation where data will be written to a buffer. For
@@ -189,6 +207,9 @@ namespace tide
 
     /// \brief The required size of a buffer or a file read.
     typedef boost::error_info<struct tag_reqsize, size_t> err_reqsize;
+
+    /// \brief The specified size to encode a variable-length integer into.
+    typedef boost::error_info<struct tag_specsize, size_t> err_specsize;
 
     /// \brief An Element ID.
     typedef boost::error_info<struct tag_id, uint32_t> err_id;

@@ -38,6 +38,11 @@
 
 namespace tide
 {
+    /// Void elements always have this ID.
+    const uint32_t VOID_ELEMENT_ID(0x6C);
+    /// This is the raw version of the Void element ID.
+    const uint32_t VOID_ELEMENT_ID_RAW(0xEC);
+
     /** Void primitive element.
      *
      * This is a void element, specified with the EBML ID 0xEC. Void elements
@@ -149,6 +154,8 @@ namespace tide
             size_t size_;
             /// If the element's body should be filled with zeroes or not.
             bool fill_;
+            /// Extra bytes for writing the body size value if necessary.
+            size_t extra_size_;
     }; // class VoidElement
 }; // namespace tide
 

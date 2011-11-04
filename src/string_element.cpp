@@ -64,6 +64,24 @@ StringElement& StringElement::operator=(std::string const& rhs)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Accessors
+///////////////////////////////////////////////////////////////////////////////
+
+size_t StringElement::size() const
+{
+    return value_.size() + padding_;
+}
+
+
+size_t StringElement::total_size() const
+{
+    size_t data_size(size());
+    return tide::vint::coded_size(id_) + tide::vint::coded_size(data_size) +
+        data_size;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -109,19 +127,5 @@ std::streamsize StringElement::read_body(std::istream& input)
     }
     std::string(tmp.begin(), tmp.end()).swap(value_);
     return result.second + result.first;
-}
-
-
-size_t StringElement::size() const
-{
-    return value_.size() + padding_;
-}
-
-
-size_t StringElement::total_size() const
-{
-    size_t data_size(size());
-    return tide::vint::coded_size(id_) + tide::vint::coded_size(data_size) +
-        data_size;
 }
 

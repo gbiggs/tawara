@@ -81,6 +81,27 @@ namespace tide
              */
             virtual void padding(uint64_t padding) { padding_ = padding; }
 
+            /** \brief Get the size of the body of this element.
+             *
+             * Returns the size, in bytes, required to store this element's
+             * body. This does not include the space required by the ID or the
+             * data size value.
+             *
+             * See also total_size().
+             *
+             * \return The size of the element's body, in bytes.
+             */
+            virtual size_t size() const;
+
+            /** \brief Get the total size of the element.
+             *
+             * Returns the size, in bytes, required to store this entire
+             * element, including its ID, data size value and body.
+             *
+             * \return The size of the entire element, in bytes.
+             */
+            virtual size_t total_size() const;
+
             /** \brief Element ID writing.
              *
              * Writes the element's EBML ID to a byte stream providing a
@@ -116,28 +137,6 @@ namespace tide
              * \exception ReadError if an error occurs reading data.
              */
             virtual std::streamsize read_body(std::istream& input);
-
-            /** \brief Get the size of the body of this element.
-             *
-             * Returns the size, in bytes, required to store this element's
-             * body. This does not include the space required by the ID or the
-             * data size value.
-             *
-             * See also total_size().
-             *
-             * \return The size of the element's body, in bytes.
-             */
-            virtual size_t size() const;
-
-            /** \brief Get the total size of the element.
-             *
-             * Returns the size, in bytes, required to store this entire
-             * element, including its ID, data size value and body.
-             *
-             * \return The size of the entire element, in bytes.
-             */
-            virtual size_t total_size() const;
-
         protected:
             uint64_t padding_;
     }; // class StringElement

@@ -62,6 +62,24 @@ BinaryElement& BinaryElement::operator=(std::vector<char> const& rhs)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Accessors
+///////////////////////////////////////////////////////////////////////////////
+
+size_t BinaryElement::size() const
+{
+    return value_.size();
+}
+
+
+size_t BinaryElement::total_size() const
+{
+    size_t data_size(size());
+    return tide::vint::coded_size(id_) + tide::vint::coded_size(data_size) +
+        data_size;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -101,19 +119,5 @@ std::streamsize BinaryElement::read_body(std::istream& input)
     }
     tmp.swap(value_);
     return result.second + result.first;
-}
-
-
-size_t BinaryElement::size() const
-{
-    return value_.size();
-}
-
-
-size_t BinaryElement::total_size() const
-{
-    size_t data_size(size());
-    return tide::vint::coded_size(id_) + tide::vint::coded_size(data_size) +
-        data_size;
 }
 

@@ -77,13 +77,19 @@ namespace tide
          * \param[in] buffer A pointer to the buffer into which to put the
          * bytes.
          * \param[in] n The length of the buffer available for use.
+         * \param[in] req_size If not zero, then use this length when encoding
+         * the integer instead of the optimal size. Must be equal to or larger
+         * than the optimal size.
          * \return The number of bytes actually used.
          * \exception VarIntTooBig if the integer is above the maximum value
          * for variable-length integers (0xFFFFFFFFFFFFFF).
          * \exception BufferTooSmall if the integer is above the maximum size
          * that can fit in the available buffer space.
+         * \exception SpecSizeTooSmall if the integer is too big for the
+         * requested size.
          */
-        size_t encode(uint64_t integer, uint8_t* buffer, size_t n);
+        size_t encode(uint64_t integer, uint8_t* buffer, size_t n,
+                size_t req_size=0);
 
         /** \brief Decode an unsigned variable-length integer from a buffer.
          *
@@ -109,12 +115,17 @@ namespace tide
          * \param[in] integer The integer to encode.
          * \param[in] output The std::ostream object to write
          * the encoded integer to.
+         * \param[in] req_size If not zero, then use this length when encoding
+         * the integer instead of the optimal size. Must be equal to or larger
+         * than the optimal size.
          * \return The number of bytes written.
          * \exception VarIntTooBig if the integer is above the maximum value
          * for variable-length integers (0xFFFFFFFFFFFFFF).
          * \exception WriteError if there is an error writing to the stream.
+         * \exception SpecSizeTooSmall if the integer is too big for the
+         * requested size.
          */
-        size_t write(uint64_t integer, std::ostream& output);
+        size_t write(uint64_t integer, std::ostream& output, size_t req_size=0);
 
         /** \brief Decode an unsigned integer from an input stream.
          *

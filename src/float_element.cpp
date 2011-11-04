@@ -62,6 +62,29 @@ FloatElement& FloatElement::operator=(double const& rhs)
     return *this;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Accessors
+///////////////////////////////////////////////////////////////////////////////
+
+size_t FloatElement::size() const
+{
+    switch(prec_)
+    {
+        case EBML_FLOAT_PREC_SINGLE:
+            return 4;
+        case EBML_FLOAT_PREC_DOUBLE:
+            return 8;
+    };
+}
+
+
+size_t FloatElement::total_size() const
+{
+    // Float elements are always 4 or 8 bytes, so the data value will always be
+    // 1 byte.
+    return tide::vint::coded_size(id_) + 1 + size();
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
@@ -138,25 +161,5 @@ std::streamsize FloatElement::read_body(std::istream& input)
         throw BadElementLength() << err_pos(input.tellg()) << err_id(id_) <<
             err_valid_sizes(valid_sizes) << err_el_size(result.first);
     }
-}
-
-
-size_t FloatElement::size() const
-{
-    switch(prec_)
-    {
-        case EBML_FLOAT_PREC_SINGLE:
-            return 4;
-        case EBML_FLOAT_PREC_DOUBLE:
-            return 8;
-    };
-}
-
-
-size_t FloatElement::total_size() const
-{
-    // Float elements are always 4 or 8 bytes, so the data value will always be
-    // 1 byte.
-    return tide::vint::coded_size(id_) + 1 + size();
 }
 

@@ -41,20 +41,16 @@
     else
     {
         std::stringstream b1_str;
-        b1_str << std::hex;
-        b1_str.width(2);
-        b1_str.fill('0');
         for (size_t ii(0); ii < n; ++ii)
         {
-            b1_str << static_cast<int>(b1[ii]);
+            b1_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +b1[ii] << ' ';
         }
         std::stringstream b2_str;
-        b2_str << std::hex;
-        b2_str.width(2);
-        b2_str.fill('0');
         for (size_t ii(0); ii < n; ++ii)
         {
-            b2_str << static_cast<int>(b2[ii]);
+            b2_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +b2[ii] << ' ';
         }
         return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
             b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();

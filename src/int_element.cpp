@@ -60,6 +60,25 @@ IntElement& IntElement::operator=(int64_t const& rhs)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Accessors
+///////////////////////////////////////////////////////////////////////////////
+
+size_t IntElement::size() const
+{
+    return tide::ebml_int::coded_size_s(value_);
+}
+
+
+size_t IntElement::total_size() const
+{
+    size_t data_size(size());
+    // The size value will always be 1 byte, as the data cannot use more than 8
+    // bytes.
+    return tide::vint::coded_size(id_) + 1 + data_size;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -86,20 +105,5 @@ std::streamsize IntElement::read_body(std::istream& input)
     result = tide::vint::read(input);
     value_ = tide::ebml_int::read_s(input, result.first);
     return result.second + result.first;
-}
-
-
-size_t IntElement::size() const
-{
-    return tide::ebml_int::coded_size_s(value_);
-}
-
-
-size_t IntElement::total_size() const
-{
-    size_t data_size(size());
-    // The size value will always be 1 byte, as the data cannot use more than 8
-    // bytes.
-    return tide::vint::coded_size(id_) + 1 + data_size;
 }
 

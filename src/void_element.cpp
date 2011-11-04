@@ -38,20 +38,32 @@ using namespace tide;
 ///////////////////////////////////////////////////////////////////////////////
 
 VoidElement::VoidElement(size_t size, bool fill)
-    : Element(0xEC), size_(size), fill_(fill)
+    : Element(VOID_ELEMENT_ID), size_(size), fill_(fill), extra_size_(0)
 {
 }
 
 
 VoidElement::VoidElement(Element const& element, bool fill)
-    : Element(0xEC), fill_(fill)
+    : Element(VOID_ELEMENT_ID), fill_(fill), extra_size_(0)
 {
-    // Set this element's size from the total size of the element to replace
-    // minus one byte for the void element's ID.
+    // Set this element's size from the total size of the element to replace.
+    // We need to calculate an appropriate body size that, when combined with
+    // the data size and the ID size, will give the same size as
+    // element.total_size(). Start by estimating the bytes required for the
+    // body size.
     size_ = element.total_size() - 1;
-    // Subtract off the size required to store this element's data size.
-    size_t data_size_size_1(tide::vint::coded_size(size_ - 1));
-    size_t data_size_size_2(tide::vint::coded_size(size_ - 2));
+    size_ -= tide::vint::coded_size(size_);
+    // Check if enough space is used
+    if (total_size() != element.total_size())
+    {
+        // Need to use more space (typically 1 more byte), but if we increase
+        // the body size, it might push the data size value over the line to
+        // requiring another byte, meaning that the void element's total size
+        // would go from 1 byte under to 1 byte over. Instead, we require that
+        // the body size is stored with an extra byte.
+        extra_size_ = 1;
+    }
+    assert(total_size() == element.total_size());
 }
 
 
@@ -62,7 +74,7 @@ VoidElement::VoidElement(Element const& element, bool fill)
 size_t VoidElement::total_size() const
 {
     // ID is always 1 byte
-    return 1 + tide::vint::coded_size(size_) + size_;
+    return 1 + tide::vint::coded_size(size_) + size_ + extra_size_;
 }
 
 
@@ -72,18 +84,50 @@ size_t VoidElement::total_size() const
 
 std::streamsize VoidElement::write_id(std::ostream& output)
 {
-    return 0;
+    return tide::vint::write(id_, output);
 }
 
 
 std::streamsize VoidElement::write_body(std::ostream& output)
 {
-    return 0;
+    size_t result(0);
+
+    // Write the body size value padded with extra bytes if necessary
+    result += tide::vint::write(size_, output,
+            tide::vint::coded_size(size_) + extra_size_);
+    if (fill_)
+    {
+        std::vector<char> zeros(size_, 0);
+        output.write(&zeros[0], zeros.size());
+        if (!output)
+        {
+            throw WriteError() << err_pos(output.tellp());
+        }
+    }
+    else
+    {
+        // Skip ahead in the file to the end of the body
+        output.seekp(size_, std::ios::cur);
+    }
+    return result + size_;
 }
 
 
 std::streamsize VoidElement::read_body(std::istream& input)
 {
-    return 0;
+    std::pair<uint64_t, size_t> result;
+
+    // Read the body size
+    result = tide::vint::read(input);
+    size_ = result.first;
+    // Record the extra body size byte count for future writing
+    extra_size_ = result.second - tide::vint::coded_size(size_);
+    // Skip the body
+    input.seekg(size_, std::ios::cur);
+    if (!input)
+    {
+        throw ReadError() << err_pos(input.tellg());
+    }
+    return result.second + result.first;
 }
 

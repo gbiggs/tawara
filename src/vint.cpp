@@ -70,64 +70,65 @@ size_t tide::vint::coded_size(uint64_t integer)
 }
 
 
-size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n)
+size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n,
+        size_t req_size)
 {
     assert(n > 0);
     assert(n <= 8);
+    assert(req_size <= 8);
 
-    // Short-circuit optimisations for common values
     unsigned int shifts(0);
     uint8_t mask(0);
 
-    if (integer < 0x80)
+    size_t c_size(coded_size(integer));
+    if (req_size > 0)
     {
-        // Short-circuit the byte-copying machinery.
-        buffer[0] = integer | 0x80;
-        return 1;
+        if (req_size < c_size)
+        {
+        throw tide::SpecSizeTooSmall() << tide::err_varint(integer) <<
+            tide::err_reqsize(req_size);
+        }
+        c_size = req_size;
     }
-    else if (integer < 0x4000)
+    switch (c_size)
     {
-        shifts = 1;
-        mask = 0x40;
-    }
-    else if (integer < 0x200000)
-    {
-        shifts = 2;
-        mask = 0x20;
-    }
-    else if (integer < 0x10000000)
-    {
-        shifts = 3;
-        mask = 0x10;
-    }
-    else if (integer < 0x800000000)
-    {
-        shifts = 4;
-        mask = 0x08;
-    }
-    else if (integer < 0x40000000000)
-    {
-        shifts = 5;
-        mask = 0x04;
-    }
-    else if (integer < 0x2000000000000)
-    {
-        shifts = 6;
-        mask = 0x02;
-    }
-    else if (integer < 0x100000000000000)
-    {
-        shifts = 7;
-        mask = 0x01;
-    }
-    else
-    {
-        throw tide::VarIntTooBig() << tide::err_varint(integer) <<
-            tide::err_bufsize(n);
+        case 1:
+            // Skip the byte-copying code
+            buffer[0] = integer | 0x80;
+            return 1;
+            break;
+        case 2:
+            shifts = 1;
+            mask = 0x40;
+            break;
+        case 3:
+            shifts = 2;
+            mask = 0x20;
+            break;
+        case 4:
+            shifts = 3;
+            mask = 0x10;
+            break;
+        case 5:
+            shifts = 4;
+            mask = 0x08;
+            break;
+        case 6:
+            shifts = 5;
+            mask = 0x04;
+            break;
+        case 7:
+            shifts = 6;
+            mask = 0x02;
+            break;
+        case 8:
+            shifts = 7;
+            mask = 0x01;
+            break;
     }
 
     // Buffer size must be at least the number of shifts + 1
-    if (n < shifts + 1)
+    if (n < c_size)
     {
         throw tide::BufferTooSmall() << tide::err_varint(integer) <<
             tide::err_bufsize(n) << tide::err_reqsize(shifts + 1);
@@ -139,7 +140,7 @@ size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n)
     }
     buffer[0] = ((integer >> shifts * 8) & 0xFF) | mask;
 
-    return shifts + 1;
+    return c_size;
 }
 
 
@@ -212,59 +213,63 @@ std::pair<uint64_t, size_t> tide::vint::decode(uint8_t const* buffer, size_t n)
 }
 
 
-size_t tide::vint::write(uint64_t integer, std::ostream& output)
+size_t tide::vint::write(uint64_t integer, std::ostream& output,
+        size_t req_size)
 {
+    assert(req_size <= 8);
+
     unsigned int shifts(0);
     uint8_t mask(0);
 
-    if (integer < 0x80)
+    size_t c_size(coded_size(integer));
+    if (req_size > 0)
     {
-        // Short-circuit the byte-copying machinery.
-        output.put(integer | 0x80);
-        if (!output)
+        if (req_size < c_size)
         {
-            throw tide::WriteError() << tide::err_pos(output.tellp());
+        throw tide::SpecSizeTooSmall() << tide::err_varint(integer) <<
+            tide::err_reqsize(req_size);
         }
-        return 1;
+        c_size = req_size;
     }
-    else if (integer < 0x4000)
+    switch (c_size)
     {
-        shifts = 1;
-        mask = 0x40;
-    }
-    else if (integer < 0x200000)
-    {
-        shifts = 2;
-        mask = 0x20;
-    }
-    else if (integer < 0x10000000)
-    {
-        shifts = 3;
-        mask = 0x10;
-    }
-    else if (integer < 0x800000000)
-    {
-        shifts = 4;
-        mask = 0x08;
-    }
-    else if (integer < 0x40000000000)
-    {
-        shifts = 5;
-        mask = 0x04;
-    }
-    else if (integer < 0x2000000000000)
-    {
-        shifts = 6;
-        mask = 0x02;
-    }
-    else if (integer < 0x100000000000000)
-    {
-        shifts = 7;
-        mask = 0x01;
-    }
-    else
-    {
-        throw tide::VarIntTooBig() << tide::err_varint(integer);
+        case 1:
+            // Skip the byte-copying code
+            output.put(integer | 0x80);
+            if (!output)
+            {
+                throw tide::WriteError() << tide::err_pos(output.tellp());
+            }
+            return 1;
+            break;
+        case 2:
+            shifts = 1;
+            mask = 0x40;
+            break;
+        case 3:
+            shifts = 2;
+            mask = 0x20;
+            break;
+        case 4:
+            shifts = 3;
+            mask = 0x10;
+            break;
+        case 5:
+            shifts = 4;
+            mask = 0x08;
+            break;
+        case 6:
+            shifts = 5;
+            mask = 0x04;
+            break;
+        case 7:
+            shifts = 6;
+            mask = 0x02;
+            break;
+        case 8:
+            shifts = 7;
+            mask = 0x01;
+            break;
     }
 
     // Write the first byte with its length indicator
@@ -279,7 +284,7 @@ size_t tide::vint::write(uint64_t integer, std::ostream& output)
         throw tide::WriteError() << tide::err_pos(output.tellp());
     }
 
-    return shifts + 1;
+    return c_size;
 }
 
 

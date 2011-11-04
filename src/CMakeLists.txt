@@ -13,6 +13,7 @@ set(srcs tide_file.cpp
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_library(${PROJECT_NAME_LOWER} ${LIB_TYPE} ${srcs})
+target_link_libraries(${PROJECT_NAME_LOWER} ${Boost_LIBRARIES})
 
 install(TARGETS ${PROJECT_NAME_LOWER}
     EXPORT ${PROJECT_NAME_LOWER}

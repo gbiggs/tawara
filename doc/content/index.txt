@@ -5,6 +5,7 @@ Tide - English
    :hidden:
 
    index_j
+   specification
 
 Introduction
 ============

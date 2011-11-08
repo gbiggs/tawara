@@ -4,7 +4,9 @@ if(NOT GTEST_FOUND)
     return()
 endif(NOT GTEST_FOUND)
 
-include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_BINARY_DIR}/include
+    ${GTEST_INCLUDE_DIRS})
 
 set(srcs test_utils.cpp
     file_open.cpp
@@ -17,7 +19,8 @@ set(srcs test_utils.cpp
     test_date_element.cpp
     test_string_element.cpp
     test_binary_element.cpp
-    test_void_element.cpp)
+    test_void_element.cpp
+    test_ebml_element.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

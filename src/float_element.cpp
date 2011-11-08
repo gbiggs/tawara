@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Source file for the float element object.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <tide/float_element.h>
@@ -78,29 +78,14 @@ size_t FloatElement::size() const
 }
 
 
-size_t FloatElement::total_size() const
-{
-    // Float elements are always 4 or 8 bytes, so the data value will always be
-    // 1 byte.
-    return tide::vint::coded_size(id_) + 1 + size();
-}
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
-
-std::streamsize FloatElement::write_id(std::ostream& output)
-{
-    return tide::vint::write(id_, output);
-}
-
 
 std::streamsize FloatElement::write_body(std::ostream& output)
 {
     float tmp(0);
     size_t result(0);
-    result += tide::vint::write(size(), output);
     switch(prec_)
     {
         case EBML_FLOAT_PREC_SINGLE:
@@ -110,7 +95,7 @@ std::streamsize FloatElement::write_body(std::ostream& output)
             {
                 throw WriteError() << err_pos(output.tellp());
             }
-            result += 4;
+            result = 4;
             break;
         case EBML_FLOAT_PREC_DOUBLE:
             output.write(reinterpret_cast<char*>(&value_), 8);
@@ -118,7 +103,7 @@ std::streamsize FloatElement::write_body(std::ostream& output)
             {
                 throw WriteError() << err_pos(output.tellp());
             }
-            result += 8;
+            result = 8;
             break;
     };
     return result;

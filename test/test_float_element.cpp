@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Float element tests.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <tide/float_element.h>
@@ -39,7 +39,7 @@ namespace test_flel
 {
 
 size_t fill_buffer(std::string& b, uint32_t id, double data,
-        bool write_id, bool write_body, bool double_prec)
+        bool write_id, bool write_size, bool write_body, bool double_prec)
 {
     char temp[8];
     size_t n(0), total(0);
@@ -49,24 +49,35 @@ size_t fill_buffer(std::string& b, uint32_t id, double data,
         b.append(temp, 0, n);
         total += n;
     }
-    if (write_body)
+    if (write_size)
     {
         if (double_prec)
         {
             n = tide::vint::encode(8, reinterpret_cast<uint8_t*>(temp), 8);
             b.append(temp, 0, n);
-            memcpy(temp, reinterpret_cast<char*>(&data), 8);
-            b.append(temp, 0, 8);
-            total += n + 8;
+            total += n;
         }
         else
         {
             n = tide::vint::encode(4, reinterpret_cast<uint8_t*>(temp), 8);
             b.append(temp, 0, n);
+            total += n;
+        }
+    }
+    if (write_body)
+    {
+        if (double_prec)
+        {
+            memcpy(temp, reinterpret_cast<char*>(&data), 8);
+            b.append(temp, 0, 8);
+            total += 8;
+        }
+        else
+        {
             float data_fl(data);
             memcpy(temp, reinterpret_cast<char*>(&data_fl), 4);
             b.append(temp, 0, 4);
-            total += n + 4;
+            total += 4;
         }
     }
     return total;
@@ -261,19 +272,25 @@ TEST(FloatElement, Write)
 
     tide::FloatElement e1(0x01, value, tide::EBML_FLOAT_PREC_DOUBLE);
 
-    test_flel::fill_buffer(expected, 0x01, value, false, true, true);
-    EXPECT_EQ(9, e1.write_body(output));
+    test_flel::fill_buffer(expected, 0x01, value, false, false, true, true);
+    EXPECT_EQ(8, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, false, true);
+    test_flel::fill_buffer(expected, 0x01, value, false, true, false, true);
+    EXPECT_EQ(1, e1.write_size(output));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_flel::fill_buffer(expected, 0x01, value, true, false, false, true);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, true, true);
+    test_flel::fill_buffer(expected, 0x01, value, true, true, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 9, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -281,19 +298,25 @@ TEST(FloatElement, Write)
     e1.value(value);
     e1.precision(tide::EBML_FLOAT_PREC_SINGLE);
 
-    test_flel::fill_buffer(expected, 0x01, value, false, true, false);
-    EXPECT_EQ(5, e1.write_body(output));
+    test_flel::fill_buffer(expected, 0x01, value, false, false, true, false);
+    EXPECT_EQ(4, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, false, false);
+    test_flel::fill_buffer(expected, 0x01, value, false, true, false, false);
+    EXPECT_EQ(1, e1.write_size(output));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_flel::fill_buffer(expected, 0x01, value, true, false, false, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, true, false);
+    test_flel::fill_buffer(expected, 0x01, value, true, true, true, false);
     EXPECT_EQ(tide::vint::coded_size(1) + 5, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
@@ -306,7 +329,7 @@ TEST(FloatElement, Read)
     double value(23.14069);
 
     tide::FloatElement e(0x01, 0);
-    test_flel::fill_buffer(input_val, 0x01, value, false, true, true);
+    test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val);
     EXPECT_EQ(9, e.read_body(input));
     EXPECT_EQ(0x01, e.id());
@@ -319,7 +342,7 @@ TEST(FloatElement, Read)
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
     std::string().swap(input_val);
-    test_flel::fill_buffer(input_val, 0x01, value, false, true, false);
+    test_flel::fill_buffer(input_val, 0x01, value, false, true, true, false);
     input.str(input_val);
     EXPECT_EQ(5, e.read_body(input));
     EXPECT_FLOAT_EQ(value, e.value());
@@ -329,12 +352,12 @@ TEST(FloatElement, Read)
 
     // Test for ReadError exception
     std::string().swap(input_val);
-    test_flel::fill_buffer(input_val, 0x01, value, false, true, true);
+    test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);
     // Test for ReadError exception
     std::string().swap(input_val);
-    test_flel::fill_buffer(input_val, 0x01, value, false, true, true);
+    test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);
 }

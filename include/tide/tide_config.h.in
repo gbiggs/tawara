@@ -1,6 +1,6 @@
 /* Tide
  *
- * Windows DLL declaration.
+ * Tide configuration header file.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,20 +25,26 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_WIN_DLL_H_)
-#define TIDE_WIN_DLL_H_
+#if !defined(TIDE_TIDE_CONFIG_H_)
+#define TIDE_TIDE_CONFIG_H_
 
-#if defined(WIN32)
-    #if defined(TIDE_STATIC)
-        #define TIDE_EXPORT
-    #elif defined(tide_EXPORTS)
-        #define TIDE_EXPORT __declspec(dllexport)
-    #else
-        #define TIDE_EXPORT __declspec(dllimport)
-    #endif
-#else
-    #define TIDE_EXPORT
-#endif
+#include <string>
 
-#endif // TIDE_WIN_DLL_H_
+/// \addtogroup constants Constants
+/// @{
+
+namespace tide
+{
+    const std::string TideDocType("tide");
+    const std::string TideLibName("@PROJECT_NAME_LOWER@");
+    const std::string TideVersion("@PROJECT_VERSION@");
+    const unsigned int TideVersionMajor(@PROJECT_VERSION_MAJOR@);
+    const unsigned int TideVersionMinor(@PROJECT_VERSION_MINOR@);
+    const unsigned int TideVersionRevision(@PROJECT_VERSION_REVISION@);
+}; // namespace tide
+
+/// @}
+// group constants
+
+#endif // TIDE_TIDE_CONFIG_H_
 

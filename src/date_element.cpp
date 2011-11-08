@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Source file for the date element object.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <tide/date_element.h>
@@ -72,34 +72,18 @@ size_t DateElement::size() const
 }
 
 
-size_t DateElement::total_size() const
-{
-    size_t data_size(size());
-    // The size value will always be 1 byte, as the data cannot use more than 8
-    // bytes.
-    return tide::vint::coded_size(id_) + 1 + data_size;
-}
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize DateElement::write_id(std::ostream& output)
-{
-    return tide::vint::write(id_, output);
-}
-
-
 std::streamsize DateElement::write_body(std::ostream& output)
 {
-    size_t result = tide::vint::write(size(), output);
     output.write(reinterpret_cast<char*>(&value_), 8);
     if (!output)
     {
         throw WriteError() << err_pos(output.tellp());
     }
-    return result + 8;
+    return 8;
 }
 
 

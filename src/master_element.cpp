@@ -1,6 +1,6 @@
 /* Tide
  *
- * Windows DLL declaration.
+ * Source file for the base MasterElement object.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,20 +25,18 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_WIN_DLL_H_)
-#define TIDE_WIN_DLL_H_
+#include <tide/master_element.h>
 
-#if defined(WIN32)
-    #if defined(TIDE_STATIC)
-        #define TIDE_EXPORT
-    #elif defined(tide_EXPORTS)
-        #define TIDE_EXPORT __declspec(dllexport)
-    #else
-        #define TIDE_EXPORT __declspec(dllimport)
-    #endif
-#else
-    #define TIDE_EXPORT
-#endif
+#include <tide/exceptions.h>
 
-#endif // TIDE_WIN_DLL_H_
+using namespace tide;
+
+///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+MasterElement::MasterElement(uint32_t id, bool crc)
+    : Element(id), crc_(crc)
+{
+}
 

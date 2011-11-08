@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Header file for the void element object.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #if !defined(TIDE_INT_ELEMENT_H_)
@@ -83,13 +83,7 @@ namespace tide
              */
             void size(size_t size) { size_ = size; }
 
-            /** \brief Get the total size of the element.
-             *
-             * Returns the size, in bytes, required to store this entire
-             * element, including its ID, data size value and body.
-             *
-             * \return The size of the entire element, in bytes.
-             */
+            /// \brief Get the total size of the element.
             size_t total_size() const;
 
             /// \brief Get the fill setting.
@@ -110,15 +104,8 @@ namespace tide
              */
             void fill(bool fill) { fill_ = fill; }
 
-            /** \brief Element ID writing.
-             *
-             * Writes the element's EBML ID to a byte stream providing a
-             * std::ostream interface. Up to 4 bytes may be written.
-             *
-             * \param[in] output The destination byte stream to write to.
-             * \return The number of bytes written.
-             */
-            virtual std::streamsize write_id(std::ostream& output);
+            /// \brief Element writing.
+            virtual std::streamsize write(std::ostream& output);
 
             /** \brief Element body writing.
              *

@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Exceptions header file.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #if !defined(TIDE_EXCEPTIONS_H_)
@@ -188,6 +188,21 @@ namespace tide
      */
     struct BadElementLength : virtual TideError {};
 
+    /** \brief A child element was found where it doesn't belong.
+     *
+     * When reading an element's children, if an element ID is found that does
+     * not belong in the parent, this error is raised.
+     *
+     * The err_id tag may be included to indicate the invalid ID.
+     *
+     * The err_par_id tag may be included to indicate the parent element being
+     * read.
+     *
+     * The err_pos tag may be included to indicate where in the file the error
+     * occured.
+     */
+    struct InvalidChildID : virtual TideError {};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags
@@ -213,6 +228,9 @@ namespace tide
 
     /// \brief An Element ID.
     typedef boost::error_info<struct tag_id, uint32_t> err_id;
+
+    /// \brief A parent element ID.
+    typedef boost::error_info<struct tag_par_id, uint32_t> err_par_id;
 
     /// \brief A set of valid element sizes.
     typedef boost::error_info<struct tag_valid_sizes, std::vector<size_t> >

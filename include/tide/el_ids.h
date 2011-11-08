@@ -1,6 +1,6 @@
 /* Tide
  *
- * Windows DLL declaration.
+ * This file contains all the EBML element IDs used by Tide.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,20 +25,25 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_WIN_DLL_H_)
-#define TIDE_WIN_DLL_H_
+#if !defined(TIDE_EL_IDS_H_)
+#define TIDE_EL_IDS_H_
 
-#if defined(WIN32)
-    #if defined(TIDE_STATIC)
-        #define TIDE_EXPORT
-    #elif defined(tide_EXPORTS)
-        #define TIDE_EXPORT __declspec(dllexport)
-    #else
-        #define TIDE_EXPORT __declspec(dllimport)
-    #endif
-#else
-    #define TIDE_EXPORT
-#endif
+#include <stdint.h>
 
-#endif // TIDE_WIN_DLL_H_
+namespace tide
+{
+    namespace ids
+    {
+        const uint32_t EBML(0x0A45DFA3);
+            const uint32_t EBMLVersion(0x0286);
+            const uint32_t EBMLReadVersion(0x02F7);
+            const uint32_t EBMLMaxIDLength(0x02F2);
+            const uint32_t EBMLMaxSizeLength(0x02F3);
+            const uint32_t DocType(0x0282);
+            const uint32_t DocTypeVersion(0x0287);
+            const uint32_t DocTypeReadVersion(0x0285);
+    }; // namespace ids
+}; // namespace tide
+
+#endif // TIDE_EL_IDS_H_
 

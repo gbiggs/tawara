@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Header file for the base element object.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #if !defined(TIDE_ELEMENT_H_)
@@ -90,49 +90,6 @@ namespace tide
              */
             virtual uint32_t id() const { return id_; }
 
-            /** \brief Element writing.
-             *
-             * Writes the entire element, including its ID, body size and body
-             * data, to a byte stream providing a std::ostream interface.
-             *
-             * \param[in] output The destination byte stream to write to.
-             * \return The number of bytes written.
-             */
-            virtual std::streamsize write(std::ostream& output);
-
-            /** \brief Element ID writing.
-             *
-             * Writes the element's EBML ID to a byte stream providing a
-             * std::ostream interface. Up to 4 bytes may be written.
-             *
-             * \param[in] output The destination byte stream to write to.
-             * \return The number of bytes written.
-             */
-            virtual std::streamsize write_id(std::ostream& output) = 0;
-
-            /** \brief Element body writing.
-             *
-             * Writes the element's size and body to a byte stream providing a
-             * std::ostream interface.
-             *
-             * \return The number of bytes written.
-             */
-            virtual std::streamsize write_body(std::ostream& output) = 0;
-
-            /** \brief Element body loading.
-             *
-             * Reads the element from a byte stream providing a std::istream
-             * interface.
-             *
-             * This method assumes that the Element ID has already been read
-             * (and thus used to construct the Element instance doing the
-             * reading), which means that the file's read pointer should be
-             * positioned at the first byte of the element's size.
-             *
-             * \return The number of bytes read.
-             */
-            virtual std::streamsize read_body(std::istream& input) = 0;
-
             /** \brief Get the size of the body of this element.
              *
              * Returns the size, in bytes, required to store this element's
@@ -152,7 +109,64 @@ namespace tide
              *
              * \return The size of the entire element, in bytes.
              */
-            virtual size_t total_size() const = 0;
+            virtual size_t total_size() const;
+
+            /** \brief Element writing.
+             *
+             * Writes the entire element, including its ID, body size and body
+             * data, to a byte stream providing a std::ostream interface.
+             *
+             * \param[in] output The destination byte stream to write to.
+             * \return The number of bytes written.
+             * \exception WriteError if an error occurs writing data.
+             */
+            virtual std::streamsize write(std::ostream& output);
+
+            /** \brief Element ID writing.
+             *
+             * Writes the element's EBML ID to a byte stream providing a
+             * std::ostream interface. Up to 4 bytes may be written.
+             *
+             * \param[in] output The destination byte stream to write to.
+             * \return The number of bytes written.
+             * \exception WriteError if an error occurs writing data.
+             */
+            virtual std::streamsize write_id(std::ostream& output);
+
+            /** \brief Element size writing.
+             *
+             * Writes the element's size to a byte stream providing a
+             * std::ostream interface.
+             *
+             * \return The number of bytes written.
+             * \exception WriteError if an error occurs writing data.
+             */
+            virtual std::streamsize write_size(std::ostream& output);
+
+            /** \brief Element body writing.
+             *
+             * Writes the element's body to a byte stream providing a
+             * std::ostream interface.
+             *
+             * \return The number of bytes written.
+             * \exception WriteError if an error occurs writing data.
+             */
+            virtual std::streamsize write_body(std::ostream& output) = 0;
+
+            /** \brief Element body loading.
+             *
+             * Reads the element from a byte stream providing a std::istream
+             * interface.
+             *
+             * This method assumes that the Element ID has already been read
+             * (and thus used to construct the Element instance doing the
+             * reading), which means that the file's read pointer should be
+             * positioned at the first byte of the element's size.
+             *
+             * \return The number of bytes read.
+             * \exception ReadError if an error occurs reading data.
+             */
+            virtual std::streamsize read_body(std::istream& input) = 0;
 
         protected:
             uint32_t id_;

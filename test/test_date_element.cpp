@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Date element tests.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <tide/date_element.h>
@@ -39,7 +39,7 @@ namespace test_datel
 {
 
 size_t fill_buffer(std::string& b, uint32_t id, int64_t data,
-        bool write_id, bool write_body)
+        bool write_id, bool write_size, bool write_body)
 {
     char temp[8];
     size_t n(0), total(0);
@@ -49,11 +49,14 @@ size_t fill_buffer(std::string& b, uint32_t id, int64_t data,
         b.append(temp, 0, n);
         total += n;
     }
-    if (write_body)
+    if (write_size)
     {
         n = tide::vint::encode(8, reinterpret_cast<uint8_t*>(temp), 8);
         b.append(temp, 0, n);
         total += n;
+    }
+    if (write_body)
+    {
         for (size_t ii(0); ii < 8; ++ii)
         {
             b.push_back(reinterpret_cast<uint8_t*>(&data)[ii]);
@@ -201,38 +204,50 @@ TEST(DateElement, Write)
 
     tide::DateElement e1(0x01, value);
 
-    test_datel::fill_buffer(expected, 0x01, value, false, true);
-    EXPECT_EQ(1 + 8, e1.write_body(output));
+    test_datel::fill_buffer(expected, 0x01, value, false, false, true);
+    EXPECT_EQ(8, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x01, value, true, false);
+    test_datel::fill_buffer(expected, 0x01, value, false, true, false);
+    EXPECT_EQ(1, e1.write_size(output));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_datel::fill_buffer(expected, 0x01, value, true, false, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x01, value, true, true);
+    test_datel::fill_buffer(expected, 0x01, value, true, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = -0x839F18AAl;
     e1.value(value);
 
-    test_datel::fill_buffer(expected, 0x01, value, false, true);
-    EXPECT_EQ(1 + 8, e1.write_body(output));
+    test_datel::fill_buffer(expected, 0x01, value, false, false, true);
+    EXPECT_EQ(8, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x01, value, true, false);
+    test_datel::fill_buffer(expected, 0x01, value, false, true, false);
+    EXPECT_EQ(1, e1.write_size(output));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+    output.str(std::string());
+    std::string().swap(expected);
+    test_datel::fill_buffer(expected, 0x01, value, true, false, false);
     EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x01, value, true, true);
+    test_datel::fill_buffer(expected, 0x01, value, true, true, true);
     EXPECT_EQ(tide::vint::coded_size(1) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
@@ -245,7 +260,7 @@ TEST(DateElement, Read)
     int64_t value(5);
 
     tide::DateElement e(0x01, 0);
-    test_datel::fill_buffer(input_val, 0x01, value, false, true);
+    test_datel::fill_buffer(input_val, 0x01, value, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + 8, e.read_body(input));
     EXPECT_EQ(0x01, e.id());
@@ -257,7 +272,7 @@ TEST(DateElement, Read)
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
     std::string().swap(input_val);
-    test_datel::fill_buffer(input_val, 0x01, value, false, true);
+    test_datel::fill_buffer(input_val, 0x01, value, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + 8, e.read_body(input));
     EXPECT_EQ(value, e.value());
@@ -266,13 +281,13 @@ TEST(DateElement, Read)
 
     // Test for BadElementLength exception
     std::string().swap(input_val);
-    test_datel::fill_buffer(input_val, 0x01, value, false, true);
+    test_datel::fill_buffer(input_val, 0x01, value, false, true, true);
     input_val[0] = 0x05;
     input.str(input_val);
     EXPECT_THROW(e.read_body(input), tide::BadElementLength);
     // Test for ReadError exception
     std::string().swap(input_val);
-    test_datel::fill_buffer(input_val, 0x01, value, false, true);
+    test_datel::fill_buffer(input_val, 0x01, value, false, true, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);
 }

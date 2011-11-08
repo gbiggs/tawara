@@ -1,4 +1,4 @@
-/* TIDE
+/* Tide
  *
  * Source file for the binary element object.
  *
@@ -9,20 +9,20 @@
  *     Japan
  *     All rights reserved.
  *
- * This file is part of TIDE.
+ * This file is part of Tide.
  *
- * TIDE is free software; you can redistribute it and/or modify it under
+ * Tide is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * TIDE is distributed in the hope that it will be useful, but WITHOUT
+ * Tide is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with TIDE. If not, see <http://www.gnu.org/licenses/>.
+ * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <tide/binary_element.h>
@@ -71,35 +71,18 @@ size_t BinaryElement::size() const
 }
 
 
-size_t BinaryElement::total_size() const
-{
-    size_t data_size(size());
-    return tide::vint::coded_size(id_) + tide::vint::coded_size(data_size) +
-        data_size;
-}
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize BinaryElement::write_id(std::ostream& output)
-{
-    return tide::vint::write(id_, output);
-}
-
-
 std::streamsize BinaryElement::write_body(std::ostream& output)
 {
-    size_t result(0);
-
-    result += tide::vint::write(size(), output);
     output.write(&value_[0], value_.size());
     if (!output)
     {
         throw WriteError() << err_pos(output.tellp());
     }
-    return result + value_.size();
+    return value_.size();
 }
 
 

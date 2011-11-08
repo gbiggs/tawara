@@ -1,4 +1,9 @@
-set(hdrs tide.h
+set(config_h ${CMAKE_CURRENT_BINARY_DIR}/tide_config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/tide_config.h.in
+    ${config_h})
+
+set(hdrs ${config_h}
+    tide.h
     exceptions.h
     win_dll.h
     tide_file.h

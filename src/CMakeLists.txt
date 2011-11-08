@@ -8,9 +8,12 @@ set(srcs tide_file.cpp
     string_element.cpp
     date_element.cpp
     binary_element.cpp
-    void_element.cpp)
+    void_element.cpp
+    master_element.cpp
+    ebml_element.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_BINARY_DIR}/include)
 
 add_library(${PROJECT_NAME_LOWER} ${LIB_TYPE} ${srcs})
 target_link_libraries(${PROJECT_NAME_LOWER} ${Boost_LIBRARIES})

@@ -48,14 +48,14 @@ namespace tide
     {
         public:
             /// \brief Create a new Tide implementation object.
-            TideImpl(std::iostream& the_stream);
+            TideImpl(std::iostream& stream);
 
             /// \brief Destructor for the Tide implementation object.
             virtual ~TideImpl() {};
 
         protected:
             /// The stream being operated on.
-            std::iostream stream_;
+            std::iostream& stream_;
 
             /// Prepares the stream for use by checking for EBML content, and
             /// adding a header if the stream is empty.

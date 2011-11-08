@@ -46,15 +46,17 @@ class TideTest : public ::testing::Test
             tide_src_path(test_source_dir / "tide.tide"),
             tide_path(test_bin_dir / "tide.tide")
         {
-            empty_file.open(empty_path.string(), std::ios::in | std::ios::out);
+            empty_file.open(empty_path.string().c_str(),
+                    std::ios::in|std::ios::out|std::ios::app);
             boost::filesystem3::copy(not_ebml_src_path, not_ebml_path);
-            not_ebml_file.open(not_ebml_path.string(), std::ios::in |
-                    std::ios::out);
+            not_ebml_file.open(not_ebml_path.string().c_str(),
+                    std::ios::in|std::ios::out|std::ios::app);
             boost::filesystem3::copy(not_tide_src_path, not_tide_path);
-            not_tide_file.open(not_tide_path.string(),
-                    std::ios::in | std::ios::out);
+            not_tide_file.open(not_tide_path.string().c_str(),
+                    std::ios::in|std::ios::out|std::ios::app);
             boost::filesystem3::copy(tide_src_path, tide_path);
-            tide_file.open(tide_path.string(), std::ios::in | std::ios::out);
+            tide_file.open(tide_path.string().c_str(),
+                    std::ios::in|std::ios::out|std::ios::app);
         }
 
         ~TideTest()
@@ -84,35 +86,35 @@ class TideTest : public ::testing::Test
 }; // class TideTest
 
 
-TEST(Tide, EmptyFile)
+TEST_F(TideTest, EmptyFile)
 {
-    EXPECT_NO_THROW(tide::TideImpl(empty_file));
+    EXPECT_NO_THROW(tide::TideImpl t(empty_file));
     empty_file.close();
     // A Tide file with just the EBML header should be 36 bytes
-    EXPECT_EQ(36, boost::filesystem::file_size(empty_path);
+    EXPECT_EQ(36, boost::filesystem::file_size(empty_path));
 }
 
 
-TEST(Tide, ExistingFile)
+TEST_F(TideTest, ExistingFile)
 {
-    tide_file.seek(0, std::ios::end);
+    tide_file.seekp(0, std::ios::end);
     std::streamsize file_size(tide_file.tellp());
-    tide_file.seek(0, std::ios::beg);
-    EXPECT_NO_THROW(tide::TideImpl(tide_file));
-    tide_file.seek(0, std::ios::end);
+    tide_file.seekp(0, std::ios::beg);
+    EXPECT_NO_THROW(tide::TideImpl t(tide_file));
+    tide_file.seekp(0, std::ios::end);
     // The file should not be modified just by opening it
     EXPECT_EQ(file_size, tide_file.tellp());
 }
 
 
-TEST(Tide, NotEBMLFile)
+TEST_F(TideTest, NotEBMLFile)
 {
-    EXPECT_THROW(tide::TideImpl(not_ebml_file), tide::NotEBML);
+    EXPECT_THROW(tide::TideImpl t(not_ebml_file), tide::NotEBML);
 }
 
 
-TEST(Tide, NotTideFile)
+TEST_F(TideTest, NotTideFile)
 {
-    EXPECT_THROW(tide::TideImpl(not_tide_file), tide::NotTide);
+    EXPECT_THROW(tide::TideImpl t(not_tide_file), tide::NotTide);
 }
 

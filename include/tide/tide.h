@@ -61,14 +61,14 @@ namespace tide
              * cannot be found or the DocType is incorrect, NotTide will be
              * raised.
              *
-             * \param[in] stream The std::iostream object to read from and
-             * write to.
+             * \param[in] stream A reference to the std::iostream object to
+             * read from and write to.
              * \exception NotEBML if the stream is not empty and does not
              * contain an EBML header.
              * \exception NotTide if the stream is not empty and does not
              * contain valid EBML with the "tide" DocType.
              */
-            Tide(std::iostream& the_stream) {}
+            Tide(std::iostream& stream) {}
 
             /** \brief Destroy the Tide object.
              *

@@ -27,7 +27,10 @@
 
 #include <tide/tide_impl.h>
 
+#include <tide/ebml_element.h>
 #include <tide/exceptions.h>
+
+#include <iostream>
 
 using namespace tide;
 
@@ -36,10 +39,11 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-TideImpl::TideImpl(std::iostream& the_stream)
-    : Tide(the_stream),
-    stream_(the_stream)
+TideImpl::TideImpl(std::iostream& stream)
+    : Tide(stream),
+    stream_(stream)
 {
+    std::cout << "Constructor\n";
     prepare_stream();
 }
 
@@ -51,10 +55,24 @@ TideImpl::TideImpl(std::iostream& the_stream)
 void TideImpl::prepare_stream()
 {
     // Preserve the current read position
+    std::streamsize cur(stream_.tellg());
     // Check the file size
+    stream_.seekg(0, std::ios::end);
+    std::streamsize size(stream_.tellg());
     // If the file is empty, write an EBML header
+    if (size <= 0)
+    {
+        stream_.seekg(0, std::ios::beg);
+        EBMLElement e;
+        e.write(stream_);
+    }
     // If the file is not empty, search for an EBML header
-    // Header found; check DocType
-    // Header not found: throw
+    else
+    {
+        // Header found; check DocType
+        // Header not found: throw
+        // Return to the current read position
+        stream_.seekg(cur);
+    }
 }
 

@@ -32,7 +32,7 @@
 #include <tide/win_dll.h>
 
 #include <fstream>
-#include <ostream>
+#include <iostream>
 #include <string>
 
 /// \addtogroup implementations Implementations
@@ -48,18 +48,18 @@ namespace tide
     {
         public:
             /// \brief Create a new Tide implementation object.
-            TideImpl(std::stream& stream);
+            TideImpl(std::iostream& the_stream);
 
             /// \brief Destructor for the Tide implementation object.
             virtual ~TideImpl() {};
 
         protected:
             /// The stream being operated on.
-            std::stream file_;
+            std::iostream stream_;
 
             /// Prepares the stream for use by checking for EBML content, and
             /// adding a header if the stream is empty.
-            bool prepare_stream();
+            void prepare_stream();
     }; // class TideFile
 }; // namespace tide
 

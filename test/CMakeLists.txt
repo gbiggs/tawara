@@ -9,7 +9,6 @@ include_directories(${PROJECT_SOURCE_DIR}/include
     ${GTEST_INCLUDE_DIRS})
 
 set(srcs test_utils.cpp
-    file_open.cpp
     test_vint.cpp
     test_ebml_int.cpp
     test_element.cpp
@@ -20,7 +19,8 @@ set(srcs test_utils.cpp
     test_string_element.cpp
     test_binary_element.cpp
     test_void_element.cpp
-    test_ebml_element.cpp)
+    test_ebml_element.cpp
+    test_tide.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

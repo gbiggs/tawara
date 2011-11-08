@@ -36,8 +36,9 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-TideImpl::TideImpl(std::stream& stream)
-    : Tide(stream)
+TideImpl::TideImpl(std::iostream& the_stream)
+    : Tide(the_stream),
+    stream_(the_stream)
 {
     prepare_stream();
 }

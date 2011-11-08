@@ -31,28 +31,14 @@
 #include <tide/win_dll.h>
 
 #include <boost/utility.hpp>
-#include <istream>
-#include <ostream>
+#include <iostream>
 #include <stdint.h>
-#include <string>
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
 namespace tide
 {
-    /// \brief Access modes.
-    enum MODE
-    {
-        /// Read-only access.
-        MODE_READ,
-        /// Write-only access, truncating.
-        MODE_WRITE,
-        /// Write-only access, appending.
-        MODE_APPEND
-    };
-
-
     /** \brief The Tide interface, the interface provided by all Tide objects.
      *
      * This class defines the Tide interface. All implementations must implement
@@ -75,11 +61,14 @@ namespace tide
              * cannot be found or the DocType is incorrect, NotTide will be
              * raised.
              *
-             * \param[in] stream The stream object to read from and write to.
+             * \param[in] stream The std::iostream object to read from and
+             * write to.
+             * \exception NotEBML if the stream is not empty and does not
+             * contain an EBML header.
              * \exception NotTide if the stream is not empty and does not
              * contain valid EBML with the "tide" DocType.
              */
-            Tide(std::stream& stream);
+            Tide(std::iostream& the_stream) {}
 
             /** \brief Destroy the Tide object.
              *

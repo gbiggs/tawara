@@ -47,13 +47,18 @@ namespace tide
 // Error types
 ///////////////////////////////////////////////////////////////////////////////
 
-    /** \brief Object is not a Tide object.
+    /** \brief File is not an EBML file.
+     *
+     * Tide uses EBML for its file format. If an opened file is not an EBML
+     * file, this error will occur.
+     */
+    struct NotEBML : virtual TideError {};
+
+    /** \brief File is not a Tide file.
      *
      * Usually encountered when trying to open an existing name (either for
      * reading or appending) that is not a Tide object (e.g. a file that is not
      * a Tide file).
-     *
-     * Often, an err_name tag will be attached.
      */
     struct NotTide : virtual TideError {};
 
@@ -191,10 +196,7 @@ namespace tide
 // Error information tags
 ///////////////////////////////////////////////////////////////////////////////
 
-    /// \brief Name of the Tide object.
-    typedef boost::error_info<struct tag_name, std::string> err_name;
-
-    /// \brief Position in a Tide object, e.g. byte offset from the start.
+    /// \brief Position in a Tide file.
     typedef boost::error_info<struct tag_pos, std::streamsize> err_pos;
 
     /// \brief Value of a variable-length integer.

@@ -47,23 +47,6 @@ namespace tide
 // Error types
 ///////////////////////////////////////////////////////////////////////////////
 
-    /** \brief No name error.
-     *
-     * Encountered when passing an empty string as the name for a new Tide
-     * instance.
-     */
-    struct NoName : virtual TideError {};
-
-    /** \brief Object does not exist error.
-     *
-     * Usually encountered when attempting to create a new Tide instance in
-     * read mode based on a name that is not in use (in other words, the file
-     * does not exist).
-     *
-     * Often, an err_name tag will be attached.
-     */
-    struct NoObject : virtual TideError {};
-
     /** \brief Object is not a Tide object.
      *
      * Usually encountered when trying to open an existing name (either for

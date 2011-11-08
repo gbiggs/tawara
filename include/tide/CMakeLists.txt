@@ -6,7 +6,7 @@ set(hdrs ${config_h}
     tide.h
     exceptions.h
     win_dll.h
-    tide_file.h
+    tide_impl.h
     vint.h
     ebml_int.h
     element.h

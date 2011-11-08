@@ -1,4 +1,4 @@
-set(srcs tide_file.cpp
+set(srcs tide_impl.cpp
     vint.cpp
     ebml_int.cpp
     element.cpp

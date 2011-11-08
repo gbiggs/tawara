@@ -31,6 +31,7 @@
 #include <tide/win_dll.h>
 
 #include <boost/utility.hpp>
+#include <istream>
 #include <ostream>
 #include <stdint.h>
 #include <string>
@@ -64,33 +65,21 @@ namespace tide
         public:
             /** \brief Create a new Tide object.
              *
-             * The verbose output will be sent to std::clog.
+             * This constructor makes a new Tide object around an input/output
+             * stream.
              *
-             * \param[in] name The name of the object. Usage is
-             * implementation-dependent. If \ref MODE_WRITE is passed for mode
-             * and the name is in use, the previous entity using that name will
-             * be destroyed. The definition of "in use" and "destroyed" varies
-             * by implementation.
-             * \param[in] mode The open mode, one of the possible values
-             * defined by \ref MODE.
-             */
-            Tide(std::string name, MODE mode) {};
-
-            /** \brief Create a new Tide object.
+             * The stream will be checked for its current contents. If it is
+             * empty (i.e. the size of its contents is zero), then it will be
+             * initialised as a new EBML file. Otherwise, it will be treated as
+             * an existing EBML file and read. In this case, if an EBML header
+             * cannot be found or the DocType is incorrect, NotTide will be
+             * raised.
              *
-             * \param[in] name The name of the object. Usage is
-             * implementation-dependent. If \ref MODE_WRITE is passed for mode
-             * and the name is in use, the previous entity using that name will
-             * be destroyed. The definition of "in use" and "destroyed" varies
-             * by implementation.
-             * \param[in] mode The open mode, one of the possible values
-             * defined by \ref MODE.
-             * \param[in] verb_out Output stream for the verbose output. Pass
-             * in a null stream (e.g. a stream constructed using
-             * boost::iostreams::null_sink) to disable verbose output.
+             * \param[in] stream The stream object to read from and write to.
+             * \exception NotTide if the stream is not empty and does not
+             * contain valid EBML with the "tide" DocType.
              */
-            Tide(std::string name, MODE mode, std::ostream& verb_out)
-            {};
+            Tide(std::stream& stream);
 
             /** \brief Destroy the Tide object.
              *
@@ -98,6 +87,8 @@ namespace tide
              * destructor is called. Any other objects, such as Element
              * objects, referencing this Tide object will become invalid and
              * should not be used. Behaviour if they are used is undefined.
+             *
+             * The stream passed to the constructor is \e not closed.
              */
             virtual ~Tide() {};
     }; // class Tide

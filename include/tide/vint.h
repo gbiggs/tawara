@@ -91,6 +91,11 @@ namespace tide
         size_t encode(uint64_t integer, uint8_t* buffer, size_t n,
                 size_t req_size=0);
 
+        /** \brief The result of a decode operation is a pair of the integer
+         * decoded and the number of bytes used.
+         */
+        typedef std::pair<uint64_t, size_t> decode_result;
+
         /** \brief Decode an unsigned variable-length integer from a buffer.
          *
          * Decodes the variable-length integer stored in the buffer.
@@ -104,7 +109,7 @@ namespace tide
          * \exception BufferTooSmall if the expected encoded length of the
          * variable-length integer is larger than the available buffer length.
          */
-        std::pair<uint64_t, size_t> decode(uint8_t const* buffer, size_t n);
+        decode_result decode(uint8_t const* buffer, size_t n);
 
         /** \brief Encode an unsigned integer and write it to an output stream.
          *
@@ -127,6 +132,11 @@ namespace tide
          */
         size_t write(uint64_t integer, std::ostream& output, size_t req_size=0);
 
+        /** \brief The result of a read operation is a pair of the integer read
+         * and the number of bytes read.
+         */
+        typedef std::pair<uint64_t, size_t> read_result;
+
         /** \brief Decode an unsigned integer from an input stream.
          *
          * This function performs the same task as tide::vint::decode(), but it
@@ -140,7 +150,7 @@ namespace tide
          * stream is invalid.
          * \exception ReadError if there is an error reading the input stream.
          */
-        std::pair<uint64_t, size_t> read(std::istream& input);
+        read_result read(std::istream& input);
     }; // namespace vint
 }; // namespace tide
 

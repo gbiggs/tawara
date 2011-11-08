@@ -33,88 +33,112 @@
 #include "test_consts.h"
 
 
-class TideTest : public ::testing::Test
+namespace test_tide
 {
-    public:
-        TideTest()
-            : ::testing::Test(),
-            empty_path(test_bin_dir / "empty_file.tide"),
-            not_ebml_src_path(test_source_dir / "not_ebml.tide"),
-            not_ebml_path(test_bin_dir / "not_ebml.tide"),
-            not_tide_src_path(test_source_dir / "not_tide.tide"),
-            not_tide_path(test_bin_dir / "not_tide.tide"),
-            tide_src_path(test_source_dir / "tide.tide"),
-            tide_path(test_bin_dir / "tide.tide")
+    void prepare_file(std::string name, std::fstream& file)
+    {
+        boost::filesystem::path src_path(test_source_dir / "with_text.tide");
+        boost::filesystem::path path(test_bin_dir / "with_text.tide");
+        if (boost::filesystem::exists(path))
         {
-            empty_file.open(empty_path.string().c_str(),
-                    std::ios::in|std::ios::out|std::ios::app);
-            boost::filesystem3::copy(not_ebml_src_path, not_ebml_path);
-            not_ebml_file.open(not_ebml_path.string().c_str(),
-                    std::ios::in|std::ios::out|std::ios::app);
-            boost::filesystem3::copy(not_tide_src_path, not_tide_path);
-            not_tide_file.open(not_tide_path.string().c_str(),
-                    std::ios::in|std::ios::out|std::ios::app);
-            boost::filesystem3::copy(tide_src_path, tide_path);
-            tide_file.open(tide_path.string().c_str(),
-                    std::ios::in|std::ios::out|std::ios::app);
+            boost::filesystem::remove(path);
         }
+        boost::filesystem3::copy(src_path, path);
+        file.open(path.string().c_str(),
+                std::ios::in|std::ios::out|std::ios::app);
+    }
 
-        ~TideTest()
-        {
-            empty_file.close();
-            boost::filesystem::remove(empty_path);
-            not_ebml_file.close();
-            boost::filesystem::remove(not_ebml_path);
-            not_tide_file.close();
-            boost::filesystem::remove(not_tide_path);
-            tide_file.close();
-            boost::filesystem::remove(tide_path);
-        }
-
-        boost::filesystem::path empty_path;
-        boost::filesystem::path not_ebml_src_path;
-        boost::filesystem::path not_ebml_path;
-        boost::filesystem::path not_tide_src_path;
-        boost::filesystem::path not_tide_path;
-        boost::filesystem::path tide_src_path;
-        boost::filesystem::path tide_path;
-
-        std::fstream empty_file;
-        std::fstream not_ebml_file;
-        std::fstream not_tide_file;
-        std::fstream tide_file;
-}; // class TideTest
+    void cleanup_file(std::string name, std::fstream& file)
+    {
+        file.close();
+        boost::filesystem::path path(test_bin_dir / name);
+        boost::filesystem::remove(path);
+    }
+}; // namespace test_tide
 
 
-TEST_F(TideTest, EmptyFile)
+TEST(Tide, EmptyFile)
 {
-    EXPECT_NO_THROW(tide::TideImpl t(empty_file));
-    empty_file.close();
+    boost::filesystem::path path(test_bin_dir / "empty_file.tide");
+    if (boost::filesystem::exists(path))
+    {
+        boost::filesystem::remove(path);
+    }
+    std::fstream file(path.string().c_str(),
+            std::ios::in|std::ios::out|std::ios::app);
+    EXPECT_NO_THROW(tide::TideImpl t(file));
+    file.close();
     // A Tide file with just the EBML header should be 36 bytes
-    EXPECT_EQ(36, boost::filesystem::file_size(empty_path));
+    EXPECT_EQ(36, boost::filesystem::file_size(path));
+    boost::filesystem::remove(path);
 }
 
 
-TEST_F(TideTest, ExistingFile)
+TEST(Tide, ExistingFile)
 {
-    tide_file.seekp(0, std::ios::end);
-    std::streamsize file_size(tide_file.tellp());
-    tide_file.seekp(0, std::ios::beg);
-    EXPECT_NO_THROW(tide::TideImpl t(tide_file));
-    tide_file.seekp(0, std::ios::end);
+    std::fstream file;
+    test_tide::prepare_file("tide.tide", file);
+    file.seekp(0, std::ios::end);
+    std::streamsize file_size(file.tellp());
+    file.seekp(0, std::ios::beg);
+    EXPECT_NO_THROW(tide::TideImpl t(file));
+    file.seekp(0, std::ios::end);
     // The file should not be modified just by opening it
-    EXPECT_EQ(file_size, tide_file.tellp());
+    EXPECT_EQ(file_size, file.tellp());
+    test_tide::cleanup_file("tide.tide", file);
 }
 
 
-TEST_F(TideTest, NotEBMLFile)
+TEST(Tide, NotEBMLFile)
 {
-    EXPECT_THROW(tide::TideImpl t(not_ebml_file), tide::NotEBML);
+    std::fstream file;
+    test_tide::prepare_file("not_ebml.tide", file);
+    EXPECT_THROW(tide::TideImpl t(file), tide::NotEBML);
+    test_tide::cleanup_file("not_ebml.tide", file);
 }
 
 
-TEST_F(TideTest, NotTideFile)
+TEST(Tide, NotTideFile)
 {
-    EXPECT_THROW(tide::TideImpl t(not_tide_file), tide::NotTide);
+    std::fstream file;
+    test_tide::prepare_file("not_tide.tide", file);
+    EXPECT_THROW(tide::TideImpl t(file), tide::NotTide);
+    test_tide::cleanup_file("not_tide.tide", file);
+}
+
+
+TEST(Tide, TruncatedTideFile)
+{
+    std::fstream file;
+    test_tide::prepare_file("truncated.tide", file);
+    EXPECT_THROW(tide::TideImpl t(file), tide::ReadError);
+    test_tide::cleanup_file("truncated.tide", file);
+}
+
+
+TEST(Tide, TextBeforeHeader)
+{
+    std::fstream file;
+    test_tide::prepare_file("with_text.tide", file);
+    EXPECT_NO_THROW(tide::TideImpl t(file));
+    test_tide::cleanup_file("with_text.tide", file);
+}
+
+
+TEST(Tide, BadReadVersion)
+{
+    std::fstream file;
+    test_tide::prepare_file("badreadversion.tide", file);
+    EXPECT_THROW(tide::TideImpl t(file), tide::BadReadVersion);
+    test_tide::cleanup_file("badreadversion.tide", file);
+}
+
+
+TEST(Tide, BadDocReadVersion)
+{
+    std::fstream file;
+    test_tide::prepare_file("baddocreadversion.tide", file);
+    EXPECT_THROW(tide::TideImpl t(file), tide::BadDocReadVersion);
+    test_tide::cleanup_file("baddocreadversion.tide", file);
 }
 

@@ -62,6 +62,24 @@ namespace tide
      */
     struct NotTide : virtual TideError {};
 
+    /** \brief The required EBML read version is too high.
+     *
+     * The EBML header specifies the minimum EBML parser version necessary to
+     * be able to read the EBML file. If it is too high, this error occurs.
+     *
+     * The version from the file may be attached as an err_ver tag.
+     */
+    struct BadReadVersion : virtual TideError {};
+
+    /** \brief The required Tide read version is too high.
+     *
+     * The EBML header specifies the minimum Tide parser version necessary to
+     * be able to read the Tide file. If it is too high, this error occurs.
+     *
+     * The version from the file may be attached as an err_ver tag.
+     */
+    struct BadDocReadVersion : virtual TideError {};
+
     /** \brief An invalid variable-length integer was found.
      *
      * Encountered when reading a value stored as a variable-length integer,
@@ -195,6 +213,9 @@ namespace tide
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags
 ///////////////////////////////////////////////////////////////////////////////
+
+    /// \brief A version.
+    typedef boost::error_info<struct tag_ver, std::streamsize> err_ver;
 
     /// \brief Position in a Tide file.
     typedef boost::error_info<struct tag_pos, std::streamsize> err_pos;

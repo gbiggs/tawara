@@ -28,7 +28,9 @@
 #include <tide/tide_impl.h>
 
 #include <tide/ebml_element.h>
+#include <tide/el_ids.h>
 #include <tide/exceptions.h>
+#include <tide/vint.h>
 
 #include <iostream>
 
@@ -68,10 +70,45 @@ void TideImpl::prepare_stream()
     // If the file is not empty, search for an EBML header
     else
     {
-        // Header found; check DocType
-        // Header not found: throw
-        // Return to the current read position
-        stream_.seekg(cur);
+        bool found_header(false);
+        char c(stream_.get());
+        while (c)
+        {
+            if (c == 0x1A)
+            {
+                stream_.seekg(-1, std::ios::cur);
+                // Read the Header ID
+                vint::read_result hdr = vint::read(stream_);
+                if (hdr.first != ids::EBML)
+                {
+                    // Not an EBML header; throw
+                    throw NotEBML();
+                }
+                found_header = true;
+                break;
+            }
+            c = stream_.get();
+        }
+        if (!found_header)
+        {
+            // Header not found: throw
+            throw NotEBML();
+        }
+        // Read the header and check the DocType
+        EBMLElement e;
+        e.read_body(stream_);
+        if (e.doc_type() != TideDocType)
+        {
+            throw NotTide();
+        }
+        if (e.read_version() > TideVersionMajor)
+        {
+            throw BadReadVersion();
+        }
+        if (e.doc_read_version() > TideVersionMajor)
+        {
+            throw BadDocReadVersion();
+        }
     }
 }
 

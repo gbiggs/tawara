@@ -57,36 +57,13 @@ EBMLElement::EBMLElement(std::string const& doc_type)
 
 size_t EBMLElement::size() const
 {
-    size_t result(0);
-    if (!ver_.is_default())
-    {
-        result += ver_.total_size();
-    }
-    if (!read_ver_.is_default())
-    {
-        result += read_ver_.total_size();
-    }
-    if (!max_id_length_.is_default())
-    {
-        result += max_id_length_.total_size();
-    }
-    if (!max_size_length_.is_default())
-    {
-        result += max_size_length_.total_size();
-    }
-    if (!doc_type_.is_default())
-    {
-        result += doc_type_.total_size();
-    }
-    if (!doc_type_ver_.is_default())
-    {
-        result += doc_type_ver_.total_size();
-    }
-    if (!doc_type_read_ver_.is_default())
-    {
-        result += doc_type_read_ver_.total_size();
-    }
-    return result;
+    return ver_.total_size() +
+        read_ver_.total_size() +
+        max_id_length_.total_size() +
+        max_size_length_.total_size() +
+        doc_type_.total_size() +
+        doc_type_ver_.total_size() +
+        doc_type_read_ver_.total_size();
 }
 
 
@@ -97,35 +74,16 @@ size_t EBMLElement::size() const
 std::streamsize EBMLElement::write_body(std::ostream& output)
 {
     size_t written(0);
-    if (!ver_.is_default())
-    {
-        written += ver_.write(output);
-    }
-    if (!read_ver_.is_default())
-    {
-        written += read_ver_.write(output);
-    }
-    if (!max_id_length_.is_default())
-    {
-        written += max_id_length_.write(output);
-    }
-    if (!max_size_length_.is_default())
-    {
-        written += max_size_length_.write(output);
-    }
-    if (!doc_type_.is_default())
-    {
-        written += doc_type_.write(output);
-    }
-    if (!doc_type_ver_.is_default())
-    {
-        written += doc_type_ver_.write(output);
-    }
-    if (!doc_type_read_ver_.is_default())
-    {
-        written += doc_type_read_ver_.write(output);
-    }
-
+    // The EBML header element always writes every value, regardless of if it
+    // is the default or not. If it did not, other implementations may use
+    // different defaults and things would go very wrong, very quickly.
+    written += ver_.write(output);
+    written += read_ver_.write(output);
+    written += max_id_length_.write(output);
+    written += max_size_length_.write(output);
+    written += doc_type_.write(output);
+    written += doc_type_ver_.write(output);
+    written += doc_type_read_ver_.write(output);
     return written;
 }
 

@@ -103,14 +103,31 @@ TEST(EBMLElement, Write)
     typedef boost::shared_ptr<tide::Element> ElPtr;
     std::vector<ElPtr> children;
 
-    // Writing with everything defaults should give a 0-length body
+    // Writing with everything defaults should give a full-length body for the
+    // EBML header because values get written even if they are default
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
+                    1)));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+                    1)));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
+                    4)));
+    children.push_back(ElPtr(new
+                tide::UIntElement(tide::ids::EBMLMaxSizeLength, 8)));
+    children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
+                    "tide")));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
+                    1)));
+    children.push_back(ElPtr(new
+                tide::UIntElement(tide::ids::DocTypeReadVersion, 1)));
     tide::EBMLElement e;
-    EXPECT_EQ(0, e.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
-    tide::vint::write(tide::ids::EBML, expected);
-    tide::vint::write(0, expected);
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::EBML) + 1, e.write(output));
+    size_t expected_size(0);
+    BOOST_FOREACH(ElPtr el, children)
+    {
+        el->write(expected);
+        expected_size += el->total_size();
+    }
+
+    EXPECT_EQ(expected_size, e.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
@@ -118,6 +135,11 @@ TEST(EBMLElement, Write)
     // set by the library and so will *always* be default in this test).
     output.str(std::string());
     expected.str(std::string());
+    children.clear();
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
+                    1)));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+                    1)));
     children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
                     5)));
     e.max_id_length(5);
@@ -134,7 +156,7 @@ TEST(EBMLElement, Write)
                 tide::UIntElement(tide::ids::DocTypeReadVersion, 2)));
     e.doc_read_version(2);
 
-    size_t expected_size(0);
+    expected_size = 0;
     BOOST_FOREACH(ElPtr el, children)
     {
         el->write(expected);
@@ -225,11 +247,15 @@ TEST(EBMLElement, Size)
     std::vector<ElPtr> children;
 
     // Size with everything defaults
-    tide::EBMLElement e1(tide::TideDocType);
-    EXPECT_EQ(0, e1.size());
+    tide::EBMLElement e1;
+    EXPECT_EQ(31, e1.size());
 
     // Size with non-defaults. Note that EBMLVersion and EBMLReadVersion can
     // never be anything other than the default in this test.
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
+                    1)));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+                    1)));
     children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
                     5)));
     children.push_back(ElPtr(new

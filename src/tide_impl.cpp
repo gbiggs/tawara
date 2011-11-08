@@ -43,7 +43,6 @@ TideImpl::TideImpl(std::iostream& stream)
     : Tide(stream),
     stream_(stream)
 {
-    std::cout << "Constructor\n";
     prepare_stream();
 }
 

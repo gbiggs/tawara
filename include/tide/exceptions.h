@@ -195,6 +195,14 @@ namespace tide
      */
     struct BadElementLength : virtual TideError {};
 
+    /** \brief A read body size does not match the actual body size in the
+     * file.
+     *
+     * The body size given at the start of a master element must match the
+     * total size of all child elements. If it does not, this error occurs.
+     */
+    struct BadBodySize : virtual TideError {};
+
     /** \brief A child element was found where it doesn't belong.
      *
      * When reading an element's children, if an element ID is found that does
@@ -209,6 +217,21 @@ namespace tide
      * occured.
      */
     struct InvalidChildID : virtual TideError {};
+
+    /** \brief A necessary child element was missing.
+     *
+     * Some child elements are required to be present, but don't have default
+     * values. When a child element is not found, this error occurs.
+     *
+     * The err_id tag may be included to give the ID of the missing child
+     * element.
+     *
+     * The err_par_id tag may be included to give the ID of the parent element.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct MissingChild : virtual TideError{};
 
 
 ///////////////////////////////////////////////////////////////////////////////

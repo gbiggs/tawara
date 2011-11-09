@@ -100,5 +100,7 @@ namespace tide
     }; // class Metaseek
 }; // namespace Tide
 
+/// @}
+
 #endif // TIDE_METASEEK_H_
 

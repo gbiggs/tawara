@@ -144,7 +144,7 @@ size_t tide::vint::encode(uint64_t integer, uint8_t* buffer, size_t n,
 }
 
 
-std::pair<uint64_t, size_t> tide::vint::decode(uint8_t const* buffer, size_t n)
+decode_result tide::vint::decode(uint8_t const* buffer, size_t n)
 {
     assert(n > 0);
     assert(n <= 8);
@@ -213,15 +213,15 @@ std::pair<uint64_t, size_t> tide::vint::decode(uint8_t const* buffer, size_t n)
 }
 
 
-size_t tide::vint::write(uint64_t integer, std::ostream& output,
-        size_t req_size)
+std::streamsize tide::vint::write(uint64_t integer, std::ostream& output,
+        std::streamsize req_size)
 {
     assert(req_size <= 8);
 
     unsigned int shifts(0);
     uint8_t mask(0);
 
-    size_t c_size(coded_size(integer));
+    std::streamsize c_size(coded_size(integer));
     if (req_size > 0)
     {
         if (req_size < c_size)
@@ -288,7 +288,7 @@ size_t tide::vint::write(uint64_t integer, std::ostream& output,
 }
 
 
-std::pair<uint64_t, size_t> tide::vint::read(std::istream& input)
+read_result tide::vint::read(std::istream& input)
 {
     uint64_t result(0);
     std::streamsize to_copy(0);

@@ -28,6 +28,7 @@
 #if !defined(TIDE_EXCEPTIONS_H_)
 #define TIDE_EXCEPTIONS_H_
 
+#include <tide/el_ids.h>
 #include <tide/win_dll.h>
 
 #include <boost/exception/all.hpp>
@@ -233,7 +234,7 @@ namespace tide
     typedef boost::error_info<struct tag_specsize, size_t> err_specsize;
 
     /// \brief An Element ID.
-    typedef boost::error_info<struct tag_id, uint32_t> err_id;
+    typedef boost::error_info<struct tag_id, ids::ID> err_id;
 
     /// \brief A parent element ID.
     typedef boost::error_info<struct tag_par_id, uint32_t> err_par_id;

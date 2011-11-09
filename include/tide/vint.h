@@ -130,12 +130,13 @@ namespace tide
          * \exception SpecSizeTooSmall if the integer is too big for the
          * requested size.
          */
-        size_t write(uint64_t integer, std::ostream& output, size_t req_size=0);
+        std::streamsize write(uint64_t integer, std::ostream& output,
+                std::streamsize req_size=0);
 
         /** \brief The result of a read operation is a pair of the integer read
          * and the number of bytes read.
          */
-        typedef std::pair<uint64_t, size_t> read_result;
+        typedef std::pair<uint64_t, std::streamsize> read_result;
 
         /** \brief Decode an unsigned integer from an input stream.
          *

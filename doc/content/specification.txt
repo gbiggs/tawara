@@ -160,13 +160,12 @@ source files. Each segment is a stand-alone entity, being linked to
 other segments only in the sense of a loose ordering for playback.
 Segments MUST NOT be combined in any other way.
 
-The Metaseek information contains a global index of where the other
-Level 1 elements, such as clusters and cueing data, are located in the
-file. This element is important to the efficiency of initial file
-reading, regardless of the order of of the other elements. Without a
-Metaseek element, the entire file must be searched to find the other
-elements. If a Metaseek element is present in a segment, there MUST only
-be one.
+The Metaseek information contains a global index of where the other Level 1
+elements, such as clusters (usually just the first) and cueing data, are
+located in the file. This element is important to the efficiency of initial
+file reading, regardless of the order of of the other elements. Without a
+Metaseek element, the entire file must be searched to find the other elements.
+If a Metaseek element is present in a segment, there MUST only be one.
 
 The Segment information contains the meta-data about the segment in
 which it is contained, such as the title and unique ID.

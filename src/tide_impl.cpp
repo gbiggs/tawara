@@ -32,8 +32,6 @@
 #include <tide/exceptions.h>
 #include <tide/vint.h>
 
-#include <iostream>
-
 using namespace tide;
 
 

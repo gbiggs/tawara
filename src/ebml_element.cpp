@@ -73,7 +73,7 @@ size_t EBMLElement::size() const
 
 std::streamsize EBMLElement::write_body(std::ostream& output)
 {
-    size_t written(0);
+    std::streamsize written(0);
     // The EBML header element always writes every value, regardless of if it
     // is the default or not. If it did not, other implementations may use
     // different defaults and things would go very wrong, very quickly.
@@ -93,17 +93,17 @@ std::streamsize EBMLElement::read_body(std::istream& input)
     // Start by resetting everything to the defaults
     set_defaults_();
     // Get the element's body size
-    std::pair<uint64_t, size_t> result = tide::vint::read(input);
-    size_t body_size(result.first);
-    size_t read_bytes(result.second);
+    vint::read_result result = tide::vint::read(input);
+    std::streamsize body_size(result.first);
+    std::streamsize read_bytes(result.second);
     // Read IDs until the body is exhausted
     while (body_size > 0)
     {
         result = tide::vint::read(input);
-        uint32_t id(result.first);
+        ids::ID id(result.first);
         read_bytes += result.second;
         body_size -= result.second;
-        size_t el_read_bytes(0);
+        std::streamsize el_read_bytes(0);
         switch(id)
         {
             case ids::EBMLVersion:

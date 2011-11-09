@@ -1,6 +1,6 @@
 /* Tide
  *
- * This file contains all the EBML element IDs used by Tide.
+ * Header file for the Seek element, a child of SeekHead.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,32 +25,4 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_EL_IDS_H_)
-#define TIDE_EL_IDS_H_
-
-#include <stdint.h>
-
-namespace tide
-{
-    namespace ids
-    {
-        typedef uint32_t ID;
-
-        const ID EBML(0x0A45DFA3);
-            const ID EBMLVersion(0x0286);
-            const ID EBMLReadVersion(0x02F7);
-            const ID EBMLMaxIDLength(0x02F2);
-            const ID EBMLMaxSizeLength(0x02F3);
-            const ID DocType(0x0282);
-            const ID DocTypeVersion(0x0287);
-            const ID DocTypeReadVersion(0x0285);
-
-        const ID SeekHead(0x014D9B74);
-            const ID Seek(0x0DBB);
-            const ID SeekID(0x13AB);
-            const ID SeekPosition(0x13AC);
-    }; // namespace ids
-}; // namespace tide
-
-#endif // TIDE_EL_IDS_H_
 

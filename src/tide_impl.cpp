@@ -60,6 +60,7 @@ void TideImpl::prepare_stream()
     // Check the file size
     stream_.seekg(0, std::ios::end);
     std::streamsize size(stream_.tellg());
+    stream_.seekg(cur, std::ios::beg);
     // If the file is empty, write an EBML header
     if (size <= 0)
     {
@@ -71,9 +72,9 @@ void TideImpl::prepare_stream()
     else
     {
         bool found_header(false);
-        char c(stream_.get());
-        while (c)
+        while (!stream_.eof())
         {
+            char c(stream_.get());
             if (c == 0x1A)
             {
                 stream_.seekg(-1, std::ios::cur);
@@ -87,7 +88,6 @@ void TideImpl::prepare_stream()
                 found_header = true;
                 break;
             }
-            c = stream_.get();
         }
         if (!found_header)
         {

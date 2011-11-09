@@ -61,6 +61,12 @@ namespace tide
              * cannot be found or the DocType is incorrect, NotTide will be
              * raised.
              *
+             * EBML supports placing text before the EBML header. Anything up
+             * to the first 0x1A byte is ignored. This means you can place data
+             * into the stream before passing it to Tide::Tide(). Tide will
+             * treat the current position in the stream when this constructor
+             * is called as the beginning of the stream.
+             *
              * \param[in] stream A reference to the std::iostream object to
              * read from and write to.
              * \exception NotEBML if the stream is not empty and does not

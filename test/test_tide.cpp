@@ -37,8 +37,8 @@ namespace test_tide
 {
     void prepare_file(std::string name, std::fstream& file)
     {
-        boost::filesystem::path src_path(test_source_dir / "with_text.tide");
-        boost::filesystem::path path(test_bin_dir / "with_text.tide");
+        boost::filesystem::path src_path(test_source_dir / name);
+        boost::filesystem::path path(test_bin_dir / name);
         if (boost::filesystem::exists(path))
         {
             boost::filesystem::remove(path);
@@ -46,6 +46,7 @@ namespace test_tide
         boost::filesystem3::copy(src_path, path);
         file.open(path.string().c_str(),
                 std::ios::in|std::ios::out|std::ios::app);
+        file.seekg(0, std::ios::beg);
     }
 
     void cleanup_file(std::string name, std::fstream& file)

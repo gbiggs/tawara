@@ -90,6 +90,9 @@ namespace tide
              */
             IndexItem operator[](unsigned int pos);
 
+            /// \brief Get the number of items in the index.
+            unsigned int index_size() const { return index_.size(); }
+
             // TODO: Proper iterator model for the index
 
             /// \brief Element body writing.

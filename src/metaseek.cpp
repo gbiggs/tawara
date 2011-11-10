@@ -58,14 +58,14 @@ Metaseek::IndexItem Metaseek::remove(unsigned int pos)
 {
     SeekElement se = index_[pos];
     index_.erase(index_.begin() + pos);
-    return Metaseek::IndexItem(se.id(), se.offset());
+    return Metaseek::IndexItem(se.indexed_id(), se.offset());
 }
 
 
 Metaseek::IndexItem Metaseek::operator[](unsigned int pos)
 {
     SeekElement se = index_[pos];
-    return Metaseek::IndexItem(se.id(), se.offset());
+    return Metaseek::IndexItem(se.indexed_id(), se.offset());
 }
 
 
@@ -101,20 +101,22 @@ std::streamsize Metaseek::write_body(std::ostream& output)
 
 std::streamsize Metaseek::read_body(std::istream& input)
 {
+    std::streampos el_start(input.tellg());
+
     // Clear the index
     index_.clear();
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
+    std::streamsize size_size(result.second);
     std::streamsize read_bytes(result.second);
     // Read elements until the body is exhausted
-    while (body_size > 0)
+    while (read_bytes < size_size + body_size)
     {
         // Read the ID
         result = tide::vint::read(input);
         ids::ID id(result.first);
         read_bytes += result.second;
-        body_size -= result.second;
         if (id != ids::Seek)
         {
             // Only Seek elements may be in the SeekHead
@@ -123,10 +125,14 @@ std::streamsize Metaseek::read_body(std::istream& input)
         }
         // Read the body
         SeekElement se(0, 0);
-        std::streamsize el_read_bytes = se.read_body(input);
-        read_bytes += el_read_bytes;
-        body_size -= el_read_bytes;
+        read_bytes += se.read_body(input);
         index_.push_back(se);
+    }
+    if (read_bytes != size_size + body_size)
+    {
+        // Read more than was specified by the body size value
+        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
+            err_pos(el_start);
     }
 
     return read_bytes;

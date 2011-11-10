@@ -191,18 +191,18 @@ TEST(EBMLElement, Read)
 
     children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
                     2)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
-                    2)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
-                    5)));
-    children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::EBMLMaxSizeLength, 7)));
-    children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
-                    "blag")));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
-                    2)));
     children.push_back(ElPtr(new
                 tide::UIntElement(tide::ids::DocTypeReadVersion, 2)));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
+                    5)));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+                    2)));
+    children.push_back(ElPtr(new
+                tide::UIntElement(tide::ids::EBMLMaxSizeLength, 7)));
+    children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
+                    2)));
+    children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
+                    "blag")));
 
     tide::EBMLElement e("");
 

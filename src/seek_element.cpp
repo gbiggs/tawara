@@ -49,7 +49,7 @@ SeekElement::SeekElement(ids::ID id, std::streampos offset)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-ids::ID SeekElement::id() const
+ids::ID SeekElement::indexed_id() const
 {
     std::vector<char> bin(indexed_id_.value());
     vint::DecodeResult r(tide::vint::decode(bin));
@@ -57,7 +57,7 @@ ids::ID SeekElement::id() const
 }
 
 
-void SeekElement::id(ids::ID id)
+void SeekElement::indexed_id(ids::ID id)
 {
     indexed_id_.value(tide::vint::encode(id));
 }
@@ -84,15 +84,16 @@ std::streamsize SeekElement::write_body(std::ostream& output)
 
 std::streamsize SeekElement::read_body(std::istream& input)
 {
-    std::streamsize el_start(input.tellg());
+    std::streampos el_start(input.tellg());
 
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
+    std::streamsize size_size(result.second);
     std::streamsize read_bytes(result.second);
     // Read elements until the body is exhausted
     bool have_id(false), have_offset(false);
-    while (read_bytes < body_size + result.second)
+    while (read_bytes < size_size + body_size)
     {
         if (have_id && have_offset)
         {
@@ -118,6 +119,12 @@ std::streamsize SeekElement::read_body(std::istream& input)
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
                     err_pos(input.tellg());
         }
+    }
+    if (read_bytes != size_size + body_size)
+    {
+        // Read more than was specified by the body size value
+        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
+            err_pos(el_start);
     }
 
     if (!have_id)

@@ -64,9 +64,9 @@ namespace tide
             virtual ~SeekElement() {}
 
             /// \brief Get the ID that is indexed by this Seek element.
-            ids::ID id() const;
+            ids::ID indexed_id() const;
             /// \brief Set the ID that is indexed.
-            void id(ids::ID id);
+            void indexed_id(ids::ID id);
 
             /// \brief Get the offset of the indexed ID.
             std::streamsize offset() const { return offset_.value(); }

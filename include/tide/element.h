@@ -165,6 +165,13 @@ namespace tide
              *
              * \return The number of bytes read.
              * \exception ReadError if an error occurs reading data.
+             * \exception BadBodySize if the size read from the element's
+             * header doesn't match its actual size. Only occurs with master
+             * elements.
+             * \exception InvalidChildID if a child element is found in the
+             * body of a master element to which it doesn't belong.
+             * \exception MissingChild if a child element that must be present
+             * in a master element is not found.
              */
             virtual std::streamsize read_body(std::istream& input) = 0;
 

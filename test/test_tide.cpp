@@ -27,8 +27,8 @@
 
 #include <boost/filesystem.hpp>
 #include <gtest/gtest.h>
-#include <tide/tide_impl.h>
 #include <tide/exceptions.h>
+#include <tide/tide_impl.h>
 
 #include "test_consts.h"
 

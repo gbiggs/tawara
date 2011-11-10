@@ -77,7 +77,7 @@ void TideImpl::prepare_stream()
             {
                 stream_.seekg(-1, std::ios::cur);
                 // Read the Header ID
-                vint::read_result hdr = vint::read(stream_);
+                vint::ReadResult hdr = vint::read(stream_);
                 if (hdr.first != ids::EBML)
                 {
                     // Not an EBML header; throw

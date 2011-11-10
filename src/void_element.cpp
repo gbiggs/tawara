@@ -38,13 +38,13 @@ using namespace tide;
 ///////////////////////////////////////////////////////////////////////////////
 
 VoidElement::VoidElement(size_t size, bool fill)
-    : Element(VOID_ELEMENT_ID), size_(size), fill_(fill), extra_size_(0)
+    : Element(ids::Void), size_(size), fill_(fill), extra_size_(0)
 {
 }
 
 
 VoidElement::VoidElement(Element const& element, bool fill)
-    : Element(VOID_ELEMENT_ID), fill_(fill), extra_size_(0)
+    : Element(ids::Void), fill_(fill), extra_size_(0)
 {
     // Set this element's size from the total size of the element to replace.
     // We need to calculate an appropriate body size that, when combined with

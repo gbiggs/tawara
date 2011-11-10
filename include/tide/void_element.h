@@ -28,6 +28,7 @@
 #if !defined(TIDE_INT_ELEMENT_H_)
 #define TIDE_INT_ELEMENT_H_
 
+#include <tide/el_ids.h>
 #include <tide/prim_element.h>
 #include <tide/win_dll.h>
 
@@ -38,11 +39,6 @@
 
 namespace tide
 {
-    /// Void elements always have this ID.
-    const uint32_t VOID_ELEMENT_ID(0x6C);
-    /// This is the raw version of the Void element ID.
-    const uint32_t VOID_ELEMENT_ID_RAW(0xEC);
-
     /** Void primitive element.
      *
      * This is a void element, specified with the EBML ID 0xEC. Void elements

@@ -10,7 +10,9 @@ set(srcs tide_impl.cpp
     binary_element.cpp
     void_element.cpp
     master_element.cpp
-    ebml_element.cpp)
+    ebml_element.cpp
+    metaseek.cpp
+    seek_element.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

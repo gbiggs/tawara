@@ -17,7 +17,9 @@ set(hdrs ${config_h}
     string_element.h
     date_element.h
     binary_element.h
-    ebml_element.h)
+    ebml_element.h
+    metaseek.h
+    seek_element.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

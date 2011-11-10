@@ -93,7 +93,7 @@ std::streamsize EBMLElement::read_body(std::istream& input)
     // Start by resetting everything to the defaults
     set_defaults_();
     // Get the element's body size
-    vint::read_result result = tide::vint::read(input);
+    vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
     std::streamsize read_bytes(result.second);
     // Read IDs until the body is exhausted

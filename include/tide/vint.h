@@ -33,6 +33,7 @@
 #include <ostream>
 #include <stdint.h>
 #include <utility>
+#include <vector>
 
 /// \addtogroup utilities Utilities
 /// @{
@@ -65,7 +66,7 @@ namespace tide
          * \exception VarIntTooBig if the integer is above the maximum value
          * for variable-length integers (0xFFFFFFFFFFFFFF).
          */
-        size_t coded_size(uint64_t integer);
+        std::streamsize coded_size(uint64_t integer);
 
         /** \brief Encode an unsigned integer into a buffer.
          *
@@ -73,43 +74,42 @@ namespace tide
          * specification. Leading zero bits are used to indicate the length of
          * the encoded integer in bytes.
          *
+         * The vector provided as a buffer must already have enough space to
+         * store the encoded data reserved. This can be done by either
+         * reserving the maximum possible size (8 bytes) or by using
+         * coded_size() to find the required size.
+         *
          * \param[in] integer The integer to encode.
-         * \param[in] buffer A pointer to the buffer into which to put the
-         * bytes.
-         * \param[in] n The length of the buffer available for use.
          * \param[in] req_size If not zero, then use this length when encoding
          * the integer instead of the optimal size. Must be equal to or larger
          * than the optimal size.
-         * \return The number of bytes actually used.
+         * \return A vector containing the encoded data.
          * \exception VarIntTooBig if the integer is above the maximum value
          * for variable-length integers (0xFFFFFFFFFFFFFF).
-         * \exception BufferTooSmall if the integer is above the maximum size
-         * that can fit in the available buffer space.
          * \exception SpecSizeTooSmall if the integer is too big for the
          * requested size.
          */
-        size_t encode(uint64_t integer, uint8_t* buffer, size_t n,
-                size_t req_size=0);
+        std::vector<char> encode(uint64_t integer, std::streamsize req_size=0);
 
         /** \brief The result of a decode operation is a pair of the integer
-         * decoded and the number of bytes used.
+         * decoded and an iterator pointing to the first element after the used
+         * data.
          */
-        typedef std::pair<uint64_t, size_t> decode_result;
+        typedef std::pair<uint64_t, std::vector<char>::iterator> DecodeResult;
 
         /** \brief Decode an unsigned variable-length integer from a buffer.
          *
          * Decodes the variable-length integer stored in the buffer.
          *
          * \param[in] buffer The buffer holding the raw data.
-         * \param[in] n The length of the buffer available for reading.
-         * \return A pair containing the decoded unsigned integer in the first
+         * \return The DecodeResult, containing the decoded integer.
          * and the number of bytes used from the buffer in the second.
          * \exception InvalidVarInt if the first byte in the buffer is
          * zero, an invalid starting byte for a variable-length integer.
          * \exception BufferTooSmall if the expected encoded length of the
          * variable-length integer is larger than the available buffer length.
          */
-        decode_result decode(uint8_t const* buffer, size_t n);
+        DecodeResult decode(std::vector<char>& buffer);
 
         /** \brief Encode an unsigned integer and write it to an output stream.
          *
@@ -136,7 +136,7 @@ namespace tide
         /** \brief The result of a read operation is a pair of the integer read
          * and the number of bytes read.
          */
-        typedef std::pair<uint64_t, std::streamsize> read_result;
+        typedef std::pair<uint64_t, std::streamsize> ReadResult;
 
         /** \brief Decode an unsigned integer from an input stream.
          *
@@ -151,7 +151,7 @@ namespace tide
          * stream is invalid.
          * \exception ReadError if there is an error reading the input stream.
          */
-        read_result read(std::istream& input);
+        ReadResult read(std::istream& input);
     }; // namespace vint
 }; // namespace tide
 

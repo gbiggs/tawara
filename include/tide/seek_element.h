@@ -28,8 +28,11 @@
 #if !defined(TIDE_SEEK_ELEMENT_H_)
 #define TIDE_SEEK_ELEMENT_H_
 
-#include <el_ids.h>
+#include <ios>
+#include <tide/binary_element.h>
+#include <tide/el_ids.h>
 #include <tide/master_element.h>
+#include <tide/uint_element.h>
 #include <tide/win_dll.h>
 
 /// \addtogroup interfaces Interfaces
@@ -55,15 +58,15 @@ namespace tide
              * of the segment to the element's ID. 0 for the first element in
              * the segment.
              */
-            SeekElement(ids::ID id, std::streamoffset offset);
+            SeekElement(ids::ID id, std::streampos offset);
 
             /// \brief Destructor.
             virtual ~SeekElement() {}
 
             /// \brief Get the ID that is indexed by this Seek element.
-            ids::ID id() const { return indexed_id_.value(); }
+            ids::ID id() const;
             /// \brief Set the ID that is indexed.
-            void id(ids::ID id) { indexed_id_.value(id); }
+            void id(ids::ID id);
 
             /// \brief Get the offset of the indexed ID.
             std::streamsize offset() const { return offset_.value(); }

@@ -28,8 +28,11 @@
 #if !defined(TIDE_METASEEK_H_)
 #define TIDE_METASEEK_H_
 
+#include <tide/el_ids.h>
 #include <tide/master_element.h>
+#include <tide/seek_element.h>
 #include <tide/win_dll.h>
+#include <vector>
 
 /// \addtogroup interfaces Interfaces
 /// @{
@@ -67,7 +70,7 @@ namespace tide
             /** \brief An index item, as a mapping from an EBML element ID to
              * a stream offset.
              */
-            typedef std::pair<ids::ID, std::streamsize> IndexItem;
+            typedef std::pair<ids::ID, std::streampos> IndexItem;
 
             /** \brief Append a new index item.
              *

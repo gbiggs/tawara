@@ -27,20 +27,41 @@
 
 #include <tide/seek_element.h>
 
+#include <tide/vint.h>
+
+using namespace tide;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-SeekElement::SeekElement()
-    : MasterElement(ids::Seek)
+SeekElement::SeekElement(ids::ID id, std::streampos offset)
+    : MasterElement(ids::Seek),
+    indexed_id_(ids::SeekID, tide::vint::encode(id)),
+    offset_(ids::SeekPosition, offset)
 {
+    assert(offset >= 0);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
+
+ids::ID SeekElement::id() const
+{
+    std::vector<char> bin(indexed_id_.value());
+    vint::DecodeResult r(tide::vint::decode(bin));
+    return r.first;
+}
+
+
+void SeekElement::id(ids::ID id)
+{
+    indexed_id_.value(tide::vint::encode(id));
+}
+
 
 size_t SeekElement::size() const
 {
@@ -55,18 +76,18 @@ size_t SeekElement::size() const
 std::streamsize SeekElement::write_body(std::ostream& output)
 {
     std::streamsize written(0);
-    result += indexed_id_.write(output);
-    result += offset_.write(output);
-    return result;
+    written += indexed_id_.write(output);
+    written += offset_.write(output);
+    return written;
 }
 
 
-std::streamsize Metaseek::read_body(std::istream& input)
+std::streamsize SeekElement::read_body(std::istream& input)
 {
     std::streamsize el_start(input.tellg());
 
     // Get the element's body size
-    vint::read_result result = tide::vint::read(input);
+    vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
     std::streamsize read_bytes(result.second);
     // Read elements until the body is exhausted

@@ -45,16 +45,16 @@ size_t fill_buffer(std::string& b, uint32_t id, int64_t data,
     size_t n(0), size(0), total(0);
     if (write_id)
     {
-        n = tide::vint::encode(id, reinterpret_cast<uint8_t*>(temp), 8);
-        b.append(temp, 0, n);
-        total += n;
+        std::vector<char> tmp(tide::vint::encode(id));
+        b.append(&tmp[0], 0, tmp.size());
+        total += tmp.size();
     }
     if (write_size)
     {
         size = tide::ebml_int::coded_size_s(data);
-        n = tide::vint::encode(size, reinterpret_cast<uint8_t*>(temp), 8);
-        b.append(temp, 0, n);
-        total += n;
+        std::vector<char> tmp(tide::vint::encode(size));
+        b.append(&tmp[0], 0, tmp.size());
+        total += tmp.size();
     }
     if (write_body)
     {

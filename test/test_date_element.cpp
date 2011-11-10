@@ -41,19 +41,18 @@ namespace test_datel
 size_t fill_buffer(std::string& b, uint32_t id, int64_t data,
         bool write_id, bool write_size, bool write_body)
 {
-    char temp[8];
-    size_t n(0), total(0);
+    size_t total(0);
     if (write_id)
     {
-        n = tide::vint::encode(id, reinterpret_cast<uint8_t*>(temp), 8);
-        b.append(temp, 0, n);
-        total += n;
+        std::vector<char> tmp(tide::vint::encode(id));
+        b.append(&tmp[0], 0, tmp.size());
+        total += tmp.size();
     }
     if (write_size)
     {
-        n = tide::vint::encode(8, reinterpret_cast<uint8_t*>(temp), 8);
-        b.append(temp, 0, n);
-        total += n;
+        std::vector<char> tmp(tide::vint::encode(8));
+        b.append(&tmp[0], 0, tmp.size());
+        total += tmp.size();
     }
     if (write_body)
     {

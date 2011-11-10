@@ -36,6 +36,8 @@ namespace tide
     {
         typedef uint32_t ID;
 
+        const ID Void(0x6C);
+
         const ID EBML(0x0A45DFA3);
             const ID EBMLVersion(0x0286);
             const ID EBMLReadVersion(0x02F7);

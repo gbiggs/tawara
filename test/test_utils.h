@@ -55,11 +55,21 @@ namespace test_utils
         char const* b2_expr, std::vector<char> const& b1,
         std::vector<char> const& b2);
 
-// Tests if two std::pair<uint64_t, size_t> values are equal because gtest
-// can't figure it out for itself nor print the result.
-::testing::AssertionResult int_pairs_eq(char const* p1_expr,
-        char const* p2_expr, std::pair<uint64_t, size_t> const& p1,
-        std::pair<uint64_t, size_t> const& p2);
+// Tests if two std::pair values are equal because gtest can't figure it out
+// for itself nor print the result.
+template<typename T1, typename T2>
+::testing::AssertionResult pairs_eq(char const* p1_expr,
+        char const* p2_expr, typename std::pair<uint64_t, T1> const& p1,
+        typename std::pair<uint64_t, T2> const& p2)
+{
+    if (p1.first != p2.first || p1.second != p2.second)
+    {
+        return ::testing::AssertionFailure() << p1_expr << " (" << p1.first <<
+            ", " << p1.second << ") != " << p2_expr << " (" << p2.first <<
+            ", " << p2.second << ")";
+    }
+    return ::testing::AssertionSuccess();
+}
 
 }; // test_utils
 

@@ -27,6 +27,12 @@
 
 #include <tide/metaseek.h>
 
+#include <boost/foreach.hpp>
+#include <tide/seek_element.h>
+#include <tide/vint.h>
+
+using namespace tide;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -42,23 +48,24 @@ Metaseek::Metaseek()
 // Index management
 ///////////////////////////////////////////////////////////////////////////////
 
-void Metaseek::append(IndexItem item)
+void Metaseek::append(Metaseek::IndexItem item)
 {
     index_.push_back(SeekElement(item.first, item.second));
 }
 
 
-IndexItem Metaseek::remove(unsigned int pos)
+Metaseek::IndexItem Metaseek::remove(unsigned int pos)
 {
     SeekElement se = index_[pos];
     index_.erase(index_.begin() + pos);
-    return se;
+    return Metaseek::IndexItem(se.id(), se.offset());
 }
 
 
-IndexItem Metaseek::operator[](unsigned int pos)
+Metaseek::IndexItem Metaseek::operator[](unsigned int pos)
 {
-    return index_[pos];
+    SeekElement se = index_[pos];
+    return Metaseek::IndexItem(se.id(), se.offset());
 }
 
 
@@ -88,7 +95,7 @@ std::streamsize Metaseek::write_body(std::ostream& output)
     {
         written += ii.write(output);
     }
-    return result;
+    return written;
 }
 
 
@@ -97,7 +104,7 @@ std::streamsize Metaseek::read_body(std::istream& input)
     // Clear the index
     index_.clear();
     // Get the element's body size
-    vint::read_result result = tide::vint::read(input);
+    vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
     std::streamsize read_bytes(result.second);
     // Read elements until the body is exhausted
@@ -115,7 +122,7 @@ std::streamsize Metaseek::read_body(std::istream& input)
                 err_pos(input.tellg());
         }
         // Read the body
-        SeekElement se;
+        SeekElement se(0, 0);
         std::streamsize el_read_bytes = se.read_body(input);
         read_bytes += el_read_bytes;
         body_size -= el_read_bytes;

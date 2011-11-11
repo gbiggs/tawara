@@ -1,6 +1,7 @@
 set(srcs tide_impl.cpp
     vint.cpp
     ebml_int.cpp
+    el_ids.cpp
     element.cpp
     int_element.cpp
     uint_element.cpp

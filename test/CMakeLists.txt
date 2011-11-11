@@ -11,6 +11,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include
 set(srcs test_utils.cpp
     test_vint.cpp
     test_ebml_int.cpp
+    test_el_ids.cpp
     test_element.cpp
     test_int_element.cpp
     test_uint_element.cpp

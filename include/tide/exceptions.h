@@ -81,6 +81,20 @@ namespace tide
      */
     struct BadDocReadVersion : virtual TideError {};
 
+    /** \brief An invalid EBML class ID was found.
+     *
+     * EBML class IDs are encoded as variable-length integers. This means they
+     * must occupy certain ranges within each set of bytes used. If a
+     * variable-length integer outside one of the valid ranges is found while
+     * reading or writing IDs, this error occurs.
+     *
+     * An err_varint tag may be included, giving the invalid ID.
+     *
+     * An err_pos tag may be included, indicating where the bad ID was
+     * encountered.
+     */
+    struct InvalidEBMLID : virtual TideError {};
+
     /** \brief An invalid variable-length integer was found.
      *
      * Encountered when reading a value stored as a variable-length integer,

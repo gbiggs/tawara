@@ -38,7 +38,7 @@ using namespace tide;
 
 SeekElement::SeekElement(ids::ID id, std::streampos offset)
     : MasterElement(ids::Seek),
-    indexed_id_(ids::SeekID, tide::vint::encode(id)),
+    indexed_id_(ids::SeekID, tide::ids::encode(id)),
     offset_(ids::SeekPosition, offset)
 {
     assert(offset >= 0);
@@ -52,14 +52,14 @@ SeekElement::SeekElement(ids::ID id, std::streampos offset)
 ids::ID SeekElement::indexed_id() const
 {
     std::vector<char> bin(indexed_id_.value());
-    vint::DecodeResult r(tide::vint::decode(bin));
+    ids::DecodeResult r(ids::decode(bin));
     return r.first;
 }
 
 
 void SeekElement::indexed_id(ids::ID id)
 {
-    indexed_id_.value(tide::vint::encode(id));
+    indexed_id_.value(ids::encode(id));
 }
 
 
@@ -102,9 +102,9 @@ std::streamsize SeekElement::read_body(std::istream& input)
                 err_pos(el_start);
         }
         // Read the ID
-        result = tide::vint::read(input);
-        ids::ID id(result.first);
-        read_bytes += result.second;
+        ids::ReadResult id_res = ids::read(input);
+        ids::ID id(id_res.first);
+        read_bytes += id_res.second;
         switch(id)
         {
             case ids::SeekID:

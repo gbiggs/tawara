@@ -51,6 +51,7 @@ TEST(ElID, CodedSize)
     EXPECT_EQ(4, tide::ids::coded_size(0x10000000));
     EXPECT_EQ(4, tide::ids::coded_size(0x1FFFFFFE));
     EXPECT_THROW(tide::ids::coded_size(0x1FFFFFFF), tide::InvalidEBMLID);
+    /* Uncomment this if EBML IDs expand to 64 bits.
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(5, tide::ids::coded_size(0x0800000000));
     EXPECT_EQ(5, tide::ids::coded_size(0x0FFFFFFFFE));
@@ -68,10 +69,304 @@ TEST(ElID, CodedSize)
     EXPECT_EQ(8, tide::ids::coded_size(0X01FFFFFFFFFFFFFE));
     EXPECT_THROW(tide::ids::coded_size(0x01FFFFFFFFFFFFFFF),
             tide::InvalidEBMLID);
+    */
 }
 
 
-TEST(ElID, Write)
+TEST(ElID, Encode)
+{
+    std::vector<char> expected;
+    // 1xxxxxxx
+    expected.assign(1, 0x80);
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x80));
+    expected[0] = 0x81;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x81));
+    expected[0] = 0x97;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x97));
+    expected[0] = 0xC0;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0xC0));
+    expected[0] = 0xFE;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0xFE));
+    EXPECT_THROW(tide::ids::encode(0xFF), tide::InvalidEBMLID);
+    // 01xxxxxx xxxxxxxx
+    expected.assign(2, 0);
+    expected[0] = 0x40;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x4000));
+    expected[0] = 0x4B; expected[1] = 0x35;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x4B35));
+    expected[0] = 0x7F; expected[1] = 0xFE;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x7FFE));
+    EXPECT_THROW(tide::ids::encode(0x7FFF), tide::InvalidEBMLID);
+    /* Uncomment this if EBML IDs expand to 64 bits.
+    // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    expected.assign(7, 0xFF);
+    expected[0] = 0x01;
+    expected[7] = 0xFE;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x01FFFFFFFFFFFFFE));
+    EXPECT_THROW(tide::ids::encode(0x01FFFFFFFFFFFFFF, buffer),
+            tide::InvalidEBMLID);
+    */
+    // EBML tag
+    expected.assign(4, 0x1A);
+    expected[1] = 0x45; expected[2] = 0xDF; expected[3] = 0xA3;
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
+            tide::ids::encode(0x1A45DFA3));
+}
+
+
+TEST(ElID, Decode)
+{
+    std::vector<char> buffer;
+    tide::ids::DecodeResult r;
+    // 1xxxxxxx
+    buffer.assign(1, 0x80);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x80);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0x81;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x81);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0x97;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x97);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0xC0;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0xC0);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0xFE;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0xFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0xFF;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::InvalidEBMLID);
+    // 01xxxxxx xxxxxxxx
+    buffer.assign(2, 0);
+    buffer[0] = 0x40;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x4000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0x40; buffer[1] = 0x01;;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x4001);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0x4B; buffer[1] = 0x35;;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x4B35);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0x7F; buffer[1] = 0xFE;;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x7FFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[0] = 0x7F; buffer[1] = 0xFF;;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::InvalidEBMLID);
+    /* Uncomment this if EBML IDs expand to 64 bits.
+    // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer.assign(8, 0);
+    buffer[0] = 0x01;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x0100000000000000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[7] = 0x01;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x0100000000000001);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer.assign(8, 0xFF);
+    buffer[0] = 0x01;
+    buffer[7] = 0xFE;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x01FFFFFFFFFFFFFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer[7] = 0xFF;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::InvalidEBMLID);
+    */
+    // EBML tag
+    buffer.assign(4, 0x1A);
+    buffer[1] = 0x45; buffer[2] = 0xDF; buffer[3] = 0xA3;
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x1A45DFA3);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+}
+
+
+TEST(ElID, EncodeDecode)
+{
+    std::vector<char> buffer;
+    tide::ids::DecodeResult r;
+    // 1xxxxxxx
+    buffer = tide::ids::encode(0x80);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x80);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0x81);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x81);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0xFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0xFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    // 01xxxxxx xxxxxxxx
+    buffer = tide::ids::encode(0x4000);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x4000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0x7FFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x7FFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    // 001xxxxx xxxxxxxx xxxxxxxx
+    buffer = tide::ids::encode(0x200000);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x200000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0x3FFFFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x3FFFFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer = tide::ids::encode(0x10000000);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x10000000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0x1FFFFFFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x1FFFFFFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    /* Uncomment this if EBML IDs expand to 64 bits.
+    // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer = tide::ids::encode(0x0800000000);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x0800000000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0x0FFFFFFFFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x0FFFFFFFFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer = tide::ids::encode(0x040000000000);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x040000000000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0X07FFFFFFFFFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x07FFFFFFFFFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer = tide::ids::encode(0x02000000000000);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x02000000000000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0X03FFFFFFFFFFFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0X03FFFFFFFFFFFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer = tide::ids::encode(0x0100000000000000);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x0100000000000000);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    buffer = tide::ids::encode(0X01FFFFFFFFFFFFFE);
+    r = tide::ids::decode(buffer);
+    EXPECT_EQ(r.first, 0x01FFFFFFFFFFFFFE);
+    EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
+    */
+}
+
+
+TEST(ElID, NoTail)
+{
+    std::vector<char> buffer(1);
+    // 1xxxxxxx - No tail necessary
+    buffer[0] = 0x80;
+    EXPECT_NO_THROW(tide::ids::decode(buffer));
+    // 01xxxxxx xxxxxxxx
+    buffer[0] = 0x40;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 001xxxxx xxxxxxxx xxxxxxxx
+    buffer[0] = 0x20;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer[0] = 0x10;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    /* Uncomment this if EBML IDs expand to 64 bits.
+    // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer[0] = 0x08;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer[0] = 0x04;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer[0] = 0x02;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer[0] = 0x01;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    */
+}
+
+
+TEST(ElID, TailTooShort)
+{
+    std::vector<char> buffer(1);
+    // 1xxxxxxx - No tail necessary
+    buffer[0] = 0x80;
+    EXPECT_NO_THROW(tide::ids::decode(buffer));
+    // 01xxxxxx xxxxxxxx
+    buffer[0] = 0x40;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 001xxxxx xxxxxxxx xxxxxxxx
+    buffer.assign(2, 0);
+    buffer[0] = 0x20;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer.assign(3, 0);
+    buffer[0] = 0x10;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    /* Uncomment this if EBML IDs expand to 64 bits.
+    // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer.assign(4, 0);
+    buffer[0] = 0x08;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer.assign(5, 0);
+    buffer[0] = 0x04;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    // [0] = 01x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxx
+    buffer.assign(6, 0);
+    buffer[0] = 0x02;
+    EXPECT_THROW[0] = ::ids::decode(buffer), tide::BufferTooSmall;
+    // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    buffer.assign(7, 0);
+    buffer[0] = 0x01;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::BufferTooSmall);
+    */
+}
+
+
+TEST(ElID, NoMarker)
+{
+    std::vector<char> buffer(1);
+    // 1xxxxxxx - Success
+    buffer[0] = 0x80;
+    EXPECT_NO_THROW(tide::ids::decode(buffer));
+    // 00000000 xxxxxxxx xxxxxxxx
+    buffer[0] = 0x00;
+    EXPECT_THROW(tide::ids::decode(buffer), tide::InvalidVarInt);
+}
+
+
+TEST(ElIDStream, Write)
 {
     std::ostringstream buffer;
     std::ostringstream expected;
@@ -111,6 +406,7 @@ TEST(ElID, Write)
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     EXPECT_THROW(tide::ids::write(0x7FFF, buffer), tide::InvalidEBMLID);
+    /* Uncomment this if EBML IDs expand to 64 bits.
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     expected.put(0x01);
     for (int ii(0); ii < 6; ii++)
@@ -123,6 +419,7 @@ TEST(ElID, Write)
             buffer.str());
     EXPECT_THROW(tide::ids::write(0x01FFFFFFFFFFFFFF, buffer),
             tide::InvalidEBMLID);
+    */
     // EBML tag
     expected.put(0x1A); expected.put(0x45); expected.put(0xDF);
     expected.put(0xA3);
@@ -132,7 +429,7 @@ TEST(ElID, Write)
 }
 
 
-TEST(ElID, Read)
+TEST(ElIDStream, Read)
 {
     std::stringstream buffer;
     tide::ids::ReadResult r;
@@ -178,6 +475,7 @@ TEST(ElID, Read)
     EXPECT_EQ(r.second, 2);
     buffer.put(0x7F); buffer.put(0xFF);;
     EXPECT_THROW(tide::ids::read(buffer), tide::InvalidEBMLID);
+    /* Uncomment this if EBML IDs expand to 64 bits.
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x01);
     for (int ii(0); ii < 7; ii++)
@@ -211,6 +509,7 @@ TEST(ElID, Read)
         buffer.put(0xFF);
     }
     EXPECT_THROW(tide::ids::read(buffer), tide::InvalidEBMLID);
+    */
     // EBML tag
     buffer.put(0x1A); buffer.put(0x45); buffer.put(0xDF); buffer.put(0xA3);
     r = tide::ids::read(buffer);
@@ -219,7 +518,7 @@ TEST(ElID, Read)
 }
 
 
-TEST(ElID, WriteRead)
+TEST(ElIDStream, WriteRead)
 {
     std::stringstream buffer;
     tide::ids::ReadResult r;
@@ -263,6 +562,7 @@ TEST(ElID, WriteRead)
     r = tide::ids::read(buffer);
     EXPECT_EQ(r.first, 0x1FFFFFFE);
     EXPECT_EQ(r.second, 4);
+    /* Uncomment this if EBML IDs expand to 64 bits.
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(5, tide::ids::write(0x0800000000, buffer));
     r = tide::ids::read(buffer);
@@ -299,10 +599,11 @@ TEST(ElID, WriteRead)
     r = tide::ids::read(buffer);
     EXPECT_EQ(r.first, 0x01FFFFFFFFFFFFFE);
     EXPECT_EQ(r.second, 8);
+    */
 }
 
 
-TEST(ElID, NoTail)
+TEST(ElIDStream, NoTail)
 {
     std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
@@ -317,6 +618,7 @@ TEST(ElID, NoTail)
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x10);
     EXPECT_THROW(tide::ids::read(buffer), tide::ReadError);
+    /* Uncomment this if EBML IDs expand to 64 bits.
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x08);
     EXPECT_THROW(tide::ids::read(buffer), tide::ReadError);
@@ -329,10 +631,11 @@ TEST(ElID, NoTail)
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x01);
     EXPECT_THROW(tide::ids::read(buffer), tide::ReadError);
+    */
 }
 
 
-TEST(ElID, TailTooShort)
+TEST(ElIDStream, TailTooShort)
 {
     std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
@@ -347,6 +650,7 @@ TEST(ElID, TailTooShort)
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x10); buffer.put(0x00); buffer.put(0x00);
     EXPECT_THROW(tide::ids::read(buffer), tide::ReadError);
+    /* Uncomment this if EBML IDs expand to 64 bits.
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x08); buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
     EXPECT_THROW(tide::ids::read(buffer), tide::ReadError);
@@ -362,10 +666,11 @@ TEST(ElID, TailTooShort)
     buffer.put(0x01); buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
     buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
     EXPECT_THROW(tide::ids::read(buffer), tide::ReadError);
+    */
 }
 
 
-TEST(ElID, NoMarker)
+TEST(ElIDStream, NoMarker)
 {
     std::stringstream buffer;
     // 1xxxxxxx - No tail necessary

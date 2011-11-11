@@ -41,6 +41,7 @@
 TEST(EBMLElement, Create)
 {
     tide::EBMLElement e("Blag");
+    EXPECT_EQ(tide::ids::EBML, e.id());
     EXPECT_EQ(1, e.version());
     EXPECT_EQ(1, e.read_version());
     EXPECT_EQ(4, e.max_id_length());
@@ -169,8 +170,9 @@ TEST(EBMLElement, Write)
 
     expected.str(std::string());
     output.str(std::string());
-    expected_size = 4 + tide::vint::coded_size(e.size());
-    tide::vint::write(tide::ids::EBML, expected);
+    expected_size = tide::ids::coded_size(tide::ids::EBML) +
+        tide::vint::coded_size(e.size());
+    tide::ids::write(tide::ids::EBML, expected);
     tide::vint::write(e.size(), expected);
     BOOST_FOREACH(ElPtr el, children)
     {

@@ -28,6 +28,8 @@
 #include <tide/float_element.h>
 
 #include <gtest/gtest.h>
+#include <tide/el_ids.h>
+#include <tide/ebml_int.h>
 #include <tide/exceptions.h>
 #include <tide/vint.h>
 
@@ -38,14 +40,16 @@
 namespace test_flel
 {
 
-size_t fill_buffer(std::string& b, uint32_t id, double data,
+size_t fill_buffer(std::string& b, tide::ids::ID id, double data,
         bool write_id, bool write_size, bool write_body, bool double_prec)
 {
     char temp[8];
     size_t total(0);
     if (write_id)
     {
-        std::vector<char> tmp(tide::vint::encode(id));
+        // Cheating on the IDs a bit - there is no protection here against
+        // invalid IDs
+        std::vector<char> tmp(tide::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -270,54 +274,54 @@ TEST(FloatElement, Write)
     std::string expected;
     double value(2.7182818284590451);
 
-    tide::FloatElement e1(0x01, value, tide::EBML_FLOAT_PREC_DOUBLE);
+    tide::FloatElement e1(0x80, value, tide::EBML_FLOAT_PREC_DOUBLE);
 
-    test_flel::fill_buffer(expected, 0x01, value, false, false, true, true);
+    test_flel::fill_buffer(expected, 0x80, value, false, false, true, true);
     EXPECT_EQ(8, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, false, true, false, true);
+    test_flel::fill_buffer(expected, 0x80, value, false, true, false, true);
     EXPECT_EQ(1, e1.write_size(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, false, false, true);
-    EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
+    test_flel::fill_buffer(expected, 0x80, value, true, false, false, true);
+    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, true, true, true);
-    EXPECT_EQ(tide::vint::coded_size(1) + 9, e1.write(output));
+    test_flel::fill_buffer(expected, 0x80, value, true, true, true, true);
+    EXPECT_EQ(tide::ids::coded_size(0x80) + 9, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = 3.14159;
     e1.value(value);
     e1.precision(tide::EBML_FLOAT_PREC_SINGLE);
 
-    test_flel::fill_buffer(expected, 0x01, value, false, false, true, false);
+    test_flel::fill_buffer(expected, 0x80, value, false, false, true, false);
     EXPECT_EQ(4, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, false, true, false, false);
+    test_flel::fill_buffer(expected, 0x80, value, false, true, false, false);
     EXPECT_EQ(1, e1.write_size(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, false, false, false);
-    EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
+    test_flel::fill_buffer(expected, 0x80, value, true, false, false, false);
+    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x01, value, true, true, true, false);
-    EXPECT_EQ(tide::vint::coded_size(1) + 5, e1.write(output));
+    test_flel::fill_buffer(expected, 0x80, value, true, true, true, false);
+    EXPECT_EQ(tide::ids::coded_size(0x80) + 5, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -328,11 +332,11 @@ TEST(FloatElement, Read)
     std::string input_val;
     double value(23.14069);
 
-    tide::FloatElement e(0x01, 0);
+    tide::FloatElement e(0x80, 0);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val);
     EXPECT_EQ(9, e.read_body(input));
-    EXPECT_EQ(0x01, e.id());
+    EXPECT_EQ(0x80, e.id());
     EXPECT_DOUBLE_EQ(value, e.value());
     EXPECT_EQ(tide::EBML_FLOAT_PREC_DOUBLE, e.precision());
 
@@ -365,7 +369,7 @@ TEST(FloatElement, Read)
 
 TEST(FloatElement, Size)
 {
-    tide::FloatElement e(1, 1.0, tide::EBML_FLOAT_PREC_SINGLE);
+    tide::FloatElement e(0x80, 1.0, tide::EBML_FLOAT_PREC_SINGLE);
     EXPECT_EQ(4, e.size());
     EXPECT_EQ(6, e.total_size());
     e.precision(tide::EBML_FLOAT_PREC_DOUBLE);
@@ -373,19 +377,11 @@ TEST(FloatElement, Size)
     EXPECT_EQ(10, e.total_size());
 
     e.precision(tide::EBML_FLOAT_PREC_SINGLE);
-    e.id(-70000);
-    EXPECT_EQ(4, e.size());
-    EXPECT_EQ(10, e.total_size());
-    e.precision(tide::EBML_FLOAT_PREC_DOUBLE);
-    EXPECT_EQ(8, e.size());
-    EXPECT_EQ(14, e.total_size());
-
-    e.precision(tide::EBML_FLOAT_PREC_SINGLE);
     e.value(3.15149);
     EXPECT_EQ(4, e.size());
-    EXPECT_EQ(10, e.total_size());
+    EXPECT_EQ(6, e.total_size());
     e.precision(tide::EBML_FLOAT_PREC_DOUBLE);
     EXPECT_EQ(8, e.size());
-    EXPECT_EQ(14, e.total_size());
+    EXPECT_EQ(10, e.total_size());
 }
 

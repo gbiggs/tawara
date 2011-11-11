@@ -114,9 +114,9 @@ std::streamsize Metaseek::read_body(std::istream& input)
     while (read_bytes < size_size + body_size)
     {
         // Read the ID
-        result = tide::vint::read(input);
-        ids::ID id(result.first);
-        read_bytes += result.second;
+        ids::ReadResult id_res = tide::ids::read(input);
+        ids::ID id(id_res.first);
+        read_bytes += id_res.second;
         if (id != ids::Seek)
         {
             // Only Seek elements may be in the SeekHead
@@ -124,7 +124,7 @@ std::streamsize Metaseek::read_body(std::istream& input)
                 err_pos(input.tellg());
         }
         // Read the body
-        SeekElement se(0, 0);
+        SeekElement se(ids::Null, 0);
         read_bytes += se.read_body(input);
         index_.push_back(se);
     }

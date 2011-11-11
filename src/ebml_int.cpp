@@ -29,7 +29,7 @@
 #include <tide/exceptions.h>
 
 
-size_t tide::ebml_int::coded_size_u(uint64_t integer)
+std::streamsize tide::ebml_int::coded_size_u(uint64_t integer)
 {
     if (integer == 0)
     {
@@ -70,7 +70,7 @@ size_t tide::ebml_int::coded_size_u(uint64_t integer)
 }
 
 
-size_t tide::ebml_int::coded_size_s(int64_t integer)
+std::streamsize tide::ebml_int::coded_size_s(int64_t integer)
 {
     if (integer == 0)
     {
@@ -111,117 +111,102 @@ size_t tide::ebml_int::coded_size_s(int64_t integer)
 }
 
 
-size_t tide::ebml_int::encode_u(uint64_t integer, uint8_t* buffer, size_t n)
+std::vector<char> tide::ebml_int::encode_u(uint64_t integer)
 {
-    assert(n <= 8);
-
+    std::vector<char> buffer;
     if (integer == 0)
     {
         // Zero values are encoded as nothing
-        return 0;
+        return buffer;
     }
-    size_t size(coded_size_u(integer));
-    if (n < size)
-    {
-        throw tide::BufferTooSmall() << tide::err_bufsize(n) <<
-            tide::err_reqsize(size);
-    }
-    for (size_t ii(0); ii < size; ++ii)
+    std::streamsize size(coded_size_u(integer));
+    buffer.assign(size, 0);
+    for (std::streamsize ii(0); ii < size; ++ii)
     {
         buffer[size - ii - 1] = integer & 0xFF;
         integer >>= 8;
     }
 
-    return size;
+    return buffer;
 }
 
 
-size_t tide::ebml_int::encode_s(int64_t integer, uint8_t* buffer, size_t n)
+std::vector<char> tide::ebml_int::encode_s(int64_t integer)
 {
-    assert(n <= 8);
-
+    std::vector<char> buffer;
     if (integer == 0)
     {
         // Zero values are encoded as nothing
-        return 0;
+        return buffer;
     }
-    size_t size(coded_size_s(integer));
-    if (n < size)
-    {
-        throw tide::BufferTooSmall() << tide::err_bufsize(n) <<
-            tide::err_reqsize(size);
-    }
-    for (size_t ii(0); ii < size; ++ii)
+    std::streamsize size(coded_size_s(integer));
+    buffer.assign(size, 0);
+    for (std::streamsize ii(0); ii < size; ++ii)
     {
         buffer[size - ii - 1] = integer & 0xFF;
         integer >>= 8;
     }
 
-    return size;
+    return buffer;
 }
 
 
-size_t tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
+std::streamsize tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
 {
-    uint8_t tmp[8];
-    size_t size(0);
+    std::vector<char> buffer(encode_u(integer));
 
-    size = encode_u(integer, tmp, 8);
-    if (size != 0)
+    if (buffer.size() != 0)
     {
-        output.write(reinterpret_cast<char*>(tmp), size);
+        output.write(&buffer[0], buffer.size());
         if (!output)
         {
             throw tide::WriteError() << tide::err_pos(output.tellp());
         }
     }
-    return size;
+    return buffer.size();
 }
 
 
-size_t tide::ebml_int::write_s(int64_t integer, std::ostream& output)
+std::streamsize tide::ebml_int::write_s(int64_t integer, std::ostream& output)
 {
-    uint8_t tmp[8];
-    size_t size(0);
-
-    size = encode_s(integer, tmp, 8);
-    if (size != 0)
+    std::vector<char> buffer(encode_s(integer));
+    if (buffer.size() != 0)
     {
-        output.write(reinterpret_cast<char*>(tmp), size);
+        output.write(&buffer[0], buffer.size());
         if (!output)
         {
             throw tide::WriteError() << tide::err_pos(output.tellp());
         }
     }
-    return size;
+    return buffer.size();
 }
 
 
-uint64_t tide::ebml_int::decode_u(uint8_t const* buffer, size_t n)
+uint64_t tide::ebml_int::decode_u(std::vector<char> const& buffer)
 {
-    assert(n <= 8);
+    assert(buffer.size() <= 8);
 
-    if (n == 0)
+    if (buffer.empty())
     {
         // Zero-length value means a zero-value integer
         return 0;
     }
 
     uint64_t result(0);
-    for (size_t ii(0); ii < n; ++ii)
+    for (std::streamsize ii(0); ii < buffer.size(); ++ii)
     {
         result <<= 8;
-        result |= buffer[ii];
+        (reinterpret_cast<char*>(&result))[0] |= buffer[ii];
     }
     return result;
 }
 
 
-int64_t tide::ebml_int::decode_s(uint8_t const* buffer, size_t n)
+int64_t tide::ebml_int::decode_s(std::vector<char> const& buffer)
 {
-    assert(n <= 8);
+    assert(buffer.size() <= 8);
 
-    if (n == 0)
+    if (buffer.empty())
     {
         // Zero-length value means a zero-value integer
         return 0;
@@ -233,39 +218,39 @@ int64_t tide::ebml_int::decode_s(uint8_t const* buffer, size_t n)
         // Negative value
         result = -1;
     }
-    for (size_t ii(0); ii < n; ++ii)
+    for (std::streamsize ii(0); ii < buffer.size(); ++ii)
     {
         result <<= 8;
-        result |= buffer[ii];
+        (reinterpret_cast<char*>(&result))[0] |= buffer[ii];
     }
     return result;
 }
 
 
-uint64_t tide::ebml_int::read_u(std::istream& input, size_t n)
+uint64_t tide::ebml_int::read_u(std::istream& input, std::streamsize n)
 {
     assert(n <= 8);
 
-    uint8_t tmp[8];
-    input.read(reinterpret_cast<char*>(tmp), n);
+    std::vector<char> tmp(n, 0);
+    input.read(&tmp[0], n);
     if (!input)
     {
         throw tide::ReadError() << tide::err_pos(input.tellg());
     }
-    return tide::ebml_int::decode_u(tmp, n);
+    return tide::ebml_int::decode_u(tmp);
 }
 
 
-int64_t tide::ebml_int::read_s(std::istream& input, size_t n)
+int64_t tide::ebml_int::read_s(std::istream& input, std::streamsize n)
 {
     assert(n <= 8);
 
-    uint8_t tmp[8];
-    input.read(reinterpret_cast<char*>(tmp), n);
+    std::vector<char> tmp(n, 0);
+    input.read(&tmp[0], n);
     if (!input)
     {
         throw tide::ReadError() << tide::err_pos(input.tellg());
     }
-    return tide::ebml_int::decode_s(tmp, n);
+    return tide::ebml_int::decode_s(tmp);
 }
 

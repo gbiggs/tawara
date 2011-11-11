@@ -38,14 +38,15 @@
 namespace test_intel
 {
 
-size_t fill_buffer(std::string& b, uint32_t id, int64_t data,
+size_t fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
         bool write_id, bool write_size, bool write_body)
 {
-    char temp[8];
-    size_t n(0), size(0), total(0);
+    size_t size(0), total(0);
     if (write_id)
     {
-        std::vector<char> tmp(tide::vint::encode(id));
+        // Cheating on the IDs a bit - there is no protection here against
+        // invalid IDs
+        std::vector<char> tmp(tide::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -58,9 +59,9 @@ size_t fill_buffer(std::string& b, uint32_t id, int64_t data,
     }
     if (write_body)
     {
-        n = tide::ebml_int::encode_s(data, reinterpret_cast<uint8_t*>(temp), 8);
-        b.append(temp, 0, n);
-        total += n;
+        std::vector<char> tmp(tide::ebml_int::encode_s(data));
+        b.append(&tmp[0], 0, tmp.size());
+        total += tmp.size();
     }
     return total;
 }
@@ -202,56 +203,56 @@ TEST(IntElement, Write)
     int64_t value(2);
     size_t val_size(tide::ebml_int::coded_size_s(value));
 
-    tide::IntElement e1(0x01, value);
+    tide::IntElement e1(0x80, value);
 
-    test_intel::fill_buffer(expected, 0x01, value, false, false, true);
+    test_intel::fill_buffer(expected, 0x80, value, false, false, true);
     EXPECT_EQ(val_size, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x01, value, false, true, false);
+    test_intel::fill_buffer(expected, 0x80, value, false, true, false);
     EXPECT_EQ(tide::vint::coded_size(val_size), e1.write_size(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x01, value, true, false, false);
-    EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
+    test_intel::fill_buffer(expected, 0x80, value, true, false, false);
+    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x01, value, true, true, true);
-    EXPECT_EQ(tide::vint::coded_size(1) + tide::vint::coded_size(val_size) + val_size,
-            e1.write(output));
+    test_intel::fill_buffer(expected, 0x80, value, true, true, true);
+    EXPECT_EQ(tide::ids::coded_size(0x80) + tide::vint::coded_size(val_size) +
+            val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = -0x839F18AAl;
     val_size = tide::ebml_int::coded_size_s(value);
     e1.value(value);
 
-    test_intel::fill_buffer(expected, 0x01, value, false, false, true);
+    test_intel::fill_buffer(expected, 0x80, value, false, false, true);
     EXPECT_EQ(val_size, e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x01, value, false, true, false);
+    test_intel::fill_buffer(expected, 0x80, value, false, true, false);
     EXPECT_EQ(tide::vint::coded_size(val_size), e1.write_size(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x01, value, true, false, false);
-    EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
+    test_intel::fill_buffer(expected, 0x80, value, true, false, false);
+    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x01, value, true, true, true);
-    EXPECT_EQ(tide::vint::coded_size(1) + tide::vint::coded_size(val_size) + val_size,
-            e1.write(output));
+    test_intel::fill_buffer(expected, 0x80, value, true, true, true);
+    EXPECT_EQ(tide::ids::coded_size(0x80) + tide::vint::coded_size(val_size) +
+            val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -263,11 +264,11 @@ TEST(IntElement, Read)
     int64_t value(5);
     size_t val_size(tide::ebml_int::coded_size_s(value));
 
-    tide::IntElement e(0x01, 0);
-    test_intel::fill_buffer(input_val, 0x01, value, false, true, true);
+    tide::IntElement e(0x80, 0);
+    test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
     EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read_body(input));
-    EXPECT_EQ(0x01, e.id());
+    EXPECT_EQ(0x80, e.id());
     EXPECT_EQ(value, e.value());
 
     value = 0x3A958BCD99l;
@@ -277,7 +278,7 @@ TEST(IntElement, Read)
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
     std::string().swap(input_val);
-    test_intel::fill_buffer(input_val, 0x01, value, false, true, true);
+    test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
     EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read_body(input));
     EXPECT_EQ(value, e.value());
@@ -286,7 +287,7 @@ TEST(IntElement, Read)
 
     // Test for ReadError exception
     std::string().swap(input_val);
-    test_intel::fill_buffer(input_val, 0x01, value, false, true, true);
+    test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);
 }
@@ -294,20 +295,16 @@ TEST(IntElement, Read)
 
 TEST(IntElement, Size)
 {
-    tide::IntElement e(1, 1);
+    tide::IntElement e(0x80, 1);
     EXPECT_EQ(1, e.size());
     EXPECT_EQ(3, e.total_size());
 
-    e.id(-70000);
-    EXPECT_EQ(1, e.size());
-    EXPECT_EQ(7, e.total_size());
-
     e.value(0x7FFFFF);
     EXPECT_EQ(3, e.size());
-    EXPECT_EQ(9, e.total_size());
+    EXPECT_EQ(5, e.total_size());
 
     e.value(0xFFFFFF);
     EXPECT_EQ(4, e.size());
-    EXPECT_EQ(10, e.total_size());
+    EXPECT_EQ(6, e.total_size());
 }
 

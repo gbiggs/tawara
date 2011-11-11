@@ -95,7 +95,7 @@ namespace tide
          * decoded and an iterator pointing to the first element after the used
          * data.
          */
-        typedef std::pair<uint64_t, std::vector<char>::iterator> DecodeResult;
+        typedef std::pair<uint64_t, std::vector<char>::const_iterator> DecodeResult;
 
         /** \brief Decode an unsigned variable-length integer from a buffer.
          *
@@ -109,7 +109,7 @@ namespace tide
          * \exception BufferTooSmall if the expected encoded length of the
          * variable-length integer is larger than the available buffer length.
          */
-        DecodeResult decode(std::vector<char>& buffer);
+        DecodeResult decode(std::vector<char> const& buffer);
 
         /** \brief Encode an unsigned integer and write it to an output stream.
          *

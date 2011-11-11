@@ -28,6 +28,7 @@
 #if !defined(TIDE_ELEMENT_H_)
 #define TIDE_ELEMENT_H_
 
+#include <tide/el_ids.h>
 #include <tide/win_dll.h>
 
 #include <ios>
@@ -58,8 +59,9 @@ namespace tide
              *
              * \param[in] id The element's ID, as an unsigned integer up to 28
              * bits.
+             * \exception InvalidEBMLID if the provided ID is invalid.
              */
-            Element(uint32_t id);
+            Element(tide::ids::ID id);
 
             /// \brief Destructor.
             virtual ~Element() {};
@@ -176,7 +178,7 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input) = 0;
 
         protected:
-            uint32_t id_;
+            tide::ids::ID id_;
     }; // class Element
 }; // namespace tide
 

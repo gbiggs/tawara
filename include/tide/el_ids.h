@@ -28,8 +28,9 @@
 #if !defined(TIDE_EL_IDS_H_)
 #define TIDE_EL_IDS_H_
 
-#include <stdint.h>
 #include <ios>
+#include <stdint.h>
+#include <vector>
 
 /// \addtogroup ebml EBML
 /// @{
@@ -47,30 +48,32 @@ namespace tide
     {
         typedef uint32_t ID;
 
-        const ID Void(0x6C);
-        const ID CRC32(0x3F);
+        const ID Null(0x80);
 
-        const ID EBML(0x0A45DFA3);
-            const ID EBMLVersion(0x0286);
-            const ID EBMLReadVersion(0x02F7);
-            const ID EBMLMaxIDLength(0x02F2);
-            const ID EBMLMaxSizeLength(0x02F3);
-            const ID DocType(0x0282);
-            const ID DocTypeVersion(0x0287);
-            const ID DocTypeReadVersion(0x0285);
+        const ID Void(0xEC);
+        const ID CRC32(0xBF);
 
-        const ID Segment(0x08538067);
+        const ID EBML(0x1A45DFA3);
+            const ID EBMLVersion(0x4286);
+            const ID EBMLReadVersion(0x42F7);
+            const ID EBMLMaxIDLength(0x42F2);
+            const ID EBMLMaxSizeLength(0x42F3);
+            const ID DocType(0x4282);
+            const ID DocTypeVersion(0x4287);
+            const ID DocTypeReadVersion(0x4285);
 
-            const ID SeekHead(0x014D9B74);
-                const ID Seek(0x0DBB);
-                const ID SeekID(0x13AB);
-                const ID SeekPosition(0x13AC);
+        const ID Segment(0x18538067);
 
-            const ID Info(0x0549A966);
-                const ID SegmentUID(0x33A4);
-                const ID SegmentFilename(0x3384);
-                const ID PrevUID(0x1CB923);
-                const ID PrevFilename(0x1C83AB);
+            const ID SeekHead(0x114D9B74);
+                const ID Seek(0x4DBB);
+                    const ID SeekID(0x53AB);
+                    const ID SeekPosition(0x53AC);
+
+            const ID Info(0x1549A966);
+                const ID SegmentUID(0x73A4);
+                const ID SegmentFilename(0x7384);
+                const ID PrevUID(0x3CB923);
+                const ID PrevFilename(0x3C83AB);
 
         /** \brief Get the number of bytes required by an ID.
          *
@@ -82,26 +85,67 @@ namespace tide
          * storage.
          * \exception InvalidEBMLID if the ID is invalid.
          */
-        std::streamsize coded_size(uint64_t id);
+        std::streamsize coded_size(ID id);
+
+        /** \brief Encode an unsigned integer into a buffer.
+         *
+         * Encodes an unsigned variable-length integer according to the EBML
+         * specification. Leading zero bits are used to indicate the length of
+         * the encoded integer in bytes.
+         *
+         * The vector provided as a buffer must already have enough space to
+         * store the encoded data reserved. This can be done by either
+         * reserving the maximum possible size (8 bytes) or by using
+         * coded_size() to find the required size.
+         *
+         * \param[in] integer The integer to encode.
+         * \param[in] req_size If not zero, then use this length when encoding
+         * the integer instead of the optimal size. Must be equal to or larger
+         * than the optimal size.
+         * \return A vector containing the encoded data.
+         * \exception InvalidEBMLID if the ID is invalid.
+         */
+        std::vector<char> encode(ID integer);
+
+        /** \brief The result of a decode operation is a pair of the ID
+         * decoded and an iterator pointing to the first element after the used
+         * data.
+         */
+        typedef std::pair<uint64_t, std::vector<char>::const_iterator>
+            DecodeResult;
+
+        /** \brief Decode an ID from a buffer.
+         *
+         * Decodes the ID stored in the buffer.
+         *
+         * \param[in] buffer The buffer holding the raw data.
+         * \return The DecodeResult, containing the decoded ID
+         * and an iterator pointing to the first element after the used data.
+         * \exception InvalidVarInt if the first byte in the buffer is
+         * zero, an invalid starting byte for a variable-length integer.
+         * \exception BufferTooSmall if the expected encoded length of the
+         * variable-length integer is larger than the available buffer length.
+         * \exception InvalidEBMLID if the ID is invalid.
+         */
+        DecodeResult decode(std::vector<char> const& buffer);
 
         /** \brief Write an ID to an output stream.
          *
          * This function writes an ID to an output stream, using the value of
          * the ID to calculate the number of bytes required for storage.
          *
-         * \param[in] ID The ID to write.
+         * \param[in] id The ID to write.
          * \param[in] output The std::ostream object to write to.
          * \return The number of bytes written.
-         * \exception VarIntTooBig if the ID is above the maximum value
-         * for variable-length integers (0xFFFFFFFFFFFFFF).
+         * \exception InvalidEBMLID if the ID is invalid.
          * \exception WriteError if there is an error writing to the stream.
          */
-        std::streamsize write(uint64_t integer, std::ostream& output);
+        std::streamsize write(ID id, std::ostream& output);
 
         /** \brief The result of a read operation is a pair of the ID read
          * and the number of bytes read.
          */
-        typedef std::pair<uint64_t, std::streamsize> ReadResult;
+        typedef std::pair<ID, std::streamsize> ReadResult;
 
         /** \brief Read an ID from an input stream.
          *

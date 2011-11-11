@@ -135,7 +135,7 @@ std::vector<char> tide::vint::encode(uint64_t integer, std::streamsize req_size)
 }
 
 
-tide::vint::DecodeResult tide::vint::decode(std::vector<char>& buffer)
+tide::vint::DecodeResult tide::vint::decode(std::vector<char> const& buffer)
 {
     assert(buffer.size() > 0);
 

@@ -30,6 +30,7 @@
 #include <gtest/gtest.h>
 #include <tide/binary_element.h>
 #include <tide/el_ids.h>
+#include <tide/ebml_int.h>
 #include <tide/exceptions.h>
 #include <tide/string_element.h>
 #include <tide/vint.h>
@@ -47,7 +48,9 @@ size_t fill_buffer(std::string& b, size_t void_size, size_t total_size,
     size_t written(0);
     if (write_id)
     {
-        std::vector<char> tmp(tide::vint::encode(tide::ids::Void));
+        // Cheating on the IDs a bit - there is no protection here against
+        // invalid IDs
+        std::vector<char> tmp(tide::ebml_int::encode_u(tide::ids::Void));
         b.append(&tmp[0], 0, tmp.size());
         written += tmp.size();
     }
@@ -121,7 +124,7 @@ TEST(VoidElement, CopyConstruction)
 
 TEST(VoidElement, CopyElement)
 {
-    tide::StringElement se(1, "12345");
+    tide::StringElement se(0x80, "12345");
 
     size_t se_size(se.total_size());
     tide::VoidElement ve1(se);
@@ -138,7 +141,7 @@ TEST(VoidElement, CopyElement)
     // the body size
     for (int ii(0); ii < 10; ++ii)
     {
-        tide::BinaryElement be(1, std::vector<char>(0x3FFB + ii, 0xC0));
+        tide::BinaryElement be(0x81, std::vector<char>(0x3FFB + ii, 0xC0));
         tide::VoidElement ve3(be);
         EXPECT_EQ(be.total_size(), ve3.total_size());
     }
@@ -228,7 +231,7 @@ TEST(VoidElement, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, 0, fill, true, false);
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::Void),
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::Void),
             v.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -236,7 +239,7 @@ TEST(VoidElement, Write)
     output.str(c0);
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, f_size, fill, true, true);
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::Void) +
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::Void) +
             tide::vint::coded_size(size) + size, v.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
     EXPECT_EQ(v.total_size(), output.tellp());
@@ -258,7 +261,7 @@ TEST(VoidElement, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, 0, fill, true, false);
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::Void),
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::Void),
             v.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -266,7 +269,7 @@ TEST(VoidElement, Write)
     output.str(c0);
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, f_size, fill, true, true);
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::Void) +
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::Void) +
             tide::vint::coded_size(size) + size, v.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
     EXPECT_EQ(v.total_size(), output.tellp());
@@ -286,7 +289,7 @@ TEST(VoidElement, Read)
     EXPECT_EQ(tide::vint::coded_size(size) + size, v.read_body(input));
     EXPECT_EQ(tide::ids::Void, v.id());
     EXPECT_EQ(size, v.size());
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::Void) +
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::Void) +
             tide::vint::coded_size(size) + size, v.total_size());
     EXPECT_EQ(tide::vint::coded_size(v.size()) + v.size(), input.tellg());
 
@@ -297,7 +300,7 @@ TEST(VoidElement, Read)
     EXPECT_EQ(tide::vint::coded_size(size) + size, v.read_body(input));
     EXPECT_EQ(tide::ids::Void, v.id());
     EXPECT_EQ(size, v.size());
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::Void) +
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::Void) +
             tide::vint::coded_size(size) + size, v.total_size());
     EXPECT_EQ(tide::vint::coded_size(v.size()) + v.size(), input.tellg());
 

@@ -29,6 +29,8 @@
 
 #include <gtest/gtest.h>
 #include <string>
+#include <tide/el_ids.h>
+#include <tide/ebml_int.h>
 #include <tide/exceptions.h>
 #include <tide/vint.h>
 
@@ -39,13 +41,15 @@
 namespace test_binel
 {
 
-size_t fill_buffer(std::string& b, uint32_t id,
-        std::vector<char> data, bool write_id, bool write_size, bool write_body)
+size_t fill_buffer(std::string& b, tide::ids::ID id, std::vector<char> data,
+        bool write_id, bool write_size, bool write_body)
 {
     size_t total(0);
     if (write_id)
     {
-        std::vector<char> tmp(tide::vint::encode(id));
+        // Cheating on the IDs a bit - there is no protection here against
+        // invalid IDs
+        std::vector<char> tmp(tide::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -226,53 +230,53 @@ TEST_F(BinaryElementTest, Write)
     std::ostringstream output;
     std::string expected;
 
-    tide::BinaryElement e1(0x01, b1);
+    tide::BinaryElement e1(0x80, b1);
 
-    test_binel::fill_buffer(expected, 0x01, b1, false, false, true);
+    test_binel::fill_buffer(expected, 0x80, b1, false, false, true);
     EXPECT_EQ(b1.size(), e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, b1, false, true, false);
+    test_binel::fill_buffer(expected, 0x80, b1, false, true, false);
     EXPECT_EQ(1, e1.write_size(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, b1, true, false ,false);
-    EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
+    test_binel::fill_buffer(expected, 0x80, b1, true, false ,false);
+    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, b1, true, true, true);
-    EXPECT_EQ(tide::vint::coded_size(1) + 1 + b1.size(),
+    test_binel::fill_buffer(expected, 0x80, b1, true, true, true);
+    EXPECT_EQ(tide::ids::coded_size(0x80) + 1 + b1.size(),
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     e1.value(b3);
 
-    test_binel::fill_buffer(expected, 0x01, b3, false, false, true);
+    test_binel::fill_buffer(expected, 0x80, b3, false, false, true);
     EXPECT_EQ(b3.size(), e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, b3, false, true, false);
+    test_binel::fill_buffer(expected, 0x80, b3, false, true, false);
     EXPECT_EQ(1, e1.write_size(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, b3, true, false, false);
-    EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
+    test_binel::fill_buffer(expected, 0x80, b3, true, false, false);
+    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, b3, true, true, true);
-    EXPECT_EQ(tide::vint::coded_size(1) + 1 + b3.size(),
+    test_binel::fill_buffer(expected, 0x80, b3, true, true, true);
+    EXPECT_EQ(tide::ids::coded_size(0x80) + 1 + b3.size(),
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -280,26 +284,26 @@ TEST_F(BinaryElementTest, Write)
     std::vector<char> value;
     e1.value(value);
 
-    test_binel::fill_buffer(expected, 0x01, value, false, false, true);
+    test_binel::fill_buffer(expected, 0x80, value, false, false, true);
     EXPECT_EQ(value.size(), e1.write_body(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, value, false, true, false);
+    test_binel::fill_buffer(expected, 0x80, value, false, true, false);
     EXPECT_EQ(1, e1.write_size(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, value, true, false, false);
-    EXPECT_EQ(tide::vint::coded_size(1), e1.write_id(output));
+    test_binel::fill_buffer(expected, 0x80, value, true, false, false);
+    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     output.str(std::string());
     std::string().swap(expected);
-    test_binel::fill_buffer(expected, 0x01, value, true, true, true);
-    EXPECT_EQ(tide::vint::coded_size(1) + 1 + value.size(), e1.write(output));
+    test_binel::fill_buffer(expected, 0x80, value, true, true, true);
+    EXPECT_EQ(tide::ids::coded_size(0x80) + 1 + value.size(), e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -309,11 +313,11 @@ TEST_F(BinaryElementTest, Read)
     std::istringstream input;
     std::string input_val;
 
-    tide::BinaryElement e(0x01, std::vector<char>());
-    test_binel::fill_buffer(input_val, 0x01, b1, false, true, true);
+    tide::BinaryElement e(0x80, std::vector<char>());
+    test_binel::fill_buffer(input_val, 0x80, b1, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + b1.size(), e.read_body(input));
-    EXPECT_EQ(0x01, e.id());
+    EXPECT_EQ(0x80, e.id());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e.value());
 
     e.value(b2);
@@ -321,7 +325,7 @@ TEST_F(BinaryElementTest, Read)
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
     std::string().swap(input_val);
-    test_binel::fill_buffer(input_val, 0x01, b3, false, true, true);
+    test_binel::fill_buffer(input_val, 0x80, b3, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + b3.size(), e.read_body(input));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e.value());
@@ -335,7 +339,7 @@ TEST_F(BinaryElementTest, Read)
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
     std::string().swap(input_val);
-    test_binel::fill_buffer(input_val, 0x01, empty, false, true, true);
+    test_binel::fill_buffer(input_val, 0x80, empty, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1, e.read_body(input));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, empty, e.value());
@@ -344,7 +348,7 @@ TEST_F(BinaryElementTest, Read)
 
     // Test for ReadError exception
     std::string().swap(input_val);
-    test_binel::fill_buffer(input_val, 0x01, b4, false, true, true);
+    test_binel::fill_buffer(input_val, 0x80, b4, false, true, true);
     input.str(input_val.substr(0, 4));
     EXPECT_THROW(e.read_body(input), tide::ReadError);
 }
@@ -352,16 +356,12 @@ TEST_F(BinaryElementTest, Read)
 
 TEST_F(BinaryElementTest, Size)
 {
-    tide::BinaryElement e(1, b1);
+    tide::BinaryElement e(0x80, b1);
     EXPECT_EQ(b1.size(), e.size());
     EXPECT_EQ(2 + b1.size(), e.total_size());
 
-    e.id(0x1234567);
-    EXPECT_EQ(b1.size(), e.size());
-    EXPECT_EQ(5 + b1.size(), e.total_size());
-
     e.value(b3);
     EXPECT_EQ(b3.size(), e.size());
-    EXPECT_EQ(5 + b3.size(), e.total_size());
+    EXPECT_EQ(2 + b3.size(), e.total_size());
 }
 

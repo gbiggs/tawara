@@ -99,10 +99,10 @@ std::streamsize EBMLElement::read_body(std::istream& input)
     // Read IDs until the body is exhausted
     while (body_size > 0)
     {
-        result = tide::vint::read(input);
-        ids::ID id(result.first);
-        read_bytes += result.second;
-        body_size -= result.second;
+        ids::ReadResult id_res = ids::read(input);
+        ids::ID id(id_res.first);
+        read_bytes += id_res.second;
+        body_size -= id_res.second;
         std::streamsize el_read_bytes(0);
         switch(id)
         {

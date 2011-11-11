@@ -32,6 +32,7 @@
 #include <istream>
 #include <ostream>
 #include <stdint.h>
+#include <vector>
 
 namespace tide
 {
@@ -61,7 +62,7 @@ namespace tide
          * \return The size, in bytes, that the integer will require when
          * coded.
          */
-        size_t coded_size_u(uint64_t integer);
+        std::streamsize coded_size_u(uint64_t integer);
 
         /** \brief Get the size of a signed integer after encoding.
          *
@@ -72,7 +73,7 @@ namespace tide
          * \return The size, in bytes, that the integer will require when
          * coded.
          */
-        size_t coded_size_s(int64_t integer);
+        std::streamsize coded_size_s(int64_t integer);
 
         /** \brief Encode an unsigned integer into a buffer.
          *
@@ -80,14 +81,9 @@ namespace tide
          * unsigned integers. Leading zero bytes are trimmed.
          *
          * \param[in] integer The integer to encode.
-         * \param[in] buffer A pointer to the buffer into which to put the
-         * bytes.
-         * \param[in] n The length of the buffer available for use.
-         * \return The number of bytes actually used.
-         * \exception BufferTooSmall if the integer is above the maximum size
-         * that can fit in the available buffer space.
+         * \return A vector containing the encoded data.
          */
-        size_t encode_u(uint64_t integer, uint8_t* buffer, size_t n);
+        std::vector<char> encode_u(uint64_t integer);
 
         /** \brief Encode a signed integer into a buffer.
          *
@@ -95,14 +91,9 @@ namespace tide
          * signed integers. Leading zero or 0xFF bytes are trimmed.
          *
          * \param[in] integer The integer to encode.
-         * \param[in] buffer A pointer to the buffer into which to put the
-         * bytes.
-         * \param[in] n The length of the buffer available for use.
-         * \return The number of bytes actually used.
-         * \exception BufferTooSmall if the integer is above the maximum size
-         * that can fit in the available buffer space.
+         * \return A vector containing the encoded data.
          */
-        size_t encode_s(int64_t integer, uint8_t* buffer, size_t n);
+        std::vector<char> encode_s(int64_t integer);
 
         /** \brief Encode and write an unsigned integer into a byte stream.
          *
@@ -115,7 +106,7 @@ namespace tide
          * \return The number of bytes written.
          * \exception WriteError if there is an error writing the output stream.
          */
-        size_t write_u(uint64_t integer, std::ostream& output);
+        std::streamsize write_u(uint64_t integer, std::ostream& output);
 
         /** \brief Encode and write a signed integer into a byte stream.
          *
@@ -128,29 +119,31 @@ namespace tide
          * \return The number of bytes written.
          * \exception WriteError if there is an error writing the output stream.
          */
-        size_t write_s(int64_t integer, std::ostream& output);
+        std::streamsize write_s(int64_t integer, std::ostream& output);
 
         /** \brief Decode an unsigned integer from a buffer.
          *
          * Decodes the unsigned integer stored in the buffer according to the
          * EBML specification for unsigned integers.
          *
-         * \param[in] buffer The buffer holding the raw data.
-         * \param[in] n The number of bytes from the buffer to read.
+         * \param[in] buffer The buffer holding the raw data. The size of the
+         * buffer defines the number of bytes to use for the integer; it must
+         * be 8 or less.
          * \return The decoded unsigned integer.
          */
-        uint64_t decode_u(uint8_t const* buffer, size_t n);
+        uint64_t decode_u(std::vector<char> const& buffer);
 
         /** \brief Decode a signed integer from a buffer.
          *
          * Decodes the unsigned integer stored in the buffer according to the
          * EBML specification for unsigned integers.
          *
-         * \param[in] buffer The buffer holding the raw data.
-         * \param[in] n The number of bytes from the buffer to read.
+         * \param[in] buffer The buffer holding the raw data. The size of the
+         * buffer defines the number of bytes to use for the integer; it must
+         * be 8 or less.
          * \return The decoded unsigned integer.
          */
-        int64_t decode_s(uint8_t const* buffer, size_t n);
+        int64_t decode_s(std::vector<char> const& buffer);
 
         /** \brief Read and decode an unsigned integer from a byte stream.
          *
@@ -163,7 +156,7 @@ namespace tide
          * \return The decoded unsigned integer.
          * \exception ReadError if there is an error reading the input stream.
          */
-        uint64_t read_u(std::istream& input, size_t n);
+        uint64_t read_u(std::istream& input, std::streamsize n);
 
         /** \brief Read and decode a signed integer from a byte stream.
          *
@@ -176,7 +169,7 @@ namespace tide
          * \return The decoded signed integer.
          * \exception ReadError if there is an error reading the input stream.
          */
-        int64_t read_s(std::istream& input, size_t n);
+        int64_t read_s(std::istream& input, std::streamsize n);
     }; // namespace ebml_int
 }; // namespace tide
 

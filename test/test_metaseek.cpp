@@ -98,7 +98,7 @@ TEST(Metaseek, Size)
     tide::Metaseek ms;
 
     EXPECT_EQ(0, ms.size());
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::SeekHead) +
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
             tide::vint::coded_size(0),
             ms.total_size());
 
@@ -115,7 +115,7 @@ TEST(Metaseek, Size)
     }
 
     EXPECT_EQ(body_size, ms.size());
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::SeekHead) +
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
             tide::vint::coded_size(body_size) + body_size,
             ms.total_size());
 }
@@ -146,14 +146,14 @@ TEST(Metaseek, Write)
 
     output.str(std::string());
     expected.str(std::string());
-    tide::vint::write(tide::ids::SeekHead, expected);
+    tide::ids::write(tide::ids::SeekHead, expected);
     tide::vint::write(body_size, expected);
     BOOST_FOREACH(tide::SeekElement e, children)
     {
         e.write(expected);
     }
 
-    EXPECT_EQ(tide::vint::coded_size(tide::ids::SeekHead) +
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
             tide::vint::coded_size(body_size) + body_size,
             ms.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
@@ -167,7 +167,7 @@ TEST(Metaseek, Read)
     std::vector<tide::SeekElement> children;
     children.push_back(tide::SeekElement(tide::ids::SeekHead, 0x7F));
     children.push_back(tide::SeekElement(tide::ids::DocType, 0x76FB));
-    children.push_back(tide::SeekElement(tide::ids::SeekID, 0x1FFFFFFF));
+    children.push_back(tide::SeekElement(tide::ids::SeekID, 0x10203040));
 
     std::streamsize body_size(0);
     BOOST_FOREACH(tide::SeekElement e, children)
@@ -192,7 +192,7 @@ TEST(Metaseek, Read)
     EXPECT_EQ(0x76FB, ii.second);
     ii = ms[2];
     EXPECT_EQ(tide::ids::SeekID, ii.first);
-    EXPECT_EQ(0x1FFFFFFF, ii.second);
+    EXPECT_EQ(0x10203040, ii.second);
 
     // No children at all
     input.str(std::string());

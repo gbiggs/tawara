@@ -33,6 +33,7 @@
 
 #include "test_utils.h"
 
+
 TEST(Seek, Create)
 {
     tide::SeekElement e(0x80, 2);

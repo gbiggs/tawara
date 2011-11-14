@@ -71,9 +71,18 @@ namespace tide
 
             const ID Info(0x1549A966);
                 const ID SegmentUID(0x73A4);
-                const ID SegmentFilename(0x7384);
+                const ID SegmentFileName(0x7384);
                 const ID PrevUID(0x3CB923);
-                const ID PrevFilename(0x3C83AB);
+                const ID PrevFileName(0x3C83AB);
+                const ID NextUID(0x3CB923);
+                const ID NextFileName(0x3C83AB);
+                const ID SegmentFamily(0x4444);
+                const ID TimecodeScale(0x2AD7B1);
+                const ID Duration(0x4489);
+                const ID DateUTC(0x4461);
+                const ID Title(0x7BA9);
+                const ID MuxingApp(0x4D80);
+                const ID WritingApp(0x5741);
 
         /** \brief Get the number of bytes required by an ID.
          *

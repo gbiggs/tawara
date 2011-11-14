@@ -247,6 +247,34 @@ namespace tide
      */
     struct MissingChild : virtual TideError{};
 
+    /** \brief A child element's value was set outside the allowable range.
+     *
+     * Often, child elements will have an allowable range of values, such as
+     * not zero or positive integers. This error occurs when a child element's
+     * value is set outside its allowable range. See the Tide format
+     * specification for the allowable range of each element.
+     *
+     * The err_id tag may be included to give the ID of the bad child
+     * element.
+     *
+     * The err_par_id tag may be included to give the ID of the parent element.
+     */
+    struct ValueOutOfRange : virtual TideError{};
+
+    /** \brief A child element's size is below or above the required size.
+     *
+     * Some string or binary child elements have a required size, such as the
+     * 8 bytes necessary for the UID elements in a SegmentInfo element. If a
+     * child element's value is set to something with an incorrect size, this
+     * error occurs.
+     *
+     * The err_id tag may be included to give the ID of the bad child
+     * element.
+     *
+     * The err_par_id tag may be included to give the ID of the parent element.
+     */
+    struct ValueSizeOutOfRange : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags

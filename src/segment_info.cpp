@@ -418,8 +418,6 @@ std::streamsize SegmentInfo::read_body(std::istream& input)
     std::streamsize body_size(result.first);
     std::streamsize size_size(result.second);
     std::streamsize read_bytes(result.second);
-    // TimecodeScale is the only mandatory element
-    bool have_tc_scale(false);
     // Read elements until the body is exhausted
     while (read_bytes < size_size + body_size)
     {
@@ -459,7 +457,6 @@ std::streamsize SegmentInfo::read_body(std::istream& input)
                 break;
             case ids::TimecodeScale:
                 read_bytes += tc_scale_.read_body(input);
-                have_tc_scale = true;
                 break;
             case ids::Duration:
                 read_bytes += duration_.read_body(input);
@@ -491,12 +488,6 @@ std::streamsize SegmentInfo::read_body(std::istream& input)
         // Read more than was specified by the body size value
         throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
             err_pos(el_start);
-    }
-
-    if (!have_tc_scale)
-    {
-        throw MissingChild() << err_id(ids::TimecodeScale) <<
-            err_par_id(ids::SegmentInfo) << err_pos(el_start);
     }
 
     return read_bytes;

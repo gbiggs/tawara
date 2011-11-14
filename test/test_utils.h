@@ -28,13 +28,28 @@
 #if !defined(TIDE_TEST_UTILS_H_)
 #define TIDE_TEST_UTILS_H_
 
+#include <functional>
 #include <gtest/gtest.h>
-
 #include <stdint.h>
 #include <string>
+#include <tide/element.h>
+
 
 namespace test_utils
 {
+
+typedef boost::shared_ptr<tide::Element> ElPtr;
+
+// Adds the total size of an element to a value
+struct TotalSizeOp
+    : public std::binary_function<uint64_t, ElPtr, uint64_t>
+{
+    uint64_t operator()(uint64_t total, ElPtr el)
+    {
+        return total + el->total_size();
+    }
+};
+
 
 // Tests if to buffers are equal. The length of the buffers must be specified.
 ::testing::AssertionResult buffers_eq(char const* b1_expr, char const* b2_expr,

@@ -65,7 +65,7 @@ DateElement& DateElement::operator=(int64_t const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t DateElement::size() const
+std::streamsize DateElement::size() const
 {
     // Dates are always stored as the full 8 bytes
     return 8;
@@ -89,13 +89,13 @@ std::streamsize DateElement::write_body(std::ostream& output)
 
 std::streamsize DateElement::read_body(std::istream& input)
 {
-    std::pair<uint64_t, size_t> result;
+    std::pair<uint64_t, std::streamsize> result;
 
     result = tide::vint::read(input);
     if (result.first != 8)
     {
         throw BadElementLength() << err_pos(input.tellg()) << err_id(id_) <<
-            err_valid_sizes(std::vector<size_t>(1, 8)) <<
+            err_valid_sizes(std::vector<std::streamsize>(1, 8)) <<
             err_el_size(result.first);
     }
     input.read(reinterpret_cast<char*>(&value_), 8);

@@ -74,8 +74,8 @@ namespace tide
                 const ID SegmentFileName(0x7384);
                 const ID PrevUID(0x3CB923);
                 const ID PrevFileName(0x3C83AB);
-                const ID NextUID(0x3CB923);
-                const ID NextFileName(0x3C83AB);
+                const ID NextUID(0x3EB923);
+                const ID NextFileName(0x3E83AB);
                 const ID SegmentFamily(0x4444);
                 const ID TimecodeScale(0x2AD7B1);
                 const ID Duration(0x4489);
@@ -102,15 +102,7 @@ namespace tide
          * specification. Leading zero bits are used to indicate the length of
          * the encoded integer in bytes.
          *
-         * The vector provided as a buffer must already have enough space to
-         * store the encoded data reserved. This can be done by either
-         * reserving the maximum possible size (8 bytes) or by using
-         * coded_size() to find the required size.
-         *
          * \param[in] integer The integer to encode.
-         * \param[in] req_size If not zero, then use this length when encoding
-         * the integer instead of the optimal size. Must be equal to or larger
-         * than the optimal size.
          * \return A vector containing the encoded data.
          * \exception InvalidEBMLID if the ID is invalid.
          */

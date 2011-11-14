@@ -729,9 +729,9 @@ TEST(EBMLInt, EncodeDecodeSigned)
 }
 
 
-void fill_buffer(std::stringstream& buf, uint8_t c, size_t n)
+void fill_buffer(std::stringstream& buf, uint8_t c, std::streamsize n)
 {
-    for (size_t ii(0); ii < n; ++ii)
+    for (std::streamsize ii(0); ii < n; ++ii)
     {
         buf.put(c);
     }

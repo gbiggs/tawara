@@ -40,10 +40,10 @@
 namespace test_datel
 {
 
-size_t fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
+std::streamsize fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
         bool write_id, bool write_size, bool write_body)
 {
-    size_t total(0);
+    std::streamsize total(0);
     if (write_id)
     {
         // Cheating on the IDs a bit - there is no protection here against
@@ -60,7 +60,7 @@ size_t fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
     }
     if (write_body)
     {
-        for (size_t ii(0); ii < 8; ++ii)
+        for (std::streamsize ii(0); ii < 8; ++ii)
         {
             b.push_back(reinterpret_cast<uint8_t*>(&data)[ii]);
         }

@@ -66,7 +66,7 @@ FloatElement& FloatElement::operator=(double const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t FloatElement::size() const
+std::streamsize FloatElement::size() const
 {
     switch(prec_)
     {
@@ -85,7 +85,7 @@ size_t FloatElement::size() const
 std::streamsize FloatElement::write_body(std::ostream& output)
 {
     float tmp(0);
-    size_t result(0);
+    std::streamsize result(0);
     switch(prec_)
     {
         case EBML_FLOAT_PREC_SINGLE:
@@ -112,7 +112,7 @@ std::streamsize FloatElement::write_body(std::ostream& output)
 
 std::streamsize FloatElement::read_body(std::istream& input)
 {
-    std::pair<uint64_t, size_t> result;
+    std::pair<uint64_t, std::streamsize> result;
 
     result = tide::vint::read(input);
     if (result.first == 4)
@@ -141,7 +141,7 @@ std::streamsize FloatElement::read_body(std::istream& input)
     }
     else
     {
-        std::vector<size_t> valid_sizes;
+        std::vector<std::streamsize> valid_sizes;
         valid_sizes.push_back(4); valid_sizes.push_back(8);
         throw BadElementLength() << err_pos(input.tellg()) << err_id(id_) <<
             err_valid_sizes(valid_sizes) << err_el_size(result.first);

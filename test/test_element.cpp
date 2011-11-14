@@ -57,12 +57,12 @@ class FakeElement : public tide::Element
             return 0;
         }
 
-        size_t size() const
+        std::streamsize size() const
         {
             return 0;
         }
 
-        size_t total_size() const
+        std::streamsize total_size() const
         {
             return 0;
         }

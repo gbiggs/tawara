@@ -56,7 +56,7 @@ namespace tide
              * \param[in] fill If true, when writing the element, the element's
              * body will be filled with 0x00.
              */
-            VoidElement(size_t size, bool fill=false);
+            VoidElement(std::streamsize size, bool fill=false);
 
             /** \brief Create a new VoidElement that replaces another element.
              *
@@ -71,16 +71,16 @@ namespace tide
             VoidElement(Element const& element, bool fill=false);
 
             /// \brief Get the size of this element.
-            size_t size() const { return size_; }
+            std::streamsize size() const { return size_; }
             /** \brief Set the size of this element.
              *
              * A void element has a size value, given in bytes, which
              * determines how much space it reserves in the byte stream.
              */
-            void size(size_t size) { size_ = size; }
+            void size(std::streamsize size) { size_ = size; }
 
             /// \brief Get the total size of the element.
-            size_t total_size() const;
+            std::streamsize total_size() const;
 
             /// \brief Get the fill setting.
             bool fill() const { return fill_; }
@@ -134,11 +134,11 @@ namespace tide
 
         private:
             /// The size of space to reserve in the byte stream.
-            size_t size_;
+            std::streamsize size_;
             /// If the element's body should be filled with zeroes or not.
             bool fill_;
             /// Extra bytes for writing the body size value if necessary.
-            size_t extra_size_;
+            std::streamsize extra_size_;
     }; // class VoidElement
 }; // namespace tide
 

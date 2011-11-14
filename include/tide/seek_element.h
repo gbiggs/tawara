@@ -74,7 +74,7 @@ namespace tide
             void offset(std::streamsize offset) { offset_.value(offset); }
 
             /// \brief Get the size of the body of this element.
-            virtual size_t size() const;
+            virtual std::streamsize size() const;
 
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);

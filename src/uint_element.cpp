@@ -64,7 +64,7 @@ UIntElement& UIntElement::operator=(uint64_t const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t UIntElement::size() const
+std::streamsize UIntElement::size() const
 {
     return tide::ebml_int::coded_size_u(value_);
 }
@@ -82,7 +82,7 @@ std::streamsize UIntElement::write_body(std::ostream& output)
 
 std::streamsize UIntElement::read_body(std::istream& input)
 {
-    std::pair<uint64_t, size_t> result;
+    std::pair<uint64_t, std::streamsize> result;
 
     result = tide::vint::read(input);
     value_ = tide::ebml_int::read_u(input, result.first);

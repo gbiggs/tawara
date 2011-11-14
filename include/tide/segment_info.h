@@ -25,7 +25,7 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !define(TIDE_SEGMENT_INFO_H_)
+#if !defined(TIDE_SEGMENT_INFO_H_)
 #define TIDE_SEGMENT_INFO_H_
 
 #include <tide/binary_element.h>
@@ -233,7 +233,7 @@ namespace tide
             void writing_app(std::string const& writing_app);
 
             /// \brief Get the size of the body of this element.
-            virtual size_t size() const;
+            virtual std::streamsize size() const;
 
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);

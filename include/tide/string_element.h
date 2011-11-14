@@ -82,7 +82,7 @@ namespace tide
             virtual void padding(uint64_t padding) { padding_ = padding; }
 
             /// \brief Get the size of the body of this element.
-            virtual size_t size() const;
+            virtual std::streamsize size() const;
 
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);

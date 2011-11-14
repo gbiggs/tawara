@@ -63,7 +63,7 @@ IntElement& IntElement::operator=(int64_t const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t IntElement::size() const
+std::streamsize IntElement::size() const
 {
     return tide::ebml_int::coded_size_s(value_);
 }
@@ -81,7 +81,7 @@ std::streamsize IntElement::write_body(std::ostream& output)
 
 std::streamsize IntElement::read_body(std::istream& input)
 {
-    std::pair<uint64_t, size_t> result;
+    std::pair<uint64_t, std::streamsize> result;
 
     result = tide::vint::read(input);
     value_ = tide::ebml_int::read_s(input, result.first);

@@ -121,7 +121,7 @@ TEST(EBMLElement, Write)
     children.push_back(ElPtr(new
                 tide::UIntElement(tide::ids::DocTypeReadVersion, 1)));
     tide::EBMLElement e;
-    size_t expected_size(0);
+    std::streamsize expected_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
         el->write(expected);
@@ -208,7 +208,7 @@ TEST(EBMLElement, Read)
 
     tide::EBMLElement e("");
 
-    size_t body_size(0);
+    std::streamsize body_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
         body_size += el->total_size();
@@ -269,7 +269,7 @@ TEST(EBMLElement, Size)
     children.push_back(ElPtr(new
                 tide::UIntElement(tide::ids::DocTypeReadVersion, 2)));
 
-    size_t body_size(0);
+    std::streamsize body_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
         body_size += el->total_size();

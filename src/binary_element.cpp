@@ -65,7 +65,7 @@ BinaryElement& BinaryElement::operator=(std::vector<char> const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t BinaryElement::size() const
+std::streamsize BinaryElement::size() const
 {
     return value_.size();
 }
@@ -88,7 +88,7 @@ std::streamsize BinaryElement::write_body(std::ostream& output)
 
 std::streamsize BinaryElement::read_body(std::istream& input)
 {
-    std::pair<uint64_t, size_t> result;
+    std::pair<uint64_t, std::streamsize> result;
 
     // Read the body size
     result = tide::vint::read(input);

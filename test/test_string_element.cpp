@@ -40,10 +40,10 @@
 namespace test_strel
 {
 
-size_t fill_buffer(std::string& b, tide::ids::ID id, std::string data,
+std::streamsize fill_buffer(std::string& b, tide::ids::ID id, std::string data,
         uint64_t padding, bool write_id, bool write_size, bool write_body)
 {
-    size_t total(0);
+    std::streamsize total(0);
     if (write_id)
     {
         // Cheating on the IDs a bit - there is no protection here against
@@ -62,7 +62,7 @@ size_t fill_buffer(std::string& b, tide::ids::ID id, std::string data,
     {
         b.append(data);
         total += data.size();
-        for (size_t ii(0); ii < padding; ++ii)
+        for (std::streamsize ii(0); ii < padding; ++ii)
         {
             b.push_back(0x00);
         }

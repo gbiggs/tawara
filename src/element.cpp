@@ -54,9 +54,9 @@ Element::Element(uint32_t id)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t Element::total_size() const
+std::streamsize Element::total_size() const
 {
-    size_t data_size(size());
+    std::streamsize data_size(size());
     return tide::ids::coded_size(id_) + tide::vint::coded_size(data_size) +
         data_size;
 }

@@ -40,10 +40,10 @@
 namespace test_uintel
 {
 
-size_t fill_buffer(std::string& b, tide::ids::ID id, uint64_t data,
+std::streamsize fill_buffer(std::string& b, tide::ids::ID id, uint64_t data,
         bool write_id, bool write_size, bool write_body)
 {
-    size_t size(0), total(0);
+    std::streamsize size(0), total(0);
     if (write_id)
     {
         // Cheating on the IDs a bit - there is no protection here against
@@ -203,7 +203,7 @@ TEST(UIntElement, Write)
     std::ostringstream output;
     std::string expected;
     int64_t value(2);
-    size_t val_size(tide::ebml_int::coded_size_u(value));
+    std::streamsize val_size(tide::ebml_int::coded_size_u(value));
 
     tide::UIntElement e1(0x80, value);
 
@@ -264,7 +264,7 @@ TEST(UIntElement, Read)
     std::istringstream input;
     std::string input_val;
     int64_t value(5);
-    size_t val_size(tide::ebml_int::coded_size_u(value));
+    std::streamsize val_size(tide::ebml_int::coded_size_u(value));
 
     tide::UIntElement e(0x01, 0);
     test_uintel::fill_buffer(input_val, 0x01, value, false, true, true);

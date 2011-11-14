@@ -28,11 +28,13 @@
 #if !defined(TIDE_TEST_UTILS_H_)
 #define TIDE_TEST_UTILS_H_
 
+#include <boost/shared_ptr.hpp>
 #include <functional>
 #include <gtest/gtest.h>
 #include <stdint.h>
 #include <string>
 #include <tide/element.h>
+#include <tide/prim_element.h>
 
 
 namespace test_utils
@@ -50,10 +52,6 @@ struct TotalSizeOp
     }
 };
 
-
-// Tests if to buffers are equal. The length of the buffers must be specified.
-::testing::AssertionResult buffers_eq(char const* b1_expr, char const* b2_expr,
-        char const* n_expr, uint8_t const* b1, uint8_t const* b2, size_t n);
 
 // Tests if two std::basic_string<uint8_t> byte buffers are equal.
 ::testing::AssertionResult std_buffers_eq(char const* b1_expr,

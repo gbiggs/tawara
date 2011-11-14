@@ -102,7 +102,7 @@ namespace tide
              *
              * \return The size of the element's body, in bytes.
              */
-            virtual size_t size() const = 0;
+            virtual std::streamsize size() const = 0;
 
             /** \brief Get the total size of the element.
              *
@@ -111,7 +111,7 @@ namespace tide
              *
              * \return The size of the entire element, in bytes.
              */
-            virtual size_t total_size() const;
+            virtual std::streamsize total_size() const;
 
             /** \brief Element writing.
              *

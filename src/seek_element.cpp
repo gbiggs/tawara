@@ -63,7 +63,7 @@ void SeekElement::indexed_id(ids::ID id)
 }
 
 
-size_t SeekElement::size() const
+std::streamsize SeekElement::size() const
 {
     return indexed_id_.total_size() + offset_.total_size();
 }

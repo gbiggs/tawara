@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <tide/vint.h>
 
 using namespace tide;
 
@@ -38,7 +39,7 @@ using namespace tide;
 ///////////////////////////////////////////////////////////////////////////////
 
 SegmentInfo::SegmentInfo()
-    : MasterElement(ids::SegmentInfo),
+    : MasterElement(ids::Info),
     uid_(ids::SegmentUID, std::vector<char>()), have_uid_(false),
     seg_fn_(ids::SegmentFileName, ""), have_seg_fn_(false),
     prev_uid_(ids::PrevUID, std::vector<char>()), have_prev_uid_(false),
@@ -47,7 +48,7 @@ SegmentInfo::SegmentInfo()
     next_fn_(ids::NextFileName, ""), have_next_fn_(false),
     seg_fam_(ids::SegmentFamily, std::vector<char>()), have_seg_fam_(false),
     tc_scale_(ids::TimecodeScale, 1000000, 1000000),
-    duration(ids::Duration, 1), have_duration_(false),
+    duration_(ids::Duration, 1), have_duration_(false),
     date_(ids::DateUTC, 0), have_date_(false),
     title_(ids::Title, ""), have_title_(false),
     muxer_(ids::MuxingApp, ""), have_muxer_(false),
@@ -69,17 +70,17 @@ void SegmentInfo::uid(std::vector<char> const& uid)
     }
     else
     {
-        uid::iterator non_zero(std::find_if(uid.begin(), uid.end(),
-            std::bind2nd(std::not_equal_to<int>(), 0)));
+        std::vector<char>::const_iterator non_zero(std::find_if(uid.begin(),
+                    uid.end(), std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == uid.end())
         {
             throw ValueOutOfRange() << err_id(ids::SegmentUID) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
         if (uid.size() != 8)
         {
             throw ValueSizeOutOfRange() << err_id(ids::SegmentUID) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
 
         uid_ = uid;
@@ -111,17 +112,17 @@ void SegmentInfo::prev_uid(std::vector<char> const& uid)
     }
     else
     {
-        uid::iterator non_zero(std::find_if(uid.begin(), uid.end(),
-            std::bind2nd(std::not_equal_to<int>(), 0)));
+        std::vector<char>::const_iterator non_zero(std::find_if(uid.begin(),
+                    uid.end(), std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == uid.end())
         {
             throw ValueOutOfRange() << err_id(ids::PrevUID) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
         if (uid.size() != 8)
         {
             throw ValueSizeOutOfRange() << err_id(ids::PrevUID) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
 
         prev_uid_ = uid;
@@ -153,17 +154,17 @@ void SegmentInfo::next_uid(std::vector<char> const& uid)
     }
     else
     {
-        uid::iterator non_zero(std::find_if(uid.begin(), uid.end(),
-            std::bind2nd(std::not_equal_to<int>(), 0)));
+        std::vector<char>::const_iterator non_zero(std::find_if(uid.begin(),
+                    uid.end(), std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == uid.end())
         {
             throw ValueOutOfRange() << err_id(ids::NextUID) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
         if (uid.size() != 8)
         {
             throw ValueSizeOutOfRange() << err_id(ids::NextUID) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
 
         next_uid_ = uid;
@@ -195,17 +196,18 @@ void SegmentInfo::segment_family(std::vector<char> const& segment_family)
     }
     else
     {
-        segment_family::iterator non_zero(std::find_if(segment_family.begin(), segment_family.end(),
-            std::bind2nd(std::not_equal_to<int>(), 0)));
+        std::vector<char>::const_iterator
+            non_zero(std::find_if(segment_family.begin(), segment_family.end(),
+                        std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == segment_family.end())
         {
             throw ValueOutOfRange() << err_id(ids::SegmentFamily) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
         if (segment_family.size() != 8)
         {
             throw ValueSizeOutOfRange() << err_id(ids::SegmentFamily) <<
-                err_id(ids::SegmentInfo);
+                err_id(ids::Info);
         }
 
         seg_fam_ = segment_family;
@@ -218,7 +220,7 @@ void SegmentInfo::timecode_scale(uint64_t scale)
 {
     if (scale == 0)
     {
-        tc_scale_ = tc_scale_.default_value();
+        tc_scale_ = tc_scale_.get_default();
     }
     else
     {
@@ -232,14 +234,14 @@ void SegmentInfo::duration(double duration)
     if (duration <= 0)
     {
         throw ValueOutOfRange() << err_id(ids::Duration) <<
-            err_id(ids::SegmentInfo);
+            err_id(ids::Info);
     }
     duration_ = duration;
     have_duration_ = true;
 }
 
 
-void SegmentInfo::date_utc(int64_t date)
+void SegmentInfo::date(int64_t date)
 {
     date_ = date;
     have_date_ = true;
@@ -353,6 +355,9 @@ std::streamsize SegmentInfo::write_body(std::ostream& output)
 {
     std::streamsize written(0);
 
+    // The spec may say that the TimecodeScale comes later, but in EBML it
+    // doesn't actually matter.
+    written += tc_scale_.write(output);
     if (have_uid_)
     {
         written += uid_.write(output);
@@ -365,9 +370,9 @@ std::streamsize SegmentInfo::write_body(std::ostream& output)
     {
         written += prev_uid_.write(output);
     }
-    if (have_pref_fn_)
+    if (have_prev_fn_)
     {
-        written += pref_fn_.write(output);
+        written += prev_fn_.write(output);
     }
     if (have_next_uid_)
     {
@@ -381,7 +386,6 @@ std::streamsize SegmentInfo::write_body(std::ostream& output)
     {
         written += seg_fam_.write(output);
     }
-    written += tc_scale_.write(output);
     if (have_duration_)
     {
         written += duration_.write(output);
@@ -500,22 +504,22 @@ std::streamsize SegmentInfo::read_body(std::istream& input)
 
 void SegmentInfo::reset()
 {
-    uid_ = std::vector<char>;
+    uid_ = std::vector<char>();
     have_uid_ = false;
     seg_fn_ = "";
     have_seg_fn_ = false;
-    prev_uid_ = std::vector<char>;
+    prev_uid_ = std::vector<char>();
     have_prev_uid_ = false;
     prev_fn_ = "";
     have_prev_fn_ = false;
-    next_uid_ = std::vector<char>;
+    next_uid_ = std::vector<char>();
     have_next_uid_ = false;
     next_fn_ = "";
     have_next_fn_ = false;
-    seg_fam_ = std::vector<char>;
+    seg_fam_ = std::vector<char>();
     have_seg_fam_ = false;
     tc_scale_ = 1000000;
-    duration = 1;
+    duration_ = 1;
     have_duration_ = false;
     date_ = 0;
     have_date_ = false;

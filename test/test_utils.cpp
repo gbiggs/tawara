@@ -30,34 +30,6 @@
 #include <gtest/gtest.h>
 
 
-::testing::AssertionResult test_utils::buffers_eq(char const* b1_expr, char const* b2_expr,
-        char const* n_expr, uint8_t const* b1, uint8_t const* b2, size_t n)
-{
-    if (strncmp(reinterpret_cast<char const*>(b1),
-            reinterpret_cast<char const*>(b2), n) == 0)
-    {
-        return ::testing::AssertionSuccess();
-    }
-    else
-    {
-        std::stringstream b1_str;
-        for (size_t ii(0); ii < n; ++ii)
-        {
-            b1_str << std::hex << std::setw(2) << std::setfill('0') <<
-                +b1[ii] << ' ';
-        }
-        std::stringstream b2_str;
-        for (size_t ii(0); ii < n; ++ii)
-        {
-            b2_str << std::hex << std::setw(2) << std::setfill('0') <<
-                +b2[ii] << ' ';
-        }
-        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
-            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
-    }
-}
-
-
 ::testing::AssertionResult test_utils::std_buffers_eq(char const* b1_expr,
         char const* b2_expr,
         std::basic_string<uint8_t> const& b1,
@@ -76,13 +48,13 @@
     else
     {
         std::stringstream b1_str;
-        for (size_t ii(0); ii < b1.size(); ++ii)
+        for (std::streamsize ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b1[ii] & 0xFF) << ' ';
         }
         std::stringstream b2_str;
-        for (size_t ii(0); ii < b2.size(); ++ii)
+        for (std::streamsize ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b2[ii] & 0xFF) << ' ';
@@ -110,13 +82,13 @@
     else
     {
         std::stringstream b1_str;
-        for (size_t ii(0); ii < b1.size(); ++ii)
+        for (std::streamsize ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b1[ii] & 0xFF) << ' ';
         }
         std::stringstream b2_str;
-        for (size_t ii(0); ii < b2.size(); ++ii)
+        for (std::streamsize ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b2[ii] & 0xFF) << ' ';
@@ -144,13 +116,13 @@
     else
     {
         std::stringstream b1_str;
-        for (size_t ii(0); ii < b1.size(); ++ii)
+        for (std::streamsize ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b1[ii] & 0xFF);
         }
         std::stringstream b2_str;
-        for (size_t ii(0); ii < b2.size(); ++ii)
+        for (std::streamsize ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b2[ii] & 0xFF);

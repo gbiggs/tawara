@@ -42,10 +42,10 @@
 namespace test_vel
 {
 
-size_t fill_buffer(std::string& b, size_t void_size, size_t total_size,
+std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::streamsize total_size,
         bool fill, bool write_id, bool write_body)
 {
-    size_t written(0);
+    std::streamsize written(0);
     if (write_id)
     {
         // Cheating on the IDs a bit - there is no protection here against
@@ -62,7 +62,7 @@ size_t fill_buffer(std::string& b, size_t void_size, size_t total_size,
         int remaining(total_size - written);
         if (fill)
         {
-            for (size_t ii(0); ii < void_size; ++ii)
+            for (std::streamsize ii(0); ii < void_size; ++ii)
             {
                 b.push_back(0);
             }
@@ -126,7 +126,7 @@ TEST(VoidElement, CopyElement)
 {
     tide::StringElement se(0x80, "12345");
 
-    size_t se_size(se.total_size());
+    std::streamsize se_size(se.total_size());
     tide::VoidElement ve1(se);
     EXPECT_EQ(se_size, ve1.total_size());
     EXPECT_EQ(se_size - 2, ve1.size());
@@ -209,10 +209,10 @@ TEST(VoidElement, Write)
 {
     std::stringstream output;
     std::string expected;
-    size_t size(5), f_size(20);
+    std::streamsize size(5), f_size(20);
     bool fill(false);
     std::string c0;
-    for (size_t ii(0); ii < f_size; ++ii)
+    for (std::streamsize ii(0); ii < f_size; ++ii)
     {
         // Fill the output with some data to overwrite
         c0.push_back(0xC0);
@@ -280,7 +280,7 @@ TEST(VoidElement, Read)
 {
     std::stringstream input;
     std::string input_val;
-    size_t size(5), f_size(20);
+    std::streamsize size(5), f_size(20);
     bool fill(false);
 
     tide::VoidElement v(0);

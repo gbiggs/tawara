@@ -67,7 +67,7 @@ StringElement& StringElement::operator=(std::string const& rhs)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t StringElement::size() const
+std::streamsize StringElement::size() const
 {
     return value_.size() + padding_;
 }
@@ -80,12 +80,12 @@ size_t StringElement::size() const
 std::streamsize StringElement::write_body(std::ostream& output)
 {
     output.write(value_.c_str(), value_.size());
-    size_t result = value_.size();
+    std::streamsize result = value_.size();
     if (!output)
     {
         throw WriteError() << err_pos(output.tellp());
     }
-    for (size_t ii(0); ii < padding_; ++ii)
+    for (std::streamsize ii(0); ii < padding_; ++ii)
     {
         output.put(0x00);
         ++result;
@@ -96,7 +96,7 @@ std::streamsize StringElement::write_body(std::ostream& output)
 
 std::streamsize StringElement::read_body(std::istream& input)
 {
-    std::pair<uint64_t, size_t> result;
+    std::pair<uint64_t, std::streamsize> result;
 
     // Read the body size
     result = tide::vint::read(input);

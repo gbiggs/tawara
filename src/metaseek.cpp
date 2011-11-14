@@ -73,9 +73,9 @@ Metaseek::IndexItem Metaseek::operator[](unsigned int pos)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t Metaseek::size() const
+std::streamsize Metaseek::size() const
 {
-    size_t result(0);
+    std::streamsize result(0);
     BOOST_FOREACH(SeekElement ii, index_)
     {
         result += ii.total_size();

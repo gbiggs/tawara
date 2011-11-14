@@ -40,11 +40,11 @@
 namespace test_flel
 {
 
-size_t fill_buffer(std::string& b, tide::ids::ID id, double data,
+std::streamsize fill_buffer(std::string& b, tide::ids::ID id, double data,
         bool write_id, bool write_size, bool write_body, bool double_prec)
 {
     char temp[8];
-    size_t total(0);
+    std::streamsize total(0);
     if (write_id)
     {
         // Cheating on the IDs a bit - there is no protection here against

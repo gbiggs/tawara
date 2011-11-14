@@ -55,7 +55,7 @@ EBMLElement::EBMLElement(std::string const& doc_type)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t EBMLElement::size() const
+std::streamsize EBMLElement::size() const
 {
     return ver_.total_size() +
         read_ver_.total_size() +

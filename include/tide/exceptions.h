@@ -290,13 +290,13 @@ namespace tide
     typedef boost::error_info<struct tag_varint, uint64_t> err_varint;
 
     /// \brief The size of a buffer.
-    typedef boost::error_info<struct tag_bufsize, size_t> err_bufsize;
+    typedef boost::error_info<struct tag_bufsize, std::streamsize> err_bufsize;
 
     /// \brief The required size of a buffer or a file read.
-    typedef boost::error_info<struct tag_reqsize, size_t> err_reqsize;
+    typedef boost::error_info<struct tag_reqsize, std::streamsize> err_reqsize;
 
     /// \brief The specified size to encode a variable-length integer into.
-    typedef boost::error_info<struct tag_specsize, size_t> err_specsize;
+    typedef boost::error_info<struct tag_specsize, std::streamsize> err_specsize;
 
     /// \brief An Element ID.
     typedef boost::error_info<struct tag_id, ids::ID> err_id;
@@ -305,11 +305,11 @@ namespace tide
     typedef boost::error_info<struct tag_par_id, uint32_t> err_par_id;
 
     /// \brief A set of valid element sizes.
-    typedef boost::error_info<struct tag_valid_sizes, std::vector<size_t> >
+    typedef boost::error_info<struct tag_valid_sizes, std::vector<std::streamsize> >
         err_valid_sizes;
 
     /// \brief The size of an element.
-    typedef boost::error_info<struct tag_el_size, size_t> err_el_size;
+    typedef boost::error_info<struct tag_el_size, std::streamsize> err_el_size;
 }; // namespace tide
 
 /// @}

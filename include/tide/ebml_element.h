@@ -66,7 +66,7 @@ namespace tide
             virtual ~EBMLElement() {};
 
             /// \brief Get the size of the body of this element.
-            virtual size_t size() const;
+            virtual std::streamsize size() const;
 
             /** \brief Get the EBML version.
              *

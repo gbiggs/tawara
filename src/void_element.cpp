@@ -37,7 +37,7 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-VoidElement::VoidElement(size_t size, bool fill)
+VoidElement::VoidElement(std::streamsize size, bool fill)
     : Element(ids::Void), size_(size), fill_(fill), extra_size_(0)
 {
 }
@@ -71,7 +71,7 @@ VoidElement::VoidElement(Element const& element, bool fill)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-size_t VoidElement::total_size() const
+std::streamsize VoidElement::total_size() const
 {
     // ID is always 1 byte
     return 1 + tide::vint::coded_size(size_) + size_ + extra_size_;
@@ -90,7 +90,7 @@ std::streamsize VoidElement::write(std::ostream& output)
 
 std::streamsize VoidElement::write_body(std::ostream& output)
 {
-    size_t result(0);
+    std::streamsize result(0);
 
     // Write the body size value padded with extra bytes if necessary
     result += tide::vint::write(size_, output,
@@ -115,7 +115,7 @@ std::streamsize VoidElement::write_body(std::ostream& output)
 
 std::streamsize VoidElement::read_body(std::istream& input)
 {
-    std::pair<uint64_t, size_t> result;
+    std::pair<uint64_t, std::streamsize> result;
 
     // Read the body size
     result = tide::vint::read(input);

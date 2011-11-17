@@ -38,7 +38,7 @@
 #include <tide/win_dll.h>
 #include <vector>
 
-/// \@addtogroup elements Elements
+/// \addtogroup elements Elements
 /// @{
 
 namespace tide

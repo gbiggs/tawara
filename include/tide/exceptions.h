@@ -258,6 +258,9 @@ namespace tide
      * element.
      *
      * The err_par_id tag may be included to give the ID of the parent element.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
      */
     struct ValueOutOfRange : virtual TideError{};
 

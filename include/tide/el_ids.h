@@ -84,6 +84,29 @@ namespace tide
                 const ID MuxingApp(0x4D80);
                 const ID WritingApp(0x5741);
 
+            const ID Tracks(0x1654AE6B);
+                const ID TrackEntry(0xAE);
+                    const ID TrackNumber(0xD7);
+                    const ID TrackUID(0x73C5);
+                    const ID FlagEnabled(0x88);
+                    const ID FlagForced(0x55AA);
+                    const ID FlagLacing(0x9C);
+                    const ID MinCache(0x6DE7);
+                    const ID MaxCache(0x6DE7);
+                    const ID DefaultDuration(0x23E383);
+                    const ID TrackTimecodeScale(0x23314F);
+                    const ID MaxBlockAdditionID(0x55EE);
+                    const ID Name(0x536E);
+                    const ID CodecID(0x86);
+                    const ID CodecPrivate(0x63A2);
+                    const ID CodecName(0x258688);
+                    const ID AttachmentLink(0x7446);
+                    const ID CodecDecodeAll(0xAA);
+                    const ID TrackOverlay(0x6F24);
+                    const ID TrackOperation(0xE2);
+                        const ID TrackJoinBlocks(0xE9);
+                            const ID TrackJoinUID(0xED);
+
         /** \brief Get the number of bytes required by an ID.
          *
          * The size required by an ID depends on its value, and will range from

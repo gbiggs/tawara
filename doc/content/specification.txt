@@ -431,7 +431,7 @@ in each track, such as the codec used (i.e. the serialisation method, in
 most cases), as well as useful meta-data such as track names and
 information about the source of the data stored in the track.  The
 information stored here is vital to the usefulness of the data stored in
-the clusters. Each track also has a unique ID, the TrackUID.  This is
+the clusters. Each track also has a unique ID, the TrackUID. This is
 useful when editing files and is also used by Tags.
 
 The data is stored within the many Cluster elements. These are used to
@@ -610,8 +610,8 @@ Element name         Level EBML ID     Ma Mu Rng   Default T Description
 Tracks               1     16 54 AE 6B    \*               m Contains information on one or more tracks.
 TrackEntry           2     AE          \* \*               m Describes a single track.
 TrackNumber          3     D7          \*    not 0         u The track number used in the Block Header.
-TrackUID             3     73 C5       \*    not 0         u A unique 128-bit ID to identify the track. This should be kept the
-                                                             same when making a direct stream copy of the track to another file.
+TrackUID             3     73 C5       \*    not 0         u A unique ID to identify the track. This should be kept the same when
+                                                             making a direct stream copy of the track to another file.
 FlagEnabled          3     88          \*    0-1   1       u Set to 1 if the track is used.
 FlagForced           3     55 AA       \*    0-1   0       u Set to 1 if the track MUST be used during playback.
 FlagLacing           3     9C          \*    0-1   1       u Set to 1 if the track may contain blocks using lacing.

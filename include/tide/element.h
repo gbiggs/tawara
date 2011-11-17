@@ -174,6 +174,10 @@ namespace tide
              * body of a master element to which it doesn't belong.
              * \exception MissingChild if a child element that must be present
              * in a master element is not found.
+             * \throw ValueOutOfRange if a child element is read with a value
+             * that is out of range.
+             * \throw ValueSizeOutOfRange if a child element is read with a
+             * size that is not in the allowable range of sizes.
              */
             virtual std::streamsize read_body(std::istream& input) = 0;
 

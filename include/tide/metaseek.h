@@ -93,7 +93,7 @@ namespace tide
             /// \brief Get the number of items in the index.
             unsigned int index_size() const { return index_.size(); }
 
-            // TODO: Proper iterator model for the index
+            /// TODO: Proper iterator model for the index
 
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);

@@ -206,5 +206,11 @@ TEST(Metaseek, Read)
     tide::vint::write(2, input);
     children[0].write(input);
     EXPECT_THROW(ms.read_body(input), tide::BadBodySize);
+    // Invalid child
+    input.str(std::string());
+    UIntElement ue(tide::ids::EBML, 0xFFFF);
+    tide::vint::write(ue.total_size(), input);
+    ue.write(input);
+    EXPECT_THROW(ms.read_body(input), tide::InvalidChild);
 }
 

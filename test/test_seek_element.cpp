@@ -171,5 +171,11 @@ TEST(Seek, Read)
     ue.write(input);
     be.write(input);
     EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    // Invalid child
+    input.str(std::string());
+    UIntElement ue2(tide::ids::EBML, 0xFFFF);
+    tide::vint::write(ue2.total_size(), input);
+    ue2.write(input);
+    EXPECT_THROW(e.read_body(input), tide::InvalidChild);
 }
 

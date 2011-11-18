@@ -240,6 +240,26 @@ TEST(EBMLElement, Read)
     EXPECT_EQ(tide::TideDocType, e.doc_type());
     EXPECT_EQ(1, e.doc_version());
     EXPECT_EQ(1, e.doc_read_version());
+
+    // Body size value wrong (too big)
+    input.str(std::string());
+    tide::vint::write(children[0].total_size() + children[3].total_size() + 5,
+            input);
+    children[0].write(input);
+    chidlren[3].write(input);
+    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    // Body size value wrong (too small)
+    input.str(std::string());
+    tide::vint::write(2, input);
+    children[0].write(input);
+    chidlren[3].write(input);
+    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    // Invalid child
+    input.str(std::string());
+    UIntElement ue(tide::ids::EBML, 0xFFFF);
+    tide::vint::write(ue.total_size(), input);
+    ue.write(input);
+    EXPECT_THROW(e.read_body(input), tide::InvalidChild);
 }
 
 

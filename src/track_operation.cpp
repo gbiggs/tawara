@@ -32,51 +32,52 @@ using namespace std;
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// TrackOperationBase Constructors and destructors
+// TrackJoinBlocks Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-TrackOperationBase::TrackOperationBase(ids::ID id)
-    : MasterElement(id)
+TrackJoinBlocks::TrackOperationBase()
+    : TrackOperationBase(ids::TrackJoinBlocks)
 {
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// TrackOperationBase Accessors
+// TrackJoinBlocks Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-void TrackOperationBase::append(uint64_t uid)
+void TrackJoinBlocks::append(uint64_t uid)
 {
     if (uid == 0)
     {
         // Zero-value UIDs are illegal
-        throw ValueOutOfRange() << err_id(id_);
+        throw ValueOutOfRange() << err_id(ids::TrackJoinUID) <<
+            err_par_id(id_);
     }
     uids_.push_back(UIntElement(ids::TrackJoinUID, uid));
 }
 
 
-uint64_t TrackOperationBase::remove(unsigned int pos)
+uint64_t TrackJoinBlocks::remove(unsigned int pos)
 {
     UIntElement uid = uids_[pos];
     uids_.erase(index.begin() + pos);
-    return uids_.value();
+    return uid.value();
 }
 
 
-uint64_t const& TrackOperatorBase::operator[](unsigned int pos) const
+uint64_t const& TrackJoinBlocks::operator[](unsigned int pos) const
 {
     return uids_[pos].value();
 }
 
 
-uint64_t& TrackOperatorBase::operator[](unsigned int pos)
+uint64_t& TrackJoinBlocks::operator[](unsigned int pos)
 {
     return uids_[pos].value();
 }
 
 
-std::streamsize TrackOperationBase::size() const
+std::streamsize TrackJoinBlocks::size() const
 {
     std::streamsize size(0);
     BOOST_FOREACH(UIntElement el, uids_)
@@ -88,26 +89,34 @@ std::streamsize TrackOperationBase::size() const
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// TrackOperationBase I/O
+// TrackJoinBlocks I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize TrackOperationBase::write_body(std::ostream& output)
+std::streamsize TrackJoinBlocks::write_body(std::ostream& output)
 {
+    assert(!uids_.empty());
+
     std::streamsize written(0);
-    BOOST_FOREACH(UIntElement el, uids_)
+    BOOST_FOREACH(UIntElement uid, uids_)
     {
-        written += el.write(output);
+        if (uid.value() == 0)
+        {
+            // Zero-value UIDs are illegal
+            throw ValueOutOfRange() << err_id(ids::TrackJoinUID) <<
+                err_par_id(id_);
+        }
+        written += uid.write(output);
     }
     return written;
 }
 
 
-std::streamsize TrackOperationBase::read_body(std::istream& input)
+std::streamsize TrackJoinBlocks::read_body(std::istream& input)
 {
     std::streampos el_start(input.tellg());
 
     // Clear the UIDs list
-    uids_.clear();
+    uids_.clear()
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
@@ -168,9 +177,34 @@ TrackOperation::TrackOperation()
 // TrackOperation Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-std::vector<TrackOperationBase> TrackOperation::operations() const
+void TrackOperation::append(TrackOperationBase const& op)
 {
-    return operations_;
+    if (op.size() == 0)
+    {
+        // Empty operations are illegal
+        throw ValueOutOfRange() << err_id(op.id()) << err_par_id(id_);
+    }
+    operations_.push_back(op);
+}
+
+
+TrackOperationBase TrackOperation::remove(unsigned int pos)
+{
+    TrackOperationBase op = operations_[pos];
+    operations_.erase(index.begin() + pos);
+    return op;
+}
+
+
+TrackOperationBase const& TrackOperator::operator[](unsigned int pos) const
+{
+    return operations_[pos].value();
+}
+
+
+TrackOperationBase& TrackOperator::operator[](unsigned int pos)
+{
+    return operations_[pos].value();
 }
 
 
@@ -204,56 +238,37 @@ std::streamsize TrackOperation::read_body(std::istream& input)
 {
     std::streampos el_start(input.tellg());
 
+    // Clear the operations list
+    operations_.clear()
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
     std::streamsize size_size(result.second);
     std::streamsize read_bytes(result.second);
     // Read elements until the body is exhausted
-    bool have_id(false), have_offset(false);
     while (read_bytes < size_size + body_size)
     {
-        if (have_id && have_offset)
-        {
-            // If both children have been read, why is there still body left?
-            throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
-                err_pos(el_start);
-        }
         // Read the ID
-        ids::ReadResult id_res = ids::read(input);
+        ids::ReadResult id_res = tide::ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
-        switch(id)
+        if (id != ids::TrackJoinBlocks)
         {
-            case ids::SeekID:
-                read_bytes += indexed_id_.read_body(input);
-                have_id = true;
-                break;
-            case ids::SeekPosition:
-                read_bytes += offset_.read_body(input);
-                have_offset = true;
-                break;
-            default:
-                throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                    err_pos(input.tellg());
+            // Only TrackJoinBlocks elements may be in the TrackOperation
+            // element
+            throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
+                err_pos(input.tellg());
         }
+        // Read the body
+        TrackJoinOperation op();
+        read_bytes += op.read_body(input);
+        operations_.push_back(op);
     }
     if (read_bytes != size_size + body_size)
     {
         // Read more than was specified by the body size value
         throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
             err_pos(el_start);
-    }
-
-    if (!have_id)
-    {
-        throw MissingChild() << err_id(ids::SeekID) << err_par_id(ids::Seek) <<
-            err_pos(el_start);
-    }
-    if (!have_offset)
-    {
-        throw MissingChild() << err_id(ids::SeekPosition) <<
-            err_par_id(ids::Seek) << err_pos(el_start);
     }
 
     return read_bytes;

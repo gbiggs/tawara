@@ -666,6 +666,12 @@ TEST(SegmentInfo, Read)
     used_children[0]->write(input);
     used_children[3]->write(input);
     EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    // Invalid child
+    input.str(std::string());
+    UIntElement ue(tide::ids::EBML, 0xFFFF);
+    tide::vint::write(ue.total_size(), input);
+    ue.write(input);
+    EXPECT_THROW(e.read_body(input), tide::InvalidChild);
 }
 
 

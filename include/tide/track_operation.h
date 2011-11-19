@@ -28,6 +28,7 @@
 #if !defined(TIDE_TRACK_OPERATION_H_)
 #define TIDE_TRACK_OPERATION_H_
 
+#include <boost/smart_ptr.hpp>
 #include <tide/el_ids.h>
 #include <tide/master_element.h>
 #include <tide/uint_element.h>
@@ -93,7 +94,7 @@ namespace tide
              * \param[in] uid The UID to append.
              * \throw ValueOutOfRange if a zero-value UID is appended.
              */
-            void append(uint64_t uid) = 0;
+            void append(uint64_t uid);
 
             /** \brief Remove a UID.
              *
@@ -106,13 +107,7 @@ namespace tide
              *
              * Gets the UID at the specified position.
              */
-            uint64_t const& operator[](unsigned int pos) const;
-
-            /** \brief Subscript operator.
-             *
-             * Gets the UID at the specified position.
-             */
-            uint64_t& operator[](unsigned int pos);
+            uint64_t operator[](unsigned int pos) const;
 
             /// \brief Get the number of UIDs stored.
             unsigned int count() const { return uids_.size(); }
@@ -146,6 +141,9 @@ namespace tide
     class TIDE_EXPORT TrackOperation : public MasterElement
     {
         public:
+            /// \brief Base type of the operations pointers stored.
+            typedef boost::shared_ptr<TrackOperationBase> OpPtr;
+
             /// \brief Construct a new TrackOperation element.
             TrackOperation();
 
@@ -157,26 +155,26 @@ namespace tide
              * \param[in] op The operation to append.
              * \throw ValueOutOfRange if an empty operation is appended.
              */
-            void append(TrackOperationBase const& op);
+            void append(OpPtr const& op);
 
             /** \brief Remove an operation.
              *
              * \param[in] pos The position of the operation to remove.
              * \return The removed operation.
              */
-            TrackOperationBase remove(unsigned int pos);
+            OpPtr remove(unsigned int pos);
 
             /** \brief Const subscript operator.
              *
              * Gets the operation at the specified position.
              */
-            TrackOperationBase const& operator[](unsigned int pos) const;
+            OpPtr const& operator[](unsigned int pos) const;
 
             /** \brief Subscript operator.
              *
              * Gets the operation at the specified position.
              */
-            TrackOperationBase& operator[](unsigned int pos);
+            OpPtr& operator[](unsigned int pos);
 
             /// \brief Get the number of operations stored.
             unsigned int count() const { return operations_.size(); }
@@ -193,7 +191,7 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input);
 
         protected:
-            std::vector<TrackOperationBase> operations_;
+            std::vector<OpPtr> operations_;
     }; // class TrackOperation
 }; // namespace tide
 

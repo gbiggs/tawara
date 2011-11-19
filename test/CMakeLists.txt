@@ -24,7 +24,10 @@ set(srcs test_utils.cpp
     test_tide.cpp
     test_seek_element.cpp
     test_metaseek.cpp
-    test_segment_info.cpp)
+    test_segment_info.cpp
+    test_tracks.cpp
+    test_track_entry.cpp
+    test_track_operation.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

@@ -20,7 +20,10 @@ set(hdrs ${config_h}
     ebml_element.h
     metaseek.h
     seek_element.h
-    segment_info.h)
+    segment_info.h
+    tracks.h
+    track_entry.h
+    track_operation.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

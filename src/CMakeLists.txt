@@ -14,7 +14,10 @@ set(srcs tide_impl.cpp
     ebml_element.cpp
     metaseek.cpp
     seek_element.cpp
-    segment_info.cpp)
+    segment_info.cpp
+    tracks.cpp
+    track_entry.cpp
+    track_operation.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

@@ -90,49 +90,54 @@ std::streamsize EBMLElement::write_body(std::ostream& output)
 
 std::streamsize EBMLElement::read_body(std::istream& input)
 {
+    std::streampos el_start(input.tellg());
+
     // Start by resetting everything to the defaults
     set_defaults_();
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
+    std::streamsize size_size(result.second);
     std::streamsize read_bytes(result.second);
     // Read IDs until the body is exhausted
-    while (body_size > 0)
+    while (read_bytes < size_size + body_size)
     {
         ids::ReadResult id_res = ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
-        body_size -= id_res.second;
-        std::streamsize el_read_bytes(0);
         switch(id)
         {
             case ids::EBMLVersion:
-                el_read_bytes = ver_.read_body(input);
+                read_bytes += ver_.read_body(input);
                 break;
             case ids::EBMLReadVersion:
-                el_read_bytes = read_ver_.read_body(input);
+                read_bytes += read_ver_.read_body(input);
                 break;
             case ids::EBMLMaxIDLength:
-                el_read_bytes = max_id_length_.read_body(input);
+                read_bytes += max_id_length_.read_body(input);
                 break;
             case ids::EBMLMaxSizeLength:
-                el_read_bytes = max_size_length_.read_body(input);
+                read_bytes += max_size_length_.read_body(input);
                 break;
             case ids::DocType:
-                el_read_bytes = doc_type_.read_body(input);
+                read_bytes += doc_type_.read_body(input);
                 break;
             case ids::DocTypeVersion:
-                el_read_bytes = doc_type_ver_.read_body(input);
+                read_bytes += doc_type_ver_.read_body(input);
                 break;
             case ids::DocTypeReadVersion:
-                el_read_bytes = doc_type_read_ver_.read_body(input);
+                read_bytes += doc_type_read_ver_.read_body(input);
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
                     err_pos(input.tellg());
         }
-        read_bytes += el_read_bytes;
-        body_size -= el_read_bytes;
+    }
+    if (read_bytes != size_size + body_size)
+    {
+        // Read more than was specified by the body size value
+        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
+            err_pos(el_start);
     }
 
     return read_bytes;

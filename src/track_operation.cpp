@@ -27,15 +27,17 @@
 
 #include <tide/track_operation.h>
 
+#include <boost/foreach.hpp>
+#include <tide/vint.h>
 
-using namespace std;
+using namespace tide;
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // TrackJoinBlocks Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-TrackJoinBlocks::TrackOperationBase()
+TrackJoinBlocks::TrackJoinBlocks()
     : TrackOperationBase(ids::TrackJoinBlocks)
 {
 }
@@ -60,18 +62,12 @@ void TrackJoinBlocks::append(uint64_t uid)
 uint64_t TrackJoinBlocks::remove(unsigned int pos)
 {
     UIntElement uid = uids_[pos];
-    uids_.erase(index.begin() + pos);
+    uids_.erase(uids_.begin() + pos);
     return uid.value();
 }
 
 
-uint64_t const& TrackJoinBlocks::operator[](unsigned int pos) const
-{
-    return uids_[pos].value();
-}
-
-
-uint64_t& TrackJoinBlocks::operator[](unsigned int pos)
+uint64_t TrackJoinBlocks::operator[](unsigned int pos) const
 {
     return uids_[pos].value();
 }
@@ -82,7 +78,7 @@ std::streamsize TrackJoinBlocks::size() const
     std::streamsize size(0);
     BOOST_FOREACH(UIntElement el, uids_)
     {
-        size += el.total_size(output);
+        size += el.total_size();
     }
     return size;
 }
@@ -116,7 +112,7 @@ std::streamsize TrackJoinBlocks::read_body(std::istream& input)
     std::streampos el_start(input.tellg());
 
     // Clear the UIDs list
-    uids_.clear()
+    uids_.clear();
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
@@ -155,7 +151,7 @@ std::streamsize TrackJoinBlocks::read_body(std::istream& input)
     if (uids_.empty())
     {
         // Must have read at least one TrackJoinUID
-        throw MissingChild() << err_id(ids::TrackJoinID) << err_par_id(id_) <<
+        throw MissingChild() << err_id(ids::TrackJoinUID) << err_par_id(id_) <<
             err_pos(el_start);
     }
 
@@ -177,43 +173,43 @@ TrackOperation::TrackOperation()
 // TrackOperation Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-void TrackOperation::append(TrackOperationBase const& op)
+void TrackOperation::append(OpPtr const& op)
 {
-    if (op.size() == 0)
+    if (op->size() == 0)
     {
         // Empty operations are illegal
-        throw ValueOutOfRange() << err_id(op.id()) << err_par_id(id_);
+        throw ValueOutOfRange() << err_id(op->id()) << err_par_id(id_);
     }
     operations_.push_back(op);
 }
 
 
-TrackOperationBase TrackOperation::remove(unsigned int pos)
+TrackOperation::OpPtr TrackOperation::remove(unsigned int pos)
 {
-    TrackOperationBase op = operations_[pos];
-    operations_.erase(index.begin() + pos);
+    TrackOperation::OpPtr op = operations_[pos];
+    operations_.erase(operations_.begin() + pos);
     return op;
 }
 
 
-TrackOperationBase const& TrackOperator::operator[](unsigned int pos) const
+TrackOperation::OpPtr const& TrackOperation::operator[](unsigned int pos) const
 {
-    return operations_[pos].value();
+    return operations_[pos];
 }
 
 
-TrackOperationBase& TrackOperator::operator[](unsigned int pos)
+TrackOperation::OpPtr& TrackOperation::operator[](unsigned int pos)
 {
-    return operations_[pos].value();
+    return operations_[pos];
 }
 
 
 std::streamsize TrackOperation::size() const
 {
     std::streamsize size(0);
-    BOOST_FOREACH(TrackOperationBase el, operations_)
+    BOOST_FOREACH(OpPtr el, operations_)
     {
-        size += el.total_size(output);
+        size += el->total_size();
     }
     return size;
 }
@@ -226,9 +222,9 @@ std::streamsize TrackOperation::size() const
 std::streamsize TrackOperation::write_body(std::ostream& output)
 {
     std::streamsize written(0);
-    BOOST_FOREACH(TrackOperationBase el, operations_)
+    BOOST_FOREACH(OpPtr el, operations_)
     {
-        written += el.write(output);
+        written += el->write(output);
     }
     return written;
 }
@@ -239,7 +235,7 @@ std::streamsize TrackOperation::read_body(std::istream& input)
     std::streampos el_start(input.tellg());
 
     // Clear the operations list
-    operations_.clear()
+    operations_.clear();
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);
@@ -260,8 +256,8 @@ std::streamsize TrackOperation::read_body(std::istream& input)
                 err_pos(input.tellg());
         }
         // Read the body
-        TrackJoinOperation op();
-        read_bytes += op.read_body(input);
+        OpPtr op(new TrackJoinBlocks());
+        read_bytes += op->read_body(input);
         operations_.push_back(op);
     }
     if (read_bytes != size_size + body_size)

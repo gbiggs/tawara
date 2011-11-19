@@ -30,6 +30,7 @@
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
 #include <tide/metaseek.h>
+#include <tide/uint_element.h>
 #include <tide/vint.h>
 
 #include "test_utils.h"
@@ -208,9 +209,9 @@ TEST(Metaseek, Read)
     EXPECT_THROW(ms.read_body(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
-    UIntElement ue(tide::ids::EBML, 0xFFFF);
+    tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(ms.read_body(input), tide::InvalidChild);
+    EXPECT_THROW(ms.read_body(input), tide::InvalidChildID);
 }
 

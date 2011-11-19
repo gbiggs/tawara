@@ -29,6 +29,7 @@
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
 #include <tide/seek_element.h>
+#include <tide/uint_element.h>
 #include <tide/vint.h>
 
 #include "test_utils.h"
@@ -173,9 +174,9 @@ TEST(Seek, Read)
     EXPECT_THROW(e.read_body(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
-    UIntElement ue2(tide::ids::EBML, 0xFFFF);
+    tide::UIntElement ue2(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue2.total_size(), input);
     ue2.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChild);
+    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
 }
 

@@ -25,10 +25,12 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <boost/foreach.hpp>
 #include <gtest/gtest.h>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
 #include <tide/track_operation.h>
+#include <tide/uint_element.h>
 #include <tide/vint.h>
 
 #include "test_utils.h"
@@ -72,9 +74,9 @@ TEST(TrackJoinBlocks, Remove)
     tide::TrackJoinBlocks e;
     e.append(0xFFFF);
     e.append(0xC0C0);
-    ASSERT_EQ(2, e.index_size());
+    ASSERT_EQ(2, e.count());
     e.remove(0);
-    ASSERT_EQ(1, e.index_size());
+    ASSERT_EQ(1, e.count());
     EXPECT_EQ(0xC0C0, e[0]);
     e.append(0x0101);
     e.remove(1);
@@ -90,8 +92,6 @@ TEST(TrackJoinBlocks, IndexOperator)
     e.append(0x0101);
     EXPECT_EQ(0xFFFF, e[0]);
     EXPECT_EQ(0x0101, e[2]);
-    e[1] = 0x1010;
-    EXPECT_EQ(0x1010, e[1]);
 }
 
 
@@ -104,16 +104,16 @@ TEST(TrackJoinBlocks, Size)
             tide::vint::coded_size(0),
             e.total_size());
 
-    std::vector<tide::TrackJoinUID> children;
+    std::vector<tide::UIntElement> children;
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0xFFFF));
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0xC0C0));
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(tide::UIntElement e, children)
+    BOOST_FOREACH(tide::UIntElement child, children)
     {
-        body_size += e.total_size();
-        e.append(e.value());
+        body_size += child.total_size();
+        e.append(child.value());
     }
 
     EXPECT_EQ(body_size, e.size());
@@ -130,17 +130,17 @@ TEST(TrackJoinBlocks, Write)
 
     tide::TrackJoinBlocks e;
 
-    std::vector<tide::TrackJoinUID> children;
+    std::vector<tide::UIntElement> children;
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0xFFFF));
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0xC0C0));
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(tide::UIntElement e, children)
+    BOOST_FOREACH(tide::UIntElement child, children)
     {
-        body_size += e.total_size();
-        e.write(expected);
-        e.append(e.value());
+        body_size += child.total_size();
+        child.write(expected);
+        e.append(child.value());
     }
 
     EXPECT_EQ(body_size, e.write_body(output));
@@ -166,20 +166,20 @@ TEST(TrackJoinBlocks, Read)
 {
     std::stringstream input;
 
-    std::vector<tide::TrackJoinUID> children;
+    std::vector<tide::UIntElement> children;
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0xFFFF));
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0xC0C0));
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(tide::UIntElement e, children)
+    BOOST_FOREACH(tide::UIntElement child, children)
     {
-        body_size += e.total_size();
+        body_size += child.total_size();
     }
     tide::vint::write(body_size, input);
-    BOOST_FOREACH(tide::UIntElement e, children)
+    BOOST_FOREACH(tide::UIntElement child, children)
     {
-        e.write(input);
+        child.write(input);
     }
 
     tide::TrackJoinBlocks e;
@@ -204,10 +204,10 @@ TEST(TrackJoinBlocks, Read)
     EXPECT_THROW(e.read_body(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
-    UIntElement ue(tide::ids::EBML, 0xFFFF);
+    tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChild);
+    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
 }
 
 
@@ -226,18 +226,21 @@ TEST(TrackOperation, Create)
 TEST(TrackOperation, Append)
 {
     tide::TrackOperation e;
-    tide::TrackJoinBlocks op1;
-    op1.append(0xFFFF);
+    tide::TrackOperation::OpPtr op1(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op1)->append(0xFFFF);
     e.append(op1);
     ASSERT_EQ(1, e.count());
-    tide::TrackJoinBlocks op2;
-    op2.append(0xC0C0);
+    tide::TrackOperation::OpPtr op2(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op2)->append(0xC0C0);
     e.append(op2);
     ASSERT_EQ(2, e.count());
-    EXPECT_EQ(0xFFFF, e[0].value());
-    EXPECT_EQ(0xC0C0, e[1].value());
+    boost::shared_ptr<tide::TrackJoinBlocks> v1, v2;
+    v1 = boost::static_pointer_cast<tide::TrackJoinBlocks>(e[0]);
+    v2 = boost::static_pointer_cast<tide::TrackJoinBlocks>(e[1]);
+    EXPECT_EQ(0xFFFF, (*v1)[0]);
+    EXPECT_EQ(0xC0C0, (*v2)[0]);
 
-    tide::TrackJoinBlocks op3;
+    tide::TrackOperation::OpPtr op3(new tide::TrackJoinBlocks);
     EXPECT_THROW(e.append(op3), tide::ValueOutOfRange);
 }
 
@@ -245,43 +248,48 @@ TEST(TrackOperation, Append)
 TEST(TrackOperation, Remove)
 {
     tide::TrackOperation e;
-    tide::TrackJoinBlocks op1;
-    op1.append(0xFFFF);
+    tide::TrackOperation::OpPtr op1(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op1)->append(0xFFFF);
     e.append(op1);
-    tide::TrackJoinBlocks op2;
-    op2.append(0xC0C0);
+    tide::TrackOperation::OpPtr op2(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op2)->append(0xC0C0);
     e.append(op2);
-    ASSERT_EQ(2, e.index_size());
+    ASSERT_EQ(2, e.count());
     e.remove(0);
-    ASSERT_EQ(1, e.index_size());
-    EXPECT_EQ(0xC0C0, e[0]);
-    tide::TrackJoinBlocks op3;
-    op3.append(0x0101);
+    ASSERT_EQ(1, e.count());
+    EXPECT_EQ(0xC0C0,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[0]))[0]);
+    tide::TrackOperation::OpPtr op3(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op3)->append(0x0101);
     e.append(op3);
     e.remove(1);
-    EXPECT_EQ(0xC0C0, e[0]);
+    EXPECT_EQ(0xC0C0,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[0]))[0]);
 }
 
 
 TEST(TrackOperation, IndexOperator)
 {
     tide::TrackOperation e;
-    tide::TrackJoinBlocks op1;
-    op1.append(0xFFFF);
+    tide::TrackOperation::OpPtr op1(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op1)->append(0xFFFF);
     e.append(op1);
-    tide::TrackJoinBlocks op2;
-    op2.append(0xC0C0);
+    tide::TrackOperation::OpPtr op2(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op2)->append(0xC0C0);
     e.append(op2);
-    tide::TrackJoinBlocks op3;
-    op3.append(0x0101);
+    tide::TrackOperation::OpPtr op3(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op3)->append(0x0101);
     e.append(op3);
-    EXPECT_EQ(0xFFFF, e[0]);
-    EXPECT_EQ(0x0101, e[2]);
+    EXPECT_EQ(0xFFFF,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[0]))[0]);
+    EXPECT_EQ(0x0101,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[2]))[0]);
 
-    tide::TrackJoinBlocks op4;
-    op4.append(0x1010);
+    tide::TrackOperation::OpPtr op4(new tide::TrackJoinBlocks);
+    boost::static_pointer_cast<tide::TrackJoinBlocks>(op4)->append(0x1010);
     e[1] = op4;
-    EXPECT_EQ(0x1010, e[1].value());
+    EXPECT_EQ(0x1010,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[1]))[0]);
 }
 
 
@@ -303,10 +311,10 @@ TEST(TrackOperation, Size)
     children.push_back(op3);
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(tide::TrackJoinBlocks e, children)
+    BOOST_FOREACH(tide::TrackJoinBlocks child, children)
     {
-        body_size += e.total_size();
-        e.append(e.value());
+        body_size += child.total_size();
+        e.append(tide::TrackOperation::OpPtr(new tide::TrackJoinBlocks(child)));
     }
 
     EXPECT_EQ(body_size, e.size());
@@ -332,11 +340,11 @@ TEST(TrackOperation, Write)
     children.push_back(op3);
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(tide::TrackJoinBlocks e, children)
+    BOOST_FOREACH(tide::TrackJoinBlocks child, children)
     {
-        body_size += e.total_size();
-        e.write(expected);
-        e.append(e.value());
+        body_size += child.total_size();
+        child.write(expected);
+        e.append(tide::TrackOperation::OpPtr(new tide::TrackJoinBlocks(child)));
     }
 
     EXPECT_EQ(body_size, e.write_body(output));
@@ -346,9 +354,9 @@ TEST(TrackOperation, Write)
     expected.str(std::string());
     tide::ids::write(tide::ids::TrackOperation, expected);
     tide::vint::write(body_size, expected);
-    BOOST_FOREACH(tide::UIntElement e, children)
+    BOOST_FOREACH(tide::TrackJoinBlocks child, children)
     {
-        e.write(expected);
+        child.write(expected);
     }
 
     EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackOperation) +
@@ -371,29 +379,32 @@ TEST(TrackOperation, Read)
     children.push_back(op3);
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(tide::TrackJoinBlocks e, children)
+    BOOST_FOREACH(tide::TrackJoinBlocks child, children)
     {
-        body_size += e.total_size();
+        body_size += child.total_size();
     }
 
     tide::vint::write(body_size, input);
-    BOOST_FOREACH(tide::UIntElement e, children)
+    BOOST_FOREACH(tide::TrackJoinBlocks child, children)
     {
-        e.write(input);
+        child.write(input);
     }
 
     tide::TrackOperation e;
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
             e.read_body(input));
     EXPECT_EQ(3, e.count());
-    EXPECT_EQ(0xFFFF, e[0].value());
-    EXPECT_EQ(0xC0C0, e[1].value());
-    EXPECT_EQ(0x0101, e[2].value());
+    EXPECT_EQ(0xFFFF,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[0]))[0]);
+    EXPECT_EQ(0xC0C0,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[1]))[0]);
+    EXPECT_EQ(0x0101,
+            (*boost::static_pointer_cast<tide::TrackJoinBlocks>(e[2]))[0]);
 
     // No children at all
     input.str(std::string());
     tide::vint::write(0, input);
-    EXPECT_EQ(tide::vint::coded_size(0), e.read_body());
+    EXPECT_EQ(tide::vint::coded_size(0), e.read_body(input));
     EXPECT_EQ(0, e.count());
     // Body size value wrong (too small)
     input.str(std::string());
@@ -402,9 +413,9 @@ TEST(TrackOperation, Read)
     EXPECT_THROW(e.read_body(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
-    UIntElement ue(tide::ids::EBML, 0xFFFF);
+    tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChild);
+    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
 }
 

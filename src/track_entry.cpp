@@ -152,6 +152,7 @@ std::streamsize TrackEntry::size() const
     size += number_.total_size();
     size += uid_.total_size();
     size += type_.total_size();
+    size += codec_id_.total_size();
     if (!enabled_.is_default())
     {
         size += enabled_.total_size();
@@ -237,6 +238,7 @@ std::streamsize TrackEntry::write_body(std::ostream& output)
     written += number_.write(output);
     written += uid_.write(output);
     written += type_.write(output);
+    written += codec_id_.write(output);
     if (!enabled_.is_default())
     {
         written += enabled_.write(output);

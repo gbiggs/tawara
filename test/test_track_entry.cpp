@@ -278,7 +278,7 @@ void DoSizeTest(std::vector<test_utils::ElPtr> const& els,
     EXPECT_EQ(body_size, e.size()) << msg;
     EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackEntry) +
             tide::vint::coded_size(body_size) + body_size,
-            e.total_size());
+            e.total_size()) << msg;
 }
 
 
@@ -310,6 +310,23 @@ void DoWriteTest(std::vector<test_utils::ElPtr> const& els,
             e.write(output)) << msg;
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str()) << msg;
+}
+
+
+std::vector<test_utils::ElPtr> default_children()
+{
+    std::vector<test_utils::ElPtr> result;
+
+    result.push_back(test_utils::ElPtr(new
+            tide::UIntElement(tide::ids::TrackNumber, 1)));
+    result.push_back(test_utils::ElPtr(new
+            tide::UIntElement(tide::ids::TrackUID, 2)));
+    result.push_back(test_utils::ElPtr(new
+            tide::UIntElement(tide::ids::TrackType, 0x70)));
+    result.push_back(test_utils::ElPtr(new
+            tide::StringElement(tide::ids::CodecID, "MDCC")));
+
+    return result;
 }
 
 
@@ -478,6 +495,8 @@ TEST(TrackEntry, Size)
     e.overlays(overlays);
     used_children.push_back(pos_children[0]);
     pos_children.erase(pos_children.begin());
+    used_children.push_back(pos_children[0]);
+    pos_children.erase(pos_children.begin());
     test_track_entry::DoSizeTest(used_children, e, "overlays");
 
     boost::shared_ptr<tide::TrackJoinBlocks> op(new tide::TrackJoinBlocks);
@@ -497,27 +516,19 @@ TEST(TrackEntry, Size)
 TEST(TrackEntry, Write)
 {
     tide::TrackEntry e(1, 2, "MDCC");
-    std::streamsize body_size(0);
-    BOOST_FOREACH(test_utils::ElPtr el, test_track_entry::required_children())
-    {
-        body_size += el->total_size();
-    }
-    EXPECT_EQ(body_size, e.size());
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackEntry) +
-            tide::vint::coded_size(body_size) + body_size,
-            e.total_size());
+    test_track_entry::DoWriteTest(test_track_entry::default_children(), e,
+            "empty");
 
     std::vector<test_utils::ElPtr>
         used_children(test_track_entry::required_children());
-    std::vector<test_utils::ElPtr>
-        pos_children(test_track_entry::possible_children());
-    test_track_entry::DoWriteTest(used_children, e, "empty");
     e.number(4);
     e.uid(42);
     e.type(0x11);
     e.codec_id("SCDC");
     test_track_entry::DoWriteTest(used_children, e, "required only");
 
+    std::vector<test_utils::ElPtr>
+        pos_children(test_track_entry::possible_children());
     e.enabled(false);
     used_children.push_back(pos_children[0]);
     pos_children.erase(pos_children.begin());
@@ -594,6 +605,8 @@ TEST(TrackEntry, Write)
     e.overlays(overlays);
     used_children.push_back(pos_children[0]);
     pos_children.erase(pos_children.begin());
+    used_children.push_back(pos_children[0]);
+    pos_children.erase(pos_children.begin());
     test_track_entry::DoWriteTest(used_children, e, "overlays");
 
     std::ostringstream output;
@@ -650,7 +663,8 @@ TEST(TrackEntry, Read)
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_EQ(body_size, e.read_body(input));
+    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+            e.read_body(input));
     EXPECT_EQ(4, e.number());
     EXPECT_EQ(42, e.uid());
     EXPECT_EQ(0x11, e.type());

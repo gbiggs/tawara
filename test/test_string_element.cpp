@@ -62,7 +62,7 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, std::string data,
     {
         b.append(data);
         total += data.size();
-        for (std::streamsize ii(0); ii < padding; ++ii)
+        for (unsigned int ii(0); ii < padding; ++ii)
         {
             b.push_back(0x00);
         }

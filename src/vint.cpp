@@ -140,7 +140,7 @@ tide::vint::DecodeResult tide::vint::decode(std::vector<char> const& buffer)
     assert(buffer.size() > 0);
 
     uint64_t result(0);
-    std::streamsize to_copy(0);
+    unsigned int to_copy(0);
     if (static_cast<unsigned char>(buffer[0]) >= 0x80) // 1 byte
     {
         // There will be no extra bytes to copy.

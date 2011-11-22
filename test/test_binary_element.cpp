@@ -61,7 +61,7 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, std::vector<char> 
     }
     if (write_body)
     {
-        for (std::streamsize ii(0); ii < data.size(); ++ii)
+        for (unsigned int ii(0); ii < data.size(); ++ii)
         {
             b.push_back(data[ii]);
         }
@@ -212,16 +212,22 @@ TEST_F(BinaryElementTest, Value)
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
             tide::BinaryElement(1234, b1).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
+            tide::BinaryElement(1234, b1));
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
             tide::BinaryElement(1234, b1, b2).value());
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
+            tide::BinaryElement(1234, b1, b2));
 
     tide::BinaryElement e1(1234, b1);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e1.value());
     e1.value(b2);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1.value());
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1);
 
     tide::BinaryElement e2(1234, b1, b2);
     e2.value(b3);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2.value());
+    EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2);
 }
 
 

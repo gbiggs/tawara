@@ -48,13 +48,13 @@
     else
     {
         std::stringstream b1_str;
-        for (std::streamsize ii(0); ii < b1.size(); ++ii)
+        for (unsigned int ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b1[ii] & 0xFF) << ' ';
         }
         std::stringstream b2_str;
-        for (std::streamsize ii(0); ii < b2.size(); ++ii)
+        for (unsigned int ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b2[ii] & 0xFF) << ' ';
@@ -82,13 +82,13 @@
     else
     {
         std::stringstream b1_str;
-        for (std::streamsize ii(0); ii < b1.size(); ++ii)
+        for (unsigned int ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b1[ii] & 0xFF) << ' ';
         }
         std::stringstream b2_str;
-        for (std::streamsize ii(0); ii < b2.size(); ++ii)
+        for (unsigned int ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b2[ii] & 0xFF) << ' ';
@@ -116,13 +116,13 @@
     else
     {
         std::stringstream b1_str;
-        for (std::streamsize ii(0); ii < b1.size(); ++ii)
+        for (unsigned int ii(0); ii < b1.size(); ++ii)
         {
             b1_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b1[ii] & 0xFF);
         }
         std::stringstream b2_str;
-        for (std::streamsize ii(0); ii < b2.size(); ++ii)
+        for (unsigned int ii(0); ii < b2.size(); ++ii)
         {
             b2_str << std::hex << std::setw(2) << std::setfill('0') <<
                 +(b2[ii] & 0xFF);

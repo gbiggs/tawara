@@ -121,6 +121,8 @@ namespace tide
             virtual T value() const { return value_; }
             /// \brief Set the value.
             virtual void value(T value) { value_ = value; }
+            /// \brief Cast to the stored type.
+            operator T() const { return value_; }
 
             /// \brief Check if a default value is set.
             virtual bool has_default() const { return has_default_; }

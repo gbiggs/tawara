@@ -85,7 +85,7 @@ std::streamsize StringElement::write_body(std::ostream& output)
     {
         throw WriteError() << err_pos(output.tellp());
     }
-    for (std::streamsize ii(0); ii < padding_; ++ii)
+    for (uint64_t ii(0); ii < padding_; ++ii)
     {
         output.put(0x00);
         ++result;

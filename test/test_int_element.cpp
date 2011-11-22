@@ -183,7 +183,9 @@ TEST(IntElement, Default)
 TEST(IntElement, Value)
 {
     EXPECT_EQ(1, tide::IntElement(1234, 1).value());
+    EXPECT_EQ(1, tide::IntElement(1234, 1));
     EXPECT_EQ(1, tide::IntElement(1234, 1, 2).value());
+    EXPECT_EQ(1, tide::IntElement(1234, 1, 2));
 
     tide::IntElement e1(1234, 1);
     EXPECT_EQ(1, e1.value());

@@ -1,6 +1,6 @@
 /* Tide
  *
- * Header for the TrackOperation element and related elements.
+ * Header for the track operation elements.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -43,9 +43,6 @@ namespace tide
     /** \brief Abstract base class for individual track operations.
      *
      * All track operations must inherit from this base class.
-     *
-     * This base class is somewhat poorly named. It is \e not the base class of
-     * the tide::TrackOperation class.
      */
     class TIDE_EXPORT TrackOperationBase : public MasterElement
     {
@@ -64,6 +61,10 @@ namespace tide
              */
             virtual std::string type() const = 0;
     }; // class TrackOperationBase
+
+
+    /// \brief Base type of a track operation pointer.
+    typedef boost::shared_ptr<TrackOperationBase> OpPtr;
 
 
     /** \brief JoinBlocks track operation.
@@ -129,70 +130,6 @@ namespace tide
         protected:
             std::vector<UIntElement> uids_;
     }; // class TrackJoinBlocks
-
-
-    /** \brief The TrackOperation element stores all operations for a track.
-     *
-     * The TrackOperation element contains a list of operations that are
-     * performed on other tracks to create a virtual track. Currently only the
-     * JoinBlocks operation is supported, which combines the blocks from the
-     * specified tracks into a single virtual stream.
-     */
-    class TIDE_EXPORT TrackOperation : public MasterElement
-    {
-        public:
-            /// \brief Base type of the operations pointers stored.
-            typedef boost::shared_ptr<TrackOperationBase> OpPtr;
-
-            /// \brief Construct a new TrackOperation element.
-            TrackOperation();
-
-            /// \brief Destructor.
-            virtual ~TrackOperation() {}
-
-            /** \brief Append a new operation to this list of operations.
-             *
-             * \param[in] op The operation to append.
-             * \throw ValueOutOfRange if an empty operation is appended.
-             */
-            void append(OpPtr const& op);
-
-            /** \brief Remove an operation.
-             *
-             * \param[in] pos The position of the operation to remove.
-             * \return The removed operation.
-             */
-            OpPtr remove(unsigned int pos);
-
-            /** \brief Const subscript operator.
-             *
-             * Gets the operation at the specified position.
-             */
-            OpPtr const& operator[](unsigned int pos) const;
-
-            /** \brief Subscript operator.
-             *
-             * Gets the operation at the specified position.
-             */
-            OpPtr& operator[](unsigned int pos);
-
-            /// \brief Get the number of operations stored.
-            unsigned int count() const { return operations_.size(); }
-
-            /// TODO: Proper vector model for operations.
-
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
-            /// \brief Element body writing.
-            virtual std::streamsize write_body(std::ostream& output);
-
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
-
-        protected:
-            std::vector<OpPtr> operations_;
-    }; // class TrackOperation
 }; // namespace tide
 
 /// @}

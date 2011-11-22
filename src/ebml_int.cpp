@@ -193,7 +193,7 @@ uint64_t tide::ebml_int::decode_u(std::vector<char> const& buffer)
     }
 
     uint64_t result(0);
-    for (std::streamsize ii(0); ii < buffer.size(); ++ii)
+    for (unsigned int ii(0); ii < buffer.size(); ++ii)
     {
         result <<= 8;
         (reinterpret_cast<char*>(&result))[0] |= buffer[ii];
@@ -218,7 +218,7 @@ int64_t tide::ebml_int::decode_s(std::vector<char> const& buffer)
         // Negative value
         result = -1;
     }
-    for (std::streamsize ii(0); ii < buffer.size(); ++ii)
+    for (unsigned int ii(0); ii < buffer.size(); ++ii)
     {
         result <<= 8;
         (reinterpret_cast<char*>(&result))[0] |= buffer[ii];

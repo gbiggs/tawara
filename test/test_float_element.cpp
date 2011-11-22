@@ -224,7 +224,9 @@ TEST(FloatElement, Default)
 TEST(FloatElement, Value)
 {
     EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0).value());
+    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0));
     EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0, 2.0).value());
+    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0, 2.0));
 
     tide::FloatElement e1(1234, 1.0);
     EXPECT_DOUBLE_EQ(1.0, e1.value());

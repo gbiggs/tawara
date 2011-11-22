@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <tide/exceptions.h>
 #include <tide/vint.h>
 
 using namespace tide;
@@ -74,13 +75,13 @@ void SegmentInfo::uid(std::vector<char> const& uid)
                     uid.end(), std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == uid.end())
         {
-            throw ValueOutOfRange() << err_id(ids::SegmentUID) <<
-                err_id(ids::Info);
+            throw ValueOutOfRange() << err_id(uid_.id()) <<
+                err_par_id(id_);
         }
         if (uid.size() != 8)
         {
             throw ValueSizeOutOfRange() << err_id(ids::SegmentUID) <<
-                err_id(ids::Info);
+                err_par_id(id_);
         }
 
         uid_ = uid;
@@ -116,13 +117,13 @@ void SegmentInfo::prev_uid(std::vector<char> const& uid)
                     uid.end(), std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == uid.end())
         {
-            throw ValueOutOfRange() << err_id(ids::PrevUID) <<
-                err_id(ids::Info);
+            throw ValueOutOfRange() << err_id(prev_uid_.id()) <<
+                err_par_id(id_);
         }
         if (uid.size() != 8)
         {
-            throw ValueSizeOutOfRange() << err_id(ids::PrevUID) <<
-                err_id(ids::Info);
+            throw ValueSizeOutOfRange() << err_id(prev_uid_.id()) <<
+                err_par_id(id_);
         }
 
         prev_uid_ = uid;
@@ -158,13 +159,13 @@ void SegmentInfo::next_uid(std::vector<char> const& uid)
                     uid.end(), std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == uid.end())
         {
-            throw ValueOutOfRange() << err_id(ids::NextUID) <<
-                err_id(ids::Info);
+            throw ValueOutOfRange() << err_id(next_uid_.id()) <<
+                err_par_id(id_);
         }
         if (uid.size() != 8)
         {
-            throw ValueSizeOutOfRange() << err_id(ids::NextUID) <<
-                err_id(ids::Info);
+            throw ValueSizeOutOfRange() << err_id(next_uid_.id()) <<
+                err_par_id(id_);
         }
 
         next_uid_ = uid;
@@ -201,13 +202,13 @@ void SegmentInfo::segment_family(std::vector<char> const& segment_family)
                         std::bind2nd(std::not_equal_to<int>(), 0)));
         if (non_zero == segment_family.end())
         {
-            throw ValueOutOfRange() << err_id(ids::SegmentFamily) <<
-                err_id(ids::Info);
+            throw ValueOutOfRange() << err_id(seg_fam_.id()) <<
+                err_par_id(id_);
         }
         if (segment_family.size() != 8)
         {
-            throw ValueSizeOutOfRange() << err_id(ids::SegmentFamily) <<
-                err_id(ids::Info);
+            throw ValueSizeOutOfRange() << err_id(seg_fam_.id()) <<
+                err_par_id(id_);
         }
 
         seg_fam_ = segment_family;

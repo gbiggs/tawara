@@ -674,4 +674,3 @@ TEST(SegmentInfo, Read)
     EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
 }
 
-

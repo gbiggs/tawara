@@ -53,18 +53,31 @@ Relationship to Matroska
 Tide is closely based on the Matroska media container format. The
 following changes were made:
 
- - The Video (0x) and Audio (0x) master elements (children of the Track element)
-   are not supported. Tide does not directly support media-specific
-   elements; instead, it treats them as it does any other codec or
-   serialisation method.
+ - The Video (0x) and Audio (0x) master elements (children of the Track
+   element) are not supported. Tide does not directly support
+   media-specific elements; instead, it treats them as it does any other
+   codec or serialisation method. These elements are not mandatory in
+   Matroska.
 
- - The TrackType (0x83) and FlagDefault (0x88) elements, found in the
-   TrackEntry element of Matroska, are not used. All tracks are
-   considered to be generic data tracks.
+ - The TrackType (0x83) element, found in the TrackEntry element of
+   Matroska, is modified slightly. The allowable values are:
+
+     0x11:
+       subtitle
+     0x70:
+       data
+
+   These do not conflict with the Matroska track types (the subtitle
+   track type is identical).
+
+ - The FlagDefault (0x88) element is not used. It is read, if present,
+   to maintain some compatibility with Matroska, but the value is
+   ignored.  It is never written (Matroska specifies a default value for
+   it).
 
  - The ContentEncodings element (0x6D80) and all child elements are not
    supported. Content compression and encryption methods are defined by
-   the codec used.
+   the codec used. This element is not mandatory in Matroska.
 
  - A simplified version of chapters is used. The ChapProcess (0x6944)
    element and all its child elements are not supported, meaning that
@@ -72,18 +85,26 @@ following changes were made:
    processing. The related ChapterTranslate (0x6924) element and its
    child elements, found in the SegmentInfo element of Matroska, are
    similarly not supported, nor is the TrackTranslate (0x6624) element
-   or its children.
+   or its children. None of these elements are mandatory in Matroska.
 
  - Most of the localisation features, such as multiple track languages,
    are not supported:
    - Language (0x22B59C).
-   - ChapLanguage (0x437C) and ChapCountry (0x437E).
 
- - The MKV3D features are (for obvious reasons) not supported:
+   - ChapCountry (0x437E).
+
+   - ChapLanguage (0x437C) and ChapCountry (0x437E) are supported to
+     maintain compatibility with Matroska.
+
+   - TagLanguage (0x447A) and TagDefault (0x4484) are supported to
+     maintain compatibility with Matroska.
+
+ - The MKV3D features are (for obvious reasons) not supported. These are
+   not mandatory in Matroska.
    - TrackCombinePlanes (0xE3) and children.
 
  - The TargetTypeValue (0x68CA) and TargetType (0x63CA) elements are not
-   used.
+   used. These are not mandatory in Matroska.
 
  - Not actually a difference from Matroska, but from the EBML RFC draft.
    CRC-32 elemnents are not master elements. They are placed inside a
@@ -610,14 +631,15 @@ Element name         Level EBML ID     Ma Mu Rng   Default T Description
 Tracks               1     16 54 AE 6B    \*               m Contains information on one or more tracks.
 TrackEntry           2     AE          \* \*               m Describes a single track.
 TrackNumber          3     D7          \*    not 0         u The track number used in the Block Header.
-TrackUID             3     73 C5       \*    not 0         u A unique ID to identify the track. This should be kept the same when
-                                                             making a direct stream copy of the track to another file.
-FlagEnabled          3     88          \*    0-1   1       u Set to 1 if the track is used.
+TrackUID             3     73 C5       \*    not 0         u A unique ID to identify the track. This should be kept the same when making a direct stream copy of the track to another file.
+TrackType            3     83          \*    1-254         u The type of track. 0x11 for subtitles, 0x70 for data.
+FlagEnabled          3     B9          \*    0-1   1       u Set to 1 if the track is used.
+FlagDefault          3     88          \*    0-1   1       u Ignored.  Must be read if present. Do not write it.
 FlagForced           3     55 AA       \*    0-1   0       u Set to 1 if the track MUST be used during playback.
 FlagLacing           3     9C          \*    0-1   1       u Set to 1 if the track may contain blocks using lacing.
 MinCache             3     6D E7       \*          0       u The minimum number of blocks that should be able to be cached
                                                              during reply.
-MaxCache             3     6D E7       \*          0       u The maximum number of blocks that need to be cached for reference
+MaxCache             3     6D F8       \*          0       u The maximum number of blocks that need to be cached for reference
                                                              blocks and the current block.
 DefaultDuration      3     23 E3 83          not 0         u The number of nanoseconds per block if no individual time codes are
                                                              given in the Blocks.
@@ -626,7 +648,7 @@ TrackTimecodeScale   3     23 31 4F    \*    >0    1.0     f The scale to apply 
 MaxBlockAdditionID   3     55 EE       \*          0       u The maximum value of BlockAddID. A value of 0 means there are no
                                                              BlockAdditions for this track.
 Name                 3     53 6E                           s A human-readable track name.
-CodecID              3     86          \*                  s An ID corresponding to the codec used in this track.
+CodecID              3     86          \*                  s An ID corresponding to the codec used in this track. Must not be empty.
 CodecPrivate         3     63 A2                           b Private data known only to the codec.
 CodecName            3     25 86 88                        s A human-readable string identifying the codec.
 AttachmentLink       3     74 46             not 0         u The UID of an attachment that is used by the codec.
@@ -703,6 +725,9 @@ ChapterTrack         4     8F                              m A list of tracks on
 ChapterTrackNumber   5     89          \* \* not 0         u The UID of a track to apply this chapter to.
 ChapterDisplay       4     80                              m How the chapter is displayed.
 ChapString           5     85          \*                  s Contains the string to use to display the chapter.
+ChapLanguage         5     43 7C       \* \*       eng     s Specifies the language of the tag, in the `ISO 639.2`_ form.
+ChapCountry          5     43 7E          \*               s The countries corresponding to the string, using the same 2 octects as in
+                                                             Internet domains.
 ==================== ===== =========== == == ===== ======= = ===========
 
 ==================== ===== =========== == == ===== ======= = ===========
@@ -726,11 +751,16 @@ TagAttachmentUID     4     63 C6          \*       0       u A unique ID to iden
                                                              the segment.
 SimpleTag            3+    67 C8       \* \*               m Contains general information about the target.
 TagName              4+    45 A3       \*                  s The name of the Tag.
+TagLanguage          4+    44 7A       \*          und     s Specifies the language of the tag, in the `ISO 639.2`_ form.
+TagDefault           4+    44 84       \*    0-1   1       u Indicates if this is the default or original language for the tag.
 TagString            4+    44 87                           s The value of the Tag. This cannot be used in the same SimpleTag as
                                                              TagBinary.
 TagBinary            4+    44 85                           b The value of the Tag if it is binary data. This cannot be used in the
                                                              same SimpleTag as TagString.
 ==================== ===== =========== == == ===== ======= = ===========
+
+.. _`ISO 639.2`:
+   http://www.loc.gov/standards/iso639-2/php/English_list.php
 
 
 Table columns

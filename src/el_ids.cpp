@@ -106,7 +106,7 @@ tide::ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
 {
     assert(buffer.size() > 0);
 
-    std::streamsize to_copy(0);
+    unsigned int to_copy(0);
     tide::ids::ID result(0);
 
     reinterpret_cast<char*>(&result)[0] = buffer[0];

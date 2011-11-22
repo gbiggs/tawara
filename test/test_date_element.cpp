@@ -186,7 +186,9 @@ TEST(DateElement, Default)
 TEST(DateElement, Value)
 {
     EXPECT_EQ(1, tide::DateElement(1234, 1).value());
+    EXPECT_EQ(1, tide::DateElement(1234, 1));
     EXPECT_EQ(1, tide::DateElement(1234, 1, 2).value());
+    EXPECT_EQ(1, tide::DateElement(1234, 1, 2));
 
     tide::DateElement e1(1234, 1);
     EXPECT_EQ(1, e1.value());

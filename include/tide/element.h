@@ -184,6 +184,36 @@ namespace tide
         protected:
             tide::ids::ID id_;
     }; // class Element
+
+
+    /** \brief Skip an element in an input stream.
+     *
+     * This function skips past an element, placing the read pointer at the ID
+     * of the next element.
+     *
+     * \param[in] input The input stream to seek the read pointer in.
+     * \param[in] and_id If true, the read pointer is expected to be at the ID
+     * of the element to skip when the function is called, and the ID will also
+     * be skipped. If false, the read pointer is expected to be placed before
+     * the element's size value.
+     * \return The number of bytes skipped.
+     */
+    std::streamsize skip_read(std::istream& input, bool and_id);
+
+
+    /** \brief Skip an element in an input/output stream.
+     *
+     * This function skips past an element, placing the write pointer after the
+     * end of the element's body.
+     *
+     * \param[in] stream The input/ouput stream to seek the write pointer in.
+     * \param[in] and_id If true, the write pointer is expected to be at the ID
+     * of the element to skip when the function is called, and the ID will also
+     * be skipped. If false, the write pointer is expected to be placed before
+     * the element's size value.
+     * \return The number of bytes skipped.
+     */
+    std::streamsize skip_write(std::iostream& stream, bool and_id);
 }; // namespace tide
 
 /// @}

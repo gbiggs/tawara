@@ -1,6 +1,6 @@
 /* Tide
  *
- * Source for the TrackOperation element and related elements.
+ * Source for the track operation elements.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -34,7 +34,7 @@ using namespace tide;
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// TrackJoinBlocks Constructors and destructors
+// Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
 TrackJoinBlocks::TrackJoinBlocks()
@@ -44,7 +44,7 @@ TrackJoinBlocks::TrackJoinBlocks()
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// TrackJoinBlocks Accessors
+// Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
 void TrackJoinBlocks::append(uint64_t uid)
@@ -85,7 +85,7 @@ std::streamsize TrackJoinBlocks::size() const
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// TrackJoinBlocks I/O
+// I/O
 ///////////////////////////////////////////////////////////////////////////////
 
 std::streamsize TrackJoinBlocks::write_body(std::ostream& output)
@@ -152,118 +152,6 @@ std::streamsize TrackJoinBlocks::read_body(std::istream& input)
     {
         // Must have read at least one TrackJoinUID
         throw MissingChild() << err_id(ids::TrackJoinUID) << err_par_id(id_) <<
-            err_pos(el_start);
-    }
-
-    return read_bytes;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// TrackOperation Constructors and destructors
-///////////////////////////////////////////////////////////////////////////////
-
-TrackOperation::TrackOperation()
-    : MasterElement(ids::TrackOperation)
-{
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// TrackOperation Accessors
-///////////////////////////////////////////////////////////////////////////////
-
-void TrackOperation::append(OpPtr const& op)
-{
-    if (op->size() == 0)
-    {
-        // Empty operations are illegal
-        throw ValueOutOfRange() << err_id(op->id()) << err_par_id(id_);
-    }
-    operations_.push_back(op);
-}
-
-
-TrackOperation::OpPtr TrackOperation::remove(unsigned int pos)
-{
-    TrackOperation::OpPtr op = operations_[pos];
-    operations_.erase(operations_.begin() + pos);
-    return op;
-}
-
-
-TrackOperation::OpPtr const& TrackOperation::operator[](unsigned int pos) const
-{
-    return operations_[pos];
-}
-
-
-TrackOperation::OpPtr& TrackOperation::operator[](unsigned int pos)
-{
-    return operations_[pos];
-}
-
-
-std::streamsize TrackOperation::size() const
-{
-    std::streamsize size(0);
-    BOOST_FOREACH(OpPtr el, operations_)
-    {
-        size += el->total_size();
-    }
-    return size;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// TrackOperation I/O
-///////////////////////////////////////////////////////////////////////////////
-
-std::streamsize TrackOperation::write_body(std::ostream& output)
-{
-    std::streamsize written(0);
-    BOOST_FOREACH(OpPtr el, operations_)
-    {
-        written += el->write(output);
-    }
-    return written;
-}
-
-
-std::streamsize TrackOperation::read_body(std::istream& input)
-{
-    std::streampos el_start(input.tellg());
-
-    // Clear the operations list
-    operations_.clear();
-    // Get the element's body size
-    vint::ReadResult result = tide::vint::read(input);
-    std::streamsize body_size(result.first);
-    std::streamsize size_size(result.second);
-    std::streamsize read_bytes(result.second);
-    // Read elements until the body is exhausted
-    while (read_bytes < size_size + body_size)
-    {
-        // Read the ID
-        ids::ReadResult id_res = tide::ids::read(input);
-        ids::ID id(id_res.first);
-        read_bytes += id_res.second;
-        if (id != ids::TrackJoinBlocks)
-        {
-            // Only TrackJoinBlocks elements may be in the TrackOperation
-            // element
-            throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                err_pos(input.tellg());
-        }
-        // Read the body
-        OpPtr op(new TrackJoinBlocks());
-        read_bytes += op->read_body(input);
-        operations_.push_back(op);
-    }
-    if (read_bytes != size_size + body_size)
-    {
-        // Read more than was specified by the body size value
-        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
             err_pos(el_start);
     }
 

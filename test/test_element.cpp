@@ -28,7 +28,9 @@
 #include <tide/element.h>
 
 #include <gtest/gtest.h>
+#include <tide/el_ids.h>
 #include <tide/exceptions.h>
+#include <tide/uint_element.h>
 
 #include "test_consts.h"
 
@@ -94,5 +96,51 @@ TEST(Element, Assignment)
     FakeElement e1(1), e2(2);
     e2 = e1;
     EXPECT_EQ(e1.id(), e2.id());
+}
+
+
+TEST(ElementUtils, SkipRead)
+{
+    std::stringstream input;
+
+    tide::UIntElement ue1(tide::ids::Null, 0xFFFFFFFF);
+    tide::UIntElement ue2(tide::ids::Null, 0xFFFFFFFF);
+    tide::UIntElement ue3(tide::ids::Null, 0xFFFFFFFF);
+    ue1.write(input);
+    ue2.write(input);
+    ue3.write(input);
+    input.seekp(0);
+    input.seekg(0);
+
+    tide::skip_read(input, true);
+    EXPECT_EQ(ue1.total_size(), input.tellg());
+    EXPECT_EQ(0, input.tellp());
+    tide::ids::read(input);
+    tide::skip_read(input, false);
+    EXPECT_EQ(ue1.total_size() + ue2.total_size(), input.tellg());
+    EXPECT_EQ(0, input.tellp());
+}
+
+
+TEST(ElementUtils, SkipWrite)
+{
+    std::stringstream input;
+
+    tide::UIntElement ue1(tide::ids::Null, 0xFFFFFFFF);
+    tide::UIntElement ue2(tide::ids::Null, 0xFFFFFFFF);
+    tide::UIntElement ue3(tide::ids::Null, 0xFFFFFFFF);
+    ue1.write(input);
+    ue2.write(input);
+    ue3.write(input);
+    input.seekp(0);
+    input.seekg(0);
+
+    tide::skip_write(input, true);
+    EXPECT_EQ(ue1.total_size(), input.tellp());
+    EXPECT_EQ(0, input.tellg());
+    input.seekp(tide::ids::coded_size(tide::ids::Null), std::ios::cur);
+    tide::skip_write(input, false);
+    EXPECT_EQ(ue1.total_size() + ue2.total_size(), input.tellp());
+    EXPECT_EQ(0, input.tellg());
 }
 

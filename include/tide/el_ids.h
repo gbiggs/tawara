@@ -88,11 +88,13 @@ namespace tide
                 const ID TrackEntry(0xAE);
                     const ID TrackNumber(0xD7);
                     const ID TrackUID(0x73C5);
-                    const ID FlagEnabled(0x88);
+                    const ID TrackType(0x83);
+                    const ID FlagEnabled(0xB9);
+                    const ID FlagDefault(0x88);
                     const ID FlagForced(0x55AA);
                     const ID FlagLacing(0x9C);
                     const ID MinCache(0x6DE7);
-                    const ID MaxCache(0x6DE7);
+                    const ID MaxCache(0x6DF8);
                     const ID DefaultDuration(0x23E383);
                     const ID TrackTimecodeScale(0x23314F);
                     const ID MaxBlockAdditionID(0x55EE);

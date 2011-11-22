@@ -83,3 +83,33 @@ std::streamsize Element::write_size(std::ostream& output)
     return tide::vint::write(size(), output);
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+// Other functions in element.h
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize tide::skip_read(std::istream& input, bool and_id)
+{
+    std::streamsize skipped_bytes(0);
+    if (and_id)
+    {
+        skipped_bytes += ids::read(input).second;
+    }
+    vint::ReadResult size_res(vint::read(input));
+    skipped_bytes += size_res.second;
+    input.seekg(size_res.first, std::ios::cur);
+    skipped_bytes += size_res.first;
+    return skipped_bytes;
+}
+
+
+std::streamsize tide::skip_write(std::iostream& stream, bool and_id)
+{
+    std::streampos cur_read(stream.tellg());
+    stream.seekg(stream.tellp());
+    std::streamsize skipped_bytes = tide::skip_read(stream, and_id);
+    stream.seekp(stream.tellg());
+    stream.seekg(cur_read);
+    return skipped_bytes;
+}
+

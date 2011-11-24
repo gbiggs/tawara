@@ -74,7 +74,7 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
 
 TEST(DateElement, Construction)
 {
-    EXPECT_EQ(1234, tide::DateElement(1234, 1).id());
+    EXPECT_EQ(tide::ids::Null, tide::DateElement(tide::ids::Null, 1).id());
     EXPECT_THROW(tide::DateElement(0x00, 1), tide::InvalidElementID);
     EXPECT_THROW(tide::DateElement(0xFF, 1), tide::InvalidElementID);
     EXPECT_THROW(tide::DateElement(0xFFFF, 1), tide::InvalidElementID);
@@ -87,10 +87,10 @@ TEST(DateElement, Construction)
 
 TEST(DateElement, CopyConstruction)
 {
-    EXPECT_EQ(1234, tide::DateElement(tide::DateElement(1234, 1)).id());
-    EXPECT_EQ(1234, tide::DateElement(tide::DateElement(1234, 1, 2)).id());
-    EXPECT_EQ(1, tide::DateElement(tide::DateElement(1234, 1, 2)).value());
-    EXPECT_EQ(2, tide::DateElement(tide::DateElement(1234, 1, 2)).get_default());
+    EXPECT_EQ(tide::ids::Null, tide::DateElement(tide::DateElement(tide::ids::Null, 1)).id());
+    EXPECT_EQ(tide::ids::Null, tide::DateElement(tide::DateElement(tide::ids::Null, 1, 2)).id());
+    EXPECT_EQ(1, tide::DateElement(tide::DateElement(tide::ids::Null, 1, 2)).value());
+    EXPECT_EQ(2, tide::DateElement(tide::DateElement(tide::ids::Null, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
     EXPECT_THROW(tide::DateElement(tide::DateElement(0x00, 1)),
@@ -100,7 +100,7 @@ TEST(DateElement, CopyConstruction)
 
 TEST(DateElement, SetID)
 {
-    tide::DateElement e(1234, 1);
+    tide::DateElement e(tide::ids::Null, 1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
     EXPECT_THROW(tide::DateElement(1, 1).id(0x00), tide::InvalidElementID);
@@ -152,10 +152,10 @@ TEST(DateElement, Assignment)
 
 TEST(DateElement, Default)
 {
-    EXPECT_FALSE(tide::DateElement(1234, 1).has_default());
-    EXPECT_TRUE(tide::DateElement(1234, 1, 1).has_default());
+    EXPECT_FALSE(tide::DateElement(tide::ids::Null, 1).has_default());
+    EXPECT_TRUE(tide::DateElement(tide::ids::Null, 1, 1).has_default());
 
-    tide::DateElement e1(1234, 1, 1);
+    tide::DateElement e1(tide::ids::Null, 1, 1);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -164,7 +164,7 @@ TEST(DateElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    tide::DateElement e2(1234, 1);
+    tide::DateElement e2(tide::ids::Null, 1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -172,7 +172,7 @@ TEST(DateElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::DateElement e3(1234, 1);
+    tide::DateElement e3(tide::ids::Null, 1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -185,19 +185,30 @@ TEST(DateElement, Default)
 
 TEST(DateElement, Value)
 {
-    EXPECT_EQ(1, tide::DateElement(1234, 1).value());
-    EXPECT_EQ(1, tide::DateElement(1234, 1));
-    EXPECT_EQ(1, tide::DateElement(1234, 1, 2).value());
-    EXPECT_EQ(1, tide::DateElement(1234, 1, 2));
+    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1).value());
+    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1));
+    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1, 2).value());
+    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1, 2));
 
-    tide::DateElement e1(1234, 1);
+    tide::DateElement e1(tide::ids::Null, 1);
     EXPECT_EQ(1, e1.value());
     e1.value(2);
     EXPECT_EQ(2, e1.value());
 
-    tide::DateElement e2(1234, 1, 2);
+    tide::DateElement e2(tide::ids::Null, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
+}
+
+
+TEST(DateElement, Equality)
+{
+    tide::DateElement e1(tide::ids::Null, 1);
+    tide::DateElement e2(tide::ids::Null, 1);
+
+    EXPECT_TRUE(e1 == e2);
+    e2.value(2);
+    EXPECT_TRUE(e1 != e2);
 }
 
 

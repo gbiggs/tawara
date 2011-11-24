@@ -73,7 +73,7 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, uint64_t data,
 
 TEST(UIntElement, Construction)
 {
-    EXPECT_EQ(1234, tide::UIntElement(1234, 1).id());
+    EXPECT_EQ(tide::ids::Null, tide::UIntElement(tide::ids::Null, 1).id());
     EXPECT_THROW(tide::UIntElement(0x00, 1), tide::InvalidElementID);
     EXPECT_THROW(tide::UIntElement(0xFF, 1), tide::InvalidElementID);
     EXPECT_THROW(tide::UIntElement(0xFFFF, 1), tide::InvalidElementID);
@@ -86,10 +86,10 @@ TEST(UIntElement, Construction)
 
 TEST(UIntElement, CopyConstruction)
 {
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1)).id());
-    EXPECT_EQ(1234, tide::UIntElement(tide::UIntElement(1234, 1, 1)).id());
-    EXPECT_EQ(1, tide::UIntElement(tide::UIntElement(1234, 1, 2)).value());
-    EXPECT_EQ(2, tide::UIntElement(tide::UIntElement(1234, 1, 2)).get_default());
+    EXPECT_EQ(tide::ids::Null, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1)).id());
+    EXPECT_EQ(tide::ids::Null, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1, 1)).id());
+    EXPECT_EQ(1, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1, 2)).value());
+    EXPECT_EQ(2, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
     EXPECT_THROW(tide::UIntElement(tide::UIntElement(0x00, 1)),
@@ -99,7 +99,7 @@ TEST(UIntElement, CopyConstruction)
 
 TEST(UIntElement, SetID)
 {
-    tide::UIntElement e(1234, 1);
+    tide::UIntElement e(tide::ids::Null, 1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
     EXPECT_THROW(tide::UIntElement(1, 1).id(0x00), tide::InvalidElementID);
@@ -151,10 +151,10 @@ TEST(UIntElement, Assignment)
 
 TEST(UIntElement, Default)
 {
-    EXPECT_FALSE(tide::UIntElement(1234, 1).has_default());
-    EXPECT_TRUE(tide::UIntElement(1234, 1, 1).has_default());
+    EXPECT_FALSE(tide::UIntElement(tide::ids::Null, 1).has_default());
+    EXPECT_TRUE(tide::UIntElement(tide::ids::Null, 1, 1).has_default());
 
-    tide::UIntElement e1(1234, 1, 1);
+    tide::UIntElement e1(tide::ids::Null, 1, 1);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -163,7 +163,7 @@ TEST(UIntElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    tide::UIntElement e2(1234, 1);
+    tide::UIntElement e2(tide::ids::Null, 1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -171,7 +171,7 @@ TEST(UIntElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::UIntElement e3(1234, 1);
+    tide::UIntElement e3(tide::ids::Null, 1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -184,19 +184,30 @@ TEST(UIntElement, Default)
 
 TEST(UIntElement, Value)
 {
-    EXPECT_EQ(1, tide::UIntElement(1234, 1).value());
-    EXPECT_EQ(1, tide::UIntElement(1234, 1));
-    EXPECT_EQ(1, tide::UIntElement(1234, 1, 2).value());
-    EXPECT_EQ(1, tide::UIntElement(1234, 1, 2));
+    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1).value());
+    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1));
+    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1, 2).value());
+    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1, 2));
 
-    tide::UIntElement e1(1234, 1);
+    tide::UIntElement e1(tide::ids::Null, 1);
     EXPECT_EQ(1, e1.value());
     e1.value(2);
     EXPECT_EQ(2, e1.value());
 
-    tide::UIntElement e2(1234, 1, 2);
+    tide::UIntElement e2(tide::ids::Null, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
+}
+
+
+TEST(UIntElement, Equality)
+{
+    tide::UIntElement e1(tide::ids::Null, 1);
+    tide::UIntElement e2(tide::ids::Null, 1);
+
+    EXPECT_TRUE(e1 == e2);
+    e2.value(2);
+    EXPECT_TRUE(e1 != e2);
 }
 
 

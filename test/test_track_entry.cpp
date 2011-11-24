@@ -747,16 +747,89 @@ TEST(TrackEntry, Read)
     used_children[1]->write(input);
     used_children[2]->write(input);
     EXPECT_THROW(e.read_body(input), tide::MissingChild);
-    // Out-of-range values
-    /*used_children[0]->value(0);
+}
+
+
+TEST(TrackEntry, ReadOutOfRangeValues)
+{
+    std::stringstream input;
+    tide::TrackEntry e(1, 2, "MDCC");
+
+    tide::UIntElement bad(tide::ids::TrackNumber, 0);
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
     input.str(std::string());
-    body_size(std::accumulate(used_children.begin(),
-                used_children.begin() + 4, 0, test_utils::TotalSizeOp()));
-    tide::vint::write(body_size, input);
-    used_children[0]->write(input);
-    used_children[1]->write(input);
-    used_children[2]->write(input);
-    used_children[3]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);*/
+    bad.id(tide::ids::TrackUID);
+    bad = 0;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    bad.id(tide::ids::TrackType);
+    bad = 255;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    bad.id(tide::ids::FlagEnabled);
+    bad = 2;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    bad.id(tide::ids::FlagForced);
+    bad = 2;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    bad.id(tide::ids::FlagLacing);
+    bad = 2;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    bad.id(tide::ids::DefaultDuration);
+    bad = 0;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    tide::FloatElement bad_f(tide::ids::TrackTimecodeScale, 0.0);
+    tide::vint::write(bad_f.total_size(), input);
+    bad_f.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    bad_f = -1.0;
+    tide::vint::write(bad_f.total_size(), input);
+    bad_f.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    tide::StringElement bad_s(tide::ids::CodecID, "");
+    tide::vint::write(bad_s.total_size(), input);
+    bad_s.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    bad.id(tide::ids::AttachmentLink);
+    bad = 0;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+
+    input.str(std::string());
+    bad.id(tide::ids::CodecDecodeAll);
+    bad = 2;
+    tide::vint::write(bad.total_size(), input);
+    bad.write(input);
+    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
 }
 

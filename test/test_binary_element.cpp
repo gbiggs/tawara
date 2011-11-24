@@ -99,7 +99,7 @@ class BinaryElementTest : public ::testing::Test
 
 TEST_F(BinaryElementTest, Construction)
 {
-    EXPECT_EQ(1234, tide::BinaryElement(1234, b1).id());
+    EXPECT_EQ(tide::ids::Null, tide::BinaryElement(tide::ids::Null, b1).id());
     EXPECT_THROW(tide::BinaryElement(0x00, b1), tide::InvalidElementID);
     EXPECT_THROW(tide::BinaryElement(0xFF, b1), tide::InvalidElementID);
     EXPECT_THROW(tide::BinaryElement(0xFFFF, b1), tide::InvalidElementID);
@@ -112,12 +112,12 @@ TEST_F(BinaryElementTest, Construction)
 
 TEST_F(BinaryElementTest, CopyConstruction)
 {
-    EXPECT_EQ(1234, tide::BinaryElement(tide::BinaryElement(1234, b1)).id());
-    EXPECT_EQ(1234, tide::BinaryElement(tide::BinaryElement(1234, b1, b2)).id());
+    EXPECT_EQ(tide::ids::Null, tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1)).id());
+    EXPECT_EQ(tide::ids::Null, tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1, b2)).id());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(tide::BinaryElement(1234, b1, b2)).value());
+            tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1, b2)).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2,
-            tide::BinaryElement(tide::BinaryElement(1234, b1, b2)).get_default());
+            tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1, b2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
     EXPECT_THROW(tide::BinaryElement(tide::BinaryElement(0x00, b1)),
@@ -127,7 +127,7 @@ TEST_F(BinaryElementTest, CopyConstruction)
 
 TEST_F(BinaryElementTest, SetID)
 {
-    tide::BinaryElement e(1234, b1);
+    tide::BinaryElement e(tide::ids::Null, b1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
     EXPECT_THROW(tide::BinaryElement(1, b1).id(0x00), tide::InvalidElementID);
@@ -176,10 +176,10 @@ TEST_F(BinaryElementTest, Assignment)
 
 TEST_F(BinaryElementTest, Default)
 {
-    EXPECT_FALSE(tide::BinaryElement(1234, b1).has_default());
-    EXPECT_TRUE(tide::BinaryElement(1234, b1, b1).has_default());
+    EXPECT_FALSE(tide::BinaryElement(tide::ids::Null, b1).has_default());
+    EXPECT_TRUE(tide::BinaryElement(tide::ids::Null, b1, b1).has_default());
 
-    tide::BinaryElement e1(1234, b1, b1);
+    tide::BinaryElement e1(tide::ids::Null, b1, b1);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -188,7 +188,7 @@ TEST_F(BinaryElementTest, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1.get_default());
 
-    tide::BinaryElement e2(1234, b1);
+    tide::BinaryElement e2(tide::ids::Null, b1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(b1);
     EXPECT_TRUE(e2.has_default());
@@ -196,7 +196,7 @@ TEST_F(BinaryElementTest, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::BinaryElement e3(1234, b1);
+    tide::BinaryElement e3(tide::ids::Null, b1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(b1);
     EXPECT_TRUE(e3.is_default());
@@ -210,24 +210,35 @@ TEST_F(BinaryElementTest, Default)
 TEST_F(BinaryElementTest, Value)
 {
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(1234, b1).value());
+            tide::BinaryElement(tide::ids::Null, b1).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(1234, b1));
+            tide::BinaryElement(tide::ids::Null, b1));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(1234, b1, b2).value());
+            tide::BinaryElement(tide::ids::Null, b1, b2).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(1234, b1, b2));
+            tide::BinaryElement(tide::ids::Null, b1, b2));
 
-    tide::BinaryElement e1(1234, b1);
+    tide::BinaryElement e1(tide::ids::Null, b1);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e1.value());
     e1.value(b2);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1);
 
-    tide::BinaryElement e2(1234, b1, b2);
+    tide::BinaryElement e2(tide::ids::Null, b1, b2);
     e2.value(b3);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2);
+}
+
+
+TEST_F(BinaryElementTest, Equality)
+{
+    tide::BinaryElement e1(tide::ids::Null, b1);
+    tide::BinaryElement e2(tide::ids::Null, b1);
+
+    EXPECT_TRUE(e1 == e2);
+    e2.value(b2);
+    EXPECT_TRUE(e1 != e2);
 }
 
 

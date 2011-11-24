@@ -92,7 +92,7 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, double data,
 
 TEST(FloatElement, Construction)
 {
-    EXPECT_EQ(1234, tide::FloatElement(1234, 1.0).id());
+    EXPECT_EQ(tide::ids::Null, tide::FloatElement(tide::ids::Null, 1.0).id());
     EXPECT_THROW(tide::FloatElement(0x00, 1.0), tide::InvalidElementID);
     EXPECT_THROW(tide::FloatElement(0xFF, 1.0), tide::InvalidElementID);
     EXPECT_THROW(tide::FloatElement(0xFFFF, 1.0), tide::InvalidElementID);
@@ -105,15 +105,15 @@ TEST(FloatElement, Construction)
 
 TEST(FloatElement, CopyConstruction)
 {
-    EXPECT_EQ(1234, tide::FloatElement(tide::FloatElement(1234, 1.0)).id());
-    EXPECT_EQ(1234,
-        tide::FloatElement(tide::FloatElement(1234, 1.0, 2.0)).id());
+    EXPECT_EQ(tide::ids::Null, tide::FloatElement(tide::FloatElement(tide::ids::Null, 1.0)).id());
+    EXPECT_EQ(tide::ids::Null,
+        tide::FloatElement(tide::FloatElement(tide::ids::Null, 1.0, 2.0)).id());
     EXPECT_DOUBLE_EQ(1.0,
-        tide::FloatElement(tide::FloatElement(1234, 1.0, 2.0)).value());
+        tide::FloatElement(tide::FloatElement(tide::ids::Null, 1.0, 2.0)).value());
     EXPECT_EQ(2.0,
-        tide::FloatElement(tide::FloatElement(1234, 1.0, 2.0)).get_default());
+        tide::FloatElement(tide::FloatElement(tide::ids::Null, 1.0, 2.0)).get_default());
     EXPECT_EQ(tide::EBML_FLOAT_PREC_SINGLE,
-            tide::FloatElement(tide::FloatElement(1234, 1.0, 2.0,
+            tide::FloatElement(tide::FloatElement(tide::ids::Null, 1.0, 2.0,
                     tide::EBML_FLOAT_PREC_SINGLE)).precision());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
@@ -124,7 +124,7 @@ TEST(FloatElement, CopyConstruction)
 
 TEST(FloatElement, SetID)
 {
-    tide::FloatElement e(1234, 1.0);
+    tide::FloatElement e(tide::ids::Null, 1.0);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
     EXPECT_THROW(tide::FloatElement(1, 1.0).id(0x00), tide::InvalidElementID);
@@ -190,10 +190,10 @@ TEST(FloatElement, Assignment)
 
 TEST(FloatElement, Default)
 {
-    EXPECT_FALSE(tide::FloatElement(1234, 1.0).has_default());
-    EXPECT_TRUE(tide::FloatElement(1234, 1.0, 1.0).has_default());
+    EXPECT_FALSE(tide::FloatElement(tide::ids::Null, 1.0).has_default());
+    EXPECT_TRUE(tide::FloatElement(tide::ids::Null, 1.0, 1.0).has_default());
 
-    tide::FloatElement e1(1234, 1.0, 1.0);
+    tide::FloatElement e1(tide::ids::Null, 1.0, 1.0);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -202,7 +202,7 @@ TEST(FloatElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    tide::FloatElement e2(1234, 1.0);
+    tide::FloatElement e2(tide::ids::Null, 1.0);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -210,7 +210,7 @@ TEST(FloatElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::FloatElement e3(1234, 1.0);
+    tide::FloatElement e3(tide::ids::Null, 1.0);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -223,17 +223,17 @@ TEST(FloatElement, Default)
 
 TEST(FloatElement, Value)
 {
-    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0).value());
-    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0));
-    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0, 2.0).value());
-    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(1234, 1.0, 2.0));
+    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(tide::ids::Null, 1.0).value());
+    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(tide::ids::Null, 1.0));
+    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(tide::ids::Null, 1.0, 2.0).value());
+    EXPECT_DOUBLE_EQ(1.0, tide::FloatElement(tide::ids::Null, 1.0, 2.0));
 
-    tide::FloatElement e1(1234, 1.0);
+    tide::FloatElement e1(tide::ids::Null, 1.0);
     EXPECT_DOUBLE_EQ(1.0, e1.value());
     e1.value(294.2984e4);
     EXPECT_DOUBLE_EQ(294.2984e4, e1.value());
 
-    tide::FloatElement e2(1234, 1.0, 2.0);
+    tide::FloatElement e2(tide::ids::Null, 1.0, 2.0);
     e2.value(3.03489529);
     EXPECT_DOUBLE_EQ(3.03489529, e2.value());
 }
@@ -242,31 +242,42 @@ TEST(FloatElement, Value)
 TEST(FloatElement, Precision)
 {
     EXPECT_EQ(tide::EBML_FLOAT_PREC_SINGLE,
-            tide::FloatElement(1234, 1.0,
+            tide::FloatElement(tide::ids::Null, 1.0,
                 tide::EBML_FLOAT_PREC_SINGLE).precision());
     EXPECT_EQ(tide::EBML_FLOAT_PREC_DOUBLE,
-            tide::FloatElement(1234, 1.0,
+            tide::FloatElement(tide::ids::Null, 1.0,
                 tide::EBML_FLOAT_PREC_DOUBLE).precision());
 
-    tide::FloatElement e1(1234, 1.0);
+    tide::FloatElement e1(tide::ids::Null, 1.0);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_DOUBLE, e1.precision());
     e1.precision(tide::EBML_FLOAT_PREC_SINGLE);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_SINGLE, e1.precision());
 
-    tide::FloatElement e2(1234, 1.0, 2.0);
+    tide::FloatElement e2(tide::ids::Null, 1.0, 2.0);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_DOUBLE, e2.precision());
     e2.precision(tide::EBML_FLOAT_PREC_SINGLE);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_SINGLE, e2.precision());
 
-    tide::FloatElement e3(1234, 1.0, tide::EBML_FLOAT_PREC_SINGLE);
+    tide::FloatElement e3(tide::ids::Null, 1.0, tide::EBML_FLOAT_PREC_SINGLE);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_SINGLE, e3.precision());
     e3.precision(tide::EBML_FLOAT_PREC_DOUBLE);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_DOUBLE, e3.precision());
 
-    tide::FloatElement e4(1234, 1.0, 2.0, tide::EBML_FLOAT_PREC_SINGLE);
+    tide::FloatElement e4(tide::ids::Null, 1.0, 2.0, tide::EBML_FLOAT_PREC_SINGLE);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_SINGLE, e4.precision());
     e4.precision(tide::EBML_FLOAT_PREC_DOUBLE);
     EXPECT_EQ(tide::EBML_FLOAT_PREC_DOUBLE, e4.precision());
+}
+
+
+TEST(FloatElement, Equality)
+{
+    tide::FloatElement e1(tide::ids::Null, 1.0);
+    tide::FloatElement e2(tide::ids::Null, 1.0);
+
+    EXPECT_TRUE(e1 == e2);
+    e2.value(2.0);
+    EXPECT_TRUE(e1 != e2);
 }
 
 

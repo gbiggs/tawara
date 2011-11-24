@@ -28,12 +28,13 @@
 #if !defined(TIDE_PRIM_ELEMENT_H_)
 #define TIDE_PRIM_ELEMENT_H_
 
+
+#include <boost/operators.hpp>
+#include <stdint.h>
+#include <string>
 #include <tide/element.h>
 #include <tide/exceptions.h>
 #include <tide/win_dll.h>
-
-#include <stdint.h>
-#include <string>
 
 /// \addtogroup interfaces Interfaces
 /// @{
@@ -61,7 +62,8 @@ namespace tide
      * clean-up in its destructor. POD types qualify for this.
      */
     template<typename T>
-    class TIDE_EXPORT PrimitiveElement : public Element
+    class TIDE_EXPORT PrimitiveElement : public Element,
+            public boost::equality_comparable<PrimitiveElement<T> >
     {
         public:
             /** \brief Create a new element with no default.
@@ -151,10 +153,22 @@ namespace tide
             virtual bool is_default() const
                 { return value_ == default_ && has_default_; }
 
+            /// \brief Equality operator.
+            friend bool operator==(PrimitiveElement<T> const& lhs,
+                    PrimitiveElement<T> const& rhs)
+            {
+                return lhs.value_ == rhs.value_;
+            }
+
         protected:
             T value_;
             T default_;
             bool has_default_;
+
+            virtual bool equal_(PrimitiveElement<T> const& rhs)
+            {
+                return value_ == rhs.value_;
+            }
     }; // class Element
 }; // namespace tide
 

@@ -60,88 +60,459 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<h1>tide Namespace Reference<div class="ingroups"><a class="el" href="group__exceptions.html">Exceptions</a> &#124; <a class="el" href="group__utilities.html">Utilities</a> &#124; <a class="el" href="group__interface.html">Interface</a> &#124; <a class="el" href="group__implementations.html">Implementations</a></div></h1>  </div>
+<h1>tide Namespace Reference<div class="ingroups"><a class="el" href="group__implementations.html">Implementations</a> &#124; <a class="el" href="group__interfaces.html">Interfaces</a> &#124; <a class="el" href="group__ebml.html">EBML</a> &#124; <a class="el" href="group__exceptions.html">Exceptions</a> &#124; <a class="el" href="group__elements.html">Elements</a> &#124; <a class="el" href="group__utilities.html">Utilities</a></div></h1>  </div>
 </div>
 <div class="contents">
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ebml__int.html">ebml_int</a></td></tr>
+
+<p><tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>Functions for managing integers coded for EBML. </p>
+<br/></td></tr>
+</p>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ids.html">ids</a></td></tr>
+
+<p><tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>This namespace contains constants and functions for managing EBML class IDs. </p>
+<br/></td></tr>
+</p>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html">vint</a></td></tr>
+
+<p><tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>Functions for managing variable-length integers. </p>
+<br/></td></tr>
+</p>
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_binary_element.html">BinaryElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary primitive element.  <a href="classtide_1_1_binary_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_date_element.html">DateElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Date primitive element.  <a href="classtide_1_1_date_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html">EBMLElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The EBML Header element.  <a href="classtide_1_1_e_b_m_l_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html">Element</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> interface, a basic interface to an element object.  <a href="classtide_1_1_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_tide_error.html">TideError</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base error type.  <a href="structtide_1_1_tide_error.html#_details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_no_name.html">NoName</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">No name error.  <a href="structtide_1_1_no_name.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_e_b_m_l.html">NotEBML</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File is not an EBML file.  <a href="structtide_1_1_not_e_b_m_l.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_tide.html">NotTide</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File is not a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file.  <a href="structtide_1_1_not_tide.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_read_version.html">BadReadVersion</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The required EBML read version is too high.  <a href="structtide_1_1_bad_read_version.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_doc_read_version.html">BadDocReadVersion</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The required <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> read version is too high.  <a href="structtide_1_1_bad_doc_read_version.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_e_b_m_l_i_d.html">InvalidEBMLID</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An invalid EBML class ID was found.  <a href="structtide_1_1_invalid_e_b_m_l_i_d.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_var_int.html">InvalidVarInt</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An invalid variable-length integer was found.  <a href="structtide_1_1_invalid_var_int.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_var_int_too_big.html">VarIntTooBig</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A variable-length integer is too large to be encoded.  <a href="structtide_1_1_var_int_too_big.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_spec_size_too_small.html">SpecSizeTooSmall</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A specified size for a variable-length integer is too small.  <a href="structtide_1_1_spec_size_too_small.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_buffer_too_small.html">BufferTooSmall</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A buffer was too small for the data.  <a href="structtide_1_1_buffer_too_small.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_read_error.html">ReadError</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A read error was encountered during a read.  <a href="structtide_1_1_read_error.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_write_error.html">WriteError</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A write error was encountered during a write.  <a href="structtide_1_1_write_error.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_element_i_d.html">InvalidElementID</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An invalid <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID was provided.  <a href="structtide_1_1_invalid_element_i_d.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_element_length.html">BadElementLength</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A fixed-length element is truncated or lengthened in the file.  <a href="structtide_1_1_bad_element_length.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_body_size.html">BadBodySize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A read body size does not match the actual body size in the file.  <a href="structtide_1_1_bad_body_size.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_child_i_d.html">InvalidChildID</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element was found where it doesn't belong.  <a href="structtide_1_1_invalid_child_i_d.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_missing_child.html">MissingChild</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A necessary child element was missing.  <a href="structtide_1_1_missing_child.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_value_out_of_range.html">ValueOutOfRange</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element's value was set outside the allowable range.  <a href="structtide_1_1_value_out_of_range.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_value_size_out_of_range.html">ValueSizeOutOfRange</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element's size is below or above the required size.  <a href="structtide_1_1_value_size_out_of_range.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html">FloatElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Float primitive element.  <a href="classtide_1_1_float_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_int_element.html">IntElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed integer primitive element.  <a href="classtide_1_1_int_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_master_element.html">MasterElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_master_element.html" title="The MasterElement interface.">MasterElement</a> interface.  <a href="classtide_1_1_master_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_metaseek.html">Metaseek</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file.">Metaseek</a> element, used as an index for a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file.  <a href="classtide_1_1_metaseek.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The primitive data element interface.  <a href="classtide_1_1_primitive_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html">SeekElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The Seek element, which contains a single index point in the SeekHead element.  <a href="classtide_1_1_seek_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html">SegmentInfo</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta-data for a segment.">SegmentInfo</a> element, containing the meta-data for a segment.  <a href="classtide_1_1_segment_info.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_string_element.html">StringElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">String primitive element.  <a href="classtide_1_1_string_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide.html">Tide</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> interface, the interface provided by all <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> objects.  <a href="classtide_1_1_tide.html#_details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html">TideFile</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File-based implementation of the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> interface.  <a href="classtide_1_1_tide_file.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_impl.html">TideImpl</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> interface.  <a href="classtide_1_1_tide_impl.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_entry.html">TrackEntry</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A track entry provides the meta-data for a single track.  <a href="classtide_1_1_track_entry.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_operation_base.html">TrackOperationBase</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for individual track operations.  <a href="classtide_1_1_track_operation_base.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html">TrackJoinBlocks</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">JoinBlocks track operation.  <a href="classtide_1_1_track_join_blocks.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html">Tracks</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element, listing all tracks in the segment.  <a href="classtide_1_1_tracks.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_u_int_element.html">UIntElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsigned integer primitive element.  <a href="classtide_1_1_u_int_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html">VoidElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Void primitive element.  <a href="classtide_1_1_void_element.html#_details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
-boost::iostreams::stream<br class="typebreak"/>
-&lt; boost::iostreams::basic_null_device<br class="typebreak"/>
-&lt; char, <br class="typebreak"/>
-boost::iostreams::output &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a0dd4d6e0d187e56258fc941336848502">NullOStream</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A null implementation of the std::ostream interface.  <a href="#a0dd4d6e0d187e56258fc941336848502"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_ver, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ac4c4e731a771c9ed911da87102b3387a">err_ver</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A version.  <a href="#ac4c4e731a771c9ed911da87102b3387a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_pos, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ab68d75dd75154f94e8fda6009bdfed2d">err_pos</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Position in a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file.  <a href="#ab68d75dd75154f94e8fda6009bdfed2d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_varint, uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a66de8ce469b919fd706102f297212743">err_varint</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Value of a variable-length integer.  <a href="#a66de8ce469b919fd706102f297212743"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_bufsize, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a0369a0d448f755bb2629183243ae899c">err_bufsize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of a buffer.  <a href="#a0369a0d448f755bb2629183243ae899c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_reqsize, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a483f00500e3df5562e000b9b709e35cc">err_reqsize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The required size of a buffer or a file read.  <a href="#a483f00500e3df5562e000b9b709e35cc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_specsize, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a3f0553ca9fac25372f005b7dfb592901">err_specsize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The specified size to encode a variable-length integer into.  <a href="#a3f0553ca9fac25372f005b7dfb592901"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_id, <a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">ids::ID</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a18791d2ad49486af46c99345028b4321">err_id</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID.  <a href="#a18791d2ad49486af46c99345028b4321"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_par_id, uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#abcbb666958999a74dcb55cf9219b0adf">err_par_id</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A parent element ID.  <a href="#abcbb666958999a74dcb55cf9219b0adf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_valid_sizes, <br class="typebreak"/>
+std::vector&lt; std::streamsize &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a1f514f3b82b5a92d1d8364406647888d">err_valid_sizes</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of valid element sizes.  <a href="#a1f514f3b82b5a92d1d8364406647888d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_el_size, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d">err_el_size</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of an element.  <a href="#a53dc5e8b32b3cad0a4bce2637d39b81d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classtide_1_1_track_operation_base.html">TrackOperationBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a60357815c8961226b9cf312adcf79c29">OpPtr</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base type of a track operation pointer.  <a href="#a60357815c8961226b9cf312adcf79c29"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a> { <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646">MODE_READ</a>, 
-<a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670">MODE_WRITE</a>, 
-<a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f">MODE_APPEND</a>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76c">EBMLFloatPrec</a> { <a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76ca1f6bb26c9ec8840742f642cc2d39a8cc">EBML_FLOAT_PREC_SINGLE</a>, 
+<a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76ca7d5d75abc392fa0920382ea908df725a">EBML_FLOAT_PREC_DOUBLE</a>
  }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>Access modes. </p>
- <a href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">More...</a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>Precision of float elements. </p>
+ <a href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76c">More...</a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a1da09d1196f3e8a0f59f9f3a0bae73f1">skip_read</a> (std::istream &amp;input, bool and_id)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip an element in an input stream.  <a href="#a1da09d1196f3e8a0f59f9f3a0bae73f1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a865bbc5fdbdbbcfc30dffa74d40713f2">skip_write</a> (std::iostream &amp;stream, bool and_id)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip an element in an input/output stream.  <a href="#a865bbc5fdbdbbcfc30dffa74d40713f2"></a><br/></td></tr>
 </table>
 <hr/><h2>Typedef Documentation</h2>
-<a class="anchor" id="a0dd4d6e0d187e56258fc941336848502"></a><!-- doxytag: member="tide::NullOStream" ref="a0dd4d6e0d187e56258fc941336848502" args="" -->
+<a class="anchor" id="a0369a0d448f755bb2629183243ae899c"></a><!-- doxytag: member="tide::err_bufsize" ref="a0369a0d448f755bb2629183243ae899c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef boost::iostreams::stream&lt;boost::iostreams::basic_null_device&lt;char, boost::iostreams::output&gt; &gt; <a class="el" href="namespacetide.html#a0dd4d6e0d187e56258fc941336848502">tide::NullOStream</a></td>
+          <td class="memname">typedef boost::error_info&lt;struct tag_bufsize, std::streamsize&gt; <a class="el" href="namespacetide.html#a0369a0d448f755bb2629183243ae899c">tide::err_bufsize</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>A null implementation of the std::ostream interface. </p>
-<p>This std::ostream implementation ignores every write, effectively discarding the data into the ether. Use it for the verbose output of a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object to disable verbose information output. </p>
+<p>The size of a buffer. </p>
 
-<p>Definition at line <a class="el" href="null__stream_8h_source.html#l00046">46</a> of file <a class="el" href="null__stream_8h_source.html">null_stream.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00296">296</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a53dc5e8b32b3cad0a4bce2637d39b81d"></a><!-- doxytag: member="tide::err_el_size" ref="a53dc5e8b32b3cad0a4bce2637d39b81d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_el_size, std::streamsize&gt; <a class="el" href="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d">tide::err_el_size</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The size of an element. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00315">315</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a18791d2ad49486af46c99345028b4321"></a><!-- doxytag: member="tide::err_id" ref="a18791d2ad49486af46c99345028b4321" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_id, <a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">ids::ID</a>&gt; <a class="el" href="namespacetide.html#a18791d2ad49486af46c99345028b4321">tide::err_id</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>An <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00305">305</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abcbb666958999a74dcb55cf9219b0adf"></a><!-- doxytag: member="tide::err_par_id" ref="abcbb666958999a74dcb55cf9219b0adf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_par_id, uint32_t&gt; <a class="el" href="namespacetide.html#abcbb666958999a74dcb55cf9219b0adf">tide::err_par_id</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>A parent element ID. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00308">308</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab68d75dd75154f94e8fda6009bdfed2d"></a><!-- doxytag: member="tide::err_pos" ref="ab68d75dd75154f94e8fda6009bdfed2d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_pos, std::streamsize&gt; <a class="el" href="namespacetide.html#ab68d75dd75154f94e8fda6009bdfed2d">tide::err_pos</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Position in a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00290">290</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a483f00500e3df5562e000b9b709e35cc"></a><!-- doxytag: member="tide::err_reqsize" ref="a483f00500e3df5562e000b9b709e35cc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_reqsize, std::streamsize&gt; <a class="el" href="namespacetide.html#a483f00500e3df5562e000b9b709e35cc">tide::err_reqsize</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The required size of a buffer or a file read. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00299">299</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3f0553ca9fac25372f005b7dfb592901"></a><!-- doxytag: member="tide::err_specsize" ref="a3f0553ca9fac25372f005b7dfb592901" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_specsize, std::streamsize&gt; <a class="el" href="namespacetide.html#a3f0553ca9fac25372f005b7dfb592901">tide::err_specsize</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The specified size to encode a variable-length integer into. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00302">302</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1f514f3b82b5a92d1d8364406647888d"></a><!-- doxytag: member="tide::err_valid_sizes" ref="a1f514f3b82b5a92d1d8364406647888d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_valid_sizes, std::vector&lt;std::streamsize&gt; &gt; <a class="el" href="namespacetide.html#a1f514f3b82b5a92d1d8364406647888d">tide::err_valid_sizes</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>A set of valid element sizes. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00312">312</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66de8ce469b919fd706102f297212743"></a><!-- doxytag: member="tide::err_varint" ref="a66de8ce469b919fd706102f297212743" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_varint, uint64_t&gt; <a class="el" href="namespacetide.html#a66de8ce469b919fd706102f297212743">tide::err_varint</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Value of a variable-length integer. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00293">293</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac4c4e731a771c9ed911da87102b3387a"></a><!-- doxytag: member="tide::err_ver" ref="ac4c4e731a771c9ed911da87102b3387a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_ver, std::streamsize&gt; <a class="el" href="namespacetide.html#ac4c4e731a771c9ed911da87102b3387a">tide::err_ver</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>A version. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00287">287</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a60357815c8961226b9cf312adcf79c29"></a><!-- doxytag: member="tide::OpPtr" ref="a60357815c8961226b9cf312adcf79c29" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::shared_ptr&lt;<a class="el" href="classtide_1_1_track_operation_base.html">TrackOperationBase</a>&gt; <a class="el" href="namespacetide.html#a60357815c8961226b9cf312adcf79c29">tide::OpPtr</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Base type of a track operation pointer. </p>
+
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00067">67</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Enumeration Type Documentation</h2>
-<a class="anchor" id="a1e386119957c6de0dcf01a2118345992"></a><!-- doxytag: member="tide::MODE" ref="a1e386119957c6de0dcf01a2118345992" args="" -->
+<a class="anchor" id="a22278e04001bdeb6c7dd34685caed76c"></a><!-- doxytag: member="tide::EBMLFloatPrec" ref="a22278e04001bdeb6c7dd34685caed76c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">tide::MODE</a></td>
+          <td class="memname">enum <a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76c">tide::EBMLFloatPrec</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Access modes. </p>
+<p>Precision of float elements. </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646"></a><!-- doxytag: member="MODE_READ" ref="a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646" args="" -->MODE_READ</em>&nbsp;</td><td>
-<p>Read-only access. </p>
+<tr><td valign="top"><em><a class="anchor" id="a22278e04001bdeb6c7dd34685caed76ca1f6bb26c9ec8840742f642cc2d39a8cc"></a><!-- doxytag: member="EBML_FLOAT_PREC_SINGLE" ref="a22278e04001bdeb6c7dd34685caed76ca1f6bb26c9ec8840742f642cc2d39a8cc" args="" -->EBML_FLOAT_PREC_SINGLE</em>&nbsp;</td><td>
+<p>Single precision. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670"></a><!-- doxytag: member="MODE_WRITE" ref="a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670" args="" -->MODE_WRITE</em>&nbsp;</td><td>
-<p>Write-only access, truncating. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f"></a><!-- doxytag: member="MODE_APPEND" ref="a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f" args="" -->MODE_APPEND</em>&nbsp;</td><td>
-<p>Write-only access, appending. </p>
+<tr><td valign="top"><em><a class="anchor" id="a22278e04001bdeb6c7dd34685caed76ca7d5d75abc392fa0920382ea908df725a"></a><!-- doxytag: member="EBML_FLOAT_PREC_DOUBLE" ref="a22278e04001bdeb6c7dd34685caed76ca7d5d75abc392fa0920382ea908df725a" args="" -->EBML_FLOAT_PREC_DOUBLE</em>&nbsp;</td><td>
+<p>Double precision. </p>
 </td></tr>
 </table>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="tide_8h_source.html#l00043">43</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
+<p>Definition at line <a class="el" href="float__element_8h_source.html#l00040">40</a> of file <a class="el" href="float__element_8h_source.html">float_element.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a1da09d1196f3e8a0f59f9f3a0bae73f1"></a><!-- doxytag: member="tide::skip_read" ref="a1da09d1196f3e8a0f59f9f3a0bae73f1" args="(std::istream &amp;input, bool and_id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::skip_read </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>and_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Skip an element in an input stream. </p>
+<p>This function skips past an element, placing the read pointer at the ID of the next element.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>The input stream to seek the read pointer in. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">and_id</td><td>If true, the read pointer is expected to be at the ID of the element to skip when the function is called, and the ID will also be skipped. If false, the read pointer is expected to be placed before the element's size value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes skipped. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a865bbc5fdbdbbcfc30dffa74d40713f2"></a><!-- doxytag: member="tide::skip_write" ref="a865bbc5fdbdbbcfc30dffa74d40713f2" args="(std::iostream &amp;stream, bool and_id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::skip_write </td>
+          <td>(</td>
+          <td class="paramtype">std::iostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>and_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Skip an element in an input/output stream. </p>
+<p>This function skips past an element, placing the write pointer after the end of the element's body.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">stream</td><td>The input/ouput stream to seek the write pointer in. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">and_id</td><td>If true, the write pointer is expected to be at the ID of the element to skip when the function is called, and the ID will also be skipped. If false, the write pointer is expected to be placed before the element's size value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes skipped. </dd></dl>
 
 </div>
 </div>
@@ -160,7 +531,7 @@ Enumerations</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 24 2011 18:03:18 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

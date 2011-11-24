@@ -69,9 +69,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>tide.h</h1>  </div>
 </div>
 <div class="contents">
-<a href="tide_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* TIDE</span>
+<a href="tide_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* Tide</span>
 <a name="l00002"></a>00002 <span class="comment"> *</span>
-<a name="l00003"></a>00003 <span class="comment"> * Header file for the TIDE object interface.</span>
+<a name="l00003"></a>00003 <span class="comment"> * Header file for the Tide object interface.</span>
 <a name="l00004"></a>00004 <span class="comment"> *</span>
 <a name="l00005"></a>00005 <span class="comment"> * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp</span>
 <a name="l00006"></a>00006 <span class="comment"> *     RT-Synthesis Research Group</span>
@@ -80,57 +80,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00009"></a>00009 <span class="comment"> *     Japan</span>
 <a name="l00010"></a>00010 <span class="comment"> *     All rights reserved.</span>
 <a name="l00011"></a>00011 <span class="comment"> *</span>
-<a name="l00012"></a>00012 <span class="comment"> * This file is part of TIDE.</span>
+<a name="l00012"></a>00012 <span class="comment"> * This file is part of Tide.</span>
 <a name="l00013"></a>00013 <span class="comment"> *</span>
-<a name="l00014"></a>00014 <span class="comment"> * TIDE is free software; you can redistribute it and/or modify it under</span>
+<a name="l00014"></a>00014 <span class="comment"> * Tide is free software; you can redistribute it and/or modify it under</span>
 <a name="l00015"></a>00015 <span class="comment"> * the terms of the GNU Lesser General Public License as published by</span>
 <a name="l00016"></a>00016 <span class="comment"> * the Free Software Foundation; either version 2.1 of the License, or</span>
 <a name="l00017"></a>00017 <span class="comment"> * (at your option) any later version.</span>
 <a name="l00018"></a>00018 <span class="comment"> *</span>
-<a name="l00019"></a>00019 <span class="comment"> * TIDE is distributed in the hope that it will be useful, but WITHOUT</span>
+<a name="l00019"></a>00019 <span class="comment"> * Tide is distributed in the hope that it will be useful, but WITHOUT</span>
 <a name="l00020"></a>00020 <span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
 <a name="l00021"></a>00021 <span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public</span>
 <a name="l00022"></a>00022 <span class="comment"> * License for more details.</span>
 <a name="l00023"></a>00023 <span class="comment"> *</span>
 <a name="l00024"></a>00024 <span class="comment"> * You should have received a copy of the GNU Lesser General Public</span>
-<a name="l00025"></a>00025 <span class="comment"> * License along with TIDE. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<a name="l00025"></a>00025 <span class="comment"> * License along with Tide. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <a name="l00026"></a>00026 <span class="comment"> */</span>
 <a name="l00027"></a>00027 
 <a name="l00028"></a>00028 <span class="preprocessor">#if !defined(TIDE_TIDE_H_)</span>
 <a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#define TIDE_TIDE_H_</span>
 <a name="l00030"></a>00030 <span class="preprocessor"></span>
-<a name="l00031"></a>00031 <span class="preprocessor">#include &lt;tide/null_stream.h&gt;</span>
-<a name="l00032"></a>00032 <span class="preprocessor">#include &lt;tide/win_dll.h&gt;</span>
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;boost/utility.hpp&gt;</span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00031"></a>00031 <span class="preprocessor">#include &lt;tide/win_dll.h&gt;</span>
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="preprocessor">#include &lt;boost/utility.hpp&gt;</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
 <a name="l00036"></a>00036 
 <a name="l00039"></a>00039 
 <a name="l00040"></a>00040 <span class="keyword">namespace </span>tide
 <a name="l00041"></a>00041 {
-<a name="l00043"></a><a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">00043</a>     <span class="keyword">enum</span> <a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992" title="Access modes.">MODE</a>
-<a name="l00044"></a>00044     {
-<a name="l00046"></a><a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646">00046</a>         <a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646" title="Read-only access.">MODE_READ</a>,
-<a name="l00048"></a><a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670">00048</a>         <a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670" title="Write-only access, truncating.">MODE_WRITE</a>,
-<a name="l00050"></a><a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f">00050</a>         <a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f" title="Write-only access, appending.">MODE_APPEND</a>
-<a name="l00051"></a>00051     };
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 
-<a name="l00061"></a><a class="code" href="classtide_1_1_tide.html">00061</a>     <span class="keyword">class </span><a class="code" href="win__dll_8h.html#adedfce2bc7606d774db0029a38b3d68e">TIDE_EXPORT</a> <a class="code" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> : <span class="keyword">private</span> boost::noncopyable
-<a name="l00062"></a>00062     {
-<a name="l00063"></a>00063         <span class="keyword">public</span>:
-<a name="l00076"></a><a class="code" href="classtide_1_1_tide.html#a680a642acd4086f581fcb089addaeff7">00076</a>             <a class="code" href="classtide_1_1_tide.html#a680a642acd4086f581fcb089addaeff7" title="Create a new Tide object.">Tide</a>(std::string name, <a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992" title="Access modes.">MODE</a> mode) {};
-<a name="l00077"></a>00077 
-<a name="l00092"></a><a class="code" href="classtide_1_1_tide.html#ad52a6a78934b8e5f13e3bd6c92d4a133">00092</a>             <a class="code" href="classtide_1_1_tide.html#ad52a6a78934b8e5f13e3bd6c92d4a133" title="Create a new Tide object.">Tide</a>(std::string name, <a class="code" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992" title="Access modes.">MODE</a> mode, std::ostream&amp; verb_out) {};
-<a name="l00093"></a>00093 
-<a name="l00101"></a><a class="code" href="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887">00101</a>             <span class="keyword">virtual</span> <a class="code" href="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887" title="Destroy the Tide object.">~Tide</a>() {};
-<a name="l00102"></a>00102     }; <span class="comment">// class Tide</span>
-<a name="l00103"></a>00103 }; <span class="comment">// namespace tide</span>
-<a name="l00104"></a>00104 
-<a name="l00106"></a>00106 <span class="comment">// group interface</span>
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108 <span class="preprocessor">#endif // TIDE_TIDE_H_</span>
-<a name="l00109"></a>00109 <span class="preprocessor"></span>
+<a name="l00049"></a><a class="code" href="classtide_1_1_tide.html">00049</a>     <span class="keyword">class </span><a class="code" href="win__dll_8h.html#adedfce2bc7606d774db0029a38b3d68e">TIDE_EXPORT</a> <a class="code" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> : <span class="keyword">private</span> boost::noncopyable
+<a name="l00050"></a>00050     {
+<a name="l00051"></a>00051         <span class="keyword">public</span>:
+<a name="l00077"></a><a class="code" href="classtide_1_1_tide.html#a32000d41d95d1508febe8fd63623154c">00077</a>             <a class="code" href="classtide_1_1_tide.html#a32000d41d95d1508febe8fd63623154c" title="Create a new Tide object.">Tide</a>(std::iostream&amp; stream) {}
+<a name="l00078"></a>00078 
+<a name="l00088"></a><a class="code" href="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887">00088</a>             <span class="keyword">virtual</span> <a class="code" href="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887" title="Destroy the Tide object.">~Tide</a>() {};
+<a name="l00089"></a>00089     }; <span class="comment">// class Tide</span>
+<a name="l00090"></a>00090 }; <span class="comment">// namespace tide</span>
+<a name="l00091"></a>00091 
+<a name="l00093"></a>00093 <span class="comment">// group interfaces</span>
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 <span class="preprocessor">#endif // TIDE_TIDE_H_</span>
+<a name="l00096"></a>00096 <span class="preprocessor"></span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -147,7 +137,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 24 2011 18:03:18 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

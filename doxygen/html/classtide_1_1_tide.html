@@ -83,17 +83,15 @@ Inheritance diagram for tide::Tide:</div>
 <div class="dyncontent">
 <div class="center"><img src="classtide_1_1_tide__inherit__graph.png" border="0" usemap="#tide_1_1_tide_inherit__map" alt="Inheritance graph"/></div>
 <map name="tide_1_1_tide_inherit__map" id="tide_1_1_tide_inherit__map">
-<area shape="rect" id="node3" href="classtide_1_1_tide_file.html" title="File&#45;based implementation of the Tide interface." alt="" coords="5,83,109,111"/></map>
+<area shape="rect" id="node3" href="classtide_1_1_tide_impl.html" title="Implementation of the Tide interface." alt="" coords="5,83,115,111"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classtide_1_1_tide-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide.html#a680a642acd4086f581fcb089addaeff7">Tide</a> (std::string name, <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a> mode)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object.  <a href="#a680a642acd4086f581fcb089addaeff7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide.html#ad52a6a78934b8e5f13e3bd6c92d4a133">Tide</a> (std::string name, <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a> mode, std::ostream &amp;verb_out)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object.  <a href="#ad52a6a78934b8e5f13e3bd6c92d4a133"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide.html#a32000d41d95d1508febe8fd63623154c">Tide</a> (std::iostream &amp;stream)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object.  <a href="#a32000d41d95d1508febe8fd63623154c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887">~Tide</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object.  <a href="#a70b69ab7c6e985cf97c032c2a15f1887"></a><br/></td></tr>
 </table>
@@ -101,89 +99,42 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>The <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> interface, the interface provided by all <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> objects. </p>
 <p>This class defines the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> interface. All implementations must implement these methods. A <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> implementation may use whatever it desires to provide the functionality. Two commonly-used implementations are a file store and a memory store. </p>
 
-<p>Definition at line <a class="el" href="tide_8h_source.html#l00061">61</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
+<p>Definition at line <a class="el" href="tide_8h_source.html#l00049">49</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a680a642acd4086f581fcb089addaeff7"></a><!-- doxytag: member="tide::Tide::Tide" ref="a680a642acd4086f581fcb089addaeff7" args="(std::string name, MODE mode)" -->
+<a class="anchor" id="a32000d41d95d1508febe8fd63623154c"></a><!-- doxytag: member="tide::Tide::Tide" ref="a32000d41d95d1508febe8fd63623154c" args="(std::iostream &amp;stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">tide::Tide::Tide </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a>&#160;</td>
-          <td class="paramname"><em>mode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline]</code></td>
+          <td class="paramtype">std::iostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Create a new <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object. </p>
-<p>The verbose output will be sent to std::clog.</p>
+<p>This constructor makes a new <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object around an input/output stream.</p>
+<p>The stream will be checked for its current contents. If it is empty (i.e. the size of its contents is zero), then it will be initialised as a new EBML file. Otherwise, it will be treated as an existing EBML file and read. In this case, if an EBML header cannot be found or the DocType is incorrect, <a class="el" href="structtide_1_1_not_tide.html" title="File is not a Tide file.">NotTide</a> will be raised.</p>
+<p>EBML supports placing text before the EBML header. Anything up to the first 0x1A byte is ignored. This means you can place data into the stream before passing it to <a class="el" href="classtide_1_1_tide.html#a32000d41d95d1508febe8fd63623154c" title="Create a new Tide object.">Tide::Tide()</a>. <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> will treat the current position in the stream when this constructor is called as the beginning of the stream.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>The name of the object. Usage is implementation-dependent. If <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670">MODE_WRITE</a> is passed for mode and the name is in use, the previous entity using that name will be destroyed. The definition of "in use" and "destroyed" varies by implementation. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>The open mode, one of the possible values defined by <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">stream</td><td>A reference to the std::iostream object to read from and write to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_not_e_b_m_l.html" title="File is not an EBML file.">NotEBML</a></td><td>if the stream is not empty and does not contain an EBML header. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_not_tide.html" title="File is not a Tide file.">NotTide</a></td><td>if the stream is not empty and does not contain valid EBML with the "tide" DocType. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="tide_8h_source.html#l00076">76</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad52a6a78934b8e5f13e3bd6c92d4a133"></a><!-- doxytag: member="tide::Tide::Tide" ref="ad52a6a78934b8e5f13e3bd6c92d4a133" args="(std::string name, MODE mode, std::ostream &amp;verb_out)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tide::Tide::Tide </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a>&#160;</td>
-          <td class="paramname"><em>mode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>verb_out</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Create a new <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>The name of the object. Usage is implementation-dependent. If <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670">MODE_WRITE</a> is passed for mode and the name is in use, the previous entity using that name will be destroyed. The definition of "in use" and "destroyed" varies by implementation. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>The open mode, one of the possible values defined by <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a>. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">verb_out</td><td>Output ostream for the verbose output. Pass in a null stream (e.g. a stream constructed using boost::iostreams::basic_null_device, which is the default) to disable verbose output. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="tide_8h_source.html#l00092">92</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
+<p>Definition at line <a class="el" href="tide_8h_source.html#l00077">77</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
 
 </div>
 </div>
@@ -202,9 +153,10 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Destroy the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object. </p>
-<p>All resources used by the object will be cleaned up when its destructor is called. Any other objects, such as Channel or Tag objects, referencing this <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object will become invalid and should not be used. Behaviour if they are used is undefined. </p>
+<p>All resources used by the object will be cleaned up when its destructor is called. Any other objects, such as <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> objects, referencing this <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object will become invalid and should not be used. Behaviour if they are used is undefined.</p>
+<p>The stream passed to the constructor is <em>not</em> closed. </p>
 
-<p>Definition at line <a class="el" href="tide_8h_source.html#l00101">101</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
+<p>Definition at line <a class="el" href="tide_8h_source.html#l00088">88</a> of file <a class="el" href="tide_8h_source.html">tide.h</a>.</p>
 
 </div>
 </div>
@@ -226,7 +178,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 24 2011 18:03:18 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

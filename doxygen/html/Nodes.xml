@@ -10,26 +10,38 @@
         <Path>modules.html</Path>
         <Subnodes>
          <Node>
+          <Name>Implementations</Name>
+          <Path>group__implementations.html</Path>
+          <Subnodes>
+          </Subnodes>
+         </Node>
+         <Node>
+          <Name>Interfaces</Name>
+          <Path>group__interfaces.html</Path>
+          <Subnodes>
+          </Subnodes>
+         </Node>
+         <Node>
+          <Name>EBML</Name>
+          <Path>group__ebml.html</Path>
+          <Subnodes>
+          </Subnodes>
+         </Node>
+         <Node>
           <Name>Exceptions</Name>
           <Path>group__exceptions.html</Path>
           <Subnodes>
           </Subnodes>
          </Node>
          <Node>
+          <Name>Elements</Name>
+          <Path>group__elements.html</Path>
+          <Subnodes>
+          </Subnodes>
+         </Node>
+         <Node>
           <Name>Utilities</Name>
           <Path>group__utilities.html</Path>
-          <Subnodes>
-          </Subnodes>
-         </Node>
-         <Node>
-          <Name>Interface</Name>
-          <Path>group__interface.html</Path>
-          <Subnodes>
-          </Subnodes>
-         </Node>
-         <Node>
-          <Name>Implementations</Name>
-          <Path>group__implementations.html</Path>
           <Subnodes>
           </Subnodes>
          </Node>
@@ -40,8 +52,108 @@
         <Path>annotated.html</Path>
         <Subnodes>
          <Node>
-          <Name>tide::NoName</Name>
-          <Path>structtide_1_1_no_name.html</Path>
+          <Name>tide::BadBodySize</Name>
+          <Path>structtide_1_1_bad_body_size.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BadDocReadVersion</Name>
+          <Path>structtide_1_1_bad_doc_read_version.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BadElementLength</Name>
+          <Path>structtide_1_1_bad_element_length.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BadReadVersion</Name>
+          <Path>structtide_1_1_bad_read_version.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BinaryElement</Name>
+          <Path>classtide_1_1_binary_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BufferTooSmall</Name>
+          <Path>structtide_1_1_buffer_too_small.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::DateElement</Name>
+          <Path>classtide_1_1_date_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::EBMLElement</Name>
+          <Path>classtide_1_1_e_b_m_l_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::Element</Name>
+          <Path>classtide_1_1_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::FloatElement</Name>
+          <Path>classtide_1_1_float_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::IntElement</Name>
+          <Path>classtide_1_1_int_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::InvalidChildID</Name>
+          <Path>structtide_1_1_invalid_child_i_d.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::InvalidEBMLID</Name>
+          <Path>structtide_1_1_invalid_e_b_m_l_i_d.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::InvalidElementID</Name>
+          <Path>structtide_1_1_invalid_element_i_d.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::InvalidVarInt</Name>
+          <Path>structtide_1_1_invalid_var_int.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::MasterElement</Name>
+          <Path>classtide_1_1_master_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::Metaseek</Name>
+          <Path>classtide_1_1_metaseek.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::MissingChild</Name>
+          <Path>structtide_1_1_missing_child.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::NotEBML</Name>
+          <Path>structtide_1_1_not_e_b_m_l.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::NotTide</Name>
+          <Path>structtide_1_1_not_tide.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::PrimitiveElement&lt; T &gt;</Name>
+          <Path>classtide_1_1_primitive_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::ReadError</Name>
+          <Path>structtide_1_1_read_error.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::SeekElement</Name>
+          <Path>classtide_1_1_seek_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::SegmentInfo</Name>
+          <Path>classtide_1_1_segment_info.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::SpecSizeTooSmall</Name>
+          <Path>structtide_1_1_spec_size_too_small.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::StringElement</Name>
+          <Path>classtide_1_1_string_element.html</Path>
          </Node>
          <Node>
           <Name>tide::Tide</Name>
@@ -52,8 +164,52 @@
           <Path>structtide_1_1_tide_error.html</Path>
          </Node>
          <Node>
-          <Name>tide::TideFile</Name>
-          <Path>classtide_1_1_tide_file.html</Path>
+          <Name>tide::TideImpl</Name>
+          <Path>classtide_1_1_tide_impl.html</Path>
+         </Node>
+         <Node>
+          <Name>test_utils::TotalSizeOp</Name>
+          <Path>structtest__utils_1_1_total_size_op.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::TrackEntry</Name>
+          <Path>classtide_1_1_track_entry.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::TrackJoinBlocks</Name>
+          <Path>classtide_1_1_track_join_blocks.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::TrackOperationBase</Name>
+          <Path>classtide_1_1_track_operation_base.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::Tracks</Name>
+          <Path>classtide_1_1_tracks.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::UIntElement</Name>
+          <Path>classtide_1_1_u_int_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::ValueOutOfRange</Name>
+          <Path>structtide_1_1_value_out_of_range.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::ValueSizeOutOfRange</Name>
+          <Path>structtide_1_1_value_size_out_of_range.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::VarIntTooBig</Name>
+          <Path>structtide_1_1_var_int_too_big.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::VoidElement</Name>
+          <Path>classtide_1_1_void_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::WriteError</Name>
+          <Path>structtide_1_1_write_error.html</Path>
          </Node>
         </Subnodes>
        </Node>
@@ -66,12 +222,120 @@
         <Path>hierarchy.html</Path>
         <Subnodes>
          <Node>
+          <Name>tide::Element</Name>
+          <Path>classtide_1_1_element.html</Path>
+          <Subnodes>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; double &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::FloatElement</Name>
+              <Path>classtide_1_1_float_element.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; int64_t &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::DateElement</Name>
+              <Path>classtide_1_1_date_element.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::IntElement</Name>
+              <Path>classtide_1_1_int_element.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; std::string &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::StringElement</Name>
+              <Path>classtide_1_1_string_element.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; std::vector&lt; char &gt; &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::BinaryElement</Name>
+              <Path>classtide_1_1_binary_element.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; uint64_t &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::UIntElement</Name>
+              <Path>classtide_1_1_u_int_element.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::MasterElement</Name>
+            <Path>classtide_1_1_master_element.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::EBMLElement</Name>
+              <Path>classtide_1_1_e_b_m_l_element.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::Metaseek</Name>
+              <Path>classtide_1_1_metaseek.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::SeekElement</Name>
+              <Path>classtide_1_1_seek_element.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::SegmentInfo</Name>
+              <Path>classtide_1_1_segment_info.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::TrackEntry</Name>
+              <Path>classtide_1_1_track_entry.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::TrackOperationBase</Name>
+              <Path>classtide_1_1_track_operation_base.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>tide::TrackJoinBlocks</Name>
+                <Path>classtide_1_1_track_join_blocks.html</Path>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
+              <Name>tide::Tracks</Name>
+              <Path>classtide_1_1_tracks.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; T &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::VoidElement</Name>
+            <Path>classtide_1_1_void_element.html</Path>
+           </Node>
+          </Subnodes>
+         </Node>
+         <Node>
           <Name>tide::Tide</Name>
           <Path>classtide_1_1_tide.html</Path>
           <Subnodes>
            <Node>
-            <Name>tide::TideFile</Name>
-            <Path>classtide_1_1_tide_file.html</Path>
+            <Name>tide::TideImpl</Name>
+            <Path>classtide_1_1_tide_impl.html</Path>
            </Node>
           </Subnodes>
          </Node>
@@ -80,10 +344,82 @@
           <Path>structtide_1_1_tide_error.html</Path>
           <Subnodes>
            <Node>
-            <Name>tide::NoName</Name>
-            <Path>structtide_1_1_no_name.html</Path>
+            <Name>tide::BadBodySize</Name>
+            <Path>structtide_1_1_bad_body_size.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::BadDocReadVersion</Name>
+            <Path>structtide_1_1_bad_doc_read_version.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::BadElementLength</Name>
+            <Path>structtide_1_1_bad_element_length.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::BadReadVersion</Name>
+            <Path>structtide_1_1_bad_read_version.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::BufferTooSmall</Name>
+            <Path>structtide_1_1_buffer_too_small.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::InvalidChildID</Name>
+            <Path>structtide_1_1_invalid_child_i_d.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::InvalidEBMLID</Name>
+            <Path>structtide_1_1_invalid_e_b_m_l_i_d.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::InvalidElementID</Name>
+            <Path>structtide_1_1_invalid_element_i_d.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::InvalidVarInt</Name>
+            <Path>structtide_1_1_invalid_var_int.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::MissingChild</Name>
+            <Path>structtide_1_1_missing_child.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::NotEBML</Name>
+            <Path>structtide_1_1_not_e_b_m_l.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::NotTide</Name>
+            <Path>structtide_1_1_not_tide.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::ReadError</Name>
+            <Path>structtide_1_1_read_error.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::SpecSizeTooSmall</Name>
+            <Path>structtide_1_1_spec_size_too_small.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::ValueOutOfRange</Name>
+            <Path>structtide_1_1_value_out_of_range.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::ValueSizeOutOfRange</Name>
+            <Path>structtide_1_1_value_size_out_of_range.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::VarIntTooBig</Name>
+            <Path>structtide_1_1_var_int_too_big.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::WriteError</Name>
+            <Path>structtide_1_1_write_error.html</Path>
            </Node>
           </Subnodes>
+         </Node>
+         <Node>
+          <Name>test_utils::TotalSizeOp</Name>
+          <Path>structtest__utils_1_1_total_size_op.html</Path>
          </Node>
         </Subnodes>
        </Node>
@@ -96,8 +432,24 @@
         <Path>namespaces.html</Path>
         <Subnodes>
          <Node>
+          <Name>test_utils</Name>
+          <Path>namespacetest__utils.html</Path>
+         </Node>
+         <Node>
           <Name>tide</Name>
           <Path>namespacetide.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::ebml_int</Name>
+          <Path>namespacetide_1_1ebml__int.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::ids</Name>
+          <Path>namespacetide_1_1ids.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::vint</Name>
+          <Path>namespacetide_1_1vint.html</Path>
          </Node>
         </Subnodes>
        </Node>
@@ -110,24 +462,104 @@
         <Path>files.html</Path>
         <Subnodes>
          <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/binary_element.h</Name>
+          <Path>binary__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/date_element.h</Name>
+          <Path>date__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/ebml_element.h</Name>
+          <Path>ebml__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/ebml_int.h</Name>
+          <Path>ebml__int_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/el_ids.h</Name>
+          <Path>el__ids_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/element.h</Name>
+          <Path>element_8h.html</Path>
+         </Node>
+         <Node>
           <Name>/home/geoff/research/src/tide/include/tide/exceptions.h</Name>
           <Path>exceptions_8h.html</Path>
          </Node>
          <Node>
-          <Name>/home/geoff/research/src/tide/include/tide/null_stream.h</Name>
-          <Path>null__stream_8h.html</Path>
+          <Name>/home/geoff/research/src/tide/include/tide/float_element.h</Name>
+          <Path>float__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/int_element.h</Name>
+          <Path>int__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/master_element.h</Name>
+          <Path>master__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/metaseek.h</Name>
+          <Path>metaseek_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/prim_element.h</Name>
+          <Path>prim__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/seek_element.h</Name>
+          <Path>seek__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/segment_info.h</Name>
+          <Path>segment__info_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/string_element.h</Name>
+          <Path>string__element_8h.html</Path>
          </Node>
          <Node>
           <Name>/home/geoff/research/src/tide/include/tide/tide.h</Name>
           <Path>tide_8h.html</Path>
          </Node>
          <Node>
-          <Name>/home/geoff/research/src/tide/include/tide/tide_file.h</Name>
-          <Path>tide__file_8h.html</Path>
+          <Name>/home/geoff/research/src/tide/include/tide/tide_impl.h</Name>
+          <Path>tide__impl_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/track_entry.h</Name>
+          <Path>track__entry_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/track_operation.h</Name>
+          <Path>track__operation_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/tracks.h</Name>
+          <Path>tracks_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/uint_element.h</Name>
+          <Path>uint__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/vint.h</Name>
+          <Path>vint_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/void_element.h</Name>
+          <Path>void__element_8h.html</Path>
          </Node>
          <Node>
           <Name>/home/geoff/research/src/tide/include/tide/win_dll.h</Name>
           <Path>win__dll_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/test/test_utils.h</Name>
+          <Path>test__utils_8h.html</Path>
          </Node>
         </Subnodes>
        </Node>
@@ -145,6 +577,12 @@
             <Subnodes>
             </Subnodes>
            </Node>
+          </Subnodes>
+         </Node>
+         <Node>
+          <Name>test</Name>
+          <Path>dir_fa27d0bec3d7f1cf7feaa764662d1d71.html</Path>
+          <Subnodes>
           </Subnodes>
          </Node>
         </Subnodes>

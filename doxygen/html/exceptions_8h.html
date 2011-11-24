@@ -67,20 +67,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <h1>exceptions.h File Reference</h1>  </div>
 </div>
 <div class="contents">
-<div class="textblock"><code>#include &lt;tide/win_dll.h&gt;</code><br/>
+<div class="textblock"><code>#include &lt;tide/el_ids.h&gt;</code><br/>
+<code>#include &lt;tide/win_dll.h&gt;</code><br/>
 <code>#include &lt;boost/exception/all.hpp&gt;</code><br/>
 <code>#include &lt;exception&gt;</code><br/>
+<code>#include &lt;stdint.h&gt;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for exceptions.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="exceptions_8h__incl.png" border="0" usemap="#_2home_2geoff_2research_2src_2tide_2include_2tide_2exceptions_8h" alt=""/></div>
-<map name="_2home_2geoff_2research_2src_2tide_2include_2tide_2exceptions_8h" id="_2home_2geoff_2research_2src_2tide_2include_2tide_2exceptions_8h">
-</map>
 </div>
 </div>
 <p><a href="exceptions_8h_source.html">Go to the source code of this file.</a></p>
@@ -89,11 +91,84 @@ Include dependency graph for exceptions.h:</div>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_tide_error.html">tide::TideError</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base error type.  <a href="structtide_1_1_tide_error.html#_details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_no_name.html">tide::NoName</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">No name error.  <a href="structtide_1_1_no_name.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_e_b_m_l.html">tide::NotEBML</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File is not an EBML file.  <a href="structtide_1_1_not_e_b_m_l.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_tide.html">tide::NotTide</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File is not a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file.  <a href="structtide_1_1_not_tide.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_read_version.html">tide::BadReadVersion</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The required EBML read version is too high.  <a href="structtide_1_1_bad_read_version.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_doc_read_version.html">tide::BadDocReadVersion</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The required <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> read version is too high.  <a href="structtide_1_1_bad_doc_read_version.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_e_b_m_l_i_d.html">tide::InvalidEBMLID</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An invalid EBML class ID was found.  <a href="structtide_1_1_invalid_e_b_m_l_i_d.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_var_int.html">tide::InvalidVarInt</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An invalid variable-length integer was found.  <a href="structtide_1_1_invalid_var_int.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_var_int_too_big.html">tide::VarIntTooBig</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A variable-length integer is too large to be encoded.  <a href="structtide_1_1_var_int_too_big.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_spec_size_too_small.html">tide::SpecSizeTooSmall</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A specified size for a variable-length integer is too small.  <a href="structtide_1_1_spec_size_too_small.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_buffer_too_small.html">tide::BufferTooSmall</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A buffer was too small for the data.  <a href="structtide_1_1_buffer_too_small.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_read_error.html">tide::ReadError</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A read error was encountered during a read.  <a href="structtide_1_1_read_error.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_write_error.html">tide::WriteError</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A write error was encountered during a write.  <a href="structtide_1_1_write_error.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_element_i_d.html">tide::InvalidElementID</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An invalid <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID was provided.  <a href="structtide_1_1_invalid_element_i_d.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_element_length.html">tide::BadElementLength</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A fixed-length element is truncated or lengthened in the file.  <a href="structtide_1_1_bad_element_length.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_body_size.html">tide::BadBodySize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A read body size does not match the actual body size in the file.  <a href="structtide_1_1_bad_body_size.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_invalid_child_i_d.html">tide::InvalidChildID</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element was found where it doesn't belong.  <a href="structtide_1_1_invalid_child_i_d.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_missing_child.html">tide::MissingChild</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A necessary child element was missing.  <a href="structtide_1_1_missing_child.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_value_out_of_range.html">tide::ValueOutOfRange</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element's value was set outside the allowable range.  <a href="structtide_1_1_value_out_of_range.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_value_size_out_of_range.html">tide::ValueSizeOutOfRange</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element's size is below or above the required size.  <a href="structtide_1_1_value_size_out_of_range.html#_details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html">tide</a></td></tr>
+<tr><td colspan="2"><h2><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_ver, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ac4c4e731a771c9ed911da87102b3387a">tide::err_ver</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A version.  <a href="#ac4c4e731a771c9ed911da87102b3387a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_pos, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ab68d75dd75154f94e8fda6009bdfed2d">tide::err_pos</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Position in a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file.  <a href="#ab68d75dd75154f94e8fda6009bdfed2d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_varint, uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a66de8ce469b919fd706102f297212743">tide::err_varint</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Value of a variable-length integer.  <a href="#a66de8ce469b919fd706102f297212743"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_bufsize, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a0369a0d448f755bb2629183243ae899c">tide::err_bufsize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of a buffer.  <a href="#a0369a0d448f755bb2629183243ae899c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_reqsize, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a483f00500e3df5562e000b9b709e35cc">tide::err_reqsize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The required size of a buffer or a file read.  <a href="#a483f00500e3df5562e000b9b709e35cc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_specsize, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a3f0553ca9fac25372f005b7dfb592901">tide::err_specsize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The specified size to encode a variable-length integer into.  <a href="#a3f0553ca9fac25372f005b7dfb592901"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_id, ids::ID &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a18791d2ad49486af46c99345028b4321">tide::err_id</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID.  <a href="#a18791d2ad49486af46c99345028b4321"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_par_id, uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#abcbb666958999a74dcb55cf9219b0adf">tide::err_par_id</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A parent element ID.  <a href="#abcbb666958999a74dcb55cf9219b0adf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_valid_sizes, <br class="typebreak"/>
+std::vector&lt; std::streamsize &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a1f514f3b82b5a92d1d8364406647888d">tide::err_valid_sizes</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of valid element sizes.  <a href="#a1f514f3b82b5a92d1d8364406647888d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_el_size, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d">tide::err_el_size</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of an element.  <a href="#a53dc5e8b32b3cad0a4bce2637d39b81d"></a><br/></td></tr>
 </table>
 </div>
 <!--- window showing the filter options -->
@@ -110,7 +185,7 @@ Namespaces</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 24 2011 18:03:18 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

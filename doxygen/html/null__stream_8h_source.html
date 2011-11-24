@@ -104,15 +104,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00035"></a>00035 
 <a name="l00036"></a>00036 <span class="keyword">namespace </span>tide
 <a name="l00037"></a>00037 {
-<a name="l00044"></a>00044     <span class="keyword">typedef</span> boost::iostreams::stream&lt;boost::iostreams::basic_null_device&lt;char,
-<a name="l00045"></a>00045             boost::iostreams::output&gt; &gt;
-<a name="l00046"></a><a class="code" href="namespacetide.html#a0dd4d6e0d187e56258fc941336848502">00046</a>                 <a class="code" href="namespacetide.html#a0dd4d6e0d187e56258fc941336848502" title="A null implementation of the std::ostream interface.">NullOStream</a>;
-<a name="l00047"></a>00047 }; <span class="comment">// namespace tide</span>
-<a name="l00048"></a>00048 
-<a name="l00050"></a>00050 <span class="comment">// group utilities</span>
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 <span class="preprocessor">#endif // TIDE_NULL_STREAM_H_</span>
-<a name="l00053"></a>00053 <span class="preprocessor"></span>
+<a name="l00044"></a>00044     <span class="keyword">typedef</span> boost::iostreams::stream&lt;boost::iostreams::null_sink&gt;
+<a name="l00045"></a><a class="code" href="namespacetide.html#a5d2bad2f73025a02ff514b89897f73f4">00045</a>                 <a class="code" href="namespacetide.html#a5d2bad2f73025a02ff514b89897f73f4" title="A null implementation of the std::ostream interface.">NullSink</a>;
+<a name="l00046"></a>00046 }; <span class="comment">// namespace tide</span>
+<a name="l00047"></a>00047 
+<a name="l00049"></a>00049 <span class="comment">// group utilities</span>
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="preprocessor">#endif // TIDE_NULL_STREAM_H_</span>
+<a name="l00052"></a>00052 <span class="preprocessor"></span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -129,7 +128,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 24 2011 18:03:18 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 26 2011 09:38:09 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

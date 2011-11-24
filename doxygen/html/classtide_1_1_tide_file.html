@@ -69,6 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <h1>tide::TideFile Class Reference</h1>  </div>
@@ -104,18 +105,31 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a file-based <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object.  <a href="#a6fb5ada4fa2ffc5696687643ee862a6b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#aa34d1b76521ba2ba21b88c0e9107411a">~TideFile</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for a file-based <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> object.  <a href="#aa34d1b76521ba2ba21b88c0e9107411a"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#af50117ecdb3fdb2c45e5e217812e2e16">open</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the target file.  <a href="#af50117ecdb3fdb2c45e5e217812e2e16"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#a56b5642fe3f78dd71015eb69e84265bb">close</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalises and closes the target file.  <a href="#a56b5642fe3f78dd71015eb69e84265bb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#a2634b0ce3767e71ef046a186814603e0">validate_ebml_header</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that the EBML header is intact and correct.  <a href="#a2634b0ce3767e71ef046a186814603e0"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#a06c952cae8c5289e3e6efb60bf049c0b">name_</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#a4cc0e56da6b98fbe818927949aefee50">mode_</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#a8de64836c7a9d45537e41e3cd3d284df">name_</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the file to be operated on.  <a href="#a8de64836c7a9d45537e41e3cd3d284df"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a> const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#aeca2453bd4dc78caede101a6283f8d46">mode_</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The open-mode of the file, one of the values of <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a>.  <a href="#aeca2453bd4dc78caede101a6283f8d46"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#acb05d7fe3f05f21bd392671a4cf365c6">verb_</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The verbose output destination.  <a href="#acb05d7fe3f05f21bd392671a4cf365c6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::fstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tide_file.html#a2a1b5828ed76338f6714690abd7e0f83">file_</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The file being operated on.  <a href="#a2a1b5828ed76338f6714690abd7e0f83"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>File-based implementation of the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> interface. </p>
 <p>See </p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> for method documentation. </dd></dl>
 
-<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00045">45</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
+<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00047">47</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aab9512268f26e5c69e51addfe5feb770"></a><!-- doxytag: member="tide::TideFile::TideFile" ref="aab9512268f26e5c69e51addfe5feb770" args="(std::string name, MODE mode)" -->
 <div class="memitem">
@@ -202,34 +216,110 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a56b5642fe3f78dd71015eb69e84265bb"></a><!-- doxytag: member="tide::TideFile::close" ref="a56b5642fe3f78dd71015eb69e84265bb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tide::TideFile::close </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Finalises and closes the target file. </p>
+
+</div>
+</div>
+<a class="anchor" id="af50117ecdb3fdb2c45e5e217812e2e16"></a><!-- doxytag: member="tide::TideFile::open" ref="af50117ecdb3fdb2c45e5e217812e2e16" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tide::TideFile::open </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Opens the target file. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2634b0ce3767e71ef046a186814603e0"></a><!-- doxytag: member="tide::TideFile::validate_ebml_header" ref="a2634b0ce3767e71ef046a186814603e0" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tide::TideFile::validate_ebml_header </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Checks that the EBML header is intact and correct. </p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a4cc0e56da6b98fbe818927949aefee50"></a><!-- doxytag: member="tide::TideFile::mode_" ref="a4cc0e56da6b98fbe818927949aefee50" args="" -->
+<a class="anchor" id="a2a1b5828ed76338f6714690abd7e0f83"></a><!-- doxytag: member="tide::TideFile::file_" ref="a2a1b5828ed76338f6714690abd7e0f83" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a> <a class="el" href="classtide_1_1_tide_file.html#a4cc0e56da6b98fbe818927949aefee50">tide::TideFile::mode_</a><code> [protected]</code></td>
+          <td class="memname">std::fstream <a class="el" href="classtide_1_1_tide_file.html#a2a1b5828ed76338f6714690abd7e0f83">tide::TideFile::file_</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00072">72</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
+<p>The file being operated on. </p>
+
+<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00080">80</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a06c952cae8c5289e3e6efb60bf049c0b"></a><!-- doxytag: member="tide::TideFile::name_" ref="a06c952cae8c5289e3e6efb60bf049c0b" args="" -->
+<a class="anchor" id="aeca2453bd4dc78caede101a6283f8d46"></a><!-- doxytag: member="tide::TideFile::mode_" ref="aeca2453bd4dc78caede101a6283f8d46" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string <a class="el" href="classtide_1_1_tide_file.html#a06c952cae8c5289e3e6efb60bf049c0b">tide::TideFile::name_</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a> const <a class="el" href="classtide_1_1_tide_file.html#aeca2453bd4dc78caede101a6283f8d46">tide::TideFile::mode_</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00071">71</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
+<p>The open-mode of the file, one of the values of <a class="el" href="namespacetide.html#a1e386119957c6de0dcf01a2118345992">MODE</a>. </p>
+
+<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00076">76</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8de64836c7a9d45537e41e3cd3d284df"></a><!-- doxytag: member="tide::TideFile::name_" ref="a8de64836c7a9d45537e41e3cd3d284df" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string const <a class="el" href="classtide_1_1_tide_file.html#a8de64836c7a9d45537e41e3cd3d284df">tide::TideFile::name_</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The name of the file to be operated on. </p>
+
+<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00074">74</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
 
 </div>
 </div>
@@ -244,7 +334,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00073">73</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
+<p>The verbose output destination. </p>
+
+<p>Definition at line <a class="el" href="tide__file_8h_source.html#l00078">78</a> of file <a class="el" href="tide__file_8h_source.html">tide_file.h</a>.</p>
 
 </div>
 </div>
@@ -266,7 +358,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 24 2011 18:03:18 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 8 2011 14:18:14 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

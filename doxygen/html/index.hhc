@@ -6,51 +6,174 @@
 <UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Modules"><param name="Local" value="modules.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Implementations"><param name="Local" value="group__implementations.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Interfaces"><param name="Local" value="group__interfaces.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="EBML"><param name="Local" value="group__ebml.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Exceptions"><param name="Local" value="group__exceptions.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Elements"><param name="Local" value="group__elements.html"><param name="ImageNumber" value="11"></OBJECT>
     <UL>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Utilities"><param name="Local" value="group__utilities.html"><param name="ImageNumber" value="11"></OBJECT>
     <UL>
     </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Interface"><param name="Local" value="group__interface.html"><param name="ImageNumber" value="11"></OBJECT>
-    <UL>
-    </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Implementations"><param name="Local" value="group__implementations.html"><param name="ImageNumber" value="11"></OBJECT>
-    <UL>
-    </UL>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Class List"><param name="Local" value="annotated.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::NoName"><param name="Local" value="structtide_1_1_no_name.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadBodySize"><param name="Local" value="structtide_1_1_bad_body_size.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadDocReadVersion"><param name="Local" value="structtide_1_1_bad_doc_read_version.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadElementLength"><param name="Local" value="structtide_1_1_bad_element_length.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadReadVersion"><param name="Local" value="structtide_1_1_bad_read_version.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BinaryElement"><param name="Local" value="classtide_1_1_binary_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BufferTooSmall"><param name="Local" value="structtide_1_1_buffer_too_small.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::DateElement"><param name="Local" value="classtide_1_1_date_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::EBMLElement"><param name="Local" value="classtide_1_1_e_b_m_l_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Element"><param name="Local" value="classtide_1_1_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::FloatElement"><param name="Local" value="classtide_1_1_float_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::IntElement"><param name="Local" value="classtide_1_1_int_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidChildID"><param name="Local" value="structtide_1_1_invalid_child_i_d.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidEBMLID"><param name="Local" value="structtide_1_1_invalid_e_b_m_l_i_d.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidElementID"><param name="Local" value="structtide_1_1_invalid_element_i_d.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidVarInt"><param name="Local" value="structtide_1_1_invalid_var_int.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::MasterElement"><param name="Local" value="classtide_1_1_master_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Metaseek"><param name="Local" value="classtide_1_1_metaseek.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::MissingChild"><param name="Local" value="structtide_1_1_missing_child.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::NotEBML"><param name="Local" value="structtide_1_1_not_e_b_m_l.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::NotTide"><param name="Local" value="structtide_1_1_not_tide.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::PrimitiveElement< T >"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ReadError"><param name="Local" value="structtide_1_1_read_error.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::SeekElement"><param name="Local" value="classtide_1_1_seek_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::SegmentInfo"><param name="Local" value="classtide_1_1_segment_info.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::SpecSizeTooSmall"><param name="Local" value="structtide_1_1_spec_size_too_small.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::StringElement"><param name="Local" value="classtide_1_1_string_element.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Tide"><param name="Local" value="classtide_1_1_tide.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TideError"><param name="Local" value="structtide_1_1_tide_error.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TideFile"><param name="Local" value="classtide_1_1_tide_file.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TideImpl"><param name="Local" value="classtide_1_1_tide_impl.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="test_utils::TotalSizeOp"><param name="Local" value="structtest__utils_1_1_total_size_op.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TrackEntry"><param name="Local" value="classtide_1_1_track_entry.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TrackJoinBlocks"><param name="Local" value="classtide_1_1_track_join_blocks.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TrackOperationBase"><param name="Local" value="classtide_1_1_track_operation_base.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Tracks"><param name="Local" value="classtide_1_1_tracks.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::UIntElement"><param name="Local" value="classtide_1_1_u_int_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ValueOutOfRange"><param name="Local" value="structtide_1_1_value_out_of_range.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ValueSizeOutOfRange"><param name="Local" value="structtide_1_1_value_size_out_of_range.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::VarIntTooBig"><param name="Local" value="structtide_1_1_var_int_too_big.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::VoidElement"><param name="Local" value="classtide_1_1_void_element.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::WriteError"><param name="Local" value="structtide_1_1_write_error.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Index"><param name="Local" value="classes.html"><param name="ImageNumber" value="1"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Hierarchy"><param name="Local" value="hierarchy.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Element"><param name="Local" value="classtide_1_1_element.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::PrimitiveElement< double >"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::FloatElement"><param name="Local" value="classtide_1_1_float_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::PrimitiveElement< int64_t >"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::DateElement"><param name="Local" value="classtide_1_1_date_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::IntElement"><param name="Local" value="classtide_1_1_int_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::PrimitiveElement< std::string >"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::StringElement"><param name="Local" value="classtide_1_1_string_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::PrimitiveElement< std::vector< char > >"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BinaryElement"><param name="Local" value="classtide_1_1_binary_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::PrimitiveElement< uint64_t >"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::UIntElement"><param name="Local" value="classtide_1_1_u_int_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::MasterElement"><param name="Local" value="classtide_1_1_master_element.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::EBMLElement"><param name="Local" value="classtide_1_1_e_b_m_l_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Metaseek"><param name="Local" value="classtide_1_1_metaseek.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::SeekElement"><param name="Local" value="classtide_1_1_seek_element.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::SegmentInfo"><param name="Local" value="classtide_1_1_segment_info.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TrackEntry"><param name="Local" value="classtide_1_1_track_entry.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TrackOperationBase"><param name="Local" value="classtide_1_1_track_operation_base.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TrackJoinBlocks"><param name="Local" value="classtide_1_1_track_join_blocks.html"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Tracks"><param name="Local" value="classtide_1_1_tracks.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::PrimitiveElement< T >"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::VoidElement"><param name="Local" value="classtide_1_1_void_element.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::Tide"><param name="Local" value="classtide_1_1_tide.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TideFile"><param name="Local" value="classtide_1_1_tide_file.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TideImpl"><param name="Local" value="classtide_1_1_tide_impl.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::TideError"><param name="Local" value="structtide_1_1_tide_error.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::NoName"><param name="Local" value="structtide_1_1_no_name.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadBodySize"><param name="Local" value="structtide_1_1_bad_body_size.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadDocReadVersion"><param name="Local" value="structtide_1_1_bad_doc_read_version.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadElementLength"><param name="Local" value="structtide_1_1_bad_element_length.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BadReadVersion"><param name="Local" value="structtide_1_1_bad_read_version.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::BufferTooSmall"><param name="Local" value="structtide_1_1_buffer_too_small.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidChildID"><param name="Local" value="structtide_1_1_invalid_child_i_d.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidEBMLID"><param name="Local" value="structtide_1_1_invalid_e_b_m_l_i_d.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidElementID"><param name="Local" value="structtide_1_1_invalid_element_i_d.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::InvalidVarInt"><param name="Local" value="structtide_1_1_invalid_var_int.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::MissingChild"><param name="Local" value="structtide_1_1_missing_child.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::NotEBML"><param name="Local" value="structtide_1_1_not_e_b_m_l.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::NotTide"><param name="Local" value="structtide_1_1_not_tide.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ReadError"><param name="Local" value="structtide_1_1_read_error.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::SpecSizeTooSmall"><param name="Local" value="structtide_1_1_spec_size_too_small.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ValueOutOfRange"><param name="Local" value="structtide_1_1_value_out_of_range.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ValueSizeOutOfRange"><param name="Local" value="structtide_1_1_value_size_out_of_range.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::VarIntTooBig"><param name="Local" value="structtide_1_1_var_int_too_big.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::WriteError"><param name="Local" value="structtide_1_1_write_error.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="test_utils::TotalSizeOp"><param name="Local" value="structtest__utils_1_1_total_size_op.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Members"><param name="Local" value="functions.html"><param name="ImageNumber" value="11"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Namespace List"><param name="Local" value="namespaces.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="test_utils"><param name="Local" value="namespacetest__utils.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="tide"><param name="Local" value="namespacetide.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ebml_int"><param name="Local" value="namespacetide_1_1ebml__int.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::ids"><param name="Local" value="namespacetide_1_1ids.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tide::vint"><param name="Local" value="namespacetide_1_1vint.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Namespace Members"><param name="Local" value="namespacemembers.html"><param name="ImageNumber" value="11"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="File List"><param name="Local" value="files.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/binary_element.h"><param name="Local" value="binary__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/date_element.h"><param name="Local" value="date__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/ebml_element.h"><param name="Local" value="ebml__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/ebml_int.h"><param name="Local" value="ebml__int_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/el_ids.h"><param name="Local" value="el__ids_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/element.h"><param name="Local" value="element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/exceptions.h"><param name="Local" value="exceptions_8h.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/null_stream.h"><param name="Local" value="null__stream_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/float_element.h"><param name="Local" value="float__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/int_element.h"><param name="Local" value="int__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/master_element.h"><param name="Local" value="master__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/metaseek.h"><param name="Local" value="metaseek_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/prim_element.h"><param name="Local" value="prim__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/seek_element.h"><param name="Local" value="seek__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/segment_info.h"><param name="Local" value="segment__info_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/string_element.h"><param name="Local" value="string__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/tide.h"><param name="Local" value="tide_8h.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/tide_file.h"><param name="Local" value="tide__file_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/tide_impl.h"><param name="Local" value="tide__impl_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/track_entry.h"><param name="Local" value="track__entry_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/track_operation.h"><param name="Local" value="track__operation_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/tracks.h"><param name="Local" value="tracks_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/uint_element.h"><param name="Local" value="uint__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/vint.h"><param name="Local" value="vint_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/void_element.h"><param name="Local" value="void__element_8h.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/include/tide/win_dll.h"><param name="Local" value="win__dll_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="/home/geoff/research/src/tide/test/test_utils.h"><param name="Local" value="test__utils_8h.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Directories"><param name="Local" value="dirs.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
@@ -59,6 +182,9 @@
     <LI><OBJECT type="text/sitemap"><param name="Name" value="tide"><param name="Local" value="dir_d4a85022c24b7088977ecc477627b37f.html"><param name="ImageNumber" value="11"></OBJECT>
       <UL>
       </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="test"><param name="Local" value="dir_fa27d0bec3d7f1cf7feaa764662d1d71.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
     </UL>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="File Members"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>

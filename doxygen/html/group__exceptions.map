@@ -1,5 +1,7 @@
 <map id="structs" name="structs">
-<area shape="rect" id="node2" href="$group__utilities.html" title="Utilities" alt="" coords="209,5,276,33"/>
-<area shape="rect" id="node3" href="$group__interface.html" title="Interface" alt="" coords="204,55,281,83"/>
-<area shape="rect" id="node4" href="$group__implementations.html" title="Implementations" alt="" coords="177,106,308,134"/>
+<area shape="rect" id="node1" href="$group__elements.html" title="Elements" alt="" coords="201,5,284,33"/>
+<area shape="rect" id="node3" href="$group__utilities.html" title="Utilities" alt="" coords="209,55,276,83"/>
+<area shape="rect" id="node4" href="$group__interfaces.html" title="Interfaces" alt="" coords="200,106,285,134"/>
+<area shape="rect" id="node5" href="$group__implementations.html" title="Implementations" alt="" coords="177,157,308,185"/>
+<area shape="rect" id="node6" href="$group__ebml.html" title="EBML" alt="" coords="213,207,272,235"/>
 </map>

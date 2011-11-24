@@ -4,51 +4,1297 @@
 <param name="FrameName" value="right">
 </OBJECT>
 <UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__exceptions.html"><param name="Name" value="Exceptions"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__implementations.html"><param name="Name" value="Implementations"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__interface.html"><param name="Name" value="Interface"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a4cc0e56da6b98fbe818927949aefee50"><param name="Name" value="mode_"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f"><param name="Name" value="MODE_APPEND"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646"><param name="Name" value="MODE_READ"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670"><param name="Name" value="MODE_WRITE"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a06c952cae8c5289e3e6efb60bf049c0b"><param name="Name" value="name_"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="null__stream_8h.html"><param name="Name" value="null_stream.h"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="NullOStream"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a68d734d2245a8ec8fc8423806e7e9b92"><param name="Name" value="append"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="null_stream.h"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="tide"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a68d734d2245a8ec8fc8423806e7e9b92"><param name="Name" value="tide::Metaseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#ab0a7c28b2f822bdf39fc6055424f6b0a"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a6414bbf4d09d89ffaee923a9ac2144d2"><param name="Name" value="assign"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a44e74469f7d91d0d515ece7a5a70212f"><param name="Name" value="at"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abecc6413af819b520e675790348bc2fe"><param name="Name" value="attachment_link"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aaf70864158f0a6215d84d11573450252"><param name="Name" value="attachment_link_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#abf8a2c8613f8edf36d4a8d95086b8131"><param name="Name" value="AttachmentLink"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#abf8a2c8613f8edf36d4a8d95086b8131"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#abf8a2c8613f8edf36d4a8d95086b8131"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a55488a200754f695fbefa7f81014597c"><param name="Name" value="BinaryElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a1e6b513b1fc43ecb645e0f0625efd0d0"><param name="Name" value="codec_id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a330f937d411731ddfdb58865c02f8a13"><param name="Name" value="codec_id_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a21816d5a1918fe989c4ec6113c486271"><param name="Name" value="codec_name"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ac523754f5addf9231983d9631286a726"><param name="Name" value="codec_name_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a8e1a834fe8be263c4069a900dee3efea"><param name="Name" value="codec_private"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a59dab3a3ebdadc0e7703980e7c4802ad"><param name="Name" value="codec_private_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5ec1e303cf6bdd371a81ef19844a2994"><param name="Name" value="CodecDecodeAll"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5ec1e303cf6bdd371a81ef19844a2994"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5ec1e303cf6bdd371a81ef19844a2994"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab8cd58b63b833667d805bede1dcc7443"><param name="Name" value="CodecID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab8cd58b63b833667d805bede1dcc7443"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab8cd58b63b833667d805bede1dcc7443"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a997c04b36275e68f9f6e6ef3d95c39a7"><param name="Name" value="CodecName"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a997c04b36275e68f9f6e6ef3d95c39a7"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a997c04b36275e68f9f6e6ef3d95c39a7"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af07fd20a01c37af924fe54055409184e"><param name="Name" value="CodecPrivate"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af07fd20a01c37af924fe54055409184e"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af07fd20a01c37af924fe54055409184e"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a178b4e10175511e78055c5de3be69f02"><param name="Name" value="coded_size"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a178b4e10175511e78055c5de3be69f02"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a178b4e10175511e78055c5de3be69f02"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6"><param name="Name" value="tide::vint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6"><param name="Name" value="vint.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ab4ac4ba2d910fe663e2942eda05c2e93"><param name="Name" value="coded_size_s"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ab4ac4ba2d910fe663e2942eda05c2e93"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ab4ac4ba2d910fe663e2942eda05c2e93"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ad9349f253c126869089ce53f67d624a2"><param name="Name" value="coded_size_u"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ad9349f253c126869089ce53f67d624a2"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ad9349f253c126869089ce53f67d624a2"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4"><param name="Name" value="const_iterator"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00"><param name="Name" value="const_reference"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a465cfaec68398e09f4f9d07c3d4c1451"><param name="Name" value="ConstPtr"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a75c1b4f76fc78cbe47fbd89f718d6c44"><param name="Name" value="count"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5b6d5474a4db026a69216a4cded14cb9"><param name="Name" value="CRC32"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5b6d5474a4db026a69216a4cded14cb9"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5b6d5474a4db026a69216a4cded14cb9"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a5ba7d843161cc8e09eda6e63604df626"><param name="Name" value="date"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#acf8eade93641e29a9a0f914ed8ec815b"><param name="Name" value="date_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#a3a798aaab19cf6bb38a79f37ccf3ffff"><param name="Name" value="DateElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad31891fe466d65e18ce8efeb44494012"><param name="Name" value="DateUTC"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad31891fe466d65e18ce8efeb44494012"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad31891fe466d65e18ce8efeb44494012"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0492731bd57adf81ae412e9d70e64f10"><param name="Name" value="decode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0492731bd57adf81ae412e9d70e64f10"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0492731bd57adf81ae412e9d70e64f10"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a6cb533f4f9dfff48c5dcd457a2945b8a"><param name="Name" value="tide::vint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a6cb533f4f9dfff48c5dcd457a2945b8a"><param name="Name" value="vint.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a4b2226a7bfdf8f4a6fa850873866da44"><param name="Name" value="decode_all"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ae625de6740fa2676e3202634ea3f8e28"><param name="Name" value="decode_all_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a29636d77e3ce2eaed45d605a48baf3b7"><param name="Name" value="decode_s"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a29636d77e3ce2eaed45d605a48baf3b7"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a29636d77e3ce2eaed45d605a48baf3b7"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#af9516cd48ae34ff11e98d08f57bb4edb"><param name="Name" value="decode_u"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#af9516cd48ae34ff11e98d08f57bb4edb"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#af9516cd48ae34ff11e98d08f57bb4edb"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a05b4f229199bfa3a23e1d41cc501be98"><param name="Name" value="DecodeResult"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a05b4f229199bfa3a23e1d41cc501be98"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a05b4f229199bfa3a23e1d41cc501be98"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a2831d683ac5ae6466f8d219398c73cc3"><param name="Name" value="tide::vint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a2831d683ac5ae6466f8d219398c73cc3"><param name="Name" value="vint.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#ae899a169f936d4334d3dd64f8679346a"><param name="Name" value="default_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ab70cfb2da41406dd06ff9bc2e66b33fc"><param name="Name" value="default_dur_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ac9e9f32c2fc1cbacf2b0a651459c9bc7"><param name="Name" value="default_duration"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ac3ce76d8af9af63da1756bcf376cd2ca"><param name="Name" value="DefaultDuration"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ac3ce76d8af9af63da1756bcf376cd2ca"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ac3ce76d8af9af63da1756bcf376cd2ca"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a6014f194b64918eb44fa8c0ca74479fb"><param name="Name" value="doc_read_version"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#afc5fe619d0183c7dbfcb4f37892de03d"><param name="Name" value="doc_type"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a590752f14cf8a2886f2e3318231d2141"><param name="Name" value="doc_type_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a0d87415109e3a470e48eff86622bca4a"><param name="Name" value="doc_type_read_ver_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a92e8d4a0f1ceb06663ecdf5aa9b9d5fc"><param name="Name" value="doc_type_ver_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ac07ffbcf2e3ceaf0224440bce5dc65c6"><param name="Name" value="doc_version"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6345aba6e322f3bbbcd8e9befe57b2c"><param name="Name" value="DocType"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6345aba6e322f3bbbcd8e9befe57b2c"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6345aba6e322f3bbbcd8e9befe57b2c"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8864edd2b3a9b9a09232e1f8c352e486"><param name="Name" value="DocTypeReadVersion"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8864edd2b3a9b9a09232e1f8c352e486"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8864edd2b3a9b9a09232e1f8c352e486"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af6d1264a96d2f80de9c08cd6361cba84"><param name="Name" value="DocTypeVersion"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af6d1264a96d2f80de9c08cd6361cba84"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af6d1264a96d2f80de9c08cd6361cba84"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a17f04824ef7f560f69a587cb34698f37"><param name="Name" value="Duration"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a17f04824ef7f560f69a587cb34698f37"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a17f04824ef7f560f69a587cb34698f37"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a855a8bd3b0616e6de27482845dbb0eac"><param name="Name" value="duration"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a71373de21f43ce2fac559e0950efde1a"><param name="Name" value="duration_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__ebml.html"><param name="Name" value="EBML"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aaf9f3ea760eb2978233e8a40127e219a"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aaf9f3ea760eb2978233e8a40127e219a"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a22278e04001bdeb6c7dd34685caed76ca7d5d75abc392fa0920382ea908df725a"><param name="Name" value="EBML_FLOAT_PREC_DOUBLE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a22278e04001bdeb6c7dd34685caed76ca1f6bb26c9ec8840742f642cc2d39a8cc"><param name="Name" value="EBML_FLOAT_PREC_SINGLE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html"><param name="Name" value="ebml_int.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#ab4ac4ba2d910fe663e2942eda05c2e93"><param name="Name" value="coded_size_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#ad9349f253c126869089ce53f67d624a2"><param name="Name" value="coded_size_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#a29636d77e3ce2eaed45d605a48baf3b7"><param name="Name" value="decode_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#af9516cd48ae34ff11e98d08f57bb4edb"><param name="Name" value="decode_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#a0586252cf7d9b6ef3ca561cdac6606a4"><param name="Name" value="encode_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#a2c211d56157a9280da5c1567fd6ae62a"><param name="Name" value="encode_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#a7c8c11397ed75244c05ef7e182d33481"><param name="Name" value="read_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#ac75fc950fb41c658b4d05bc1be62b158"><param name="Name" value="read_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#a12e70802ba18c46ba0058b4693d64f70"><param name="Name" value="write_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ebml__int_8h.html#a2facd91af9692c1392b36701c7ec4b78"><param name="Name" value="write_u"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ae1e853ede094a2bd5eb124edfa5d93eb"><param name="Name" value="EBMLElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a7ce069f0368afeb86912b0fd0b3033e9"><param name="Name" value="EBMLMaxIDLength"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a7ce069f0368afeb86912b0fd0b3033e9"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a7ce069f0368afeb86912b0fd0b3033e9"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae7d03b6aded53283fe6878b383196073"><param name="Name" value="EBMLMaxSizeLength"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae7d03b6aded53283fe6878b383196073"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae7d03b6aded53283fe6878b383196073"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aed1907796177fd2fb9ccf72ee872898f"><param name="Name" value="EBMLReadVersion"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aed1907796177fd2fb9ccf72ee872898f"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aed1907796177fd2fb9ccf72ee872898f"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a91482fa04523f4aff14d9252ca67b8fd"><param name="Name" value="EBMLVersion"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a91482fa04523f4aff14d9252ca67b8fd"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a91482fa04523f4aff14d9252ca67b8fd"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html"><param name="Name" value="el_ids.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#abf8a2c8613f8edf36d4a8d95086b8131"><param name="Name" value="AttachmentLink"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a5ec1e303cf6bdd371a81ef19844a2994"><param name="Name" value="CodecDecodeAll"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ab8cd58b63b833667d805bede1dcc7443"><param name="Name" value="CodecID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a997c04b36275e68f9f6e6ef3d95c39a7"><param name="Name" value="CodecName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#af07fd20a01c37af924fe54055409184e"><param name="Name" value="CodecPrivate"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a178b4e10175511e78055c5de3be69f02"><param name="Name" value="coded_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a5b6d5474a4db026a69216a4cded14cb9"><param name="Name" value="CRC32"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ad31891fe466d65e18ce8efeb44494012"><param name="Name" value="DateUTC"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a0492731bd57adf81ae412e9d70e64f10"><param name="Name" value="decode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a05b4f229199bfa3a23e1d41cc501be98"><param name="Name" value="DecodeResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ac3ce76d8af9af63da1756bcf376cd2ca"><param name="Name" value="DefaultDuration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ad6345aba6e322f3bbbcd8e9befe57b2c"><param name="Name" value="DocType"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a8864edd2b3a9b9a09232e1f8c352e486"><param name="Name" value="DocTypeReadVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#af6d1264a96d2f80de9c08cd6361cba84"><param name="Name" value="DocTypeVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a17f04824ef7f560f69a587cb34698f37"><param name="Name" value="Duration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#aaf9f3ea760eb2978233e8a40127e219a"><param name="Name" value="EBML"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a7ce069f0368afeb86912b0fd0b3033e9"><param name="Name" value="EBMLMaxIDLength"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ae7d03b6aded53283fe6878b383196073"><param name="Name" value="EBMLMaxSizeLength"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#aed1907796177fd2fb9ccf72ee872898f"><param name="Name" value="EBMLReadVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a91482fa04523f4aff14d9252ca67b8fd"><param name="Name" value="EBMLVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a4d9959cf62824f009e4bc59c5c03b47a"><param name="Name" value="encode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a23759627bbb429121297293ac8bf20ea"><param name="Name" value="FlagDefault"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a58280cdb1655d5562f131ca15020bcb1"><param name="Name" value="FlagEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#aba301227e3310be0c128255f9450c07c"><param name="Name" value="FlagForced"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a056cabccf30b5f017bc8ed7c1e22906b"><param name="Name" value="FlagLacing"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#aa180ecab2f51812ce43e730844861861"><param name="Name" value="ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a22e5bb79273fda9ba3da69ac65f47b82"><param name="Name" value="Info"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a529605cebffba57bdffcd6785e7a42d2"><param name="Name" value="MaxBlockAdditionID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a3745294a4c3a1aff9ac7771022c21dc4"><param name="Name" value="MaxCache"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#acb8c4d353c1de86255bbae227664000b"><param name="Name" value="MinCache"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a5fa56b8522038a78db5e38c4804969ef"><param name="Name" value="MuxingApp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a493ff99a80a170425b7b858f7447eadb"><param name="Name" value="Name"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a2db94d8019c0e77792162513e2ebd0dd"><param name="Name" value="NextFileName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a0f3585db683afa5868c5d73ecea08ce3"><param name="Name" value="NextUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a029ba9984400aebf145231dc3c0dd7c0"><param name="Name" value="Null"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a0a182775f3e6fe3bd8464fa38b916dd7"><param name="Name" value="PrevFileName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a1509d8da0e7d7a9df392296f83b27020"><param name="Name" value="PrevUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a3d23a6859db3af0d10b872b9071bccec"><param name="Name" value="read"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a8e73a2ce97ea6193de0b9f1ffe03b210"><param name="Name" value="ReadResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a53da8603b73bc93d7c7e4e77ae3dfb41"><param name="Name" value="Seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ab2127805d732aff254ac4f83ad5da4bb"><param name="Name" value="SeekHead"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a6757a27b87036fe07fafcb1c9e3a2b30"><param name="Name" value="SeekID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a51f86c716401968288b7d7ed616c3e3d"><param name="Name" value="SeekPosition"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a4941e3f8a2bb2ac15c34d2f07185899e"><param name="Name" value="Segment"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a603db4765836a1d3d09dcd932992512e"><param name="Name" value="SegmentFamily"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ad6387895cb1a8410e022424281321e99"><param name="Name" value="SegmentFileName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#acabd9c4ef185af7e6e07a577106bc7de"><param name="Name" value="SegmentUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a368453ae324ef1bb09335b201ec9aaa3"><param name="Name" value="TimecodeScale"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#af0325ba6b22d3f700599d55cf888d888"><param name="Name" value="Title"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#aa7157d01bcbb2022e47c01d0b1540edc"><param name="Name" value="TrackEntry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a9bece4ee2e7effb2e70551f98dfc92cc"><param name="Name" value="TrackJoinBlocks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a47c8a5f8233c287c91eeea03e647e4ae"><param name="Name" value="TrackJoinUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a4f58abe94e8b5435086e907c9630f00f"><param name="Name" value="TrackNumber"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a46384e6b025cabf666e403929a85cdd3"><param name="Name" value="TrackOperation"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a5f18b7869662aa5fe2367091d00121b5"><param name="Name" value="TrackOverlay"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a6cf553bd43f55ba100c023c8d55d9f43"><param name="Name" value="Tracks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#acd043716ca619330cf7c74d953a8816d"><param name="Name" value="TrackTimecodeScale"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ad6a9e02b18e8e3bc0c933a0b143a1358"><param name="Name" value="TrackType"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a679cd5c960da51605f77ca08620c0891"><param name="Name" value="TrackUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a770bb60447af061b4d082f19bb8ce80c"><param name="Name" value="Void"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#a25473b3b02067b2b1500384d05a910c4"><param name="Name" value="write"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="el__ids_8h.html#ae475488523e815afed73284cf87f6cb6"><param name="Name" value="WritingApp"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="element_8h.html"><param name="Name" value="element.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="element_8h.html#a1da09d1196f3e8a0f59f9f3a0bae73f1"><param name="Name" value="skip_read"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="element_8h.html#a865bbc5fdbdbbcfc30dffa74d40713f2"><param name="Name" value="skip_write"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a321eabc90b92326f5a1a703b95115a1f"><param name="Name" value="Element"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__elements.html"><param name="Name" value="Elements"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#af62d490a0285daf6107ce63338218653"><param name="Name" value="ElPtr"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#af62d490a0285daf6107ce63338218653"><param name="Name" value="test_utils"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#af62d490a0285daf6107ce63338218653"><param name="Name" value="test_utils.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a4a201a7c103e1d98ddb0d895a91dfd3b"><param name="Name" value="enabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a2b2817df2d480b02d47242bd95984687"><param name="Name" value="enabled_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4d9959cf62824f009e4bc59c5c03b47a"><param name="Name" value="encode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4d9959cf62824f009e4bc59c5c03b47a"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4d9959cf62824f009e4bc59c5c03b47a"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a6351e7bf1f5c6370ff01a78595587abd"><param name="Name" value="tide::vint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a6351e7bf1f5c6370ff01a78595587abd"><param name="Name" value="vint.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a0586252cf7d9b6ef3ca561cdac6606a4"><param name="Name" value="encode_s"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a0586252cf7d9b6ef3ca561cdac6606a4"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a0586252cf7d9b6ef3ca561cdac6606a4"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2c211d56157a9280da5c1567fd6ae62a"><param name="Name" value="encode_u"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2c211d56157a9280da5c1567fd6ae62a"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2c211d56157a9280da5c1567fd6ae62a"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca"><param name="Name" value="entries_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0369a0d448f755bb2629183243ae899c"><param name="Name" value="err_bufsize"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0369a0d448f755bb2629183243ae899c"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0369a0d448f755bb2629183243ae899c"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d"><param name="Name" value="err_el_size"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a18791d2ad49486af46c99345028b4321"><param name="Name" value="err_id"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a18791d2ad49486af46c99345028b4321"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a18791d2ad49486af46c99345028b4321"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#abcbb666958999a74dcb55cf9219b0adf"><param name="Name" value="err_par_id"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#abcbb666958999a74dcb55cf9219b0adf"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#abcbb666958999a74dcb55cf9219b0adf"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ab68d75dd75154f94e8fda6009bdfed2d"><param name="Name" value="err_pos"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ab68d75dd75154f94e8fda6009bdfed2d"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ab68d75dd75154f94e8fda6009bdfed2d"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a483f00500e3df5562e000b9b709e35cc"><param name="Name" value="err_reqsize"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a483f00500e3df5562e000b9b709e35cc"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a483f00500e3df5562e000b9b709e35cc"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a3f0553ca9fac25372f005b7dfb592901"><param name="Name" value="err_specsize"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a3f0553ca9fac25372f005b7dfb592901"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a3f0553ca9fac25372f005b7dfb592901"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1f514f3b82b5a92d1d8364406647888d"><param name="Name" value="err_valid_sizes"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1f514f3b82b5a92d1d8364406647888d"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1f514f3b82b5a92d1d8364406647888d"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a66de8ce469b919fd706102f297212743"><param name="Name" value="err_varint"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a66de8ce469b919fd706102f297212743"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a66de8ce469b919fd706102f297212743"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ac4c4e731a771c9ed911da87102b3387a"><param name="Name" value="err_ver"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ac4c4e731a771c9ed911da87102b3387a"><param name="Name" value="exceptions.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ac4c4e731a771c9ed911da87102b3387a"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__exceptions.html"><param name="Name" value="Exceptions"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html"><param name="Name" value="exceptions.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#a0369a0d448f755bb2629183243ae899c"><param name="Name" value="err_bufsize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#a53dc5e8b32b3cad0a4bce2637d39b81d"><param name="Name" value="err_el_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#a18791d2ad49486af46c99345028b4321"><param name="Name" value="err_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#abcbb666958999a74dcb55cf9219b0adf"><param name="Name" value="err_par_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#ab68d75dd75154f94e8fda6009bdfed2d"><param name="Name" value="err_pos"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#a483f00500e3df5562e000b9b709e35cc"><param name="Name" value="err_reqsize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#a3f0553ca9fac25372f005b7dfb592901"><param name="Name" value="err_specsize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#a1f514f3b82b5a92d1d8364406647888d"><param name="Name" value="err_valid_sizes"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#a66de8ce469b919fd706102f297212743"><param name="Name" value="err_varint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="exceptions_8h.html#ac4c4e731a771c9ed911da87102b3387a"><param name="Name" value="err_ver"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ae3d03b8234126741ee1d446089c6a967"><param name="Name" value="filename"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a69f8bbeac9343e0ac1f1329562760185"><param name="Name" value="fill"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a23759627bbb429121297293ac8bf20ea"><param name="Name" value="FlagDefault"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a23759627bbb429121297293ac8bf20ea"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a23759627bbb429121297293ac8bf20ea"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a58280cdb1655d5562f131ca15020bcb1"><param name="Name" value="FlagEnabled"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a58280cdb1655d5562f131ca15020bcb1"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a58280cdb1655d5562f131ca15020bcb1"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aba301227e3310be0c128255f9450c07c"><param name="Name" value="FlagForced"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aba301227e3310be0c128255f9450c07c"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aba301227e3310be0c128255f9450c07c"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a056cabccf30b5f017bc8ed7c1e22906b"><param name="Name" value="FlagLacing"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a056cabccf30b5f017bc8ed7c1e22906b"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a056cabccf30b5f017bc8ed7c1e22906b"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a804d74727dffa113a40977bf5a7c5099"><param name="Name" value="FloatElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a344c1d73836874f4201e0e571d30d984"><param name="Name" value="forced"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a0e11eeee1980c531b9835102693d7925"><param name="Name" value="forced_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a2db6aab2f880fcf17ef1fabb44190c85"><param name="Name" value="get_default"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#aa6d19bf9eab243f3c1a36d37063f401e"><param name="Name" value="has_default"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a40846091a998a9e07875014ed4d991ef"><param name="Name" value="has_default_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a1c3ffcc6a1a79f71c857e5d228bde885"><param name="Name" value="have_date_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ad2bc7aea25b596265bab025ac93152f3"><param name="Name" value="have_duration_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#af9e7ea52bea552de78c7008ca757fccf"><param name="Name" value="have_muxer_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#afb12bdab13c510b5d5fb2708f4122c68"><param name="Name" value="have_next_fn_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a5d45eaddf9d3cc46c8f08b39dd3ebeae"><param name="Name" value="have_next_uid_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#abb96011a0990f659b7ea8a28ddc2ddbf"><param name="Name" value="have_prev_fn_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a891a79a5f98182c5f7f5ee0c6ad44128"><param name="Name" value="have_prev_uid_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#adcd7b899ff078322bafce2e3cae483ce"><param name="Name" value="have_seg_fam_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a56a472dd10fb658a4b349217737367d8"><param name="Name" value="have_seg_fn_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#afc6565e4d6b124d230bf498817dda57c"><param name="Name" value="have_title_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a95a01bd09b212676c7ba736e6b2b5177"><param name="Name" value="have_uid_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aafcb9d9ec86a2c103a49db8b4fa636cf"><param name="Name" value="have_writer_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861"><param name="Name" value="ID"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a936f48bd9dc10ae1fc738eef6b6bebde"><param name="Name" value="id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861"><param name="Name" value="ID"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#ae8e1a61c69e75ed18af34c2c584363c2"><param name="Name" value="id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#afdb6205ee28712afa92b4faf3672e106"><param name="Name" value="id_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__implementations.html"><param name="Name" value="Implementations"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a7799525636574af83a517ee78d8435b2"><param name="Name" value="index_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a85079b8e115717fbb5f602ccecc9f876"><param name="Name" value="index_size"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a108fdf47cc8a7954123b45cb9bcda4c2"><param name="Name" value="indexed_id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a093f9a9be247f20c73cd8e38c72b5f38"><param name="Name" value="indexed_id_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a267788b88158018adf7eb0ba3bcbb08e"><param name="Name" value="IndexItem"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a22e5bb79273fda9ba3da69ac65f47b82"><param name="Name" value="Info"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a22e5bb79273fda9ba3da69ac65f47b82"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a22e5bb79273fda9ba3da69ac65f47b82"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#a0a4c3452c7d9ff0d12efc7c0bd9004e5"><param name="Name" value="IntElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group__interfaces.html"><param name="Name" value="Interfaces"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a8e2fcabe0512c96345bde48fdbd6b096"><param name="Name" value="is_default"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#adb40eb77623e3fcb9b96350216763e1e"><param name="Name" value="is_virtual"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20"><param name="Name" value="iterator"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a7e078285b64d10f02b9f712a14e8e508"><param name="Name" value="key_type"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a7b49a1427e7df67df7996b4d522018cd"><param name="Name" value="lacing"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abc928d0c4b491418a933a4573b37145e"><param name="Name" value="lacing_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a4aeb73274b7b0d2e27e56277d2ae7360"><param name="Name" value="mapped_type"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_master_element.html#af7606d7e6b05cf54215ce1c8e47b33fc"><param name="Name" value="MasterElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a3a59a9c698c3b34b09874a83ea25d408"><param name="Name" value="max_block_add_id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a242f4e35540928a9bfca800d79c7e997"><param name="Name" value="max_block_add_id_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a65b7242d89bea0ac28a4a7c811dac6b5"><param name="Name" value="max_cache"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a304dae30fec28a3ec33ae1e1e32ab42e"><param name="Name" value="max_cache_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ae7ce5bb75fe47b7045a2a21fbac0389c"><param name="Name" value="max_id_length"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#aafcbeab4e7d01f89e90f65cabe5a6001"><param name="Name" value="max_id_length_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a5a0325fbe856decacfff83d742bb7734"><param name="Name" value="max_size_length"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a29a85c59c3cff4038baf2995cf8a1988"><param name="Name" value="max_size_length_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a529605cebffba57bdffcd6785e7a42d2"><param name="Name" value="MaxBlockAdditionID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a529605cebffba57bdffcd6785e7a42d2"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a529605cebffba57bdffcd6785e7a42d2"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3745294a4c3a1aff9ac7771022c21dc4"><param name="Name" value="MaxCache"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3745294a4c3a1aff9ac7771022c21dc4"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3745294a4c3a1aff9ac7771022c21dc4"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a73d841cc75d18a42c17756d27fe5f738"><param name="Name" value="Metaseek"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ad4950d650e790b5a1de2d88834d5386d"><param name="Name" value="min_cache"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aff1ae3a267eefb9432e1fc0083a2b190"><param name="Name" value="min_cache_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acb8c4d353c1de86255bbae227664000b"><param name="Name" value="MinCache"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acb8c4d353c1de86255bbae227664000b"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acb8c4d353c1de86255bbae227664000b"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a846d44992011c0b8f70eeb7229f019f2"><param name="Name" value="muxer_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ab4ee3f53f8ba0ec3f120ee760c6621ae"><param name="Name" value="muxing_app"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5fa56b8522038a78db5e38c4804969ef"><param name="Name" value="MuxingApp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5fa56b8522038a78db5e38c4804969ef"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5fa56b8522038a78db5e38c4804969ef"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a493ff99a80a170425b7b858f7447eadb"><param name="Name" value="Name"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a493ff99a80a170425b7b858f7447eadb"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a493ff99a80a170425b7b858f7447eadb"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a0c448a1dc4cfea471a101bf37454d9b6"><param name="Name" value="name"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a1ea0cceff859b0156fc86a96318fbce0"><param name="Name" value="name_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a7fe805423020b1cceb37d08802be1b76"><param name="Name" value="next_filename"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a6e2beb13785d7d84f1877d51a1709544"><param name="Name" value="next_fn_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a2a041b4bfa26b26dd25e87688afa8b94"><param name="Name" value="next_uid"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a34e8cd4f0726beef496d4b899884256a"><param name="Name" value="next_uid_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a2db94d8019c0e77792162513e2ebd0dd"><param name="Name" value="NextFileName"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a2db94d8019c0e77792162513e2ebd0dd"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a2db94d8019c0e77792162513e2ebd0dd"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0f3585db683afa5868c5d73ecea08ce3"><param name="Name" value="NextUID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0f3585db683afa5868c5d73ecea08ce3"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0f3585db683afa5868c5d73ecea08ce3"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a029ba9984400aebf145231dc3c0dd7c0"><param name="Name" value="Null"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a029ba9984400aebf145231dc3c0dd7c0"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a029ba9984400aebf145231dc3c0dd7c0"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#af6fd340b9318aaedf8e794649a38fda0"><param name="Name" value="number"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a35577209918cd1071793aaa201f18d85"><param name="Name" value="number_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#ace8828c70764452fb4e341e28b31407a"><param name="Name" value="offset"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a0aecc183c9e6afc896c447bef82c690e"><param name="Name" value="offset_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a1e69e2e63ae2e0c41ac3fe4fe9f49b3c"><param name="Name" value="operation"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a0d72ab2074afc6cb904d27b94a6c612e"><param name="Name" value="operation_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a6bf3d807f145364e44f7674e60895abb"><param name="Name" value="operator T"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtest__utils_1_1_total_size_op.html#a14caa99aa4630b70ec8cb42e9ca52e4b"><param name="Name" value="operator()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a6bede6f7644fec16898c1dae3a8a36ae"><param name="Name" value="operator="></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a6bede6f7644fec16898c1dae3a8a36ae"><param name="Name" value="tide::BinaryElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#ab1190c77ccc086fa1fb330eaf9c1521c"><param name="Name" value="tide::DateElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a5e71cc229386c1e70f44947b2b69b533"><param name="Name" value="tide::FloatElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#a0147d3d8e584191a8f00233a12e6a06c"><param name="Name" value="tide::IntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a2d2f2a851d791e1d7c6dea957a4b223e"><param name="Name" value="tide::PrimitiveElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a4cabfcaedec75fc6e05b288553513202"><param name="Name" value="tide::StringElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#ae14fb4eb9d33d017b23208d6c3c4635b"><param name="Name" value="tide::Tracks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a1e92d203aa8d288551c537b847004ff3"><param name="Name" value="tide::UIntElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a293120a8df5e171a5b92534a946cfa3f"><param name="Name" value="operator[]"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a293120a8df5e171a5b92534a946cfa3f"><param name="Name" value="tide::Metaseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a4740139b3bfee059ec76123f5ee022c4"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a60357815c8961226b9cf312adcf79c29"><param name="Name" value="OpPtr"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a60357815c8961226b9cf312adcf79c29"><param name="Name" value="tide"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a60357815c8961226b9cf312adcf79c29"><param name="Name" value="track_operation.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abde6809c7728c450f2886bbbe49ab8b7"><param name="Name" value="overlays"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aa8a3578ebdd6aa2ab1a9b12ffe2c981f"><param name="Name" value="overlays_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a22f4ca7cb78dbd161d0be16d7fc6ac03"><param name="Name" value="padding"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a0e7ea5bb14697e564ace4c2a8adedefd"><param name="Name" value="padding_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152"><param name="Name" value="pairs_eq"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152"><param name="Name" value="test_utils"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152"><param name="Name" value="test_utils.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a1da15d748f07b64305863c1a84de5774"><param name="Name" value="prec_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a1f97783b663eed12631e689a8484834d"><param name="Name" value="precision"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a59f7222b2c1c1106a46eaa56c7dbf847"><param name="Name" value="prepare_stream"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a965d8cd539e418106e71a53851099980"><param name="Name" value="prev_filename"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aa1a4cc176229f7a750bd86dd7ae06a5e"><param name="Name" value="prev_fn_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a18c7f679de6dc57c3414a520431184df"><param name="Name" value="prev_uid"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aabeaa92dac7b53d4939ed7c9edc49e85"><param name="Name" value="prev_uid_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0a182775f3e6fe3bd8464fa38b916dd7"><param name="Name" value="PrevFileName"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0a182775f3e6fe3bd8464fa38b916dd7"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0a182775f3e6fe3bd8464fa38b916dd7"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a1509d8da0e7d7a9df392296f83b27020"><param name="Name" value="PrevUID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a1509d8da0e7d7a9df392296f83b27020"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a1509d8da0e7d7a9df392296f83b27020"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a620c50bf6ed75e94e562c4659e2ff0cb"><param name="Name" value="PrimitiveElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aa1e183af496258944353c996c738736d"><param name="Name" value="Ptr"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3d23a6859db3af0d10b872b9071bccec"><param name="Name" value="read"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3d23a6859db3af0d10b872b9071bccec"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3d23a6859db3af0d10b872b9071bccec"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#aee4c307ce2b0c1a3850571f92504ec1d"><param name="Name" value="tide::vint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#aee4c307ce2b0c1a3850571f92504ec1d"><param name="Name" value="vint.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a66601e2ae0a2bc2262910e6868329ef2"><param name="Name" value="read_body"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a66601e2ae0a2bc2262910e6868329ef2"><param name="Name" value="tide::BinaryElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#aa8657eade594c2cd4d350811289d4f70"><param name="Name" value="tide::DateElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#af8d9e63ddddf655eaa24bf729a396fe7"><param name="Name" value="tide::EBMLElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6"><param name="Name" value="tide::Element"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a4dd31ff2567f3880dbfe4e26983a9367"><param name="Name" value="tide::FloatElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#a57503e4902f0cdc19bf577d6b30acbac"><param name="Name" value="tide::IntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a920f42f5a7fb97253f490023f838dc85"><param name="Name" value="tide::Metaseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#ac79cfb0b853835aa6c29c12eae9695e6"><param name="Name" value="tide::SeekElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a8d504d19f2aeff712bc9cd3f2fb64e45"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a863ed9f2da35d9c655e0f36ec1dd7fe2"><param name="Name" value="tide::StringElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a16c3ba3b1b95861c977a7bb66eb20bc7"><param name="Name" value="tide::TrackEntry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a23cc0c1c5027c4ce184dc5a54020b6c3"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a69f3c8b7e5401d798c79de0f2fd5e1b6"><param name="Name" value="tide::Tracks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a8e76adb5683d2c0e8c2aade299f1cb51"><param name="Name" value="tide::UIntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a67cb437ace1b16eac4a715df95f1dea3"><param name="Name" value="tide::VoidElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a06c9f5f50af4037c3ffee95746283a6e"><param name="Name" value="read_operation"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a7c8c11397ed75244c05ef7e182d33481"><param name="Name" value="read_s"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a7c8c11397ed75244c05ef7e182d33481"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a7c8c11397ed75244c05ef7e182d33481"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ac75fc950fb41c658b4d05bc1be62b158"><param name="Name" value="read_u"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ac75fc950fb41c658b4d05bc1be62b158"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ac75fc950fb41c658b4d05bc1be62b158"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#add10202f855ea904d32689cc894f0a4b"><param name="Name" value="read_ver_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a293f40c8c8c1aef0e2abcc939de5e46d"><param name="Name" value="read_version"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8e73a2ce97ea6193de0b9f1ffe03b210"><param name="Name" value="ReadResult"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8e73a2ce97ea6193de0b9f1ffe03b210"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8e73a2ce97ea6193de0b9f1ffe03b210"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a0052774240921bfc839a9c632a1c26ff"><param name="Name" value="tide::vint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a0052774240921bfc839a9c632a1c26ff"><param name="Name" value="vint.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a1dd5105dac28d6a17f8d835f9a2fa0e1"><param name="Name" value="reference"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#aac2ccbd5f1373400229e4d616313c8a6"><param name="Name" value="remove"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#aac2ccbd5f1373400229e4d616313c8a6"><param name="Name" value="tide::Metaseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#afcdd76fc8e55efcea781dc82c14bf4f4"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a2ea07129ed786aa85236bab1acea6084"><param name="Name" value="remove_default"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ac2cc0a89f740b25075859175db89dcb5"><param name="Name" value="reset"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ac2cc0a89f740b25075859175db89dcb5"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a56436fa58723018c51c547558483dfd8"><param name="Name" value="tide::TrackEntry"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a53da8603b73bc93d7c7e4e77ae3dfb41"><param name="Name" value="Seek"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a53da8603b73bc93d7c7e4e77ae3dfb41"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a53da8603b73bc93d7c7e4e77ae3dfb41"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a9d8f7a615f6860babb82042cdf2651bf"><param name="Name" value="SeekElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab2127805d732aff254ac4f83ad5da4bb"><param name="Name" value="SeekHead"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab2127805d732aff254ac4f83ad5da4bb"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab2127805d732aff254ac4f83ad5da4bb"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6757a27b87036fe07fafcb1c9e3a2b30"><param name="Name" value="SeekID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6757a27b87036fe07fafcb1c9e3a2b30"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6757a27b87036fe07fafcb1c9e3a2b30"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a51f86c716401968288b7d7ed616c3e3d"><param name="Name" value="SeekPosition"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a51f86c716401968288b7d7ed616c3e3d"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a51f86c716401968288b7d7ed616c3e3d"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ae3909a95246cc255ac1556887b6a29cc"><param name="Name" value="seg_fam_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a127064f2ba20a072e48fb087ebb37b86"><param name="Name" value="seg_fn_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4941e3f8a2bb2ac15c34d2f07185899e"><param name="Name" value="Segment"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4941e3f8a2bb2ac15c34d2f07185899e"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4941e3f8a2bb2ac15c34d2f07185899e"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ac05eaceb18f362f9b898094cae2e5a4e"><param name="Name" value="segment_family"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a603db4765836a1d3d09dcd932992512e"><param name="Name" value="SegmentFamily"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a603db4765836a1d3d09dcd932992512e"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a603db4765836a1d3d09dcd932992512e"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6387895cb1a8410e022424281321e99"><param name="Name" value="SegmentFileName"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6387895cb1a8410e022424281321e99"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6387895cb1a8410e022424281321e99"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ab78dd2e959dd5a539ae4c17f62b818fa"><param name="Name" value="SegmentInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acabd9c4ef185af7e6e07a577106bc7de"><param name="Name" value="SegmentUID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acabd9c4ef185af7e6e07a577106bc7de"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acabd9c4ef185af7e6e07a577106bc7de"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a0bf16a108f0ec8f932b1b04a6c326520"><param name="Name" value="set_default"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#af3e0c81711cc1eba4af95c52d9381778"><param name="Name" value="set_defaults_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#aa19974b31ef4ed52dff43d8375e6e478"><param name="Name" value="size"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#aa19974b31ef4ed52dff43d8375e6e478"><param name="Name" value="tide::BinaryElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#adb00cee73c784e7aa0a4cd81a4b8ed60"><param name="Name" value="tide::DateElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a2e94dfdd80201718ff145e99a2a99087"><param name="Name" value="tide::EBMLElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013"><param name="Name" value="tide::Element"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a9a522f8d7b48f72e22ff5fc4038ed071"><param name="Name" value="tide::FloatElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#ae40299af04c5e6aee9d0182dc64a26bd"><param name="Name" value="tide::IntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#aa48bd8e85f9b677b8eee8c6ec7462214"><param name="Name" value="tide::Metaseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a302ecffe32c4143d9609576d983a9c7d"><param name="Name" value="tide::SeekElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a99b8fb44c48d30fc47c3ae3044ee3a16"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a594796f1d447b7bbf4055234c8bdcb2d"><param name="Name" value="tide::StringElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a3e50cb15c0b9fea845082a5b6364c02e"><param name="Name" value="tide::TrackEntry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a7b177fcd1980eeec08b5b7b0ba108f31"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a2449adfddb40d28074291fa5ee7ca105"><param name="Name" value="tide::Tracks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a27bf1866339b95ab8c2810b4e4ed3ede"><param name="Name" value="tide::UIntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#afa217bd9762e2849f0cde2c2362b7f01"><param name="Name" value="tide::VoidElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa"><param name="Name" value="size_type"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1da09d1196f3e8a0f59f9f3a0bae73f1"><param name="Name" value="skip_read"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1da09d1196f3e8a0f59f9f3a0bae73f1"><param name="Name" value="element.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1da09d1196f3e8a0f59f9f3a0bae73f1"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a865bbc5fdbdbbcfc30dffa74d40713f2"><param name="Name" value="skip_write"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a865bbc5fdbdbbcfc30dffa74d40713f2"><param name="Name" value="element.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a865bbc5fdbdbbcfc30dffa74d40713f2"><param name="Name" value="tide"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4"><param name="Name" value="std_buffers_eq"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4"><param name="Name" value="test_utils"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4"><param name="Name" value="test_utils.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a5fa0443be6b10e2bfc6421cdcb0b6146"><param name="Name" value="std_vectors_eq"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a5fa0443be6b10e2bfc6421cdcb0b6146"><param name="Name" value="test_utils"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a5fa0443be6b10e2bfc6421cdcb0b6146"><param name="Name" value="test_utils.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a73dc63efe6022c7be38fdd0bab377e08"><param name="Name" value="storage_type_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a688679f51748893e18fe0cea23e1cb68"><param name="Name" value="stream_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#ae8225037179885d513a978506d5ef731"><param name="Name" value="StringElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a8f25b162f10766dd44d1f1e6dc96757e"><param name="Name" value="tc_scale_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html"><param name="Name" value="test_utils"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="test__utils_8h.html"><param name="Name" value="test_utils.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="test__utils_8h.html#af62d490a0285daf6107ce63338218653"><param name="Name" value="ElPtr"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="test__utils_8h.html#a6299862f403bc9ca8ddc0e52b4351152"><param name="Name" value="pairs_eq"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="test__utils_8h.html#ad01eb64581de23e2d7e809baf4a690a4"><param name="Name" value="std_buffers_eq"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="test__utils_8h.html#a5fa0443be6b10e2bfc6421cdcb0b6146"><param name="Name" value="std_vectors_eq"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtest__utils_1_1_total_size_op.html"><param name="Name" value="test_utils::TotalSizeOp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtest__utils_1_1_total_size_op.html#a14caa99aa4630b70ec8cb42e9ca52e4b"><param name="Name" value="operator()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html"><param name="Name" value="test_utils"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#af62d490a0285daf6107ce63338218653"><param name="Name" value="ElPtr"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152"><param name="Name" value="pairs_eq"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4"><param name="Name" value="std_buffers_eq"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetest__utils.html#a5fa0443be6b10e2bfc6421cdcb0b6146"><param name="Name" value="std_vectors_eq"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html"><param name="Name" value="tide"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_no_name.html"><param name="Name" value="tide::NoName"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_bad_body_size.html"><param name="Name" value="tide::BadBodySize"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_bad_doc_read_version.html"><param name="Name" value="tide::BadDocReadVersion"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_bad_element_length.html"><param name="Name" value="tide::BadElementLength"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_bad_read_version.html"><param name="Name" value="tide::BadReadVersion"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html"><param name="Name" value="tide::BinaryElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a55488a200754f695fbefa7f81014597c"><param name="Name" value="BinaryElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a6bede6f7644fec16898c1dae3a8a36ae"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a66601e2ae0a2bc2262910e6868329ef2"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#aa19974b31ef4ed52dff43d8375e6e478"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a298e9d6a72915a289b5c18c5d4a5539d"><param name="Name" value="write_body"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_buffer_too_small.html"><param name="Name" value="tide::BufferTooSmall"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html"><param name="Name" value="tide::DateElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#a3a798aaab19cf6bb38a79f37ccf3ffff"><param name="Name" value="DateElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#ab1190c77ccc086fa1fb330eaf9c1521c"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#aa8657eade594c2cd4d350811289d4f70"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#adb00cee73c784e7aa0a4cd81a4b8ed60"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#a0b6336bc23e51e996a1ceb3d0b391f69"><param name="Name" value="write_body"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html"><param name="Name" value="tide::ebml_int"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ab4ac4ba2d910fe663e2942eda05c2e93"><param name="Name" value="coded_size_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ad9349f253c126869089ce53f67d624a2"><param name="Name" value="coded_size_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a29636d77e3ce2eaed45d605a48baf3b7"><param name="Name" value="decode_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#af9516cd48ae34ff11e98d08f57bb4edb"><param name="Name" value="decode_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a0586252cf7d9b6ef3ca561cdac6606a4"><param name="Name" value="encode_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2c211d56157a9280da5c1567fd6ae62a"><param name="Name" value="encode_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a7c8c11397ed75244c05ef7e182d33481"><param name="Name" value="read_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#ac75fc950fb41c658b4d05bc1be62b158"><param name="Name" value="read_u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a12e70802ba18c46ba0058b4693d64f70"><param name="Name" value="write_s"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2facd91af9692c1392b36701c7ec4b78"><param name="Name" value="write_u"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html"><param name="Name" value="tide::EBMLElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a6014f194b64918eb44fa8c0ca74479fb"><param name="Name" value="doc_read_version"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#afc5fe619d0183c7dbfcb4f37892de03d"><param name="Name" value="doc_type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a590752f14cf8a2886f2e3318231d2141"><param name="Name" value="doc_type_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a0d87415109e3a470e48eff86622bca4a"><param name="Name" value="doc_type_read_ver_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a92e8d4a0f1ceb06663ecdf5aa9b9d5fc"><param name="Name" value="doc_type_ver_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ac07ffbcf2e3ceaf0224440bce5dc65c6"><param name="Name" value="doc_version"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ae1e853ede094a2bd5eb124edfa5d93eb"><param name="Name" value="EBMLElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ae7ce5bb75fe47b7045a2a21fbac0389c"><param name="Name" value="max_id_length"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#aafcbeab4e7d01f89e90f65cabe5a6001"><param name="Name" value="max_id_length_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a5a0325fbe856decacfff83d742bb7734"><param name="Name" value="max_size_length"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a29a85c59c3cff4038baf2995cf8a1988"><param name="Name" value="max_size_length_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#af8d9e63ddddf655eaa24bf729a396fe7"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#add10202f855ea904d32689cc894f0a4b"><param name="Name" value="read_ver_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a293f40c8c8c1aef0e2abcc939de5e46d"><param name="Name" value="read_version"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#af3e0c81711cc1eba4af95c52d9381778"><param name="Name" value="set_defaults_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a2e94dfdd80201718ff145e99a2a99087"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#add00c4f9a95abd57f557764edd8c427a"><param name="Name" value="ver_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ae0afa0ac1e1c5d73b0b750ef364f8cbf"><param name="Name" value="version"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ad9f1f87b1567f4ee130db07789149b1a"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a6dc5ad3529620c6755ceff31caf9d7b0"><param name="Name" value="~EBMLElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html"><param name="Name" value="tide::Element"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a321eabc90b92326f5a1a703b95115a1f"><param name="Name" value="Element"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a936f48bd9dc10ae1fc738eef6b6bebde"><param name="Name" value="id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#afdb6205ee28712afa92b4faf3672e106"><param name="Name" value="id_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#aa42878af00b801e2f4bb0872f6bd2313"><param name="Name" value="total_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d"><param name="Name" value="write"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#ad6040279595409e4577c62f77cb2c5db"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a050d160a6595745def7c97e2017507da"><param name="Name" value="write_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74"><param name="Name" value="write_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a47ecd12ddb6e4552bb6a6f0de4cf9820"><param name="Name" value="~Element"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html"><param name="Name" value="tide::FloatElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a804d74727dffa113a40977bf5a7c5099"><param name="Name" value="FloatElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a5e71cc229386c1e70f44947b2b69b533"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a1da15d748f07b64305863c1a84de5774"><param name="Name" value="prec_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a1f97783b663eed12631e689a8484834d"><param name="Name" value="precision"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a4dd31ff2567f3880dbfe4e26983a9367"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#a9a522f8d7b48f72e22ff5fc4038ed071"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#ac60245a5a1a7f59040a6429d5b47e37f"><param name="Name" value="write_body"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html"><param name="Name" value="tide::ids"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#abf8a2c8613f8edf36d4a8d95086b8131"><param name="Name" value="AttachmentLink"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5ec1e303cf6bdd371a81ef19844a2994"><param name="Name" value="CodecDecodeAll"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab8cd58b63b833667d805bede1dcc7443"><param name="Name" value="CodecID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a997c04b36275e68f9f6e6ef3d95c39a7"><param name="Name" value="CodecName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af07fd20a01c37af924fe54055409184e"><param name="Name" value="CodecPrivate"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a178b4e10175511e78055c5de3be69f02"><param name="Name" value="coded_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5b6d5474a4db026a69216a4cded14cb9"><param name="Name" value="CRC32"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad31891fe466d65e18ce8efeb44494012"><param name="Name" value="DateUTC"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0492731bd57adf81ae412e9d70e64f10"><param name="Name" value="decode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a05b4f229199bfa3a23e1d41cc501be98"><param name="Name" value="DecodeResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ac3ce76d8af9af63da1756bcf376cd2ca"><param name="Name" value="DefaultDuration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6345aba6e322f3bbbcd8e9befe57b2c"><param name="Name" value="DocType"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8864edd2b3a9b9a09232e1f8c352e486"><param name="Name" value="DocTypeReadVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af6d1264a96d2f80de9c08cd6361cba84"><param name="Name" value="DocTypeVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a17f04824ef7f560f69a587cb34698f37"><param name="Name" value="Duration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aaf9f3ea760eb2978233e8a40127e219a"><param name="Name" value="EBML"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a7ce069f0368afeb86912b0fd0b3033e9"><param name="Name" value="EBMLMaxIDLength"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae7d03b6aded53283fe6878b383196073"><param name="Name" value="EBMLMaxSizeLength"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aed1907796177fd2fb9ccf72ee872898f"><param name="Name" value="EBMLReadVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a91482fa04523f4aff14d9252ca67b8fd"><param name="Name" value="EBMLVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4d9959cf62824f009e4bc59c5c03b47a"><param name="Name" value="encode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a23759627bbb429121297293ac8bf20ea"><param name="Name" value="FlagDefault"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a58280cdb1655d5562f131ca15020bcb1"><param name="Name" value="FlagEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aba301227e3310be0c128255f9450c07c"><param name="Name" value="FlagForced"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a056cabccf30b5f017bc8ed7c1e22906b"><param name="Name" value="FlagLacing"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861"><param name="Name" value="ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a22e5bb79273fda9ba3da69ac65f47b82"><param name="Name" value="Info"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a529605cebffba57bdffcd6785e7a42d2"><param name="Name" value="MaxBlockAdditionID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3745294a4c3a1aff9ac7771022c21dc4"><param name="Name" value="MaxCache"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acb8c4d353c1de86255bbae227664000b"><param name="Name" value="MinCache"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5fa56b8522038a78db5e38c4804969ef"><param name="Name" value="MuxingApp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a493ff99a80a170425b7b858f7447eadb"><param name="Name" value="Name"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a2db94d8019c0e77792162513e2ebd0dd"><param name="Name" value="NextFileName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0f3585db683afa5868c5d73ecea08ce3"><param name="Name" value="NextUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a029ba9984400aebf145231dc3c0dd7c0"><param name="Name" value="Null"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a0a182775f3e6fe3bd8464fa38b916dd7"><param name="Name" value="PrevFileName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a1509d8da0e7d7a9df392296f83b27020"><param name="Name" value="PrevUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a3d23a6859db3af0d10b872b9071bccec"><param name="Name" value="read"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a8e73a2ce97ea6193de0b9f1ffe03b210"><param name="Name" value="ReadResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a53da8603b73bc93d7c7e4e77ae3dfb41"><param name="Name" value="Seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ab2127805d732aff254ac4f83ad5da4bb"><param name="Name" value="SeekHead"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6757a27b87036fe07fafcb1c9e3a2b30"><param name="Name" value="SeekID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a51f86c716401968288b7d7ed616c3e3d"><param name="Name" value="SeekPosition"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4941e3f8a2bb2ac15c34d2f07185899e"><param name="Name" value="Segment"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a603db4765836a1d3d09dcd932992512e"><param name="Name" value="SegmentFamily"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6387895cb1a8410e022424281321e99"><param name="Name" value="SegmentFileName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acabd9c4ef185af7e6e07a577106bc7de"><param name="Name" value="SegmentUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a368453ae324ef1bb09335b201ec9aaa3"><param name="Name" value="TimecodeScale"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af0325ba6b22d3f700599d55cf888d888"><param name="Name" value="Title"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aa7157d01bcbb2022e47c01d0b1540edc"><param name="Name" value="TrackEntry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a9bece4ee2e7effb2e70551f98dfc92cc"><param name="Name" value="TrackJoinBlocks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a47c8a5f8233c287c91eeea03e647e4ae"><param name="Name" value="TrackJoinUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4f58abe94e8b5435086e907c9630f00f"><param name="Name" value="TrackNumber"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a46384e6b025cabf666e403929a85cdd3"><param name="Name" value="TrackOperation"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5f18b7869662aa5fe2367091d00121b5"><param name="Name" value="TrackOverlay"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6cf553bd43f55ba100c023c8d55d9f43"><param name="Name" value="Tracks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acd043716ca619330cf7c74d953a8816d"><param name="Name" value="TrackTimecodeScale"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6a9e02b18e8e3bc0c933a0b143a1358"><param name="Name" value="TrackType"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a679cd5c960da51605f77ca08620c0891"><param name="Name" value="TrackUID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a770bb60447af061b4d082f19bb8ce80c"><param name="Name" value="Void"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a25473b3b02067b2b1500384d05a910c4"><param name="Name" value="write"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae475488523e815afed73284cf87f6cb6"><param name="Name" value="WritingApp"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html"><param name="Name" value="tide::IntElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#a0a4c3452c7d9ff0d12efc7c0bd9004e5"><param name="Name" value="IntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#a0147d3d8e584191a8f00233a12e6a06c"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#a57503e4902f0cdc19bf577d6b30acbac"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#ae40299af04c5e6aee9d0182dc64a26bd"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#aae618edcd1b7edb0cb32225c3ff256ed"><param name="Name" value="write_body"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_invalid_child_i_d.html"><param name="Name" value="tide::InvalidChildID"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_invalid_e_b_m_l_i_d.html"><param name="Name" value="tide::InvalidEBMLID"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_invalid_element_i_d.html"><param name="Name" value="tide::InvalidElementID"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_invalid_var_int.html"><param name="Name" value="tide::InvalidVarInt"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_master_element.html"><param name="Name" value="tide::MasterElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_master_element.html#af7606d7e6b05cf54215ce1c8e47b33fc"><param name="Name" value="MasterElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_master_element.html#add62c8bd9490c14f269b2c7936e910c8"><param name="Name" value="~MasterElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html"><param name="Name" value="tide::Metaseek"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a68d734d2245a8ec8fc8423806e7e9b92"><param name="Name" value="append"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a7799525636574af83a517ee78d8435b2"><param name="Name" value="index_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a85079b8e115717fbb5f602ccecc9f876"><param name="Name" value="index_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a267788b88158018adf7eb0ba3bcbb08e"><param name="Name" value="IndexItem"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a73d841cc75d18a42c17756d27fe5f738"><param name="Name" value="Metaseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a293120a8df5e171a5b92534a946cfa3f"><param name="Name" value="operator[]"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#a920f42f5a7fb97253f490023f838dc85"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#aac2ccbd5f1373400229e4d616313c8a6"><param name="Name" value="remove"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#aa48bd8e85f9b677b8eee8c6ec7462214"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#ab1cbe29bc9333df9a6f52a689adb8381"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#ae66e63d5412993722c5e3a6a1706eb97"><param name="Name" value="~Metaseek"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_missing_child.html"><param name="Name" value="tide::MissingChild"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_not_e_b_m_l.html"><param name="Name" value="tide::NotEBML"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_not_tide.html"><param name="Name" value="tide::NotTide"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html"><param name="Name" value="tide::PrimitiveElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#ae899a169f936d4334d3dd64f8679346a"><param name="Name" value="default_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a2db6aab2f880fcf17ef1fabb44190c85"><param name="Name" value="get_default"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#aa6d19bf9eab243f3c1a36d37063f401e"><param name="Name" value="has_default"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a40846091a998a9e07875014ed4d991ef"><param name="Name" value="has_default_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#ae8e1a61c69e75ed18af34c2c584363c2"><param name="Name" value="id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a8e2fcabe0512c96345bde48fdbd6b096"><param name="Name" value="is_default"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a6bf3d807f145364e44f7674e60895abb"><param name="Name" value="operator T"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a2d2f2a851d791e1d7c6dea957a4b223e"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a620c50bf6ed75e94e562c4659e2ff0cb"><param name="Name" value="PrimitiveElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a2ea07129ed786aa85236bab1acea6084"><param name="Name" value="remove_default"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a0bf16a108f0ec8f932b1b04a6c326520"><param name="Name" value="set_default"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a755ef4feff645c9bdc9d79b655128a57"><param name="Name" value="value"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#aaa1357cc5907b41a119a995700871055"><param name="Name" value="value_"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_read_error.html"><param name="Name" value="tide::ReadError"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html"><param name="Name" value="tide::SeekElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a108fdf47cc8a7954123b45cb9bcda4c2"><param name="Name" value="indexed_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a093f9a9be247f20c73cd8e38c72b5f38"><param name="Name" value="indexed_id_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#ace8828c70764452fb4e341e28b31407a"><param name="Name" value="offset"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a0aecc183c9e6afc896c447bef82c690e"><param name="Name" value="offset_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#ac79cfb0b853835aa6c29c12eae9695e6"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a9d8f7a615f6860babb82042cdf2651bf"><param name="Name" value="SeekElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#a302ecffe32c4143d9609576d983a9c7d"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#acbb8b6a3f5fb76613c090dfea58ef515"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#ae46b200783d0cf4a7294078fa91a8dfb"><param name="Name" value="~SeekElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a5ba7d843161cc8e09eda6e63604df626"><param name="Name" value="date"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#acf8eade93641e29a9a0f914ed8ec815b"><param name="Name" value="date_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a855a8bd3b0616e6de27482845dbb0eac"><param name="Name" value="duration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a71373de21f43ce2fac559e0950efde1a"><param name="Name" value="duration_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ae3d03b8234126741ee1d446089c6a967"><param name="Name" value="filename"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a1c3ffcc6a1a79f71c857e5d228bde885"><param name="Name" value="have_date_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ad2bc7aea25b596265bab025ac93152f3"><param name="Name" value="have_duration_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#af9e7ea52bea552de78c7008ca757fccf"><param name="Name" value="have_muxer_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#afb12bdab13c510b5d5fb2708f4122c68"><param name="Name" value="have_next_fn_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a5d45eaddf9d3cc46c8f08b39dd3ebeae"><param name="Name" value="have_next_uid_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#abb96011a0990f659b7ea8a28ddc2ddbf"><param name="Name" value="have_prev_fn_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a891a79a5f98182c5f7f5ee0c6ad44128"><param name="Name" value="have_prev_uid_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#adcd7b899ff078322bafce2e3cae483ce"><param name="Name" value="have_seg_fam_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a56a472dd10fb658a4b349217737367d8"><param name="Name" value="have_seg_fn_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#afc6565e4d6b124d230bf498817dda57c"><param name="Name" value="have_title_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a95a01bd09b212676c7ba736e6b2b5177"><param name="Name" value="have_uid_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aafcb9d9ec86a2c103a49db8b4fa636cf"><param name="Name" value="have_writer_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a846d44992011c0b8f70eeb7229f019f2"><param name="Name" value="muxer_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ab4ee3f53f8ba0ec3f120ee760c6621ae"><param name="Name" value="muxing_app"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a7fe805423020b1cceb37d08802be1b76"><param name="Name" value="next_filename"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a6e2beb13785d7d84f1877d51a1709544"><param name="Name" value="next_fn_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a2a041b4bfa26b26dd25e87688afa8b94"><param name="Name" value="next_uid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a34e8cd4f0726beef496d4b899884256a"><param name="Name" value="next_uid_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a965d8cd539e418106e71a53851099980"><param name="Name" value="prev_filename"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aa1a4cc176229f7a750bd86dd7ae06a5e"><param name="Name" value="prev_fn_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a18c7f679de6dc57c3414a520431184df"><param name="Name" value="prev_uid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aabeaa92dac7b53d4939ed7c9edc49e85"><param name="Name" value="prev_uid_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a8d504d19f2aeff712bc9cd3f2fb64e45"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ac2cc0a89f740b25075859175db89dcb5"><param name="Name" value="reset"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ae3909a95246cc255ac1556887b6a29cc"><param name="Name" value="seg_fam_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a127064f2ba20a072e48fb087ebb37b86"><param name="Name" value="seg_fn_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ac05eaceb18f362f9b898094cae2e5a4e"><param name="Name" value="segment_family"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ab78dd2e959dd5a539ae4c17f62b818fa"><param name="Name" value="SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a99b8fb44c48d30fc47c3ae3044ee3a16"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a8f25b162f10766dd44d1f1e6dc96757e"><param name="Name" value="tc_scale_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a8c0a6fa3456c84aac51a70e444cb0b89"><param name="Name" value="timecode_scale"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#af6badc5944ea037b7b93bcd2c544d037"><param name="Name" value="title"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a60a10958b4b70bf0ac7cec9059ef3c6c"><param name="Name" value="title_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a4a160c2be69159fb0861a76a932f0e95"><param name="Name" value="uid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aca333b2082f415f69a41130b8768d528"><param name="Name" value="uid_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#accd056b309b86f2f7a051e2f6a442d79"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ac4a14738fc51a92487e58ea7344fa19b"><param name="Name" value="writer_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#af5d3f0cf7a05e074306bea1530c3fd8c"><param name="Name" value="writing_app"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aaabee3bbf541a6aabe8f4be9f236b185"><param name="Name" value="~SegmentInfo"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_spec_size_too_small.html"><param name="Name" value="tide::SpecSizeTooSmall"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html"><param name="Name" value="tide::StringElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a4cabfcaedec75fc6e05b288553513202"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a22f4ca7cb78dbd161d0be16d7fc6ac03"><param name="Name" value="padding"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a0e7ea5bb14697e564ace4c2a8adedefd"><param name="Name" value="padding_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a863ed9f2da35d9c655e0f36ec1dd7fe2"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a594796f1d447b7bbf4055234c8bdcb2d"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#ae8225037179885d513a978506d5ef731"><param name="Name" value="StringElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a8b699a37c7581653e0e53c51734d774b"><param name="Name" value="write_body"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html"><param name="Name" value="tide::Tide"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a680a642acd4086f581fcb089addaeff7"><param name="Name" value="Tide"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a32000d41d95d1508febe8fd63623154c"><param name="Name" value="Tide"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887"><param name="Name" value="~Tide"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_tide_error.html"><param name="Name" value="tide::TideError"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html"><param name="Name" value="tide::TideFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html"><param name="Name" value="tide::TideImpl"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a4cc0e56da6b98fbe818927949aefee50"><param name="Name" value="mode_"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#a06c952cae8c5289e3e6efb60bf049c0b"><param name="Name" value="name_"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aab9512268f26e5c69e51addfe5feb770"><param name="Name" value="TideFile"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#acb05d7fe3f05f21bd392671a4cf365c6"><param name="Name" value="verb_"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aa34d1b76521ba2ba21b88c0e9107411a"><param name="Name" value="~TideFile"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a59f7222b2c1c1106a46eaa56c7dbf847"><param name="Name" value="prepare_stream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a688679f51748893e18fe0cea23e1cb68"><param name="Name" value="stream_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a342d868724519d00b151e74b69c232ad"><param name="Name" value="TideImpl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a6e5080bcb28197d74b8b6b362021a51d"><param name="Name" value="~TideImpl"></OBJECT>
   </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html"><param name="Name" value="tide::TrackEntry"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abecc6413af819b520e675790348bc2fe"><param name="Name" value="attachment_link"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aaf70864158f0a6215d84d11573450252"><param name="Name" value="attachment_link_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a1e6b513b1fc43ecb645e0f0625efd0d0"><param name="Name" value="codec_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a330f937d411731ddfdb58865c02f8a13"><param name="Name" value="codec_id_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a21816d5a1918fe989c4ec6113c486271"><param name="Name" value="codec_name"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ac523754f5addf9231983d9631286a726"><param name="Name" value="codec_name_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a8e1a834fe8be263c4069a900dee3efea"><param name="Name" value="codec_private"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a59dab3a3ebdadc0e7703980e7c4802ad"><param name="Name" value="codec_private_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a465cfaec68398e09f4f9d07c3d4c1451"><param name="Name" value="ConstPtr"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a4b2226a7bfdf8f4a6fa850873866da44"><param name="Name" value="decode_all"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ae625de6740fa2676e3202634ea3f8e28"><param name="Name" value="decode_all_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ab70cfb2da41406dd06ff9bc2e66b33fc"><param name="Name" value="default_dur_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ac9e9f32c2fc1cbacf2b0a651459c9bc7"><param name="Name" value="default_duration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a4a201a7c103e1d98ddb0d895a91dfd3b"><param name="Name" value="enabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a2b2817df2d480b02d47242bd95984687"><param name="Name" value="enabled_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a344c1d73836874f4201e0e571d30d984"><param name="Name" value="forced"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a0e11eeee1980c531b9835102693d7925"><param name="Name" value="forced_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#adb40eb77623e3fcb9b96350216763e1e"><param name="Name" value="is_virtual"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a7b49a1427e7df67df7996b4d522018cd"><param name="Name" value="lacing"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abc928d0c4b491418a933a4573b37145e"><param name="Name" value="lacing_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a3a59a9c698c3b34b09874a83ea25d408"><param name="Name" value="max_block_add_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a242f4e35540928a9bfca800d79c7e997"><param name="Name" value="max_block_add_id_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a65b7242d89bea0ac28a4a7c811dac6b5"><param name="Name" value="max_cache"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a304dae30fec28a3ec33ae1e1e32ab42e"><param name="Name" value="max_cache_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ad4950d650e790b5a1de2d88834d5386d"><param name="Name" value="min_cache"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aff1ae3a267eefb9432e1fc0083a2b190"><param name="Name" value="min_cache_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a0c448a1dc4cfea471a101bf37454d9b6"><param name="Name" value="name"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a1ea0cceff859b0156fc86a96318fbce0"><param name="Name" value="name_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#af6fd340b9318aaedf8e794649a38fda0"><param name="Name" value="number"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a35577209918cd1071793aaa201f18d85"><param name="Name" value="number_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a1e69e2e63ae2e0c41ac3fe4fe9f49b3c"><param name="Name" value="operation"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a0d72ab2074afc6cb904d27b94a6c612e"><param name="Name" value="operation_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abde6809c7728c450f2886bbbe49ab8b7"><param name="Name" value="overlays"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aa8a3578ebdd6aa2ab1a9b12ffe2c981f"><param name="Name" value="overlays_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#aa1e183af496258944353c996c738736d"><param name="Name" value="Ptr"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a16c3ba3b1b95861c977a7bb66eb20bc7"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a06c9f5f50af4037c3ffee95746283a6e"><param name="Name" value="read_operation"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a56436fa58723018c51c547558483dfd8"><param name="Name" value="reset"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a3e50cb15c0b9fea845082a5b6364c02e"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a964b8ecaf002b2df06e76eef471db66f"><param name="Name" value="timecode_scale"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a7836fb3d7e03f9bdfc9a71fa9330bf51"><param name="Name" value="timecode_scale_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a617d996d427b7e388fd54887cf4dd11e"><param name="Name" value="TrackEntry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a757f955247431d426e8583c767f4307b"><param name="Name" value="type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a12b6c4c4949b9b0899bfc1d6958ed2f4"><param name="Name" value="type_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ab24ea0261c8279214b77c653e31faf29"><param name="Name" value="uid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abea849c0694cd7194d838ed01fafd696"><param name="Name" value="uid_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a536ea93598de5d16248dffbd80635ca4"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ae46d0f15a54fe73c04ed382e4a920da9"><param name="Name" value="~TrackEntry"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#ab0a7c28b2f822bdf39fc6055424f6b0a"><param name="Name" value="append"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a75c1b4f76fc78cbe47fbd89f718d6c44"><param name="Name" value="count"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a4740139b3bfee059ec76123f5ee022c4"><param name="Name" value="operator[]"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a23cc0c1c5027c4ce184dc5a54020b6c3"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#afcdd76fc8e55efcea781dc82c14bf4f4"><param name="Name" value="remove"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a7b177fcd1980eeec08b5b7b0ba108f31"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a9920bd9def01b8fd2a4c1449a2c66970"><param name="Name" value="TrackJoinBlocks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a92ec4fad6d03c57a3fa3b75084110ee7"><param name="Name" value="type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#afdae21f1f817749a2a50934ede7c1129"><param name="Name" value="uids_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a3cc74546295ebee358af0ad13f344487"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a3b88ae05f4cea18862cb6b168df428ec"><param name="Name" value="~TrackJoinBlocks"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_operation_base.html"><param name="Name" value="tide::TrackOperationBase"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_operation_base.html#a74f9e5a4fbb171bba8c9577f03b98436"><param name="Name" value="TrackOperationBase"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_operation_base.html#ab7cb107fd44b31fce59868f0f89f6d00"><param name="Name" value="type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_operation_base.html#a6890cc0b66a068149f78c44378b0676c"><param name="Name" value="~TrackOperationBase"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html"><param name="Name" value="tide::Tracks"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a6414bbf4d09d89ffaee923a9ac2144d2"><param name="Name" value="assign"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a44e74469f7d91d0d515ece7a5a70212f"><param name="Name" value="at"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4"><param name="Name" value="const_iterator"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00"><param name="Name" value="const_reference"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca"><param name="Name" value="entries_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20"><param name="Name" value="iterator"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a7e078285b64d10f02b9f712a14e8e508"><param name="Name" value="key_type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a4aeb73274b7b0d2e27e56277d2ae7360"><param name="Name" value="mapped_type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#ae14fb4eb9d33d017b23208d6c3c4635b"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a69f3c8b7e5401d798c79de0f2fd5e1b6"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a1dd5105dac28d6a17f8d835f9a2fa0e1"><param name="Name" value="reference"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a2449adfddb40d28074291fa5ee7ca105"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa"><param name="Name" value="size_type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a73dc63efe6022c7be38fdd0bab377e08"><param name="Name" value="storage_type_"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#adb1976984b6ffc9373c6ee82a5da562e"><param name="Name" value="Tracks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#afcfcc059212195dff1e925711832a24f"><param name="Name" value="value_type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a69b113316cb62087589100520da4ff5a"><param name="Name" value="write_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a4d27eb1e4fe90ab226385da99a07152a"><param name="Name" value="~Tracks"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html"><param name="Name" value="tide::UIntElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a1e92d203aa8d288551c537b847004ff3"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a8e76adb5683d2c0e8c2aade299f1cb51"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a27bf1866339b95ab8c2810b4e4ed3ede"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a2ad1e1540c7d2d87d8794772e16d29b7"><param name="Name" value="UIntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a167cf0e0b586695474545163c89d3547"><param name="Name" value="write_body"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_value_out_of_range.html"><param name="Name" value="tide::ValueOutOfRange"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_value_size_out_of_range.html"><param name="Name" value="tide::ValueSizeOutOfRange"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_var_int_too_big.html"><param name="Name" value="tide::VarIntTooBig"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html"><param name="Name" value="tide::vint"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6"><param name="Name" value="coded_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a6cb533f4f9dfff48c5dcd457a2945b8a"><param name="Name" value="decode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a2831d683ac5ae6466f8d219398c73cc3"><param name="Name" value="DecodeResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a6351e7bf1f5c6370ff01a78595587abd"><param name="Name" value="encode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#aee4c307ce2b0c1a3850571f92504ec1d"><param name="Name" value="read"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a0052774240921bfc839a9c632a1c26ff"><param name="Name" value="ReadResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a42fc5a35f8fe8cc5a8a14707a6b51654"><param name="Name" value="write"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html"><param name="Name" value="tide::VoidElement"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a69f8bbeac9343e0ac1f1329562760185"><param name="Name" value="fill"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a67cb437ace1b16eac4a715df95f1dea3"><param name="Name" value="read_body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#afa217bd9762e2849f0cde2c2362b7f01"><param name="Name" value="size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#aae39a54ab3b9aac9109057c9cecf7d41"><param name="Name" value="total_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a8042a8c211b8dd163320fe0d0185068f"><param name="Name" value="VoidElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a4220de6abef96281f43591b37621cbd0"><param name="Name" value="write"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a2c061d10d8baad96eb7d3b663154c021"><param name="Name" value="write_body"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtide_1_1_write_error.html"><param name="Name" value="tide::WriteError"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html"><param name="Name" value="tide"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992aad619f588131d1c8b65ff7a7a882d49f"><param name="Name" value="MODE_APPEND"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7c8a3324be4315bdc2b9cd5676be0646"><param name="Name" value="MODE_READ"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1e386119957c6de0dcf01a2118345992a7d50e467bae5274860d70fc493a05670"><param name="Name" value="MODE_WRITE"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0dd4d6e0d187e56258fc941336848502"><param name="Name" value="NullOStream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a22278e04001bdeb6c7dd34685caed76ca7d5d75abc392fa0920382ea908df725a"><param name="Name" value="EBML_FLOAT_PREC_DOUBLE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a22278e04001bdeb6c7dd34685caed76ca1f6bb26c9ec8840742f642cc2d39a8cc"><param name="Name" value="EBML_FLOAT_PREC_SINGLE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a0369a0d448f755bb2629183243ae899c"><param name="Name" value="err_bufsize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d"><param name="Name" value="err_el_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a18791d2ad49486af46c99345028b4321"><param name="Name" value="err_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#abcbb666958999a74dcb55cf9219b0adf"><param name="Name" value="err_par_id"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ab68d75dd75154f94e8fda6009bdfed2d"><param name="Name" value="err_pos"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a483f00500e3df5562e000b9b709e35cc"><param name="Name" value="err_reqsize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a3f0553ca9fac25372f005b7dfb592901"><param name="Name" value="err_specsize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1f514f3b82b5a92d1d8364406647888d"><param name="Name" value="err_valid_sizes"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a66de8ce469b919fd706102f297212743"><param name="Name" value="err_varint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#ac4c4e731a771c9ed911da87102b3387a"><param name="Name" value="err_ver"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a60357815c8961226b9cf312adcf79c29"><param name="Name" value="OpPtr"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a1da09d1196f3e8a0f59f9f3a0bae73f1"><param name="Name" value="skip_read"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide.html#a865bbc5fdbdbbcfc30dffa74d40713f2"><param name="Name" value="skip_write"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a680a642acd4086f581fcb089addaeff7"><param name="Name" value="Tide"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a32000d41d95d1508febe8fd63623154c"><param name="Name" value="Tide"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="win__dll_8h.html#adedfce2bc7606d774db0029a38b3d68e"><param name="Name" value="TIDE_EXPORT"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aab9512268f26e5c69e51addfe5feb770"><param name="Name" value="TideFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a342d868724519d00b151e74b69c232ad"><param name="Name" value="TideImpl"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a8c0a6fa3456c84aac51a70e444cb0b89"><param name="Name" value="timecode_scale"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a8c0a6fa3456c84aac51a70e444cb0b89"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a964b8ecaf002b2df06e76eef471db66f"><param name="Name" value="tide::TrackEntry"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a7836fb3d7e03f9bdfc9a71fa9330bf51"><param name="Name" value="timecode_scale_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a368453ae324ef1bb09335b201ec9aaa3"><param name="Name" value="TimecodeScale"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a368453ae324ef1bb09335b201ec9aaa3"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a368453ae324ef1bb09335b201ec9aaa3"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af0325ba6b22d3f700599d55cf888d888"><param name="Name" value="Title"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af0325ba6b22d3f700599d55cf888d888"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#af0325ba6b22d3f700599d55cf888d888"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#af6badc5944ea037b7b93bcd2c544d037"><param name="Name" value="title"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a60a10958b4b70bf0ac7cec9059ef3c6c"><param name="Name" value="title_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#aa42878af00b801e2f4bb0872f6bd2313"><param name="Name" value="total_size"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#aa42878af00b801e2f4bb0872f6bd2313"><param name="Name" value="tide::Element"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#aae39a54ab3b9aac9109057c9cecf7d41"><param name="Name" value="tide::VoidElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="track__operation_8h.html"><param name="Name" value="track_operation.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aa7157d01bcbb2022e47c01d0b1540edc"><param name="Name" value="TrackEntry"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aa7157d01bcbb2022e47c01d0b1540edc"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#aa7157d01bcbb2022e47c01d0b1540edc"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a617d996d427b7e388fd54887cf4dd11e"><param name="Name" value="tide::TrackEntry"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a9bece4ee2e7effb2e70551f98dfc92cc"><param name="Name" value="TrackJoinBlocks"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a9bece4ee2e7effb2e70551f98dfc92cc"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a9bece4ee2e7effb2e70551f98dfc92cc"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a9920bd9def01b8fd2a4c1449a2c66970"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a47c8a5f8233c287c91eeea03e647e4ae"><param name="Name" value="TrackJoinUID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a47c8a5f8233c287c91eeea03e647e4ae"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a47c8a5f8233c287c91eeea03e647e4ae"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4f58abe94e8b5435086e907c9630f00f"><param name="Name" value="TrackNumber"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4f58abe94e8b5435086e907c9630f00f"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a4f58abe94e8b5435086e907c9630f00f"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a46384e6b025cabf666e403929a85cdd3"><param name="Name" value="TrackOperation"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a46384e6b025cabf666e403929a85cdd3"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a46384e6b025cabf666e403929a85cdd3"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_operation_base.html#a74f9e5a4fbb171bba8c9577f03b98436"><param name="Name" value="TrackOperationBase"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5f18b7869662aa5fe2367091d00121b5"><param name="Name" value="TrackOverlay"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5f18b7869662aa5fe2367091d00121b5"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a5f18b7869662aa5fe2367091d00121b5"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6cf553bd43f55ba100c023c8d55d9f43"><param name="Name" value="Tracks"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6cf553bd43f55ba100c023c8d55d9f43"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a6cf553bd43f55ba100c023c8d55d9f43"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#adb1976984b6ffc9373c6ee82a5da562e"><param name="Name" value="tide::Tracks"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acd043716ca619330cf7c74d953a8816d"><param name="Name" value="TrackTimecodeScale"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acd043716ca619330cf7c74d953a8816d"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#acd043716ca619330cf7c74d953a8816d"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6a9e02b18e8e3bc0c933a0b143a1358"><param name="Name" value="TrackType"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6a9e02b18e8e3bc0c933a0b143a1358"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ad6a9e02b18e8e3bc0c933a0b143a1358"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a679cd5c960da51605f77ca08620c0891"><param name="Name" value="TrackUID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a679cd5c960da51605f77ca08620c0891"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a679cd5c960da51605f77ca08620c0891"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a757f955247431d426e8583c767f4307b"><param name="Name" value="type"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a757f955247431d426e8583c767f4307b"><param name="Name" value="tide::TrackEntry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a92ec4fad6d03c57a3fa3b75084110ee7"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_operation_base.html#ab7cb107fd44b31fce59868f0f89f6d00"><param name="Name" value="tide::TrackOperationBase"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a12b6c4c4949b9b0899bfc1d6958ed2f4"><param name="Name" value="type_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a4a160c2be69159fb0861a76a932f0e95"><param name="Name" value="uid"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#a4a160c2be69159fb0861a76a932f0e95"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ab24ea0261c8279214b77c653e31faf29"><param name="Name" value="tide::TrackEntry"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aca333b2082f415f69a41130b8768d528"><param name="Name" value="uid_"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aca333b2082f415f69a41130b8768d528"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#abea849c0694cd7194d838ed01fafd696"><param name="Name" value="tide::TrackEntry"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#afdae21f1f817749a2a50934ede7c1129"><param name="Name" value="uids_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a2ad1e1540c7d2d87d8794772e16d29b7"><param name="Name" value="UIntElement"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__utilities.html"><param name="Name" value="Utilities"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#acb05d7fe3f05f21bd392671a4cf365c6"><param name="Name" value="verb_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#a755ef4feff645c9bdc9d79b655128a57"><param name="Name" value="value"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_primitive_element.html#aaa1357cc5907b41a119a995700871055"><param name="Name" value="value_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#afcfcc059212195dff1e925711832a24f"><param name="Name" value="value_type"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#add00c4f9a95abd57f557764edd8c427a"><param name="Name" value="ver_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ae0afa0ac1e1c5d73b0b750ef364f8cbf"><param name="Name" value="version"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html"><param name="Name" value="vint.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6"><param name="Name" value="coded_size"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html#a6cb533f4f9dfff48c5dcd457a2945b8a"><param name="Name" value="decode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html#a2831d683ac5ae6466f8d219398c73cc3"><param name="Name" value="DecodeResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html#a6351e7bf1f5c6370ff01a78595587abd"><param name="Name" value="encode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html#aee4c307ce2b0c1a3850571f92504ec1d"><param name="Name" value="read"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html#a0052774240921bfc839a9c632a1c26ff"><param name="Name" value="ReadResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="vint_8h.html#a42fc5a35f8fe8cc5a8a14707a6b51654"><param name="Name" value="write"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a770bb60447af061b4d082f19bb8ce80c"><param name="Name" value="Void"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a770bb60447af061b4d082f19bb8ce80c"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a770bb60447af061b4d082f19bb8ce80c"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a8042a8c211b8dd163320fe0d0185068f"><param name="Name" value="VoidElement"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="win__dll_8h.html"><param name="Name" value="win_dll.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a25473b3b02067b2b1500384d05a910c4"><param name="Name" value="write"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a25473b3b02067b2b1500384d05a910c4"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d"><param name="Name" value="tide::Element"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#a25473b3b02067b2b1500384d05a910c4"><param name="Name" value="tide::ids"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a42fc5a35f8fe8cc5a8a14707a6b51654"><param name="Name" value="tide::vint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a4220de6abef96281f43591b37621cbd0"><param name="Name" value="tide::VoidElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1vint.html#a42fc5a35f8fe8cc5a8a14707a6b51654"><param name="Name" value="vint.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a298e9d6a72915a289b5c18c5d4a5539d"><param name="Name" value="write_body"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_binary_element.html#a298e9d6a72915a289b5c18c5d4a5539d"><param name="Name" value="tide::BinaryElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_date_element.html#a0b6336bc23e51e996a1ceb3d0b391f69"><param name="Name" value="tide::DateElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#ad9f1f87b1567f4ee130db07789149b1a"><param name="Name" value="tide::EBMLElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#ad6040279595409e4577c62f77cb2c5db"><param name="Name" value="tide::Element"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_float_element.html#ac60245a5a1a7f59040a6429d5b47e37f"><param name="Name" value="tide::FloatElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_int_element.html#aae618edcd1b7edb0cb32225c3ff256ed"><param name="Name" value="tide::IntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#ab1cbe29bc9333df9a6f52a689adb8381"><param name="Name" value="tide::Metaseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#acbb8b6a3f5fb76613c090dfea58ef515"><param name="Name" value="tide::SeekElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#accd056b309b86f2f7a051e2f6a442d79"><param name="Name" value="tide::SegmentInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_string_element.html#a8b699a37c7581653e0e53c51734d774b"><param name="Name" value="tide::StringElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#a536ea93598de5d16248dffbd80635ca4"><param name="Name" value="tide::TrackEntry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a3cc74546295ebee358af0ad13f344487"><param name="Name" value="tide::TrackJoinBlocks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a69b113316cb62087589100520da4ff5a"><param name="Name" value="tide::Tracks"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_u_int_element.html#a167cf0e0b586695474545163c89d3547"><param name="Name" value="tide::UIntElement"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_void_element.html#a2c061d10d8baad96eb7d3b663154c021"><param name="Name" value="tide::VoidElement"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a050d160a6595745def7c97e2017507da"><param name="Name" value="write_id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a12e70802ba18c46ba0058b4693d64f70"><param name="Name" value="write_s"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a12e70802ba18c46ba0058b4693d64f70"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a12e70802ba18c46ba0058b4693d64f70"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74"><param name="Name" value="write_size"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2facd91af9692c1392b36701c7ec4b78"><param name="Name" value="write_u"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2facd91af9692c1392b36701c7ec4b78"><param name="Name" value="ebml_int.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ebml__int.html#a2facd91af9692c1392b36701c7ec4b78"><param name="Name" value="tide::ebml_int"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#ac4a14738fc51a92487e58ea7344fa19b"><param name="Name" value="writer_"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#af5d3f0cf7a05e074306bea1530c3fd8c"><param name="Name" value="writing_app"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae475488523e815afed73284cf87f6cb6"><param name="Name" value="WritingApp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae475488523e815afed73284cf87f6cb6"><param name="Name" value="el_ids.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacetide_1_1ids.html#ae475488523e815afed73284cf87f6cb6"><param name="Name" value="tide::ids"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_e_b_m_l_element.html#a6dc5ad3529620c6755ceff31caf9d7b0"><param name="Name" value="~EBMLElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_element.html#a47ecd12ddb6e4552bb6a6f0de4cf9820"><param name="Name" value="~Element"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_master_element.html#add62c8bd9490c14f269b2c7936e910c8"><param name="Name" value="~MasterElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_metaseek.html#ae66e63d5412993722c5e3a6a1706eb97"><param name="Name" value="~Metaseek"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_seek_element.html#ae46b200783d0cf4a7294078fa91a8dfb"><param name="Name" value="~SeekElement"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_segment_info.html#aaabee3bbf541a6aabe8f4be9f236b185"><param name="Name" value="~SegmentInfo"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide.html#a70b69ab7c6e985cf97c032c2a15f1887"><param name="Name" value="~Tide"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_file.html#aa34d1b76521ba2ba21b88c0e9107411a"><param name="Name" value="~TideFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tide_impl.html#a6e5080bcb28197d74b8b6b362021a51d"><param name="Name" value="~TideImpl"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_entry.html#ae46d0f15a54fe73c04ed382e4a920da9"><param name="Name" value="~TrackEntry"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_join_blocks.html#a3b88ae05f4cea18862cb6b168df428ec"><param name="Name" value="~TrackJoinBlocks"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_track_operation_base.html#a6890cc0b66a068149f78c44378b0676c"><param name="Name" value="~TrackOperationBase"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classtide_1_1_tracks.html#a4d27eb1e4fe90ab226385da99a07152a"><param name="Name" value="~Tracks"></OBJECT>
 </UL>
 </BODY>
 </HTML>

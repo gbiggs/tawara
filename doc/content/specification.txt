@@ -87,11 +87,9 @@ following changes were made:
    similarly not supported, nor is the TrackTranslate (0x6624) element
    or its children. None of these elements are mandatory in Matroska.
 
- - Most of the localisation features, such as multiple track languages,
+ - Some of the localisation features, such as multiple track languages,
    are not supported:
    - Language (0x22B59C).
-
-   - ChapCountry (0x437E).
 
    - ChapLanguage (0x437C) and ChapCountry (0x437E) are supported to
      maintain compatibility with Matroska.

@@ -28,6 +28,7 @@
 #if !defined(TIDE_TRACK_ENTRY_H_)
 #define TIDE_TRACK_ENTRY_H_
 
+#include <boost/shared_ptr.hpp>
 #include <string>
 #include <tide/binary_element.h>
 #include <tide/float_element.h>
@@ -310,6 +311,11 @@ namespace tide
 
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input);
+
+            /// \brief The type of a shared pointer to a TrackEntry.
+            typedef boost::shared_ptr<TrackEntry> Ptr;
+            /// \brief The type of a shared pointer to a constant TrackEntry.
+            typedef boost::shared_ptr<TrackEntry const> ConstPtr;
 
         protected:
             UIntElement number_;

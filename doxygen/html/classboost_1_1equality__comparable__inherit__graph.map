@@ -1,0 +1,17 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classtide_1_1_primitive_element.html" title="PrimitiveElement\&lt; double \&gt;" alt="" coords="280,30,485,58"/>
+<area shape="rect" id="node7" href="$classtide_1_1_primitive_element.html" title="PrimitiveElement\&lt; int64_t \&gt;" alt="" coords="280,106,485,134"/>
+<area shape="rect" id="node13" href="$classtide_1_1_primitive_element.html" title="PrimitiveElement\&lt; std::string \&gt;" alt="" coords="269,157,496,185"/>
+<area shape="rect" id="node17" href="$classtide_1_1_primitive_element.html" title="PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="239,207,527,235"/>
+<area shape="rect" id="node21" href="$classtide_1_1_primitive_element.html" title="PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="276,258,489,286"/>
+<area shape="rect" id="node25" href="$classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="212,309,553,337"/>
+<area shape="rect" id="node27" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="273,359,492,387"/>
+<area shape="rect" id="node29" href="$classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="241,410,524,438"/>
+<area shape="rect" id="node31" href="$classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="301,461,464,489"/>
+<area shape="rect" id="node5" href="$classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="608,5,749,33"/>
+<area shape="rect" id="node9" href="$classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="608,55,749,83"/>
+<area shape="rect" id="node11" href="$classtide_1_1_int_element.html" title="Signed integer primitive element." alt="" coords="616,106,741,134"/>
+<area shape="rect" id="node15" href="$classtide_1_1_string_element.html" title="String primitive element." alt="" coords="605,157,752,185"/>
+<area shape="rect" id="node19" href="$classtide_1_1_binary_element.html" title="Binary primitive element." alt="" coords="604,207,753,235"/>
+<area shape="rect" id="node23" href="$classtide_1_1_u_int_element.html" title="Unsigned integer primitive element." alt="" coords="611,258,747,286"/>
+</map>

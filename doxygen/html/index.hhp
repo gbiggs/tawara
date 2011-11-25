@@ -27,6 +27,7 @@ master__element_8h_source.html
 metaseek_8h_source.html
 prim__element_8h_source.html
 seek__element_8h_source.html
+segment_8h_source.html
 segment__info_8h_source.html
 string__element_8h_source.html
 tide_8h_source.html
@@ -52,6 +53,7 @@ master__element_8h.html
 metaseek_8h.html
 prim__element_8h.html
 seek__element_8h.html
+segment_8h.html
 segment__info_8h.html
 string__element_8h.html
 tide_8h.html
@@ -119,6 +121,8 @@ functions_func_0x77.html
 functions_func_0x7e.html
 functions_vars.html
 functions_type.html
+functions_rela.html
+classboost_1_1equality__comparable.html
 inherits.html
 namespaces.html
 namespacetest__utils.html
@@ -152,6 +156,9 @@ structtide_1_1_invalid_child_i_d.html
 structtide_1_1_missing_child.html
 structtide_1_1_value_out_of_range.html
 structtide_1_1_value_size_out_of_range.html
+structtide_1_1_empty_tracks_element.html
+structtide_1_1_duplicate_track_number.html
+structtide_1_1_duplicate_u_i_d.html
 classtide_1_1_float_element.html
 classtide_1_1_float_element-members.html
 classtide_1_1_int_element.html
@@ -164,6 +171,8 @@ classtide_1_1_primitive_element.html
 classtide_1_1_primitive_element-members.html
 classtide_1_1_seek_element.html
 classtide_1_1_seek_element-members.html
+classtide_1_1_segment.html
+classtide_1_1_segment-members.html
 classtide_1_1_segment_info.html
 classtide_1_1_segment_info-members.html
 classtide_1_1_string_element.html

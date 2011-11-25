@@ -73,8 +73,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_binary_element.html">tide::BinaryElement</a></td><td class="indexvalue">Binary primitive element </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_buffer_too_small.html">tide::BufferTooSmall</a></td><td class="indexvalue">A buffer was too small for the data </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_date_element.html">tide::DateElement</a></td><td class="indexvalue">Date primitive element </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_duplicate_track_number.html">tide::DuplicateTrackNumber</a></td><td class="indexvalue">A duplicate track number was encountered </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_duplicate_u_i_d.html">tide::DuplicateUID</a></td><td class="indexvalue">A UID collision was encountered </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_e_b_m_l_element.html">tide::EBMLElement</a></td><td class="indexvalue">The EBML Header element </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td class="indexvalue">The <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> interface, a basic interface to an element object </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_empty_tracks_element.html">tide::EmptyTracksElement</a></td><td class="indexvalue">An empty <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element was read or written </td></tr>
+  <tr><td class="indexkey"><a class="el" href="classboost_1_1equality__comparable.html">equality_comparable</a></td><td class="indexvalue"></td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_float_element.html">tide::FloatElement</a></td><td class="indexvalue">Float primitive element </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_int_element.html">tide::IntElement</a></td><td class="indexvalue">Signed integer primitive element </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_invalid_child_i_d.html">tide::InvalidChildID</a></td><td class="indexvalue">A child element was found where it doesn't belong </td></tr>
@@ -89,6 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; T &gt;</a></td><td class="indexvalue">The primitive data element interface </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_read_error.html">tide::ReadError</a></td><td class="indexvalue">A read error was encountered during a read </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_seek_element.html">tide::SeekElement</a></td><td class="indexvalue">The Seek element, which contains a single index point in the SeekHead element </td></tr>
+  <tr><td class="indexkey"><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td class="indexvalue"></td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_segment_info.html">tide::SegmentInfo</a></td><td class="indexvalue">The <a class="el" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta-data for a segment.">SegmentInfo</a> element, containing the meta-data for a segment </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_spec_size_too_small.html">tide::SpecSizeTooSmall</a></td><td class="indexvalue">A specified size for a variable-length integer is too small </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_string_element.html">tide::StringElement</a></td><td class="indexvalue">String primitive element </td></tr>
@@ -113,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -122,7 +127,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

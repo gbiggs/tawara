@@ -68,6 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
 <h1>tide::TrackOperationBase Class Reference</h1>  </div>
@@ -95,6 +96,11 @@ Collaboration diagram for tide::TrackOperationBase:</div>
 
 <p><a href="classtide_1_1_track_operation_base-members.html">List of all members.</a></p>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classtide_1_1_track_operation_base.html">TrackOperationBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_operation_base.html#ab259f78ac2e35cbc48a34b8230bbd345">Ptr</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base type of a track operation pointer.  <a href="#ab259f78ac2e35cbc48a34b8230bbd345"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_operation_base.html#a74f9e5a4fbb171bba8c9577f03b98436">TrackOperationBase</a> (<a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">ids::ID</a> id)</td></tr>
@@ -108,8 +114,26 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Abstract base class for individual track operations. </p>
 <p>All track operations must inherit from this base class. </p>
 
-<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00047">47</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
-</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00048">48</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+</div><hr/><h2>Member Typedef Documentation</h2>
+<a class="anchor" id="ab259f78ac2e35cbc48a34b8230bbd345"></a><!-- doxytag: member="tide::TrackOperationBase::Ptr" ref="ab259f78ac2e35cbc48a34b8230bbd345" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::shared_ptr&lt;<a class="el" href="classtide_1_1_track_operation_base.html">TrackOperationBase</a>&gt; <a class="el" href="classtide_1_1_track_operation_base.html#ab259f78ac2e35cbc48a34b8230bbd345">tide::TrackOperationBase::Ptr</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Base type of a track operation pointer. </p>
+
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00066">66</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a74f9e5a4fbb171bba8c9577f03b98436"></a><!-- doxytag: member="tide::TrackOperationBase::TrackOperationBase" ref="a74f9e5a4fbb171bba8c9577f03b98436" args="(ids::ID id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -127,7 +151,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Constructor - this must be called to set the Class ID. </p>
 
-<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00051">51</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00052">52</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
 
 </div>
 </div>
@@ -147,7 +171,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Desctructor. </p>
 
-<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00056">56</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00057">57</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
 
 </div>
 </div>
@@ -182,7 +206,7 @@ Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -191,7 +215,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:12 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

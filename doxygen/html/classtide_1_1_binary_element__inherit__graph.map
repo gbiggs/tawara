@@ -1,4 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="5,83,328,111"/>
-<area shape="rect" id="node4" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="112,6,221,34"/>
+<area shape="rect" id="node2" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="60,83,383,111"/>
+<area shape="rect" id="node4" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="5,6,115,34"/>
+<area shape="rect" id="node6" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt;PrimitiveElement\&lt;std::vector\&lt; char \&gt; \&gt; \&gt;" alt="" coords="139,6,629,34"/>
 </map>

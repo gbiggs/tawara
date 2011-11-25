@@ -69,12 +69,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a>  </div>
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <h1>tide::PrimitiveElement&lt; T &gt; Class Template Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="tide::PrimitiveElement" --><!-- doxytag: inherits="tide::Element" -->
+<!-- doxytag: class="tide::PrimitiveElement" --><!-- doxytag: inherits="tide::Element,boost::equality_comparable" -->
 <p>The primitive data element interface.  
 <a href="#_details">More...</a></p>
 
@@ -84,14 +86,14 @@ Inheritance diagram for tide::PrimitiveElement&lt; T &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classtide_1_1_primitive_element__inherit__graph.png" border="0" usemap="#tide_1_1_primitive_element_3_01_t_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="tide_1_1_primitive_element_3_01_t_01_4_inherit__map" id="tide_1_1_primitive_element_3_01_t_01_4_inherit__map">
-<area shape="rect" id="node2" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="52,6,161,34"/></map>
+<area shape="rect" id="node2" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="5,6,115,34"/><area shape="rect" id="node4" href="classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; PrimitiveElement\&lt; T \&gt; \&gt;" alt="" coords="139,6,517,34"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for tide::PrimitiveElement&lt; T &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classtide_1_1_primitive_element__coll__graph.png" border="0" usemap="#tide_1_1_primitive_element_3_01_t_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="tide_1_1_primitive_element_3_01_t_01_4_coll__map" id="tide_1_1_primitive_element_3_01_t_01_4_coll__map">
-<area shape="rect" id="node2" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="5,6,115,34"/></map>
+<area shape="rect" id="node2" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="5,6,115,34"/><area shape="rect" id="node4" href="classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; PrimitiveElement\&lt; T \&gt; \&gt;" alt="" coords="139,6,517,34"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classtide_1_1_primitive_element-members.html">List of all members.</a></p>
@@ -124,11 +126,18 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the default value.  <a href="#a2ea07129ed786aa85236bab1acea6084"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html#a8e2fcabe0512c96345bde48fdbd6b096">is_default</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this element is at the default value.  <a href="#a8e2fcabe0512c96345bde48fdbd6b096"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html#a250948c906de991558344025099d06bd">equal_</a> (<a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a>&lt; T &gt; const &amp;rhs)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html#aaa1357cc5907b41a119a995700871055">value_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html#ae899a169f936d4334d3dd64f8679346a">default_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html#a40846091a998a9e07875014ed4d991ef">has_default_</a></td></tr>
+<tr><td colspan="2"><h2><a name="friends"></a>
+Friends</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html#aa162a4a124fe3298db0fe09b43523a10">operator==</a> (<a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a>&lt; T &gt; const &amp;lhs, <a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a>&lt; T &gt; const &amp;rhs)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator.  <a href="#aa162a4a124fe3298db0fe09b43523a10"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br/>
@@ -147,7 +156,7 @@ Protected Attributes</h2></td></tr>
 <p>A default value can be specified for the element. If a default is given, it may allow the element to be skipped when writing to a store.</p>
 <p>Any type specified for T must initialise itself upon construction, be copy-constructable, have an assignment operator, and perform its own clean-up in its destructor. POD types qualify for this. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00064">64</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00065">65</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a620c50bf6ed75e94e562c4659e2ff0cb"></a><!-- doxytag: member="tide::PrimitiveElement::PrimitiveElement" ref="a620c50bf6ed75e94e562c4659e2ff0cb" args="(uint32_t id, T value)" -->
 <div class="memitem">
@@ -185,7 +194,7 @@ template&lt;typename T&gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00073">73</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00075">75</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -232,11 +241,32 @@ template&lt;typename T&gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00086">86</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00088">88</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a250948c906de991558344025099d06bd"></a><!-- doxytag: member="tide::PrimitiveElement::equal_" ref="a250948c906de991558344025099d06bd" args="(PrimitiveElement&lt; T &gt; const &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement</a>&lt; T &gt;::equal_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td><code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00168">168</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a2db6aab2f880fcf17ef1fabb44190c85"></a><!-- doxytag: member="tide::PrimitiveElement::get_default" ref="a2db6aab2f880fcf17ef1fabb44190c85" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +285,7 @@ template&lt;typename T&gt; </div>
 
 <p>Get the default value. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00130">130</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00132">132</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -277,7 +307,7 @@ template&lt;typename T&gt; </div>
 
 <p>Check if a default value is set. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00128">128</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00130">130</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -301,7 +331,7 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="classtide_1_1_element.html#a936f48bd9dc10ae1fc738eef6b6bebde">tide::Element</a>.</p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00100">100</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00102">102</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -330,7 +360,7 @@ template&lt;typename T&gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00107">107</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00109">109</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -353,7 +383,7 @@ template&lt;typename T&gt; </div>
 <p>Check if this element is at the default value. </p>
 <p>If the current value is the same as the default value, this element may not need to be stored when being written. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00151">151</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00153">153</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -375,7 +405,7 @@ template&lt;typename T&gt; </div>
 
 <p>Cast to the stored type. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00125">125</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00127">127</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -400,7 +430,7 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented in <a class="el" href="classtide_1_1_binary_element.html#a6bede6f7644fec16898c1dae3a8a36ae">tide::BinaryElement</a>, <a class="el" href="classtide_1_1_date_element.html#ab1190c77ccc086fa1fb330eaf9c1521c">tide::DateElement</a>, <a class="el" href="classtide_1_1_float_element.html#a5e71cc229386c1e70f44947b2b69b533">tide::FloatElement</a>, <a class="el" href="classtide_1_1_int_element.html#a0147d3d8e584191a8f00233a12e6a06c">tide::IntElement</a>, <a class="el" href="classtide_1_1_string_element.html#a4cabfcaedec75fc6e05b288553513202">tide::StringElement</a>, and <a class="el" href="classtide_1_1_u_int_element.html#a1e92d203aa8d288551c537b847004ff3">tide::UIntElement</a>.</p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00093">93</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00095">95</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -423,7 +453,7 @@ template&lt;typename T&gt; </div>
 <p>Remove the default value. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The value of the default that was removed. </dd></dl>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00141">141</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00143">143</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -446,7 +476,7 @@ template&lt;typename T&gt; </div>
 
 <p>Set the default value. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00132">132</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00134">134</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -468,7 +498,7 @@ template&lt;typename T&gt; </div>
 
 <p>Get the value. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00121">121</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00123">123</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -491,7 +521,41 @@ template&lt;typename T&gt; </div>
 
 <p>Set the value. </p>
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00123">123</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00125">125</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Friends And Related Function Documentation</h2>
+<a class="anchor" id="aa162a4a124fe3298db0fe09b43523a10"></a><!-- doxytag: member="tide::PrimitiveElement::operator==" ref="aa162a4a124fe3298db0fe09b43523a10" args="(PrimitiveElement&lt; T &gt; const &amp;lhs, PrimitiveElement&lt; T &gt; const &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [friend]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Equality operator. </p>
+
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00157">157</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -509,7 +573,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00156">156</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00165">165</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -526,7 +590,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00157">157</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00166">166</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -543,7 +607,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00155">155</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
+<p>Definition at line <a class="el" href="prim__element_8h_source.html#l00164">164</a> of file <a class="el" href="prim__element_8h_source.html">prim_element.h</a>.</p>
 
 </div>
 </div>
@@ -556,7 +620,7 @@ template&lt;typename T&gt; </div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -565,7 +629,7 @@ template&lt;typename T&gt; </div>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

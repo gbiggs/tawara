@@ -96,8 +96,27 @@ or::
   /usr/local/lib64/pkgconfig
 
 
+APIs
+====
+
+Tide features two APIs for the programmer:
+
+  Tide
+    This is the element-level API. It requires working with the EBML elements
+    used in the Tide format directly. It allows significant flexibility in how
+    a Tide document is written to disc or read from disc.  A reasonable
+    knowledge of the Tide format specification (:doc:`available here
+    <specification>`) is necessary to use this interface effectively.
+
+  HighTide
+    This is the high-level API, providing an abstract interface into Tide
+    documents. For example, channels are abstracted into streams of data that
+    can be individually iterated through. No knowledge of the Tide format
+    specification is necessary to use this API.
+
+
 Documentation
-=============
+-------------
 
 Full API documentation is available with the library. It is generated
 using Doxygen and Sphinx. If you installed from source, you must have
@@ -128,6 +147,12 @@ Tools
 
 Tide includes several useful tools. These tools are designed to
 introspect and manipulate Tide objects.
+
+
+Format specification
+====================
+
+The Tide format specification is :doc:`available online <specification>`.
 
 
 Changelog

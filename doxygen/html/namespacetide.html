@@ -135,6 +135,12 @@ Classes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element's value was set outside the allowable range.  <a href="structtide_1_1_value_out_of_range.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_value_size_out_of_range.html">ValueSizeOutOfRange</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A child element's size is below or above the required size.  <a href="structtide_1_1_value_size_out_of_range.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_empty_tracks_element.html">EmptyTracksElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An empty <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element was read or written.  <a href="structtide_1_1_empty_tracks_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_duplicate_track_number.html">DuplicateTrackNumber</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A duplicate track number was encountered.  <a href="structtide_1_1_duplicate_track_number.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_duplicate_u_i_d.html">DuplicateUID</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A UID collision was encountered.  <a href="structtide_1_1_duplicate_u_i_d.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html">FloatElement</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Float primitive element.  <a href="classtide_1_1_float_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_int_element.html">IntElement</a></td></tr>
@@ -147,6 +153,7 @@ Classes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The primitive data element interface.  <a href="classtide_1_1_primitive_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html">SeekElement</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The Seek element, which contains a single index point in the SeekHead element.  <a href="classtide_1_1_seek_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html">Segment</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html">SegmentInfo</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta-data for a segment.">SegmentInfo</a> element, containing the meta-data for a segment.  <a href="classtide_1_1_segment_info.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_string_element.html">StringElement</a></td></tr>
@@ -206,9 +213,13 @@ std::vector&lt; std::streamsize &gt; &gt;&#160;</td><td class="memItemRight" val
 &lt; struct tag_el_size, <br class="typebreak"/>
 std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a53dc5e8b32b3cad0a4bce2637d39b81d">err_el_size</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of an element.  <a href="#a53dc5e8b32b3cad0a4bce2637d39b81d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef boost::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classtide_1_1_track_operation_base.html">TrackOperationBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a60357815c8961226b9cf312adcf79c29">OpPtr</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base type of a track operation pointer.  <a href="#a60357815c8961226b9cf312adcf79c29"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_track_num, <br class="typebreak"/>
+uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a0b2ab9b4029e1e58cb1b620be1b192f6">err_track_num</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A track number.  <a href="#a0b2ab9b4029e1e58cb1b620be1b192f6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_int_uid, uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ab0033963be38bf7ca312481c0172bd65">err_int_uid</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An integer UID.  <a href="#ab0033963be38bf7ca312481c0172bd65"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76c">EBMLFloatPrec</a> { <a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76ca1f6bb26c9ec8840742f642cc2d39a8cc">EBML_FLOAT_PREC_SINGLE</a>, 
@@ -222,6 +233,10 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip an element in an input stream.  <a href="#a1da09d1196f3e8a0f59f9f3a0bae73f1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a865bbc5fdbdbbcfc30dffa74d40713f2">skip_write</a> (std::iostream &amp;stream, bool and_id)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip an element in an input/output stream.  <a href="#a865bbc5fdbdbbcfc30dffa74d40713f2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a5a56229ca969617be60ae4a1fa3b0123">operator==</a> (<a class="el" href="classtide_1_1_track_entry.html">TrackEntry</a> const &amp;lhs, <a class="el" href="classtide_1_1_track_entry.html">TrackEntry</a> const &amp;rhs)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a9d59024ca155a5560f638f94eb209d16">operator==</a> (<a class="el" href="classtide_1_1_track_join_blocks.html">TrackJoinBlocks</a> const &amp;lhs, <a class="el" href="classtide_1_1_track_join_blocks.html">TrackJoinBlocks</a> const &amp;rhs)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator for <a class="el" href="classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation.">TrackJoinBlocks</a>.  <a href="#a9d59024ca155a5560f638f94eb209d16"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a38cf0b135dc3c89bfc9954d38ef7c041">operator==</a> (<a class="el" href="classtide_1_1_tracks.html">Tracks</a> const &amp;lhs, <a class="el" href="classtide_1_1_tracks.html">Tracks</a> const &amp;rhs)</td></tr>
 </table>
 <hr/><h2>Typedef Documentation</h2>
 <a class="anchor" id="a0369a0d448f755bb2629183243ae899c"></a><!-- doxytag: member="tide::err_bufsize" ref="a0369a0d448f755bb2629183243ae899c" args="" -->
@@ -237,7 +252,7 @@ Functions</h2></td></tr>
 
 <p>The size of a buffer. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00296">296</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00335">335</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -254,7 +269,7 @@ Functions</h2></td></tr>
 
 <p>The size of an element. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00315">315</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00354">354</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -271,7 +286,24 @@ Functions</h2></td></tr>
 
 <p>An <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00305">305</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00344">344</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab0033963be38bf7ca312481c0172bd65"></a><!-- doxytag: member="tide::err_int_uid" ref="ab0033963be38bf7ca312481c0172bd65" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_int_uid, uint64_t&gt; <a class="el" href="namespacetide.html#ab0033963be38bf7ca312481c0172bd65">tide::err_int_uid</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>An integer UID. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00360">360</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -288,7 +320,7 @@ Functions</h2></td></tr>
 
 <p>A parent element ID. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00308">308</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00347">347</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -305,7 +337,7 @@ Functions</h2></td></tr>
 
 <p>Position in a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00290">290</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00329">329</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -322,7 +354,7 @@ Functions</h2></td></tr>
 
 <p>The required size of a buffer or a file read. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00299">299</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00338">338</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -339,7 +371,24 @@ Functions</h2></td></tr>
 
 <p>The specified size to encode a variable-length integer into. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00302">302</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00341">341</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b2ab9b4029e1e58cb1b620be1b192f6"></a><!-- doxytag: member="tide::err_track_num" ref="a0b2ab9b4029e1e58cb1b620be1b192f6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::error_info&lt;struct tag_track_num, uint64_t&gt; <a class="el" href="namespacetide.html#a0b2ab9b4029e1e58cb1b620be1b192f6">tide::err_track_num</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>A track number. </p>
+
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00357">357</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -356,7 +405,7 @@ Functions</h2></td></tr>
 
 <p>A set of valid element sizes. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00312">312</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00351">351</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -373,7 +422,7 @@ Functions</h2></td></tr>
 
 <p>Value of a variable-length integer. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00293">293</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00332">332</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -390,24 +439,7 @@ Functions</h2></td></tr>
 
 <p>A version. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00287">287</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a60357815c8961226b9cf312adcf79c29"></a><!-- doxytag: member="tide::OpPtr" ref="a60357815c8961226b9cf312adcf79c29" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef boost::shared_ptr&lt;<a class="el" href="classtide_1_1_track_operation_base.html">TrackOperationBase</a>&gt; <a class="el" href="namespacetide.html#a60357815c8961226b9cf312adcf79c29">tide::OpPtr</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Base type of a track operation pointer. </p>
-
-<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00067">67</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00326">326</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -440,6 +472,92 @@ Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a5a56229ca969617be60ae4a1fa3b0123"></a><!-- doxytag: member="tide::operator==" ref="a5a56229ca969617be60ae4a1fa3b0123" args="(TrackEntry const &amp;lhs, TrackEntry const &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tide::operator== </td>
+          <td>(</td>
+          <td class="paramtype">TrackEntry const &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TrackEntry const &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a38cf0b135dc3c89bfc9954d38ef7c041"></a><!-- doxytag: member="tide::operator==" ref="a38cf0b135dc3c89bfc9954d38ef7c041" args="(Tracks const &amp;lhs, Tracks const &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tide::operator== </td>
+          <td>(</td>
+          <td class="paramtype">Tracks const &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tracks const &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9d59024ca155a5560f638f94eb209d16"></a><!-- doxytag: member="tide::operator==" ref="a9d59024ca155a5560f638f94eb209d16" args="(TrackJoinBlocks const &amp;lhs, TrackJoinBlocks const &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tide::operator== </td>
+          <td>(</td>
+          <td class="paramtype">TrackJoinBlocks const &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TrackJoinBlocks const &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Equality operator for <a class="el" href="classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation.">TrackJoinBlocks</a>. </p>
+<p>Equality operator. </p>
+
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00141">141</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a1da09d1196f3e8a0f59f9f3a0bae73f1"></a><!-- doxytag: member="tide::skip_read" ref="a1da09d1196f3e8a0f59f9f3a0bae73f1" args="(std::istream &amp;input, bool and_id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -522,7 +640,7 @@ Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -531,7 +649,7 @@ Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

@@ -67,12 +67,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <h1>track_entry.h File Reference</h1>  </div>
 </div>
 <div class="contents">
-<div class="textblock"><code>#include &lt;boost/shared_ptr.hpp&gt;</code><br/>
+<div class="textblock"><code>#include &lt;boost/operators.hpp&gt;</code><br/>
+<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br/>
 <code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;tide/binary_element.h&gt;</code><br/>
 <code>#include &lt;tide/float_element.h&gt;</code><br/>
@@ -85,8 +87,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Include dependency graph for track_entry.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="track__entry_8h__incl.png" border="0" usemap="#_2home_2geoff_2research_2src_2tide_2include_2tide_2track__entry_8h" alt=""/></div>
-<map name="_2home_2geoff_2research_2src_2tide_2include_2tide_2track__entry_8h" id="_2home_2geoff_2research_2src_2tide_2include_2tide_2track__entry_8h">
-</map>
 </div>
 </div>
 <p><a href="track__entry_8h_source.html">Go to the source code of this file.</a></p>
@@ -98,6 +98,9 @@ Classes</h2></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html">tide</a></td></tr>
+<tr><td colspan="2"><h2><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a5a56229ca969617be60ae4a1fa3b0123">tide::operator==</a> (TrackEntry const &amp;lhs, TrackEntry const &amp;rhs)</td></tr>
 </table>
 </div>
 <!--- window showing the filter options -->
@@ -105,7 +108,7 @@ Namespaces</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -114,7 +117,7 @@ Namespaces</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

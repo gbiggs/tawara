@@ -131,14 +131,32 @@ the <tt class="docutils literal"><span class="pre">PKG_CONFIG_PATH</span></tt> e
 </div>
 </div>
 </div>
+<div class="section" id="apis">
+<h1>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h1>
+<p>Tide features two APIs for the programmer:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Tide</dt>
+<dd>This is the element-level API. It requires working with the EBML elements
+used in the Tide format directly. It allows significant flexibility in how
+a Tide document is written to disc or read from disc.  A reasonable
+knowledge of the Tide format specification (<a class="reference internal" href="specification.html"><em>available here</em></a>) is necessary to use this interface effectively.</dd>
+<dt>HighTide</dt>
+<dd>This is the high-level API, providing an abstract interface into Tide
+documents. For example, channels are abstracted into streams of data that
+can be individually iterated through. No knowledge of the Tide format
+specification is necessary to use this API.</dd>
+</dl>
+</div></blockquote>
 <div class="section" id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <p>Full API documentation is available with the library. It is generated
 using Doxygen and Sphinx. If you installed from source, you must have
 Doxygen and Sphinx installed and set <tt class="docutils literal"><span class="pre">BUILD_DOCUMENTATION</span></tt> to <tt class="docutils literal"><span class="pre">ON</span></tt>
 in CMake.</p>
 <p>Click <a class="reference external" href="doxygen/html/index.html">here</a> to access the API documentation.</p>
 <p>The documentation is also <a class="reference external" href="http://gbiggs.github.com/tide/">available online</a>.</p>
+</div>
 </div>
 <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
@@ -150,6 +168,10 @@ included with Tide.</p>
 <h1>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h1>
 <p>Tide includes several useful tools. These tools are designed to
 introspect and manipulate Tide objects.</p>
+</div>
+<div class="section" id="format-specification">
+<h1>Format specification<a class="headerlink" href="#format-specification" title="Permalink to this headline">¶</a></h1>
+<p>The Tide format specification is <a class="reference internal" href="specification.html"><em>available online</em></a>.</p>
 </div>
 <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
@@ -186,9 +208,13 @@ COPYING.LESSER.</p>
 <li><a class="reference internal" href="#from-source">From source</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#apis">APIs</a><ul>
 <li><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#tools">Tools</a></li>
+<li><a class="reference internal" href="#format-specification">Format specification</a></li>
 <li><a class="reference internal" href="#changelog">Changelog</a><ul>
 <li><a class="reference internal" href="#id1">1.0</a></li>
 </ul>

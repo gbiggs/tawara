@@ -871,14 +871,56 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>OpPtr</Name>
+      <Name>err_track_num</Name>
       <APILanguage>cpp</APILanguage>
       <Type>tdef</Type>
       <Scope>tide</Scope>
     </TokenIdentifier>
     <Path>namespacetide.html</Path>
-    <Anchor>a60357815c8961226b9cf312adcf79c29</Anchor>
-    <Abstract>Base type of a track operation pointer.</Abstract>
+    <Anchor>a0b2ab9b4029e1e58cb1b620be1b192f6</Anchor>
+    <Abstract>A track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>err_int_uid</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>ab0033963be38bf7ca312481c0172bd65</Anchor>
+    <Abstract>An integer UID.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a5a56229ca969617be60ae4a1fa3b0123</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a9d59024ca155a5560f638f94eb209d16</Anchor>
+    <Abstract>Equality operator for TrackJoinBlocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a38cf0b135dc3c89bfc9954d38ef7c041</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1057,6 +1099,15 @@
       <APILanguage>c</APILanguage>
     </TokenIdentifier>
     <Path>group__utilities.html</Path>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>boost::equality_comparable</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>equality_comparable</Scope>
+    </TokenIdentifier>
+    <Path>classboost_1_1equality__comparable.html</Path>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1258,14 +1309,25 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>OpPtr</Name>
+      <Name>err_track_num</Name>
       <APILanguage>cpp</APILanguage>
       <Type>tdef</Type>
       <Scope>tide</Scope>
     </TokenIdentifier>
     <Path>namespacetide.html</Path>
-    <Anchor>a60357815c8961226b9cf312adcf79c29</Anchor>
-    <Abstract>Base type of a track operation pointer.</Abstract>
+    <Anchor>a0b2ab9b4029e1e58cb1b620be1b192f6</Anchor>
+    <Abstract>A track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>err_int_uid</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>ab0033963be38bf7ca312481c0172bd65</Anchor>
+    <Abstract>An integer UID.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1288,6 +1350,37 @@
     <Path>namespacetide.html</Path>
     <Anchor>a865bbc5fdbdbbcfc30dffa74d40713f2</Anchor>
     <Abstract>Skip an element in an input/output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a5a56229ca969617be60ae4a1fa3b0123</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a9d59024ca155a5560f638f94eb209d16</Anchor>
+    <Abstract>Equality operator for TrackJoinBlocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a38cf0b135dc3c89bfc9954d38ef7c041</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2093,6 +2186,39 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>tide::EmptyTracksElement</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::EmptyTracksElement</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_empty_tracks_element.html</Path>
+    <Abstract>An empty Tracks element was read or written.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::DuplicateTrackNumber</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::DuplicateTrackNumber</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_duplicate_track_number.html</Path>
+    <Abstract>A duplicate track number was encountered.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::DuplicateUID</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::DuplicateUID</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_duplicate_u_i_d.html</Path>
+    <Abstract>A UID collision was encountered.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>tide::FloatElement</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -2597,6 +2723,16 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>equal_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::PrimitiveElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_primitive_element.html</Path>
+    <Anchor>a250948c906de991558344025099d06bd</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>value_</Name>
       <APILanguage>cpp</APILanguage>
       <Type>data</Type>
@@ -2624,6 +2760,17 @@
     </TokenIdentifier>
     <Path>classtide_1_1_primitive_element.html</Path>
     <Anchor>a40846091a998a9e07875014ed4d991ef</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::PrimitiveElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_primitive_element.html</Path>
+    <Anchor>aa162a4a124fe3298db0fe09b43523a10</Anchor>
+    <Abstract>Equality operator.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2754,6 +2901,71 @@
     </TokenIdentifier>
     <Path>classtide_1_1_seek_element.html</Path>
     <Anchor>a0aecc183c9e6afc896c447bef82c690e</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::Segment</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <DeclaredIn>tide/segment.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Segment</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a1ab5a1fa79425526d7f92a5d26359e69</Anchor>
+    <Abstract>Create a new segment element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>~Segment</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a9f37d84c918e32bc23558ff4edc1df3e</Anchor>
+    <Abstract>Destructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>ad158f45b76a144072cf8e21d8ceee40b</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a9492ba2235d7cf925a829fac67c9757b</Anchor>
+    <Abstract>Element body writing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a24a2f40088f9821b76d6bee48c1ffb9f</Anchor>
+    <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4035,7 +4247,7 @@
       <Scope>tide::TrackEntry</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_track_entry.html</Path>
-    <Anchor>a1e69e2e63ae2e0c41ac3fe4fe9f49b3c</Anchor>
+    <Anchor>a2d47f70bad517184c2038e591733aebf</Anchor>
     <Abstract>Get the operation used to create this track.</Abstract>
   </Token>
   <Token>
@@ -4046,7 +4258,7 @@
       <Scope>tide::TrackEntry</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_track_entry.html</Path>
-    <Anchor>a9503aa9ff5a01833cdc1de7204e3d445</Anchor>
+    <Anchor>a2ac4da7217329e48a06c8514b1d315e7</Anchor>
     <Abstract>Set the operation used to create this track.</Abstract>
   </Token>
   <Token>
@@ -4292,7 +4504,18 @@
       <Scope>tide::TrackEntry</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_track_entry.html</Path>
-    <Anchor>a0d72ab2074afc6cb904d27b94a6c612e</Anchor>
+    <Anchor>ae882284d0c838c68ed261787bc4451b7</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::TrackEntry</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_track_entry.html</Path>
+    <Anchor>a835a6165617d32066351516804dded32</Anchor>
+    <Abstract>Equality operator.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4304,6 +4527,17 @@
     <Path>classtide_1_1_track_operation_base.html</Path>
     <Abstract>Abstract base class for individual track operations.</Abstract>
     <DeclaredIn>tide/track_operation.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Ptr</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::TrackOperationBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_track_operation_base.html</Path>
+    <Anchor>ab259f78ac2e35cbc48a34b8230bbd345</Anchor>
+    <Abstract>Base type of a track operation pointer.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4471,6 +4705,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::TrackJoinBlocks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_track_join_blocks.html</Path>
+    <Anchor>a5b4220bc49ed92016376f77fd1f0bb3b</Anchor>
+    <Abstract>Equality operator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>tide::Tracks</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -4488,8 +4733,8 @@
       <Scope>tide::Tracks</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a7e078285b64d10f02b9f712a14e8e508</Anchor>
-    <Abstract>Get a reference to the TrackEntry at the specified location.</Abstract>
+    <Anchor>a447a116a16841ec01e0a4b0ac534901c</Anchor>
+    <Abstract>The key type (Key) of this container.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4499,7 +4744,7 @@
       <Scope>tide::Tracks</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a4aeb73274b7b0d2e27e56277d2ae7360</Anchor>
+    <Anchor>a0e72f98ef5ab88c2c4cbcf62ac67bbde</Anchor>
     <Abstract>The mapped type (T) of this container.</Abstract>
   </Token>
   <Token>
@@ -4570,6 +4815,28 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>af9fab2792cfa25945c32306ca6e7837f</Anchor>
+    <Abstract>The reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a3042bb67da7f9280373c86085b84a2f8</Anchor>
+    <Abstract>The constant reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>Tracks</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -4625,17 +4892,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>assign</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Tracks</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a6414bbf4d09d89ffaee923a9ac2144d2</Anchor>
-    <Abstract>Replace the stored TrackEntries with those from another Tracks element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>operator=</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -4653,8 +4909,8 @@
       <Scope>tide::Tracks</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a44e74469f7d91d0d515ece7a5a70212f</Anchor>
-    <Abstract>Get the TrackEntry at the given location.</Abstract>
+    <Anchor>a5da8e8e0977ac551d48c877fc0b343f7</Anchor>
+    <Abstract>Get the TrackEntry with the given track number.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4664,8 +4920,250 @@
       <Scope>tide::Tracks</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a6434c348d588e1fdeda44247803c5da4</Anchor>
-    <Abstract>Get the TrackEntry at the given location.</Abstract>
+    <Anchor>ad0407403d82d0da5859157328979899f</Anchor>
+    <Abstract>Get the TrackEntry with the given track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a16e8c71a7d61b8a458b4881a736aea0f</Anchor>
+    <Abstract>Gets a reference to the TrackEntry with the given track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>aa06948ac1fbd5d17e0441796d9696018</Anchor>
+    <Abstract>Gets a reference to the TrackEntry with the given track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>abebacf03c850ef62f7297aa8664ef59e</Anchor>
+    <Abstract>Get an iterator to the first TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a4df8279a0d61bdcdecb64234f6f958b7</Anchor>
+    <Abstract>Get an iterator to the first TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>ad1c23725e1970821db9b1d016f4dbee6</Anchor>
+    <Abstract>Get an iterator to the position past the last TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a736911081fc0ed5a8e7cccf28a8b9d26</Anchor>
+    <Abstract>Get an iterator to the position past the last TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a69a65d8a991a000f3318a334aea3aa71</Anchor>
+    <Abstract>Get a reverse iterator to the last TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a7fa898d88f0448f87bb47b88f35b48c2</Anchor>
+    <Abstract>Get a reverse iterator to the last TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a9585733b6d802d58a4a5f757f98ef875</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a7800349a915f8af4eaa8766bde43f7a2</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first TrackEntry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a316c18c800561fdc3b5d86d9b02651dc</Anchor>
+    <Abstract>Check if there are no TrackElements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a916f2798f2a693b6b4343817796b0006</Anchor>
+    <Abstract>Get the number of TrackElements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>max_count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a29fb5435a8771bbcbb1a62e795649921</Anchor>
+    <Abstract>Get the maximum number of TrackElements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a8af3b57f7113daea431939b24d07d8ba</Anchor>
+    <Abstract>Remove all TrackElements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>insert</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>adfedf097631e6d71ef25b5c36b9e0854</Anchor>
+    <Abstract>Insert a new TrackElement.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>insert</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a0ab07c8cbc2d401e0f3ddf847332aab5</Anchor>
+    <Abstract>Insert a range of TrackElements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>acc5b7ff491f19972a7d99dda6f5227c2</Anchor>
+    <Abstract>Erase the TrackEntry at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a329dd974a576467c3d55708e14e46d08</Anchor>
+    <Abstract>Erase a range of TrackEntries.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a92a37499285650160444e1c15939b1ac</Anchor>
+    <Abstract>Erase the TrackEntry with the given track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>swap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>ab3a4baae1dd65c8b7329ee4384a72d25</Anchor>
+    <Abstract>Swaps the contents of this Tracks element with another.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>find</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>ae9f28e4fbce3236ba16d5ea48e42f23d</Anchor>
+    <Abstract>Search for the TrackEntry with the given track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>find</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a38c343949c7531f6c7ba1791402d2279</Anchor>
+    <Abstract>Search for the TrackEntry with the given track number.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4675,8 +5173,30 @@
       <Scope>tide::Tracks</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a73dc63efe6022c7be38fdd0bab377e08</Anchor>
+    <Anchor>a45d744f7a953dcd94e5ccc39e1bcdcac</Anchor>
     <Abstract>The type of the internal storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>validate_entries</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a4b4d851b5f2e323bc8bd9ca6ad248ffa</Anchor>
+    <Abstract>Checks for duplicate track numbers and UIDs.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>verify_not_duplicate</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a40702cfe12b3acd81d3cd38f0be3b205</Anchor>
+    <Abstract>Looks for a duplicate track entry, throws an exception if it is.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4688,6 +5208,17 @@
     <Path>classtide_1_1_tracks.html</Path>
     <Anchor>a080233f85e86713e039490280ad101ca</Anchor>
     <Abstract>The track entry store.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a5c46f4ebc3a2c989f6a08a702ab8d6c6</Anchor>
+    <Abstract>Equality operator.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>

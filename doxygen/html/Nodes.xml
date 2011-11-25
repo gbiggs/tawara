@@ -80,12 +80,28 @@
           <Path>classtide_1_1_date_element.html</Path>
          </Node>
          <Node>
+          <Name>tide::DuplicateTrackNumber</Name>
+          <Path>structtide_1_1_duplicate_track_number.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::DuplicateUID</Name>
+          <Path>structtide_1_1_duplicate_u_i_d.html</Path>
+         </Node>
+         <Node>
           <Name>tide::EBMLElement</Name>
           <Path>classtide_1_1_e_b_m_l_element.html</Path>
          </Node>
          <Node>
           <Name>tide::Element</Name>
           <Path>classtide_1_1_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::EmptyTracksElement</Name>
+          <Path>structtide_1_1_empty_tracks_element.html</Path>
+         </Node>
+         <Node>
+          <Name>equality_comparable</Name>
+          <Path>classboost_1_1equality__comparable.html</Path>
          </Node>
          <Node>
           <Name>tide::FloatElement</Name>
@@ -142,6 +158,10 @@
          <Node>
           <Name>tide::SeekElement</Name>
           <Path>classtide_1_1_seek_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::Segment</Name>
+          <Path>classtide_1_1_segment.html</Path>
          </Node>
          <Node>
           <Name>tide::SegmentInfo</Name>
@@ -296,6 +316,10 @@
               <Path>classtide_1_1_seek_element.html</Path>
              </Node>
              <Node>
+              <Name>tide::Segment</Name>
+              <Path>classtide_1_1_segment.html</Path>
+             </Node>
+             <Node>
               <Name>tide::SegmentInfo</Name>
               <Path>classtide_1_1_segment_info.html</Path>
              </Node>
@@ -326,6 +350,48 @@
            <Node>
             <Name>tide::VoidElement</Name>
             <Path>classtide_1_1_void_element.html</Path>
+           </Node>
+          </Subnodes>
+         </Node>
+         <Node>
+          <Name>equality_comparable</Name>
+          <Path>classboost_1_1equality__comparable.html</Path>
+          <Subnodes>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; double &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; int64_t &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; std::string &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; std::vector&lt; char &gt; &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; uint64_t &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::PrimitiveElement&lt; T &gt;</Name>
+            <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::TrackEntry</Name>
+            <Path>classtide_1_1_track_entry.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::TrackJoinBlocks</Name>
+            <Path>classtide_1_1_track_join_blocks.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::Tracks</Name>
+            <Path>classtide_1_1_tracks.html</Path>
            </Node>
           </Subnodes>
          </Node>
@@ -362,6 +428,18 @@
            <Node>
             <Name>tide::BufferTooSmall</Name>
             <Path>structtide_1_1_buffer_too_small.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::DuplicateTrackNumber</Name>
+            <Path>structtide_1_1_duplicate_track_number.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::DuplicateUID</Name>
+            <Path>structtide_1_1_duplicate_u_i_d.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::EmptyTracksElement</Name>
+            <Path>structtide_1_1_empty_tracks_element.html</Path>
            </Node>
            <Node>
             <Name>tide::InvalidChildID</Name>
@@ -512,6 +590,10 @@
          <Node>
           <Name>/home/geoff/research/src/tide/include/tide/seek_element.h</Name>
           <Path>seek__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/segment.h</Name>
+          <Path>segment_8h.html</Path>
          </Node>
          <Node>
           <Name>/home/geoff/research/src/tide/include/tide/segment_info.h</Name>

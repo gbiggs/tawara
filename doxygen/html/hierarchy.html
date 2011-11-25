@@ -94,6 +94,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 <li><a class="el" href="classtide_1_1_e_b_m_l_element.html">tide::EBMLElement</a></li>
 <li><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></li>
 <li><a class="el" href="classtide_1_1_seek_element.html">tide::SeekElement</a></li>
+<li><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></li>
 <li><a class="el" href="classtide_1_1_segment_info.html">tide::SegmentInfo</a></li>
 <li><a class="el" href="classtide_1_1_track_entry.html">tide::TrackEntry</a></li>
 <li><a class="el" href="classtide_1_1_track_operation_base.html">tide::TrackOperationBase</a><ul>
@@ -107,6 +108,18 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 <li><a class="el" href="classtide_1_1_void_element.html">tide::VoidElement</a></li>
 </ul>
 </li>
+<li><a class="el" href="classboost_1_1equality__comparable.html">equality_comparable</a><ul>
+<li><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; double &gt;</a></li>
+<li><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; int64_t &gt;</a></li>
+<li><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; std::string &gt;</a></li>
+<li><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; std::vector&lt; char &gt; &gt;</a></li>
+<li><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; uint64_t &gt;</a></li>
+<li><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; T &gt;</a></li>
+<li><a class="el" href="classtide_1_1_track_entry.html">tide::TrackEntry</a></li>
+<li><a class="el" href="classtide_1_1_track_join_blocks.html">tide::TrackJoinBlocks</a></li>
+<li><a class="el" href="classtide_1_1_tracks.html">tide::Tracks</a></li>
+</ul>
+</li>
 <li><a class="el" href="classtide_1_1_tide.html">tide::Tide</a><ul>
 <li><a class="el" href="classtide_1_1_tide_impl.html">tide::TideImpl</a></li>
 </ul>
@@ -117,6 +130,9 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 <li><a class="el" href="structtide_1_1_bad_element_length.html">tide::BadElementLength</a></li>
 <li><a class="el" href="structtide_1_1_bad_read_version.html">tide::BadReadVersion</a></li>
 <li><a class="el" href="structtide_1_1_buffer_too_small.html">tide::BufferTooSmall</a></li>
+<li><a class="el" href="structtide_1_1_duplicate_track_number.html">tide::DuplicateTrackNumber</a></li>
+<li><a class="el" href="structtide_1_1_duplicate_u_i_d.html">tide::DuplicateUID</a></li>
+<li><a class="el" href="structtide_1_1_empty_tracks_element.html">tide::EmptyTracksElement</a></li>
 <li><a class="el" href="structtide_1_1_invalid_child_i_d.html">tide::InvalidChildID</a></li>
 <li><a class="el" href="structtide_1_1_invalid_e_b_m_l_i_d.html">tide::InvalidEBMLID</a></li>
 <li><a class="el" href="structtide_1_1_invalid_element_i_d.html">tide::InvalidElementID</a></li>
@@ -140,7 +156,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -149,7 +165,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Nov 24 2011 16:10:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

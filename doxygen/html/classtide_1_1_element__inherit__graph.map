@@ -4,9 +4,9 @@
 <area shape="rect" id="node13" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::string \&gt;" alt="" coords="196,157,457,185"/>
 <area shape="rect" id="node17" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="165,207,488,235"/>
 <area shape="rect" id="node21" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="204,258,449,286"/>
-<area shape="rect" id="node25" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="249,385,404,413"/>
-<area shape="rect" id="node43" href="$classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="225,435,428,463"/>
-<area shape="rect" id="node45" href="$classtide_1_1_void_element.html" title="Void primitive element." alt="" coords="257,486,396,514"/>
+<area shape="rect" id="node25" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="249,410,404,438"/>
+<area shape="rect" id="node45" href="$classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="225,461,428,489"/>
+<area shape="rect" id="node47" href="$classtide_1_1_void_element.html" title="Void primitive element." alt="" coords="257,511,396,539"/>
 <area shape="rect" id="node5" href="$classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="559,5,700,33"/>
 <area shape="rect" id="node9" href="$classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="559,55,700,83"/>
 <area shape="rect" id="node11" href="$classtide_1_1_int_element.html" title="Signed integer primitive element." alt="" coords="567,106,692,134"/>
@@ -16,9 +16,10 @@
 <area shape="rect" id="node27" href="$classtide_1_1_e_b_m_l_element.html" title="The EBML Header element." alt="" coords="556,309,703,337"/>
 <area shape="rect" id="node29" href="$classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file." alt="" coords="571,359,688,387"/>
 <area shape="rect" id="node31" href="$classtide_1_1_seek_element.html" title="The Seek element, which contains a single index point in the SeekHead element." alt="" coords="559,410,700,438"/>
-<area shape="rect" id="node33" href="$classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="560,461,699,489"/>
-<area shape="rect" id="node35" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="568,511,691,539"/>
-<area shape="rect" id="node37" href="$classtide_1_1_track_operation_base.html" title="Abstract base class for individual track operations." alt="" coords="537,562,721,590"/>
-<area shape="rect" id="node41" href="$classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="581,613,677,641"/>
-<area shape="rect" id="node39" href="$classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="771,562,925,590"/>
+<area shape="rect" id="node33" href="$classtide_1_1_segment.html" title="tide::Segment" alt="" coords="572,461,687,489"/>
+<area shape="rect" id="node35" href="$classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="560,511,699,539"/>
+<area shape="rect" id="node37" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="568,562,691,590"/>
+<area shape="rect" id="node39" href="$classtide_1_1_track_operation_base.html" title="Abstract base class for individual track operations." alt="" coords="537,613,721,641"/>
+<area shape="rect" id="node43" href="$classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="581,663,677,691"/>
+<area shape="rect" id="node41" href="$classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="771,613,925,641"/>
 </map>

@@ -1,20 +1,23 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$structtide_1_1_bad_body_size.html" title="A read body size does not match the actual body size in the file." alt="" coords="199,5,340,33"/>
-<area shape="rect" id="node5" href="$structtide_1_1_bad_doc_read_version.html" title="The required Tide read version is too high." alt="" coords="175,55,364,83"/>
-<area shape="rect" id="node7" href="$structtide_1_1_bad_element_length.html" title="A fixed&#45;length element is truncated or lengthened in the file." alt="" coords="180,106,359,134"/>
-<area shape="rect" id="node9" href="$structtide_1_1_bad_read_version.html" title="The required EBML read version is too high." alt="" coords="188,157,351,185"/>
-<area shape="rect" id="node11" href="$structtide_1_1_buffer_too_small.html" title="A buffer was too small for the data." alt="" coords="193,207,345,235"/>
-<area shape="rect" id="node13" href="$structtide_1_1_invalid_child_i_d.html" title="A child element was found where it doesn&#39;t belong." alt="" coords="197,258,341,286"/>
-<area shape="rect" id="node15" href="$structtide_1_1_invalid_e_b_m_l_i_d.html" title="An invalid EBML class ID was found." alt="" coords="195,309,344,337"/>
-<area shape="rect" id="node17" href="$structtide_1_1_invalid_element_i_d.html" title="An invalid Element ID was provided." alt="" coords="187,359,352,387"/>
-<area shape="rect" id="node19" href="$structtide_1_1_invalid_var_int.html" title="An invalid variable&#45;length integer was found." alt="" coords="201,410,337,438"/>
-<area shape="rect" id="node21" href="$structtide_1_1_missing_child.html" title="A necessary child element was missing." alt="" coords="203,461,336,489"/>
-<area shape="rect" id="node23" href="$structtide_1_1_not_e_b_m_l.html" title="File is not an EBML file." alt="" coords="212,511,327,539"/>
-<area shape="rect" id="node25" href="$structtide_1_1_not_tide.html" title="File is not a Tide file." alt="" coords="216,562,323,590"/>
-<area shape="rect" id="node27" href="$structtide_1_1_read_error.html" title="A read error was encountered during a read." alt="" coords="208,613,331,641"/>
-<area shape="rect" id="node29" href="$structtide_1_1_spec_size_too_small.html" title="A specified size for a variable&#45;length integer is too small." alt="" coords="184,663,355,691"/>
-<area shape="rect" id="node31" href="$structtide_1_1_value_out_of_range.html" title="A child element&#39;s value was set outside the allowable range." alt="" coords="184,714,355,742"/>
-<area shape="rect" id="node33" href="$structtide_1_1_value_size_out_of_range.html" title="A child element&#39;s size is below or above the required size." alt="" coords="172,765,367,793"/>
-<area shape="rect" id="node35" href="$structtide_1_1_var_int_too_big.html" title="A variable&#45;length integer is too large to be encoded." alt="" coords="200,815,339,843"/>
-<area shape="rect" id="node37" href="$structtide_1_1_write_error.html" title="A write error was encountered during a write." alt="" coords="208,866,331,894"/>
+<area shape="rect" id="node3" href="$structtide_1_1_bad_body_size.html" title="A read body size does not match the actual body size in the file." alt="" coords="201,5,343,33"/>
+<area shape="rect" id="node5" href="$structtide_1_1_bad_doc_read_version.html" title="The required Tide read version is too high." alt="" coords="177,55,367,83"/>
+<area shape="rect" id="node7" href="$structtide_1_1_bad_element_length.html" title="A fixed&#45;length element is truncated or lengthened in the file." alt="" coords="183,106,361,134"/>
+<area shape="rect" id="node9" href="$structtide_1_1_bad_read_version.html" title="The required EBML read version is too high." alt="" coords="191,157,353,185"/>
+<area shape="rect" id="node11" href="$structtide_1_1_buffer_too_small.html" title="A buffer was too small for the data." alt="" coords="196,207,348,235"/>
+<area shape="rect" id="node13" href="$structtide_1_1_duplicate_track_number.html" title="A duplicate track number was encountered." alt="" coords="172,258,372,286"/>
+<area shape="rect" id="node15" href="$structtide_1_1_duplicate_u_i_d.html" title="A UID collision was encountered." alt="" coords="201,309,343,337"/>
+<area shape="rect" id="node17" href="$structtide_1_1_empty_tracks_element.html" title="An empty Tracks element was read or written." alt="" coords="176,359,368,387"/>
+<area shape="rect" id="node19" href="$structtide_1_1_invalid_child_i_d.html" title="A child element was found where it doesn&#39;t belong." alt="" coords="200,410,344,438"/>
+<area shape="rect" id="node21" href="$structtide_1_1_invalid_e_b_m_l_i_d.html" title="An invalid EBML class ID was found." alt="" coords="197,461,347,489"/>
+<area shape="rect" id="node23" href="$structtide_1_1_invalid_element_i_d.html" title="An invalid Element ID was provided." alt="" coords="189,511,355,539"/>
+<area shape="rect" id="node25" href="$structtide_1_1_invalid_var_int.html" title="An invalid variable&#45;length integer was found." alt="" coords="204,562,340,590"/>
+<area shape="rect" id="node27" href="$structtide_1_1_missing_child.html" title="A necessary child element was missing." alt="" coords="205,613,339,641"/>
+<area shape="rect" id="node29" href="$structtide_1_1_not_e_b_m_l.html" title="File is not an EBML file." alt="" coords="215,663,329,691"/>
+<area shape="rect" id="node31" href="$structtide_1_1_not_tide.html" title="File is not a Tide file." alt="" coords="219,714,325,742"/>
+<area shape="rect" id="node33" href="$structtide_1_1_read_error.html" title="A read error was encountered during a read." alt="" coords="211,765,333,793"/>
+<area shape="rect" id="node35" href="$structtide_1_1_spec_size_too_small.html" title="A specified size for a variable&#45;length integer is too small." alt="" coords="187,815,357,843"/>
+<area shape="rect" id="node37" href="$structtide_1_1_value_out_of_range.html" title="A child element&#39;s value was set outside the allowable range." alt="" coords="187,866,357,894"/>
+<area shape="rect" id="node39" href="$structtide_1_1_value_size_out_of_range.html" title="A child element&#39;s size is below or above the required size." alt="" coords="175,917,369,945"/>
+<area shape="rect" id="node41" href="$structtide_1_1_var_int_too_big.html" title="A variable&#45;length integer is too large to be encoded." alt="" coords="203,967,341,995"/>
+<area shape="rect" id="node43" href="$structtide_1_1_write_error.html" title="A write error was encountered during a write." alt="" coords="211,1018,333,1046"/>
 </map>

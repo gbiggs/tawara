@@ -264,6 +264,30 @@ TEST(TrackEntry, Operation)
 }
 
 
+TEST(TrackEntry, Equality)
+{
+    tide::TrackEntry e1(1, 2, "MDCC");
+    tide::TrackEntry e2(1, 2, "MDCC");
+    std::vector<uint64_t> overlays;
+    overlays.push_back(0);
+    overlays.push_back(1);
+    overlays.push_back(2);
+    overlays.push_back(3);
+    e1.overlays(overlays);
+    e2.overlays(overlays);
+    boost::shared_ptr<tide::TrackJoinBlocks> op(new tide::TrackJoinBlocks);
+    op->append(42);
+    e1.operation(op);
+    e2.operation(op);
+    EXPECT_TRUE(e1 == e2);
+    EXPECT_FALSE(e1 != e2);
+
+    e1.name("Another track");
+    EXPECT_FALSE(e1 == e2);
+    EXPECT_TRUE(e1 != e2);
+}
+
+
 namespace test_track_entry
 {
 

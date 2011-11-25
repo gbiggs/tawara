@@ -28,6 +28,7 @@
 #if !defined(TIDE_TRACK_OPERATION_H_)
 #define TIDE_TRACK_OPERATION_H_
 
+#include <boost/operators.hpp>
 #include <boost/smart_ptr.hpp>
 #include <tide/el_ids.h>
 #include <tide/master_element.h>
@@ -60,11 +61,10 @@ namespace tide
              * \return A string describing the operation.
              */
             virtual std::string type() const = 0;
+
+            /// \brief Base type of a track operation pointer.
+            typedef boost::shared_ptr<TrackOperationBase> Ptr;
     }; // class TrackOperationBase
-
-
-    /// \brief Base type of a track operation pointer.
-    typedef boost::shared_ptr<TrackOperationBase> OpPtr;
 
 
     /** \brief JoinBlocks track operation.
@@ -75,7 +75,8 @@ namespace tide
      * interleaved blocks of data at best and undefined results at worst, and
      * should be avoided.
      */
-    class TIDE_EXPORT TrackJoinBlocks : public TrackOperationBase
+    class TIDE_EXPORT TrackJoinBlocks : public TrackOperationBase,
+            public boost::equality_comparable<TrackJoinBlocks>
     {
         public:
             /// \brief Construct a new JoinBlocks operation.
@@ -127,9 +128,21 @@ namespace tide
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input);
 
+            /// \brief Equality operator.
+            friend bool operator==(TrackJoinBlocks const& lhs,
+                    TrackJoinBlocks const& rhs);
+
         protected:
             std::vector<UIntElement> uids_;
     }; // class TrackJoinBlocks
+
+
+    /// Equality operator for TrackJoinBlocks.
+    inline bool operator==(TrackJoinBlocks const& lhs,
+            TrackJoinBlocks const& rhs)
+    {
+        return lhs.uids_ == rhs.uids_;
+    }
 }; // namespace tide
 
 /// @}

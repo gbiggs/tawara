@@ -219,6 +219,35 @@ std::streamsize TrackEntry::size() const
 }
 
 
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+bool tide::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
+{
+    return lhs.number_ == rhs.number_ &&
+        lhs.uid_ == rhs.uid_ &&
+        lhs.type_ == rhs.type_ &&
+        lhs.enabled_ == rhs.enabled_ &&
+        lhs.forced_ == rhs.forced_ &&
+        lhs.lacing_ == rhs.lacing_ &&
+        lhs.min_cache_ == rhs.min_cache_ &&
+        lhs.max_cache_ == rhs.max_cache_ &&
+        lhs.default_dur_ == rhs.default_dur_ &&
+        lhs.timecode_scale_ == rhs.timecode_scale_ &&
+        lhs.max_block_add_id_ == rhs.max_block_add_id_ &&
+        lhs.name_ == rhs.name_ &&
+        lhs.codec_id_ == rhs.codec_id_ &&
+        lhs.codec_private_ == rhs.codec_private_ &&
+        lhs.codec_name_ == rhs.codec_name_ &&
+        lhs.attachment_link_ == rhs.attachment_link_ &&
+        lhs.decode_all_ == rhs.decode_all_ &&
+        lhs.overlays_ == rhs.overlays_ &&
+        lhs.operation_ == rhs.operation_;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
@@ -528,7 +557,7 @@ std::streamsize TrackEntry::read_operation(std::istream& input)
         throw InvalidChildID() << err_id(op_id_res.first) <<
             err_par_id(id_) << err_pos(input.tellg());
     }
-    OpPtr op(new TrackJoinBlocks());
+    TrackOperationBase::Ptr op(new TrackJoinBlocks());
     read_bytes += op->read_body(input);
     operation_ = op;
     return read_bytes;

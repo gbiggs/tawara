@@ -91,6 +91,21 @@ TEST(TrackJoinBlocks, IndexOperator)
 }
 
 
+TEST(TrackJoinBlocks, Equality)
+{
+    tide::TrackJoinBlocks e1;
+    e1.append(0xFFFF);
+    tide::TrackJoinBlocks e2;
+    e2.append(0xFFFF);
+    EXPECT_TRUE(e1 == e2);
+    EXPECT_FALSE(e1 != e2);
+
+    e2.append(0x7777);
+    EXPECT_FALSE(e1 == e2);
+    EXPECT_TRUE(e1 != e2);
+}
+
+
 TEST(TrackJoinBlocks, Size)
 {
     tide::TrackJoinBlocks e;

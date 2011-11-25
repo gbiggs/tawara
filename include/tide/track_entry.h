@@ -28,6 +28,7 @@
 #if !defined(TIDE_TRACK_ENTRY_H_)
 #define TIDE_TRACK_ENTRY_H_
 
+#include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
 #include <string>
 #include <tide/binary_element.h>
@@ -54,7 +55,8 @@ namespace tide
      * their own. Instead, they use data from other tracks, combined using one
      * or more specified operations.
      */
-    class TIDE_EXPORT TrackEntry : public MasterElement
+    class TIDE_EXPORT TrackEntry : public MasterElement,
+            public boost::equality_comparable<TrackEntry>
     {
         public:
             /** \brief Construct a new TrackEntry.
@@ -299,9 +301,10 @@ namespace tide
              *
              * If this value is empty, then the track is not virtual.
              */
-            OpPtr operation() const { return operation_; }
+            TrackOperationBase::Ptr operation() const { return operation_; }
             /// \brief Set the operation used to create this track.
-            void operation(OpPtr const& operation) { operation_ = operation; }
+            void operation(TrackOperationBase::Ptr const& operation)
+                { operation_ = operation; }
 
             /// \brief Get the size of the body of this element.
             virtual std::streamsize size() const;
@@ -316,6 +319,10 @@ namespace tide
             typedef boost::shared_ptr<TrackEntry> Ptr;
             /// \brief The type of a shared pointer to a constant TrackEntry.
             typedef boost::shared_ptr<TrackEntry const> ConstPtr;
+
+            /// \brief Equality operator.
+            friend bool operator==(TrackEntry const& lhs,
+                    TrackEntry const& rhs);
 
         protected:
             UIntElement number_;
@@ -336,7 +343,7 @@ namespace tide
             UIntElement attachment_link_;
             UIntElement decode_all_;
             std::vector<UIntElement> overlays_;
-            OpPtr operation_;
+            TrackOperationBase::Ptr operation_;
 
             /// \brief Resets all child elements to clean values.
             void reset();
@@ -346,6 +353,8 @@ namespace tide
              */
             std::streamsize read_operation(std::istream& input);
     }; // class TrackEntry
+
+    bool operator==(TrackEntry const& lhs, TrackEntry const& rhs);
 }; // namespace tide;
 
 /// @}

@@ -278,6 +278,45 @@ namespace tide
      */
     struct ValueSizeOutOfRange : virtual TideError{};
 
+    /** \brief An empty Tracks element was read or written.
+     *
+     * The Tracks element must have at least one TrackEntry to be valid. This
+     * error occurs if a Tracks element with no TrackEntry children is read, or
+     * when an empty Tracks element is about to be written.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct EmptyTracksElement : virtual TideError{};
+
+    /** \brief A duplicate track number was encountered.
+     *
+     * All tracks within an element must have a unique track number. When
+     * reading or creating a Tracks element, if more than one TrackEntry in the
+     * element has the same track number, this error occurs.
+     *
+     * The err_track_num tag may be included to indicate the duplicated track
+     * number.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct DuplicateTrackNumber : virtual TideError{};
+
+
+    /** \brief A UID collision was encountered.
+     *
+     * In many places, the same element may occur multiple times, with each
+     * instance distinguished by a UID represented as an unsigned integer. When
+     * the UIDs of two elements clash, this error occurs.
+     *
+     * The err_int_uid tag may be included to indicate the clashing UID.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct DuplicateUID : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags
@@ -313,6 +352,12 @@ namespace tide
 
     /// \brief The size of an element.
     typedef boost::error_info<struct tag_el_size, std::streamsize> err_el_size;
+
+    /// \brief A track number.
+    typedef boost::error_info<struct tag_track_num, uint64_t> err_track_num;
+
+    /// \brief An integer UID.
+    typedef boost::error_info<struct tag_int_uid, uint64_t> err_int_uid;
 }; // namespace tide
 
 /// @}

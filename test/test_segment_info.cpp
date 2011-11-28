@@ -623,7 +623,7 @@ TEST(SegmentInfo, Read)
 
     tide::SegmentInfo e;
     tide::vint::write(0, input);
-    EXPECT_EQ(tide::vint::coded_size(0), e.read_body(input));
+    EXPECT_EQ(tide::vint::coded_size(0), e.read(input));
     EXPECT_EQ(1000000, e.timecode_scale());
 
     input.str(std::string());
@@ -631,7 +631,7 @@ TEST(SegmentInfo, Read)
     tide::vint::write(body_size, input);
     used_children[0]->write(input);
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     EXPECT_TRUE(e.uid().empty());
     EXPECT_TRUE(e.filename().empty());
     EXPECT_TRUE(e.prev_uid().empty());
@@ -657,7 +657,7 @@ TEST(SegmentInfo, Read)
             uel->write(input);
         }
         EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     }
 
     // Body size value wrong (too small)
@@ -665,12 +665,12 @@ TEST(SegmentInfo, Read)
     tide::vint::write(2, input);
     used_children[0]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }
 

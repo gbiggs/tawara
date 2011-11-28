@@ -31,8 +31,10 @@
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
 #include <tide/uint_element.h>
+#include <tide/vint.h>
 
 #include "test_consts.h"
+#include "test_utils.h"
 
 
 // Fake Element implementation
@@ -54,17 +56,12 @@ class FakeElement : public tide::Element
             return 0;
         }
 
-        std::streamsize read_body(std::istream& input)
+        std::streamsize read_body(std::istream& input, std::streamsize size)
         {
-            return 0;
+            return size;
         }
 
         std::streamsize size() const
-        {
-            return 0;
-        }
-
-        std::streamsize total_size() const
         {
             return 0;
         }
@@ -96,6 +93,54 @@ TEST(Element, Assignment)
     FakeElement e1(1), e2(2);
     e2 = e1;
     EXPECT_EQ(e1.id(), e2.id());
+}
+
+
+TEST(Element, Size)
+{
+    FakeElement e(tide::ids::EBML);
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
+            tide::vint::coded_size(0), e.total_size());
+}
+
+
+TEST(Element, Write)
+{
+    std::ostringstream output;
+    std::stringstream expected;
+    unsigned int dummy(0xFFFF);
+
+    // Place some dummy data at the start to test the element recording its
+    // write position.
+    tide::vint::write(dummy, output);
+    tide::vint::write(dummy, expected);
+
+    FakeElement e(tide::ids::EBML);
+    tide::ids::write(tide::ids::EBML, expected);
+    tide::vint::write(0, expected);
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
+            tide::vint::coded_size(0), e.write(output));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
+            expected.str());
+    EXPECT_EQ(tide::vint::coded_size(dummy), e.offset());
+}
+
+
+TEST(Element, Read)
+{
+    std::stringstream input;
+    unsigned int dummy(0xFFFF);
+    FakeElement e(tide::ids::EBML);
+
+    tide::vint::write(dummy, input);
+    tide::ids::write(tide::ids::Info, input);
+    tide::vint::write(0, input);
+    input.seekg(tide::vint::coded_size(dummy) +
+            tide::ids::coded_size(tide::ids::Info), std::ios::beg);
+
+    EXPECT_EQ(tide::vint::coded_size(0), e.read(input));
+    EXPECT_EQ(tide::vint::coded_size(dummy),
+            e.offset());
 }
 
 

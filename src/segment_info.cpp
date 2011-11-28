@@ -411,20 +411,15 @@ std::streamsize SegmentInfo::write_body(std::ostream& output)
 }
 
 
-std::streamsize SegmentInfo::read_body(std::istream& input)
+std::streamsize SegmentInfo::read_body(std::istream& input,
+        std::streamsize size)
 {
     // Reset to defaults
     reset();
 
-    std::streampos el_start(input.tellg());
-
-    // Get the element's body size
-    vint::ReadResult result = tide::vint::read(input);
-    std::streamsize body_size(result.first);
-    std::streamsize size_size(result.second);
-    std::streamsize read_bytes(result.second);
+    std::streamsize read_bytes(0);
     // Read elements until the body is exhausted
-    while (read_bytes < size_size + body_size)
+    while (read_bytes < size)
     {
         // Read the ID
         ids::ReadResult id_res = ids::read(input);
@@ -433,66 +428,66 @@ std::streamsize SegmentInfo::read_body(std::istream& input)
         switch(id)
         {
             case ids::SegmentUID:
-                read_bytes += uid_.read_body(input);
+                read_bytes += uid_.read(input);
                 have_uid_ = true;
                 break;
             case ids::SegmentFileName:
-                read_bytes += seg_fn_.read_body(input);
+                read_bytes += seg_fn_.read(input);
                 have_seg_fn_ = true;
                 break;
             case ids::PrevUID:
-                read_bytes += prev_uid_.read_body(input);
+                read_bytes += prev_uid_.read(input);
                 have_prev_uid_ = true;
                 break;
             case ids::PrevFileName:
-                read_bytes += prev_fn_.read_body(input);
+                read_bytes += prev_fn_.read(input);
                 have_prev_fn_ = true;
                 break;
             case ids::NextUID:
-                read_bytes += next_uid_.read_body(input);
+                read_bytes += next_uid_.read(input);
                 have_next_uid_ = true;
                 break;
             case ids::NextFileName:
-                read_bytes += next_fn_.read_body(input);
+                read_bytes += next_fn_.read(input);
                 have_next_fn_ = true;
                 break;
             case ids::SegmentFamily:
-                read_bytes += seg_fam_.read_body(input);
+                read_bytes += seg_fam_.read(input);
                 have_seg_fam_ = true;
                 break;
             case ids::TimecodeScale:
-                read_bytes += tc_scale_.read_body(input);
+                read_bytes += tc_scale_.read(input);
                 break;
             case ids::Duration:
-                read_bytes += duration_.read_body(input);
+                read_bytes += duration_.read(input);
                 have_duration_ = true;
                 break;
             case ids::DateUTC:
-                read_bytes += date_.read_body(input);
+                read_bytes += date_.read(input);
                 have_date_ = true;
                 break;
             case ids::Title:
-                read_bytes += title_.read_body(input);
+                read_bytes += title_.read(input);
                 have_title_ = true;
                 break;
             case ids::MuxingApp:
-                read_bytes += muxer_.read_body(input);
+                read_bytes += muxer_.read(input);
                 have_muxer_ = true;
                 break;
             case ids::WritingApp:
-                read_bytes += writer_.read_body(input);
+                read_bytes += writer_.read(input);
                 have_writer_ = true;
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                    err_pos(input.tellg());
+                    err_pos(input.tellg() - id_res.second);
         }
     }
-    if (read_bytes != size_size + body_size)
+    if (read_bytes != size)
     {
         // Read more than was specified by the body size value
-        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
-            err_pos(el_start);
+        throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+            err_pos(offset_);
     }
 
     return read_bytes;

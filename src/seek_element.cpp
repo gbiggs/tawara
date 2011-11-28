@@ -82,24 +82,19 @@ std::streamsize SeekElement::write_body(std::ostream& output)
 }
 
 
-std::streamsize SeekElement::read_body(std::istream& input)
+std::streamsize SeekElement::read_body(std::istream& input,
+        std::streamsize size)
 {
-    std::streampos el_start(input.tellg());
-
-    // Get the element's body size
-    vint::ReadResult result = tide::vint::read(input);
-    std::streamsize body_size(result.first);
-    std::streamsize size_size(result.second);
-    std::streamsize read_bytes(result.second);
+    std::streamsize read_bytes(0);
     // Read elements until the body is exhausted
     bool have_id(false), have_offset(false);
-    while (read_bytes < size_size + body_size)
+    while (read_bytes < size)
     {
         if (have_id && have_offset)
         {
             // If both children have been read, why is there still body left?
-            throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
-                err_pos(el_start);
+            throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+                err_pos(offset_);
         }
         // Read the ID
         ids::ReadResult id_res = ids::read(input);
@@ -108,34 +103,34 @@ std::streamsize SeekElement::read_body(std::istream& input)
         switch(id)
         {
             case ids::SeekID:
-                read_bytes += indexed_id_.read_body(input);
+                read_bytes += indexed_id_.read(input);
                 have_id = true;
                 break;
             case ids::SeekPosition:
-                read_bytes += offset_.read_body(input);
+                read_bytes += offset_.read(input);
                 have_offset = true;
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                    err_pos(input.tellg());
+                    err_pos(input.tellg() - id_res.second);
         }
     }
-    if (read_bytes != size_size + body_size)
+    if (read_bytes != size)
     {
         // Read more than was specified by the body size value
-        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
-            err_pos(el_start);
+        throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+            err_pos(offset_);
     }
 
     if (!have_id)
     {
-        throw MissingChild() << err_id(ids::SeekID) << err_par_id(ids::Seek) <<
-            err_pos(el_start);
+        throw MissingChild() << err_id(ids::SeekID) << err_par_id(id_) <<
+            err_pos(offset_);
     }
     if (!have_offset)
     {
         throw MissingChild() << err_id(ids::SeekPosition) <<
-            err_par_id(ids::Seek) << err_pos(el_start);
+            err_par_id(id_) << err_pos(offset_);
     }
 
     return read_bytes;

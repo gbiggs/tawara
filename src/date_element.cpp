@@ -87,22 +87,20 @@ std::streamsize DateElement::write_body(std::ostream& output)
 }
 
 
-std::streamsize DateElement::read_body(std::istream& input)
+std::streamsize DateElement::read_body(std::istream& input,
+        std::streamsize size)
 {
-    std::pair<uint64_t, std::streamsize> result;
-
-    result = tide::vint::read(input);
-    if (result.first != 8)
+    if (size != 8)
     {
-        throw BadElementLength() << err_pos(input.tellg()) << err_id(id_) <<
+        throw BadElementLength() << err_pos(offset_) << err_id(id_) <<
             err_valid_sizes(std::vector<std::streamsize>(1, 8)) <<
-            err_el_size(result.first);
+            err_el_size(size);
     }
     input.read(reinterpret_cast<char*>(&value_), 8);
     if (!input)
     {
         throw ReadError() << err_pos(input.tellg());
     }
-    return result.second + 8;
+    return 8;
 }
 

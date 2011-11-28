@@ -80,12 +80,10 @@ std::streamsize UIntElement::write_body(std::ostream& output)
 }
 
 
-std::streamsize UIntElement::read_body(std::istream& input)
+std::streamsize UIntElement::read_body(std::istream& input,
+        std::streamsize size)
 {
-    std::pair<uint64_t, std::streamsize> result;
-
-    result = tide::vint::read(input);
-    value_ = tide::ebml_int::read_u(input, result.first);
-    return result.second + result.first;
+    value_ = tide::ebml_int::read_u(input, size);
+    return size;
 }
 

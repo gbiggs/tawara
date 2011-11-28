@@ -23,7 +23,8 @@ set(hdrs ${config_h}
     segment_info.h
     tracks.h
     track_entry.h
-    track_operation.h)
+    track_operation.h
+    segment.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

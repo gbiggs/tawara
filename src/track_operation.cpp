@@ -107,19 +107,14 @@ std::streamsize TrackJoinBlocks::write_body(std::ostream& output)
 }
 
 
-std::streamsize TrackJoinBlocks::read_body(std::istream& input)
+std::streamsize TrackJoinBlocks::read_body(std::istream& input,
+        std::streamsize size)
 {
-    std::streampos el_start(input.tellg());
-
     // Clear the UIDs list
     uids_.clear();
-    // Get the element's body size
-    vint::ReadResult result = tide::vint::read(input);
-    std::streamsize body_size(result.first);
-    std::streamsize size_size(result.second);
-    std::streamsize read_bytes(result.second);
+    std::streamsize read_bytes(0);
     // Read elements until the body is exhausted
-    while (read_bytes < size_size + body_size)
+    while (read_bytes < size)
     {
         // Read the ID
         ids::ReadResult id_res = tide::ids::read(input);
@@ -129,11 +124,11 @@ std::streamsize TrackJoinBlocks::read_body(std::istream& input)
         {
             // Only TrackJoinUID elements may be in the TrackJoinBlocks element
             throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                err_pos(input.tellg());
+                err_pos(input.tellg() - id_res.second);
         }
         // Read the body
         UIntElement uid(ids::Null, 0);
-        read_bytes += uid.read_body(input);
+        read_bytes += uid.read(input);
         if (uid.value() == 0)
         {
             // Zero-value UIDs are illegal
@@ -142,17 +137,17 @@ std::streamsize TrackJoinBlocks::read_body(std::istream& input)
         }
         uids_.push_back(uid);
     }
-    if (read_bytes != size_size + body_size)
+    if (read_bytes != size)
     {
         // Read more than was specified by the body size value
-        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
-            err_pos(el_start);
+        throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+            err_pos(offset_);
     }
     if (uids_.empty())
     {
         // Must have read at least one TrackJoinUID
         throw MissingChild() << err_id(ids::TrackJoinUID) << err_par_id(id_) <<
-            err_pos(el_start);
+            err_pos(offset_);
     }
 
     return read_bytes;

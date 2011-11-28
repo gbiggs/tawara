@@ -87,11 +87,12 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
-
         protected:
             uint64_t padding_;
+
+            /// \brief Element body loading.
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
     }; // class StringElement
 }; // namespace tide
 

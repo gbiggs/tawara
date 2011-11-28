@@ -333,7 +333,7 @@ TEST_F(BinaryElementTest, Read)
     tide::BinaryElement e(0x80, std::vector<char>());
     test_binel::fill_buffer(input_val, 0x80, b1, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + b1.size(), e.read_body(input));
+    EXPECT_EQ(1 + b1.size(), e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e.value());
 
@@ -344,7 +344,7 @@ TEST_F(BinaryElementTest, Read)
     std::string().swap(input_val);
     test_binel::fill_buffer(input_val, 0x80, b3, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + b3.size(), e.read_body(input));
+    EXPECT_EQ(1 + b3.size(), e.read(input));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e.get_default());
     EXPECT_FALSE(e.is_default());
@@ -358,7 +358,7 @@ TEST_F(BinaryElementTest, Read)
     std::string().swap(input_val);
     test_binel::fill_buffer(input_val, 0x80, empty, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1, e.read_body(input));
+    EXPECT_EQ(1, e.read(input));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, empty, e.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e.get_default());
     EXPECT_FALSE(e.is_default());
@@ -367,7 +367,7 @@ TEST_F(BinaryElementTest, Read)
     std::string().swap(input_val);
     test_binel::fill_buffer(input_val, 0x80, b4, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read_body(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), tide::ReadError);
 }
 
 

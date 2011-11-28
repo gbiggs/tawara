@@ -238,9 +238,6 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
-
         protected:
             BinaryElement uid_;
             bool have_uid_;
@@ -268,6 +265,10 @@ namespace tide
             bool have_muxer_;
             StringElement writer_;
             bool have_writer_;
+
+            /// \brief Element body loading.
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
 
             /// \brief Resets all child elements to clean values.
             void reset();

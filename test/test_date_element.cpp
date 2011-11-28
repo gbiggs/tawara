@@ -278,7 +278,7 @@ TEST(DateElement, Read)
     tide::DateElement e(0x80, 0);
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + 8, e.read_body(input));
+    EXPECT_EQ(1 + 8, e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_EQ(value, e.value());
 
@@ -290,7 +290,7 @@ TEST(DateElement, Read)
     std::string().swap(input_val);
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + 8, e.read_body(input));
+    EXPECT_EQ(1 + 8, e.read(input));
     EXPECT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());
@@ -300,12 +300,12 @@ TEST(DateElement, Read)
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input_val[0] = 0x05;
     input.str(input_val);
-    EXPECT_THROW(e.read_body(input), tide::BadElementLength);
+    EXPECT_THROW(e.read(input), tide::BadElementLength);
     // Test for ReadError exception
     std::string().swap(input_val);
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read_body(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), tide::ReadError);
 }
 
 

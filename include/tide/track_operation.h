@@ -125,15 +125,16 @@ namespace tide
              */
             virtual std::streamsize write_body(std::ostream& output);
 
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
-
             /// \brief Equality operator.
             friend bool operator==(TrackJoinBlocks const& lhs,
                     TrackJoinBlocks const& rhs);
 
         protected:
             std::vector<UIntElement> uids_;
+
+            /// \brief Element body loading.
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
     }; // class TrackJoinBlocks
 
 

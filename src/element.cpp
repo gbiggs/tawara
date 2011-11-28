@@ -27,6 +27,7 @@
 
 #include <tide/element.h>
 
+#include <limits>
 #include <tide/exceptions.h>
 #include <tide/vint.h>
 
@@ -37,7 +38,7 @@ using namespace tide;
 ///////////////////////////////////////////////////////////////////////////////
 
 Element::Element(uint32_t id)
-    : id_(id)
+    : id_(id), offset_(std::numeric_limits<std::streampos>::max())
 {
     if (id_ == 0 ||
             id_ == 0xFF ||
@@ -56,9 +57,9 @@ Element::Element(uint32_t id)
 
 std::streamsize Element::total_size() const
 {
-    std::streamsize data_size(size());
-    return tide::ids::coded_size(id_) + tide::vint::coded_size(data_size) +
-        data_size;
+    std::streamsize body_size(size());
+    return tide::ids::coded_size(id_) + tide::vint::coded_size(body_size) +
+        body_size;
 }
 
 
@@ -68,6 +69,9 @@ std::streamsize Element::total_size() const
 
 std::streamsize Element::write(std::ostream& output)
 {
+    // Fill in the offset of this element in the byte stream.
+    offset_ = output.tellp();
+
     return write_id(output) + write_size(output) + write_body(output);
 }
 
@@ -81,6 +85,22 @@ std::streamsize Element::write_id(std::ostream& output)
 std::streamsize Element::write_size(std::ostream& output)
 {
     return tide::vint::write(size(), output);
+}
+
+
+std::streamsize Element::read(std::istream& input)
+{
+    // Fill in the offset of this element in the byte stream.
+    // The input stream will be at the start of the size value, so:
+    //
+    //  offset = current position - size of ID
+    offset_ = input.tellg() - ids::coded_size(id_);
+    // Get the element's body size
+    vint::ReadResult result = tide::vint::read(input);
+    std::streamsize body_size(result.first);
+    std::streamsize read_bytes(result.second);
+    // The rest of the read is implemented by child classes
+    return read_bytes + read_body(input, body_size);
 }
 
 

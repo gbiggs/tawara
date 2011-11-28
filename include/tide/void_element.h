@@ -118,6 +118,17 @@ namespace tide
              */
             virtual std::streamsize write_body(std::ostream& output);
 
+            /// \brief Element reading.
+            std::streamsize read(std::istream& input);
+
+        private:
+            /// The size of space to reserve in the byte stream.
+            std::streamsize size_;
+            /// If the element's body should be filled with zeroes or not.
+            bool fill_;
+            /// Extra bytes for writing the body size value if necessary.
+            std::streamsize extra_size_;
+
             /** \brief Element body loading.
              *
              * Reads the element from a byte stream providing a std::istream
@@ -130,15 +141,8 @@ namespace tide
              *
              * \return The number of bytes read.
              */
-            virtual std::streamsize read_body(std::istream& input);
-
-        private:
-            /// The size of space to reserve in the byte stream.
-            std::streamsize size_;
-            /// If the element's body should be filled with zeroes or not.
-            bool fill_;
-            /// Extra bytes for writing the body size value if necessary.
-            std::streamsize extra_size_;
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
     }; // class VoidElement
 }; // namespace tide
 

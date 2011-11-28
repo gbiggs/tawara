@@ -222,7 +222,7 @@ TEST(EBMLElement, Read)
     }
 
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     EXPECT_EQ(2, e.version());
     EXPECT_EQ(2, e.read_version());
     EXPECT_EQ(5, e.max_id_length());
@@ -234,7 +234,7 @@ TEST(EBMLElement, Read)
     // Zero-length body (all values should become defaults)
     input.str(std::string());
     tide::vint::write(0, input);
-    EXPECT_EQ(1, e.read_body(input));
+    EXPECT_EQ(1, e.read(input));
     EXPECT_EQ(1, e.version());
     EXPECT_EQ(1, e.read_version());
     EXPECT_EQ(4, e.max_id_length());
@@ -248,13 +248,13 @@ TEST(EBMLElement, Read)
     tide::vint::write(2, input);
     children[0]->write(input);
     children[3]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }
 
 

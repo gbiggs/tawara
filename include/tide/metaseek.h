@@ -98,11 +98,12 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
-
         protected:
             std::vector<SeekElement> index_;
+
+            /// \brief Element body loading.
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
     }; // class Metaseek
 }; // namespace Tide
 

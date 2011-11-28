@@ -132,9 +132,6 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
-
         protected:
             /// EBML version
             UIntElement ver_;
@@ -150,6 +147,10 @@ namespace tide
             UIntElement doc_type_ver_;
             /// Minimum document type version necessary to read
             UIntElement doc_type_read_ver_;
+
+            /// \brief Element body loading.
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
 
             /// \brief Sets all child elements to their default values.
             void set_defaults_();

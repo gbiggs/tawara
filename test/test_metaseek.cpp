@@ -183,7 +183,7 @@ TEST(Metaseek, Read)
 
     tide::Metaseek ms;
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            ms.read_body(input));
+            ms.read(input));
     EXPECT_EQ(3, ms.index_size());
     tide::Metaseek::IndexItem ii(ms[0]);
     EXPECT_EQ(tide::ids::SeekHead, ii.first);
@@ -198,7 +198,7 @@ TEST(Metaseek, Read)
     // No children at all
     input.str(std::string());
     tide::vint::write(0, input);
-    EXPECT_EQ(tide::vint::coded_size(0), ms.read_body(input));
+    EXPECT_EQ(tide::vint::coded_size(0), ms.read(input));
     // Metaseek should be clearing its stored index before reading, so the
     // previous test's index should not affect this result
     EXPECT_EQ(0, ms.index_size());
@@ -206,12 +206,12 @@ TEST(Metaseek, Read)
     input.str(std::string());
     tide::vint::write(2, input);
     children[0].write(input);
-    EXPECT_THROW(ms.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(ms.read(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(ms.read_body(input), tide::InvalidChildID);
+    EXPECT_THROW(ms.read(input), tide::InvalidChildID);
 }
 

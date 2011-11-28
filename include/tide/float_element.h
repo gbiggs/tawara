@@ -98,12 +98,14 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
+        protected:
             /** \brief Element body loading.
              *
              * \exception BadElementLength if the float element is an incorrect
              * length (i.e. not 4 or 8 bytes).
              */
-            virtual std::streamsize read_body(std::istream& input);
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
 
         protected:
             EBMLFloatPrec prec_;

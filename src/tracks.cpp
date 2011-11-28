@@ -142,19 +142,13 @@ std::streamsize Tracks::write_body(std::ostream& output)
 }
 
 
-std::streamsize Tracks::read_body(std::istream& input)
+std::streamsize Tracks::read_body(std::istream& input, std::streamsize size)
 {
-    std::streampos el_start(input.tellg());
-
     // Clear the entries
     entries_.clear();
-    // Get the element's body size
-    vint::ReadResult result = tide::vint::read(input);
-    std::streamsize body_size(result.first);
-    std::streamsize size_size(result.second);
-    std::streamsize read_bytes(result.second);
+    std::streamsize read_bytes(0);
     // Read elements until the body is exhausted
-    while (read_bytes < size_size + body_size)
+    while (read_bytes < size)
     {
         // Read the ID
         ids::ReadResult id_res = tide::ids::read(input);
@@ -168,19 +162,19 @@ std::streamsize Tracks::read_body(std::istream& input)
         }
         // Read the body
         TrackEntry::Ptr entry(new tide::TrackEntry(1, 1, "Empty"));
-        read_bytes += entry->read_body(input);
+        read_bytes += entry->read(input);
         insert(entry);
     }
-    if (read_bytes != size_size + body_size)
+    if (read_bytes != size)
     {
         // Read more than was specified by the body size value
-        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
-            err_pos(el_start);
+        throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+            err_pos(offset_);
     }
     if (entries_.empty())
     {
         // No TrackEntries is bad.
-        throw EmptyTracksElement() << err_pos(el_start);
+        throw EmptyTracksElement() << err_pos(offset_);
     }
     // Check there are no duplicate track numbers or UIDs
     validate_entries();

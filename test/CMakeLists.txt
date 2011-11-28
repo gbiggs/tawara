@@ -27,7 +27,8 @@ set(srcs test_utils.cpp
     test_segment_info.cpp
     test_tracks.cpp
     test_track_entry.cpp
-    test_track_operation.cpp)
+    test_track_operation.cpp
+    test_segment.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

@@ -90,7 +90,20 @@ namespace tide
              * advantage of this, you should use higher IDs for elements that
              * occur less frequently, such as the top-level elements.
              */
-            virtual uint32_t id() const { return id_; }
+            uint32_t id() const { return id_; }
+
+            /** Get the element's offset in the byte stream.
+             *
+             * If the element has been written, or was read from a byte stream,
+             * this value will contain its position in that stream. It is
+             * updated every time the element is read or written, so reading
+             * from one offset and then writing to another will change the
+             * stored offset.
+             *
+             * If the offset is std::numeric_limits<std::streampos>::max(),
+             * then the element has not yet been read or written.
+             */
+            std::streampos offset() const { return offset_; }
 
             /** \brief Get the size of the body of this element.
              *
@@ -133,7 +146,7 @@ namespace tide
              * \return The number of bytes written.
              * \exception WriteError if an error occurs writing data.
              */
-            virtual std::streamsize write_id(std::ostream& output);
+            std::streamsize write_id(std::ostream& output);
 
             /** \brief Element size writing.
              *
@@ -155,7 +168,7 @@ namespace tide
              */
             virtual std::streamsize write_body(std::ostream& output) = 0;
 
-            /** \brief Element body loading.
+            /** \brief Element reading.
              *
              * Reads the element from a byte stream providing a std::istream
              * interface.
@@ -179,10 +192,41 @@ namespace tide
              * \throw ValueSizeOutOfRange if a child element is read with a
              * size that is not in the allowable range of sizes.
              */
-            virtual std::streamsize read_body(std::istream& input) = 0;
+            virtual std::streamsize read(std::istream& input);
 
         protected:
             tide::ids::ID id_;
+            std::streampos offset_;
+
+            /** \brief Element body reading implementation.
+             *
+             * Implementations of the Element interface should implement this
+             * function to read the body of the element. When this function is
+             * called, the read pointer in the byte stream will be positioned
+             * at the first byte of the element's body (i.e. immediately after
+             * the element's size value).
+             *
+             * \param[in] input The input byte stream containing the element's
+             * body data.
+             * \param[in] size The size of the body data. The stream \e must \e
+             * not be read beyond this number of bytes.
+             * \return The number of bytes read.
+             * \exception ReadError if an error occurs reading data.
+             * \exception BadBodySize if the size read from the element's
+             * header doesn't match its actual size. Only occurs with master
+             * elements.
+             * \exception InvalidChildID if a child element is found in the
+             * body of a master element to which it doesn't belong.
+             * \exception MissingChild if a child element that must be present
+             * in a master element is not found.
+             * \throw ValueOutOfRange if a child element is read with a value
+             * that is out of range.
+             * \throw ValueSizeOutOfRange if a child element is read with a
+             * size that is not in the allowable range of sizes.
+             */
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size) = 0;
+
     }; // class Element
 
 

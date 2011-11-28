@@ -113,21 +113,32 @@ std::streamsize VoidElement::write_body(std::ostream& output)
 }
 
 
-std::streamsize VoidElement::read_body(std::istream& input)
+std::streamsize VoidElement::read(std::istream& input)
 {
-    std::pair<uint64_t, std::streamsize> result;
-
-    // Read the body size
-    result = tide::vint::read(input);
+    // Fill in the offset of this element in the byte stream.
+    // The input stream will be at the start of the size value, so:
+    //
+    //  offset = current position - size of ID
+    offset_ = input.tellg() - ids::coded_size(id_);
+    // Get the element's body size
+    vint::ReadResult result = tide::vint::read(input);
     size_ = result.first;
+    std::streamsize read_bytes(result.second);
     // Record the extra body size byte count for future writing
     extra_size_ = result.second - tide::vint::coded_size(size_);
+    // The rest of the read is implemented by child classes
+    return read_bytes + read_body(input, size_);
+}
+
+std::streamsize VoidElement::read_body(std::istream& input,
+        std::streamsize size)
+{
     // Skip the body
     input.seekg(size_, std::ios::cur);
     if (!input)
     {
         throw ReadError() << err_pos(input.tellg());
     }
-    return result.second + result.first;
+    return size_;
 }
 

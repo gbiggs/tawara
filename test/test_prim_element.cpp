@@ -52,7 +52,7 @@ class FakePrimElement : public tide::PrimitiveElement<int>
             return 0;
         }
 
-        std::streamsize read_body(std::istream& input)
+        std::streamsize read(std::istream& input)
         {
             return 0;
         }

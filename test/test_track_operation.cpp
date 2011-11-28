@@ -195,7 +195,7 @@ TEST(TrackJoinBlocks, Read)
 
     tide::TrackJoinBlocks e;
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     EXPECT_EQ(3, e.count());
     EXPECT_EQ(0xFFFF, e[0]);
     EXPECT_EQ(0xC0C0, e[1]);
@@ -204,7 +204,7 @@ TEST(TrackJoinBlocks, Read)
     // No children at all
     input.str(std::string());
     tide::vint::write(0, input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
     // TrackJoinBlocks should be clearing its stored UIDs before reading, so
     // the previous test's index should not affect this result
     EXPECT_EQ(0, e.count());
@@ -212,12 +212,12 @@ TEST(TrackJoinBlocks, Read)
     input.str(std::string());
     tide::vint::write(2, input);
     children[0].write(input);
-    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }
 

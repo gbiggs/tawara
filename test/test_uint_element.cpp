@@ -279,11 +279,12 @@ TEST(UIntElement, Read)
     int64_t value(5);
     std::streamsize val_size(tide::ebml_int::coded_size_u(value));
 
-    tide::UIntElement e(0x01, 0);
-    test_uintel::fill_buffer(input_val, 0x01, value, false, true, true);
+    tide::UIntElement e(tide::ids::Null, 0);
+    test_uintel::fill_buffer(input_val, tide::ids::Null, value, false, true,
+            true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read_body(input));
-    EXPECT_EQ(0x01, e.id());
+    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read(input));
+    EXPECT_EQ(tide::ids::Null, e.id());
     EXPECT_EQ(value, e.value());
 
     value = 0x3A958BCD99l;
@@ -293,24 +294,26 @@ TEST(UIntElement, Read)
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
     std::string().swap(input_val);
-    test_uintel::fill_buffer(input_val, 0x01, value, false, true, true);
+    test_uintel::fill_buffer(input_val, tide::ids::Null, value, false, true,
+            true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read_body(input));
+    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read(input));
     EXPECT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());
 
     // Test for ReadError exception
     std::string().swap(input_val);
-    test_uintel::fill_buffer(input_val, 0x01, value, false, true, true);
+    test_uintel::fill_buffer(input_val, tide::ids::Null, value, false, true,
+            true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read_body(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), tide::ReadError);
 }
 
 
 TEST(UIntElement, Size)
 {
-    tide::UIntElement e(0x80, 1);
+    tide::UIntElement e(tide::ids::Null, 1);
     EXPECT_EQ(1, e.size());
     EXPECT_EQ(3, e.total_size());
 

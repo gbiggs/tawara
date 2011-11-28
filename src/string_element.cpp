@@ -94,21 +94,17 @@ std::streamsize StringElement::write_body(std::ostream& output)
 }
 
 
-std::streamsize StringElement::read_body(std::istream& input)
+std::streamsize StringElement::read_body(std::istream& input,
+        std::streamsize size)
 {
-    std::pair<uint64_t, std::streamsize> result;
-
-    // Read the body size
-    result = tide::vint::read(input);
-    // Read the string itself
-    std::vector<char> tmp(result.first);
-    input.read(&tmp[0], result.first);
+    std::vector<char> tmp(size);
+    input.read(&tmp[0], size);
     if (!input)
     {
-        throw ReadError() << err_pos(input.tellg()) <<
-            err_reqsize(result.first);
+        throw ReadError() << err_pos(offset_) <<
+            err_reqsize(size);
     }
     std::string(tmp.begin(), tmp.end()).swap(value_);
-    return result.second + result.first;
+    return value_.size();
 }
 

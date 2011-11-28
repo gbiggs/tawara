@@ -72,8 +72,10 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
+        protected:
             /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
     }; // class UIntElement
 }; // namespace tide
 

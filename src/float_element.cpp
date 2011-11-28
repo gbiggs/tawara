@@ -110,12 +110,10 @@ std::streamsize FloatElement::write_body(std::ostream& output)
 }
 
 
-std::streamsize FloatElement::read_body(std::istream& input)
+std::streamsize FloatElement::read_body(std::istream& input,
+        std::streamsize size)
 {
-    std::pair<uint64_t, std::streamsize> result;
-
-    result = tide::vint::read(input);
-    if (result.first == 4)
+    if (size == 4)
     {
         float tmp(0);
         input.read(reinterpret_cast<char*>(&tmp), 4);
@@ -125,9 +123,9 @@ std::streamsize FloatElement::read_body(std::istream& input)
         }
         value_ = tmp;
         prec_ = EBML_FLOAT_PREC_SINGLE;
-        return result.second + 4;
+        return 4;
     }
-    else if (result.first == 8)
+    else if (size == 8)
     {
         double tmp(0);
         input.read(reinterpret_cast<char*>(&tmp), 8);
@@ -137,14 +135,14 @@ std::streamsize FloatElement::read_body(std::istream& input)
         }
         value_ = tmp;
         prec_ = EBML_FLOAT_PREC_DOUBLE;
-        return result.second + 8;
+        return 8;
     }
     else
     {
         std::vector<std::streamsize> valid_sizes;
         valid_sizes.push_back(4); valid_sizes.push_back(8);
-        throw BadElementLength() << err_pos(input.tellg()) << err_id(id_) <<
-            err_valid_sizes(valid_sizes) << err_el_size(result.first);
+        throw BadElementLength() << err_pos(offset_) << err_id(id_) <<
+            err_valid_sizes(valid_sizes) << err_el_size(size);
     }
 }
 

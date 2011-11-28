@@ -70,27 +70,6 @@ namespace tide
             /// \brief Destructor.
             virtual ~Tracks() {};
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
-            /** \brief Element body writing.
-             *
-             * \throw DuplicateTrackNumber if more than one TrackEntry in the
-             * element has the same track number.
-             * \throw DuplicateUID if more than one TrackEntry in the element
-             * has the same UID.
-             */
-            virtual std::streamsize write_body(std::ostream& output);
-
-            /** \brief Element body loading.
-             *
-             * \throw DuplicateTrackNumber if more than one TrackEntry in the
-             * stored element has the same track number.
-             * \throw DuplicateUID if more than one TrackEntry in the stored
-             * element has the same UID.
-             */
-            virtual std::streamsize read_body(std::istream& input);
-
             /// \brief The value type of this container.
             typedef storage_type_::value_type value_type;
             /// \brief The size type of this container.
@@ -247,6 +226,18 @@ namespace tide
             const_iterator find(key_type const& number) const
                 { return entries_.find(number); }
 
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize size() const;
+
+            /** \brief Element body writing.
+             *
+             * \throw DuplicateTrackNumber if more than one TrackEntry in the
+             * element has the same track number.
+             * \throw DuplicateUID if more than one TrackEntry in the element
+             * has the same UID.
+             */
+            virtual std::streamsize write_body(std::ostream& output);
+
             /// \brief Equality operator.
             friend bool operator==(Tracks const& lhs, Tracks const& rhs);
 
@@ -256,6 +247,16 @@ namespace tide
              * This must always be sorted by TrackNumber.
              */
             storage_type_ entries_;
+
+            /** \brief Element body loading.
+             *
+             * \throw DuplicateTrackNumber if more than one TrackEntry in the
+             * stored element has the same track number.
+             * \throw DuplicateUID if more than one TrackEntry in the stored
+             * element has the same UID.
+             */
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
 
             /** \brief Checks for duplicate track numbers and UIDs.
              *

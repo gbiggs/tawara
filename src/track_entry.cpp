@@ -334,21 +334,16 @@ std::streamsize TrackEntry::write_body(std::ostream& output)
 }
 
 
-std::streamsize TrackEntry::read_body(std::istream& input)
+std::streamsize TrackEntry::read_body(std::istream& input,
+        std::streamsize size)
 {
-    std::streampos el_start(input.tellg());
-
     // Reset to defaults
     reset();
 
-    // Get the element's body size
-    vint::ReadResult result = tide::vint::read(input);
-    std::streamsize body_size(result.first);
-    std::streamsize size_size(result.second);
-    std::streamsize read_bytes(result.second);
+    std::streamsize read_bytes(0);
     // Read elements until the body is exhausted
     bool have_type(false);
-    while (read_bytes < size_size + body_size)
+    while (read_bytes < size)
     {
         UIntElement uid(ids::TrackOverlay, 0);
         // Read the ID
@@ -358,7 +353,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
         switch(id)
         {
             case ids::TrackNumber:
-                read_bytes += number_.read_body(input);
+                read_bytes += number_.read(input);
                 if (number_ == 0)
                 {
                     throw ValueOutOfRange() << err_id(number_.id()) <<
@@ -366,7 +361,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::TrackUID:
-                read_bytes += uid_.read_body(input);
+                read_bytes += uid_.read(input);
                 if (uid_ == 0)
                 {
                     throw ValueOutOfRange() << err_id(uid_.id()) <<
@@ -374,7 +369,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::TrackType:
-                read_bytes += type_.read_body(input);
+                read_bytes += type_.read(input);
                 if (type_ > 254)
                 {
                     throw ValueOutOfRange() << err_id(type_.id()) <<
@@ -383,7 +378,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 have_type = true;
                 break;
             case ids::FlagEnabled:
-                read_bytes += enabled_.read_body(input);
+                read_bytes += enabled_.read(input);
                 if (enabled_ != 0 && enabled_ != 1)
                 {
                     throw ValueOutOfRange() << err_id(enabled_.id()) <<
@@ -395,7 +390,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 skip_read(input, false);
                 break;
             case ids::FlagForced:
-                read_bytes += forced_.read_body(input);
+                read_bytes += forced_.read(input);
                 if (forced_ != 0 && forced_ != 1)
                 {
                     throw ValueOutOfRange() << err_id(forced_.id()) <<
@@ -403,7 +398,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::FlagLacing:
-                read_bytes += lacing_.read_body(input);
+                read_bytes += lacing_.read(input);
                 if (lacing_ != 0 && lacing_ != 1)
                 {
                     throw ValueOutOfRange() << err_id(lacing_.id()) <<
@@ -411,13 +406,13 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::MinCache:
-                read_bytes += min_cache_.read_body(input);
+                read_bytes += min_cache_.read(input);
                 break;
             case ids::MaxCache:
-                read_bytes += max_cache_.read_body(input);
+                read_bytes += max_cache_.read(input);
                 break;
             case ids::DefaultDuration:
-                read_bytes += default_dur_.read_body(input);
+                read_bytes += default_dur_.read(input);
                 if (default_dur_ == 0)
                 {
                     throw ValueOutOfRange() << err_id(default_dur_.id()) <<
@@ -425,7 +420,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::TrackTimecodeScale:
-                read_bytes += timecode_scale_.read_body(input);
+                read_bytes += timecode_scale_.read(input);
                 if (timecode_scale_ <= 0.0)
                 {
                     throw ValueOutOfRange() << err_id(timecode_scale_.id()) <<
@@ -433,13 +428,13 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::MaxBlockAdditionID:
-                read_bytes += max_block_add_id_.read_body(input);
+                read_bytes += max_block_add_id_.read(input);
                 break;
             case ids::Name:
-                read_bytes += name_.read_body(input);
+                read_bytes += name_.read(input);
                 break;
             case ids::CodecID:
-                read_bytes += codec_id_.read_body(input);
+                read_bytes += codec_id_.read(input);
                 if (codec_id_.value().empty())
                 {
                     throw ValueOutOfRange() << err_id(codec_id_.id()) <<
@@ -447,13 +442,13 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::CodecPrivate:
-                read_bytes += codec_private_.read_body(input);
+                read_bytes += codec_private_.read(input);
                 break;
             case ids::CodecName:
-                read_bytes += codec_name_.read_body(input);
+                read_bytes += codec_name_.read(input);
                 break;
             case ids::AttachmentLink:
-                read_bytes += attachment_link_.read_body(input);
+                read_bytes += attachment_link_.read(input);
                 if (attachment_link_ == 0)
                 {
                     throw ValueOutOfRange() << err_id(attachment_link_.id()) <<
@@ -461,7 +456,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::CodecDecodeAll:
-                read_bytes += decode_all_.read_body(input);
+                read_bytes += decode_all_.read(input);
                 if (decode_all_ != 0 && decode_all_ != 1)
                 {
                     throw ValueOutOfRange() << err_id(decode_all_.id()) <<
@@ -469,7 +464,7 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 }
                 break;
             case ids::TrackOverlay:
-                read_bytes += uid.read_body(input);
+                read_bytes += uid.read(input);
                 overlays_.push_back(uid);
                 break;
             case ids::TrackOperation:
@@ -477,34 +472,34 @@ std::streamsize TrackEntry::read_body(std::istream& input)
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                    err_pos(input.tellg());
+                    err_pos(input.tellg() - id_res.second);
         };
     }
-    if (read_bytes != size_size + body_size)
+    if (read_bytes != size)
     {
         // Read more than was specified by the body size value
-        throw BadBodySize() << err_id(id_) << err_el_size(body_size) <<
-            err_pos(el_start);
+        throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+            err_pos(offset_);
     }
     if (number_ == 0)
     {
         throw MissingChild() << err_id(ids::TrackNumber) << err_par_id(id_) <<
-            err_pos(el_start);
+            err_pos(offset_);
     }
     if (uid_ == 0)
     {
         throw MissingChild() << err_id(ids::TrackUID) << err_par_id(id_) <<
-            err_pos(el_start);
+            err_pos(offset_);
     }
     if (!have_type)
     {
         throw MissingChild() << err_id(ids::TrackType) << err_par_id(id_) <<
-            err_pos(el_start);
+            err_pos(offset_);
     }
     if (codec_id_.value().empty())
     {
         throw MissingChild() << err_id(ids::CodecID) << err_par_id(id_) <<
-            err_pos(el_start);
+            err_pos(offset_);
     }
 
     return read_bytes;
@@ -558,7 +553,7 @@ std::streamsize TrackEntry::read_operation(std::istream& input)
             err_par_id(id_) << err_pos(input.tellg());
     }
     TrackOperationBase::Ptr op(new TrackJoinBlocks());
-    read_bytes += op->read_body(input);
+    read_bytes += op->read(input);
     operation_ = op;
     return read_bytes;
 }

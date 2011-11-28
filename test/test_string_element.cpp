@@ -376,7 +376,7 @@ TEST(StringElement, Read)
     tide::StringElement e(0x80, "");
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
+    EXPECT_EQ(1 + value.size() + padding, e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_EQ(value, e.value());
     EXPECT_EQ(padding, e.padding());
@@ -394,7 +394,7 @@ TEST(StringElement, Read)
     std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
+    EXPECT_EQ(1 + value.size() + padding, e.read(input));
     EXPECT_EQ(value_padded, e.value());
     EXPECT_EQ(padding, e.padding());
     EXPECT_EQ("1", e.get_default());
@@ -413,7 +413,7 @@ TEST(StringElement, Read)
     std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
+    EXPECT_EQ(1 + value.size() + padding, e.read(input));
     EXPECT_EQ(value_padded, e.value());
     EXPECT_EQ(0, e.padding());
     EXPECT_EQ("1", e.get_default());
@@ -432,7 +432,7 @@ TEST(StringElement, Read)
     std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
+    EXPECT_EQ(1 + value.size() + padding, e.read(input));
     EXPECT_EQ(value_padded, e.value());
     EXPECT_EQ(0, e.padding());
     EXPECT_EQ("1", e.get_default());
@@ -451,7 +451,7 @@ TEST(StringElement, Read)
     std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(1 + value.size() + padding, e.read_body(input));
+    EXPECT_EQ(1 + value.size() + padding, e.read(input));
     EXPECT_EQ(value_padded, e.value());
     EXPECT_EQ(0, e.padding());
     EXPECT_EQ("1", e.get_default());
@@ -462,7 +462,7 @@ TEST(StringElement, Read)
     std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read_body(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), tide::ReadError);
 }
 
 

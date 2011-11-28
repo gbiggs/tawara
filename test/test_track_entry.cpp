@@ -688,7 +688,7 @@ TEST(TrackEntry, Read)
     used_children[2]->write(input);
     used_children[3]->write(input);
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     EXPECT_EQ(4, e.number());
     EXPECT_EQ(42, e.uid());
     EXPECT_EQ(0x11, e.type());
@@ -721,7 +721,7 @@ TEST(TrackEntry, Read)
             uel->write(input);
         }
         EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     }
 
     // Body size value wrong (too small)
@@ -731,13 +731,13 @@ TEST(TrackEntry, Read)
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), tide::InvalidChildID);
     // Missing children
     input.str(std::string());
     tide::vint::write(used_children[1]->total_size() +
@@ -746,7 +746,7 @@ TEST(TrackEntry, Read)
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
     input.str(std::string());
     tide::vint::write(used_children[0]->total_size() +
             used_children[2]->total_size()+
@@ -754,7 +754,7 @@ TEST(TrackEntry, Read)
     used_children[0]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
     input.str(std::string());
     tide::vint::write(used_children[0]->total_size() +
             used_children[1]->total_size()+
@@ -762,7 +762,7 @@ TEST(TrackEntry, Read)
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
     input.str(std::string());
     tide::vint::write(used_children[0]->total_size() +
             used_children[1]->total_size()+
@@ -770,7 +770,7 @@ TEST(TrackEntry, Read)
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[2]->write(input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
 }
 
 
@@ -782,78 +782,78 @@ TEST(TrackEntry, ReadOutOfRangeValues)
     tide::UIntElement bad(tide::ids::TrackNumber, 0);
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::TrackUID);
     bad = 0;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::TrackType);
     bad = 255;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::FlagEnabled);
     bad = 2;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::FlagForced);
     bad = 2;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::FlagLacing);
     bad = 2;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::DefaultDuration);
     bad = 0;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     tide::FloatElement bad_f(tide::ids::TrackTimecodeScale, 0.0);
     tide::vint::write(bad_f.total_size(), input);
     bad_f.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
     bad_f = -1.0;
     tide::vint::write(bad_f.total_size(), input);
     bad_f.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     tide::StringElement bad_s(tide::ids::CodecID, "");
     tide::vint::write(bad_s.total_size(), input);
     bad_s.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::AttachmentLink);
     bad = 0;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 
     input.str(std::string());
     bad.id(tide::ids::CodecDecodeAll);
     bad = 2;
     tide::vint::write(bad.total_size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read_body(input), tide::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tide::ValueOutOfRange);
 }
 

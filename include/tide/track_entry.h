@@ -312,9 +312,6 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
-
             /// \brief The type of a shared pointer to a TrackEntry.
             typedef boost::shared_ptr<TrackEntry> Ptr;
             /// \brief The type of a shared pointer to a constant TrackEntry.
@@ -344,6 +341,10 @@ namespace tide
             UIntElement decode_all_;
             std::vector<UIntElement> overlays_;
             TrackOperationBase::Ptr operation_;
+
+            /// \brief Element body loading.
+            virtual std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
 
             /// \brief Resets all child elements to clean values.
             void reset();

@@ -94,7 +94,7 @@ void TideImpl::prepare_stream()
         }
         // Read the header and check the DocType
         EBMLElement e;
-        e.read_body(stream_);
+        e.read(stream_);
         if (e.doc_type() != TideDocType)
         {
             throw NotTide();

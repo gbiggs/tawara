@@ -348,7 +348,7 @@ TEST(FloatElement, Read)
     tide::FloatElement e(0x80, 0);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val);
-    EXPECT_EQ(9, e.read_body(input));
+    EXPECT_EQ(9, e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_DOUBLE_EQ(value, e.value());
     EXPECT_EQ(tide::EBML_FLOAT_PREC_DOUBLE, e.precision());
@@ -361,7 +361,7 @@ TEST(FloatElement, Read)
     std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, false);
     input.str(input_val);
-    EXPECT_EQ(5, e.read_body(input));
+    EXPECT_EQ(5, e.read(input));
     EXPECT_FLOAT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());
@@ -371,12 +371,12 @@ TEST(FloatElement, Read)
     std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read_body(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), tide::ReadError);
     // Test for ReadError exception
     std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read_body(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), tide::ReadError);
 }
 
 

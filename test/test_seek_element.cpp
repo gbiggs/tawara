@@ -129,7 +129,7 @@ TEST(Seek, Read)
 
     tide::SeekElement e(0x80, 0);
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-        e.read_body(input));
+        e.read(input));
     EXPECT_EQ(tide::ids::SeekHead, e.indexed_id());
     EXPECT_EQ(12345, e.offset());
 
@@ -142,7 +142,7 @@ TEST(Seek, Read)
     be.write(input);
 
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-        e.read_body(input));
+        e.read(input));
     EXPECT_EQ(tide::ids::EBML, e.indexed_id());
     EXPECT_EQ(54321, e.offset());
 
@@ -150,33 +150,33 @@ TEST(Seek, Read)
     input.str(std::string());
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
     // No SeekPosition child
     input.str(std::string());
     tide::vint::write(be.total_size(), input);
     be.write(input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
     // No children at all
     input.str(std::string());
     tide::vint::write(0, input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
     // Body size value wrong (too big)
     input.str(std::string());
     tide::vint::write(ue.total_size() + be.total_size() + 5, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), tide::BadBodySize);
     // Body size value wrong (too small)
     input.str(std::string());
     tide::vint::write(2, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue2(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue2.total_size(), input);
     ue2.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }
 

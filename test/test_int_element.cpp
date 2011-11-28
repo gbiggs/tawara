@@ -281,7 +281,7 @@ TEST(IntElement, Read)
     tide::IntElement e(0x80, 0);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read_body(input));
+    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_EQ(value, e.value());
 
@@ -294,7 +294,7 @@ TEST(IntElement, Read)
     std::string().swap(input_val);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read_body(input));
+    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read(input));
     EXPECT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());
@@ -303,7 +303,7 @@ TEST(IntElement, Read)
     std::string().swap(input_val);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read_body(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), tide::ReadError);
 }
 
 

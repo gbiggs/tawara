@@ -48,6 +48,9 @@ namespace tide
 // Error types
 ///////////////////////////////////////////////////////////////////////////////
 
+    /// \brief Something is not supported.
+    struct NotImplemented : virtual TideError {};
+
     /** \brief File is not an EBML file.
      *
      * Tide uses EBML for its file format. If an opened file is not an EBML

@@ -25,10 +25,9 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tide/element.h>
-
 #include <gtest/gtest.h>
 #include <tide/el_ids.h>
+#include <tide/element.h>
 #include <tide/exceptions.h>
 #include <tide/uint_element.h>
 

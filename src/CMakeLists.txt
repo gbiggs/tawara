@@ -17,7 +17,8 @@ set(srcs tide_impl.cpp
     segment_info.cpp
     tracks.cpp
     track_entry.cpp
-    track_operation.cpp)
+    track_operation.cpp
+    cluster.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

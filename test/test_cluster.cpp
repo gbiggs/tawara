@@ -210,7 +210,7 @@ TEST(BaseCluster, Read)
     tide::vint::write(body_size, input);
     tc.write(input);
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_TRUE(e.silent_tracks().empty());
     EXPECT_EQ(0, e.previous_size());
@@ -226,7 +226,7 @@ TEST(BaseCluster, Read)
     st2.write(input);
     ps.write(input);
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
-            e.read_body(input));
+            e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_FALSE(e.silent_tracks().empty());
     EXPECT_EQ(0x1234, e.previous_size());
@@ -236,17 +236,17 @@ TEST(BaseCluster, Read)
     tide::vint::write(2, input);
     tc.write(input);
     ps.write(input);
-    EXPECT_THROW(e.read_body(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), tide::BadBodySize);
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
     tide::vint::write(ue.total_size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read_body(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), tide::InvalidChildID);
     // Missing timecode
     input.str(std::string());
     tide::vint::write(ps.total_size(), input);
     ps.write(input);
-    EXPECT_THROW(e.read_body(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), tide::MissingChild);
 }
 

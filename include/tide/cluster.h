@@ -123,14 +123,25 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
-            /// \brief Element body loading.
-            virtual std::streamsize read_body(std::istream& input);
+            /** \brief Element reading.
+             *
+             * \throw DuplicateTrackNumber if more than one TrackEntry in the
+             * stored element has the same track number.
+             * \throw DuplicateUID if more than one TrackEntry in the stored
+             * element has the same UID.
+             */
+            std::streamsize read(std::istream& input)
+                { return Element::read(input); }
 
         protected:
             UIntElement timecode_;
             std::vector<SilentTrackNumber> silent_tracks_;
             UIntElement position_;
             UIntElement prev_size_;
+
+            /// \brief Element body loading.
+            std::streamsize read_body(std::istream& input,
+                    std::streamsize size);
 
             /// \brief Get the size of the blocks in this cluster.
             virtual std::streamsize blocks_size() const = 0;

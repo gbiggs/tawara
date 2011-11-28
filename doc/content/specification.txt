@@ -861,7 +861,7 @@ flags. The header format is as follows:
 |        |7  |Not used                                                      |
 +--------+---+--------------------------------------------------------------+
 
-When Lacing is enabled for a Block, the header is immediately followed
+When lacing is enabled for a Block, the header is immediately followed
 by the following bytes:
 
 +--------+------------------------------------------------------------------+
@@ -869,9 +869,9 @@ by the following bytes:
 +--------+------------------------------------------------------------------+
 |0x00    |Number of frames in the lace - 1, as an unsigned integer.         |
 +--------+------------------------------------------------------------------+
-|0x01 -  |Lace-coded size of each block in the lace, except for the last    |
-|0xXX    |block. This value is not used and MUST NOT be present when fixed- |
-|        |size lacing is used, as the size of each block can be calculated. |
+|0x01 -  |Lace-coded size of each frame in the lace, except for the last    |
+|0xXX    |frame. This value is not used and MUST NOT be present when fixed- |
+|        |size lacing is used, as the size of each frame can be calculated. |
 +--------+------------------------------------------------------------------+
 
 Following this is the binary data of the Block, which may consist of
@@ -924,7 +924,7 @@ contain 800, 500 and 1000 bytes of data, they can be stored in a lace,
 allowing them to share a block and save space. An example of where this
 is useful is audio data, which often has small sample sizes. However,
 there is a trade-off: the longer a lace, the more difficult it is to
-seek within the track.
+seek within the track. Generally, laces should be kept short.
 
 Two types of lacing are supported by Tide: EBML-based lacing and
 fixed-size lacing.

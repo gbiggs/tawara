@@ -320,6 +320,32 @@ namespace tide
      */
     struct DuplicateUID : virtual TideError{};
 
+    /** \brief An empty frame was encountered.
+     *
+     * Frames without data are illegal. This error occurs when one is
+     * encountered.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured, if it occured while reading a file.
+     */
+    struct EmptyFrame : virtual TideError{};
+
+    /** \brief The maximum lace size for a block was exceeded.
+     *
+     * Different forms of lacing may have different limits on the number of
+     * frames that can be stored other than infinity. In the case of
+     * tide::BlockBase::LACING_NONE, this limit is 0. This error occurs when
+     * more frames than the block can hold, based on its lacing policy, are
+     * added.
+     *
+     * The err_max_lace tag may be included to give the maximum number of
+     * frames in the lace.
+     *
+     * The err_req_lace tag may be included to give the requested number of
+     * frames in the lace.
+     */
+    struct MaxLaceSizeExceeded : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags
@@ -361,6 +387,12 @@ namespace tide
 
     /// \brief An integer UID.
     typedef boost::error_info<struct tag_int_uid, uint64_t> err_int_uid;
+
+    /// \brief The maximum size of a lace.
+    typedef boost::error_info<struct tag_max_lace, unsigned int> err_max_lace;
+
+    /// \brief The requested size of a lace.
+    typedef boost::error_info<struct tag_req_lace, unsigned int> err_req_lace;
 }; // namespace tide
 
 /// @}

@@ -28,6 +28,7 @@ set(srcs test_utils.cpp
     test_tracks.cpp
     test_track_entry.cpp
     test_track_operation.cpp
+    test_block_base.cpp
     test_cluster.cpp
     test_segment.cpp)
 

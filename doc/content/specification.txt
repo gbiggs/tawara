@@ -559,7 +559,7 @@ Segment Information
 ------------------------------------------------------------------------
 Element name         Level EBML ID     Ma Mu Rng   Default T Description
 ==================== ===== =========== == == ===== ======= = ===========
-Segment Info         1     15 49 A9 66 \* \*               m Contains general information about the segment.
+Info                 1     15 49 A9 66 \* \*               m Contains general information about the segment.
 SegmentUID           2     73 A4             not 0         b A unique 128-bit ID to identify this segment among others.
 SegmentFileName      2     73 84                           s A file name corresponding to this segment.
 PrevUID              2     3C B9 23                        b A unique 128-bit ID to identify the previous linked segment.
@@ -615,7 +615,7 @@ ReferencePriority    3     FA          \*          0       u This block is refer
 ReferenceBlock       3     FB             \*               i Time code of another block in the same track used as a reference
                                                              when understanding this frame. The time code is relative to the block
                                                              it is attached to.
-CodecState           4     A4                              b The new codec state to use from this block on. How this data is
+CodecState           3     A4                              b The new codec state to use from this block on. How this data is
                                                              interpreted is private to the codec used. This information should
                                                              always be referenced by a seek entity.
 ==================== ===== =========== == == ===== ======= = ===========
@@ -1088,6 +1088,10 @@ Cluster Timecode placement
 Each Block/BlockGroup/SimpleBlock in a cluster needs that cluster's time
 code.  Therefore, the Cluster Timecode MUST be the first element in the
 Cluster.
+
+Additionally, it is RECOMMENDED that the SimpleBlock/Block elements are
+placed after the other elements in a Cluster, as this simplifies
+reading.
 
 CRC-32 placement
 ----------------

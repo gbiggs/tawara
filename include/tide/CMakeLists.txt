@@ -24,6 +24,7 @@ set(hdrs ${config_h}
     tracks.h
     track_entry.h
     track_operation.h
+    cluster.h
     segment.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}

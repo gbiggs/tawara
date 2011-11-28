@@ -84,6 +84,24 @@ namespace tide
                 const ID MuxingApp(0x4D80);
                 const ID WritingApp(0x5741);
 
+            const ID Cluster(0x1F43B675);
+                const ID Timecode(0xE7);
+                const ID SilentTracks(0x5854);
+                    const ID SilentTrackNumber(0x58D7);
+                const ID Position(0xA7);
+                const ID PrevSize(0xAB);
+                const ID SimpleBlock(0xA3);
+                const ID BlockGroup(0xA0);
+                    const ID Block(0xA1);
+                    const ID BlockAdditions(0x75A1);
+                        const ID BlockMore(0xA6);
+                            const ID BlockAddID(0xEE);
+                            const ID BlockAdditional(0xA5);
+                    const ID BlockDuration(0x9B);
+                    const ID ReferencePriority(0xFA);
+                    const ID ReferenceBlock(0xFB);
+                    const ID CodecState(0xA4);
+
             const ID Tracks(0x1654AE6B);
                 const ID TrackEntry(0xAE);
                     const ID TrackNumber(0xD7);

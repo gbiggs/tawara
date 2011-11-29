@@ -472,7 +472,9 @@ std::streamsize TrackEntry::read_body(std::istream& input,
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                    err_pos(input.tellg() - id_res.second);
+                    // The cast here makes Apple's LLVM compiler happy
+                    err_pos(static_cast<std::streamsize>(input.tellg()) -
+                            id_res.second);
         };
     }
     if (read_bytes != size)

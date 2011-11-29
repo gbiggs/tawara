@@ -79,11 +79,17 @@ BlockBase::size_type BlockBase::max_count() const
 
 void BlockBase::push_back(BlockBase::value_type const& value)
 {
-    if (value.empty())
+    if (!value)
     {
+        // Empty pointer
         throw EmptyFrame();
     }
-    if (frames_.size() > 1 && lacing_ == LACING_NONE)
+    if (value->empty())
+    {
+        // Pointer has a vector, but it is empty
+        throw EmptyFrame();
+    }
+    if (frames_.size() >= 1 && lacing_ == LACING_NONE)
     {
         throw MaxLaceSizeExceeded() << err_max_lace(1) <<
             err_req_lace(frames_.size() + 1);
@@ -94,7 +100,7 @@ void BlockBase::push_back(BlockBase::value_type const& value)
 
 void BlockBase::resize(BlockBase::size_type count)
 {
-    if (frames_.size() > 1 && lacing_ == LACING_NONE)
+    if (count > 1 && lacing_ == LACING_NONE)
     {
         throw MaxLaceSizeExceeded() << err_max_lace(1) << err_req_lace(count);
     }
@@ -137,8 +143,14 @@ void BlockBase::validate() const
 
     BOOST_FOREACH(value_type f, frames_)
     {
-        if (f.empty())
+        if (!f)
         {
+            // Empty pointer
+            throw EmptyFrame();
+        }
+        if (f->empty())
+        {
+            // Pointer has a vector, but it is empty
             throw EmptyFrame();
         }
     }

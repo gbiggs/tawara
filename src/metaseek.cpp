@@ -116,7 +116,9 @@ std::streamsize Metaseek::read_body(std::istream& input,
         {
             // Only Seek elements may be in the SeekHead
             throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                err_pos(input.tellg() - id_res.second);
+                // The cast here makes Apple's LLVM compiler happy
+                err_pos(static_cast<std::streamsize>(input.tellg()) -
+                        id_res.second);
         }
         // Read the body
         SeekElement se(ids::Null, 0);

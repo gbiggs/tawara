@@ -84,6 +84,9 @@ std::streamsize VoidElement::total_size() const
 
 std::streamsize VoidElement::write(std::ostream& output)
 {
+    // Fill in the offset of this element in the byte stream.
+    offset_ = output.tellp();
+
     return write_id(output) + write_body(output);
 }
 
@@ -119,7 +122,10 @@ std::streamsize VoidElement::read(std::istream& input)
     // The input stream will be at the start of the size value, so:
     //
     //  offset = current position - size of ID
-    offset_ = input.tellg() - ids::coded_size(id_);
+    //
+    // The cast here makes Apple's LLVM compiler happy
+    offset_ = static_cast<std::streamsize>(input.tellg()) -
+        ids::coded_size(id_);
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     size_ = result.first;

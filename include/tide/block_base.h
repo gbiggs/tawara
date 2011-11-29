@@ -28,6 +28,8 @@
 #if !defined(TIDE_BLOCK_BASE_H_)
 #define TIDE_BLOCK_BASE_H_
 
+#include <boost/operators.hpp>
+#include <boost/shared_ptr.hpp>
 #include <stdint.h>
 #include <tide/win_dll.h>
 #include <vector>
@@ -41,11 +43,12 @@ namespace tide
      *
      * There are two types of blocks
      */
-    class TIDE_EXPORT BlockBase
+    class TIDE_EXPORT BlockBase :
+        public boost::equality_comparable<BlockBase>
     {
         protected:
             /// \brief The type of the frame storage.
-            typedef std::vector<std::vector<char> > storage_type_;
+            typedef std::vector<boost::shared_ptr<std::vector<char> > > storage_type_;
 
         public:
             /// \brief Lacing types.
@@ -86,7 +89,7 @@ namespace tide
                     LacingType lacing=LACING_NONE);
 
             /// \brief Base desctructor.
-            virtual ~BlockBase() = 0;
+            virtual ~BlockBase();
 
             /** \brief The block's track number.
              *
@@ -268,7 +271,7 @@ namespace tide
             int16_t timecode_;
             bool invisible_;
             LacingType lacing_;
-            std::vector<std::vector<char> > frames_;
+            std::vector<boost::shared_ptr<std::vector<char> > > frames_;
 
             /** \brief Checks that the block is in a good condition to write.
              *

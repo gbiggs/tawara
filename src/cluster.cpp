@@ -27,6 +27,7 @@
 
 #include <tide/cluster.h>
 
+#include <boost/foreach.hpp>
 #include <numeric>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
@@ -100,10 +101,10 @@ std::streamsize Cluster::write_body(std::ostream& output)
         std::streamsize st_size(std::accumulate(silent_tracks_.begin(),
                     silent_tracks_.end(), 0, std::ptr_fun(add_total_size)));
         written += tide::vint::write(st_size, output);
-        std::for_each(silent_tracks_.begin(), silent_tracks_.end(),
-                std::bind2nd(std::mem_fun_ref(&SilentTrackNumber::write),
-                    output));
-        written += st_size;
+        BOOST_FOREACH(SilentTrackNumber& stn, silent_tracks_)
+        {
+            written += stn.write(output);
+        }
     }
     if (position_ != 0)
     {
@@ -150,7 +151,9 @@ std::streamsize Cluster::read_body(std::istream& input,
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-                    err_pos(input.tellg() - id_res.second);
+                    // The cast here makes Apple's LLVM compiler happy
+                    err_pos(static_cast<std::streamsize>(input.tellg()) -
+                            id_res.second);
         }
     }
     if (read_bytes != size)

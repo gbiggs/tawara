@@ -63,7 +63,7 @@ namespace tide
      */
     template<typename T>
     class TIDE_EXPORT PrimitiveElement : public Element,
-            public boost::equality_comparable<PrimitiveElement<T> >
+        public boost::equality_comparable<PrimitiveElement<T> >
     {
         public:
             /** \brief Create a new element with no default.

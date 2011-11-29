@@ -255,7 +255,6 @@ TEST(VoidElement, Write)
     // With or without filling, the stream write pointer should be after the
     // body of the void element
     EXPECT_EQ(tide::vint::coded_size(size) + size, output.tellp());
-    EXPECT_EQ(tide::vint::coded_size(size) + size, output.tellp());
 
     output.seekp(0, std::ios::beg);
     output.str(std::string());
@@ -273,6 +272,14 @@ TEST(VoidElement, Write)
             tide::vint::coded_size(size) + size, v.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
     EXPECT_EQ(v.total_size(), output.tellp());
+
+    // Offset test
+    output.str("ab" + c0);
+    output.seekp(2);
+    expected = "ab";
+    test_vel::fill_buffer(expected, size, f_size, fill, true, true);
+    v.write(output);
+    EXPECT_EQ(2, v.offset());
 }
 
 
@@ -303,6 +310,14 @@ TEST(VoidElement, Read)
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Void) +
             tide::vint::coded_size(size) + size, v.total_size());
     EXPECT_EQ(tide::vint::coded_size(v.size()) + v.size(), input.tellg());
+
+    input_val = "ab";
+    input_val.push_back(tide::ids::Void);
+    test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
+    input.str(input_val);
+    input.seekg(3);
+    v.read(input);
+    EXPECT_EQ(2, v.offset());
 
     // Test for ReadError exception
     std::string().swap(input_val);

@@ -98,10 +98,9 @@ TEST(Metaseek, Size)
 {
     tide::Metaseek ms;
 
-    EXPECT_EQ(0, ms.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
             tide::vint::coded_size(0),
-            ms.total_size());
+            ms.size());
 
     std::vector<tide::SeekElement> children;
     children.push_back(tide::SeekElement(tide::ids::SeekHead, 0x7F));
@@ -111,14 +110,12 @@ TEST(Metaseek, Size)
     std::streamsize body_size(0);
     BOOST_FOREACH(tide::SeekElement e, children)
     {
-        body_size += e.total_size();
+        body_size += e.size();
         ms.append(tide::Metaseek::IndexItem(e.indexed_id(), e.offset()));
     }
-
-    EXPECT_EQ(body_size, ms.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
             tide::vint::coded_size(body_size) + body_size,
-            ms.total_size());
+            ms.size());
 }
 
 
@@ -137,16 +134,9 @@ TEST(Metaseek, Write)
     std::streamsize body_size(0);
     BOOST_FOREACH(tide::SeekElement e, children)
     {
-        body_size += e.total_size();
-        e.write(expected);
+        body_size += e.size();
         ms.append(tide::Metaseek::IndexItem(e.indexed_id(), e.offset()));
     }
-
-    EXPECT_EQ(body_size, ms.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
-
-    output.str(std::string());
-    expected.str(std::string());
     tide::ids::write(tide::ids::SeekHead, expected);
     tide::vint::write(body_size, expected);
     BOOST_FOREACH(tide::SeekElement e, children)
@@ -173,7 +163,7 @@ TEST(Metaseek, Read)
     std::streamsize body_size(0);
     BOOST_FOREACH(tide::SeekElement e, children)
     {
-        body_size += e.total_size();
+        body_size += e.size();
     }
     tide::vint::write(body_size, input);
     BOOST_FOREACH(tide::SeekElement e, children)
@@ -210,7 +200,7 @@ TEST(Metaseek, Read)
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.total_size(), input);
+    tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(ms.read(input), tide::InvalidChildID);
 }

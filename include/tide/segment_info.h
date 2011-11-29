@@ -232,9 +232,6 @@ namespace tide
              */
             void writing_app(std::string const& writing_app);
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
@@ -265,6 +262,9 @@ namespace tide
             bool have_muxer_;
             StringElement writer_;
             bool have_writer_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
 
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,

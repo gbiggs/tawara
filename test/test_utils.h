@@ -48,7 +48,7 @@ struct TotalSizeOp
 {
     uint64_t operator()(uint64_t total, ElPtr el)
     {
-        return total + el->total_size();
+        return total + el->size();
     }
 };
 

@@ -219,25 +219,6 @@ TEST(UIntElement, Write)
     std::streamsize val_size(tide::ebml_int::coded_size_u(value));
 
     tide::UIntElement e1(0x80, value);
-
-    test_uintel::fill_buffer(expected, 0x80, value, false, false, true);
-    EXPECT_EQ(val_size, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_uintel::fill_buffer(expected, 0x80, value, false, true, false);
-    EXPECT_EQ(tide::vint::coded_size(val_size), e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_uintel::fill_buffer(expected, 0x80, value, true, false, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
     test_uintel::fill_buffer(expected, 0x80, value, true, true, true);
     EXPECT_EQ(tide::ids::coded_size(0x80) + tide::vint::coded_size(val_size) +
             val_size, e1.write(output));
@@ -246,23 +227,6 @@ TEST(UIntElement, Write)
     value = 0x839F18AAl;
     val_size = tide::ebml_int::coded_size_u(value);
     e1.value(value);
-
-    test_uintel::fill_buffer(expected, 0x80, value, false, false, true);
-    EXPECT_EQ(val_size, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_uintel::fill_buffer(expected, 0x80, value, false, true, false);
-    EXPECT_EQ(tide::vint::coded_size(val_size), e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_uintel::fill_buffer(expected, 0x80, value, true, false, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
     output.str(std::string());
     std::string().swap(expected);
     test_uintel::fill_buffer(expected, 0x80, value, true, true, true);
@@ -314,15 +278,12 @@ TEST(UIntElement, Read)
 TEST(UIntElement, Size)
 {
     tide::UIntElement e(tide::ids::Null, 1);
-    EXPECT_EQ(1, e.size());
-    EXPECT_EQ(3, e.total_size());
+    EXPECT_EQ(3, e.size());
 
     e.value(0x7FFFFF);
-    EXPECT_EQ(3, e.size());
-    EXPECT_EQ(5, e.total_size());
+    EXPECT_EQ(5, e.size());
 
     e.value(0xFFFFFF);
-    EXPECT_EQ(3, e.size());
-    EXPECT_EQ(5, e.total_size());
+    EXPECT_EQ(5, e.size());
 }
 

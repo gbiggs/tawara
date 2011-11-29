@@ -55,21 +55,21 @@ EBMLElement::EBMLElement(std::string const& doc_type)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize EBMLElement::size() const
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize EBMLElement::body_size() const
 {
-    return ver_.total_size() +
-        read_ver_.total_size() +
-        max_id_length_.total_size() +
-        max_size_length_.total_size() +
-        doc_type_.total_size() +
-        doc_type_ver_.total_size() +
-        doc_type_read_ver_.total_size();
+    return ver_.size() +
+        read_ver_.size() +
+        max_id_length_.size() +
+        max_size_length_.size() +
+        doc_type_.size() +
+        doc_type_ver_.size() +
+        doc_type_read_ver_.size();
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-// I/O
-///////////////////////////////////////////////////////////////////////////////
 
 std::streamsize EBMLElement::write_body(std::ostream& output)
 {

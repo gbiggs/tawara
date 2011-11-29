@@ -57,38 +57,38 @@ uint64_t Cluster::position() const
 }
 
 
-std::streamsize add_total_size(std::streamsize x, SilentTrackNumber stn)
+std::streamsize add_size(std::streamsize x, SilentTrackNumber stn)
 {
-    return x + stn.total_size();
+    return x + stn.size();
 }
 
-std::streamsize Cluster::size() const
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize Cluster::body_size() const
 {
-    std::streamsize result(timecode_.total_size());
+    std::streamsize result(timecode_.size());
 
     if (!silent_tracks_.empty())
     {
         result += ids::coded_size(ids::SilentTracks);
         std::streamsize st_size(std::accumulate(silent_tracks_.begin(),
-                    silent_tracks_.end(), 0, std::ptr_fun(add_total_size)));
+                    silent_tracks_.end(), 0, std::ptr_fun(add_size)));
         result += vint::coded_size(st_size) + st_size;
     }
     if (position_ != 0)
     {
-        result += position_.total_size();
+        result += position_.size();
     }
     if (prev_size_ != 0)
     {
-        result += prev_size_.total_size();
+        result += prev_size_.size();
     }
 
     return result + blocks_size();
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-// I/O
-///////////////////////////////////////////////////////////////////////////////
 
 std::streamsize Cluster::write_body(std::ostream& output)
 {
@@ -99,7 +99,7 @@ std::streamsize Cluster::write_body(std::ostream& output)
     {
         written += ids::write(ids::SilentTracks, output);
         std::streamsize st_size(std::accumulate(silent_tracks_.begin(),
-                    silent_tracks_.end(), 0, std::ptr_fun(add_total_size)));
+                    silent_tracks_.end(), 0, std::ptr_fun(add_size)));
         written += tide::vint::write(st_size, output);
         BOOST_FOREACH(SilentTrackNumber& stn, silent_tracks_)
         {

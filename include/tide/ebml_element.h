@@ -65,9 +65,6 @@ namespace tide
             /// \brief Destructor.
             virtual ~EBMLElement() {};
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /** \brief Get the EBML version.
              *
              * The EBML version is the version of the parser used to create the
@@ -147,6 +144,9 @@ namespace tide
             UIntElement doc_type_ver_;
             /// Minimum document type version necessary to read
             UIntElement doc_type_read_ver_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
 
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,

@@ -226,9 +226,6 @@ namespace tide
             const_iterator find(key_type const& number) const
                 { return entries_.find(number); }
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /** \brief Element body writing.
              *
              * \throw DuplicateTrackNumber if more than one TrackEntry in the
@@ -247,6 +244,9 @@ namespace tide
              * This must always be sorted by TrackNumber.
              */
             storage_type_ entries_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
 
             /** \brief Element body loading.
              *

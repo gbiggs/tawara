@@ -110,10 +110,9 @@ TEST(TrackJoinBlocks, Size)
 {
     tide::TrackJoinBlocks e;
 
-    EXPECT_EQ(0, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackJoinBlocks) +
             tide::vint::coded_size(0),
-            e.total_size());
+            e.size());
 
     std::vector<tide::UIntElement> children;
     children.push_back(tide::UIntElement(tide::ids::TrackJoinUID, 0xFFFF));
@@ -123,14 +122,13 @@ TEST(TrackJoinBlocks, Size)
     std::streamsize body_size(0);
     BOOST_FOREACH(tide::UIntElement child, children)
     {
-        body_size += child.total_size();
+        body_size += child.size();
         e.append(child.value());
     }
 
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackJoinBlocks) +
             tide::vint::coded_size(body_size) + body_size,
-            e.total_size());
+            e.size());
 }
 
 
@@ -149,21 +147,14 @@ TEST(TrackJoinBlocks, Write)
     std::streamsize body_size(0);
     BOOST_FOREACH(tide::UIntElement child, children)
     {
-        body_size += child.total_size();
-        child.write(expected);
+        body_size += child.size();
         e.append(child.value());
     }
-
-    EXPECT_EQ(body_size, e.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
-
-    output.str(std::string());
-    expected.str(std::string());
     tide::ids::write(tide::ids::TrackJoinBlocks, expected);
     tide::vint::write(body_size, expected);
-    BOOST_FOREACH(tide::UIntElement e, children)
+    BOOST_FOREACH(tide::UIntElement child, children)
     {
-        e.write(expected);
+        child.write(expected);
     }
 
     EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackJoinBlocks) +
@@ -185,7 +176,7 @@ TEST(TrackJoinBlocks, Read)
     std::streamsize body_size(0);
     BOOST_FOREACH(tide::UIntElement child, children)
     {
-        body_size += child.total_size();
+        body_size += child.size();
     }
     tide::vint::write(body_size, input);
     BOOST_FOREACH(tide::UIntElement child, children)
@@ -216,7 +207,7 @@ TEST(TrackJoinBlocks, Read)
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.total_size(), input);
+    tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }

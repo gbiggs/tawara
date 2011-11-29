@@ -66,13 +66,13 @@ namespace tide
             /// \brief Value assignment operator.
             virtual UIntElement& operator=(uint64_t const& rhs);
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
         protected:
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
+
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);

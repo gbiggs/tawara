@@ -92,13 +92,15 @@ namespace tide
             virtual void precision(EBMLFloatPrec precision)
             { prec_ = precision; }
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
         protected:
+            EBMLFloatPrec prec_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
+
             /** \brief Element body loading.
              *
              * \exception BadElementLength if the float element is an incorrect
@@ -106,9 +108,6 @@ namespace tide
              */
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
-
-        protected:
-            EBMLFloatPrec prec_;
     }; // class FloatElement
 }; // namespace tide
 

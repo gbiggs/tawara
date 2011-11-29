@@ -146,80 +146,6 @@ void TrackEntry::overlays(std::vector<uint64_t> const& uids)
 }
 
 
-std::streamsize TrackEntry::size() const
-{
-    std::streamsize size(0);
-    size += number_.total_size();
-    size += uid_.total_size();
-    size += type_.total_size();
-    size += codec_id_.total_size();
-    if (!enabled_.is_default())
-    {
-        size += enabled_.total_size();
-    }
-    if (!forced_.is_default())
-    {
-        size += forced_.total_size();
-    }
-    if (!lacing_.is_default())
-    {
-        size += lacing_.total_size();
-    }
-    if (!min_cache_.is_default())
-    {
-        size += min_cache_.total_size();
-    }
-    if (!max_cache_.is_default())
-    {
-        size += max_cache_.total_size();
-    }
-    if (default_dur_ != 0)
-    {
-        size += default_dur_.total_size();
-    }
-    if (!timecode_scale_.is_default())
-    {
-        size += timecode_scale_.total_size();
-    }
-    if (!max_block_add_id_.is_default())
-    {
-        size += max_block_add_id_.total_size();
-    }
-    if (!name_.value().empty())
-    {
-        size += name_.total_size();
-    }
-    if (!codec_private_.value().empty())
-    {
-        size += codec_private_.total_size();
-    }
-    if (!codec_name_.value().empty())
-    {
-        size += codec_name_.total_size();
-    }
-    if (attachment_link_ != 0)
-    {
-        size += attachment_link_.total_size();
-    }
-    if (!decode_all_.is_default())
-    {
-        size += decode_all_.total_size();
-    }
-    BOOST_FOREACH(UIntElement overlay, overlays_)
-    {
-        size += overlay.total_size();
-    }
-    if (operation_)
-    {
-        size += tide::ids::coded_size(ids::TrackOperation) +
-            tide::vint::coded_size(operation_->total_size()) +
-            operation_->total_size();
-    }
-    return size;
-}
-
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
@@ -249,8 +175,81 @@ bool tide::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// I/O
+// Element interface
 ///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize TrackEntry::body_size() const
+{
+    std::streamsize size(0);
+    size += number_.size();
+    size += uid_.size();
+    size += type_.size();
+    size += codec_id_.size();
+    if (!enabled_.is_default())
+    {
+        size += enabled_.size();
+    }
+    if (!forced_.is_default())
+    {
+        size += forced_.size();
+    }
+    if (!lacing_.is_default())
+    {
+        size += lacing_.size();
+    }
+    if (!min_cache_.is_default())
+    {
+        size += min_cache_.size();
+    }
+    if (!max_cache_.is_default())
+    {
+        size += max_cache_.size();
+    }
+    if (default_dur_ != 0)
+    {
+        size += default_dur_.size();
+    }
+    if (!timecode_scale_.is_default())
+    {
+        size += timecode_scale_.size();
+    }
+    if (!max_block_add_id_.is_default())
+    {
+        size += max_block_add_id_.size();
+    }
+    if (!name_.value().empty())
+    {
+        size += name_.size();
+    }
+    if (!codec_private_.value().empty())
+    {
+        size += codec_private_.size();
+    }
+    if (!codec_name_.value().empty())
+    {
+        size += codec_name_.size();
+    }
+    if (attachment_link_ != 0)
+    {
+        size += attachment_link_.size();
+    }
+    if (!decode_all_.is_default())
+    {
+        size += decode_all_.size();
+    }
+    BOOST_FOREACH(UIntElement overlay, overlays_)
+    {
+        size += overlay.size();
+    }
+    if (operation_)
+    {
+        size += tide::ids::coded_size(ids::TrackOperation) +
+            tide::vint::coded_size(operation_->size()) +
+            operation_->size();
+    }
+    return size;
+}
+
 
 std::streamsize TrackEntry::write_body(std::ostream& output)
 {
@@ -327,7 +326,7 @@ std::streamsize TrackEntry::write_body(std::ostream& output)
     if (operation_)
     {
         written += tide::ids::write(ids::TrackOperation, output);
-        written += tide::vint::write(operation_->total_size(), output);
+        written += tide::vint::write(operation_->size(), output);
         written += operation_->write(output);
     }
     return written;

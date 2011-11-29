@@ -70,17 +70,15 @@ namespace tide
              */
             VoidElement(Element const& element, bool fill=false);
 
-            /// \brief Get the size of this element.
-            std::streamsize size() const { return size_; }
             /** \brief Set the size of this element.
              *
              * A void element has a size value, given in bytes, which
              * determines how much space it reserves in the byte stream.
              */
-            void size(std::streamsize size) { size_ = size; }
+            void set_size(std::streamsize size) { size_ = size; }
 
             /// \brief Get the total size of the element.
-            std::streamsize total_size() const;
+            std::streamsize size() const;
 
             /// \brief Get the fill setting.
             bool fill() const { return fill_; }
@@ -128,6 +126,9 @@ namespace tide
             bool fill_;
             /// Extra bytes for writing the body size value if necessary.
             std::streamsize extra_size_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const { return size_; }
 
             /** \brief Element body loading.
              *

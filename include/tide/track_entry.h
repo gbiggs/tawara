@@ -306,9 +306,6 @@ namespace tide
             void operation(TrackOperationBase::Ptr const& operation)
                 { operation_ = operation; }
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
@@ -341,6 +338,9 @@ namespace tide
             UIntElement decode_all_;
             std::vector<UIntElement> overlays_;
             TrackOperationBase::Ptr operation_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
 
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,

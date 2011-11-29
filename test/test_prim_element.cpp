@@ -42,6 +42,11 @@ class FakePrimElement : public tide::PrimitiveElement<int>
         {
         }
 
+        std::streamsize body_size() const
+        {
+            return 0;
+        }
+
         std::streamsize write_id(std::ostream& output)
         {
             return 0;
@@ -52,17 +57,7 @@ class FakePrimElement : public tide::PrimitiveElement<int>
             return 0;
         }
 
-        std::streamsize read(std::istream& input)
-        {
-            return 0;
-        }
-
-        std::streamsize size() const
-        {
-            return 0;
-        }
-
-        std::streamsize total_size() const
+        std::streamsize read_body(std::istream& input)
         {
             return 0;
         }

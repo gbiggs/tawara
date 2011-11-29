@@ -289,15 +289,6 @@ void DoWriteTest(std::vector<test_utils::ElPtr> const& els,
 
     std::streamsize expected_size(std::accumulate(els.begin(), els.end(), 0,
                 test_utils::TotalSizeOp()));
-    BOOST_FOREACH(test_utils::ElPtr el, els)
-    {
-        el->write(expected);
-    }
-    EXPECT_EQ(expected_size, e.write_body(output)) << msg;
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str()) << msg;
-    output.str(std::string());
-    expected.str(std::string());
     tide::ids::write(tide::ids::Info, expected);
     tide::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, els)
@@ -353,10 +344,9 @@ TEST(SegmentInfo, Size)
                 tide::UIntElement(tide::ids::TimecodeScale, 1000000)));
 
     tide::SegmentInfo e;
-    EXPECT_EQ(used_children[0]->total_size(), e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(used_children[0]->total_size()) +
-            used_children[0]->total_size(), e.total_size());
+            tide::vint::coded_size(used_children[0]->size()) +
+            used_children[0]->size(), e.size());
 
     std::streamsize body_size(0);
     e.uid(std::vector<char>(8, 0xC0));
@@ -364,9 +354,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.filename("Segment filename");
@@ -374,9 +363,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.prev_uid(std::vector<char>(8, 0xC0));
@@ -384,9 +372,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.prev_filename("Previous filename");
@@ -394,9 +381,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.next_uid(std::vector<char>(8, 0xC0));
@@ -404,9 +390,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.next_filename("Next filename");
@@ -414,9 +399,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.segment_family(std::vector<char>(8, 0xC0));
@@ -424,9 +408,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.duration(12345);
@@ -434,9 +417,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.date(0xFFFFFFFFFF);
@@ -444,9 +426,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.title("Title");
@@ -454,9 +435,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.muxing_app("Muxer");
@@ -464,9 +444,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.writing_app("Writer");
@@ -474,9 +453,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Info) +
-            tide::vint::coded_size(body_size) + body_size, e.total_size());
+            tide::vint::coded_size(body_size) + body_size, e.size());
 }
 
 
@@ -627,7 +605,7 @@ TEST(SegmentInfo, Read)
     EXPECT_EQ(1000000, e.timecode_scale());
 
     input.str(std::string());
-    std::streamsize body_size(used_children[0]->total_size());
+    std::streamsize body_size(used_children[0]->size());
     tide::vint::write(body_size, input);
     used_children[0]->write(input);
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
@@ -669,7 +647,7 @@ TEST(SegmentInfo, Read)
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.total_size(), input);
+    tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }

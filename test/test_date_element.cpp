@@ -220,47 +220,12 @@ TEST(DateElement, Write)
 
     tide::DateElement e1(0x80, value);
 
-    test_datel::fill_buffer(expected, 0x80, value, false, false, true);
-    EXPECT_EQ(8, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x80, value, false, true, false);
-    EXPECT_EQ(1, e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x80, value, true, false, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x80, value, true, true, true);
     EXPECT_EQ(tide::ids::coded_size(0x80) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = -0x839F18AAl;
     e1.value(value);
-
-    test_datel::fill_buffer(expected, 0x80, value, false, false, true);
-    EXPECT_EQ(8, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x80, value, false, true, false);
-    EXPECT_EQ(1, e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_datel::fill_buffer(expected, 0x80, value, true, false, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
     output.str(std::string());
     std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x80, value, true, true, true);
@@ -312,15 +277,12 @@ TEST(DateElement, Read)
 TEST(DateElement, Size)
 {
     tide::DateElement e(0x80, 1);
-    EXPECT_EQ(8, e.size());
-    EXPECT_EQ(10, e.total_size());
+    EXPECT_EQ(10, e.size());
 
     e.value(0x7FFFFF);
-    EXPECT_EQ(8, e.size());
-    EXPECT_EQ(10, e.total_size());
+    EXPECT_EQ(10, e.size());
 
     e.value(0xFFFFFF);
-    EXPECT_EQ(8, e.size());
-    EXPECT_EQ(10, e.total_size());
+    EXPECT_EQ(10, e.size());
 }
 

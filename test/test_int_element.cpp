@@ -218,23 +218,6 @@ TEST(IntElement, Write)
     std::streamsize val_size(tide::ebml_int::coded_size_s(value));
 
     tide::IntElement e1(0x80, value);
-
-    test_intel::fill_buffer(expected, 0x80, value, false, false, true);
-    EXPECT_EQ(val_size, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x80, value, false, true, false);
-    EXPECT_EQ(tide::vint::coded_size(val_size), e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x80, value, true, false, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
     output.str(std::string());
     std::string().swap(expected);
     test_intel::fill_buffer(expected, 0x80, value, true, true, true);
@@ -245,23 +228,6 @@ TEST(IntElement, Write)
     value = -0x839F18AAl;
     val_size = tide::ebml_int::coded_size_s(value);
     e1.value(value);
-
-    test_intel::fill_buffer(expected, 0x80, value, false, false, true);
-    EXPECT_EQ(val_size, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x80, value, false, true, false);
-    EXPECT_EQ(tide::vint::coded_size(val_size), e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_intel::fill_buffer(expected, 0x80, value, true, false, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
     output.str(std::string());
     std::string().swap(expected);
     test_intel::fill_buffer(expected, 0x80, value, true, true, true);
@@ -310,15 +276,12 @@ TEST(IntElement, Read)
 TEST(IntElement, Size)
 {
     tide::IntElement e(0x80, 1);
-    EXPECT_EQ(1, e.size());
-    EXPECT_EQ(3, e.total_size());
+    EXPECT_EQ(3, e.size());
 
     e.value(0x7FFFFF);
-    EXPECT_EQ(3, e.size());
-    EXPECT_EQ(5, e.total_size());
+    EXPECT_EQ(5, e.size());
 
     e.value(0xFFFFFF);
-    EXPECT_EQ(4, e.size());
-    EXPECT_EQ(6, e.total_size());
+    EXPECT_EQ(6, e.size());
 }
 

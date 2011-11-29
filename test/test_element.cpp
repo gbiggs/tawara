@@ -45,6 +45,11 @@ class FakeElement : public tide::Element
         {
         }
 
+        std::streamsize body_size() const
+        {
+            return 0;
+        }
+
         std::streamsize write_id(std::ostream& output)
         {
             return 0;
@@ -58,11 +63,6 @@ class FakeElement : public tide::Element
         std::streamsize read_body(std::istream& input, std::streamsize size)
         {
             return size;
-        }
-
-        std::streamsize size() const
-        {
-            return 0;
         }
 }; // class FakeElement
 
@@ -99,7 +99,7 @@ TEST(Element, Size)
 {
     FakeElement e(tide::ids::EBML);
     EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
-            tide::vint::coded_size(0), e.total_size());
+            tide::vint::coded_size(0), e.size());
 }
 
 
@@ -157,11 +157,11 @@ TEST(ElementUtils, SkipRead)
     input.seekg(0);
 
     tide::skip_read(input, true);
-    EXPECT_EQ(ue1.total_size(), input.tellg());
+    EXPECT_EQ(ue1.size(), input.tellg());
     EXPECT_EQ(0, input.tellp());
     tide::ids::read(input);
     tide::skip_read(input, false);
-    EXPECT_EQ(ue1.total_size() + ue2.total_size(), input.tellg());
+    EXPECT_EQ(ue1.size() + ue2.size(), input.tellg());
     EXPECT_EQ(0, input.tellp());
 }
 
@@ -180,11 +180,11 @@ TEST(ElementUtils, SkipWrite)
     input.seekg(0);
 
     tide::skip_write(input, true);
-    EXPECT_EQ(ue1.total_size(), input.tellp());
+    EXPECT_EQ(ue1.size(), input.tellp());
     EXPECT_EQ(0, input.tellg());
     input.seekp(tide::ids::coded_size(tide::ids::Null), std::ios::cur);
     tide::skip_write(input, false);
-    EXPECT_EQ(ue1.total_size() + ue2.total_size(), input.tellp());
+    EXPECT_EQ(ue1.size() + ue2.size(), input.tellp());
     EXPECT_EQ(0, input.tellg());
 }
 

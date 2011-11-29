@@ -291,66 +291,66 @@ void SegmentInfo::writing_app(std::string const& writing_app)
 }
 
 
-std::streamsize SegmentInfo::size() const
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize SegmentInfo::body_size() const
 {
-    std::streamsize result(tc_scale_.total_size());
+    std::streamsize result(tc_scale_.size());
 
     if (have_uid_)
     {
-        result += uid_.total_size();
+        result += uid_.size();
     }
     if (have_seg_fn_)
     {
-        result += seg_fn_.total_size();
+        result += seg_fn_.size();
     }
     if (have_prev_uid_)
     {
-        result += prev_uid_.total_size();
+        result += prev_uid_.size();
     }
     if (have_prev_fn_)
     {
-        result += prev_fn_.total_size();
+        result += prev_fn_.size();
     }
     if (have_next_uid_)
     {
-        result += next_uid_.total_size();
+        result += next_uid_.size();
     }
     if (have_next_fn_)
     {
-        result += next_fn_.total_size();
+        result += next_fn_.size();
     }
     if (have_seg_fam_)
     {
-        result += seg_fam_.total_size();
+        result += seg_fam_.size();
     }
     if (have_duration_)
     {
-        result += duration_.total_size();
+        result += duration_.size();
     }
     if (have_date_)
     {
-        result += date_.total_size();
+        result += date_.size();
     }
     if (have_title_)
     {
-        result += title_.total_size();
+        result += title_.size();
     }
     if (have_muxer_)
     {
-        result += muxer_.total_size();
+        result += muxer_.size();
     }
     if (have_writer_)
     {
-        result += writer_.total_size();
+        result += writer_.size();
     }
 
     return result;
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-// I/O
-///////////////////////////////////////////////////////////////////////////////
 
 std::streamsize SegmentInfo::write_body(std::ostream& output)
 {

@@ -105,18 +105,6 @@ namespace tide
              */
             std::streampos offset() const { return offset_; }
 
-            /** \brief Get the size of the body of this element.
-             *
-             * Returns the size, in bytes, required to store this element's
-             * body. This does not include the space required by the ID or the
-             * data size value.
-             *
-             * See also total_size().
-             *
-             * \return The size of the element's body, in bytes.
-             */
-            virtual std::streamsize size() const = 0;
-
             /** \brief Get the total size of the element.
              *
              * Returns the size, in bytes, required to store this entire
@@ -124,7 +112,7 @@ namespace tide
              *
              * \return The size of the entire element, in bytes.
              */
-            virtual std::streamsize total_size() const;
+            virtual std::streamsize size() const;
 
             /** \brief Element writing.
              *
@@ -136,6 +124,48 @@ namespace tide
              * \exception WriteError if an error occurs writing data.
              */
             virtual std::streamsize write(std::ostream& output);
+
+            /** \brief Element reading.
+             *
+             * Reads the element from a byte stream providing a std::istream
+             * interface.
+             *
+             * This method assumes that the Element ID has already been read
+             * (and thus used to construct the Element instance doing the
+             * reading), which means that the file's read pointer should be
+             * positioned at the first byte of the element's size.
+             *
+             * \return The number of bytes read.
+             * \exception ReadError if an error occurs reading data.
+             * \exception BadBodySize if the size read from the element's
+             * header doesn't match its actual size. Only occurs with master
+             * elements.
+             * \exception InvalidChildID if a child element is found in the
+             * body of a master element to which it doesn't belong.
+             * \exception MissingChild if a child element that must be present
+             * in a master element is not found.
+             * \throw ValueOutOfRange if a child element is read with a value
+             * that is out of range.
+             * \throw ValueSizeOutOfRange if a child element is read with a
+             * size that is not in the allowable range of sizes.
+             */
+            virtual std::streamsize read(std::istream& input);
+
+        protected:
+            tide::ids::ID id_;
+            std::streampos offset_;
+
+            /** \brief Get the size of the body of this element.
+             *
+             * Returns the size, in bytes, required to store this element's
+             * body. This does not include the space required by the ID or the
+             * data size value.
+             *
+             * See also size().
+             *
+             * \return The size of the element's body, in bytes.
+             */
+            virtual std::streamsize body_size() const = 0;
 
             /** \brief Element ID writing.
              *
@@ -167,36 +197,6 @@ namespace tide
              * \exception WriteError if an error occurs writing data.
              */
             virtual std::streamsize write_body(std::ostream& output) = 0;
-
-            /** \brief Element reading.
-             *
-             * Reads the element from a byte stream providing a std::istream
-             * interface.
-             *
-             * This method assumes that the Element ID has already been read
-             * (and thus used to construct the Element instance doing the
-             * reading), which means that the file's read pointer should be
-             * positioned at the first byte of the element's size.
-             *
-             * \return The number of bytes read.
-             * \exception ReadError if an error occurs reading data.
-             * \exception BadBodySize if the size read from the element's
-             * header doesn't match its actual size. Only occurs with master
-             * elements.
-             * \exception InvalidChildID if a child element is found in the
-             * body of a master element to which it doesn't belong.
-             * \exception MissingChild if a child element that must be present
-             * in a master element is not found.
-             * \throw ValueOutOfRange if a child element is read with a value
-             * that is out of range.
-             * \throw ValueSizeOutOfRange if a child element is read with a
-             * size that is not in the allowable range of sizes.
-             */
-            virtual std::streamsize read(std::istream& input);
-
-        protected:
-            tide::ids::ID id_;
-            std::streampos offset_;
 
             /** \brief Element body reading implementation.
              *

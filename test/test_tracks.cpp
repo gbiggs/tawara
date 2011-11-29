@@ -232,26 +232,23 @@ TEST(Tracks, Equality)
 TEST(Tracks, Size)
 {
     tide::Tracks e;
-    EXPECT_EQ(0, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
             tide::vint::coded_size(0),
-            e.total_size());
+            e.size());
 
     tide::TrackEntry::Ptr entry1(new tide::TrackEntry(1, 2, "MDCC"));
     e.insert(entry1);
-    EXPECT_EQ(entry1->total_size(), e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
-            tide::vint::coded_size(entry1->total_size()) +
-            entry1->total_size(),
-            e.total_size());
+            tide::vint::coded_size(entry1->size()) +
+            entry1->size(),
+            e.size());
 
     tide::TrackEntry::Ptr entry2(new tide::TrackEntry(2, 3, "MDCC"));
     e.insert(entry2);
-    EXPECT_EQ(entry1->total_size() + entry2->total_size(), e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
-            tide::vint::coded_size(entry1->total_size() +
-            entry2->total_size()) + entry1->total_size() +
-            entry2->total_size(), e.total_size());
+            tide::vint::coded_size(entry1->size() +
+            entry2->size()) + entry1->size() +
+            entry2->size(), e.size());
 }
 
 
@@ -262,7 +259,6 @@ TEST(Tracks, Write)
     tide::Tracks e;
 
     // No track entries
-    EXPECT_THROW(e.write_body(output), tide::EmptyTracksElement);
     EXPECT_THROW(e.write(output), tide::EmptyTracksElement);
 
     output.str(std::string());
@@ -270,31 +266,24 @@ TEST(Tracks, Write)
     e.insert(entry1);
     tide::TrackEntry::Ptr entry2(new tide::TrackEntry(2, 3, "MDCC"));
     e.insert(entry2);
-    std::streamsize body_size(entry1->total_size() + entry2->total_size());
-    entry1->write(expected);
-    entry2->write(expected);
-    EXPECT_EQ(body_size, e.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
-    output.str(std::string());
-    expected.str(std::string());
+    std::streamsize body_size(entry1->size() + entry2->size());
     tide::ids::write(tide::ids::Tracks, expected);
     tide::vint::write(body_size, expected);
     entry1->write(expected);
     entry2->write(expected);
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
-            tide::vint::coded_size(body_size) + entry1->total_size() +
-            entry2->total_size(), e.write(output));
+            tide::vint::coded_size(body_size) + entry1->size() +
+            entry2->size(), e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
     // Key collision
     entry2->number(1);
-    EXPECT_THROW(e.write_body(output), tide::DuplicateTrackNumber);
+    EXPECT_THROW(e.write(output), tide::DuplicateTrackNumber);
     // UID collision
     entry2->number(2);
     entry2->uid(2);
-    EXPECT_THROW(e.write_body(output), tide::DuplicateUID);
+    EXPECT_THROW(e.write(output), tide::DuplicateUID);
 }
 
 
@@ -306,7 +295,7 @@ TEST(Tracks, Read)
     tide::TrackEntry entry2(2, 3, "Codec2");
 
     input.str(std::string());
-    std::streamsize body_size(entry1.total_size() + entry2.total_size());
+    std::streamsize body_size(entry1.size() + entry2.size());
     tide::vint::write(body_size, input);
     entry1.write(input);
     entry2.write(input);
@@ -326,19 +315,19 @@ TEST(Tracks, Read)
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.total_size(), input);
+    tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(e.read(input), tide::InvalidChildID);
     // Key collision
     input.str(std::string());
-    tide::vint::write(2 * entry1.total_size(), input);
+    tide::vint::write(2 * entry1.size(), input);
     entry1.write(input);
     entry1.write(input);
     EXPECT_THROW(e.read(input), tide::DuplicateTrackNumber);
     // UID collision
     entry2.uid(2);
     input.str(std::string());
-    tide::vint::write(entry1.total_size() + entry2.total_size(), input);
+    tide::vint::write(entry1.size() + entry2.size(), input);
     entry1.write(input);
     entry2.write(input);
     EXPECT_THROW(e.read(input), tide::DuplicateUID);

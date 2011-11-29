@@ -97,17 +97,6 @@ void Tracks::insert(const_iterator first, const_iterator last)
 }
 
 
-std::streamsize Tracks::size() const
-{
-    std::streamsize size(0);
-    BOOST_FOREACH(value_type te, entries_)
-    {
-        size += te.second->total_size();
-    }
-    return size;
-}
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
@@ -119,8 +108,19 @@ bool tide::operator==(Tracks const& lhs, Tracks const& rhs)
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// I/O
+// Element interface
 ///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize Tracks::body_size() const
+{
+    std::streamsize size(0);
+    BOOST_FOREACH(value_type te, entries_)
+    {
+        size += te.second->size();
+    }
+    return size;
+}
+
 
 std::streamsize Tracks::write_body(std::ostream& output)
 {

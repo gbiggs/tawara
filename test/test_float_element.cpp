@@ -288,25 +288,6 @@ TEST(FloatElement, Write)
     double value(2.7182818284590451);
 
     tide::FloatElement e1(0x80, value, tide::EBML_FLOAT_PREC_DOUBLE);
-
-    test_flel::fill_buffer(expected, 0x80, value, false, false, true, true);
-    EXPECT_EQ(8, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x80, value, false, true, false, true);
-    EXPECT_EQ(1, e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x80, value, true, false, false, true);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x80, value, true, true, true, true);
     EXPECT_EQ(tide::ids::coded_size(0x80) + 9, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
@@ -314,23 +295,6 @@ TEST(FloatElement, Write)
     value = 3.14159;
     e1.value(value);
     e1.precision(tide::EBML_FLOAT_PREC_SINGLE);
-
-    test_flel::fill_buffer(expected, 0x80, value, false, false, true, false);
-    EXPECT_EQ(4, e1.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x80, value, false, true, false, false);
-    EXPECT_EQ(1, e1.write_size(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
-    output.str(std::string());
-    std::string().swap(expected);
-    test_flel::fill_buffer(expected, 0x80, value, true, false, false, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80), e1.write_id(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
-
     output.str(std::string());
     std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x80, value, true, true, true, false);
@@ -383,18 +347,14 @@ TEST(FloatElement, Read)
 TEST(FloatElement, Size)
 {
     tide::FloatElement e(0x80, 1.0, tide::EBML_FLOAT_PREC_SINGLE);
-    EXPECT_EQ(4, e.size());
-    EXPECT_EQ(6, e.total_size());
+    EXPECT_EQ(6, e.size());
     e.precision(tide::EBML_FLOAT_PREC_DOUBLE);
-    EXPECT_EQ(8, e.size());
-    EXPECT_EQ(10, e.total_size());
+    EXPECT_EQ(10, e.size());
 
     e.precision(tide::EBML_FLOAT_PREC_SINGLE);
     e.value(3.15149);
-    EXPECT_EQ(4, e.size());
-    EXPECT_EQ(6, e.total_size());
+    EXPECT_EQ(6, e.size());
     e.precision(tide::EBML_FLOAT_PREC_DOUBLE);
-    EXPECT_EQ(8, e.size());
-    EXPECT_EQ(10, e.total_size());
+    EXPECT_EQ(10, e.size());
 }
 

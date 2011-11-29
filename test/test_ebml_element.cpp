@@ -126,11 +126,18 @@ TEST(EBMLElement, Write)
     std::streamsize expected_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
+        expected_size += el->size();
+    }
+    tide::ids::write(tide::ids::EBML, expected);
+    tide::vint::write(expected_size, expected);
+    BOOST_FOREACH(ElPtr el, children)
+    {
         el->write(expected);
-        expected_size += el->total_size();
     }
 
-    EXPECT_EQ(expected_size, e.write_body(output));
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
+            tide::vint::coded_size(expected_size) + expected_size,
+            e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
@@ -162,26 +169,17 @@ TEST(EBMLElement, Write)
     expected_size = 0;
     BOOST_FOREACH(ElPtr el, children)
     {
-        el->write(expected);
-        expected_size += el->total_size();
+        expected_size += el->size();
     }
-
-    EXPECT_EQ(expected_size, e.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
-
-    expected.str(std::string());
-    output.str(std::string());
-    expected_size = tide::ids::coded_size(tide::ids::EBML) +
-        tide::vint::coded_size(e.size());
     tide::ids::write(tide::ids::EBML, expected);
-    tide::vint::write(e.size(), expected);
+    tide::vint::write(expected_size, expected);
     BOOST_FOREACH(ElPtr el, children)
     {
         el->write(expected);
-        expected_size += el->total_size();
     }
-    EXPECT_EQ(expected_size, e.write(output));
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
+            tide::vint::coded_size(expected_size) + expected_size,
+            e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 }
@@ -213,7 +211,7 @@ TEST(EBMLElement, Read)
     std::streamsize body_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
-        body_size += el->total_size();
+        body_size += el->size();
     }
     tide::vint::write(body_size, input);
     BOOST_FOREACH(ElPtr el, children)
@@ -252,7 +250,7 @@ TEST(EBMLElement, Read)
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.total_size(), input);
+    tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }
@@ -265,7 +263,8 @@ TEST(EBMLElement, Size)
 
     // Size with everything defaults
     tide::EBMLElement e1;
-    EXPECT_EQ(31, e1.size());
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
+            tide::vint::coded_size(31) + 31, e1.size());
 
     // Size with non-defaults. Note that EBMLVersion and EBMLReadVersion can
     // never be anything other than the default in this test.
@@ -287,7 +286,7 @@ TEST(EBMLElement, Size)
     std::streamsize body_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
-        body_size += el->total_size();
+        body_size += el->size();
     }
 
     tide::EBMLElement e2("blag");
@@ -295,8 +294,7 @@ TEST(EBMLElement, Size)
     e2.max_size_length(7);
     e2.doc_version(2);
     e2.doc_read_version(2);
-    EXPECT_EQ(body_size, e2.size());
-    EXPECT_EQ(4 + tide::vint::coded_size(body_size) + body_size,
-            e2.total_size());
+    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
+            tide::vint::coded_size(body_size) + body_size, e2.size());
 }
 

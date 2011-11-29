@@ -49,12 +49,12 @@ VoidElement::VoidElement(Element const& element, bool fill)
     // Set this element's size from the total size of the element to replace.
     // We need to calculate an appropriate body size that, when combined with
     // the data size and the ID size, will give the same size as
-    // element.total_size(). Start by estimating the bytes required for the
-    // body size.
-    size_ = element.total_size() - 1;
+    // element.size(). Start by estimating the bytes required for the body
+    // size.
+    size_ = element.size() - 1;
     size_ -= tide::vint::coded_size(size_);
     // Check if enough space is used
-    if (total_size() != element.total_size())
+    if (size() != element.size())
     {
         // Need to use more space (typically 1 more byte), but if we increase
         // the body size, it might push the data size value over the line to
@@ -63,7 +63,7 @@ VoidElement::VoidElement(Element const& element, bool fill)
         // the body size is stored with an extra byte.
         extra_size_ = 1;
     }
-    assert(total_size() == element.total_size());
+    assert(size() == element.size());
 }
 
 
@@ -71,7 +71,7 @@ VoidElement::VoidElement(Element const& element, bool fill)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize VoidElement::total_size() const
+std::streamsize VoidElement::size() const
 {
     // ID is always 1 byte
     return 1 + tide::vint::coded_size(size_) + size_ + extra_size_;

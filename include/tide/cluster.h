@@ -117,9 +117,6 @@ namespace tide
             /// \brief Set the size of the previous cluster in the segment.
             void previous_size(uint64_t size) { prev_size_ = size; }
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
 
@@ -138,6 +135,9 @@ namespace tide
             std::vector<SilentTrackNumber> silent_tracks_;
             UIntElement position_;
             UIntElement prev_size_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
 
             /// \brief Element body loading.
             std::streamsize read_body(std::istream& input,

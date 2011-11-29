@@ -108,31 +108,28 @@ TEST(BaseCluster, Size)
 {
     FakeCluster e;
     tide::UIntElement tc(tide::ids::Timecode, 0);
-    std::streamsize body_size(tc.total_size());
-    EXPECT_EQ(body_size, e.size());
+    std::streamsize body_size(tc.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
             tide::vint::coded_size(body_size) + body_size,
-            e.total_size());
+            e.size());
 
     tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
     tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
     body_size += tide::ids::coded_size(tide::ids::SilentTracks) +
-        tide::vint::coded_size(st1.total_size() + st2.total_size()) +
-        st1.total_size() + st2.total_size();
+        tide::vint::coded_size(st1.size() + st2.size()) +
+        st1.size() + st2.size();
     e.silent_tracks().push_back(tide::SilentTrackNumber(1));
     e.silent_tracks().push_back(tide::SilentTrackNumber(2));
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
             tide::vint::coded_size(body_size) + body_size,
-            e.total_size());
+            e.size());
 
     tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
-    body_size += ps.total_size();
+    body_size += ps.size();
     e.previous_size(0x1234);
-    EXPECT_EQ(body_size, e.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
             tide::vint::coded_size(body_size) + body_size,
-            e.total_size());
+            e.size());
 }
 
 
@@ -146,13 +143,7 @@ TEST(BaseCluster, Write)
     tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
 
     FakeCluster e;
-    std::streamsize expected_size(tc.total_size());
-    tc.write(expected);
-    EXPECT_EQ(expected_size, e.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
-    output.str(std::string());
-    expected.str(std::string());
+    std::streamsize expected_size(tc.size());
     tide::ids::write(tide::ids::Cluster, expected);
     tide::vint::write(expected_size, expected);
     tc.write(expected);
@@ -163,29 +154,18 @@ TEST(BaseCluster, Write)
             expected.str());
 
     expected_size += tide::ids::coded_size(tide::ids::SilentTracks) +
-        tide::vint::coded_size(st1.total_size() + st2.total_size()) +
-        st1.total_size() + st2.total_size() + ps.total_size();
+        tide::vint::coded_size(st1.size() + st2.size()) +
+        st1.size() + st2.size() + ps.size();
     e.silent_tracks().push_back(tide::SilentTrackNumber(1));
     e.silent_tracks().push_back(tide::SilentTrackNumber(2));
     e.previous_size(0x1234);
-    output.str(std::string());
-    expected.str(std::string());
-    tc.write(expected);
-    tide::ids::write(tide::ids::SilentTracks, expected);
-    tide::vint::write(st1.total_size() + st2.total_size(), expected);
-    st1.write(expected);
-    st2.write(expected);
-    ps.write(expected);
-    EXPECT_EQ(expected_size, e.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
     output.str(std::string());
     expected.str(std::string());
     tide::ids::write(tide::ids::Cluster, expected);
     tide::vint::write(expected_size, expected);
     tc.write(expected);
     tide::ids::write(tide::ids::SilentTracks, expected);
-    tide::vint::write(st1.total_size() + st2.total_size(), expected);
+    tide::vint::write(st1.size() + st2.size(), expected);
     st1.write(expected);
     st2.write(expected);
     ps.write(expected);
@@ -206,7 +186,7 @@ TEST(BaseCluster, Read)
     tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
 
     FakeCluster e;
-    std::streamsize body_size(tc.total_size());
+    std::streamsize body_size(tc.size());
     tide::vint::write(body_size, input);
     tc.write(input);
     EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
@@ -216,12 +196,12 @@ TEST(BaseCluster, Read)
     EXPECT_EQ(0, e.previous_size());
 
     body_size += tide::ids::coded_size(tide::ids::SilentTracks) +
-        tide::vint::coded_size(st1.total_size() + st2.total_size()) +
-        st1.total_size() + st2.total_size() + ps.total_size();
+        tide::vint::coded_size(st1.size() + st2.size()) +
+        st1.size() + st2.size() + ps.size();
     tide::vint::write(body_size, input);
     tc.write(input);
     tide::ids::write(tide::ids::SilentTracks, input);
-    tide::vint::write(st1.total_size() + st2.total_size(), input);
+    tide::vint::write(st1.size() + st2.size(), input);
     st1.write(input);
     st2.write(input);
     ps.write(input);
@@ -240,12 +220,12 @@ TEST(BaseCluster, Read)
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.total_size(), input);
+    tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(e.read(input), tide::InvalidChildID);
     // Missing timecode
     input.str(std::string());
-    tide::vint::write(ps.total_size(), input);
+    tide::vint::write(ps.size(), input);
     ps.write(input);
     EXPECT_THROW(e.read(input), tide::MissingChild);
 }

@@ -55,11 +55,11 @@ Element::Element(uint32_t id)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize Element::total_size() const
+std::streamsize Element::size() const
 {
-    std::streamsize body_size(size());
-    return tide::ids::coded_size(id_) + tide::vint::coded_size(body_size) +
-        body_size;
+    std::streamsize body(body_size());
+    return tide::ids::coded_size(id_) + tide::vint::coded_size(body) +
+        body;
 }
 
 
@@ -84,7 +84,7 @@ std::streamsize Element::write_id(std::ostream& output)
 
 std::streamsize Element::write_size(std::ostream& output)
 {
-    return tide::vint::write(size(), output);
+    return tide::vint::write(body_size(), output);
 }
 
 

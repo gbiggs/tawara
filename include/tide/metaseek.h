@@ -64,9 +64,6 @@ namespace tide
             /// \brief Destructor.
             virtual ~Metaseek() {}
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /** \brief An index item, as a mapping from an EBML element ID to
              * a stream offset.
              */
@@ -100,6 +97,9 @@ namespace tide
 
         protected:
             std::vector<SeekElement> index_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
 
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,

@@ -71,13 +71,12 @@ TEST(Seek, Size)
             // SeekHead is a nice, long ID to test with
             tide::ids::encode(tide::ids::SeekHead));
     tide::UIntElement ue(tide::ids::SeekPosition, 0x1010);
-    std::streamsize body_size(be.total_size() + ue.total_size());
+    std::streamsize body_size(be.size() + ue.size());
 
     tide::SeekElement se(tide::ids::SeekHead, 0x1010);
-    EXPECT_EQ(body_size, se.size());
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Seek) +
             tide::vint::coded_size(body_size) + body_size,
-            se.total_size());
+            se.size());
 }
 
 
@@ -90,22 +89,12 @@ TEST(Seek, Write)
             // SeekHead is a nice, long ID to test with
             tide::ids::encode(tide::ids::SeekHead));
     tide::UIntElement ue(tide::ids::SeekPosition, 12345);
-    be.write(expected);
-    ue.write(expected);
-    std::streamsize expected_size(be.total_size() + ue.total_size());
-
+    std::streamsize expected_size(be.size() + ue.size());
     tide::SeekElement se(tide::ids::SeekHead, 12345);
-
-    EXPECT_EQ(expected_size, se.write_body(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
-
-    output.str(std::string());
-    expected.str(std::string());
     tide::ids::write(tide::ids::Seek, expected);
     tide::vint::write(expected_size, expected);
     be.write(expected);
     ue.write(expected);
-
     EXPECT_EQ(tide::ids::coded_size(tide::ids::Seek) +
             tide::vint::coded_size(expected_size) + expected_size,
             se.write(output));
@@ -121,7 +110,7 @@ TEST(Seek, Read)
             // SeekHead is a nice, long ID to test with
             tide::ids::encode(tide::ids::SeekHead));
     tide::UIntElement ue(tide::ids::SeekPosition, 12345);
-    std::streamsize body_size(be.total_size() + ue.total_size());
+    std::streamsize body_size(be.size() + ue.size());
 
     tide::vint::write(body_size, input);
     be.write(input);
@@ -148,12 +137,12 @@ TEST(Seek, Read)
 
     // No SeekID child
     input.str(std::string());
-    tide::vint::write(ue.total_size(), input);
+    tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(e.read(input), tide::MissingChild);
     // No SeekPosition child
     input.str(std::string());
-    tide::vint::write(be.total_size(), input);
+    tide::vint::write(be.size(), input);
     be.write(input);
     EXPECT_THROW(e.read(input), tide::MissingChild);
     // No children at all
@@ -162,7 +151,7 @@ TEST(Seek, Read)
     EXPECT_THROW(e.read(input), tide::MissingChild);
     // Body size value wrong (too big)
     input.str(std::string());
-    tide::vint::write(ue.total_size() + be.total_size() + 5, input);
+    tide::vint::write(ue.size() + be.size() + 5, input);
     ue.write(input);
     be.write(input);
     EXPECT_THROW(e.read(input), tide::BadBodySize);
@@ -175,7 +164,7 @@ TEST(Seek, Read)
     // Invalid child
     input.str(std::string());
     tide::UIntElement ue2(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue2.total_size(), input);
+    tide::vint::write(ue2.size(), input);
     ue2.write(input);
     EXPECT_THROW(e.read(input), tide::InvalidChildID);
 }

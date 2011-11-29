@@ -73,20 +73,20 @@ uint64_t TrackJoinBlocks::operator[](unsigned int pos) const
 }
 
 
-std::streamsize TrackJoinBlocks::size() const
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize TrackJoinBlocks::body_size() const
 {
     std::streamsize size(0);
     BOOST_FOREACH(UIntElement el, uids_)
     {
-        size += el.total_size();
+        size += el.size();
     }
     return size;
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-// I/O
-///////////////////////////////////////////////////////////////////////////////
 
 std::streamsize TrackJoinBlocks::write_body(std::ostream& output)
 {

@@ -116,9 +116,6 @@ namespace tide
 
             /// TODO: Proper vector model for UIDs.
 
-            /// \brief Get the size of the body of this element.
-            virtual std::streamsize size() const;
-
             /** \brief Element body writing.
              *
              * \throw ValueOutOfRange if a zero-value UID is written.
@@ -131,6 +128,9 @@ namespace tide
 
         protected:
             std::vector<UIntElement> uids_;
+
+            /// \brief Get the size of the body of this element.
+            virtual std::streamsize body_size() const;
 
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,

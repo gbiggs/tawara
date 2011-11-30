@@ -1,6 +1,6 @@
 /* Tide
  *
- * Header file for the base element object.
+ * Header file for the Block interface.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,8 +25,8 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(TIDE_BLOCK_BASE_H_)
-#define TIDE_BLOCK_BASE_H_
+#if !defined(TIDE_BLOCK_H_)
+#define TIDE_BLOCK_H_
 
 #include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
@@ -34,22 +34,20 @@
 #include <tide/win_dll.h>
 #include <vector>
 
-/// \addtogroup elements Elements
+/// \addtogroup interfaces Interfaces
 /// @{
 
 namespace tide
 {
-    /** \brief Base class for blocks.
+    /** \brief Block interface.
      *
-     * There are two types of blocks
+     * The Block interface defines the functionality of a Tide block. A block
+     * is the storage for one (or sometimes more than one, if lacing is used)
+     * frame of data.
      */
-    class TIDE_EXPORT BlockBase :
-        public boost::equality_comparable<BlockBase>
+    class TIDE_EXPORT Block :
+        public boost::equality_comparable<Block>
     {
-        protected:
-            /// \brief The type of the frame storage.
-            typedef std::vector<boost::shared_ptr<std::vector<char> > > storage_type_;
-
         public:
             /// \brief Lacing types.
             enum LacingType
@@ -61,35 +59,40 @@ namespace tide
                 /// Fixed-size lacing
                 LACING_FIXED
             };
+            /// \brief The type of a single frame of data.
+            typedef std::vector<char> Frame;
+            /// \brief A pointer to a frame of data.
+            typedef boost::shared_ptr<Frame> FramePtr;
             /// \brief The value type of this container.
-            typedef storage_type_::value_type value_type;
+            typedef std::vector<FramePtr>::value_type value_type;
             /// \brief The size type of this container.
-            typedef storage_type_::size_type size_type;
+            typedef std::vector<FramePtr>::size_type size_type;
             /// \brief The reference type.
-            typedef storage_type_::reference reference;
+            typedef std::vector<FramePtr>::reference reference;
             /// \brief The constant reference type.
-            typedef storage_type_::const_reference const_reference;
+            typedef std::vector<FramePtr>::const_reference const_reference;
             /// \brief The random access iterator type.
-            typedef storage_type_::iterator iterator;
+            typedef std::vector<FramePtr>::iterator iterator;
             /// \brief The constant random access iterator type.
-            typedef storage_type_::const_iterator const_iterator;
+            typedef std::vector<FramePtr>::const_iterator const_iterator;
             /// \brief The reversed random access iterator type.
-            typedef storage_type_::reverse_iterator reverse_iterator;
+            typedef std::vector<FramePtr>::reverse_iterator reverse_iterator;
             /// \brief The constant reversed random access iterator type.
-            typedef storage_type_::const_reverse_iterator
+            typedef std::vector<FramePtr>::const_reverse_iterator
                 const_reverse_iterator;
 
-            /** \brief Base constructor.
+            /** \brief Constructor.
              *
              * \param[in] track_number The track number this block belongs to.
              * \param[in] timecode The timecode of this block.
              * \param[in] lacing The type of lacing to use.
              */
-            BlockBase(uint64_t track_number, int16_t timecode,
-                    LacingType lacing=LACING_NONE);
+            Block(uint64_t track_number, int16_t timecode,
+                    LacingType lacing=LACING_NONE)
+            {}
 
-            /// \brief Base desctructor.
-            virtual ~BlockBase();
+            /// \brief Desctructor.
+            virtual ~Block() = 0;
 
             /** \brief The block's track number.
              *
@@ -97,10 +100,9 @@ namespace tide
              * The data stored in the block should be interpreted by the codec
              * for its track.
              */
-            uint64_t track_number() const { return track_num_; }
+            virtual uint64_t track_number() const = 0;
             /// \brief Set the block's track number.
-            void track_number(uint64_t track_number)
-                { track_num_ = track_number; }
+            virtual void track_number(uint64_t track_number) = 0;
 
             /** \brief The timecode of this block.
              *
@@ -108,18 +110,18 @@ namespace tide
              * is measured in the units specified by the containing segment's
              * TimecodeScale, and is a 16-bit signed integer.
              */
-            int16_t timecode() const { return timecode_; }
+            virtual int16_t timecode() const = 0;
             /// \brief Set the block's timecode.
-            void timecode(int16_t timecode) { timecode_ = timecode; }
+            virtual void timecode(int16_t timecode) = 0;
 
             /** \brief If this block is invisible.
              *
              * Invisible blocks should be decoded by the codec (thus updating
              * codec state) but not used for playback.
              */
-            bool invisible() const { return invisible_; }
+            virtual bool invisible() const = 0;
             /// \brief Set if this block is invisible.
-            void invisible(bool invisible) { invisible_ = invisible; }
+            virtual void invisible(bool invisible) = 0;
 
             /** \brief Get the lacing type in use.
              *
@@ -130,12 +132,9 @@ namespace tide
              * so laces should usually be kept small. A common number is up to
              * three frames in a lace.
              */
-            LacingType lacing() const { return lacing_; }
+            virtual LacingType lacing() const = 0;
             /// \brief Set the lacing type in use.
-            void lacing(LacingType lacing) { lacing_ = lacing; }
-
-            /// \brief Replace the content of this block with another block.
-            BlockBase& operator=(BlockBase const& other);
+            virtual void lacing(LacingType lacing) = 0;
 
             /** \brief Get the frame at the given position, with bounds
              * checking.
@@ -143,16 +142,14 @@ namespace tide
              * \return A reference to the specified frame's data.
              * \throw std::out_of_range if the position is invalid.
              */
-            value_type& at(size_type pos)
-                { return frames_.at(pos); }
+            virtual value_type& at(size_type pos) = 0;
             /** \brief Get the frame at the given position, with bounds
              * checking.
              *
              * \return A reference to the specified frame's data.
              * \throw std::out_of_range if the position is invalid.
              */
-            value_type const& at(size_type pos) const
-                { return frames_.at(pos); }
+            virtual value_type const& at(size_type pos) const = 0;
 
             /** \brief Get a reference to a frame. No bounds checking is
              * performed.
@@ -160,46 +157,44 @@ namespace tide
              * \return A reference to the binary data of a frame stored in this
              * block.
              */
-            value_type& operator[](size_type pos)
-                { return frames_[pos]; }
+            virtual value_type& operator[](size_type pos) = 0;
             /** \brief Get a reference to a frame. No bounds checking is
              * performed.
              *
              * \return A reference to the binary data of a frame stored in this
              * block.
              */
-            value_type const& operator[](size_type pos) const
-                { return frames_[pos]; }
+            virtual value_type const& operator[](size_type pos) const = 0;
 
             /// \brief Get an iterator to the first frame.
-            iterator begin() { return frames_.begin(); }
+            virtual iterator begin() = 0;
             /// \brief Get an iterator to the first frame.
-            const_iterator begin() const { return frames_.begin(); }
+            virtual const_iterator begin() const = 0;
             /// \brief Get an iterator to the position past the last frame.
-            iterator end() { return frames_.end(); }
+            virtual iterator end() = 0;
             /// \brief Get an iterator to the position past the last frame.
-            const_iterator end() const { return frames_.end(); }
+            virtual const_iterator end() const = 0;
             /// \brief Get a reverse iterator to the last frame.
-            reverse_iterator rbegin() { return frames_.rbegin(); }
+            virtual reverse_iterator rbegin() = 0;
             /// \brief Get a reverse iterator to the last frame.
-            const_reverse_iterator rbegin() const { return frames_.rbegin(); }
+            virtual const_reverse_iterator rbegin() const = 0;
             /** \brief Get a reverse iterator to the position before the first
              * frame.
              */
-            reverse_iterator rend() { return frames_.rend(); }
+            virtual reverse_iterator rend() = 0;
             /** \brief Get a reverse iterator to the position before the first
              * frame.
              */
-            const_reverse_iterator rend() const { return frames_.rend(); }
+            virtual const_reverse_iterator rend() const = 0;
 
             /** \brief Check if there are no frames.
              *
              * Empty blocks cannot be written. If this returns true, an error
              * will occur when write() is called.
              */
-            bool empty() const { return frames_.empty(); }
+            virtual bool empty() const = 0;
             /// \brief Get the number of frames.
-            size_type count() const { return frames_.size(); }
+            virtual size_type count() const = 0;
             /** \brief Get the maximum number of frames.
              *
              * If lacing is not enabled, this will always return 1.
@@ -207,24 +202,22 @@ namespace tide
              * If lacing is enabled, this will be the maximum number of frames
              * that can be stored in a lace within a single block.
              */
-            size_type max_count() const;
+            virtual size_type max_count() const = 0;
 
             /// \brief Remove all frames.
-            void clear() { frames_.clear(); }
+            virtual void clear() = 0;
 
             /** \brief Erase the frame at the specified iterator.
              *
              * \param[in] position The position to erase at.
              */
-            void erase(iterator position)
-                { frames_.erase(position); }
+            virtual void erase(iterator position) = 0;
             /** \brief Erase a range of frames.
              *
              * \param[in] first The start of the range.
              * \param[in] last The end of the range.
              */
-            void erase(iterator first, iterator last)
-                { frames_.erase(first, last); }
+            virtual void erase(iterator first, iterator last) = 0;
 
             /** \brief Add a frame to this block.
              *
@@ -238,7 +231,7 @@ namespace tide
              * the lacing type.
              * \throw EmptyFrame if the frame data is empty.
              */
-            void push_back(value_type const& value);
+            virtual void push_back(value_type const& value) = 0;
 
             /** \brief Resizes the frames storage.
              *
@@ -255,38 +248,18 @@ namespace tide
              * \throw MaxLaceSizeExceeded if the new size is incompatible with
              * the lacing type.
              */
-            void resize(size_type count);
+            virtual void resize(size_type count) = 0;
 
             /** \brief Swaps the contents of this block with another.
              *
              * \param[in] other The other block to swap with.
              */
-            void swap(BlockBase& other);
-
-            /// \brief Equality operator.
-            friend bool operator==(BlockBase const& lhs, BlockBase const& rhs);
-
-        protected:
-            uint64_t track_num_;
-            int16_t timecode_;
-            bool invisible_;
-            LacingType lacing_;
-            std::vector<boost::shared_ptr<std::vector<char> > > frames_;
-
-            /** \brief Checks that the block is in a good condition to write.
-             *
-             * This function \e must be called before performing any operations
-             * to write the block.
-             */
-            void validate() const;
-    }; // class BlockBase
-
-    /// \brief Equality operator for blocks.
-    bool operator==(BlockBase const& lhs, BlockBase const& rhs);
+            virtual void swap(Block& other) {}
+    }; // class Block
 }; // namespace tide
 
 /// @}
-// group elements
+// group interfaces
 
-#endif // TIDE_BLOCK_BASE_H_
+#endif // TIDE_BLOCK_H_
 

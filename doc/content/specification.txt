@@ -867,7 +867,7 @@ by the following bytes:
 +--------+------------------------------------------------------------------+
 |Offset  |Description                                                       |
 +--------+------------------------------------------------------------------+
-|0x00    |Number of frames in the lace - 1, as an unsigned integer.         |
+|0x00    |Number of frames in the lace - 1, as an unsigned 8-bit integer.   |
 +--------+------------------------------------------------------------------+
 |0x01 -  |Lace-coded size of each frame in the lace, except for the last    |
 |0xXX    |frame. This value is not used and MUST NOT be present when fixed- |
@@ -914,6 +914,8 @@ only change is the addition of two flags: Keyframe and Discardable.
 |        |7  |Discardable; this block can be safely discarded during        |
 |        |   |playback if necessary.                                        |
 +--------+---+--------------------------------------------------------------+
+
+Data after this is in the same format as normal Blocks.
 
 Lacing
 ------

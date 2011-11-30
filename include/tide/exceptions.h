@@ -346,6 +346,18 @@ namespace tide
      */
     struct MaxLaceSizeExceeded : virtual TideError{};
 
+    /** \brief A frame with a bad size was added to a block.
+     *
+     * When a block is using fixed lacing, all frames in the block must be the
+     * same size. If a frame is added to a block with a different size from the
+     * first frame (if present), or when a block is written with fixed lacing
+     * and frames of different sizes, this error occurs.
+     *
+     * The err_frame_size tag may be included to indicate the size of the bad
+     * frame.
+     */
+    struct BadLacedFrameSize : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags
@@ -367,7 +379,8 @@ namespace tide
     typedef boost::error_info<struct tag_reqsize, std::streamsize> err_reqsize;
 
     /// \brief The specified size to encode a variable-length integer into.
-    typedef boost::error_info<struct tag_specsize, std::streamsize> err_specsize;
+    typedef boost::error_info<struct tag_specsize, std::streamsize>
+        err_specsize;
 
     /// \brief An Element ID.
     typedef boost::error_info<struct tag_id, ids::ID> err_id;
@@ -376,8 +389,8 @@ namespace tide
     typedef boost::error_info<struct tag_par_id, uint32_t> err_par_id;
 
     /// \brief A set of valid element sizes.
-    typedef boost::error_info<struct tag_valid_sizes, std::vector<std::streamsize> >
-        err_valid_sizes;
+    typedef boost::error_info<struct tag_valid_sizes,
+            std::vector<std::streamsize> > err_valid_sizes;
 
     /// \brief The size of an element.
     typedef boost::error_info<struct tag_el_size, std::streamsize> err_el_size;
@@ -393,6 +406,10 @@ namespace tide
 
     /// \brief The requested size of a lace.
     typedef boost::error_info<struct tag_req_lace, unsigned int> err_req_lace;
+
+    /// \brief The size of a frame.
+    typedef boost::error_info<struct tag_frame_size, std::streamsize>
+        err_frame_size;
 }; // namespace tide
 
 /// @}

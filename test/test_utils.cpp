@@ -132,3 +132,16 @@
     }
 }
 
+
+boost::shared_ptr<std::vector<char> > test_utils::make_frame()
+{
+    static int size(10);
+    boost::shared_ptr<std::vector<char> > result(new std::vector<char>);
+    for(unsigned char ii(0); ii < size; ++ii)
+    {
+        result->push_back(ii);
+    }
+    size += 5;
+    return result;
+}
+

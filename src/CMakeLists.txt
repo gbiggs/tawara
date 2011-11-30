@@ -18,7 +18,9 @@ set(srcs tide_impl.cpp
     tracks.cpp
     track_entry.cpp
     track_operation.cpp
-    block_base.cpp
+    block.cpp
+    block_impl.cpp
+    simple_block.cpp
     cluster.cpp
     segment.cpp)
 

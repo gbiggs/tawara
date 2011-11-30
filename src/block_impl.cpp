@@ -1,6 +1,6 @@
 /* Tide
  *
- * Source for the base block type.
+ * Source file for the common Block functionality object.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -25,10 +25,11 @@
  * License along with Tide. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tide/block_base.h>
+#include <tide/block_impl.h>
 
 #include <algorithm>
 #include <boost/foreach.hpp>
+#include <numeric>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
 
@@ -39,15 +40,11 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-BlockBase::BlockBase(uint64_t track_number, int16_t timecode,
+BlockImpl::BlockImpl(uint64_t track_number, int16_t timecode,
         LacingType lacing)
-    : track_num_(track_number), timecode_(timecode), invisible_(false),
+    : Block(track_number, timecode, lacing),
+    track_num_(track_number), timecode_(timecode), invisible_(false),
     lacing_(lacing)
-{
-}
-
-
-BlockBase::~BlockBase()
 {
 }
 
@@ -56,7 +53,7 @@ BlockBase::~BlockBase()
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
-BlockBase& BlockBase::operator=(BlockBase const& other)
+BlockImpl& BlockImpl::operator=(BlockImpl const& other)
 {
     track_num_ = other.track_num_;
     timecode_ = other.timecode_;
@@ -67,7 +64,7 @@ BlockBase& BlockBase::operator=(BlockBase const& other)
 }
 
 
-BlockBase::size_type BlockBase::max_count() const
+BlockImpl::size_type BlockImpl::max_count() const
 {
     if (lacing_ == LACING_NONE)
     {
@@ -77,7 +74,7 @@ BlockBase::size_type BlockBase::max_count() const
 }
 
 
-void BlockBase::push_back(BlockBase::value_type const& value)
+void BlockImpl::push_back(BlockImpl::value_type const& value)
 {
     if (!value)
     {
@@ -94,11 +91,16 @@ void BlockBase::push_back(BlockBase::value_type const& value)
         throw MaxLaceSizeExceeded() << err_max_lace(1) <<
             err_req_lace(frames_.size() + 1);
     }
+    if (frames_.size() > 0 && lacing_ == LACING_FIXED &&
+            value->size() != frames_[0]->size())
+    {
+        throw BadLacedFrameSize() << err_frame_size(value->size());
+    }
     frames_.push_back(value);
 }
 
 
-void BlockBase::resize(BlockBase::size_type count)
+void BlockImpl::resize(BlockImpl::size_type count)
 {
     if (count > 1 && lacing_ == LACING_NONE)
     {
@@ -108,7 +110,7 @@ void BlockBase::resize(BlockBase::size_type count)
 }
 
 
-void BlockBase::swap(BlockBase& other)
+void BlockImpl::swap(BlockImpl& other)
 {
     std::swap(track_num_, other.track_num_);
     std::swap(timecode_, other.timecode_);
@@ -118,11 +120,46 @@ void BlockBase::swap(BlockBase& other)
 }
 
 
+std::streamsize add_size(std::streamsize x, Block::value_type frame)
+{
+    return x + frame->size();
+}
+
+std::streamsize BlockImpl::size() const
+{
+    std::streamsize hdr_size(2);
+
+    hdr_size += tide::vint::size(track_num_);
+
+    switch(lacing_)
+    {
+        case LACING_EBML:
+            hdr_size += 1; // Number of frames
+            if (!frames_.empty())
+            {
+                std::streamsize first_size(frames_[0]->size());
+                hdr_size += 
+            }
+            break;
+        case LACING_FIXED:
+            // Only the number of frames is stored
+            hdr_size += 1;
+            break;
+        case LACING_NONE:
+            // No lacing header
+            break;
+    }
+
+    return hdr_size + std::accumulate(frames_.begin(), frames_.end(), 0,
+            std::ptr_fun(add_size));
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(BlockBase const& lhs, BlockBase const& rhs)
+bool tide::operator==(BlockImpl const& lhs, BlockImpl const& rhs)
 {
     return lhs.track_num_ == rhs.track_num_ &&
         lhs.timecode_ == rhs.timecode_ &&
@@ -136,10 +173,12 @@ bool tide::operator==(BlockBase const& lhs, BlockBase const& rhs)
 // Private functions
 ///////////////////////////////////////////////////////////////////////////////
 
-void BlockBase::validate() const
+void BlockImpl::validate() const
 {
     assert((lacing_ == LACING_NONE && frames_.size() == 1) ||
-            lacing_ != LACING_NONE);
+            (lacing_ != LACING_NONE && frames_.size() > 0));
+
+    std::streamsize first_size(frames_[0]->size());
 
     BOOST_FOREACH(value_type f, frames_)
     {
@@ -153,6 +192,59 @@ void BlockBase::validate() const
             // Pointer has a vector, but it is empty
             throw EmptyFrame();
         }
+        if (f->size() != first_size() && lacing == LACING_FIXED)
+        {
+            // Fixed lacing requires that all frames are the same size
+            throw BadLacedFrameSize() << err_frame_size(f->size());
+        }
+    }
+}
+
+
+uint64_t BlockImpl::s_to_u(int64_t value) const
+{
+    switch (tide::ebml_int::size_s(value))
+    {
+        case 1:
+            return value + 0x3F;
+        case 2:
+            return value + 0x1FFF;
+        case 3:
+            return value + 0x0FFFFF;
+        case 4:
+            return value + 0x07FFFFFF;
+        case 5:
+            return value + 0X03FFFFFFFF;
+        case 6:
+            return value + 0X01FFFFFFFFFF;
+        case 7:
+            return value + 0XFFFFFFFFFFFF;
+        default:
+            throw tide::VarIntTooBig() << tide::err_varint(value);
+    }
+}
+
+
+int64_t BlockImpl::u_to_s(uint64_t value) const
+{
+    switch (tide::vint::size(value))
+    {
+        case 1:
+            return value - 0x3F;
+        case 2:
+            return value - 0x1FFF;
+        case 3:
+            return value - 0x0FFFFF;
+        case 4:
+            return value - 0x07FFFFFF;
+        case 5:
+            return value - 0X03FFFFFFFF;
+        case 6:
+            return value - 0X01FFFFFFFFFF;
+        case 7:
+            return value - 0XFFFFFFFFFFFF;
+        default:
+            throw tide::VarIntTooBig() << tide::err_varint(value);
     }
 }
 

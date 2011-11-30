@@ -35,6 +35,7 @@
 #include <string>
 #include <tide/element.h>
 #include <tide/prim_element.h>
+#include <vector>
 
 
 namespace test_utils
@@ -83,6 +84,10 @@ template<typename T1, typename T2>
     }
     return ::testing::AssertionSuccess();
 }
+
+// Returns a blob of binary data, with a length that increases by 5 bytes
+// each time this function is called.
+boost::shared_ptr<std::vector<char> > make_frame();
 
 }; // test_utils
 

@@ -110,8 +110,8 @@ TEST(TrackJoinBlocks, Size)
 {
     tide::TrackJoinBlocks e;
 
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackJoinBlocks) +
-            tide::vint::coded_size(0),
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackJoinBlocks) +
+            tide::vint::size(0),
             e.size());
 
     std::vector<tide::UIntElement> children;
@@ -126,8 +126,8 @@ TEST(TrackJoinBlocks, Size)
         e.append(child.value());
     }
 
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackJoinBlocks) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackJoinBlocks) +
+            tide::vint::size(body_size) + body_size,
             e.size());
 }
 
@@ -157,8 +157,8 @@ TEST(TrackJoinBlocks, Write)
         child.write(expected);
     }
 
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackJoinBlocks) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackJoinBlocks) +
+            tide::vint::size(body_size) + body_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -185,7 +185,7 @@ TEST(TrackJoinBlocks, Read)
     }
 
     tide::TrackJoinBlocks e;
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(3, e.count());
     EXPECT_EQ(0xFFFF, e[0]);

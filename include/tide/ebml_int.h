@@ -62,7 +62,7 @@ namespace tide
          * \return The size, in bytes, that the integer will require when
          * coded.
          */
-        std::streamsize coded_size_u(uint64_t integer);
+        std::streamsize size_u(uint64_t integer);
 
         /** \brief Get the size of a signed integer after encoding.
          *
@@ -73,7 +73,7 @@ namespace tide
          * \return The size, in bytes, that the integer will require when
          * coded.
          */
-        std::streamsize coded_size_s(int64_t integer);
+        std::streamsize size_s(int64_t integer);
 
         /** \brief Encode an unsigned integer into a buffer.
          *

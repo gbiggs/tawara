@@ -137,7 +137,7 @@ namespace tide
          * storage.
          * \exception InvalidEBMLID if the ID is invalid.
          */
-        std::streamsize coded_size(ID id);
+        std::streamsize size(ID id);
 
         /** \brief Encode an unsigned integer into a buffer.
          *

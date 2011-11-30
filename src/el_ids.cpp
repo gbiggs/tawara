@@ -29,7 +29,7 @@
 #include <tide/exceptions.h>
 
 
-std::streamsize tide::ids::coded_size(tide::ids::ID id)
+std::streamsize tide::ids::size(tide::ids::ID id)
 {
     if (id >= 0x80 && id <= 0xFE)
     {
@@ -73,7 +73,7 @@ std::streamsize tide::ids::coded_size(tide::ids::ID id)
 
 std::vector<char> tide::ids::encode(ID id)
 {
-    std::streamsize c_size(coded_size(id));
+    std::streamsize c_size(size(id));
     std::vector<char> buffer(c_size, 0);
     // Write the remaining bytes
     for (unsigned int ii(0); ii < c_size; ++ii)
@@ -87,7 +87,7 @@ std::vector<char> tide::ids::encode(ID id)
 
 std::streamsize tide::ids::write(tide::ids::ID id, std::ostream& output)
 {
-    std::streamsize c_size(coded_size(id));
+    std::streamsize c_size(size(id));
     // Write the remaining bytes
     for (unsigned int ii(0); ii < c_size; ++ii)
     {
@@ -163,9 +163,9 @@ tide::ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
         reinterpret_cast<char*>(&result)[0] = buffer[ii];
     }
 
-    // Calling coded_size provides a check on the value of the ID, throwing
+    // Calling size provides a check on the value of the ID, throwing
     // InvalidEBMLID if it is not in one of the allowable ranges.
-    coded_size(result);
+    size(result);
     return std::make_pair(result, buffer.begin() + to_copy + 1);
 }
 
@@ -236,11 +236,11 @@ tide::ids::ReadResult tide::ids::read(std::istream& input)
         result += buffer[ii];
     }
 
-    // Calling coded_size provides a check on the value of the ID, throwing
+    // Calling size provides a check on the value of the ID, throwing
     // InvalidEBMLID if it is not in one of the allowable ranges.
     try
     {
-        coded_size(result);
+        size(result);
     }
     catch(boost::exception& e)
     {

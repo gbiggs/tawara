@@ -98,8 +98,8 @@ TEST(Element, Assignment)
 TEST(Element, Size)
 {
     FakeElement e(tide::ids::EBML);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
-            tide::vint::coded_size(0), e.size());
+    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
+            tide::vint::size(0), e.size());
 }
 
 
@@ -117,11 +117,11 @@ TEST(Element, Write)
     FakeElement e(tide::ids::EBML);
     tide::ids::write(tide::ids::EBML, expected);
     tide::vint::write(0, expected);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
-            tide::vint::coded_size(0), e.write(output));
+    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
+            tide::vint::size(0), e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
-    EXPECT_EQ(tide::vint::coded_size(dummy), e.offset());
+    EXPECT_EQ(tide::vint::size(dummy), e.offset());
 }
 
 
@@ -134,11 +134,11 @@ TEST(Element, Read)
     tide::vint::write(dummy, input);
     tide::ids::write(tide::ids::Info, input);
     tide::vint::write(0, input);
-    input.seekg(tide::vint::coded_size(dummy) +
-            tide::ids::coded_size(tide::ids::Info), std::ios::beg);
+    input.seekg(tide::vint::size(dummy) +
+            tide::ids::size(tide::ids::Info), std::ios::beg);
 
-    EXPECT_EQ(tide::vint::coded_size(0), e.read(input));
-    EXPECT_EQ(tide::vint::coded_size(dummy),
+    EXPECT_EQ(tide::vint::size(0), e.read(input));
+    EXPECT_EQ(tide::vint::size(dummy),
             e.offset());
 }
 
@@ -182,7 +182,7 @@ TEST(ElementUtils, SkipWrite)
     tide::skip_write(input, true);
     EXPECT_EQ(ue1.size(), input.tellp());
     EXPECT_EQ(0, input.tellg());
-    input.seekp(tide::ids::coded_size(tide::ids::Null), std::ios::cur);
+    input.seekp(tide::ids::size(tide::ids::Null), std::ios::cur);
     tide::skip_write(input, false);
     EXPECT_EQ(ue1.size() + ue2.size(), input.tellp());
     EXPECT_EQ(0, input.tellg());

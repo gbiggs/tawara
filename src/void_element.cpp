@@ -52,7 +52,7 @@ VoidElement::VoidElement(Element const& element, bool fill)
     // element.size(). Start by estimating the bytes required for the body
     // size.
     size_ = element.size() - 1;
-    size_ -= tide::vint::coded_size(size_);
+    size_ -= tide::vint::size(size_);
     // Check if enough space is used
     if (size() != element.size())
     {
@@ -74,7 +74,7 @@ VoidElement::VoidElement(Element const& element, bool fill)
 std::streamsize VoidElement::size() const
 {
     // ID is always 1 byte
-    return 1 + tide::vint::coded_size(size_) + size_ + extra_size_;
+    return 1 + tide::vint::size(size_) + size_ + extra_size_;
 }
 
 
@@ -97,7 +97,7 @@ std::streamsize VoidElement::write_body(std::ostream& output)
 
     // Write the body size value padded with extra bytes if necessary
     result += tide::vint::write(size_, output,
-            tide::vint::coded_size(size_) + extra_size_);
+            tide::vint::size(size_) + extra_size_);
     if (fill_)
     {
         std::vector<char> zeros(size_, 0);
@@ -125,13 +125,13 @@ std::streamsize VoidElement::read(std::istream& input)
     //
     // The cast here makes Apple's LLVM compiler happy
     offset_ = static_cast<std::streamsize>(input.tellg()) -
-        ids::coded_size(id_);
+        ids::size(id_);
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     size_ = result.first;
     std::streamsize read_bytes(result.second);
     // Record the extra body size byte count for future writing
-    extra_size_ = result.second - tide::vint::coded_size(size_);
+    extra_size_ = result.second - tide::vint::size(size_);
     // The rest of the read is implemented by child classes
     return read_bytes + read_body(input, size_);
 }

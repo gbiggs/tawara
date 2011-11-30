@@ -66,7 +66,7 @@ namespace tide
          * \exception VarIntTooBig if the integer is above the maximum value
          * for variable-length integers (0xFFFFFFFFFFFFFF).
          */
-        std::streamsize coded_size(uint64_t integer);
+        std::streamsize size(uint64_t integer);
 
         /** \brief Encode an unsigned integer into a buffer.
          *
@@ -77,7 +77,7 @@ namespace tide
          * The vector provided as a buffer must already have enough space to
          * store the encoded data reserved. This can be done by either
          * reserving the maximum possible size (8 bytes) or by using
-         * coded_size() to find the required size.
+         * size() to find the required size.
          *
          * \param[in] integer The integer to encode.
          * \param[in] req_size If not zero, then use this length when encoding

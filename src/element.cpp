@@ -58,7 +58,7 @@ Element::Element(uint32_t id)
 std::streamsize Element::size() const
 {
     std::streamsize body(body_size());
-    return tide::ids::coded_size(id_) + tide::vint::coded_size(body) +
+    return tide::ids::size(id_) + tide::vint::size(body) +
         body;
 }
 
@@ -97,7 +97,7 @@ std::streamsize Element::read(std::istream& input)
     //
     // The cast here makes Apple's LLVM compiler happy
     offset_ = static_cast<std::streamsize>(input.tellg()) -
-        ids::coded_size(id_);
+        ids::size(id_);
     // Get the element's body size
     vint::ReadResult result = tide::vint::read(input);
     std::streamsize body_size(result.first);

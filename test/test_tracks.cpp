@@ -232,21 +232,21 @@ TEST(Tracks, Equality)
 TEST(Tracks, Size)
 {
     tide::Tracks e;
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
-            tide::vint::coded_size(0),
+    EXPECT_EQ(tide::ids::size(tide::ids::Tracks) +
+            tide::vint::size(0),
             e.size());
 
     tide::TrackEntry::Ptr entry1(new tide::TrackEntry(1, 2, "MDCC"));
     e.insert(entry1);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
-            tide::vint::coded_size(entry1->size()) +
+    EXPECT_EQ(tide::ids::size(tide::ids::Tracks) +
+            tide::vint::size(entry1->size()) +
             entry1->size(),
             e.size());
 
     tide::TrackEntry::Ptr entry2(new tide::TrackEntry(2, 3, "MDCC"));
     e.insert(entry2);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
-            tide::vint::coded_size(entry1->size() +
+    EXPECT_EQ(tide::ids::size(tide::ids::Tracks) +
+            tide::vint::size(entry1->size() +
             entry2->size()) + entry1->size() +
             entry2->size(), e.size());
 }
@@ -271,8 +271,8 @@ TEST(Tracks, Write)
     tide::vint::write(body_size, expected);
     entry1->write(expected);
     entry2->write(expected);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Tracks) +
-            tide::vint::coded_size(body_size) + entry1->size() +
+    EXPECT_EQ(tide::ids::size(tide::ids::Tracks) +
+            tide::vint::size(body_size) + entry1->size() +
             entry2->size(), e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -299,7 +299,7 @@ TEST(Tracks, Read)
     tide::vint::write(body_size, input);
     entry1.write(input);
     entry2.write(input);
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(e[1]->codec_id(), "Codec1");
     EXPECT_EQ(e[2]->codec_id(), "Codec2");

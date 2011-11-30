@@ -109,26 +109,26 @@ TEST(BaseCluster, Size)
     FakeCluster e;
     tide::UIntElement tc(tide::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
+            tide::vint::size(body_size) + body_size,
             e.size());
 
     tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
     tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    body_size += tide::ids::coded_size(tide::ids::SilentTracks) +
-        tide::vint::coded_size(st1.size() + st2.size()) +
+    body_size += tide::ids::size(tide::ids::SilentTracks) +
+        tide::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size();
     e.silent_tracks().push_back(tide::SilentTrackNumber(1));
     e.silent_tracks().push_back(tide::SilentTrackNumber(2));
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
+            tide::vint::size(body_size) + body_size,
             e.size());
 
     tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
     body_size += ps.size();
     e.previous_size(0x1234);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
+            tide::vint::size(body_size) + body_size,
             e.size());
 }
 
@@ -147,14 +147,14 @@ TEST(BaseCluster, Write)
     tide::ids::write(tide::ids::Cluster, expected);
     tide::vint::write(expected_size, expected);
     tc.write(expected);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
-            tide::vint::coded_size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
+            tide::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
-    expected_size += tide::ids::coded_size(tide::ids::SilentTracks) +
-        tide::vint::coded_size(st1.size() + st2.size()) +
+    expected_size += tide::ids::size(tide::ids::SilentTracks) +
+        tide::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
     e.silent_tracks().push_back(tide::SilentTrackNumber(1));
     e.silent_tracks().push_back(tide::SilentTrackNumber(2));
@@ -169,8 +169,8 @@ TEST(BaseCluster, Write)
     st1.write(expected);
     st2.write(expected);
     ps.write(expected);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Cluster) +
-            tide::vint::coded_size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
+            tide::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -189,14 +189,14 @@ TEST(BaseCluster, Read)
     std::streamsize body_size(tc.size());
     tide::vint::write(body_size, input);
     tc.write(input);
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_TRUE(e.silent_tracks().empty());
     EXPECT_EQ(0, e.previous_size());
 
-    body_size += tide::ids::coded_size(tide::ids::SilentTracks) +
-        tide::vint::coded_size(st1.size() + st2.size()) +
+    body_size += tide::ids::size(tide::ids::SilentTracks) +
+        tide::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
     tide::vint::write(body_size, input);
     tc.write(input);
@@ -205,7 +205,7 @@ TEST(BaseCluster, Read)
     st1.write(input);
     st2.write(input);
     ps.write(input);
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_FALSE(e.silent_tracks().empty());

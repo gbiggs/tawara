@@ -53,7 +53,7 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
     }
     if (write_size)
     {
-        size = tide::ebml_int::coded_size_s(data);
+        size = tide::ebml_int::size_s(data);
         std::vector<char> tmp(tide::vint::encode(size));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
@@ -215,23 +215,23 @@ TEST(IntElement, Write)
     std::ostringstream output;
     std::string expected;
     int64_t value(2);
-    std::streamsize val_size(tide::ebml_int::coded_size_s(value));
+    std::streamsize val_size(tide::ebml_int::size_s(value));
 
     tide::IntElement e1(0x80, value);
     output.str(std::string());
     std::string().swap(expected);
     test_intel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(tide::ids::coded_size(0x80) + tide::vint::coded_size(val_size) +
+    EXPECT_EQ(tide::ids::size(0x80) + tide::vint::size(val_size) +
             val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = -0x839F18AAl;
-    val_size = tide::ebml_int::coded_size_s(value);
+    val_size = tide::ebml_int::size_s(value);
     e1.value(value);
     output.str(std::string());
     std::string().swap(expected);
     test_intel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(tide::ids::coded_size(0x80) + tide::vint::coded_size(val_size) +
+    EXPECT_EQ(tide::ids::size(0x80) + tide::vint::size(val_size) +
             val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
@@ -242,17 +242,17 @@ TEST(IntElement, Read)
     std::istringstream input;
     std::string input_val;
     int64_t value(5);
-    std::streamsize val_size(tide::ebml_int::coded_size_s(value));
+    std::streamsize val_size(tide::ebml_int::size_s(value));
 
     tide::IntElement e(0x80, 0);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read(input));
+    EXPECT_EQ(tide::vint::size(val_size) + val_size, e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_EQ(value, e.value());
 
     value = 0x3A958BCD99l;
-    val_size = tide::ebml_int::coded_size_s(value);
+    val_size = tide::ebml_int::size_s(value);
     e.value(0);
     e.set_default(0);
     EXPECT_TRUE(e.has_default());
@@ -260,7 +260,7 @@ TEST(IntElement, Read)
     std::string().swap(input_val);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::coded_size(val_size) + val_size, e.read(input));
+    EXPECT_EQ(tide::vint::size(val_size) + val_size, e.read(input));
     EXPECT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());

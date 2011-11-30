@@ -376,35 +376,35 @@ TEST(VInt, TooBig)
 
 TEST(VInt, CodedSize)
 {
-    EXPECT_EQ(1, tide::vint::coded_size(0x00));
-    EXPECT_EQ(1, tide::vint::coded_size(0x01));
-    EXPECT_EQ(1, tide::vint::coded_size(0x7F));
+    EXPECT_EQ(1, tide::vint::size(0x00));
+    EXPECT_EQ(1, tide::vint::size(0x01));
+    EXPECT_EQ(1, tide::vint::size(0x7F));
     // 01xxxxxx xxxxxxxx
-    EXPECT_EQ(2, tide::vint::coded_size(0x80));
-    EXPECT_EQ(2, tide::vint::coded_size(0x81));
-    EXPECT_EQ(2, tide::vint::coded_size(0x3FFF));
+    EXPECT_EQ(2, tide::vint::size(0x80));
+    EXPECT_EQ(2, tide::vint::size(0x81));
+    EXPECT_EQ(2, tide::vint::size(0x3FFF));
     // 001xxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(3, tide::vint::coded_size(0x4000));
-    EXPECT_EQ(3, tide::vint::coded_size(0x60000));
-    EXPECT_EQ(3, tide::vint::coded_size(0x1FFFFF));
+    EXPECT_EQ(3, tide::vint::size(0x4000));
+    EXPECT_EQ(3, tide::vint::size(0x60000));
+    EXPECT_EQ(3, tide::vint::size(0x1FFFFF));
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(4, tide::vint::coded_size(0x200000));
-    EXPECT_EQ(4, tide::vint::coded_size(0xFFFFFFF));
+    EXPECT_EQ(4, tide::vint::size(0x200000));
+    EXPECT_EQ(4, tide::vint::size(0xFFFFFFF));
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(5, tide::vint::coded_size(0x10000000));
-    EXPECT_EQ(5, tide::vint::coded_size(0x7FFFFFFFF));
+    EXPECT_EQ(5, tide::vint::size(0x10000000));
+    EXPECT_EQ(5, tide::vint::size(0x7FFFFFFFF));
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(6, tide::vint::coded_size(0x800000000));
-    EXPECT_EQ(6, tide::vint::coded_size(0X3FFFFFFFFFF));
+    EXPECT_EQ(6, tide::vint::size(0x800000000));
+    EXPECT_EQ(6, tide::vint::size(0X3FFFFFFFFFF));
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(7, tide::vint::coded_size(0x40000000000));
-    EXPECT_EQ(7, tide::vint::coded_size(0X1FFFFFFFFFFFF));
+    EXPECT_EQ(7, tide::vint::size(0x40000000000));
+    EXPECT_EQ(7, tide::vint::size(0X1FFFFFFFFFFFF));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(8, tide::vint::coded_size(0x2000000000000));
-    EXPECT_EQ(8, tide::vint::coded_size(0X0FFFFFFFFFFFFFF));
+    EXPECT_EQ(8, tide::vint::size(0x2000000000000));
+    EXPECT_EQ(8, tide::vint::size(0X0FFFFFFFFFFFFFF));
     // Oversize
-    EXPECT_THROW(tide::vint::coded_size(0x100000000000000), tide::VarIntTooBig);
-    EXPECT_THROW(tide::vint::coded_size(0xFFFFFFFFFFFFFFFF), tide::VarIntTooBig);
+    EXPECT_THROW(tide::vint::size(0x100000000000000), tide::VarIntTooBig);
+    EXPECT_THROW(tide::vint::size(0xFFFFFFFFFFFFFFFF), tide::VarIntTooBig);
 }
 
 

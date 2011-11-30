@@ -135,8 +135,8 @@ TEST(EBMLElement, Write)
         el->write(expected);
     }
 
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
-            tide::vint::coded_size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
+            tide::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -177,8 +177,8 @@ TEST(EBMLElement, Write)
     {
         el->write(expected);
     }
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
-            tide::vint::coded_size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
+            tide::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -219,7 +219,7 @@ TEST(EBMLElement, Read)
         el->write(input);
     }
 
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(2, e.version());
     EXPECT_EQ(2, e.read_version());
@@ -263,8 +263,8 @@ TEST(EBMLElement, Size)
 
     // Size with everything defaults
     tide::EBMLElement e1;
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
-            tide::vint::coded_size(31) + 31, e1.size());
+    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
+            tide::vint::size(31) + 31, e1.size());
 
     // Size with non-defaults. Note that EBMLVersion and EBMLReadVersion can
     // never be anything other than the default in this test.
@@ -294,7 +294,7 @@ TEST(EBMLElement, Size)
     e2.max_size_length(7);
     e2.doc_version(2);
     e2.doc_read_version(2);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::EBML) +
-            tide::vint::coded_size(body_size) + body_size, e2.size());
+    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
+            tide::vint::size(body_size) + body_size, e2.size());
 }
 

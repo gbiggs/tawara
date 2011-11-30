@@ -74,8 +74,8 @@ TEST(Seek, Size)
     std::streamsize body_size(be.size() + ue.size());
 
     tide::SeekElement se(tide::ids::SeekHead, 0x1010);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Seek) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Seek) +
+            tide::vint::size(body_size) + body_size,
             se.size());
 }
 
@@ -95,8 +95,8 @@ TEST(Seek, Write)
     tide::vint::write(expected_size, expected);
     be.write(expected);
     ue.write(expected);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Seek) +
-            tide::vint::coded_size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Seek) +
+            tide::vint::size(expected_size) + expected_size,
             se.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -117,7 +117,7 @@ TEST(Seek, Read)
     ue.write(input);
 
     tide::SeekElement e(0x80, 0);
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
         e.read(input));
     EXPECT_EQ(tide::ids::SeekHead, e.indexed_id());
     EXPECT_EQ(12345, e.offset());
@@ -130,7 +130,7 @@ TEST(Seek, Read)
     ue.write(input);
     be.write(input);
 
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
         e.read(input));
     EXPECT_EQ(tide::ids::EBML, e.indexed_id());
     EXPECT_EQ(54321, e.offset());

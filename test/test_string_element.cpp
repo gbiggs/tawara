@@ -249,7 +249,7 @@ TEST(StringElement, Write)
     tide::StringElement e1(tide::ids::Null, value);
     e1.padding(padding);
     test_strel::fill_buffer(expected, tide::ids::Null, value, padding, true, true, true);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Null) + 1 + value.size() + padding,
+    EXPECT_EQ(tide::ids::size(tide::ids::Null) + 1 + value.size() + padding,
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -261,7 +261,7 @@ TEST(StringElement, Write)
     std::string().swap(expected);
     test_strel::fill_buffer(expected, tide::ids::Null, value, padding, true,
             true, true);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Null) + 1 + value.size() +
+    EXPECT_EQ(tide::ids::size(tide::ids::Null) + 1 + value.size() +
             padding, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -274,7 +274,7 @@ TEST(StringElement, Write)
     std::string().swap(expected);
     test_strel::fill_buffer(expected, tide::ids::Null, value, padding, true,
             true, true);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Null) + 1 + value.size() +
+    EXPECT_EQ(tide::ids::size(tide::ids::Null) + 1 + value.size() +
             padding, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -287,7 +287,7 @@ TEST(StringElement, Write)
     std::string().swap(expected);
     test_strel::fill_buffer(expected, tide::ids::Null, value, padding, true,
             true, true);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::Null) + 1 + value.size() +
+    EXPECT_EQ(tide::ids::size(tide::ids::Null) + 1 + value.size() +
             padding, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }

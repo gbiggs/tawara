@@ -69,7 +69,7 @@ IntElement& IntElement::operator=(int64_t const& rhs)
 
 std::streamsize IntElement::body_size() const
 {
-    return tide::ebml_int::coded_size_s(value_);
+    return tide::ebml_int::size_s(value_);
 }
 
 

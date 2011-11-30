@@ -299,8 +299,8 @@ void DoSizeTest(std::vector<test_utils::ElPtr> const& els,
     {
         body_size += el->size();
     }
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackEntry) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackEntry) +
+            tide::vint::size(body_size) + body_size,
             e.size()) << msg;
 }
 
@@ -319,8 +319,8 @@ void DoWriteTest(std::vector<test_utils::ElPtr> const& els,
     {
         el->write(expected);
     }
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackEntry) +
-            tide::vint::coded_size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackEntry) +
+            tide::vint::size(expected_size) + expected_size,
             e.write(output)) << msg;
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str()) << msg;
@@ -417,8 +417,8 @@ TEST(TrackEntry, Size)
     {
         body_size += el->size();
     }
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackEntry) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackEntry) +
+            tide::vint::size(body_size) + body_size,
             e.size());
 
     std::vector<test_utils::ElPtr>
@@ -517,10 +517,10 @@ TEST(TrackEntry, Size)
     e.operation(op);
     body_size = std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp());
-    body_size += tide::ids::coded_size(tide::ids::TrackOperation) +
-        tide::vint::coded_size(op->size()) + op->size();
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackEntry) +
-            tide::vint::coded_size(body_size) + body_size,
+    body_size += tide::ids::size(tide::ids::TrackOperation) +
+        tide::vint::size(op->size()) + op->size();
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackEntry) +
+            tide::vint::size(body_size) + body_size,
             e.size());
 }
 
@@ -628,8 +628,8 @@ TEST(TrackEntry, Write)
     e.operation(op);
     std::streamsize expected_size(std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp()));
-    expected_size += tide::ids::coded_size(tide::ids::TrackOperation) +
-        tide::vint::coded_size(op->size()) + op->size();
+    expected_size += tide::ids::size(tide::ids::TrackOperation) +
+        tide::vint::size(op->size()) + op->size();
     tide::ids::write(tide::ids::TrackEntry, expected);
     tide::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, used_children)
@@ -639,8 +639,8 @@ TEST(TrackEntry, Write)
     tide::ids::write(tide::ids::TrackOperation, expected);
     tide::vint::write(op->size(), expected);
     op->write(expected);
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::TrackEntry) +
-            tide::vint::coded_size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::TrackEntry) +
+            tide::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -662,7 +662,7 @@ TEST(TrackEntry, Read)
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(4, e.number());
     EXPECT_EQ(42, e.uid());
@@ -695,7 +695,7 @@ TEST(TrackEntry, Read)
         {
             uel->write(input);
         }
-        EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+        EXPECT_EQ(tide::vint::size(body_size) + body_size,
             e.read(input));
     }
 

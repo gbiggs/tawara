@@ -70,7 +70,7 @@ UIntElement& UIntElement::operator=(uint64_t const& rhs)
 
 std::streamsize UIntElement::body_size() const
 {
-    return tide::ebml_int::coded_size_u(value_);
+    return tide::ebml_int::size_u(value_);
 }
 
 

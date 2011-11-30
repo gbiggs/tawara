@@ -35,39 +35,39 @@
 
 TEST(ElID, CodedSize)
 {
-    EXPECT_EQ(1, tide::ids::coded_size(0x80));
-    EXPECT_EQ(1, tide::ids::coded_size(0x81));
-    EXPECT_EQ(1, tide::ids::coded_size(0xFE));
-    EXPECT_THROW(tide::ids::coded_size(0xFF), tide::InvalidEBMLID);
+    EXPECT_EQ(1, tide::ids::size(0x80));
+    EXPECT_EQ(1, tide::ids::size(0x81));
+    EXPECT_EQ(1, tide::ids::size(0xFE));
+    EXPECT_THROW(tide::ids::size(0xFF), tide::InvalidEBMLID);
     // 01xxxxxx xxxxxxxx
-    EXPECT_EQ(2, tide::ids::coded_size(0x4000));
-    EXPECT_EQ(2, tide::ids::coded_size(0x7FFE));
-    EXPECT_THROW(tide::ids::coded_size(0x7FFF), tide::InvalidEBMLID);
+    EXPECT_EQ(2, tide::ids::size(0x4000));
+    EXPECT_EQ(2, tide::ids::size(0x7FFE));
+    EXPECT_THROW(tide::ids::size(0x7FFF), tide::InvalidEBMLID);
     // 001xxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(3, tide::ids::coded_size(0x200000));
-    EXPECT_EQ(3, tide::ids::coded_size(0x3FFFFE));
-    EXPECT_THROW(tide::ids::coded_size(0x3FFFFF), tide::InvalidEBMLID);
+    EXPECT_EQ(3, tide::ids::size(0x200000));
+    EXPECT_EQ(3, tide::ids::size(0x3FFFFE));
+    EXPECT_THROW(tide::ids::size(0x3FFFFF), tide::InvalidEBMLID);
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(4, tide::ids::coded_size(0x10000000));
-    EXPECT_EQ(4, tide::ids::coded_size(0x1FFFFFFE));
-    EXPECT_THROW(tide::ids::coded_size(0x1FFFFFFF), tide::InvalidEBMLID);
+    EXPECT_EQ(4, tide::ids::size(0x10000000));
+    EXPECT_EQ(4, tide::ids::size(0x1FFFFFFE));
+    EXPECT_THROW(tide::ids::size(0x1FFFFFFF), tide::InvalidEBMLID);
     /* Uncomment this if EBML IDs expand to 64 bits.
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(5, tide::ids::coded_size(0x0800000000));
-    EXPECT_EQ(5, tide::ids::coded_size(0x0FFFFFFFFE));
-    EXPECT_THROW(tide::ids::coded_size(0x0FFFFFFFFF), tide::InvalidEBMLID);
+    EXPECT_EQ(5, tide::ids::size(0x0800000000));
+    EXPECT_EQ(5, tide::ids::size(0x0FFFFFFFFE));
+    EXPECT_THROW(tide::ids::size(0x0FFFFFFFFF), tide::InvalidEBMLID);
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(6, tide::ids::coded_size(0x040000000000));
-    EXPECT_EQ(6, tide::ids::coded_size(0X07FFFFFFFFFE));
-    EXPECT_THROW(tide::ids::coded_size(0x07FFFFFFFFFF), tide::InvalidEBMLID);
+    EXPECT_EQ(6, tide::ids::size(0x040000000000));
+    EXPECT_EQ(6, tide::ids::size(0X07FFFFFFFFFE));
+    EXPECT_THROW(tide::ids::size(0x07FFFFFFFFFF), tide::InvalidEBMLID);
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(7, tide::ids::coded_size(0x02000000000000));
-    EXPECT_EQ(7, tide::ids::coded_size(0X03FFFFFFFFFFFE));
-    EXPECT_THROW(tide::ids::coded_size(0x03FFFFFFFFFFFF), tide::InvalidEBMLID);
+    EXPECT_EQ(7, tide::ids::size(0x02000000000000));
+    EXPECT_EQ(7, tide::ids::size(0X03FFFFFFFFFFFE));
+    EXPECT_THROW(tide::ids::size(0x03FFFFFFFFFFFF), tide::InvalidEBMLID);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(8, tide::ids::coded_size(0x0100000000000000));
-    EXPECT_EQ(8, tide::ids::coded_size(0X01FFFFFFFFFFFFFE));
-    EXPECT_THROW(tide::ids::coded_size(0x01FFFFFFFFFFFFFFF),
+    EXPECT_EQ(8, tide::ids::size(0x0100000000000000));
+    EXPECT_EQ(8, tide::ids::size(0X01FFFFFFFFFFFFFE));
+    EXPECT_THROW(tide::ids::size(0x01FFFFFFFFFFFFFFF),
             tide::InvalidEBMLID);
     */
 }

@@ -98,8 +98,8 @@ TEST(Metaseek, Size)
 {
     tide::Metaseek ms;
 
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
-            tide::vint::coded_size(0),
+    EXPECT_EQ(tide::ids::size(tide::ids::SeekHead) +
+            tide::vint::size(0),
             ms.size());
 
     std::vector<tide::SeekElement> children;
@@ -113,8 +113,8 @@ TEST(Metaseek, Size)
         body_size += e.size();
         ms.append(tide::Metaseek::IndexItem(e.indexed_id(), e.offset()));
     }
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::SeekHead) +
+            tide::vint::size(body_size) + body_size,
             ms.size());
 }
 
@@ -144,8 +144,8 @@ TEST(Metaseek, Write)
         e.write(expected);
     }
 
-    EXPECT_EQ(tide::ids::coded_size(tide::ids::SeekHead) +
-            tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::SeekHead) +
+            tide::vint::size(body_size) + body_size,
             ms.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -172,7 +172,7 @@ TEST(Metaseek, Read)
     }
 
     tide::Metaseek ms;
-    EXPECT_EQ(tide::vint::coded_size(body_size) + body_size,
+    EXPECT_EQ(tide::vint::size(body_size) + body_size,
             ms.read(input));
     EXPECT_EQ(3, ms.index_size());
     tide::Metaseek::IndexItem ii(ms[0]);
@@ -188,7 +188,7 @@ TEST(Metaseek, Read)
     // No children at all
     input.str(std::string());
     tide::vint::write(0, input);
-    EXPECT_EQ(tide::vint::coded_size(0), ms.read(input));
+    EXPECT_EQ(tide::vint::size(0), ms.read(input));
     // Metaseek should be clearing its stored index before reading, so the
     // previous test's index should not affect this result
     EXPECT_EQ(0, ms.index_size());

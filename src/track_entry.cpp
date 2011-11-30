@@ -243,8 +243,8 @@ std::streamsize TrackEntry::body_size() const
     }
     if (operation_)
     {
-        size += tide::ids::coded_size(ids::TrackOperation) +
-            tide::vint::coded_size(operation_->size()) +
+        size += tide::ids::size(ids::TrackOperation) +
+            tide::vint::size(operation_->size()) +
             operation_->size();
     }
     return size;

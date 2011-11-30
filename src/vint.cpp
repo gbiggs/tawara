@@ -29,7 +29,7 @@
 #include <tide/exceptions.h>
 
 
-std::streamsize tide::vint::coded_size(uint64_t integer)
+std::streamsize tide::vint::size(uint64_t integer)
 {
     if (integer < 0x80)
     {
@@ -78,7 +78,7 @@ std::vector<char> tide::vint::encode(uint64_t integer, std::streamsize req_size)
     uint8_t mask(0);
     std::vector<char> buffer;
 
-    std::streamsize c_size(coded_size(integer));
+    std::streamsize c_size(size(integer));
     if (req_size > 0)
     {
         if (req_size < c_size)
@@ -211,7 +211,7 @@ std::streamsize tide::vint::write(uint64_t integer, std::ostream& output,
     unsigned int shifts(0);
     uint8_t mask(0);
 
-    std::streamsize c_size(coded_size(integer));
+    std::streamsize c_size(size(integer));
     if (req_size > 0)
     {
         if (req_size < c_size)

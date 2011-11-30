@@ -29,7 +29,7 @@
 #include <tide/exceptions.h>
 
 
-std::streamsize tide::ebml_int::coded_size_u(uint64_t integer)
+std::streamsize tide::ebml_int::size_u(uint64_t integer)
 {
     if (integer == 0)
     {
@@ -70,7 +70,7 @@ std::streamsize tide::ebml_int::coded_size_u(uint64_t integer)
 }
 
 
-std::streamsize tide::ebml_int::coded_size_s(int64_t integer)
+std::streamsize tide::ebml_int::size_s(int64_t integer)
 {
     if (integer == 0)
     {
@@ -119,7 +119,7 @@ std::vector<char> tide::ebml_int::encode_u(uint64_t integer)
         // Zero values are encoded as nothing
         return buffer;
     }
-    std::streamsize size(coded_size_u(integer));
+    std::streamsize size(size_u(integer));
     buffer.assign(size, 0);
     for (std::streamsize ii(0); ii < size; ++ii)
     {
@@ -139,7 +139,7 @@ std::vector<char> tide::ebml_int::encode_s(int64_t integer)
         // Zero values are encoded as nothing
         return buffer;
     }
-    std::streamsize size(coded_size_s(integer));
+    std::streamsize size(size_s(integer));
     buffer.assign(size, 0);
     for (std::streamsize ii(0); ii < size; ++ii)
     {

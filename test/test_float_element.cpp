@@ -289,7 +289,7 @@ TEST(FloatElement, Write)
 
     tide::FloatElement e1(0x80, value, tide::EBML_FLOAT_PREC_DOUBLE);
     test_flel::fill_buffer(expected, 0x80, value, true, true, true, true);
-    EXPECT_EQ(tide::ids::coded_size(0x80) + 9, e1.write(output));
+    EXPECT_EQ(tide::ids::size(0x80) + 9, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = 3.14159;
@@ -298,7 +298,7 @@ TEST(FloatElement, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x80, value, true, true, true, false);
-    EXPECT_EQ(tide::ids::coded_size(0x80) + 5, e1.write(output));
+    EXPECT_EQ(tide::ids::size(0x80) + 5, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 

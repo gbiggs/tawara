@@ -72,10 +72,10 @@ std::streamsize Cluster::body_size() const
 
     if (!silent_tracks_.empty())
     {
-        result += ids::coded_size(ids::SilentTracks);
+        result += ids::size(ids::SilentTracks);
         std::streamsize st_size(std::accumulate(silent_tracks_.begin(),
                     silent_tracks_.end(), 0, std::ptr_fun(add_size)));
-        result += vint::coded_size(st_size) + st_size;
+        result += vint::size(st_size) + st_size;
     }
     if (position_ != 0)
     {

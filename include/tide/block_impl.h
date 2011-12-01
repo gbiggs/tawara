@@ -150,6 +150,44 @@ namespace tide
              */
             std::streamsize size() const;
 
+            /** \brief Write the block data to an output stream.
+             *
+             * This function performs the write of the block header and all
+             * stored frames.
+             *
+             * Before performing the write, the block is validated. This may
+             * cause exceptions to be raised if the block is in an invalid
+             * state.
+             *
+             * \param[in] output The output byte stream to write data to.
+             * \param[in] extra_flags Extra flags to add to the flags contained
+             * in this block.
+             * \return The number of bytes written.
+             * \exception EmptyFrame if an empty frame is found.
+             * \exception BadLacedFrameSize if fixed lacing is used and all
+             * frames are not the same size.
+             * \exception WriteError if an error occurs writing data.
+             */
+            std::streamsize write(std::ostream& output, uint8_t extra_flags);
+
+            /** \brief The return result of a read.
+             *
+             * The first contains the number of bytes read.
+             * The second contains any extra flags that were stored in the
+             * block.
+             */
+            typedef std::pair<std::streamsize, uint8_t> ReadResult;
+            /** \brief Read the block data from an input stream.
+             *
+             * This function reads a block header and all stored frames.
+             *
+             * \param[in] The input byte stream to read from.
+             * \return The number of bytes read and any extra flags that were
+             * present in the block.
+             * \exception ReadError if an error occurs reading data.
+             */
+            ReadResult read(std::istream& input);
+
             /// \brief Equality operator.
             friend bool operator==(BlockImpl const& lhs, BlockImpl const& rhs);
 
@@ -162,12 +200,6 @@ namespace tide
 
             /// \brief Checks that the block is in a good condition to write.
             void validate() const;
-
-            /// \brief Offsets a signed integer into unsigned territory.
-            uint64_t s_to_u(int64_t value) const;
-
-            /// \brief Offsets an unsigned integer into signed territory.
-            int64_t u_to_s(uint64_t value) const;
     }; // class BlockImpl
 
     /// \brief Equality operator for BlockImpl objects.

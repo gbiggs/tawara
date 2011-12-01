@@ -32,6 +32,7 @@
 #include <numeric>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
+#include <tide/vint.h>
 
 using namespace tide;
 
@@ -127,7 +128,8 @@ std::streamsize add_size(std::streamsize x, Block::value_type frame)
 
 std::streamsize BlockImpl::size() const
 {
-    std::streamsize hdr_size(2);
+    // Timecode (2) + flags (1)
+    std::streamsize hdr_size(3);
 
     hdr_size += tide::vint::size(track_num_);
 
@@ -137,8 +139,16 @@ std::streamsize BlockImpl::size() const
             hdr_size += 1; // Number of frames
             if (!frames_.empty())
             {
-                std::streamsize first_size(frames_[0]->size());
-                hdr_size += 
+                std::streamsize prev_size(frames_[0]->size());
+                hdr_size += vint::size(prev_size);
+                // Add the size of each of the remaining frames except the last
+                BOOST_FOREACH(value_type frame,
+                        std::make_pair(frames_.begin() + 1, frames_.end() - 1))
+                {
+                    std::streamsize size_diff(frame->size() - prev_size);
+                    prev_size = frame->size();
+                    hdr_size += vint::size(vint::s_to_u(size_diff));
+                }
             }
             break;
         case LACING_FIXED:
@@ -170,6 +180,105 @@ bool tide::operator==(BlockImpl const& lhs, BlockImpl const& rhs)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// I/O
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize BlockImpl::write(std::ostream& output, uint8_t extra_flags)
+{
+    validate();
+
+    std::streamsize written(0);
+
+    // Write the track number
+    written += vint::write(track_num_, output);
+    // Write the time code (2 bytes)
+    output.put(timecode_ >> 8);
+    output.put(timecode_ & 0x00FF);
+    if (!output)
+    {
+        throw tide::WriteError() << tide::err_pos(output.tellp());
+    }
+    written += 2;
+    // Prepare and write the flags
+    uint8_t flags(extra_flags);
+    if (invisible_)
+    {
+        flags |= 0x10;
+    }
+    switch (lacing_)
+    {
+        case Block::LACING_EBML:
+            flags |= 0x60;
+            break;
+        case Block::LACING_FIXED:
+            flags |= 0x40;
+            break;
+        case LACING_NONE:
+            // Nothing to do for no lacing
+            break;
+    }
+    output.put(flags);
+    if (!output)
+    {
+        throw tide::WriteError() << tide::err_pos(output.tellp());
+    }
+    written += 1;
+    // Write the lacing header
+    uint8_t num_frames(frames_.size());
+    std::streamsize prev_size(0);
+    switch (lacing_)
+    {
+        case Block::LACING_EBML:
+            output.put(num_frames);
+            if (!output)
+            {
+                throw tide::WriteError() << tide::err_pos(output.tellp());
+            }
+            written += 1;
+            // Write the first frame size as an unsigned integer
+            prev_size = frames_[0]->size();
+            written += vint::write(prev_size, output);
+            // Loop over the remaining frames
+            BOOST_FOREACH(value_type frame,
+                    std::make_pair(frames_.begin() + 1, frames_.end()))
+            {
+                std::streamsize size_diff(frame->size() - prev_size);
+                prev_size = frame->size();
+                // Write the frame size as an offset signed integer
+                written += vint::write(vint::s_to_u(size_diff));
+            }
+            break;
+        case Block::LACING_FIXED:
+            output.put(num_frames);
+            if (!output)
+            {
+                throw tide::WriteError() << tide::err_pos(output.tellp());
+            }
+            written += 1;
+            break;
+        case LACING_NONE:
+            // Nothing to do for no lacing
+            break;
+    }
+    // Write the frames
+    BOOST_FOREACH(value_type frame, frames_)
+    {
+        output.write(&(*frame)[0], frame->size());
+        if (!output)
+        {
+            throw tide::WriteError() << tide::err_pos(output.tellp());
+        }
+        written += frame->size();
+    }
+}
+
+
+BlockImpl::ReadResult BlockImpl::read(std::istream& input)
+{
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // Private functions
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -192,59 +301,11 @@ void BlockImpl::validate() const
             // Pointer has a vector, but it is empty
             throw EmptyFrame();
         }
-        if (f->size() != first_size() && lacing == LACING_FIXED)
+        if (f->size() != first_size && lacing_ == Block::LACING_FIXED)
         {
             // Fixed lacing requires that all frames are the same size
             throw BadLacedFrameSize() << err_frame_size(f->size());
         }
-    }
-}
-
-
-uint64_t BlockImpl::s_to_u(int64_t value) const
-{
-    switch (tide::ebml_int::size_s(value))
-    {
-        case 1:
-            return value + 0x3F;
-        case 2:
-            return value + 0x1FFF;
-        case 3:
-            return value + 0x0FFFFF;
-        case 4:
-            return value + 0x07FFFFFF;
-        case 5:
-            return value + 0X03FFFFFFFF;
-        case 6:
-            return value + 0X01FFFFFFFFFF;
-        case 7:
-            return value + 0XFFFFFFFFFFFF;
-        default:
-            throw tide::VarIntTooBig() << tide::err_varint(value);
-    }
-}
-
-
-int64_t BlockImpl::u_to_s(uint64_t value) const
-{
-    switch (tide::vint::size(value))
-    {
-        case 1:
-            return value - 0x3F;
-        case 2:
-            return value - 0x1FFF;
-        case 3:
-            return value - 0x0FFFFF;
-        case 4:
-            return value - 0x07FFFFFF;
-        case 5:
-            return value - 0X03FFFFFFFF;
-        case 6:
-            return value - 0X01FFFFFFFFFF;
-        case 7:
-            return value - 0XFFFFFFFFFFFF;
-        default:
-            throw tide::VarIntTooBig() << tide::err_varint(value);
     }
 }
 

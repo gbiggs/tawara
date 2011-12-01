@@ -73,19 +73,46 @@ bool tide::operator==(SimpleBlock const& lhs, SimpleBlock const& rhs)
 
 std::streamsize SimpleBlock::body_size() const
 {
-    return 0;
+    return block_.size();
 }
 
 
 std::streamsize SimpleBlock::write_body(std::ostream& output)
 {
-    return 0;
+    uint8_t extra_flags(0);
+
+    if (keyframe_)
+    {
+        extra_flags |= 0b00000001;
+    }
+    if (discardable_)
+    {
+        extra_flags |= 0b10000000;
+    }
+    return block_.write(output, extra_flags);
 }
 
 
 std::streamsize SimpleBlock::read_body(std::istream& input,
         std::streamsize size)
 {
-    return 0;
+    BlockImpl::ReadResult res(block_.read(input));
+    if (res.second & 0b00000001)
+    {
+        keyframe_ = true;
+    }
+    else
+    {
+        keyframe_ = false;
+    }
+    if (res.second_ & 0b1000000)
+    {
+        discardable_ = true;
+    }
+    else
+    {
+        discardable_ = false;
+    }
+    return res.first;
 }
 

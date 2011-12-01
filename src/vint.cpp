@@ -70,6 +70,67 @@ std::streamsize tide::vint::size(uint64_t integer)
 }
 
 
+tide::vint::OffsetInt tide::vint::s_to_u(int64_t integer)
+{
+    if (integer >= -0x3F && integer <= 0x3F)
+    {
+        return std::make_pair(integer + 0x3F, 1);
+    }
+    else if (integer >= -0x1FFF && integer <= 0x1FFF)
+    {
+        return std::make_pair(integer + 0x1FFF, 2);
+    }
+    else if (integer >= -0x0FFFFF && integer <= 0x0FFFFF)
+    {
+        return std::make_pair(integer + 0x0FFFFF, 3);
+    }
+    else if (integer >= -0x07FFFFFF && integer <= 0x07FFFFFF)
+    {
+        return std::make_pair(integer + 0x07FFFFFF, 4);
+    }
+    else if (integer >= -0x03FFFFFFFF && integer <= 0x03FFFFFFFF)
+    {
+        return std::make_pair(integer + 0x03FFFFFFFF, 5);
+    }
+    else if (integer >= -0x01FFFFFFFFFF && integer <= 0x01FFFFFFFFFF)
+    {
+        return std::make_pair(integer + 0x01FFFFFFFFFF, 6);
+    }
+    else if (integer >= -0xFFFFFFFFFFFF && integer <= 0xFFFFFFFFFFFF)
+    {
+        return std::make_pair(integer + 0xFFFFFFFFFFFF, 7);
+    }
+    else
+    {
+        throw tide::VarIntTooBig() << tide::err_varint(integer);
+    }
+}
+
+
+int64_t tide::vint::u_to_s(tide::vint::OffsetInt integer)
+{
+    switch (integer.second)
+    {
+        case 1:
+            return integer.first - 0x3F;
+        case 2:
+            return integer.first - 0x1FFF;
+        case 3:
+            return integer.first - 0x0FFFFF;
+        case 4:
+            return integer.first - 0x07FFFFFF;
+        case 5:
+            return integer.first - 0x03FFFFFFFF;
+        case 6:
+            return integer.first - 0x01FFFFFFFFFF;
+        case 7:
+            return integer.first - 0xFFFFFFFFFFFF;
+        default:
+            throw tide::VarIntTooBig() << tide::err_varint(integer.first);
+    }
+}
+
+
 std::vector<char> tide::vint::encode(uint64_t integer, std::streamsize req_size)
 {
     assert(req_size <= 8);

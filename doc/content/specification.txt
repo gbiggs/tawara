@@ -934,10 +934,11 @@ fixed-size lacing.
 EBML lacing
 '''''''''''
 
-In EBML lacing, the size of each block's data in a lace is stored as
-the difference with the previous size, encoded as an EBML unsigned
-variable-length integer. Range-shifting is used to get a sign in the
-value by subtracting half the available range:
+In EBML lacing, the size of each block's data in a lace is stored as the
+difference with the previous size, encoded as an EBML unsigned
+variable-length integer. The first value is always an unsigned integer,
+while the remainder are stored as signed integers. Range-shifting is
+used to get a sign in the value by subtracting half the available range:
 
 ============== ========
 Integer length Offset

@@ -68,6 +68,45 @@ namespace tide
          */
         std::streamsize size(uint64_t integer);
 
+        /** \brief The result type of s_to_u().
+         *
+         * The first contains the offset integer.
+         * The second contains the number of bytes to be used to store the
+         * integer.
+         */
+        typedef std::pair<uint64_t, std::streamsize> OffsetInt;
+        /** \brief Offsets a signed integer into unsigned territory.
+         *
+         * EBML variable-length integers are always unsigned. In order to
+         * represent a signed integer, as is done in laced blocks using EBML
+         * lacing, it must be offset into the unsigned territory. This function
+         * offsets a signed integer by half the range of its required storage
+         * space to make it unsigned.
+         *
+         * \param[in] integer The integer to offset.
+         * \return The offset integer as an unsigned data type and the number
+         * of bytes it requires.
+         * \exception VarIntTooBig if the integer is above the maximum value
+         * for variable-length integers (0xFFFFFFFFFFFFFF).
+         */
+        OffsetInt s_to_u(int64_t integer);
+
+        /** \brief Offsets an unsigned integer into signed territory.
+         *
+         * EBML variable-length integers are always unsigned. In order to
+         * represent a signed integer, as is done in laced blocks using EBML
+         * lacing, it must be offset into the unsigned territory. This function
+         * offsets an unsigned integer by half the range of its required
+         * storage space to make it signed.
+         *
+         * \param[in] integer The integer to offset, including both the integer
+         * itself and its size in bytes.
+         * \return The offset integer as a signed data type.
+         * \exception VarIntTooBig if the integer is above the maximum value
+         * for variable-length integers (0xFFFFFFFFFFFFFF).
+         */
+        int64_t u_to_s(OffsetInt integer);
+
         /** \brief Encode an unsigned integer into a buffer.
          *
          * Encodes an unsigned variable-length integer according to the EBML

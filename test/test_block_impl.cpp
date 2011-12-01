@@ -319,25 +319,25 @@ TEST(BlockImpl, Equality)
 }
 
 
-TEST(BlockImpl, FrameDataSize)
+TEST(BlockImpl, Size)
 {
     tide::BlockImpl b(1, 12345, tide::Block::LACING_NONE);
     tide::Block::value_type f1(test_utils::make_frame());
     tide::Block::value_type f2(test_utils::make_frame());
     tide::Block::value_type f3(test_utils::make_frame());
+    std::streamsize frames_size = f1->size() + f2->size() + f3->size();
 
     b.push_back(f1);
     // The 3 bytes are for the timecode and flags
-    EXPECT_EQ(tide::vint::size(1) + 3 + f1->size(), b.frame_data_size());
+    EXPECT_EQ(tide::vint::size(1) + 3 + f1->size(), b.size());
 
     b.lacing(tide::Block::LACING_EBML);
-    std::streamsize expected_size = f1->size() + f2->size() + f3->size();
     b.push_back(f2);
     b.push_back(f3);
     // Extra 1 byte for number of frames in the lace
-    EXPECT_EQ(tide::vint::size(1) + 3 + 1 + tide::vint::size_u(f1->size()) +
-            tide::vint::size_u(f2->size() - f1->size() + 0x1F) + expected_size,
-            b.frame_data_size());
+    EXPECT_EQ(tide::vint::size(1) + 3 + 1 + tide::vint::size(f1->size()) +
+            tide::vint::s_to_u(f2->size() - f1->size()).second +
+            frames_size, b.size());
 
     b.lacing(tide::Block::LACING_FIXED);
     b.clear();
@@ -345,7 +345,326 @@ TEST(BlockImpl, FrameDataSize)
     b.push_back(f1);
     b.push_back(f1);
     // Extra 1 byte for number of frames in the lace
-    EXPECT_EQ(tide::vint::size(1) + 3 + 1 + expected_size,
-            b.frame_data_size());
+    EXPECT_EQ(tide::vint::size(1) + 3 + 1 + 3 * f1->size(), b.size());
+}
+
+
+TEST(BlockImpl, Write)
+{
+    std::ostringstream output;
+    std::stringstream expected;
+    std::streamsize expected_size(0);
+
+    unsigned int track_num(1);
+    unsigned int timecode(12345);
+
+    tide::BlockImpl b(track_num, timecode);
+    tide::Block::value_type f1(test_utils::make_frame());
+    tide::Block::value_type f2(test_utils::make_frame());
+    tide::Block::value_type f3(test_utils::make_frame());
+    std::streamsize frame_size = f1->size() + f2->size() + f3->size();
+    tide::vint::OffsetInt f2_lace_size(tide::vint::s_to_u(f2->size() -
+                f1->size()));
+
+    // No lacing
+    b.lacing(tide::Block::LACING_NONE);
+    b.push_back(f1);
+    tide::vint::write(track_num, expected);
+    expected.put(timecode >> 8);
+    expected.put(timecode & 0xFF);
+    expected.put(0); // Flags
+    expected.write(&(*f1)[0], f1->size());
+    expected_size = tide::vint::size(track_num) + 3 + f1->size();
+    EXPECT_EQ(expected_size, b.write(output, 0));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
+            expected.str());
+    EXPECT_EQ(0, output.str()[tide::vint::size(track_num) + 2]);
+
+    // EBML lacing
+    output.str(std::string());
+    expected.str(std::string());
+    b.lacing(tide::Block::LACING_EBML);
+    b.push_back(f2);
+    b.push_back(f3);
+    tide::vint::write(track_num, expected);
+    expected.put(timecode >> 8);
+    expected.put(timecode & 0xFF);
+    expected.put(0x60); // Flags
+    expected.put(3); // Lace header - number of frames
+    tide::vint::write(f1->size(), expected);
+    tide::vint::write(f2_lace_size.first, expected, f2_lace_size.second);
+    expected.write(&(*f1)[0], f1->size());
+    expected.write(&(*f2)[0], f2->size());
+    expected.write(&(*f3)[0], f3->size());
+    expected_size = tide::vint::size(track_num) + 3 + 1 +
+        tide::vint::size(f1->size()) +
+        tide::vint::s_to_u(f2->size() - f1->size()).second + frame_size;
+    EXPECT_EQ(expected_size, b.write(output, 0));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
+            expected.str());
+    EXPECT_EQ(0x60, output.str()[tide::vint::size(track_num) + 2]);
+
+    // Fixed lacing
+    output.str(std::string());
+    expected.str(std::string());
+    b.lacing(tide::Block::LACING_FIXED);
+    b.clear();
+    b.push_back(f1);
+    b.push_back(f1);
+    b.push_back(f1);
+    tide::vint::write(track_num, expected);
+    expected.put(timecode >> 8);
+    expected.put(timecode & 0xFF);
+    expected.put(0x40); // Flags
+    expected.put(3); // Lace header - number of frames
+    expected.write(&(*f1)[0], f1->size());
+    expected.write(&(*f1)[0], f1->size());
+    expected.write(&(*f1)[0], f1->size());
+    expected_size = tide::vint::size(track_num) + 3 + 1 + 3 * f1->size();
+    EXPECT_EQ(expected_size, b.write(output, 0));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
+            expected.str());
+    EXPECT_EQ(0x40, output.str()[tide::vint::size(track_num) + 2]);
+
+    // Invisible flag set
+    output.str(std::string());
+    expected.str(std::string());
+    b.invisible(true);
+    b.lacing(tide::Block::LACING_NONE);
+    b.clear();
+    b.push_back(f1);
+    tide::vint::write(track_num, expected);
+    expected.put(timecode >> 8);
+    expected.put(timecode & 0xFF);
+    expected.put(0x10); // Flags
+    expected.write(&(*f1)[0], f1->size());
+    expected_size = tide::vint::size(track_num) + 3 + f1->size();
+    EXPECT_EQ(expected_size, b.write(output, 0));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
+            expected.str());
+    EXPECT_EQ(0x10, output.str()[tide::vint::size(track_num) + 2]);
+
+    // Empty block
+    b.clear();
+    EXPECT_THROW(b.write(output, 0), tide::EmptyBlock);
+
+    // Empty frame
+    tide::Block::value_type empty_frame;
+    b.clear();
+    b.push_back(f1);
+    b[0] = empty_frame;
+    EXPECT_THROW(b.write(output, 0), tide::EmptyFrame);
+
+    // Unequal frame sizes
+    b.clear();
+    b.lacing(tide::Block::LACING_EBML);
+    b.push_back(f1);
+    b.push_back(f2);
+    b.lacing(tide::Block::LACING_FIXED);
+    EXPECT_THROW(b.write(output, 0), tide::BadLacedFrameSize);
+}
+
+
+TEST(BlockImpl, Read)
+{
+    std::stringstream input;
+    std::streamsize expected_size(0);
+
+    unsigned int track_num(1);
+    unsigned int timecode(12345);
+
+    tide::BlockImpl b(0, 0);
+    b.lacing(tide::Block::LACING_FIXED);
+    b.invisible(true);
+
+    tide::Block::value_type f1(test_utils::make_frame());
+    tide::Block::value_type f2(test_utils::make_frame());
+    tide::Block::value_type f3(test_utils::make_frame());
+    std::streamsize frame_size = f1->size() + f2->size() + f3->size();
+    tide::vint::OffsetInt f2_lace_size(tide::vint::s_to_u(f2->size() -
+                f1->size()));
+
+    // No lacing
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0); // Flags
+    input.write(&(*f1)[0], f1->size());
+    expected_size = tide::vint::size(track_num) + 3 + f1->size();
+    tide::BlockImpl::ReadResult res = b.read(input, expected_size);
+    EXPECT_EQ(expected_size, res.first);
+    EXPECT_EQ(0, res.second);
+    EXPECT_EQ(track_num, b.track_number());
+    EXPECT_EQ(timecode, b.timecode());
+    EXPECT_FALSE(b.invisible());
+    EXPECT_EQ(tide::Block::LACING_NONE, b.lacing());
+    EXPECT_EQ(1, b.count());
+    EXPECT_EQ(f1->size(), b[0]->size());
+
+    // EBML lacing
+    input.str(std::string());
+    b.clear();
+    b.track_number(0);
+    b.timecode(0);
+    b.lacing(tide::Block::LACING_FIXED);
+    b.invisible(true);
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x60); // Flags
+    input.put(3); // Lace header - number of frames
+    tide::vint::write(f1->size(), input);
+    tide::vint::write(f2_lace_size.first, input, f2_lace_size.second);
+    input.write(&(*f1)[0], f1->size());
+    input.write(&(*f2)[0], f2->size());
+    input.write(&(*f3)[0], f3->size());
+    expected_size = tide::vint::size(track_num) + 3 + 1 +
+        tide::vint::size(f1->size()) +
+        tide::vint::s_to_u(f2->size() - f1->size()).second + frame_size;
+    res = b.read(input, expected_size);
+    EXPECT_EQ(expected_size, res.first);
+    EXPECT_EQ(0, res.second);
+    EXPECT_EQ(track_num, b.track_number());
+    EXPECT_EQ(timecode, b.timecode());
+    EXPECT_FALSE(b.invisible());
+    EXPECT_EQ(tide::Block::LACING_EBML, b.lacing());
+    EXPECT_EQ(3, b.count());
+    EXPECT_EQ(f1->size(), b[0]->size());
+    EXPECT_EQ(f2->size(), b[1]->size());
+    EXPECT_EQ(f3->size(), b[2]->size());
+
+    // Fixed lacing
+    input.str(std::string());
+    b.clear();
+    b.track_number(0);
+    b.timecode(0);
+    b.lacing(tide::Block::LACING_NONE);
+    b.invisible(true);
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x40); // Flags
+    input.put(3); // Lace header - number of frames
+    input.write(&(*f1)[0], f1->size());
+    input.write(&(*f1)[0], f1->size());
+    input.write(&(*f1)[0], f1->size());
+    expected_size = tide::vint::size(track_num) + 3 + 1 + 3 * f1->size();
+    res = b.read(input, expected_size);
+    EXPECT_EQ(expected_size, res.first);
+    EXPECT_EQ(0, res.second);
+    EXPECT_EQ(track_num, b.track_number());
+    EXPECT_EQ(timecode, b.timecode());
+    EXPECT_FALSE(b.invisible());
+    EXPECT_EQ(tide::Block::LACING_FIXED, b.lacing());
+    EXPECT_EQ(3, b.count());
+    EXPECT_EQ(f1->size(), b[0]->size());
+    EXPECT_EQ(f1->size(), b[1]->size());
+    EXPECT_EQ(f1->size(), b[2]->size());
+
+    // Invisible flag set
+    input.str(std::string());
+    b.clear();
+    b.track_number(0);
+    b.timecode(0);
+    b.lacing(tide::Block::LACING_NONE);
+    b.invisible(false);
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x10); // Flags
+    input.write(&(*f1)[0], f1->size());
+    expected_size = tide::vint::size(track_num) + 3 + f1->size();
+    res = b.read(input, expected_size);
+    EXPECT_EQ(expected_size, res.first);
+    EXPECT_EQ(0x00, res.second);
+    EXPECT_TRUE(b.invisible());
+
+    // Read error
+    input.str(std::string());
+    b.lacing(tide::Block::LACING_EBML);
+    b.push_back(f2);
+    b.push_back(f3);
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x60); // Flags
+    input.put(3); // Lace header - number of frames
+    tide::vint::write(f1->size(), input);
+    tide::vint::write(f2_lace_size.first, input, f2_lace_size.second);
+    input.write(&(*f1)[0], f1->size());
+    input.write(&(*f2)[0], f2->size());
+    expected_size = tide::vint::size(track_num) + 3 + 1 +
+        tide::vint::size(f1->size()) +
+        tide::vint::s_to_u(f2->size() - f1->size()).second + frame_size;
+    EXPECT_THROW(b.read(input, expected_size), tide::ReadError);
+    input.clear();
+
+    // Bad body size
+    input.str(std::string());
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x00); // Flags
+    expected_size = tide::vint::size(track_num) + 3;
+    EXPECT_THROW(b.read(input, expected_size), tide::BadBodySize);
+
+    // Bad frame size (due to missing data)
+    input.str(std::string());
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x60); // Flags - EBML lacing
+    input.put(3); // Lace header - number of frames
+    tide::vint::write(f1->size(), input);
+    tide::vint::write(f2_lace_size.first, input, f2_lace_size.second);
+    expected_size = tide::vint::size(track_num) + 3 + 1 +
+        tide::vint::size(f1->size()) +
+        tide::vint::s_to_u(f2->size() - f1->size()).second;
+    EXPECT_THROW(b.read(input, expected_size), tide::BadLacedFrameSize);
+
+    // Missing frame - EBML lacing
+    input.str(std::string());
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x60); // Flags - EBML lacing
+    input.put(3); // Lace header - number of frames
+    tide::vint::write(f1->size(), input);
+    tide::vint::write(f2_lace_size.first, input, f2_lace_size.second);
+    input.write(&(*f1)[0], f1->size());
+    input.write(&(*f2)[0], f2->size());
+    // No 3rd frame
+    expected_size = tide::vint::size(track_num) + 3 + 1 +
+        tide::vint::size(f1->size()) +
+        tide::vint::s_to_u(f2->size() - f1->size()).second + f1->size() +
+        f2->size();
+    EXPECT_THROW(b.read(input, expected_size), tide::EmptyFrame);
+
+    // Missing frame - fixed lacing
+    input.str(std::string());
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x40); // Flags - fixed lacing
+    input.put(3); // Lace header - number of frames
+    input.write(&(*f1)[0], f1->size());
+    input.write(&(*f1)[0], f1->size());
+    // No 3rd frame
+    expected_size = tide::vint::size(track_num) + 3 + 1 +
+        f1->size() + f1->size();
+    EXPECT_THROW(b.read(input, expected_size), tide::BadLacedFrameSize);
+
+    // Unequal frame sizes
+    input.str(std::string());
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0x40); // Flags
+    input.put(2); // Lace header - number of frames
+    input.write(&(*f1)[0], f1->size());
+    input.write(&(*f2)[0], f1->size());
+    expected_size = tide::vint::size(track_num) + 3 + 1 + f1->size() +
+        f2->size();
+    EXPECT_THROW(b.read(input, expected_size), tide::BadLacedFrameSize);
 }
 

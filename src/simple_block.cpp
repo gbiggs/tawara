@@ -83,11 +83,11 @@ std::streamsize SimpleBlock::write_body(std::ostream& output)
 
     if (keyframe_)
     {
-        extra_flags |= 0b00000001;
+        extra_flags |= 0x01;
     }
     if (discardable_)
     {
-        extra_flags |= 0b10000000;
+        extra_flags |= 0x80;
     }
     return block_.write(output, extra_flags);
 }
@@ -96,8 +96,8 @@ std::streamsize SimpleBlock::write_body(std::ostream& output)
 std::streamsize SimpleBlock::read_body(std::istream& input,
         std::streamsize size)
 {
-    BlockImpl::ReadResult res(block_.read(input));
-    if (res.second & 0b00000001)
+    BlockImpl::ReadResult res(block_.read(input, size));
+    if (res.second & 0x01)
     {
         keyframe_ = true;
     }
@@ -105,7 +105,7 @@ std::streamsize SimpleBlock::read_body(std::istream& input,
     {
         keyframe_ = false;
     }
-    if (res.second_ & 0b1000000)
+    if (res.second & 0x80)
     {
         discardable_ = true;
     }

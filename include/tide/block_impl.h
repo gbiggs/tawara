@@ -31,6 +31,7 @@
 #include <stdint.h>
 #include <tide/block.h>
 #include <tide/win_dll.h>
+#include <utility>
 
 /// \addtogroup implementations Implementations
 /// @{
@@ -181,12 +182,15 @@ namespace tide
              *
              * This function reads a block header and all stored frames.
              *
-             * \param[in] The input byte stream to read from.
+             * \param[in] input The input byte stream to read from.
+             * \param[in] size The number of bytes used by the block.
              * \return The number of bytes read and any extra flags that were
              * present in the block.
              * \exception ReadError if an error occurs reading data.
+             * \exception BadBlockSize if the block size is too small or too
+             * big.
              */
-            ReadResult read(std::istream& input);
+            ReadResult read(std::istream& input, std::streamsize size);
 
             /// \brief Equality operator.
             friend bool operator==(BlockImpl const& lhs, BlockImpl const& rhs);
@@ -200,6 +204,39 @@ namespace tide
 
             /// \brief Checks that the block is in a good condition to write.
             void validate() const;
+
+            /// \brief Resets this block to an empty state.
+            void reset();
+
+            /** \brief Reads frames laced using EBML lacing, including the lace
+             * header.
+             *
+             * \param[in] input The input byte stream to read from.
+             * \param[in] size The number of bytes available.
+             * \return The number of bytes read.
+             * \exception ReadError if an error occurs reading data.
+             * \exception BadElementSize if the block size is too small or too
+             * big.
+             */
+            std::streamsize read_ebml_laced_frames(std::istream& input,
+                    std::streamsize size);
+
+            /** \brief Reads frames laced using fixed lacing.
+             *
+             * The number of frames to read is specified. The value of size
+             * must be evenly dividable by this count with no remainder (i.e.
+             * every frame must be the same size).
+             *
+             * \param[in] input The input byte stream to read from.
+             * \param[in] size The number of bytes available.
+             * \param[in] count The number of frames to read.
+             * \return The number of bytes read.
+             * \exception ReadError if an error occurs reading data.
+             * \exception BadLacedFrameSize if the block size is too small or
+             * too big.
+             */
+            std::streamsize read_fixed_frames(std::istream& input,
+                    std::streamsize size, unsigned int count);
     }; // class BlockImpl
 
     /// \brief Equality operator for BlockImpl objects.

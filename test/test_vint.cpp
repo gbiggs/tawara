@@ -374,7 +374,7 @@ TEST(VInt, TooBig)
 }
 
 
-TEST(VInt, CodedSize)
+TEST(VInt, Size)
 {
     EXPECT_EQ(1, tide::vint::size(0x00));
     EXPECT_EQ(1, tide::vint::size(0x01));
@@ -405,6 +405,130 @@ TEST(VInt, CodedSize)
     // Oversize
     EXPECT_THROW(tide::vint::size(0x100000000000000), tide::VarIntTooBig);
     EXPECT_THROW(tide::vint::size(0xFFFFFFFFFFFFFFFF), tide::VarIntTooBig);
+}
+
+
+TEST(VInt, StoU)
+{
+    tide::vint::OffsetInt res;
+    // 1 byte
+    res = tide::vint::s_to_u(0x00);
+    EXPECT_EQ(0x3F, res.first);
+    EXPECT_EQ(1, res.second);
+    res = tide::vint::s_to_u(-0x3F);
+    EXPECT_EQ(0, res.first);
+    EXPECT_EQ(1, res.second);
+    res = tide::vint::s_to_u(0x3F);
+    EXPECT_EQ(0x7E, res.first);
+    EXPECT_EQ(1, res.second);
+    // 2 bytes
+    res = tide::vint::s_to_u(0x40);
+    EXPECT_EQ(0x203F, res.first);
+    EXPECT_EQ(2, res.second);
+    res = tide::vint::s_to_u(-0x1FFF);
+    EXPECT_EQ(0, res.first);
+    EXPECT_EQ(2, res.second);
+    res = tide::vint::s_to_u(0x1FFF);
+    EXPECT_EQ(0x3FFE, res.first);
+    EXPECT_EQ(2, res.second);
+    // 3 bytes
+    res = tide::vint::s_to_u(0x4000);
+    EXPECT_EQ(0x103FFF, res.first);
+    EXPECT_EQ(3, res.second);
+    res = tide::vint::s_to_u(-0x0FFFFF);
+    EXPECT_EQ(0, res.first);
+    EXPECT_EQ(3, res.second);
+    res = tide::vint::s_to_u(0x0FFFFF);
+    EXPECT_EQ(0x1FFFFE, res.first);
+    EXPECT_EQ(3, res.second);
+    // 4 bytes
+    res = tide::vint::s_to_u(0x200000);
+    EXPECT_EQ(0x081FFFFF, res.first);
+    EXPECT_EQ(4, res.second);
+    res = tide::vint::s_to_u(-0x07FFFFFF);
+    EXPECT_EQ(0, res.first);
+    EXPECT_EQ(4, res.second);
+    res = tide::vint::s_to_u(0x07FFFFFF);
+    EXPECT_EQ(0x0FFFFFFE, res.first);
+    EXPECT_EQ(4, res.second);
+    // 5 bytes
+    res = tide::vint::s_to_u(0x08000000);
+    EXPECT_EQ(0x407FFFFFF, res.first);
+    EXPECT_EQ(5, res.second);
+    res = tide::vint::s_to_u(-0x03FFFFFFFF);
+    EXPECT_EQ(0, res.first);
+    EXPECT_EQ(5, res.second);
+    res = tide::vint::s_to_u(0x03FFFFFFFF);
+    EXPECT_EQ(0x07FFFFFFFE, res.first);
+    EXPECT_EQ(5, res.second);
+    // 6 bytes
+    res = tide::vint::s_to_u(0x0400000000);
+    EXPECT_EQ(0x203FFFFFFFF, res.first);
+    EXPECT_EQ(6, res.second);
+    res = tide::vint::s_to_u(-0x01FFFFFFFFFF);
+    EXPECT_EQ(0, res.first);
+    EXPECT_EQ(6, res.second);
+    res = tide::vint::s_to_u(0x01FFFFFFFFFF);
+    EXPECT_EQ(0x03FFFFFFFFFE, res.first);
+    EXPECT_EQ(6, res.second);
+    // 7 bytes
+    res = tide::vint::s_to_u(0x020000000000);
+    EXPECT_EQ(0x0101FFFFFFFFFF, res.first);
+    EXPECT_EQ(7, res.second);
+    res = tide::vint::s_to_u(-0xFFFFFFFFFFFF);
+    EXPECT_EQ(0, res.first);
+    EXPECT_EQ(7, res.second);
+    res = tide::vint::s_to_u(0xFFFFFFFFFFFF);
+    EXPECT_EQ(0x01FFFFFFFFFFFE, res.first);
+    EXPECT_EQ(7, res.second);
+    // Oversize
+    EXPECT_THROW(tide::vint::s_to_u(0x01000000000000), tide::VarIntTooBig);
+}
+
+
+TEST(VInt, UtoS)
+{
+    EXPECT_EQ(-0x3F, tide::vint::u_to_s(std::make_pair(0, 1)));
+    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x3F, 1)));
+    EXPECT_EQ(0x3F, tide::vint::u_to_s(std::make_pair(0x7E, 1)));
+    // 01xxxxxx xxxxxxxx
+    EXPECT_EQ(0x40, tide::vint::u_to_s(std::make_pair(0x203F, 2)));
+    EXPECT_EQ(-0x1FFF, tide::vint::u_to_s(std::make_pair(0, 2)));
+    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x1FFF, 2)));
+    EXPECT_EQ(0x1FFF, tide::vint::u_to_s(std::make_pair(0x3FFE, 2)));
+    // 001xxxxx xxxxxxxx xxxxxxxx
+    EXPECT_EQ(0x4000, tide::vint::u_to_s(std::make_pair(0x103FFF, 3)));
+    EXPECT_EQ(-0x0FFFFF, tide::vint::u_to_s(std::make_pair(0, 3)));
+    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x0FFFFF, 3)));
+    EXPECT_EQ(0x0FFFFF, tide::vint::u_to_s(std::make_pair(0x1FFFFE, 3)));
+    // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    EXPECT_EQ(0x200000, tide::vint::u_to_s(std::make_pair(0x081FFFFF, 4)));
+    EXPECT_EQ(-0x07FFFFFF, tide::vint::u_to_s(std::make_pair(0, 4)));
+    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x07FFFFFF, 4)));
+    EXPECT_EQ(0x07FFFFFF, tide::vint::u_to_s(std::make_pair(0x0FFFFFFE, 4)));
+    // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    EXPECT_EQ(0x08000000, tide::vint::u_to_s(std::make_pair(0x407FFFFFF, 5)));
+    EXPECT_EQ(-0x03FFFFFFFF, tide::vint::u_to_s(std::make_pair(0, 5)));
+    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x03FFFFFFFF, 5)));
+    EXPECT_EQ(0x03FFFFFFFF,
+            tide::vint::u_to_s(std::make_pair(0x07FFFFFFFE, 5)));
+    // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    EXPECT_EQ(0x0400000000,
+            tide::vint::u_to_s(std::make_pair(0x203FFFFFFFF, 6)));
+    EXPECT_EQ(-0x01FFFFFFFFFF, tide::vint::u_to_s(std::make_pair(0, 6)));
+    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x01FFFFFFFFFF, 6)));
+    EXPECT_EQ(0x01FFFFFFFFFF,
+            tide::vint::u_to_s(std::make_pair(0x03FFFFFFFFFE, 6)));
+    // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+    EXPECT_EQ(0x020000000000,
+            tide::vint::u_to_s(std::make_pair(0x0101FFFFFFFFFF, 7)));
+    EXPECT_EQ(-0xFFFFFFFFFFFF, tide::vint::u_to_s(std::make_pair(0, 7)));
+    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0xFFFFFFFFFFFF, 7)));
+    EXPECT_EQ(0xFFFFFFFFFFFF,
+            tide::vint::u_to_s(std::make_pair(0x01FFFFFFFFFFFE, 7)));
+    // Oversize
+    EXPECT_THROW(tide::vint::u_to_s(std::make_pair(0x01000000000000, 8)),
+            tide::VarIntTooBig);
 }
 
 

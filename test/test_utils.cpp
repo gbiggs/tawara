@@ -71,8 +71,22 @@
 {
     if (b1.size() != b2.size())
     {
-        return ::testing::AssertionFailure() << b1_expr << " length (" <<
-            b1.size() << ") != " << b2_expr << " length (" << b2.size() << ')';
+        std::stringstream b1_str;
+        for (unsigned int ii(0); ii < b1.size(); ++ii)
+        {
+            b1_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(b1[ii] & 0xFF) << ' ';
+        }
+        std::stringstream b2_str;
+        for (unsigned int ii(0); ii < b2.size(); ++ii)
+        {
+            b2_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(b2[ii] & 0xFF) << ' ';
+        }
+        return ::testing::AssertionFailure() << b1_expr << " length != " <<
+            b2_expr << " length:\n" << b1_expr << " (" << b1.size() <<
+            "):\t0x" << b1_str.str() << '\n' << b2_expr << " (" << b2.size() <<
+            "):\t0x" << b2_str.str();
     }
     if (strncmp(reinterpret_cast<char const*>(b1.c_str()),
             reinterpret_cast<char const*>(b2.c_str()), b1.size()) == 0)
@@ -95,7 +109,7 @@
         }
         return ::testing::AssertionFailure() << b1_expr << " (" << b1.size() <<
             "):\t0x" << b1_str.str() << '\n' << b2_expr << " (" << b2.size() <<
-            "):\t\t0x" << b2_str.str();
+            "):\t0x" << b2_str.str();
     }
 }
 
@@ -142,6 +156,11 @@ boost::shared_ptr<std::vector<char> > test_utils::make_frame()
         result->push_back(ii);
     }
     size += 5;
+    if (size > 100)
+    {
+        // Don't let this get too big
+        size = 10;
+    }
     return result;
 }
 

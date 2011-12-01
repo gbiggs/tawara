@@ -217,6 +217,8 @@ namespace tide
      *
      * The body size given at the start of a master element must match the
      * total size of all child elements. If it does not, this error occurs.
+     *
+     * The err_el_size tag may be provided, giving the size found.
      */
     struct BadBodySize : virtual TideError {};
 
@@ -320,6 +322,13 @@ namespace tide
      */
     struct DuplicateUID : virtual TideError{};
 
+    /** \brief An empty block was encountered.
+     *
+     * A block must contain frame data. An empty block is an error, either when
+     * reading or writing.
+     */
+    struct EmptyBlock : virtual TideError{};
+
     /** \brief An empty frame was encountered.
      *
      * Frames without data are illegal. This error occurs when one is
@@ -352,6 +361,9 @@ namespace tide
      * same size. If a frame is added to a block with a different size from the
      * first frame (if present), or when a block is written with fixed lacing
      * and frames of different sizes, this error occurs.
+     *
+     * This error may also occur when reading a block written using EBML lacing
+     * if the calculated size of one of the frames is less than zero.
      *
      * The err_frame_size tag may be included to indicate the size of the bad
      * frame.

@@ -32,7 +32,7 @@
 #include <tide/uint_element.h>
 #include <tide/win_dll.h>
 
-/// \addtogroup elements Elements
+/// \addtogroup interfaces Interfaces
 /// @{
 
 namespace tide
@@ -57,7 +57,81 @@ namespace tide
      * This class is the base class for all Cluster implementations. Different
      * concrete implementations of this interface implement reading and writing
      * of blocks in different ways. The two most commonly-used implementations
-     * are the in-memory cluster and the in-file cluster.
+     * are the in-memory cluster and the streamed-writing cluster.
+     *
+     * Because of their nature as streamed data, Clusters are the most complex
+     * element to write. They are often written in stages, with a dummy size
+     * value and the other data written first, before the blocks are streamed
+     * in, and finally the correct size value written over the dummy size value
+     * at the start of the cluster. Alternative implementations may store all
+     * cluster data in memory (or even in another file) before writing the
+     * cluster in one hit, giving a single-pass approach.
+     *
+     * The Cluster interface supports both streaming and all-at-once approaches
+     * to writing. The sequence of method calls is the same for both cases, but
+     * what is done for each call varies. The sequence of method calls that
+     * must be performed is:
+     *
+     * \verbatim
+     *  cluster.prepare(output)
+     *          ||
+     *          \/
+     *  [Capture blocks]
+     *          ||
+     *          \/
+     *  cluster.write(output)
+     * \endverbatim
+     *
+     * The purpose of the prepare step is to allow Cluster implementations that
+     * use stream-based writing to prepare the file for writing the blocks.
+     * The write step is used to finalise the cluster in the file, ensuring the
+     * correct size value is written.
+     *
+     * For a Cluster implementation that stores the block data elsewhere (e.g.
+     * in memory) before writing the entire cluster in one go, the method calls
+     * could be implemented to do the following:
+     *
+     * \verbatim
+     *  cluster.prepare(output) -> Prepare space outside of the file to store
+     *          ||                 the blocks while they are accumulated. For
+     *          ||                 example, a block of memory could be
+     *          ||                 allocated to store the blocks.
+     *          \/
+     *  [Capture blocks]        -> Store blocks in the reserved space.
+     *          ||
+     *          \/
+     *  cluster.write(output)   -> Write the Cluster ID and size (calculated
+     *                             from the stored blocks), followed by the
+     *                             other Cluster fields, and then the stored
+     *                             blocks.
+     * \endverbatim
+     *
+     * For a Cluster implementation that streams the blocks directly into the
+     * file as they arrive, the method calls could be implemented to do the
+     * following:
+     *
+     * \verbatim
+     *  cluster.prepare(output) -> Write the Cluster ID with a base value for
+     *          ||                 the size (a good value to use is the size of
+     *          ||                 an empty cluster).  Following this, write
+     *          ||                 the other Cluster fields.
+     *          \/
+     *  [Capture blocks]        -> Write blocks directly to the file as they
+     *          ||                 are received.
+     *          \/
+     *  cluster.write(output)   -> Calculate the actual cluster size (e.g.
+     *                             subtract the position in the file of the
+     *                             first block from the position in the file
+     *                             after the last block), and write it over the
+     *                             dummy value written earlier.
+     * \endverbatim
+     *
+     * The second approach described above has a \e very important limitation:
+     * no other writes to the file can occur while a cluster is open. To
+     * support this restriction, the Cluster interface requires that no writes
+     * are performed to the file while a cluster is open. This applies to any
+     * implementation, including in-memory implementations, in order to support
+     * interchangeability.
      */
     class TIDE_EXPORT Cluster : public MasterElement
     {
@@ -117,9 +191,6 @@ namespace tide
             /// \brief Set the size of the previous cluster in the segment.
             void previous_size(uint64_t size) { prev_size_ = size; }
 
-            /// \brief Element body writing.
-            virtual std::streamsize write_body(std::ostream& output);
-
             /** \brief Element reading.
              *
              * \throw DuplicateTrackNumber if more than one TrackEntry in the
@@ -130,6 +201,16 @@ namespace tide
             std::streamsize read(std::istream& input)
                 { return Element::read(input); }
 
+            /** \brief Prepare the cluster to be written.
+             *
+             * See the Cluster documentation for more details of how this
+             * method should be implemented.
+             *
+             * \param[in] output The byte stream to write the cluster to.
+             * \return The number of bytes written while preparing.
+             */
+            virtual std::streamsize prepare(std::ostream& output) = 0;
+
         protected:
             UIntElement timecode_;
             std::vector<SilentTrackNumber> silent_tracks_;
@@ -138,6 +219,9 @@ namespace tide
 
             /// \brief Get the size of the body of this element.
             virtual std::streamsize body_size() const;
+
+            /// \brief Element body writing.
+            virtual std::streamsize write_body(std::ostream& output);
 
             /// \brief Element body loading.
             std::streamsize read_body(std::istream& input,
@@ -194,7 +278,7 @@ namespace tide
 }; // namespace tide
 
 /// @}
-// group elements
+// group interfaces
 
 #endif // TIDE_CLUSTER_H_
 

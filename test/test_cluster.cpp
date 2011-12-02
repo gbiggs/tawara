@@ -43,6 +43,11 @@ class FakeCluster : public tide::Cluster
         {
         }
 
+        std::streamsize prepare(std::ostream& output)
+        {
+            return 0;
+        }
+
         std::streamsize blocks_size() const
         {
             return 0;

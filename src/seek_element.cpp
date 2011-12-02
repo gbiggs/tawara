@@ -138,4 +138,3 @@ std::streamsize SeekElement::read_body(std::istream& input,
     return read_bytes;
 }
 
-

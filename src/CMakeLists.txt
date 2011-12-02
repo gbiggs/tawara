@@ -21,6 +21,7 @@ set(srcs tide_impl.cpp
     block.cpp
     block_impl.cpp
     simple_block.cpp
+    block_additions.cpp
     cluster.cpp
     segment.cpp)
 

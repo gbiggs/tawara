@@ -370,6 +370,17 @@ namespace tide
      */
     struct BadLacedFrameSize : virtual TideError{};
 
+    /** \brief An empty BlockAdditions element was read or written.
+     *
+     * The BlockAdditions element must have at least one BlockMore to be valid.
+     * This error occurs if a BlockAdditions element with no BlockMore children
+     * is read, or when an empty BlockAdditions element is about to be written.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct EmptyBlockAdditionsElement : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags

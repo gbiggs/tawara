@@ -34,7 +34,7 @@
 #include <tide/win_dll.h>
 #include <vector>
 
-/// \addtogroup interfaces Interfaces
+/// \addtogroup elements Elements
 /// @{
 
 namespace tide
@@ -92,14 +92,14 @@ namespace tide
 
             /// TODO: Proper iterator model for the index
 
-            /// \brief Element body writing.
-            virtual std::streamsize write_body(std::ostream& output);
-
         protected:
             std::vector<SeekElement> index_;
 
             /// \brief Get the size of the body of this element.
             virtual std::streamsize body_size() const;
+
+            /// \brief Element body writing.
+            virtual std::streamsize write_body(std::ostream& output);
 
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,
@@ -108,6 +108,7 @@ namespace tide
 }; // namespace Tide
 
 /// @}
+// group elements
 
 #endif // TIDE_METASEEK_H_
 

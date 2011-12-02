@@ -95,8 +95,8 @@ TEST(BlockImpl, Assignment)
 {
     tide::BlockImpl b1(1, 12345, tide::Block::LACING_EBML);
     tide::BlockImpl b2(2, 22222, tide::Block::LACING_FIXED);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
     b1.push_back(f1);
     b1.push_back(f2);
 
@@ -114,8 +114,8 @@ TEST(BlockImpl, Assignment)
 TEST(BlockImpl, At)
 {
     tide::BlockImpl b(2, 22222, tide::Block::LACING_EBML);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
     b.push_back(f1);
     b.push_back(f2);
     EXPECT_EQ(b[1], b.at(1));
@@ -127,15 +127,15 @@ TEST(BlockImpl, At)
 TEST(BlockImpl, SubscriptOperator)
 {
     tide::BlockImpl b(2, 22222, tide::Block::LACING_EBML);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
     b.push_back(f1);
     b.push_back(f2);
     EXPECT_EQ(b[1], b.at(1));
     EXPECT_EQ(b.at(1)->size(), f2->size());
     EXPECT_NO_THROW(b[2]);
 
-    tide::Block::value_type f3(test_utils::make_frame());
+    tide::Block::value_type f3(test_utils::make_blob(15));
     b[1] = f3;
     EXPECT_EQ(b[1], f3);
     EXPECT_EQ(b[1]->size(), f3->size());
@@ -145,7 +145,7 @@ TEST(BlockImpl, SubscriptOperator)
 TEST(BlockImpl, BeginEnd)
 {
     tide::BlockImpl b(2, 22222, tide::Block::LACING_EBML);
-    tide::Block::value_type f1(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
 
     EXPECT_TRUE(b.begin() == b.end());
     EXPECT_TRUE(b.rbegin() == b.rend());
@@ -158,8 +158,8 @@ TEST(BlockImpl, BeginEnd)
 TEST(BlockImpl, Counts)
 {
     tide::BlockImpl b(2, 22222, tide::Block::LACING_EBML);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
 
     EXPECT_TRUE(b.empty());
     b.push_back(f1);
@@ -179,7 +179,7 @@ TEST(BlockImpl, Counts)
 TEST(BlockImpl, Clear)
 {
     tide::BlockImpl b(2, 22222, tide::Block::LACING_EBML);
-    tide::Block::value_type f1(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
     b.push_back(f1);
     EXPECT_FALSE(b.empty());
     b.clear();
@@ -190,9 +190,9 @@ TEST(BlockImpl, Clear)
 TEST(BlockImpl, PushBack)
 {
     tide::BlockImpl b(1, 12345, tide::Block::LACING_NONE);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
-    tide::Block::value_type f3(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    tide::Block::value_type f3(test_utils::make_blob(15));
     tide::Block::value_type empty_frame;
 
     EXPECT_THROW(b.push_back(empty_frame), tide::EmptyFrame);
@@ -222,7 +222,7 @@ TEST(BlockImpl, PushBack)
 TEST(BlockImpl, Erase)
 {
     tide::BlockImpl b(1, 12345, tide::Block::LACING_NONE);
-    tide::Block::value_type f1(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
     b.push_back(f1);
 
     EXPECT_FALSE(b.empty());
@@ -239,9 +239,9 @@ TEST(BlockImpl, Erase)
 TEST(BlockImpl, Resize)
 {
     tide::BlockImpl b(1, 12345, tide::Block::LACING_NONE);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
-    tide::Block::value_type f3(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    tide::Block::value_type f3(test_utils::make_blob(15));
 
     EXPECT_THROW(b.resize(2), tide::MaxLaceSizeExceeded);
     b.lacing(tide::Block::LACING_EBML);
@@ -261,9 +261,9 @@ TEST(BlockImpl, Swap)
 {
     tide::BlockImpl b1(1, 12345, tide::Block::LACING_NONE);
     tide::BlockImpl b2(2, 22222, tide::Block::LACING_EBML);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
-    tide::Block::value_type f3(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    tide::Block::value_type f3(test_utils::make_blob(15));
     b1.invisible(true);
     b1.push_back(f1);
     b2.push_back(f2);
@@ -312,7 +312,7 @@ TEST(BlockImpl, Equality)
     EXPECT_TRUE(b1 != b2);
     b1.lacing(tide::Block::LACING_NONE);
 
-    tide::Block::value_type f1(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
     b1.push_back(f1);
     EXPECT_FALSE(b1 == b2);
     EXPECT_TRUE(b1 != b2);
@@ -322,9 +322,9 @@ TEST(BlockImpl, Equality)
 TEST(BlockImpl, Size)
 {
     tide::BlockImpl b(1, 12345, tide::Block::LACING_NONE);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
-    tide::Block::value_type f3(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    tide::Block::value_type f3(test_utils::make_blob(15));
     std::streamsize frames_size = f1->size() + f2->size() + f3->size();
 
     b.push_back(f1);
@@ -359,9 +359,9 @@ TEST(BlockImpl, Write)
     unsigned int timecode(12345);
 
     tide::BlockImpl b(track_num, timecode);
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
-    tide::Block::value_type f3(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    tide::Block::value_type f3(test_utils::make_blob(15));
     std::streamsize frame_size = f1->size() + f2->size() + f3->size();
     tide::vint::OffsetInt f2_lace_size(tide::vint::s_to_u(f2->size() -
                 f1->size()));
@@ -477,9 +477,9 @@ TEST(BlockImpl, Read)
     b.lacing(tide::Block::LACING_FIXED);
     b.invisible(true);
 
-    tide::Block::value_type f1(test_utils::make_frame());
-    tide::Block::value_type f2(test_utils::make_frame());
-    tide::Block::value_type f3(test_utils::make_frame());
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    tide::Block::value_type f2(test_utils::make_blob(8));
+    tide::Block::value_type f3(test_utils::make_blob(6));
     std::streamsize frame_size = f1->size() + f2->size() + f3->size();
     tide::vint::OffsetInt f2_lace_size(tide::vint::s_to_u(f2->size() -
                 f1->size()));

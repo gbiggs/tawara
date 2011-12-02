@@ -87,7 +87,7 @@ template<typename T1, typename T2>
 
 // Returns a blob of binary data, with a length that increases by 5 bytes
 // each time this function is called.
-boost::shared_ptr<std::vector<char> > make_frame();
+boost::shared_ptr<std::vector<char> > make_blob(size_t size);
 
 }; // test_utils
 

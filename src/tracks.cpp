@@ -151,7 +151,7 @@ std::streamsize Tracks::read_body(std::istream& input, std::streamsize size)
     while (read_bytes < size)
     {
         // Read the ID
-        ids::ReadResult id_res = tide::ids::read(input);
+        ids::ReadResult id_res = ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
         if (id != ids::TrackEntry)
@@ -161,7 +161,7 @@ std::streamsize Tracks::read_body(std::istream& input, std::streamsize size)
                 err_pos(input.tellg());
         }
         // Read the body
-        TrackEntry::Ptr entry(new tide::TrackEntry(1, 1, "Empty"));
+        TrackEntry::Ptr entry(new TrackEntry(1, 1, "Empty"));
         read_bytes += entry->read(input);
         insert(entry);
     }

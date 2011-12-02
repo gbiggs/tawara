@@ -28,6 +28,7 @@ set(hdrs ${config_h}
     block.h
     block_impl.h
     block_additions.h
+    block_group.h
     cluster.h
     simple_block.h)
 

@@ -31,6 +31,7 @@ set(srcs test_utils.cpp
     test_block_impl.cpp
     test_simple_block.cpp
     test_block_additions.cpp
+    test_block_group.cpp
     test_cluster.cpp
     test_segment.cpp)
 

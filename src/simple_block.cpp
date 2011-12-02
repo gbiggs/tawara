@@ -51,6 +51,8 @@ SimpleBlock::SimpleBlock(uint64_t track_number, int16_t timecode,
 
 void SimpleBlock::swap(SimpleBlock& other)
 {
+    std::swap(keyframe_, other.keyframe_);
+    std::swap(discardable_, other.discardable_);
     block_.swap(other.block_);
 }
 

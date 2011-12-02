@@ -137,8 +137,7 @@ namespace tide
                 { additions_.erase(first, last); }
 
             /// \brief Add an addition to this block.
-            void push_back(value_type const& value)
-                { additions_.push_back(value); }
+            void push_back(value_type const& value);
 
             /// \brief Resizes the additions storage.
             void resize(size_type count)

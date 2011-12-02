@@ -52,6 +52,16 @@ BlockAdditions::BlockAdditions()
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
+void BlockAdditions::push_back(value_type const& value)
+{
+    if (value->first ==  0)
+    {
+        throw ValueOutOfRange() << err_id(ids::BlockAddID) <<
+            err_par_id(ids::BlockMore);
+    }
+    additions_.push_back(value);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
@@ -98,6 +108,11 @@ std::streamsize BlockAdditions::write_body(std::ostream& output)
 
     BOOST_FOREACH(value_type add, additions_)
     {
+        if (add->first ==  0)
+        {
+            throw ValueOutOfRange() << err_id(ids::BlockAddID) <<
+                err_par_id(ids::BlockMore);
+        }
         UIntElement add_id(ids::BlockAddID, add->first, 1);
         BinaryElement additional(ids::BlockAdditional, add->second);
 
@@ -187,6 +202,11 @@ std::streamsize BlockAdditions::read_addition(std::istream& input,
             case ids::BlockAddID:
                 read_bytes += addid.read(input);
                 have_addid = true;
+                if (addid == 0)
+                {
+                    throw ValueOutOfRange() << err_id(ids::BlockAddID) <<
+                        err_par_id(ids::BlockMore) << err_pos(input.tellg());
+                }
                 break;
             case ids::BlockAdditional:
                 read_bytes += additional.read(input);
@@ -203,7 +223,7 @@ std::streamsize BlockAdditions::read_addition(std::istream& input,
     if (read_bytes != size)
     {
         // Read more than was specified by the body size value
-        throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+        throw BadBodySize() << err_id(ids::BlockMore) << err_el_size(size) <<
             err_pos(el_start);
     }
     if (!have_additional)

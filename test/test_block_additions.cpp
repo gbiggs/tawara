@@ -163,6 +163,11 @@ TEST(BlockAdditionals, PushBack)
     EXPECT_EQ(1, b.count());
     EXPECT_NO_THROW(b.push_back(f2));
     EXPECT_EQ(2, b.count());
+
+    tide::BlockAdditions::value_type zero(new
+            tide::BlockAdditions::Addition(0,
+                *test_utils::make_blob(5)));
+    EXPECT_THROW(b.push_back(zero), tide::ValueOutOfRange);
 }
 
 
@@ -311,6 +316,14 @@ TEST(BlockAdditionals, Write)
     // No children
     b.clear();
     EXPECT_THROW(b.write(output), tide::EmptyBlockAdditionsElement);
+
+    // Zero value in children
+    tide::BlockAdditions::value_type zero(new
+            tide::BlockAdditions::Addition(0,
+                *test_utils::make_blob(5)));
+    b.push_back(f1);
+    b[0]->first = 0;
+    EXPECT_THROW(b.write(output), tide::ValueOutOfRange);
 }
 
 
@@ -410,10 +423,21 @@ TEST(BlockAdditionals, Read)
     // Invalid child ID deeper down
     input.str(std::string());
     tide::vint::write(body_size, input);
-    // First child
     tide::ids::write(tide::ids::BlockMore, input);
     tide::vint::write(ue.size(), input);
     ue.write(input);
     EXPECT_THROW(b.read(input), tide::InvalidChildID);
+    // Value out of range
+    input.str(std::string());
+    tide::vint::write(body_size, input);
+    tide::ids::write(tide::ids::BlockMore, input);
+    tide::vint::write(more_size_2, input);
+    tide::ids::write(tide::ids::BlockAddID, input);
+    tide::vint::write(tide::ebml_int::size_u(0), input);
+    tide::ebml_int::write_u(0, input);
+    tide::ids::write(tide::ids::BlockAdditional, input);
+    tide::vint::write(f2->second.size(), input);
+    input.write(&f2->second[0], f2->second.size());
+    EXPECT_THROW(b.read(input), tide::ValueOutOfRange);
 }
 

@@ -1,6 +1,6 @@
 /* Tide
  *
- * Test the SimpleBlock element.
+ * Test the BlockGroup element.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -26,82 +26,67 @@
  */
 
 #include <gtest/gtest.h>
+#include <tide/block_additions.h>
+#include <tide/block_group.h>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
-#include <tide/simple_block.h>
+#include <tide/int_element.h>
+#include <tide/uint_element.h>
 #include <tide/vint.h>
 
 #include "test_utils.h"
 
 
-TEST(SimpleBlock, Create)
+TEST(BlockGroup, Create)
 {
-    tide::SimpleBlock b1(1, 12345);
+    tide::BlockGroup b1(1, 12345);
     EXPECT_EQ(1, b1.track_number());
     EXPECT_EQ(12345, b1.timecode());
     EXPECT_FALSE(b1.invisible());
     EXPECT_EQ(tide::Block::LACING_NONE, b1.lacing());
     EXPECT_TRUE(b1.empty());
 
-    tide::SimpleBlock b2(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup b2(2, 22222, tide::Block::LACING_EBML, 42, 84);
     EXPECT_EQ(2, b2.track_number());
     EXPECT_EQ(22222, b2.timecode());
     EXPECT_FALSE(b2.invisible());
     EXPECT_EQ(tide::Block::LACING_EBML, b2.lacing());
     EXPECT_TRUE(b2.empty());
-    EXPECT_FALSE(b2.keyframe());
-    EXPECT_FALSE(b2.discardable());
+    EXPECT_EQ(42, b2.duration());
+    EXPECT_EQ(84, b2.ref_priority());
 }
 
 
-TEST(SimpleBlock, Keyframe)
+TEST(BlockGroup, TrackNumber)
 {
-    tide::SimpleBlock b1(1, 12345);
-    EXPECT_FALSE(b1.keyframe());
-    b1.keyframe(true);
-    EXPECT_TRUE(b1.keyframe());
-}
-
-
-TEST(SimpleBlock, Discardable)
-{
-    tide::SimpleBlock b1(1, 12345);
-    EXPECT_FALSE(b1.discardable());
-    b1.discardable(true);
-    EXPECT_TRUE(b1.discardable());
-}
-
-
-TEST(SimpleBlock, TrackNumber)
-{
-    tide::SimpleBlock b1(1, 12345);
+    tide::BlockGroup b1(1, 12345);
     EXPECT_EQ(1, b1.track_number());
     b1.track_number(42);
     EXPECT_EQ(42, b1.track_number());
 }
 
 
-TEST(SimpleBlock, Timecode)
+TEST(BlockGroup, Timecode)
 {
-    tide::SimpleBlock b1(1, 12345);
+    tide::BlockGroup b1(1, 12345);
     EXPECT_EQ(12345, b1.timecode());
     b1.timecode(22222);
     EXPECT_EQ(22222, b1.timecode());
 }
 
 
-TEST(SimpleBlock, Invisible)
+TEST(BlockGroup, Invisible)
 {
-    tide::SimpleBlock b1(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup b1(2, 22222, tide::Block::LACING_EBML);
     EXPECT_FALSE(b1.invisible());
     b1.invisible(true);
     EXPECT_TRUE(b1.invisible());
 }
 
 
-TEST(SimpleBlock, Lacing)
+TEST(BlockGroup, Lacing)
 {
-    tide::SimpleBlock b1(1, 12345);
+    tide::BlockGroup b1(1, 12345);
     EXPECT_EQ(tide::Block::LACING_NONE, b1.lacing());
     b1.lacing(tide::Block::LACING_EBML);
     EXPECT_EQ(tide::Block::LACING_EBML, b1.lacing());
@@ -110,14 +95,74 @@ TEST(SimpleBlock, Lacing)
 }
 
 
-TEST(SimpleBlock, Assignment)
+TEST(BlockGroup, Additions)
 {
-    tide::SimpleBlock b1(1, 12345, tide::Block::LACING_EBML);
-    tide::SimpleBlock b2(2, 22222, tide::Block::LACING_FIXED);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
-    tide::SimpleBlock::value_type f2(test_utils::make_blob(10));
+    tide::BlockGroup b1(1, 12345);
+
+    EXPECT_TRUE(b1.additions().empty());
+    tide::BlockAdditions::value_type addition(new
+            tide::BlockAdditions::Addition(2,
+                *test_utils::make_blob(5)));
+    b1.additions().push_back(addition);
+    EXPECT_EQ(b1.additions()[0], addition);
+}
+
+
+TEST(BlockGroup, Duration)
+{
+    tide::BlockGroup b1(1, 12345);
+    EXPECT_EQ(0, b1.duration());
+    b1.duration(42);
+    EXPECT_EQ(42, b1.duration());
+}
+
+
+TEST(BlockGroup, RefPriority)
+{
+    tide::BlockGroup b1(1, 12345);
+    EXPECT_EQ(0, b1.ref_priority());
+    b1.ref_priority(42);
+    EXPECT_EQ(42, b1.ref_priority());
+}
+
+
+TEST(BlockGroup, RefBlocks)
+{
+    tide::BlockGroup b1(1, 12345);
+    EXPECT_TRUE(b1.ref_blocks().empty());
+    b1.ref_blocks().push_back(42);
+    EXPECT_FALSE(b1.ref_blocks().empty());
+    EXPECT_EQ(42, b1.ref_blocks()[0]);
+}
+
+
+TEST(BlockGroup, CodecState)
+{
+    tide::BlockGroup b1(1, 12345);
+    EXPECT_TRUE(b1.codec_state().empty());
+    std::vector<char> blob(*test_utils::make_blob(10));
+    b1.codec_state(blob);
+    EXPECT_TRUE(b1.codec_state() == blob);
+}
+
+
+TEST(BlockGroup, Assignment)
+{
+    tide::BlockGroup b1(1, 12345, tide::Block::LACING_EBML);
+    tide::BlockGroup b2(2, 22222, tide::Block::LACING_FIXED);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup::value_type f2(test_utils::make_blob(10));
     b1.push_back(f1);
     b1.push_back(f2);
+    tide::BlockAdditions::value_type addition(new
+            tide::BlockAdditions::Addition(2,
+                *test_utils::make_blob(5)));
+    b1.additions().push_back(addition);
+    b1.duration(42);
+    b1.ref_priority(84);
+    b1.ref_blocks().push_back(168);
+    std::vector<char> blob(*test_utils::make_blob(10));
+    b1.codec_state(blob);
 
     EXPECT_TRUE(b2.empty());
     b2 = b1;
@@ -127,14 +172,19 @@ TEST(SimpleBlock, Assignment)
     EXPECT_EQ(b1.lacing(), b2.lacing());
     EXPECT_FALSE(b2.empty());
     EXPECT_EQ(b2[1]->size(), f2->size());
+    EXPECT_TRUE(b2.additions() == b1.additions());
+    EXPECT_EQ(b2.duration(), b1.duration());
+    EXPECT_EQ(b2.ref_priority(), b1.ref_priority());
+    EXPECT_TRUE(b2.ref_blocks() == b1.ref_blocks());
+    EXPECT_TRUE(b2.codec_state() == b1.codec_state());
 }
 
 
-TEST(SimpleBlock, At)
+TEST(BlockGroup, At)
 {
-    tide::SimpleBlock b(2, 22222, tide::Block::LACING_EBML);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
-    tide::SimpleBlock::value_type f2(test_utils::make_blob(10));
+    tide::BlockGroup b(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup::value_type f2(test_utils::make_blob(10));
     b.push_back(f1);
     b.push_back(f2);
     EXPECT_EQ(b[1], b.at(1));
@@ -143,28 +193,28 @@ TEST(SimpleBlock, At)
 }
 
 
-TEST(SimpleBlock, SubscriptOperator)
+TEST(BlockGroup, SubscriptOperator)
 {
-    tide::SimpleBlock b(2, 22222, tide::Block::LACING_EBML);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
-    tide::SimpleBlock::value_type f2(test_utils::make_blob(10));
+    tide::BlockGroup b(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup::value_type f2(test_utils::make_blob(10));
     b.push_back(f1);
     b.push_back(f2);
     EXPECT_EQ(b[1], b.at(1));
     EXPECT_EQ(b.at(1)->size(), f2->size());
     EXPECT_NO_THROW(b[2]);
 
-    tide::SimpleBlock::value_type f3(test_utils::make_blob(15));
+    tide::BlockGroup::value_type f3(test_utils::make_blob(15));
     b[1] = f3;
     EXPECT_EQ(b[1], f3);
     EXPECT_EQ(b[1]->size(), f3->size());
 }
 
 
-TEST(SimpleBlock, BeginEnd)
+TEST(BlockGroup, BeginEnd)
 {
-    tide::SimpleBlock b(2, 22222, tide::Block::LACING_EBML);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup b(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
 
     EXPECT_TRUE(b.begin() == b.end());
     EXPECT_TRUE(b.rbegin() == b.rend());
@@ -174,11 +224,11 @@ TEST(SimpleBlock, BeginEnd)
 }
 
 
-TEST(SimpleBlock, Counts)
+TEST(BlockGroup, Counts)
 {
-    tide::SimpleBlock b(2, 22222, tide::Block::LACING_EBML);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
-    tide::SimpleBlock::value_type f2(test_utils::make_blob(10));
+    tide::BlockGroup b(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup::value_type f2(test_utils::make_blob(10));
 
     EXPECT_TRUE(b.empty());
     b.push_back(f1);
@@ -195,10 +245,10 @@ TEST(SimpleBlock, Counts)
 }
 
 
-TEST(SimpleBlock, Clear)
+TEST(BlockGroup, Clear)
 {
-    tide::SimpleBlock b(2, 22222, tide::Block::LACING_EBML);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup b(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
     b.push_back(f1);
     EXPECT_FALSE(b.empty());
     b.clear();
@@ -206,13 +256,13 @@ TEST(SimpleBlock, Clear)
 }
 
 
-TEST(SimpleBlock, PushBack)
+TEST(BlockGroup, PushBack)
 {
-    tide::SimpleBlock b(1, 12345, tide::Block::LACING_NONE);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
-    tide::SimpleBlock::value_type f2(test_utils::make_blob(10));
-    tide::SimpleBlock::value_type f3(test_utils::make_blob(15));
-    tide::SimpleBlock::value_type empty_frame;
+    tide::BlockGroup b(1, 12345, tide::Block::LACING_NONE);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup::value_type f2(test_utils::make_blob(10));
+    tide::BlockGroup::value_type f3(test_utils::make_blob(15));
+    tide::BlockGroup::value_type empty_frame;
 
     EXPECT_THROW(b.push_back(empty_frame), tide::EmptyFrame);
 
@@ -238,10 +288,10 @@ TEST(SimpleBlock, PushBack)
 }
 
 
-TEST(SimpleBlock, Erase)
+TEST(BlockGroup, Erase)
 {
-    tide::SimpleBlock b(1, 12345, tide::Block::LACING_NONE);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup b(1, 12345, tide::Block::LACING_NONE);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
     b.push_back(f1);
 
     EXPECT_FALSE(b.empty());
@@ -255,12 +305,12 @@ TEST(SimpleBlock, Erase)
 }
 
 
-TEST(SimpleBlock, Resize)
+TEST(BlockGroup, Resize)
 {
-    tide::SimpleBlock b(1, 12345, tide::Block::LACING_NONE);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
-    tide::SimpleBlock::value_type f2(test_utils::make_blob(10));
-    tide::SimpleBlock::value_type f3(test_utils::make_blob(15));
+    tide::BlockGroup b(1, 12345, tide::Block::LACING_NONE);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup::value_type f2(test_utils::make_blob(10));
+    tide::BlockGroup::value_type f3(test_utils::make_blob(15));
 
     EXPECT_THROW(b.resize(2), tide::MaxLaceSizeExceeded);
     b.lacing(tide::Block::LACING_EBML);
@@ -276,19 +326,26 @@ TEST(SimpleBlock, Resize)
 }
 
 
-TEST(SimpleBlock, Swap)
+TEST(BlockGroup, Swap)
 {
-    tide::SimpleBlock b1(1, 12345, tide::Block::LACING_NONE);
-    tide::SimpleBlock b2(2, 22222, tide::Block::LACING_EBML);
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
-    tide::SimpleBlock::value_type f2(test_utils::make_blob(10));
-    tide::SimpleBlock::value_type f3(test_utils::make_blob(15));
+    tide::BlockGroup b1(1, 12345, tide::Block::LACING_NONE);
+    tide::BlockGroup b2(2, 22222, tide::Block::LACING_EBML);
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
+    tide::BlockGroup::value_type f2(test_utils::make_blob(10));
+    tide::BlockGroup::value_type f3(test_utils::make_blob(15));
     b1.invisible(true);
-    b1.keyframe(true);
-    b1.discardable(true);
     b1.push_back(f1);
     b2.push_back(f2);
     b2.push_back(f3);
+    tide::BlockAdditions::value_type addition(new
+            tide::BlockAdditions::Addition(2,
+                *test_utils::make_blob(5)));
+    b1.additions().push_back(addition);
+    b1.duration(42);
+    b1.ref_priority(84);
+    b1.ref_blocks().push_back(168);
+    std::vector<char> blob(*test_utils::make_blob(10));
+    b1.codec_state(blob);
 
     b2.swap(b1);
     EXPECT_EQ(2, b1.track_number());
@@ -297,23 +354,29 @@ TEST(SimpleBlock, Swap)
     EXPECT_EQ(12345, b2.timecode());
     EXPECT_FALSE(b1.invisible());
     EXPECT_TRUE(b2.invisible());
-    EXPECT_FALSE(b1.keyframe());
-    EXPECT_TRUE(b2.keyframe());
-    EXPECT_FALSE(b1.discardable());
-    EXPECT_TRUE(b2.discardable());
     EXPECT_EQ(tide::Block::LACING_EBML, b1.lacing());
     EXPECT_EQ(tide::Block::LACING_NONE, b2.lacing());
     EXPECT_EQ(2, b1.count());
     EXPECT_EQ(1, b2.count());
     EXPECT_TRUE(f2 == b1[0]);
     EXPECT_TRUE(f1 == b2[0]);
+    EXPECT_TRUE(b1.additions().empty());
+    EXPECT_FALSE(b2.additions().empty());
+    EXPECT_EQ(0, b1.duration());
+    EXPECT_EQ(42, b2.duration());
+    EXPECT_EQ(0, b1.ref_priority());
+    EXPECT_EQ(84, b2.ref_priority());
+    EXPECT_TRUE(b1.ref_blocks().empty());
+    EXPECT_EQ(168, b2.ref_blocks()[0]);
+    EXPECT_TRUE(b1.codec_state().empty());
+    EXPECT_TRUE(b2.codec_state() == blob);
 }
 
 
-TEST(SimpleBlock, Equality)
+TEST(BlockGroup, Equality)
 {
-    tide::SimpleBlock b1(1, 12345, tide::Block::LACING_NONE);
-    tide::SimpleBlock b2(1, 12345, tide::Block::LACING_NONE);
+    tide::BlockGroup b1(1, 12345, tide::Block::LACING_NONE);
+    tide::BlockGroup b2(1, 12345, tide::Block::LACING_NONE);
     EXPECT_TRUE(b1 == b2);
     EXPECT_FALSE(b1 != b2);
 
@@ -332,31 +395,50 @@ TEST(SimpleBlock, Equality)
     EXPECT_TRUE(b1 != b2);
     b1.track_number(false);
 
-    b1.keyframe(true);
-    EXPECT_FALSE(b1 == b2);
-    EXPECT_TRUE(b1 != b2);
-    b1.keyframe(false);
-
-    b1.discardable(true);
-    EXPECT_FALSE(b1 == b2);
-    EXPECT_TRUE(b1 != b2);
-    b1.discardable(false);
-
     b1.lacing(tide::Block::LACING_EBML);
     EXPECT_FALSE(b1 == b2);
     EXPECT_TRUE(b1 != b2);
     b1.lacing(tide::Block::LACING_NONE);
 
-    tide::SimpleBlock::value_type f1(test_utils::make_blob(5));
+    tide::BlockAdditions::value_type addition(new
+            tide::BlockAdditions::Addition(2,
+                *test_utils::make_blob(5)));
+    b1.additions().push_back(addition);
+    EXPECT_FALSE(b1 == b2);
+    EXPECT_TRUE(b1 != b2);
+    b1.additions().clear();
+
+    b1.duration(42);
+    EXPECT_FALSE(b1 == b2);
+    EXPECT_TRUE(b1 != b2);
+    b1.duration(0);
+
+    b1.ref_priority(42);
+    EXPECT_FALSE(b1 == b2);
+    EXPECT_TRUE(b1 != b2);
+    b1.ref_priority(0);
+
+    b1.ref_blocks().push_back(42);
+    EXPECT_FALSE(b1 == b2);
+    EXPECT_TRUE(b1 != b2);
+    b1.ref_blocks().clear();
+
+    std::vector<char> blob(*test_utils::make_blob(10));
+    b1.codec_state(blob);
+    EXPECT_FALSE(b1 == b2);
+    EXPECT_TRUE(b1 != b2);
+    b1.codec_state(std::vector<char>());
+
+    tide::BlockGroup::value_type f1(test_utils::make_blob(5));
     b1.push_back(f1);
     EXPECT_FALSE(b1 == b2);
     EXPECT_TRUE(b1 != b2);
 }
 
 
-TEST(SimpleBlock, Size)
+TEST(BlockGroup, Size)
 {
-    tide::SimpleBlock b(1, 12345, tide::Block::LACING_NONE);
+    tide::BlockGroup b(1, 12345, tide::Block::LACING_NONE);
     tide::Block::value_type f1(test_utils::make_blob(5));
     tide::Block::value_type f2(test_utils::make_blob(10));
     tide::Block::value_type f3(test_utils::make_blob(15));
@@ -365,18 +447,22 @@ TEST(SimpleBlock, Size)
     b.push_back(f1);
     // The 3 bytes are for the timecode and flags
     std::streamsize body_size(tide::vint::size(1) + 3 + f1->size());
-    EXPECT_EQ(tide::ids::size(tide::ids::SimpleBlock) +
+    body_size += tide::ids::size(tide::ids::Block) +
+        tide::vint::size(body_size);
+    EXPECT_EQ(tide::ids::size(tide::ids::BlockGroup) +
             tide::vint::size(body_size) + body_size, b.size());
 
     b.lacing(tide::Block::LACING_EBML);
     b.push_back(f2);
     b.push_back(f3);
     // Extra 1 byte for number of frames in the lace
-    body_size = tide::vint::size(1) + 3 + 1 + tide::vint::size(f1->size()) +
-            tide::vint::s_to_u(f2->size() - f1->size()).second +
-            frames_size;
-    EXPECT_EQ(tide::ids::size(tide::ids::SimpleBlock) +
-            tide::vint::size(body_size) + body_size, b.size());
+    std::streamsize block_size = tide::vint::size(1) + 3 + 1 +
+        tide::vint::size(f1->size()) + tide::vint::s_to_u(f2->size() -
+                f1->size()).second + frames_size;
+    block_size += tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size);
+    EXPECT_EQ(tide::ids::size(tide::ids::BlockGroup) +
+            tide::vint::size(block_size) + block_size, b.size());
 
     b.lacing(tide::Block::LACING_FIXED);
     b.clear();
@@ -385,12 +471,43 @@ TEST(SimpleBlock, Size)
     b.push_back(f1);
     // Extra 1 byte for number of frames in the lace
     body_size = tide::vint::size(1) + 3 + 1 + 3 * f1->size();
-    EXPECT_EQ(tide::ids::size(tide::ids::SimpleBlock) +
+    body_size += tide::ids::size(tide::ids::Block) +
+        tide::vint::size(body_size);
+    EXPECT_EQ(tide::ids::size(tide::ids::BlockGroup) +
+            tide::vint::size(body_size) + body_size, b.size());
+
+    // Add in the BlockGroup extras
+    tide::BlockAdditions::value_type addition(new
+            tide::BlockAdditions::Addition(2,
+                *test_utils::make_blob(5)));
+    tide::BlockAdditions additions;
+    additions.push_back(addition);
+    tide::UIntElement duration(tide::ids::BlockDuration, 42);
+    tide::UIntElement ref_priority(tide::ids::ReferencePriority, 84);
+    tide::IntElement ref_block(tide::ids::ReferenceBlock, 168);
+    std::vector<char> blob(*test_utils::make_blob(10));
+    tide::BinaryElement codec_state(tide::ids::CodecState, blob);
+
+    b.lacing(tide::Block::LACING_NONE);
+    b.clear();
+    b.push_back(f1);
+    b.additions().push_back(addition);
+    b.duration(duration);
+    b.ref_priority(ref_priority);
+    b.ref_blocks().push_back(ref_block);
+    b.codec_state(codec_state);
+
+    block_size = tide::vint::size(1) + 3 + f1->size();
+    block_size += tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size);
+    body_size = additions.size() + duration.size() + ref_priority.size() +
+        ref_block.size() + codec_state.size() + block_size;
+    EXPECT_EQ(tide::ids::size(tide::ids::BlockGroup) +
             tide::vint::size(body_size) + body_size, b.size());
 }
 
 
-TEST(SimpleBlock, Write)
+TEST(BlockGroup, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
@@ -399,8 +516,8 @@ TEST(SimpleBlock, Write)
     unsigned int track_num(1);
     unsigned int timecode(12345);
 
-    tide::SimpleBlock b(track_num, timecode);
-    std::streamsize id_size = tide::ids::size(tide::ids::SimpleBlock);
+    tide::BlockGroup b(track_num, timecode);
+    std::streamsize id_size = tide::ids::size(tide::ids::BlockGroup);
 
     tide::Block::value_type f1(test_utils::make_blob(5));
     tide::Block::value_type f2(test_utils::make_blob(10));
@@ -412,9 +529,13 @@ TEST(SimpleBlock, Write)
     // No lacing
     b.lacing(tide::Block::LACING_NONE);
     b.push_back(f1);
-    expected_size = tide::vint::size(track_num) + 3 + f1->size();
-    tide::ids::write(tide::ids::SimpleBlock, expected);
+    std::streamsize block_size = tide::vint::size(track_num) + 3 + f1->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
+    tide::ids::write(tide::ids::BlockGroup, expected);
     tide::vint::write(expected_size, expected);
+    tide::ids::write(tide::ids::Block, expected);
+    tide::vint::write(block_size, expected);
     tide::vint::write(track_num, expected);
     expected.put(timecode >> 8);
     expected.put(timecode & 0xFF);
@@ -424,8 +545,6 @@ TEST(SimpleBlock, Write)
             b.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
-    EXPECT_EQ(0, output.str()[tide::vint::size(track_num) + 2 + id_size +
-            tide::vint::size(expected_size)]);
 
     // EBML lacing
     output.str(std::string());
@@ -433,11 +552,15 @@ TEST(SimpleBlock, Write)
     b.lacing(tide::Block::LACING_EBML);
     b.push_back(f2);
     b.push_back(f3);
-    expected_size = tide::vint::size(track_num) + 3 + 1 +
+    block_size = tide::vint::size(track_num) + 3 + 1 +
         tide::vint::size(f1->size()) +
         tide::vint::s_to_u(f2->size() - f1->size()).second + frame_size;
-    tide::ids::write(tide::ids::SimpleBlock, expected);
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
+    tide::ids::write(tide::ids::BlockGroup, expected);
     tide::vint::write(expected_size, expected);
+    tide::ids::write(tide::ids::Block, expected);
+    tide::vint::write(block_size, expected);
     tide::vint::write(track_num, expected);
     expected.put(timecode >> 8);
     expected.put(timecode & 0xFF);
@@ -452,8 +575,6 @@ TEST(SimpleBlock, Write)
             b.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
-    EXPECT_EQ(0x60, output.str()[tide::vint::size(track_num) + 2 + id_size +
-            tide::vint::size(expected_size)]);
 
     // Fixed lacing
     output.str(std::string());
@@ -463,9 +584,13 @@ TEST(SimpleBlock, Write)
     b.push_back(f1);
     b.push_back(f1);
     b.push_back(f1);
-    expected_size = tide::vint::size(track_num) + 3 + 1 + 3 * f1->size();
-    tide::ids::write(tide::ids::SimpleBlock, expected);
+    block_size = tide::vint::size(track_num) + 3 + 1 + 3 * f1->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
+    tide::ids::write(tide::ids::BlockGroup, expected);
     tide::vint::write(expected_size, expected);
+    tide::ids::write(tide::ids::Block, expected);
+    tide::vint::write(block_size, expected);
     tide::vint::write(track_num, expected);
     expected.put(timecode >> 8);
     expected.put(timecode & 0xFF);
@@ -478,8 +603,6 @@ TEST(SimpleBlock, Write)
             b.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
-    EXPECT_EQ(0x40, output.str()[tide::vint::size(track_num) + 2 + id_size +
-            tide::vint::size(expected_size)]);
 
     // Invisible flag set
     output.str(std::string());
@@ -488,9 +611,13 @@ TEST(SimpleBlock, Write)
     b.lacing(tide::Block::LACING_NONE);
     b.clear();
     b.push_back(f1);
-    expected_size = tide::vint::size(track_num) + 3 + f1->size();
-    tide::ids::write(tide::ids::SimpleBlock, expected);
+    block_size = tide::vint::size(track_num) + 3 + f1->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
+    tide::ids::write(tide::ids::BlockGroup, expected);
     tide::vint::write(expected_size, expected);
+    tide::ids::write(tide::ids::Block, expected);
+    tide::vint::write(block_size, expected);
     tide::vint::write(track_num, expected);
     expected.put(timecode >> 8);
     expected.put(timecode & 0xFF);
@@ -500,55 +627,49 @@ TEST(SimpleBlock, Write)
             b.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
-    EXPECT_EQ(0x10, output.str()[tide::vint::size(track_num) + 2 + id_size +
-            tide::vint::size(expected_size)]);
 
-    // Keyframe flag set
-    output.str(std::string());
-    expected.str(std::string());
-    b.invisible(false);
-    b.keyframe(true);
+    // Add in the BlockGroup extras
+    tide::BlockAdditions::value_type addition(new
+            tide::BlockAdditions::Addition(2,
+                *test_utils::make_blob(5)));
+    tide::BlockAdditions additions;
+    additions.push_back(addition);
+    tide::UIntElement duration(tide::ids::BlockDuration, 42);
+    tide::UIntElement ref_priority(tide::ids::ReferencePriority, 84);
+    tide::IntElement ref_block(tide::ids::ReferenceBlock, 168);
+    std::vector<char> blob(*test_utils::make_blob(10));
+    tide::BinaryElement codec_state(tide::ids::CodecState, blob);
+    block_size = tide::vint::size(track_num) + 3 + f1->size();
+    expected_size = additions.size() + duration.size() +
+        ref_priority.size() + ref_block.size() + codec_state.size() +
+        block_size + tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size);
     b.lacing(tide::Block::LACING_NONE);
     b.clear();
     b.push_back(f1);
-    expected_size = tide::vint::size(track_num) + 3 + f1->size();
-    tide::ids::write(tide::ids::SimpleBlock, expected);
+    b.additions().push_back(addition);
+    b.duration(duration);
+    b.ref_priority(ref_priority);
+    b.ref_blocks().push_back(ref_block);
+    b.codec_state(codec_state);
+    tide::ids::write(tide::ids::BlockGroup, expected);
     tide::vint::write(expected_size, expected);
+    tide::ids::write(tide::ids::Block, expected);
+    tide::vint::write(block_size, expected);
     tide::vint::write(track_num, expected);
     expected.put(timecode >> 8);
     expected.put(timecode & 0xFF);
-    expected.put(0x01); // Flags
+    expected.put(0); // Flags
     expected.write(&(*f1)[0], f1->size());
+    additions.write(expected);
+    duration.write(expected);
+    ref_priority.write(expected);
+    ref_block.write(expected);
+    codec_state.write(expected);
     EXPECT_EQ(id_size + tide::vint::size(expected_size) + expected_size,
             b.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
-    EXPECT_EQ(0x01, output.str()[tide::vint::size(track_num) + 2 + id_size +
-            tide::vint::size(expected_size)]);
-
-    // Discardable flag set
-    output.str(std::string());
-    expected.str(std::string());
-    b.keyframe(false);
-    b.discardable(true);
-    b.lacing(tide::Block::LACING_NONE);
-    b.clear();
-    b.push_back(f1);
-    expected_size = tide::vint::size(track_num) + 3 + f1->size();
-    tide::ids::write(tide::ids::SimpleBlock, expected);
-    tide::vint::write(expected_size, expected);
-    tide::vint::write(track_num, expected);
-    expected.put(timecode >> 8);
-    expected.put(timecode & 0xFF);
-    expected.put(0x80); // Flags
-    expected.write(&(*f1)[0], f1->size());
-    EXPECT_EQ(id_size + tide::vint::size(expected_size) + expected_size,
-            b.write(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
-    EXPECT_EQ(0x80, static_cast<unsigned char>(output.str()[
-                tide::vint::size(track_num) + 2 + id_size +
-            tide::vint::size(expected_size)]));
 
     // Empty block
     b.clear();
@@ -571,7 +692,7 @@ TEST(SimpleBlock, Write)
 }
 
 
-TEST(SimpleBlock, Read)
+TEST(BlockGroup, Read)
 {
     std::stringstream input;
     std::streamsize expected_size(0);
@@ -579,7 +700,7 @@ TEST(SimpleBlock, Read)
     unsigned int track_num(1);
     unsigned int timecode(12345);
 
-    tide::SimpleBlock b(0, 0);
+    tide::BlockGroup b(0, 0);
     b.lacing(tide::Block::LACING_FIXED);
     b.invisible(true);
 
@@ -591,8 +712,12 @@ TEST(SimpleBlock, Read)
                 f1->size()));
 
     // No lacing
-    expected_size = tide::vint::size(track_num) + 3 + f1->size();
+    std::streamsize block_size = tide::vint::size(track_num) + 3 + f1->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -614,10 +739,14 @@ TEST(SimpleBlock, Read)
     b.timecode(0);
     b.lacing(tide::Block::LACING_FIXED);
     b.invisible(true);
-    expected_size = tide::vint::size(track_num) + 3 + 1 +
+    block_size = tide::vint::size(track_num) + 3 + 1 +
         tide::vint::size(f1->size()) +
         tide::vint::s_to_u(f2->size() - f1->size()).second + frame_size;
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -646,8 +775,12 @@ TEST(SimpleBlock, Read)
     b.timecode(0);
     b.lacing(tide::Block::LACING_NONE);
     b.invisible(true);
-    expected_size = tide::vint::size(track_num) + 3 + 1 + 3 * f1->size();
+    block_size = tide::vint::size(track_num) + 3 + 1 + 3 * f1->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -674,8 +807,12 @@ TEST(SimpleBlock, Read)
     b.timecode(0);
     b.lacing(tide::Block::LACING_NONE);
     b.invisible(false);
-    expected_size = tide::vint::size(track_num) + 3 + f1->size();
+    block_size = tide::vint::size(track_num) + 3 + f1->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -690,10 +827,14 @@ TEST(SimpleBlock, Read)
     b.lacing(tide::Block::LACING_EBML);
     b.push_back(f2);
     b.push_back(f3);
-    expected_size = tide::vint::size(track_num) + 3 + 1 +
+    block_size = tide::vint::size(track_num) + 3 + 1 +
         tide::vint::size(f1->size()) +
         tide::vint::s_to_u(f2->size() - f1->size()).second + frame_size;
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -708,8 +849,12 @@ TEST(SimpleBlock, Read)
 
     // Bad body size
     input.str(std::string());
-    expected_size = tide::vint::size(track_num) + 3;
+    block_size = tide::vint::size(track_num) + 3;
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -718,10 +863,14 @@ TEST(SimpleBlock, Read)
 
     // Bad frame size (due to missing data)
     input.str(std::string());
-    expected_size = tide::vint::size(track_num) + 3 + 1 +
+    block_size = tide::vint::size(track_num) + 3 + 1 +
         tide::vint::size(f1->size()) +
         tide::vint::s_to_u(f2->size() - f1->size()).second;
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -733,11 +882,15 @@ TEST(SimpleBlock, Read)
 
     // Missing frame - EBML lacing
     input.str(std::string());
-    expected_size = tide::vint::size(track_num) + 3 + 1 +
+    block_size = tide::vint::size(track_num) + 3 + 1 +
         tide::vint::size(f1->size()) +
         tide::vint::s_to_u(f2->size() - f1->size()).second + f1->size() +
         f2->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -752,9 +905,13 @@ TEST(SimpleBlock, Read)
 
     // Missing frame - fixed lacing
     input.str(std::string());
-    expected_size = tide::vint::size(track_num) + 3 + 1 +
+    block_size = tide::vint::size(track_num) + 3 + 1 +
         f1->size() + f1->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -767,9 +924,13 @@ TEST(SimpleBlock, Read)
 
     // Unequal frame sizes
     input.str(std::string());
-    expected_size = tide::vint::size(track_num) + 3 + 1 + f1->size() +
+    block_size = tide::vint::size(track_num) + 3 + 1 + f1->size() +
         f2->size();
+    expected_size = tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size) + block_size;
     tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
     tide::vint::write(track_num, input);
     input.put(timecode >> 8);
     input.put(timecode & 0xFF);
@@ -778,5 +939,60 @@ TEST(SimpleBlock, Read)
     input.write(&(*f1)[0], f1->size());
     input.write(&(*f2)[0], f1->size());
     EXPECT_THROW(b.read(input), tide::BadLacedFrameSize);
+
+    // Add in the BlockGroup extras
+    tide::BlockAdditions::value_type addition(new
+            tide::BlockAdditions::Addition(2,
+                *test_utils::make_blob(5)));
+    tide::BlockAdditions additions;
+    additions.push_back(addition);
+    tide::UIntElement duration(tide::ids::BlockDuration, 42);
+    tide::UIntElement ref_priority(tide::ids::ReferencePriority, 84);
+    tide::IntElement ref_block(tide::ids::ReferenceBlock, 168);
+    std::vector<char> blob(*test_utils::make_blob(10));
+    tide::BinaryElement codec_state(tide::ids::CodecState, blob);
+    block_size = tide::vint::size(track_num) + 3 + f1->size();
+    expected_size = additions.size() + duration.size() +
+        ref_priority.size() + ref_block.size() + codec_state.size() +
+        block_size + tide::ids::size(tide::ids::Block) +
+        tide::vint::size(block_size);
+
+    b.lacing(tide::Block::LACING_NONE);
+    b.clear();
+    b.push_back(f1);
+    b.additions().push_back(addition);
+    b.duration(duration);
+    b.ref_priority(ref_priority);
+    b.ref_blocks().push_back(ref_block);
+    b.codec_state(codec_state);
+
+    input.str(std::string());
+    tide::vint::write(expected_size, input);
+    tide::ids::write(tide::ids::Block, input);
+    tide::vint::write(block_size, input);
+    tide::vint::write(track_num, input);
+    input.put(timecode >> 8);
+    input.put(timecode & 0xFF);
+    input.put(0); // Flags
+    input.write(&(*f1)[0], f1->size());
+    additions.write(input);
+    duration.write(input);
+    ref_priority.write(input);
+    ref_block.write(input);
+    codec_state.write(input);
+    EXPECT_EQ(tide::vint::size(expected_size) + expected_size,
+            b.read(input));
+    EXPECT_EQ(track_num, b.track_number());
+    EXPECT_EQ(timecode, b.timecode());
+    EXPECT_FALSE(b.invisible());
+    EXPECT_EQ(tide::Block::LACING_NONE, b.lacing());
+    EXPECT_EQ(1, b.count());
+    EXPECT_EQ(f1->size(), b[0]->size());
+    EXPECT_EQ(addition->first, b.additions()[0]->first);
+    EXPECT_TRUE(addition->second == b.additions()[0]->second);
+    EXPECT_EQ(duration, b.duration());
+    EXPECT_EQ(ref_priority, b.ref_priority());
+    EXPECT_EQ(ref_block, b.ref_blocks()[0]);
+    EXPECT_TRUE(codec_state.value() == b.codec_state());
 }
 

@@ -49,6 +49,11 @@ namespace tide
         public boost::equality_comparable<Block>
     {
         public:
+            /// \brief Pointer to a block.
+            typedef boost::shared_ptr<Block> Ptr;
+            /// \brief Constant pointer to a block.
+            typedef boost::shared_ptr<Block const> ConstPtr;
+
             /// \brief Lacing types.
             enum LacingType
             {

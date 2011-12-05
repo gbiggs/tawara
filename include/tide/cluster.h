@@ -28,6 +28,9 @@
 #if !defined(TIDE_CLUSTER_H_)
 #define TIDE_CLUSTER_H_
 
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <tide/block.h>
 #include <tide/master_element.h>
 #include <tide/uint_element.h>
 #include <tide/win_dll.h>
@@ -136,6 +139,9 @@ namespace tide
     class TIDE_EXPORT Cluster : public MasterElement
     {
         public:
+            /// \brief Pointer to a cluster.
+            typedef boost::shared_ptr<Cluster> Ptr;
+
             /** \brief Construct a new Cluster
              *
              * \param[in] timecode The timecode of the cluster, in the units
@@ -145,6 +151,84 @@ namespace tide
 
             /// \brief Destructor.
             virtual ~Cluster() {};
+
+            //////////////////////////////////////////////////////////////////
+            // Iterator types
+            //////////////////////////////////////////////////////////////////
+
+            template <typename BPtr>
+            class TIDE_EXPORT IteratorBase
+                : public boost::iterator_facade<
+                    IteratorBase,
+                    BPtr,
+                    boost::bidirectional_traversal_tag>
+            {
+                public:
+                    /// \brief Base constructor.
+                    IteratorBase()
+                    {}
+
+                    /** \brief Base constructor.
+                     *
+                     * \param[in] p A pointer to a block to iterate from.
+                     */
+                    explicit IteratorBase(BPtr& p)
+                    {}
+
+                    /** \brief Templated base constructor.
+                     *
+                     * Used to provide interoperability with compatible
+                     * iterators.
+                     */
+                    template <typename OtherType>
+                    Iterator(Iterator<OtherType> const& other,
+                            typename boost::enable_if<boost::is_convertible<OtherType*, BPtr*>,
+                            enabler>::type = enable())
+                    {}
+
+                protected:
+                    // Necessary for Boost::iterator implementation.
+                    friend class boost::iterator_core_access;
+
+                    /// \brief Increment the Iterator to the next block.
+                    virtual void increment() = 0;
+
+                    /// \brief Decrement the Iterator to the previous block.
+                    virtual void decrement() = 0;
+
+                    /** \brief Test for equality with another Iterator.
+                     *
+                     * \param[in] other The other iterator.
+                     */
+                    template <typename OtherType>
+                    virtual bool equal(
+                            IteratorBase<OtherType> const& other) const = 0;
+
+                    /** \brief Dereference the iterator to get the Block
+                     * pointer.
+                     */
+                    virtual BPtr& dereference() const = 0;
+
+                    struct enabler {};
+            };
+
+            /** \brief Block iterator interface
+             *
+             * This interface provides access to the blocks in the cluster,
+             * sorted in ascending time order.
+             */
+            typedef IteratorBase<Block::Ptr> Iterator;
+            /** \brief Block const iterator interface
+             *
+             * This interface provides access to the blocks in the cluster,
+             * sorted in ascending time order. The access is const, preventing
+             * modification of the blocks.
+             */
+            typedef IteratorBase<Block::ConstPtr> ConstIterator;
+
+            //////////////////////////////////////////////////////////////////
+            // Cluster interface
+            //////////////////////////////////////////////////////////////////
 
             /** \brief Get the cluster's timecode.
              *

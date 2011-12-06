@@ -1,6 +1,6 @@
 /* Tide
  *
- * Test the base Cluster class.
+ * Test the in-memory Cluster implementation.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -26,92 +26,24 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/cluster.h>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
+#include <tide/memory_cluster.h>
 #include <tide/vint.h>
 
 #include "test_utils.h"
 
 
-// Fake Cluster implementation
-class FakeCluster : public tide::Cluster
+TEST(MemoryCluster, Create)
 {
-    public:
-        FakeCluster(uint64_t tc=0)
-            : tide::Cluster(tc)
-        {
-        }
-
-        std::streamsize prepare(std::ostream& output)
-        {
-            return 0;
-        }
-
-        std::streamsize blocks_size() const
-        {
-            return 0;
-        }
-
-        std::streamsize write_blocks(std::ostream& output)
-        {
-            return 0;
-        }
-
-        std::streamsize read_blocks(std::istream& input, std::streamsize size)
-        {
-            return 0;
-        }
-}; // class FakeCluster
-
-
-TEST(BaseCluster, Create)
-{
-    FakeCluster e;
-    EXPECT_TRUE(e.silent_tracks().empty());
-    //EXPECT_EQ(0, e.position());
-    EXPECT_EQ(0, e.previous_size());
+    MemoryCluster e;
+    EXPECT_TRUE(e.empty());
 }
 
 
-TEST(BaseCluster, Timecode)
+TEST(MemoryCluster, Size)
 {
-    FakeCluster e(42);
-    EXPECT_EQ(42, e.timecode());
-    e.timecode(84);
-    EXPECT_EQ(84, e.timecode());
-}
-
-
-TEST(BaseCluster, SilentTracks)
-{
-    FakeCluster e;
-    EXPECT_TRUE(e.silent_tracks().empty());
-    e.silent_tracks().push_back(tide::SilentTrackNumber(15));
-    EXPECT_FALSE(e.silent_tracks().empty());
-    EXPECT_EQ(e.silent_tracks()[0], 15);
-}
-
-
-TEST(BaseCluster, Position)
-{
-    FakeCluster e;
-    EXPECT_THROW(e.position(), tide::NotImplemented);
-}
-
-
-TEST(BaseCluster, PreviousSize)
-{
-    FakeCluster e;
-    EXPECT_EQ(0, e.previous_size());
-    e.previous_size(0x1234);
-    EXPECT_EQ(0x1234, e.previous_size());
-}
-
-
-TEST(BaseCluster, Size)
-{
-    FakeCluster e;
+    MemoryCluster e;
     tide::UIntElement tc(tide::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
     EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
@@ -138,7 +70,7 @@ TEST(BaseCluster, Size)
 }
 
 
-TEST(BaseCluster, Write)
+TEST(MemoryCluster, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
@@ -147,7 +79,7 @@ TEST(BaseCluster, Write)
     tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
     tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
 
-    FakeCluster e;
+    MemoryCluster e;
     std::streamsize expected_size(tc.size());
     tide::ids::write(tide::ids::Cluster, expected);
     tide::vint::write(expected_size, expected);
@@ -182,7 +114,7 @@ TEST(BaseCluster, Write)
 }
 
 
-TEST(BaseCluster, Read)
+TEST(MemoryCluster, Read)
 {
     std::stringstream input;
     tide::UIntElement tc(tide::ids::Timecode, 42);
@@ -190,7 +122,7 @@ TEST(BaseCluster, Read)
     tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
     tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
 
-    FakeCluster e;
+    MemoryCluster e;
     std::streamsize body_size(tc.size());
     tide::vint::write(body_size, input);
     tc.write(input);
@@ -234,4 +166,5 @@ TEST(BaseCluster, Read)
     ps.write(input);
     EXPECT_THROW(e.read(input), tide::MissingChild);
 }
+
 

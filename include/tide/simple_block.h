@@ -28,9 +28,8 @@
 #if !defined(TIDE_SIMPLE_BLOCK_H_)
 #define TIDE_SIMPLE_BLOCK_H_
 
-#include <tide/block.h>
+#include <tide/block_element.h>
 #include <tide/block_impl.h>
-#include <tide/element.h>
 #include <tide/win_dll.h>
 
 /// \addtogroup elements Elements
@@ -46,7 +45,7 @@ namespace tide
      * binary data specified by the Simple Block format, which this element
      * implementation interprets.
      */
-    class TIDE_EXPORT SimpleBlock : public Element, public Block,
+    class TIDE_EXPORT SimpleBlock : public BlockElement,
         public boost::equality_comparable<SimpleBlock>
     {
         public:

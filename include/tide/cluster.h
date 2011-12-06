@@ -28,8 +28,6 @@
 #if !defined(TIDE_CLUSTER_H_)
 #define TIDE_CLUSTER_H_
 
-#include <boost/iterator/iterator_facade.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <tide/block.h>
 #include <tide/master_element.h>
 #include <tide/uint_element.h>
@@ -68,7 +66,7 @@ namespace tide
      * in, and finally the correct size value written over the dummy size value
      * at the start of the cluster. Alternative implementations may store all
      * cluster data in memory (or even in another file) before writing the
-     * cluster in one hit, giving a single-pass approach.
+     * cluster in one hit.
      *
      * The Cluster interface supports both streaming and all-at-once approaches
      * to writing. The sequence of method calls is the same for both cases, but
@@ -76,37 +74,38 @@ namespace tide
      * must be performed is:
      *
      * \verbatim
-     *  cluster.prepare(output)
+     *  cluster.write(output)
      *          ||
      *          \/
      *  [Capture blocks]
      *          ||
      *          \/
-     *  cluster.write(output)
+     *  cluster.finalise(output)
      * \endverbatim
      *
-     * The purpose of the prepare step is to allow Cluster implementations that
+     * The purpose of the write step is to allow Cluster implementations that
      * use stream-based writing to prepare the file for writing the blocks.
-     * The write step is used to finalise the cluster in the file, ensuring the
-     * correct size value is written.
+     * The finalise step is used to finalise the cluster in the file, ensuring,
+     * for example, that the correct size value is written into the element
+     * header.
      *
      * For a Cluster implementation that stores the block data elsewhere (e.g.
      * in memory) before writing the entire cluster in one go, the method calls
      * could be implemented to do the following:
      *
      * \verbatim
-     *  cluster.prepare(output) -> Prepare space outside of the file to store
-     *          ||                 the blocks while they are accumulated. For
-     *          ||                 example, a block of memory could be
-     *          ||                 allocated to store the blocks.
+     *  cluster.write(output)    -> Prepare space outside of the file to store
+     *          ||                  the blocks while they are accumulated. For
+     *          ||                  example, a block of memory could be
+     *          ||                  allocated to store the blocks.
      *          \/
-     *  [Capture blocks]        -> Store blocks in the reserved space.
+     *  [Capture blocks]         -> Store blocks in the reserved space.
      *          ||
      *          \/
-     *  cluster.write(output)   -> Write the Cluster ID and size (calculated
-     *                             from the stored blocks), followed by the
-     *                             other Cluster fields, and then the stored
-     *                             blocks.
+     *  cluster.finalise(output) -> Write the Cluster ID and size (calculated
+     *                              from the stored blocks), followed by the
+     *                              other Cluster fields, and then the stored
+     *                              blocks.
      * \endverbatim
      *
      * For a Cluster implementation that streams the blocks directly into the
@@ -114,19 +113,19 @@ namespace tide
      * following:
      *
      * \verbatim
-     *  cluster.prepare(output) -> Write the Cluster ID with a base value for
-     *          ||                 the size (a good value to use is the size of
-     *          ||                 an empty cluster).  Following this, write
-     *          ||                 the other Cluster fields.
+     *  cluster.write(output)    -> Write the Cluster ID with a base value for
+     *          ||                  the size (a good value to use is the size
+     *          ||                  of an empty cluster).  Following this,
+     *          ||                  write the other Cluster fields.
      *          \/
-     *  [Capture blocks]        -> Write blocks directly to the file as they
-     *          ||                 are received.
+     *  [Capture blocks]         -> Write blocks directly to the file as they
+     *          ||                  are received.
      *          \/
-     *  cluster.write(output)   -> Calculate the actual cluster size (e.g.
-     *                             subtract the position in the file of the
-     *                             first block from the position in the file
-     *                             after the last block), and write it over the
-     *                             dummy value written earlier.
+     *  cluster.finalise(output) -> Calculate the actual cluster size (e.g.
+     *                              subtract the position in the file of the
+     *                              first block from the position in the file
+     *                              after the last block), and write it over
+     *                              the dummy value written earlier.
      * \endverbatim
      *
      * The second approach described above has a \e very important limitation:
@@ -141,8 +140,16 @@ namespace tide
         public:
             /// \brief Pointer to a cluster.
             typedef boost::shared_ptr<Cluster> Ptr;
+            /// \brief The value type of this container.
+            typedef BlockElement::Ptr value_type;
+            /// \brief The size type of this container.
+            typedef size_t size_type;
+            /// \brief The reference type.
+            typedef value_type& reference;
+            /// \brief The constant reference type.
+            typedef valuetype const& const_reference;
 
-            /** \brief Construct a new Cluster
+            /** \brief Construct a new Cluster.
              *
              * \param[in] timecode The timecode of the cluster, in the units
              * specified by TimecodeScale.
@@ -153,82 +160,37 @@ namespace tide
             virtual ~Cluster() {};
 
             //////////////////////////////////////////////////////////////////
-            // Iterator types
-            //////////////////////////////////////////////////////////////////
-
-            template <typename BPtr>
-            class TIDE_EXPORT IteratorBase
-                : public boost::iterator_facade<
-                    IteratorBase,
-                    BPtr,
-                    boost::bidirectional_traversal_tag>
-            {
-                public:
-                    /// \brief Base constructor.
-                    IteratorBase()
-                    {}
-
-                    /** \brief Base constructor.
-                     *
-                     * \param[in] p A pointer to a block to iterate from.
-                     */
-                    explicit IteratorBase(BPtr& p)
-                    {}
-
-                    /** \brief Templated base constructor.
-                     *
-                     * Used to provide interoperability with compatible
-                     * iterators.
-                     */
-                    template <typename OtherType>
-                    Iterator(Iterator<OtherType> const& other,
-                            typename boost::enable_if<boost::is_convertible<OtherType*, BPtr*>,
-                            enabler>::type = enable())
-                    {}
-
-                protected:
-                    // Necessary for Boost::iterator implementation.
-                    friend class boost::iterator_core_access;
-
-                    /// \brief Increment the Iterator to the next block.
-                    virtual void increment() = 0;
-
-                    /// \brief Decrement the Iterator to the previous block.
-                    virtual void decrement() = 0;
-
-                    /** \brief Test for equality with another Iterator.
-                     *
-                     * \param[in] other The other iterator.
-                     */
-                    template <typename OtherType>
-                    virtual bool equal(
-                            IteratorBase<OtherType> const& other) const = 0;
-
-                    /** \brief Dereference the iterator to get the Block
-                     * pointer.
-                     */
-                    virtual BPtr& dereference() const = 0;
-
-                    struct enabler {};
-            };
-
-            /** \brief Block iterator interface
-             *
-             * This interface provides access to the blocks in the cluster,
-             * sorted in ascending time order.
-             */
-            typedef IteratorBase<Block::Ptr> Iterator;
-            /** \brief Block const iterator interface
-             *
-             * This interface provides access to the blocks in the cluster,
-             * sorted in ascending time order. The access is const, preventing
-             * modification of the blocks.
-             */
-            typedef IteratorBase<Block::ConstPtr> ConstIterator;
-
-            //////////////////////////////////////////////////////////////////
             // Cluster interface
             //////////////////////////////////////////////////////////////////
+
+            /// \brief Check if there are no blocks.
+            virtual bool empty() const = 0;
+            /// \brief Get the number of blocks.
+            virtual size_type count() const = 0;
+            /// \brief Remove all blocks.
+            virtual void clear() = 0;
+
+            /** \brief Erase the block at the specified iterator.
+             *
+             * \param[in] position The position to erase at.
+             */
+            virtual void erase(iterator position) = 0;
+            /** \brief Erase a range of blocks.
+             *
+             * \param[in] first The start of the range.
+             * \param[in] last The end of the range.
+             */
+            virtual void erase(iterator first, iterator last) = 0;
+
+            /** \brief Add a block to this cluster.
+             *
+             * The cluster must be in the writable state. This means that
+             * write() has been called and finish_write() has not been called.
+             *
+             * \throw ClusterNotReady if the Cluster is not in the correct
+             * state for writing blocks.
+             */
+            virtual void push_back(value_type const& value) = 0;
 
             /** \brief Get the cluster's timecode.
              *
@@ -343,12 +305,18 @@ namespace tide
              * might, for example, read the position of each block and store it
              * in an index.
              *
+             * \param[in] input The input byte stream to read blocks from.
+             * \param[in] size The number of bytes available for reading.
+             * Exactly this many bytes should be used, or an error should be
+             * reported.
              * \return The total size of the cluster's blocks (as stored in the
-             * stream). Even if only a small quantity of data is actually read,
-             * it must return the complete blocks size of the cluster in order
-             * to meet the Element interface requirements.
+             * stream), i.e. the quantity of data "read". Even if only a small
+             * quantity of data is actually read, it must return the complete
+             * blocks size of the cluster in order to meet the Element
+             * interface requirements.
              */
-            virtual std::streamsize read_blocks(std::istream& input) = 0;
+            virtual std::streamsize read_blocks(std::istream& input,
+                    std::streamsize size) = 0;
 
             /** \brief Read the SilentTracks child element.
              *

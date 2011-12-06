@@ -38,7 +38,7 @@ using namespace tide;
 
 SimpleBlock::SimpleBlock(uint64_t track_number, int16_t timecode,
         LacingType lacing)
-    : Element(tide::ids::SimpleBlock), Block(track_number, timecode, lacing),
+    : BlockElement(tide::ids::SimpleBlock, track_number, timecode, lacing),
     keyframe_(false), discardable_(false),
     block_(track_number, timecode, lacing)
 {

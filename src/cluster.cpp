@@ -57,14 +57,14 @@ uint64_t Cluster::position() const
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
 std::streamsize add_size(std::streamsize x, SilentTrackNumber stn)
 {
     return x + stn.size();
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// Element interface
-///////////////////////////////////////////////////////////////////////////////
 
 std::streamsize Cluster::body_size() const
 {
@@ -134,7 +134,7 @@ std::streamsize Cluster::read_body(std::istream& input,
         ids::ReadResult id_res = ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
-        switch(id)
+        switch (id)
         {
             case ids::Timecode:
                 read_bytes += timecode_.read(input);
@@ -148,6 +148,13 @@ std::streamsize Cluster::read_body(std::istream& input,
                 break;
             case ids::PrevSize:
                 read_bytes += prev_size_.read(input);
+                break;
+            case ids::SimpleBlock:
+            case ids::BlockGroup:
+                // Rewind to the element ID value
+                input.seekg(-id_res.second, std::ios::cur);
+                // Read all the blocks - this will use up the rest of the block
+                read_bytes += read_blocks(input, size - read_bytes);
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<

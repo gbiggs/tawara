@@ -30,6 +30,7 @@ set(hdrs ${config_h}
     block_additions.h
     block_group.h
     cluster.h
+    memory_cluster.h
     simple_block.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}

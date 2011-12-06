@@ -33,6 +33,7 @@ set(srcs test_utils.cpp
     test_block_additions.cpp
     test_block_group.cpp
     test_cluster.cpp
+    test_memory_cluster.cpp
     test_segment.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")

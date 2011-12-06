@@ -24,6 +24,7 @@ set(srcs tide_impl.cpp
     block_group.cpp
     block_additions.cpp
     cluster.cpp
+    memory_cluster.cpp
     segment.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)

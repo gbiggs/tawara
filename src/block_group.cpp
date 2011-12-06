@@ -42,8 +42,7 @@ using namespace tide;
 
 BlockGroup::BlockGroup(uint64_t track_number, int16_t timecode,
         LacingType lacing, uint64_t duration, uint64_t ref_priority)
-    : MasterElement(tide::ids::BlockGroup),
-    Block(track_number, timecode, lacing),
+    : BlockElement(tide::ids::BlockGroup, track_number, timecode, lacing),
     duration_(ids::BlockDuration, duration),
     ref_priority_(ids::ReferencePriority, ref_priority, 0),
     codec_state_(ids::CodecState, std::vector<char>()),

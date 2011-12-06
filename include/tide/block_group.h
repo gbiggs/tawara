@@ -30,7 +30,7 @@
 
 #include <boost/operators.hpp>
 #include <tide/binary_element.h>
-#include <tide/block.h>
+#include <tide/block_element.h>
 #include <tide/block_additions.h>
 #include <tide/block_impl.h>
 #include <tide/master_element.h>
@@ -52,7 +52,7 @@ namespace tide
      * implements the Block interface, and so can be treated as a Block,
      * similar to the SimpleBlock element.
      */
-    class BlockGroup : public MasterElement, public Block,
+    class BlockGroup : public BlockElement,
         public boost::equality_comparable<BlockGroup>
     {
         public:

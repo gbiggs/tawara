@@ -101,10 +101,13 @@ namespace tide
                     }
 
                 protected:
-                    IterType iter_;
-
                     // Necessary for Boost::iterator implementation.
                     friend class boost::iterator_core_access;
+
+                    // Integrate with owning container
+                    friend class MemoryCluster;
+
+                    IterType iter_;
 
                     /// \brief Increment the Iterator to the next block.
                     void increment()
@@ -193,14 +196,15 @@ namespace tide
              *
              * \param[in] position The position to erase at.
              */
-            virtual void erase(iterator position) { blocks_.erase(position); }
+            virtual void erase(Iterator position)
+                { blocks_.erase(position.iter_); }
             /** \brief Erase a range of blocks.
              *
              * \param[in] first The start of the range.
              * \param[in] last The end of the range.
              */
-            virtual void erase(iterator first, iterator last)
-                { blocks_.erase(first, last); }
+            virtual void erase(Iterator first, Iterator last)
+                { blocks_.erase(first.iter_, last.iter_); }
 
             /** \brief Add a block to this cluster.
              *
@@ -210,8 +214,8 @@ namespace tide
             virtual void push_back(value_type const& value)
                 { blocks_.push_back(value); }
 
-            /// \brief Prepare the cluster to be written.
-            std::streamsize prepare(std::ostream& output);
+            /// \brief Finalise writing of the cluster.
+            std::streamsize finalise(std::ostream& output);
 
         protected:
             /// Block storage

@@ -43,7 +43,25 @@ class FakeCluster : public tide::Cluster
         {
         }
 
-        std::streamsize prepare(std::ostream& output)
+        bool empty() const
+        {
+            return true;
+        }
+
+        tide::Cluster::size_type count() const
+        {
+            return 0;
+        }
+
+        void clear()
+        {
+        }
+
+        void push_back(tide::Cluster::value_type const&)
+        {
+        }
+
+        std::streamsize finalise(std::ostream& output)
         {
             return 0;
         }

@@ -76,10 +76,10 @@ MemoryCluster::ConstIterator MemoryCluster::end() const
 // I/O (Cluster interface)
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize MemoryCluster::prepare(std::ostream& output)
+std::streamsize MemoryCluster::finalise(std::ostream& output)
 {
-    // The MemoryCluster implementation does not have to do anything to prepare
-    // for writing.
+    // The MemoryCluster implementation does not have to do anything to
+    // finalise writing.
     return 0;
 }
 

@@ -26,9 +26,11 @@
  */
 
 #include <gtest/gtest.h>
+#include <tide/block_element.h>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
 #include <tide/memory_cluster.h>
+#include <tide/simple_block.h>
 #include <tide/vint.h>
 
 #include "test_utils.h"
@@ -36,37 +38,131 @@
 
 TEST(MemoryCluster, Create)
 {
-    MemoryCluster e;
+    tide::MemoryCluster e;
     EXPECT_TRUE(e.empty());
+}
+
+
+TEST(MemoryCluster, Empty)
+{
+    tide::MemoryCluster c;
+    EXPECT_TRUE(c.empty());
+    tide::BlockElement::Ptr b(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    c.push_back(b);
+    EXPECT_FALSE(c.empty());
+}
+
+
+TEST(MemoryCluster, Count)
+{
+    tide::MemoryCluster c;
+    EXPECT_EQ(0, c.count());
+    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
+                tide::Block::LACING_NONE));
+    c.push_back(b1);
+    c.push_back(b2);
+    EXPECT_EQ(2, c.count());
+}
+
+
+TEST(MemoryCluster, Clear)
+{
+    tide::MemoryCluster c;
+    tide::BlockElement::Ptr b(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    c.push_back(b);
+    EXPECT_FALSE(c.empty());
+    c.clear();
+    EXPECT_TRUE(c.empty());
+}
+
+
+TEST(MemoryCluster, Erase)
+{
+    tide::MemoryCluster c;
+    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
+                tide::Block::LACING_NONE));
+    c.push_back(b1);
+    c.push_back(b2);
+    EXPECT_EQ(2, c.count());
+    EXPECT_TRUE(b1 == *c.begin());
+    c.erase(c.begin());
+    EXPECT_EQ(1, c.count());
+    EXPECT_TRUE(b2 == *c.begin());
+
+    tide::BlockElement::Ptr b3(new tide::SimpleBlock(3, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b4(new tide::SimpleBlock(4, 26262,
+                tide::Block::LACING_NONE));
+    c.push_back(b3);
+    c.push_back(b4);
+    EXPECT_EQ(3, c.count());
+    c.erase(c.begin(), c.begin() + 1);
+    EXPECT_EQ(1, c.count());
+    EXPECT_TRUE(b4 == *c.begin());
+}
+
+
+TEST(MemoryCluster, PushBack)
+{
+    tide::MemoryCluster c;
+    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
+                tide::Block::LACING_NONE));
+    c.push_back(b1);
+    EXPECT_TRUE(b1 == *c.begin());
+    c.push_back(b2);
+    EXPECT_TRUE(b2 == *(c.begin() + 1));
+}
+
+
+TEST(MemoryCluster, Iterators)
+{
+    tide::MemoryCluster c;
+    EXPECT_TRUE(c.begin() == c.end());
+
+    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
+                tide::Block::LACING_NONE));
+    c.push_back(b1);
+    EXPECT_FALSE(c.begin() == c.end());
+    EXPECT_TRUE(b1 == *c.begin());
+    c.push_back(b2);
+    EXPECT_TRUE(b2 == *(c.begin() + 1));
 }
 
 
 TEST(MemoryCluster, Size)
 {
-    MemoryCluster e;
+    tide::MemoryCluster c;
     tide::UIntElement tc(tide::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
     EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
             tide::vint::size(body_size) + body_size,
-            e.size());
+            c.size());
 
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    body_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
-        st1.size() + st2.size();
-    e.silent_tracks().push_back(tide::SilentTrackNumber(1));
-    e.silent_tracks().push_back(tide::SilentTrackNumber(2));
+    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
+                tide::Block::LACING_NONE));
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    b1->push_back(f1);
+    c.push_back(b1);
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    b2->push_back(f2);
+    c.push_back(b2);
+    body_size += b1->size() + b2->size();
+
     EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
             tide::vint::size(body_size) + body_size,
-            e.size());
-
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
-    body_size += ps.size();
-    e.previous_size(0x1234);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            e.size());
+            c.size());
 }
 
 
@@ -75,40 +171,37 @@ TEST(MemoryCluster, Write)
     std::ostringstream output;
     std::stringstream expected;
     tide::UIntElement tc(tide::ids::Timecode, 0);
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
+    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
+                tide::Block::LACING_NONE));
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    b1->push_back(f1);
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    b2->push_back(f2);
+    tide::MemoryCluster c;
 
-    MemoryCluster e;
     std::streamsize expected_size(tc.size());
     tide::ids::write(tide::ids::Cluster, expected);
     tide::vint::write(expected_size, expected);
     tc.write(expected);
     EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
             tide::vint::size(expected_size) + expected_size,
-            e.write(output));
+            c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
-    expected_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
-        st1.size() + st2.size() + ps.size();
-    e.silent_tracks().push_back(tide::SilentTrackNumber(1));
-    e.silent_tracks().push_back(tide::SilentTrackNumber(2));
-    e.previous_size(0x1234);
-    output.str(std::string());
-    expected.str(std::string());
+    expected_size += b1->size() + b2->size();
+    c.push_back(b1);
+    c.push_back(b2);
     tide::ids::write(tide::ids::Cluster, expected);
     tide::vint::write(expected_size, expected);
     tc.write(expected);
-    tide::ids::write(tide::ids::SilentTracks, expected);
-    tide::vint::write(st1.size() + st2.size(), expected);
-    st1.write(expected);
-    st2.write(expected);
-    ps.write(expected);
+    b1->write(expected);
+    b2->write(expected);
     EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
             tide::vint::size(expected_size) + expected_size,
-            e.write(output));
+            c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 }
@@ -118,53 +211,35 @@ TEST(MemoryCluster, Read)
 {
     std::stringstream input;
     tide::UIntElement tc(tide::ids::Timecode, 42);
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
+    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
+                tide::Block::LACING_NONE));
+    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
+                tide::Block::LACING_NONE));
+    tide::Block::value_type f1(test_utils::make_blob(5));
+    b1->push_back(f1);
+    tide::Block::value_type f2(test_utils::make_blob(10));
+    b2->push_back(f2);
+    tide::MemoryCluster c;
 
-    MemoryCluster e;
     std::streamsize body_size(tc.size());
     tide::vint::write(body_size, input);
     tc.write(input);
     EXPECT_EQ(tide::vint::size(body_size) + body_size,
-            e.read(input));
-    EXPECT_EQ(42, e.timecode());
-    EXPECT_TRUE(e.silent_tracks().empty());
-    EXPECT_EQ(0, e.previous_size());
+            c.read(input));
+    EXPECT_EQ(42, c.timecode());
 
-    body_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
-        st1.size() + st2.size() + ps.size();
+    body_size += b1->size() + b2->size();
     tide::vint::write(body_size, input);
     tc.write(input);
-    tide::ids::write(tide::ids::SilentTracks, input);
-    tide::vint::write(st1.size() + st2.size(), input);
-    st1.write(input);
-    st2.write(input);
-    ps.write(input);
+    b1->write(input);
+    b2->write(input);
     EXPECT_EQ(tide::vint::size(body_size) + body_size,
-            e.read(input));
-    EXPECT_EQ(42, e.timecode());
-    EXPECT_FALSE(e.silent_tracks().empty());
-    EXPECT_EQ(0x1234, e.previous_size());
-
-    // Body size value wrong (too small)
-    input.str(std::string());
-    tide::vint::write(2, input);
-    tc.write(input);
-    ps.write(input);
-    EXPECT_THROW(e.read(input), tide::BadBodySize);
-    // Invalid child
-    input.str(std::string());
-    tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.size(), input);
-    ue.write(input);
-    EXPECT_THROW(e.read(input), tide::InvalidChildID);
-    // Missing timecode
-    input.str(std::string());
-    tide::vint::write(ps.size(), input);
-    ps.write(input);
-    EXPECT_THROW(e.read(input), tide::MissingChild);
+            c.read(input));
+    EXPECT_EQ(42, c.timecode());
+    EXPECT_EQ(2, c.count());
+    EXPECT_TRUE(b1 ==
+            boost::static_pointer_cast<tide::SimpleBlock>(*c.begin()));
+    EXPECT_TRUE(b2 ==
+            boost::static_pointer_cast<tide::SimpleBlock>(*(c.begin() + 1)));
 }
-
 

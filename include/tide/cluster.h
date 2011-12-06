@@ -28,7 +28,7 @@
 #if !defined(TIDE_CLUSTER_H_)
 #define TIDE_CLUSTER_H_
 
-#include <tide/block.h>
+#include <tide/block_element.h>
 #include <tide/master_element.h>
 #include <tide/uint_element.h>
 #include <tide/win_dll.h>
@@ -135,6 +135,7 @@ namespace tide
      * implementation, including in-memory implementations, in order to support
      * interchangeability.
      */
+    //template <typename Impl>
     class TIDE_EXPORT Cluster : public MasterElement
     {
         public:
@@ -147,7 +148,7 @@ namespace tide
             /// \brief The reference type.
             typedef value_type& reference;
             /// \brief The constant reference type.
-            typedef valuetype const& const_reference;
+            typedef value_type const& const_reference;
 
             /** \brief Construct a new Cluster.
              *
@@ -174,13 +175,13 @@ namespace tide
              *
              * \param[in] position The position to erase at.
              */
-            virtual void erase(iterator position) = 0;
+            //virtual void erase(typename Impl::Iterator position) = 0;
             /** \brief Erase a range of blocks.
              *
              * \param[in] first The start of the range.
              * \param[in] last The end of the range.
              */
-            virtual void erase(iterator first, iterator last) = 0;
+            //virtual void erase(typename Impl::Iterator first, typename Impl::Iterator last) = 0;
 
             /** \brief Add a block to this cluster.
              *
@@ -247,15 +248,17 @@ namespace tide
             std::streamsize read(std::istream& input)
                 { return Element::read(input); }
 
-            /** \brief Prepare the cluster to be written.
+            /** \brief Finalise writing of the cluster.
              *
              * See the Cluster documentation for more details of how this
-             * method should be implemented.
+             * method should be implemented. Once this is called, the cluster
+             * should be considered final in the stream, including all the
+             * cluster's meta-data and all blocks.
              *
              * \param[in] output The byte stream to write the cluster to.
-             * \return The number of bytes written while preparing.
+             * \return The final size, in bytes, of the cluster.
              */
-            virtual std::streamsize prepare(std::ostream& output) = 0;
+            virtual std::streamsize finalise(std::ostream& output) = 0;
 
         protected:
             UIntElement timecode_;
@@ -278,19 +281,17 @@ namespace tide
 
             /** \brief Write the blocks in this cluster to the output stream.
              *
+             * This function will be called during a call to the write() method
+             * of the cluster.
+             *
              * This function may be implemented to do nothing if the blocks are
-             * written in some other way, but once it is called the cluster
-             * should be considered final in the stream, including all the
-             * cluster's meta-data.
+             * written in some other way.
              *
              * For example, if the blocks are actually written by an iterator
              * over a period of time, this function would be implemented to
              * write the complete size of the cluster in its header.
              *
-             * \return The total size of the cluster's blocks. Even if only a
-             * small quantity is actually written, this must return the
-             * complete blocks size of the cluster in order to meet the Element
-             * interface requirements.
+             * \return The number of bytes actually written.
              */
             virtual std::streamsize write_blocks(std::ostream& output) = 0;
 
@@ -298,7 +299,7 @@ namespace tide
              *
              * This function may not necessarily perform the actual reading,
              * but once called, the blocks should be accessible through
-             * whatever interface the Cluster implementation in use provides.
+             * whatever interface the Cluster implementation provides.
              *
              * For example, if the blocks are actually read by an iterator,
              * calling this function should prepare for the iterators' use. It

@@ -267,10 +267,10 @@ namespace tide
             UIntElement prev_size_;
 
             /// \brief Get the size of the body of this element.
-            virtual std::streamsize body_size() const;
+            std::streamsize body_size() const;
 
             /// \brief Element body writing.
-            virtual std::streamsize write_body(std::ostream& output);
+            std::streamsize write_body(std::ostream& output);
 
             /// \brief Element body loading.
             std::streamsize read_body(std::istream& input,

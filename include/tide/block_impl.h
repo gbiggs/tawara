@@ -195,12 +195,15 @@ namespace tide
             /// \brief Equality operator.
             friend bool operator==(BlockImpl const& lhs, BlockImpl const& rhs);
 
+            /// \brief The stored type.
+            typedef boost::shared_ptr<std::vector<char> > value_type;
+
         protected:
             uint64_t track_num_;
             int16_t timecode_;
             bool invisible_;
             LacingType lacing_;
-            std::vector<boost::shared_ptr<std::vector<char> > > frames_;
+            std::vector<value_type> frames_;
 
             /// \brief Checks that the block is in a good condition to write.
             void validate() const;

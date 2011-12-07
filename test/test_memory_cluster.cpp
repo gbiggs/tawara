@@ -102,7 +102,7 @@ TEST(MemoryCluster, Erase)
     c.push_back(b3);
     c.push_back(b4);
     EXPECT_EQ(3, c.count());
-    c.erase(c.begin(), c.begin() + 1);
+    c.erase(c.begin(), ++(++c.begin()));
     EXPECT_EQ(1, c.count());
     EXPECT_TRUE(b4 == *c.begin());
 }
@@ -118,7 +118,7 @@ TEST(MemoryCluster, PushBack)
     c.push_back(b1);
     EXPECT_TRUE(b1 == *c.begin());
     c.push_back(b2);
-    EXPECT_TRUE(b2 == *(c.begin() + 1));
+    EXPECT_TRUE(b2 == *(++c.begin()));
 }
 
 
@@ -135,7 +135,7 @@ TEST(MemoryCluster, Iterators)
     EXPECT_FALSE(c.begin() == c.end());
     EXPECT_TRUE(b1 == *c.begin());
     c.push_back(b2);
-    EXPECT_TRUE(b2 == *(c.begin() + 1));
+    EXPECT_TRUE(b2 == *(++c.begin()));
 }
 
 
@@ -228,6 +228,7 @@ TEST(MemoryCluster, Read)
             c.read(input));
     EXPECT_EQ(42, c.timecode());
 
+    input.str(std::string());
     body_size += b1->size() + b2->size();
     tide::vint::write(body_size, input);
     tc.write(input);
@@ -237,9 +238,9 @@ TEST(MemoryCluster, Read)
             c.read(input));
     EXPECT_EQ(42, c.timecode());
     EXPECT_EQ(2, c.count());
-    EXPECT_TRUE(b1 ==
-            boost::static_pointer_cast<tide::SimpleBlock>(*c.begin()));
-    EXPECT_TRUE(b2 ==
-            boost::static_pointer_cast<tide::SimpleBlock>(*(c.begin() + 1)));
+    EXPECT_TRUE((*boost::static_pointer_cast<tide::SimpleBlock>(b1)) ==
+            (*boost::static_pointer_cast<tide::SimpleBlock>(*c.begin())));
+    EXPECT_TRUE((*boost::static_pointer_cast<tide::SimpleBlock>(b2)) ==
+            (*boost::static_pointer_cast<tide::SimpleBlock>(*(++c.begin()))));
 }
 

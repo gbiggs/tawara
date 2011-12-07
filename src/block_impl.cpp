@@ -175,11 +175,30 @@ std::streamsize BlockImpl::size() const
 
 bool tide::operator==(BlockImpl const& lhs, BlockImpl const& rhs)
 {
+    bool frames_equal(false);
+    if (lhs.frames_.size() == rhs.frames_.size())
+    {
+        // Because the frames are pointers, the vectors cannot be compared
+        // directly. Instead, each frame pointer must be dereferenced and
+        // compared.
+        frames_equal = true;
+        for(std::vector<BlockImpl::value_type>::const_iterator
+                lf(lhs.frames_.begin()), rf(rhs.frames_.begin());
+            lf != lhs.frames_.end() && rf != rhs.frames_.end();
+            ++lf, ++rf)
+        {
+            if (**lf != **rf)
+            {
+                frames_equal = false;
+                break;
+            }
+        }
+    }
     return lhs.track_num_ == rhs.track_num_ &&
         lhs.timecode_ == rhs.timecode_ &&
         lhs.invisible_ == rhs.invisible_ &&
         lhs.lacing_ == rhs.lacing_ &&
-        lhs.frames_ == rhs.frames_;
+        frames_equal;
 }
 
 
@@ -303,7 +322,7 @@ BlockImpl::ReadResult BlockImpl::read(std::istream& input,
     input.get(tmp);
     high_byte = tmp;
     input.get(tmp);
-    timecode_ = (high_byte << 8) | tmp;
+    timecode_ = (high_byte << 8) | static_cast<unsigned char>(tmp);
     read += 2;
     if (input.fail())
     {

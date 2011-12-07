@@ -153,6 +153,7 @@ std::streamsize Cluster::read_body(std::istream& input,
             case ids::BlockGroup:
                 // Rewind to the element ID value
                 input.seekg(-id_res.second, std::ios::cur);
+                read_bytes -= id_res.second;
                 // Read all the blocks - this will use up the rest of the block
                 read_bytes += read_blocks(input, size - read_bytes);
                 break;

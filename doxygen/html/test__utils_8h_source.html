@@ -105,59 +105,64 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00035"></a>00035 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00036"></a>00036 <span class="preprocessor">#include &lt;tide/element.h&gt;</span>
 <a name="l00037"></a>00037 <span class="preprocessor">#include &lt;tide/prim_element.h&gt;</span>
-<a name="l00038"></a>00038 
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;vector&gt;</span>
 <a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="namespacetest__utils.html">00040</a> <span class="keyword">namespace </span>test_utils
-<a name="l00041"></a>00041 {
-<a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="namespacetest__utils.html#af62d490a0285daf6107ce63338218653">00043</a> <span class="keyword">typedef</span> boost::shared_ptr&lt;tide::Element&gt; <a class="code" href="namespacetest__utils.html#af62d490a0285daf6107ce63338218653">ElPtr</a>;
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045 <span class="comment">// Adds the total size of an element to a value</span>
-<a name="l00046"></a><a class="code" href="structtest__utils_1_1_total_size_op.html">00046</a> <span class="keyword">struct </span><a class="code" href="structtest__utils_1_1_total_size_op.html">TotalSizeOp</a>
-<a name="l00047"></a>00047     : <span class="keyword">public</span> std::binary_function&lt;uint64_t, ElPtr, uint64_t&gt;
-<a name="l00048"></a>00048 {
-<a name="l00049"></a><a class="code" href="structtest__utils_1_1_total_size_op.html#a14caa99aa4630b70ec8cb42e9ca52e4b">00049</a>     uint64_t <a class="code" href="structtest__utils_1_1_total_size_op.html#a14caa99aa4630b70ec8cb42e9ca52e4b">operator()</a>(uint64_t total, <a class="code" href="namespacetest__utils.html#af62d490a0285daf6107ce63338218653">ElPtr</a> el)
-<a name="l00050"></a>00050     {
-<a name="l00051"></a>00051         <span class="keywordflow">return</span> total + el-&gt;total_size();
-<a name="l00052"></a>00052     }
-<a name="l00053"></a>00053 };
-<a name="l00054"></a>00054 
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="namespacetest__utils.html">00041</a> <span class="keyword">namespace </span>test_utils
+<a name="l00042"></a>00042 {
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="namespacetest__utils.html#af62d490a0285daf6107ce63338218653">00044</a> <span class="keyword">typedef</span> boost::shared_ptr&lt;tide::Element&gt; <a class="code" href="namespacetest__utils.html#af62d490a0285daf6107ce63338218653">ElPtr</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="comment">// Adds the total size of an element to a value</span>
+<a name="l00047"></a><a class="code" href="structtest__utils_1_1_total_size_op.html">00047</a> <span class="keyword">struct </span><a class="code" href="structtest__utils_1_1_total_size_op.html">TotalSizeOp</a>
+<a name="l00048"></a>00048     : <span class="keyword">public</span> std::binary_function&lt;uint64_t, ElPtr, uint64_t&gt;
+<a name="l00049"></a>00049 {
+<a name="l00050"></a><a class="code" href="structtest__utils_1_1_total_size_op.html#a14caa99aa4630b70ec8cb42e9ca52e4b">00050</a>     uint64_t <a class="code" href="structtest__utils_1_1_total_size_op.html#a14caa99aa4630b70ec8cb42e9ca52e4b">operator()</a>(uint64_t total, <a class="code" href="namespacetest__utils.html#af62d490a0285daf6107ce63338218653">ElPtr</a> el)
+<a name="l00051"></a>00051     {
+<a name="l00052"></a>00052         <span class="keywordflow">return</span> total + el-&gt;size();
+<a name="l00053"></a>00053     }
+<a name="l00054"></a>00054 };
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="comment">// Tests if two std::basic_string&lt;uint8_t&gt; byte buffers are equal.</span>
-<a name="l00057"></a>00057 ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4">std_buffers_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* b1_expr,
-<a name="l00058"></a>00058         <span class="keywordtype">char</span> <span class="keyword">const</span>* b2_expr,
-<a name="l00059"></a>00059         std::basic_string&lt;uint8_t&gt; <span class="keyword">const</span>&amp; b1,
-<a name="l00060"></a>00060         std::basic_string&lt;uint8_t&gt; <span class="keyword">const</span>&amp; b2);
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062 <span class="comment">// Tests if two std::string buffers are equal.</span>
-<a name="l00063"></a>00063 ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4">std_buffers_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* b1_expr,
-<a name="l00064"></a>00064         <span class="keywordtype">char</span> <span class="keyword">const</span>* b2_expr, std::string <span class="keyword">const</span>&amp; b1, std::string <span class="keyword">const</span>&amp; b2);
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066 <span class="comment">// Tests if two std::vector&lt;char&gt; buffers are equal.</span>
-<a name="l00067"></a>00067 ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#a5fa0443be6b10e2bfc6421cdcb0b6146">std_vectors_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* b1_expr,
-<a name="l00068"></a>00068         <span class="keywordtype">char</span> <span class="keyword">const</span>* b2_expr, std::vector&lt;char&gt; <span class="keyword">const</span>&amp; b1,
-<a name="l00069"></a>00069         std::vector&lt;char&gt; <span class="keyword">const</span>&amp; b2);
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071 <span class="comment">// Tests if two std::pair values are equal because gtest can&#39;t figure it out</span>
-<a name="l00072"></a>00072 <span class="comment">// for itself nor print the result.</span>
-<a name="l00073"></a>00073 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;
-<a name="l00074"></a><a class="code" href="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152">00074</a> ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152">pairs_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* p1_expr,
-<a name="l00075"></a>00075         <span class="keywordtype">char</span> <span class="keyword">const</span>* p2_expr, <span class="keyword">typename</span> std::pair&lt;uint64_t, T1&gt; <span class="keyword">const</span>&amp; p1,
-<a name="l00076"></a>00076         <span class="keyword">typename</span> std::pair&lt;uint64_t, T2&gt; <span class="keyword">const</span>&amp; p2)
-<a name="l00077"></a>00077 {
-<a name="l00078"></a>00078     <span class="keywordflow">if</span> (p1.first != p2.first || p1.second != p2.second)
-<a name="l00079"></a>00079     {
-<a name="l00080"></a>00080         return ::testing::AssertionFailure() &lt;&lt; p1_expr &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; p1.first &lt;&lt;
-<a name="l00081"></a>00081             <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; p1.second &lt;&lt; <span class="stringliteral">&quot;) != &quot;</span> &lt;&lt; p2_expr &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; p2.first &lt;&lt;
-<a name="l00082"></a>00082             <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; p2.second &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;
-<a name="l00083"></a>00083     }
-<a name="l00084"></a>00084     return ::testing::AssertionSuccess();
-<a name="l00085"></a>00085 }
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087 }; <span class="comment">// test_utils</span>
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089 <span class="preprocessor">#endif // TIDE_TEST_UTILS_H_</span>
-<a name="l00090"></a>00090 <span class="preprocessor"></span>
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057 <span class="comment">// Tests if two std::basic_string&lt;uint8_t&gt; byte buffers are equal.</span>
+<a name="l00058"></a>00058 ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4">std_buffers_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* b1_expr,
+<a name="l00059"></a>00059         <span class="keywordtype">char</span> <span class="keyword">const</span>* b2_expr,
+<a name="l00060"></a>00060         std::basic_string&lt;uint8_t&gt; <span class="keyword">const</span>&amp; b1,
+<a name="l00061"></a>00061         std::basic_string&lt;uint8_t&gt; <span class="keyword">const</span>&amp; b2);
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063 <span class="comment">// Tests if two std::string buffers are equal.</span>
+<a name="l00064"></a>00064 ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#ad01eb64581de23e2d7e809baf4a690a4">std_buffers_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* b1_expr,
+<a name="l00065"></a>00065         <span class="keywordtype">char</span> <span class="keyword">const</span>* b2_expr, std::string <span class="keyword">const</span>&amp; b1, std::string <span class="keyword">const</span>&amp; b2);
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067 <span class="comment">// Tests if two std::vector&lt;char&gt; buffers are equal.</span>
+<a name="l00068"></a>00068 ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#a5fa0443be6b10e2bfc6421cdcb0b6146">std_vectors_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* b1_expr,
+<a name="l00069"></a>00069         <span class="keywordtype">char</span> <span class="keyword">const</span>* b2_expr, std::vector&lt;char&gt; <span class="keyword">const</span>&amp; b1,
+<a name="l00070"></a>00070         std::vector&lt;char&gt; <span class="keyword">const</span>&amp; b2);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 <span class="comment">// Tests if two std::pair values are equal because gtest can&#39;t figure it out</span>
+<a name="l00073"></a>00073 <span class="comment">// for itself nor print the result.</span>
+<a name="l00074"></a>00074 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;
+<a name="l00075"></a><a class="code" href="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152">00075</a> ::testing::AssertionResult <a class="code" href="namespacetest__utils.html#a6299862f403bc9ca8ddc0e52b4351152">pairs_eq</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* p1_expr,
+<a name="l00076"></a>00076         <span class="keywordtype">char</span> <span class="keyword">const</span>* p2_expr, <span class="keyword">typename</span> std::pair&lt;uint64_t, T1&gt; <span class="keyword">const</span>&amp; p1,
+<a name="l00077"></a>00077         <span class="keyword">typename</span> std::pair&lt;uint64_t, T2&gt; <span class="keyword">const</span>&amp; p2)
+<a name="l00078"></a>00078 {
+<a name="l00079"></a>00079     <span class="keywordflow">if</span> (p1.first != p2.first || p1.second != p2.second)
+<a name="l00080"></a>00080     {
+<a name="l00081"></a>00081         return ::testing::AssertionFailure() &lt;&lt; p1_expr &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; p1.first &lt;&lt;
+<a name="l00082"></a>00082             <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; p1.second &lt;&lt; <span class="stringliteral">&quot;) != &quot;</span> &lt;&lt; p2_expr &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; p2.first &lt;&lt;
+<a name="l00083"></a>00083             <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; p2.second &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;
+<a name="l00084"></a>00084     }
+<a name="l00085"></a>00085     return ::testing::AssertionSuccess();
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 <span class="comment">// Returns a blob of binary data, with a length that increases by 5 bytes</span>
+<a name="l00089"></a>00089 <span class="comment">// each time this function is called.</span>
+<a name="l00090"></a>00090 boost::shared_ptr&lt;std::vector&lt;char&gt; &gt; <a class="code" href="namespacetest__utils.html#aa972ec27cd7b76f0a511b0df35b280a3">make_blob</a>(<span class="keywordtype">size_t</span> <a class="code" href="namespacetide_1_1ids.html#a689973eb2065e63b1f9b6be026dbe93b" title="Get the number of bytes required by an ID.">size</a>);
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092 }; <span class="comment">// test_utils</span>
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 <span class="preprocessor">#endif // TIDE_TEST_UTILS_H_</span>
+<a name="l00095"></a>00095 <span class="preprocessor"></span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -174,7 +179,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

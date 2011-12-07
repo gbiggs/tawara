@@ -69,6 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
@@ -113,12 +114,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Const subscript operator.  <a href="#a4740139b3bfee059ec76123f5ee022c4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html#a75c1b4f76fc78cbe47fbd89f718d6c44">count</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of UIDs stored.  <a href="#a75c1b4f76fc78cbe47fbd89f718d6c44"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html#a7b177fcd1980eeec08b5b7b0ba108f31">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO: Proper vector model for UIDs.  <a href="#a7b177fcd1980eeec08b5b7b0ba108f31"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html#a3cc74546295ebee358af0ad13f344487">write_body</a> (std::ostream &amp;output)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#a3cc74546295ebee358af0ad13f344487"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html#a23cc0c1c5027c4ce184dc5a54020b6c3">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a23cc0c1c5027c4ce184dc5a54020b6c3"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO: Proper vector model for UIDs.  <a href="#a3cc74546295ebee358af0ad13f344487"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html#ab2105dd842147d538bf0cdd3a2821700">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#ab2105dd842147d538bf0cdd3a2821700"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html#a66604646a0bb18c1f99335a77be55560">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a66604646a0bb18c1f99335a77be55560"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classtide_1_1_u_int_element.html">UIntElement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_track_join_blocks.html#afdae21f1f817749a2a50934ede7c1129">uids_</a></td></tr>
@@ -203,6 +206,26 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab2105dd842147d538bf0cdd3a2821700"></a><!-- doxytag: member="tide::TrackJoinBlocks::body_size" ref="ab2105dd842147d538bf0cdd3a2821700" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::streamsize tide::TrackJoinBlocks::body_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of the body of this element. </p>
+
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a75c1b4f76fc78cbe47fbd89f718d6c44"></a><!-- doxytag: member="tide::TrackJoinBlocks::count" ref="a75c1b4f76fc78cbe47fbd89f718d6c44" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +266,7 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a23cc0c1c5027c4ce184dc5a54020b6c3"></a><!-- doxytag: member="tide::TrackJoinBlocks::read_body" ref="a23cc0c1c5027c4ce184dc5a54020b6c3" args="(std::istream &amp;input)" -->
+<a class="anchor" id="a66604646a0bb18c1f99335a77be55560"></a><!-- doxytag: member="tide::TrackJoinBlocks::read_body" ref="a66604646a0bb18c1f99335a77be55560" args="(std::istream &amp;input, std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -251,8 +274,18 @@ Friends</h2></td></tr>
           <td class="memname">virtual std::streamsize tide::TrackJoinBlocks::read_body </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -260,7 +293,7 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -287,27 +320,6 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The removed UID. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a7b177fcd1980eeec08b5b7b0ba108f31"></a><!-- doxytag: member="tide::TrackJoinBlocks::size" ref="a7b177fcd1980eeec08b5b7b0ba108f31" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::TrackJoinBlocks::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>TODO: Proper vector model for UIDs. </p>
-<p>Get the size of the body of this element. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -348,7 +360,8 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing. </p>
+<p>TODO: Proper vector model for UIDs. </p>
+<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.</p>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="structtide_1_1_value_out_of_range.html" title="A child element&#39;s value was set outside the allowable range.">ValueOutOfRange</a></td><td>if a zero-value UID is written. </td></tr>
@@ -388,7 +401,7 @@ Friends</h2></td></tr>
 
 <p>Equality operator. </p>
 
-<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00141">141</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00142">142</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
 
 </div>
 </div>
@@ -404,7 +417,7 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00136">136</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00130">130</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
 
 </div>
 </div>
@@ -426,7 +439,7 @@ Friends</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

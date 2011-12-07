@@ -132,12 +132,6 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element.  <a href="#adb1976984b6ffc9373c6ee82a5da562e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a4d27eb1e4fe90ab226385da99a07152a">~Tracks</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a4d27eb1e4fe90ab226385da99a07152a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a2449adfddb40d28074291fa5ee7ca105">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a2449adfddb40d28074291fa5ee7ca105"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a69b113316cb62087589100520da4ff5a">write_body</a> (std::ostream &amp;output)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#a69b113316cb62087589100520da4ff5a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a69f3c8b7e5401d798c79de0f2fd5e1b6">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a69f3c8b7e5401d798c79de0f2fd5e1b6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtide_1_1_tracks.html">Tracks</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#ae14fb4eb9d33d017b23208d6c3c4635b">operator=</a> (<a class="el" href="classtide_1_1_tracks.html">Tracks</a> const &amp;other)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the stored TrackEntries with those from another <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element.  <a href="#ae14fb4eb9d33d017b23208d6c3c4635b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde">mapped_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a5da8e8e0977ac551d48c877fc0b343f7">at</a> (<a class="el" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c">key_type</a> const &amp;pos)</td></tr>
@@ -188,6 +182,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a> with the given track number.  <a href="#ae9f28e4fbce3236ba16d5ea48e42f23d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a38c343949c7531f6c7ba1791402d2279">find</a> (<a class="el" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c">key_type</a> const &amp;number) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a> with the given track number.  <a href="#a38c343949c7531f6c7ba1791402d2279"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a69b113316cb62087589100520da4ff5a">write_body</a> (std::ostream &amp;output)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#a69b113316cb62087589100520da4ff5a"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-types"></a>
 Protected Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; <a class="el" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c">key_type</a>, <br class="typebreak"/>
@@ -195,6 +191,10 @@ Protected Types</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the internal storage.  <a href="#a45d744f7a953dcd94e5ccc39e1bcdcac"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#aca71c79a520221bdd3b7169c78f294ed">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#aca71c79a520221bdd3b7169c78f294ed"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#ac92cf6a067ce4c634750b1060614c739">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#ac92cf6a067ce4c634750b1060614c739"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a4b4d851b5f2e323bc8bd9ca6ad248ffa">validate_entries</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks for duplicate track numbers and UIDs.  <a href="#a4b4d851b5f2e323bc8bd9ca6ad248ffa"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_tracks.html#a40702cfe12b3acd81d3cd38f0be3b205">verify_not_duplicate</a> (<a class="el" href="classtide_1_1_track_entry.html#aa1e183af496258944353c996c738736d">TrackEntry::Ptr</a> entry) const </td></tr>
@@ -227,7 +227,7 @@ Friends</h2></td></tr>
 
 <p>The constant random access iterator type. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00105">105</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00084">84</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -244,7 +244,7 @@ Friends</h2></td></tr>
 
 <p>The constant reference type. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00101">101</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00080">80</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -261,7 +261,7 @@ Friends</h2></td></tr>
 
 <p>The constant reversed random access iterator type. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00110">110</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00089">89</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -278,7 +278,7 @@ Friends</h2></td></tr>
 
 <p>The random access iterator type. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00103">103</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00082">82</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -329,7 +329,7 @@ Friends</h2></td></tr>
 
 <p>The reference type. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00099">99</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00078">78</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -346,7 +346,7 @@ Friends</h2></td></tr>
 
 <p>The reversed random access iterator type. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00107">107</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00086">86</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -363,7 +363,7 @@ Friends</h2></td></tr>
 
 <p>The size type of this container. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00097">97</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00076">76</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -397,7 +397,7 @@ Friends</h2></td></tr>
 
 <p>The value type of this container. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00095">95</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00071">71</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -466,7 +466,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00123">123</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00102">102</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -494,7 +494,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00130">130</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00109">109</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -514,7 +514,7 @@ Friends</h2></td></tr>
 
 <p>Get an iterator to the first <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00149">149</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00128">128</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -534,7 +534,27 @@ Friends</h2></td></tr>
 
 <p>Get an iterator to the first <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00151">151</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00130">130</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aca71c79a520221bdd3b7169c78f294ed"></a><!-- doxytag: member="tide::Tracks::body_size" ref="aca71c79a520221bdd3b7169c78f294ed" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::streamsize tide::Tracks::body_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of the body of this element. </p>
+
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -554,7 +574,7 @@ Friends</h2></td></tr>
 
 <p>Remove all TrackElements. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00177">177</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00156">156</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -574,7 +594,7 @@ Friends</h2></td></tr>
 
 <p>Get the number of TrackElements. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00172">172</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00151">151</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -594,7 +614,7 @@ Friends</h2></td></tr>
 
 <p>Check if there are no TrackElements. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00170">170</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00149">149</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -614,7 +634,7 @@ Friends</h2></td></tr>
 
 <p>Get an iterator to the position past the last <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00153">153</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00132">132</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -634,7 +654,7 @@ Friends</h2></td></tr>
 
 <p>Get an iterator to the position past the last <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00155">155</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00134">134</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -661,7 +681,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00210">210</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00189">189</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -699,7 +719,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00217">217</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00196">196</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -727,7 +747,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The number of TrackEntries erased. </dd></dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00224">224</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00203">203</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -755,7 +775,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>An iterator to the matching <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>, or <a class="el" href="classtide_1_1_tracks.html#ad1c23725e1970821db9b1d016f4dbee6" title="Get an iterator to the position past the last TrackEntry.">end()</a> if there is no <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a> with that number. </dd></dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00239">239</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00218">218</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -783,7 +803,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>An iterator to the matching <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>, or <a class="el" href="classtide_1_1_tracks.html#ad1c23725e1970821db9b1d016f4dbee6" title="Get an iterator to the position past the last TrackEntry.">end()</a> if there is no <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a> with that number. </dd></dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00247">247</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00226">226</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -880,7 +900,7 @@ Friends</h2></td></tr>
 
 <p>Get the maximum number of TrackElements. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00174">174</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00153">153</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -901,20 +921,20 @@ Friends</h2></td></tr>
 
 <p>Replace the stored TrackEntries with those from another <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00115">115</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00094">94</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa06948ac1fbd5d17e0441796d9696018"></a><!-- doxytag: member="tide::Tracks::operator[]" ref="aa06948ac1fbd5d17e0441796d9696018" args="(key_type const &amp;key) const " -->
+<a class="anchor" id="a16e8c71a7d61b8a458b4881a736aea0f"></a><!-- doxytag: member="tide::Tracks::operator[]" ref="a16e8c71a7d61b8a458b4881a736aea0f" args="(key_type const &amp;key)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde">mapped_type</a> const&amp; tide::Tracks::operator[] </td>
+          <td class="memname"><a class="el" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde">mapped_type</a>&amp; tide::Tracks::operator[] </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c">key_type</a> const &amp;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -931,16 +951,16 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a16e8c71a7d61b8a458b4881a736aea0f"></a><!-- doxytag: member="tide::Tracks::operator[]" ref="a16e8c71a7d61b8a458b4881a736aea0f" args="(key_type const &amp;key)" -->
+<a class="anchor" id="aa06948ac1fbd5d17e0441796d9696018"></a><!-- doxytag: member="tide::Tracks::operator[]" ref="aa06948ac1fbd5d17e0441796d9696018" args="(key_type const &amp;key) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde">mapped_type</a>&amp; tide::Tracks::operator[] </td>
+          <td class="memname"><a class="el" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde">mapped_type</a> const&amp; tide::Tracks::operator[] </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c">key_type</a> const &amp;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div>
@@ -973,7 +993,7 @@ Friends</h2></td></tr>
 
 <p>Get a reverse iterator to the last <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00159">159</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00138">138</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -993,11 +1013,11 @@ Friends</h2></td></tr>
 
 <p>Get a reverse iterator to the last <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00157">157</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00136">136</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a69f3c8b7e5401d798c79de0f2fd5e1b6"></a><!-- doxytag: member="tide::Tracks::read_body" ref="a69f3c8b7e5401d798c79de0f2fd5e1b6" args="(std::istream &amp;input)" -->
+<a class="anchor" id="ac92cf6a067ce4c634750b1060614c739"></a><!-- doxytag: member="tide::Tracks::read_body" ref="ac92cf6a067ce4c634750b1060614c739" args="(std::istream &amp;input, std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1005,8 +1025,18 @@ Friends</h2></td></tr>
           <td class="memname">virtual std::streamsize tide::Tracks::read_body </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1021,27 +1051,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9585733b6d802d58a4a5f757f98ef875"></a><!-- doxytag: member="tide::Tracks::rend" ref="a9585733b6d802d58a4a5f757f98ef875" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f">reverse_iterator</a> tide::Tracks::rend </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get a reverse iterator to the position before the first <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
-
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00163">163</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -1061,27 +1071,27 @@ Friends</h2></td></tr>
 
 <p>Get a reverse iterator to the position before the first <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00167">167</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00146">146</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2449adfddb40d28074291fa5ee7ca105"></a><!-- doxytag: member="tide::Tracks::size" ref="a2449adfddb40d28074291fa5ee7ca105" args="() const " -->
+<a class="anchor" id="a9585733b6d802d58a4a5f757f98ef875"></a><!-- doxytag: member="tide::Tracks::rend" ref="a9585733b6d802d58a4a5f757f98ef875" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::Tracks::size </td>
+          <td class="memname"><a class="el" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f">reverse_iterator</a> tide::Tracks::rend </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Get the size of the body of this element. </p>
+<p>Get a reverse iterator to the position before the first <a class="el" href="classtide_1_1_track_entry.html" title="A track entry provides the meta-data for a single track.">TrackEntry</a>. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00142">142</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -1108,7 +1118,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00230">230</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00209">209</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -1243,7 +1253,7 @@ Friends</h2></td></tr>
 <p>The track entry store. </p>
 <p>This must always be sorted by TrackNumber. </p>
 
-<p>Definition at line <a class="el" href="tracks_8h_source.html#l00258">258</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
+<p>Definition at line <a class="el" href="tracks_8h_source.html#l00246">246</a> of file <a class="el" href="tracks_8h_source.html">tracks.h</a>.</p>
 
 </div>
 </div>
@@ -1265,7 +1275,7 @@ Friends</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

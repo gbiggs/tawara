@@ -1,27 +1,36 @@
 <map id="G" name="G">
-<area shape="rect" id="node1" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="29,385,139,413"/>
-<area shape="rect" id="node3" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; double \&gt;" alt="" coords="253,359,491,387"/>
+<area shape="rect" id="node1" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="29,562,139,590"/>
+<area shape="rect" id="node3" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; double \&gt;" alt="" coords="253,461,491,489"/>
 <area shape="rect" id="node7" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; int64_t \&gt;" alt="" coords="253,562,491,590"/>
 <area shape="rect" id="node13" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::string \&gt;" alt="" coords="241,613,503,641"/>
 <area shape="rect" id="node17" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="211,663,533,691"/>
-<area shape="rect" id="node21" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="249,309,495,337"/>
-<area shape="rect" id="node25" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="295,233,449,261"/>
-<area shape="rect" id="node45" href="$classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="271,410,473,438"/>
-<area shape="rect" id="node47" href="$classtide_1_1_void_element.html" title="Void primitive element." alt="" coords="303,182,441,210"/>
-<area shape="rect" id="node5" href="$classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="604,359,745,387"/>
-<area shape="rect" id="node9" href="$classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="604,511,745,539"/>
-<area shape="rect" id="node11" href="$classtide_1_1_int_element.html" title="Signed integer primitive element." alt="" coords="612,562,737,590"/>
-<area shape="rect" id="node15" href="$classtide_1_1_string_element.html" title="String primitive element." alt="" coords="601,613,748,641"/>
-<area shape="rect" id="node19" href="$classtide_1_1_binary_element.html" title="Binary primitive element." alt="" coords="600,663,749,691"/>
-<area shape="rect" id="node23" href="$classtide_1_1_u_int_element.html" title="Unsigned integer primitive element." alt="" coords="607,309,743,337"/>
-<area shape="rect" id="node27" href="$classtide_1_1_e_b_m_l_element.html" title="The EBML Header element." alt="" coords="601,207,748,235"/>
-<area shape="rect" id="node29" href="$classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file." alt="" coords="616,5,733,33"/>
-<area shape="rect" id="node31" href="$classtide_1_1_seek_element.html" title="The Seek element, which contains a single index point in the SeekHead element." alt="" coords="604,55,745,83"/>
-<area shape="rect" id="node33" href="$classtide_1_1_segment.html" title="tide::Segment" alt="" coords="617,106,732,134"/>
-<area shape="rect" id="node35" href="$classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="605,157,744,185"/>
-<area shape="rect" id="node37" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="613,461,736,489"/>
-<area shape="rect" id="node39" href="$classtide_1_1_track_operation_base.html" title="Abstract base class for individual track operations." alt="" coords="583,258,767,286"/>
-<area shape="rect" id="node43" href="$classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="627,410,723,438"/>
-<area shape="rect" id="node41" href="$classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="816,486,971,514"/>
-<area shape="rect" id="node48" href="$classboost_1_1equality__comparable.html" title="equality_comparable" alt="" coords="5,511,163,539"/>
+<area shape="rect" id="node21" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="249,765,495,793"/>
+<area shape="rect" id="node27" href="$classtide_1_1_block_element.html" title="tide::BlockElement" alt="" coords="603,917,747,945"/>
+<area shape="rect" id="node33" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="295,258,449,286"/>
+<area shape="rect" id="node59" href="$classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="271,309,473,337"/>
+<area shape="rect" id="node61" href="$classtide_1_1_void_element.html" title="Void primitive element." alt="" coords="303,207,441,235"/>
+<area shape="rect" id="node5" href="$classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="604,511,745,539"/>
+<area shape="rect" id="node9" href="$classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="604,562,745,590"/>
+<area shape="rect" id="node11" href="$classtide_1_1_int_element.html" title="Signed integer primitive element." alt="" coords="612,613,737,641"/>
+<area shape="rect" id="node15" href="$classtide_1_1_string_element.html" title="String primitive element." alt="" coords="601,663,748,691"/>
+<area shape="rect" id="node19" href="$classtide_1_1_binary_element.html" title="Binary primitive element." alt="" coords="600,714,749,742"/>
+<area shape="rect" id="node23" href="$classtide_1_1_u_int_element.html" title="Unsigned integer primitive element." alt="" coords="607,765,743,793"/>
+<area shape="rect" id="node25" href="$classtide_1_1_silent_track_number.html" title="The track number of a silent track." alt="" coords="817,765,991,793"/>
+<area shape="rect" id="node29" href="$classtide_1_1_block_group.html" title="The BlockGroup is the standard block." alt="" coords="839,891,969,919"/>
+<area shape="rect" id="node31" href="$classtide_1_1_simple_block.html" title="The SimpleBlock element, a simplified version of Blocks." alt="" coords="837,967,971,995"/>
+<area shape="rect" id="node35" href="$classtide_1_1_block_additions.html" title="This element is used to specify reference blocks." alt="" coords="600,410,749,438"/>
+<area shape="rect" id="node37" href="$classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations." alt="" coords="624,5,725,33"/>
+<area shape="rect" id="node41" href="$classtide_1_1_e_b_m_l_element.html" title="The EBML Header element." alt="" coords="601,55,748,83"/>
+<area shape="rect" id="node43" href="$classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file." alt="" coords="616,106,733,134"/>
+<area shape="rect" id="node45" href="$classtide_1_1_seek_element.html" title="The Seek element, which contains a single index point in the SeekHead element." alt="" coords="604,157,745,185"/>
+<area shape="rect" id="node47" href="$classtide_1_1_segment.html" title="The Segment element." alt="" coords="617,207,732,235"/>
+<area shape="rect" id="node49" href="$classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="605,258,744,286"/>
+<area shape="rect" id="node51" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="613,461,736,489"/>
+<area shape="rect" id="node53" href="$classtide_1_1_track_operation_base.html" title="Abstract base class for individual track operations." alt="" coords="583,309,767,337"/>
+<area shape="rect" id="node57" href="$classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="627,359,723,387"/>
+<area shape="rect" id="node39" href="$classtide_1_1_memory_cluster.html" title="The in&#45;memory Cluster implementation." alt="" coords="827,5,981,33"/>
+<area shape="rect" id="node55" href="$classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="827,511,981,539"/>
+<area shape="rect" id="node62" href="$classboost_1_1equality__comparable.html" title="equality_comparable" alt="" coords="5,638,163,666"/>
+<area shape="rect" id="node69" href="$classtide_1_1_block.html" title="Block interface." alt="" coords="327,917,417,945"/>
+<area shape="rect" id="node72" href="$classtide_1_1_block_impl.html" title="Common block functionality implementation." alt="" coords="616,967,733,995"/>
 </map>

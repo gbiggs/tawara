@@ -69,6 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <h1>tide::FloatElement Class Reference</h1>  </div>
@@ -108,12 +109,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the precision setting.  <a href="#a1f97783b663eed12631e689a8484834d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html#a4947385af9fd273a8b711a38ea0d1f2c">precision</a> (<a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76c">EBMLFloatPrec</a> precision)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the precision setting.  <a href="#a4947385af9fd273a8b711a38ea0d1f2c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html#a9a522f8d7b48f72e22ff5fc4038ed071">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a9a522f8d7b48f72e22ff5fc4038ed071"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html#ac60245a5a1a7f59040a6429d5b47e37f">write_body</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#ac60245a5a1a7f59040a6429d5b47e37f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html#a4dd31ff2567f3880dbfe4e26983a9367">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a4dd31ff2567f3880dbfe4e26983a9367"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html#a71807f788347613d879369c240bba9d4">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a71807f788347613d879369c240bba9d4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html#af765edac870f168c0012835855235ce9">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#af765edac870f168c0012835855235ce9"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetide.html#a22278e04001bdeb6c7dd34685caed76c">EBMLFloatPrec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html#a1da15d748f07b64305863c1a84de5774">prec_</a></td></tr>
@@ -218,6 +221,26 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a71807f788347613d879369c240bba9d4"></a><!-- doxytag: member="tide::FloatElement::body_size" ref="a71807f788347613d879369c240bba9d4" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::streamsize tide::FloatElement::body_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of the body of this element. </p>
+
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a5e71cc229386c1e70f44947b2b69b533"></a><!-- doxytag: member="tide::FloatElement::operator=" ref="a5e71cc229386c1e70f44947b2b69b533" args="(double const &amp;rhs)" -->
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +304,7 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4dd31ff2567f3880dbfe4e26983a9367"></a><!-- doxytag: member="tide::FloatElement::read_body" ref="a4dd31ff2567f3880dbfe4e26983a9367" args="(std::istream &amp;input)" -->
+<a class="anchor" id="af765edac870f168c0012835855235ce9"></a><!-- doxytag: member="tide::FloatElement::read_body" ref="af765edac870f168c0012835855235ce9" args="(std::istream &amp;input, std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -289,8 +312,18 @@ Protected Attributes</h2></td></tr>
           <td class="memname">virtual std::streamsize tide::FloatElement::read_body </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -304,27 +337,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9a522f8d7b48f72e22ff5fc4038ed071"></a><!-- doxytag: member="tide::FloatElement::size" ref="a9a522f8d7b48f72e22ff5fc4038ed071" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::FloatElement::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of the body of this element. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -361,7 +374,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="float__element_8h_source.html#l00109">109</a> of file <a class="el" href="float__element_8h_source.html">float_element.h</a>.</p>
+<p>Definition at line <a class="el" href="float__element_8h_source.html#l00099">99</a> of file <a class="el" href="float__element_8h_source.html">float_element.h</a>.</p>
 
 </div>
 </div>
@@ -383,7 +396,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

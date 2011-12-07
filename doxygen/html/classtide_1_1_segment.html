@@ -68,12 +68,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <h1>tide::Segment Class Reference</h1>  </div>
 </div>
 <div class="contents">
 <!-- doxytag: class="tide::Segment" --><!-- doxytag: inherits="tide::MasterElement" -->
+<p>The <a class="el" href="classtide_1_1_segment.html" title="The Segment element.">Segment</a> element.  
+<a href="#_details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="segment_8h_source.html">tide/segment.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for tide::Segment:</div>
@@ -96,18 +102,38 @@ Collaboration diagram for tide::Segment:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a1ab5a1fa79425526d7f92a5d26359e69">Segment</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new segment element.  <a href="#a1ab5a1fa79425526d7f92a5d26359e69"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a9f37d84c918e32bc23558ff4edc1df3e">~Segment</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a9f37d84c918e32bc23558ff4edc1df3e"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#ad158f45b76a144072cf8e21d8ceee40b">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#ad158f45b76a144072cf8e21d8ceee40b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a9492ba2235d7cf925a829fac67c9757b">write_body</a> (std::ostream &amp;output)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#a9492ba2235d7cf925a829fac67c9757b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a24a2f40088f9821b76d6bee48c1ffb9f">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a24a2f40088f9821b76d6bee48c1ffb9f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a4172d37b439181d04b07bf76c2a0c009">finalise</a> (std::ostream &amp;output)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalise writing of the segment.  <a href="#a4172d37b439181d04b07bf76c2a0c009"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::multimap&lt; <a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">ids::ID</a>, <br class="typebreak"/>
+std::streamoff &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#acc4b9f465583e644734e7cf8829e131d">index</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The segment index.  <a href="#acc4b9f465583e644734e7cf8829e131d"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#af631e107314ab22d5df77c7e99f9731b">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#af631e107314ab22d5df77c7e99f9731b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a8fb639741c7ccd4fa9147241bf708f8a">write_size</a> (std::ostream &amp;output)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> size writing.  <a href="#a8fb639741c7ccd4fa9147241bf708f8a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a5460341a58da66ac462d459588e192fe">write_body</a> (std::ostream &amp;output)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#a5460341a58da66ac462d459588e192fe"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a12792f92d03e87c7265ebea6968040e3">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a12792f92d03e87c7265ebea6968040e3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a54da4da1bef73f1d7e7760128f55ce65">read_seekhead</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a SeekHead element to populate the index.  <a href="#a54da4da1bef73f1d7e7760128f55ce65"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html#a09c0c05f1b422932b1089d8cd221a5c4">size_</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of the segment, as read from the file.  <a href="#a09c0c05f1b422932b1089d8cd221a5c4"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="segment_8h_source.html#l00040">40</a> of file <a class="el" href="segment_8h_source.html">segment.h</a>.</p>
+<div class="textblock"><p>The <a class="el" href="classtide_1_1_segment.html" title="The Segment element.">Segment</a> element. </p>
+<p>A segment makes up the body of a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> document. It is the only top-level element, excluding the EBMLHeader. All other <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> elements are contained within it. Usually, a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> document contains a single segment.</p>
+<p>The segment contains all the document's blocks (stored in clusters), and all relevant meta-data, such as document information, tags, attachments and cue points.</p>
+<p>Because the body of a segment contains data that arrives at differing times, segments cannot be written in a single operation. Instead, a segment is opened for writing by calling <a class="el" href="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d" title="Element writing.">write()</a>, which provides it with its target output byte stream. This prepares the byte stream for the segment to be written. Once writing is complete, the segment is finalised by calling <a class="el" href="classtide_1_1_segment.html#a4172d37b439181d04b07bf76c2a0c009" title="Finalise writing of the segment.">finalise()</a>. Finalising a segment completes it, writing such things as the segment's final size into the output stream.</p>
+<p>Likewise, segments are not read in a single operation. Trying to do so for any reasonably-sized file would require a significant quantity of memory and be inefficient. Instead, the segment is opened for reading by calling the <a class="el" href="classtide_1_1_element.html#ad93208d53ae6c0567106c62cba71d842" title="Element reading.">read()</a> method, which prepares the segment for reading by the meta-seek element (if present) and filling in the index table. The child elements are then read directly from the file as needed. The segment does not need to be closed once reading is complete. </p>
+
+<p>Definition at line <a class="el" href="segment_8h_source.html#l00066">66</a> of file <a class="el" href="segment_8h_source.html">segment.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1ab5a1fa79425526d7f92a5d26359e69"></a><!-- doxytag: member="tide::Segment::Segment" ref="a1ab5a1fa79425526d7f92a5d26359e69" args="()" -->
 <div class="memitem">
@@ -127,86 +153,220 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9f37d84c918e32bc23558ff4edc1df3e"></a><!-- doxytag: member="tide::Segment::~Segment" ref="a9f37d84c918e32bc23558ff4edc1df3e" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual tide::Segment::~Segment </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Destructor. </p>
-
-<p>Definition at line <a class="el" href="segment_8h_source.html#l00047">47</a> of file <a class="el" href="segment_8h_source.html">segment.h</a>.</p>
-
-</div>
-</div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a24a2f40088f9821b76d6bee48c1ffb9f"></a><!-- doxytag: member="tide::Segment::read_body" ref="a24a2f40088f9821b76d6bee48c1ffb9f" args="(std::istream &amp;input)" -->
+<a class="anchor" id="af631e107314ab22d5df77c7e99f9731b"></a><!-- doxytag: member="tide::Segment::body_size" ref="af631e107314ab22d5df77c7e99f9731b" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::Segment::read_body </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad158f45b76a144072cf8e21d8ceee40b"></a><!-- doxytag: member="tide::Segment::size" ref="ad158f45b76a144072cf8e21d8ceee40b" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::Segment::size </td>
+          <td class="memname">std::streamsize tide::Segment::body_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [inline, protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Get the size of the body of this element. </p>
+<p>This function will not return the actual size of the segment until either the segment is read from a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> document or it is finalised in a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> document. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
+
+<p>Definition at line <a class="el" href="segment_8h_source.html#l00109">109</a> of file <a class="el" href="segment_8h_source.html">segment.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9492ba2235d7cf925a829fac67c9757b"></a><!-- doxytag: member="tide::Segment::write_body" ref="a9492ba2235d7cf925a829fac67c9757b" args="(std::ostream &amp;output)" -->
+<a class="anchor" id="a4172d37b439181d04b07bf76c2a0c009"></a><!-- doxytag: member="tide::Segment::finalise" ref="a4172d37b439181d04b07bf76c2a0c009" args="(std::ostream &amp;output)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::Segment::write_body </td>
+          <td class="memname">std::streamsize tide::Segment::finalise </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
           <td class="paramname"><em>output</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Finalise writing of the segment. </p>
+<p>Calculates the total size of the segment and writes it into the segment header, finalising the segment.</p>
+<p>The write pointer in output must be positioned at the first byte after the last byte of the segment before this method is called.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">output</td><td>The byte stream to write the segment to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The final size, in bytes, of the segment (including the element header). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a12792f92d03e87c7265ebea6968040e3"></a><!-- doxytag: member="tide::Segment::read_body" ref="a12792f92d03e87c7265ebea6968040e3" args="(std::istream &amp;input, std::streamsize size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::Segment::read_body </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
+<p>This function does not actually read the body of the segment. Instead, it reads some of the level 1 elements and validates that the segment is usable:</p>
+<ul>
+<li>Reads the meta-seek element (if present), filling in the segment's index.</li>
+<li>Reads the <a class="el" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta-data for a segment.">SegmentInfo</a> element. If not present, raises an error.</li>
+<li>Checks for the existence of the <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element. Raises an error if not present. Checks for the existence of at least one <a class="el" href="classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations.">Cluster</a> element. Raises an error if not present.</li>
+</ul>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes read from the file, excluding bytes read during element presence checks. In other words, this is the number of bytes into the segment that the read pointer has moved. </dd></dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">NoSegmentInfo</td><td>if the <a class="el" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta-data for a segment.">SegmentInfo</a> element is not found. </td></tr>
+    <tr><td class="paramname">NoTracks</td><td>if the <a class="el" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> element is not found. </td></tr>
+    <tr><td class="paramname">NoClusters</td><td>if at least one <a class="el" href="classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations.">Cluster</a> element is not found. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a54da4da1bef73f1d7e7760128f55ce65"></a><!-- doxytag: member="tide::Segment::read_seekhead" ref="a54da4da1bef73f1d7e7760128f55ce65" args="(std::istream &amp;input, std::streamsize size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::Segment::read_seekhead </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reads a SeekHead element to populate the index. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5460341a58da66ac462d459588e192fe"></a><!-- doxytag: member="tide::Segment::write_body" ref="a5460341a58da66ac462d459588e192fe" args="(std::ostream &amp;output)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::Segment::write_body </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td><code> [inline, protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing. </p>
+<p>This function does not write anything. The segment's child elements must be manually written, followed by calling <a class="el" href="classtide_1_1_segment.html#a4172d37b439181d04b07bf76c2a0c009" title="Finalise writing of the segment.">finalise()</a>. </p>
 
 <p>Implements <a class="el" href="classtide_1_1_element.html#ad6040279595409e4577c62f77cb2c5db">tide::Element</a>.</p>
+
+<p>Definition at line <a class="el" href="segment_8h_source.html#l00129">129</a> of file <a class="el" href="segment_8h_source.html">segment.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8fb639741c7ccd4fa9147241bf708f8a"></a><!-- doxytag: member="tide::Segment::write_size" ref="a8fb639741c7ccd4fa9147241bf708f8a" args="(std::ostream &amp;output)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::Segment::write_size </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td><code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> size writing. </p>
+<p>Writes the element's size to a byte stream providing a std::ostream interface, using the full 8 bytes no matter what the actual size is.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes written. </dd></dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_write_error.html" title="A write error was encountered during a write.">WriteError</a></td><td>if an error occurs writing data. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74">tide::Element</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="acc4b9f465583e644734e7cf8829e131d"></a><!-- doxytag: member="tide::Segment::index" ref="acc4b9f465583e644734e7cf8829e131d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::multimap&lt;<a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">ids::ID</a>, std::streamoff&gt; <a class="el" href="classtide_1_1_segment.html#acc4b9f465583e644734e7cf8829e131d">tide::Segment::index</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The segment index. </p>
+<p>All known level 1 elements are included in this index. It is a mapping from element ID (the key) to position, in bytes, in the segment (the value). The first level 1 element has a position of 0.</p>
+<p>There may be additional level 1 elements that are not mentioned in this index. Typically, all but the first cluster are not found in the index. </p>
+
+<p>Definition at line <a class="el" href="segment_8h_source.html#l00097">97</a> of file <a class="el" href="segment_8h_source.html">segment.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a09c0c05f1b422932b1089d8cd221a5c4"></a><!-- doxytag: member="tide::Segment::size_" ref="a09c0c05f1b422932b1089d8cd221a5c4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize <a class="el" href="classtide_1_1_segment.html#a09c0c05f1b422932b1089d8cd221a5c4">tide::Segment::size_</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The size of the segment, as read from the file. </p>
+
+<p>Definition at line <a class="el" href="segment_8h_source.html#l00101">101</a> of file <a class="el" href="segment_8h_source.html">segment.h</a>.</p>
 
 </div>
 </div>
@@ -228,7 +388,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

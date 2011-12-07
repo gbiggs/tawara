@@ -69,6 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <h1>tide::SeekElement Class Reference</h1>  </div>
@@ -110,12 +111,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the offset of the indexed ID.  <a href="#ace8828c70764452fb4e341e28b31407a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html#a53387e2fdc3c36e6180ce9d8d851bf92">offset</a> (std::streamsize offset)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the offset of the indexed ID.  <a href="#a53387e2fdc3c36e6180ce9d8d851bf92"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html#a302ecffe32c4143d9609576d983a9c7d">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a302ecffe32c4143d9609576d983a9c7d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html#acbb8b6a3f5fb76613c090dfea58ef515">write_body</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#acbb8b6a3f5fb76613c090dfea58ef515"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html#ac79cfb0b853835aa6c29c12eae9695e6">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#ac79cfb0b853835aa6c29c12eae9695e6"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html#ae3e2098d9217c530225a157fafd12b7b">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#ae3e2098d9217c530225a157fafd12b7b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html#a5dcaac296346faab18b28af62c255f2d">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a5dcaac296346faab18b28af62c255f2d"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtide_1_1_binary_element.html">BinaryElement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html#a093f9a9be247f20c73cd8e38c72b5f38">indexed_id_</a></td></tr>
@@ -184,21 +187,23 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a108fdf47cc8a7954123b45cb9bcda4c2"></a><!-- doxytag: member="tide::SeekElement::indexed_id" ref="a108fdf47cc8a7954123b45cb9bcda4c2" args="() const " -->
+<a class="anchor" id="ae3e2098d9217c530225a157fafd12b7b"></a><!-- doxytag: member="tide::SeekElement::body_size" ref="ae3e2098d9217c530225a157fafd12b7b" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">ids::ID</a> tide::SeekElement::indexed_id </td>
+          <td class="memname">virtual std::streamsize tide::SeekElement::body_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Get the ID that is indexed by this Seek element. </p>
+<p>Get the size of the body of this element. </p>
+
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -218,6 +223,24 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 
 <p>Set the ID that is indexed. </p>
+
+</div>
+</div>
+<a class="anchor" id="a108fdf47cc8a7954123b45cb9bcda4c2"></a><!-- doxytag: member="tide::SeekElement::indexed_id" ref="a108fdf47cc8a7954123b45cb9bcda4c2" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">ids::ID</a> tide::SeekElement::indexed_id </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the ID that is indexed by this Seek element. </p>
 
 </div>
 </div>
@@ -258,11 +281,13 @@ Protected Attributes</h2></td></tr>
 
 <p>Get the offset of the indexed ID. </p>
 
+<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#a2d4594265bea48cf4ab3c7b63d756b38">tide::Element</a>.</p>
+
 <p>Definition at line <a class="el" href="seek__element_8h_source.html#l00072">72</a> of file <a class="el" href="seek__element_8h_source.html">seek_element.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac79cfb0b853835aa6c29c12eae9695e6"></a><!-- doxytag: member="tide::SeekElement::read_body" ref="ac79cfb0b853835aa6c29c12eae9695e6" args="(std::istream &amp;input)" -->
+<a class="anchor" id="a5dcaac296346faab18b28af62c255f2d"></a><!-- doxytag: member="tide::SeekElement::read_body" ref="a5dcaac296346faab18b28af62c255f2d" args="(std::istream &amp;input, std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -270,8 +295,18 @@ Protected Attributes</h2></td></tr>
           <td class="memname">virtual std::streamsize tide::SeekElement::read_body </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -279,27 +314,7 @@ Protected Attributes</h2></td></tr>
 
 <p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a302ecffe32c4143d9609576d983a9c7d"></a><!-- doxytag: member="tide::SeekElement::size" ref="a302ecffe32c4143d9609576d983a9c7d" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::SeekElement::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of the body of this element. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -336,7 +351,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="seek__element_8h_source.html#l00086">86</a> of file <a class="el" href="seek__element_8h_source.html">seek_element.h</a>.</p>
+<p>Definition at line <a class="el" href="seek__element_8h_source.html#l00080">80</a> of file <a class="el" href="seek__element_8h_source.html">seek_element.h</a>.</p>
 
 </div>
 </div>
@@ -351,7 +366,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="seek__element_8h_source.html#l00087">87</a> of file <a class="el" href="seek__element_8h_source.html">seek_element.h</a>.</p>
+<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#a309f8f8babb042f6922b82fcd22a5395">tide::Element</a>.</p>
+
+<p>Definition at line <a class="el" href="seek__element_8h_source.html#l00081">81</a> of file <a class="el" href="seek__element_8h_source.html">seek_element.h</a>.</p>
 
 </div>
 </div>
@@ -373,7 +390,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

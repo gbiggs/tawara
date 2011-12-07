@@ -69,6 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <h1>tide::Element Class Reference</h1>  </div>
@@ -84,7 +85,7 @@ Inheritance diagram for tide::Element:</div>
 <div class="dyncontent">
 <div class="center"><img src="classtide_1_1_element__inherit__graph.png" border="0" usemap="#tide_1_1_element_inherit__map" alt="Inheritance graph"/></div>
 <map name="tide_1_1_element_inherit__map" id="tide_1_1_element_inherit__map">
-<area shape="rect" id="node3" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; double \&gt;" alt="" coords="208,30,445,58"/><area shape="rect" id="node7" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; int64_t \&gt;" alt="" coords="208,106,445,134"/><area shape="rect" id="node13" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::string \&gt;" alt="" coords="196,157,457,185"/><area shape="rect" id="node17" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="165,207,488,235"/><area shape="rect" id="node21" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="204,258,449,286"/><area shape="rect" id="node25" href="classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="249,410,404,438"/><area shape="rect" id="node45" href="classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="225,461,428,489"/><area shape="rect" id="node47" href="classtide_1_1_void_element.html" title="Void primitive element." alt="" coords="257,511,396,539"/><area shape="rect" id="node5" href="classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="559,5,700,33"/><area shape="rect" id="node9" href="classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="559,55,700,83"/><area shape="rect" id="node11" href="classtide_1_1_int_element.html" title="Signed integer primitive element." alt="" coords="567,106,692,134"/><area shape="rect" id="node15" href="classtide_1_1_string_element.html" title="String primitive element." alt="" coords="556,157,703,185"/><area shape="rect" id="node19" href="classtide_1_1_binary_element.html" title="Binary primitive element." alt="" coords="555,207,704,235"/><area shape="rect" id="node23" href="classtide_1_1_u_int_element.html" title="Unsigned integer primitive element." alt="" coords="561,258,697,286"/><area shape="rect" id="node27" href="classtide_1_1_e_b_m_l_element.html" title="The EBML Header element." alt="" coords="556,309,703,337"/><area shape="rect" id="node29" href="classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file." alt="" coords="571,359,688,387"/><area shape="rect" id="node31" href="classtide_1_1_seek_element.html" title="The Seek element, which contains a single index point in the SeekHead element." alt="" coords="559,410,700,438"/><area shape="rect" id="node33" href="classtide_1_1_segment.html" title="tide::Segment" alt="" coords="572,461,687,489"/><area shape="rect" id="node35" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="560,511,699,539"/><area shape="rect" id="node37" href="classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="568,562,691,590"/><area shape="rect" id="node39" href="classtide_1_1_track_operation_base.html" title="Abstract base class for individual track operations." alt="" coords="537,613,721,641"/><area shape="rect" id="node43" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="581,663,677,691"/><area shape="rect" id="node41" href="classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="771,613,925,641"/></map>
+<area shape="rect" id="node3" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; double \&gt;" alt="" coords="208,30,445,58"/><area shape="rect" id="node7" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; int64_t \&gt;" alt="" coords="208,106,445,134"/><area shape="rect" id="node13" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::string \&gt;" alt="" coords="196,157,457,185"/><area shape="rect" id="node17" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="165,207,488,235"/><area shape="rect" id="node21" href="classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="204,258,449,286"/><area shape="rect" id="node27" href="classtide_1_1_block_element.html" title="tide::BlockElement" alt="" coords="255,309,399,337"/><area shape="rect" id="node33" href="classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="249,562,404,590"/><area shape="rect" id="node59" href="classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="225,613,428,641"/><area shape="rect" id="node61" href="classtide_1_1_void_element.html" title="Void primitive element." alt="" coords="257,663,396,691"/><area shape="rect" id="node5" href="classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="559,5,700,33"/><area shape="rect" id="node9" href="classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="559,55,700,83"/><area shape="rect" id="node11" href="classtide_1_1_int_element.html" title="Signed integer primitive element." alt="" coords="567,106,692,134"/><area shape="rect" id="node15" href="classtide_1_1_string_element.html" title="String primitive element." alt="" coords="556,157,703,185"/><area shape="rect" id="node19" href="classtide_1_1_binary_element.html" title="Binary primitive element." alt="" coords="555,207,704,235"/><area shape="rect" id="node23" href="classtide_1_1_u_int_element.html" title="Unsigned integer primitive element." alt="" coords="561,258,697,286"/><area shape="rect" id="node25" href="classtide_1_1_silent_track_number.html" title="The track number of a silent track." alt="" coords="772,258,945,286"/><area shape="rect" id="node29" href="classtide_1_1_block_group.html" title="The BlockGroup is the standard block." alt="" coords="564,309,695,337"/><area shape="rect" id="node31" href="classtide_1_1_simple_block.html" title="The SimpleBlock element, a simplified version of Blocks." alt="" coords="563,359,696,387"/><area shape="rect" id="node35" href="classtide_1_1_block_additions.html" title="This element is used to specify reference blocks." alt="" coords="555,410,704,438"/><area shape="rect" id="node37" href="classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations." alt="" coords="579,461,680,489"/><area shape="rect" id="node41" href="classtide_1_1_e_b_m_l_element.html" title="The EBML Header element." alt="" coords="556,511,703,539"/><area shape="rect" id="node43" href="classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file." alt="" coords="571,562,688,590"/><area shape="rect" id="node45" href="classtide_1_1_seek_element.html" title="The Seek element, which contains a single index point in the SeekHead element." alt="" coords="559,613,700,641"/><area shape="rect" id="node47" href="classtide_1_1_segment.html" title="The Segment element." alt="" coords="572,663,687,691"/><area shape="rect" id="node49" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="560,714,699,742"/><area shape="rect" id="node51" href="classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="568,765,691,793"/><area shape="rect" id="node53" href="classtide_1_1_track_operation_base.html" title="Abstract base class for individual track operations." alt="" coords="537,815,721,843"/><area shape="rect" id="node57" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="581,866,677,894"/><area shape="rect" id="node39" href="classtide_1_1_memory_cluster.html" title="The in&#45;memory Cluster implementation." alt="" coords="781,461,936,489"/><area shape="rect" id="node55" href="classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="781,815,936,843"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classtide_1_1_element-members.html">List of all members.</a></p>
@@ -95,25 +96,32 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a>.  <a href="#a321eabc90b92326f5a1a703b95115a1f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a47ecd12ddb6e4552bb6a6f0de4cf9820">~Element</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a47ecd12ddb6e4552bb6a6f0de4cf9820"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a936f48bd9dc10ae1fc738eef6b6bebde">id</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the element's ID.  <a href="#a936f48bd9dc10ae1fc738eef6b6bebde"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">size</a> () const =0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a8d7952c8c1054057805b3fb5623de013"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#aa42878af00b801e2f4bb0872f6bd2313">total_size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total size of the element.  <a href="#aa42878af00b801e2f4bb0872f6bd2313"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a749e97f8b57ec8c7aad701f8e156ac27">id</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the element's ID.  <a href="#a749e97f8b57ec8c7aad701f8e156ac27"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streampos&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a2d4594265bea48cf4ab3c7b63d756b38">offset</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the element's offset in the byte stream.  <a href="#a2d4594265bea48cf4ab3c7b63d756b38"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d">size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total size of the element.  <a href="#a40be2f4bbdc5aee9c5184e181343383d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d">write</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> writing.  <a href="#af3fa670bba649aa6d844ab29342fb23d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a050d160a6595745def7c97e2017507da">write_id</a> (std::ostream &amp;output)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID writing.  <a href="#a050d160a6595745def7c97e2017507da"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#ad93208d53ae6c0567106c62cba71d842">read</a> (std::istream &amp;input)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> reading.  <a href="#ad93208d53ae6c0567106c62cba71d842"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">body_size</a> () const =0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#afa34637edb097a0c084e3c8f0c51a84b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a471080b44e7ad606b0e73fe7a1132f27">write_id</a> (std::ostream &amp;output)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID writing.  <a href="#a471080b44e7ad606b0e73fe7a1132f27"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74">write_size</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> size writing.  <a href="#af07b078687d6603b67d48dcadcba5c74"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#ad6040279595409e4577c62f77cb2c5db">write_body</a> (std::ostream &amp;output)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#ad6040279595409e4577c62f77cb2c5db"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">read_body</a> (std::istream &amp;input)=0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#aa5d8106ca4e44d272c832716d897c8f6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">read_body</a> (std::istream &amp;input, std::streamsize size)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body reading implementation.  <a href="#a1880e36bed980635cdee8ad99045e385"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetide_1_1ids.html#aa180ecab2f51812ce43e730844861861">tide::ids::ID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#afdb6205ee28712afa92b4faf3672e106">id_</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streampos&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_element.html#a309f8f8babb042f6922b82fcd22a5395">offset_</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> interface, a basic interface to an element object. </p>
@@ -174,15 +182,38 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a936f48bd9dc10ae1fc738eef6b6bebde"></a><!-- doxytag: member="tide::Element::id" ref="a936f48bd9dc10ae1fc738eef6b6bebde" args="() const " -->
+<a class="anchor" id="afa34637edb097a0c084e3c8f0c51a84b"></a><!-- doxytag: member="tide::Element::body_size" ref="afa34637edb097a0c084e3c8f0c51a84b" args="() const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual uint32_t tide::Element::id </td>
+          <td class="memname">virtual std::streamsize tide::Element::body_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const<code> [inline, virtual]</code></td>
+          <td> const<code> [protected, pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of the body of this element. </p>
+<p>Returns the size, in bytes, required to store this element's body. This does not include the space required by the ID or the data size value.</p>
+<p>See also <a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d" title="Get the total size of the element.">size()</a>.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The size of the element's body, in bytes. </dd></dl>
+
+<p>Implemented in <a class="el" href="classtide_1_1_binary_element.html#a166830f354619ae08f420f660e74c133">tide::BinaryElement</a>, <a class="el" href="classtide_1_1_block_additions.html#abd400a064784728c3a9932ffb0cec554">tide::BlockAdditions</a>, <a class="el" href="classtide_1_1_block_group.html#a463fbc42907257dd7a8d37edc508beff">tide::BlockGroup</a>, <a class="el" href="classtide_1_1_cluster.html#a9c98dd452cb3d38f117d7b0b7ee3b961">tide::Cluster</a>, <a class="el" href="classtide_1_1_date_element.html#a3863406c85cc7212fae79b5e8478a2cb">tide::DateElement</a>, <a class="el" href="classtide_1_1_e_b_m_l_element.html#a794944fc90d4fefc57556b5c7076b2e4">tide::EBMLElement</a>, <a class="el" href="classtide_1_1_float_element.html#a71807f788347613d879369c240bba9d4">tide::FloatElement</a>, <a class="el" href="classtide_1_1_int_element.html#a47188f472f3d8679a512feeccd7dd625">tide::IntElement</a>, <a class="el" href="classtide_1_1_metaseek.html#ad0f551d5ed068cb664f00a2c174d9a19">tide::Metaseek</a>, <a class="el" href="classtide_1_1_seek_element.html#ae3e2098d9217c530225a157fafd12b7b">tide::SeekElement</a>, <a class="el" href="classtide_1_1_segment.html#af631e107314ab22d5df77c7e99f9731b">tide::Segment</a>, <a class="el" href="classtide_1_1_segment_info.html#ad9f3408a33c3df9f4f8be21caea25dd6">tide::SegmentInfo</a>, <a class="el" href="classtide_1_1_string_element.html#a98604ce395e9d711b9ef138a7dbf03b2">tide::StringElement</a>, <a class="el" href="classtide_1_1_track_entry.html#a99f8dec774e197179df66f64d01b3fb0">tide::TrackEntry</a>, <a class="el" href="classtide_1_1_track_join_blocks.html#ab2105dd842147d538bf0cdd3a2821700">tide::TrackJoinBlocks</a>, <a class="el" href="classtide_1_1_tracks.html#aca71c79a520221bdd3b7169c78f294ed">tide::Tracks</a>, and <a class="el" href="classtide_1_1_u_int_element.html#a5697f61181b0010035f105e1af7c6b41">tide::UIntElement</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a749e97f8b57ec8c7aad701f8e156ac27"></a><!-- doxytag: member="tide::Element::id" ref="a749e97f8b57ec8c7aad701f8e156ac27" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t tide::Element::id </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -213,22 +244,46 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa5d8106ca4e44d272c832716d897c8f6"></a><!-- doxytag: member="tide::Element::read_body" ref="aa5d8106ca4e44d272c832716d897c8f6" args="(std::istream &amp;input)=0" -->
+<a class="anchor" id="a2d4594265bea48cf4ab3c7b63d756b38"></a><!-- doxytag: member="tide::Element::offset" ref="a2d4594265bea48cf4ab3c7b63d756b38" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::Element::read_body </td>
+          <td class="memname">std::streampos tide::Element::offset </td>
           <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [pure virtual]</code></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
+<p>Get the element's offset in the byte stream. </p>
+<p>If the element has been written, or was read from a byte stream, this value will contain its position in that stream. It is updated every time the element is read or written, so reading from one offset and then writing to another will change the stored offset.</p>
+<p>If the offset is std::numeric_limits&lt;std::streampos&gt;::max(), then the element has not yet been read or written. </p>
+
+<p>Reimplemented in <a class="el" href="classtide_1_1_seek_element.html#ace8828c70764452fb4e341e28b31407a">tide::SeekElement</a>.</p>
+
+<p>Definition at line <a class="el" href="element_8h_source.html#l00106">106</a> of file <a class="el" href="element_8h_source.html">element.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad93208d53ae6c0567106c62cba71d842"></a><!-- doxytag: member="tide::Element::read" ref="ad93208d53ae6c0567106c62cba71d842" args="(std::istream &amp;input)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::streamsize tide::Element::read </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> reading. </p>
 <p>Reads the element from a byte stream providing a std::istream interface.</p>
 <p>This method assumes that the <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID has already been read (and thus used to construct the <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> instance doing the reading), which means that the file's read pointer should be positioned at the first byte of the element's size.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes read. </dd></dl>
@@ -244,39 +299,67 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classtide_1_1_binary_element.html#a66601e2ae0a2bc2262910e6868329ef2">tide::BinaryElement</a>, <a class="el" href="classtide_1_1_date_element.html#aa8657eade594c2cd4d350811289d4f70">tide::DateElement</a>, <a class="el" href="classtide_1_1_e_b_m_l_element.html#af8d9e63ddddf655eaa24bf729a396fe7">tide::EBMLElement</a>, <a class="el" href="classtide_1_1_float_element.html#a4dd31ff2567f3880dbfe4e26983a9367">tide::FloatElement</a>, <a class="el" href="classtide_1_1_int_element.html#a57503e4902f0cdc19bf577d6b30acbac">tide::IntElement</a>, <a class="el" href="classtide_1_1_metaseek.html#a920f42f5a7fb97253f490023f838dc85">tide::Metaseek</a>, <a class="el" href="classtide_1_1_seek_element.html#ac79cfb0b853835aa6c29c12eae9695e6">tide::SeekElement</a>, <a class="el" href="classtide_1_1_segment.html#a24a2f40088f9821b76d6bee48c1ffb9f">tide::Segment</a>, <a class="el" href="classtide_1_1_segment_info.html#a8d504d19f2aeff712bc9cd3f2fb64e45">tide::SegmentInfo</a>, <a class="el" href="classtide_1_1_string_element.html#a863ed9f2da35d9c655e0f36ec1dd7fe2">tide::StringElement</a>, <a class="el" href="classtide_1_1_track_entry.html#a16c3ba3b1b95861c977a7bb66eb20bc7">tide::TrackEntry</a>, <a class="el" href="classtide_1_1_track_join_blocks.html#a23cc0c1c5027c4ce184dc5a54020b6c3">tide::TrackJoinBlocks</a>, <a class="el" href="classtide_1_1_tracks.html#a69f3c8b7e5401d798c79de0f2fd5e1b6">tide::Tracks</a>, <a class="el" href="classtide_1_1_u_int_element.html#a8e76adb5683d2c0e8c2aade299f1cb51">tide::UIntElement</a>, and <a class="el" href="classtide_1_1_void_element.html#a67cb437ace1b16eac4a715df95f1dea3">tide::VoidElement</a>.</p>
+<p>Reimplemented in <a class="el" href="classtide_1_1_cluster.html#a4aa8f6ad5e8dcffbe44e944564a7d036">tide::Cluster</a>, and <a class="el" href="classtide_1_1_void_element.html#a275dae0e292835f10c8557ae467f9ce8">tide::VoidElement</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8d7952c8c1054057805b3fb5623de013"></a><!-- doxytag: member="tide::Element::size" ref="a8d7952c8c1054057805b3fb5623de013" args="() const =0" -->
+<a class="anchor" id="a1880e36bed980635cdee8ad99045e385"></a><!-- doxytag: member="tide::Element::read_body" ref="a1880e36bed980635cdee8ad99045e385" args="(std::istream &amp;input, std::streamsize size)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::Element::size </td>
+          <td class="memname">virtual std::streamsize tide::Element::read_body </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [pure virtual]</code></td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Get the size of the body of this element. </p>
-<p>Returns the size, in bytes, required to store this element's body. This does not include the space required by the ID or the data size value.</p>
-<p>See also <a class="el" href="classtide_1_1_element.html#aa42878af00b801e2f4bb0872f6bd2313" title="Get the total size of the element.">total_size()</a>.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The size of the element's body, in bytes. </dd></dl>
+<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body reading implementation. </p>
+<p>Implementations of the <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> interface should implement this function to read the body of the element. When this function is called, the read pointer in the byte stream will be positioned at the first byte of the element's body (i.e. immediately after the element's size value).</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>The input byte stream containing the element's body data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>The size of the body data. The stream <em>must</em> <em>not</em> be read beyond this number of bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes read. </dd></dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_read_error.html" title="A read error was encountered during a read.">ReadError</a></td><td>if an error occurs reading data. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_bad_body_size.html" title="A read body size does not match the actual body size in the file.">BadBodySize</a></td><td>if the size read from the element's header doesn't match its actual size. Only occurs with master elements. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_invalid_child_i_d.html" title="A child element was found where it doesn&#39;t belong.">InvalidChildID</a></td><td>if a child element is found in the body of a master element to which it doesn't belong. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_missing_child.html" title="A necessary child element was missing.">MissingChild</a></td><td>if a child element that must be present in a master element is not found. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_value_out_of_range.html" title="A child element&#39;s value was set outside the allowable range.">ValueOutOfRange</a></td><td>if a child element is read with a value that is out of range. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_value_size_out_of_range.html" title="A child element&#39;s size is below or above the required size.">ValueSizeOutOfRange</a></td><td>if a child element is read with a size that is not in the allowable range of sizes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implemented in <a class="el" href="classtide_1_1_binary_element.html#aa19974b31ef4ed52dff43d8375e6e478">tide::BinaryElement</a>, <a class="el" href="classtide_1_1_date_element.html#adb00cee73c784e7aa0a4cd81a4b8ed60">tide::DateElement</a>, <a class="el" href="classtide_1_1_e_b_m_l_element.html#a2e94dfdd80201718ff145e99a2a99087">tide::EBMLElement</a>, <a class="el" href="classtide_1_1_float_element.html#a9a522f8d7b48f72e22ff5fc4038ed071">tide::FloatElement</a>, <a class="el" href="classtide_1_1_int_element.html#ae40299af04c5e6aee9d0182dc64a26bd">tide::IntElement</a>, <a class="el" href="classtide_1_1_metaseek.html#aa48bd8e85f9b677b8eee8c6ec7462214">tide::Metaseek</a>, <a class="el" href="classtide_1_1_seek_element.html#a302ecffe32c4143d9609576d983a9c7d">tide::SeekElement</a>, <a class="el" href="classtide_1_1_segment.html#ad158f45b76a144072cf8e21d8ceee40b">tide::Segment</a>, <a class="el" href="classtide_1_1_segment_info.html#a99b8fb44c48d30fc47c3ae3044ee3a16">tide::SegmentInfo</a>, <a class="el" href="classtide_1_1_string_element.html#a594796f1d447b7bbf4055234c8bdcb2d">tide::StringElement</a>, <a class="el" href="classtide_1_1_track_entry.html#a3e50cb15c0b9fea845082a5b6364c02e">tide::TrackEntry</a>, <a class="el" href="classtide_1_1_track_join_blocks.html#a7b177fcd1980eeec08b5b7b0ba108f31">tide::TrackJoinBlocks</a>, <a class="el" href="classtide_1_1_tracks.html#a2449adfddb40d28074291fa5ee7ca105">tide::Tracks</a>, <a class="el" href="classtide_1_1_u_int_element.html#a27bf1866339b95ab8c2810b4e4ed3ede">tide::UIntElement</a>, and <a class="el" href="classtide_1_1_void_element.html#afa217bd9762e2849f0cde2c2362b7f01">tide::VoidElement</a>.</p>
+<p>Implemented in <a class="el" href="classtide_1_1_binary_element.html#adeccbb7394f8eb0f1052f616f49d9487">tide::BinaryElement</a>, <a class="el" href="classtide_1_1_block_additions.html#acef28c288e47b964bfe652036b591f24">tide::BlockAdditions</a>, <a class="el" href="classtide_1_1_block_group.html#a820d2465e2dbd0af946456ddf6182f07">tide::BlockGroup</a>, <a class="el" href="classtide_1_1_cluster.html#ad1a7feb0128c92b25ff5af3458a08977">tide::Cluster</a>, <a class="el" href="classtide_1_1_date_element.html#a62d9cceb9c223446fa8f8aee917c7407">tide::DateElement</a>, <a class="el" href="classtide_1_1_e_b_m_l_element.html#a29e77d07bcc4bbec0d8398748f69060d">tide::EBMLElement</a>, <a class="el" href="classtide_1_1_float_element.html#af765edac870f168c0012835855235ce9">tide::FloatElement</a>, <a class="el" href="classtide_1_1_int_element.html#ab22b2374cfa308adecd8450874072496">tide::IntElement</a>, <a class="el" href="classtide_1_1_metaseek.html#a7d34b0f84bfdb5acc1d8f421f2318ab5">tide::Metaseek</a>, <a class="el" href="classtide_1_1_seek_element.html#a5dcaac296346faab18b28af62c255f2d">tide::SeekElement</a>, <a class="el" href="classtide_1_1_segment.html#a12792f92d03e87c7265ebea6968040e3">tide::Segment</a>, <a class="el" href="classtide_1_1_segment_info.html#a54ecd0a83fe37acbebd03ca7f4fc2ca6">tide::SegmentInfo</a>, <a class="el" href="classtide_1_1_string_element.html#a8d1e2696c0d4ea33c6de735b7c8da272">tide::StringElement</a>, <a class="el" href="classtide_1_1_track_entry.html#af51a113a47b6bece425473f30b81578f">tide::TrackEntry</a>, <a class="el" href="classtide_1_1_track_join_blocks.html#a66604646a0bb18c1f99335a77be55560">tide::TrackJoinBlocks</a>, <a class="el" href="classtide_1_1_tracks.html#ac92cf6a067ce4c634750b1060614c739">tide::Tracks</a>, and <a class="el" href="classtide_1_1_u_int_element.html#ae111c24e05df875cafaa3d8d3588e01b">tide::UIntElement</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa42878af00b801e2f4bb0872f6bd2313"></a><!-- doxytag: member="tide::Element::total_size" ref="aa42878af00b801e2f4bb0872f6bd2313" args="() const " -->
+<a class="anchor" id="a40be2f4bbdc5aee9c5184e181343383d"></a><!-- doxytag: member="tide::Element::size" ref="a40be2f4bbdc5aee9c5184e181343383d" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::Element::total_size </td>
+          <td class="memname">virtual std::streamsize tide::Element::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [virtual]</code></td>
@@ -289,7 +372,7 @@ Protected Attributes</h2></td></tr>
 <p>Returns the size, in bytes, required to store this entire element, including its ID, data size value and body.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The size of the entire element, in bytes. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classtide_1_1_void_element.html#aae39a54ab3b9aac9109057c9cecf7d41">tide::VoidElement</a>.</p>
+<p>Reimplemented in <a class="el" href="classtide_1_1_void_element.html#afa217bd9762e2849f0cde2c2362b7f01">tide::VoidElement</a>.</p>
 
 </div>
 </div>
@@ -337,7 +420,7 @@ Protected Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
           <td class="paramname"><em>output</em></td><td>)</td>
-          <td><code> [pure virtual]</code></td>
+          <td><code> [protected, pure virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -353,20 +436,20 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classtide_1_1_binary_element.html#a298e9d6a72915a289b5c18c5d4a5539d">tide::BinaryElement</a>, <a class="el" href="classtide_1_1_date_element.html#a0b6336bc23e51e996a1ceb3d0b391f69">tide::DateElement</a>, <a class="el" href="classtide_1_1_e_b_m_l_element.html#ad9f1f87b1567f4ee130db07789149b1a">tide::EBMLElement</a>, <a class="el" href="classtide_1_1_float_element.html#ac60245a5a1a7f59040a6429d5b47e37f">tide::FloatElement</a>, <a class="el" href="classtide_1_1_int_element.html#aae618edcd1b7edb0cb32225c3ff256ed">tide::IntElement</a>, <a class="el" href="classtide_1_1_metaseek.html#ab1cbe29bc9333df9a6f52a689adb8381">tide::Metaseek</a>, <a class="el" href="classtide_1_1_seek_element.html#acbb8b6a3f5fb76613c090dfea58ef515">tide::SeekElement</a>, <a class="el" href="classtide_1_1_segment.html#a9492ba2235d7cf925a829fac67c9757b">tide::Segment</a>, <a class="el" href="classtide_1_1_segment_info.html#accd056b309b86f2f7a051e2f6a442d79">tide::SegmentInfo</a>, <a class="el" href="classtide_1_1_string_element.html#a8b699a37c7581653e0e53c51734d774b">tide::StringElement</a>, <a class="el" href="classtide_1_1_track_entry.html#a536ea93598de5d16248dffbd80635ca4">tide::TrackEntry</a>, <a class="el" href="classtide_1_1_track_join_blocks.html#a3cc74546295ebee358af0ad13f344487">tide::TrackJoinBlocks</a>, <a class="el" href="classtide_1_1_tracks.html#a69b113316cb62087589100520da4ff5a">tide::Tracks</a>, <a class="el" href="classtide_1_1_u_int_element.html#a167cf0e0b586695474545163c89d3547">tide::UIntElement</a>, and <a class="el" href="classtide_1_1_void_element.html#a2c061d10d8baad96eb7d3b663154c021">tide::VoidElement</a>.</p>
+<p>Implemented in <a class="el" href="classtide_1_1_binary_element.html#a298e9d6a72915a289b5c18c5d4a5539d">tide::BinaryElement</a>, <a class="el" href="classtide_1_1_block_additions.html#ae9ad79b102445029310650bc28a36f76">tide::BlockAdditions</a>, <a class="el" href="classtide_1_1_block_group.html#abf9d7d95cf4366d37dc817bb08daa383">tide::BlockGroup</a>, <a class="el" href="classtide_1_1_cluster.html#ab966277e895033c374964dca9bebef47">tide::Cluster</a>, <a class="el" href="classtide_1_1_date_element.html#a0b6336bc23e51e996a1ceb3d0b391f69">tide::DateElement</a>, <a class="el" href="classtide_1_1_e_b_m_l_element.html#ad9f1f87b1567f4ee130db07789149b1a">tide::EBMLElement</a>, <a class="el" href="classtide_1_1_float_element.html#ac60245a5a1a7f59040a6429d5b47e37f">tide::FloatElement</a>, <a class="el" href="classtide_1_1_int_element.html#aae618edcd1b7edb0cb32225c3ff256ed">tide::IntElement</a>, <a class="el" href="classtide_1_1_metaseek.html#ab1cbe29bc9333df9a6f52a689adb8381">tide::Metaseek</a>, <a class="el" href="classtide_1_1_seek_element.html#acbb8b6a3f5fb76613c090dfea58ef515">tide::SeekElement</a>, <a class="el" href="classtide_1_1_segment.html#a5460341a58da66ac462d459588e192fe">tide::Segment</a>, <a class="el" href="classtide_1_1_segment_info.html#accd056b309b86f2f7a051e2f6a442d79">tide::SegmentInfo</a>, <a class="el" href="classtide_1_1_string_element.html#a8b699a37c7581653e0e53c51734d774b">tide::StringElement</a>, <a class="el" href="classtide_1_1_track_entry.html#a536ea93598de5d16248dffbd80635ca4">tide::TrackEntry</a>, <a class="el" href="classtide_1_1_track_join_blocks.html#a3cc74546295ebee358af0ad13f344487">tide::TrackJoinBlocks</a>, <a class="el" href="classtide_1_1_tracks.html#a69b113316cb62087589100520da4ff5a">tide::Tracks</a>, <a class="el" href="classtide_1_1_u_int_element.html#a167cf0e0b586695474545163c89d3547">tide::UIntElement</a>, and <a class="el" href="classtide_1_1_void_element.html#a2c061d10d8baad96eb7d3b663154c021">tide::VoidElement</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a050d160a6595745def7c97e2017507da"></a><!-- doxytag: member="tide::Element::write_id" ref="a050d160a6595745def7c97e2017507da" args="(std::ostream &amp;output)" -->
+<a class="anchor" id="a471080b44e7ad606b0e73fe7a1132f27"></a><!-- doxytag: member="tide::Element::write_id" ref="a471080b44e7ad606b0e73fe7a1132f27" args="(std::ostream &amp;output)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::Element::write_id </td>
+          <td class="memname">std::streamsize tide::Element::write_id </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
           <td class="paramname"><em>output</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -399,7 +482,7 @@ Protected Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
           <td class="paramname"><em>output</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -415,6 +498,8 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Reimplemented in <a class="el" href="classtide_1_1_segment.html#a8fb639741c7ccd4fa9147241bf708f8a">tide::Segment</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -429,7 +514,24 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="element_8h_source.html#l00185">185</a> of file <a class="el" href="element_8h_source.html">element.h</a>.</p>
+<p>Definition at line <a class="el" href="element_8h_source.html#l00155">155</a> of file <a class="el" href="element_8h_source.html">element.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a309f8f8babb042f6922b82fcd22a5395"></a><!-- doxytag: member="tide::Element::offset_" ref="a309f8f8babb042f6922b82fcd22a5395" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streampos <a class="el" href="classtide_1_1_element.html#a309f8f8babb042f6922b82fcd22a5395">tide::Element::offset_</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classtide_1_1_seek_element.html#a0aecc183c9e6afc896c447bef82c690e">tide::SeekElement</a>.</p>
+
+<p>Definition at line <a class="el" href="element_8h_source.html#l00156">156</a> of file <a class="el" href="element_8h_source.html">element.h</a>.</p>
 
 </div>
 </div>
@@ -451,7 +553,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

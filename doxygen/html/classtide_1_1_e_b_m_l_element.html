@@ -103,8 +103,6 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a>.  <a href="#ae1e853ede094a2bd5eb124edfa5d93eb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#a6dc5ad3529620c6755ceff31caf9d7b0">~EBMLElement</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a6dc5ad3529620c6755ceff31caf9d7b0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#a2e94dfdd80201718ff145e99a2a99087">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a2e94dfdd80201718ff145e99a2a99087"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#ae0afa0ac1e1c5d73b0b750ef364f8cbf">version</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the EBML version.  <a href="#ae0afa0ac1e1c5d73b0b750ef364f8cbf"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#a293f40c8c8c1aef0e2abcc939de5e46d">read_version</a> () const </td></tr>
@@ -131,10 +129,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the minimum required document type version.  <a href="#a6df72536839199c14ee8f6db89a0e957"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#ad9f1f87b1567f4ee130db07789149b1a">write_body</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#ad9f1f87b1567f4ee130db07789149b1a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#af8d9e63ddddf655eaa24bf729a396fe7">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#af8d9e63ddddf655eaa24bf729a396fe7"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#a794944fc90d4fefc57556b5c7076b2e4">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a794944fc90d4fefc57556b5c7076b2e4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#a29e77d07bcc4bbec0d8398748f69060d">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a29e77d07bcc4bbec0d8398748f69060d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_e_b_m_l_element.html#af3e0c81711cc1eba4af95c52d9381778">set_defaults_</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all child elements to their default values.  <a href="#af3e0c81711cc1eba4af95c52d9381778"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
@@ -207,6 +207,26 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a794944fc90d4fefc57556b5c7076b2e4"></a><!-- doxytag: member="tide::EBMLElement::body_size" ref="a794944fc90d4fefc57556b5c7076b2e4" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::streamsize tide::EBMLElement::body_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of the body of this element. </p>
+
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6014f194b64918eb44fa8c0ca74479fb"></a><!-- doxytag: member="tide::EBMLElement::doc_read_version" ref="a6014f194b64918eb44fa8c0ca74479fb" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +244,7 @@ Protected Attributes</h2></td></tr>
 <p>Get the minimum document type version to read. </p>
 <p>This is the minimum document type version that must be readable for a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> parser to read this file. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00126">126</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00123">123</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -245,28 +265,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Set the minimum required document type version. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00129">129</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9dbeddbb842a78df67b7e8a02ea26358"></a><!-- doxytag: member="tide::EBMLElement::doc_type" ref="a9dbeddbb842a78df67b7e8a02ea26358" args="(std::string doc_type)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tide::EBMLElement::doc_type </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>doc_type</em></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Set the document type. </p>
-
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00112">112</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00126">126</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -287,7 +286,28 @@ Protected Attributes</h2></td></tr>
 <p>Get the document type. </p>
 <p>The document type is the type of EBML document that is read or written. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00110">110</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00107">107</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9dbeddbb842a78df67b7e8a02ea26358"></a><!-- doxytag: member="tide::EBMLElement::doc_type" ref="a9dbeddbb842a78df67b7e8a02ea26358" args="(std::string doc_type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tide::EBMLElement::doc_type </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>doc_type</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set the document type. </p>
+
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00109">109</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -308,7 +328,7 @@ Protected Attributes</h2></td></tr>
 <p>Get the document type version. </p>
 <p>This is the version of the document type contained in the file. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00117">117</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00114">114</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -329,28 +349,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Set the document type version. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00119">119</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae7ce5bb75fe47b7045a2a21fbac0389c"></a><!-- doxytag: member="tide::EBMLElement::max_id_length" ref="ae7ce5bb75fe47b7045a2a21fbac0389c" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int tide::EBMLElement::max_id_length </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the maximum ID length. </p>
-<p>This is the maximum length of IDs that can be used in a file with this header. </p>
-
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00090">90</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00116">116</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -371,7 +370,28 @@ Protected Attributes</h2></td></tr>
 
 <p>Set the maximum ID length. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00093">93</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00090">90</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae7ce5bb75fe47b7045a2a21fbac0389c"></a><!-- doxytag: member="tide::EBMLElement::max_id_length" ref="ae7ce5bb75fe47b7045a2a21fbac0389c" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int tide::EBMLElement::max_id_length </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the maximum ID length. </p>
+<p>This is the maximum length of IDs that can be used in a file with this header. </p>
+
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00087">87</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -392,7 +412,7 @@ Protected Attributes</h2></td></tr>
 <p>Get the maximum size length. </p>
 <p>This is the maximum number of bytes that can be used for an element size in a file with this header. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00100">100</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00097">97</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -413,11 +433,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Set the maximum size length. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00103">103</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00100">100</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af8d9e63ddddf655eaa24bf729a396fe7"></a><!-- doxytag: member="tide::EBMLElement::read_body" ref="af8d9e63ddddf655eaa24bf729a396fe7" args="(std::istream &amp;input)" -->
+<a class="anchor" id="a29e77d07bcc4bbec0d8398748f69060d"></a><!-- doxytag: member="tide::EBMLElement::read_body" ref="a29e77d07bcc4bbec0d8398748f69060d" args="(std::istream &amp;input, std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -425,8 +445,18 @@ Protected Attributes</h2></td></tr>
           <td class="memname">virtual std::streamsize tide::EBMLElement::read_body </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -434,7 +464,7 @@ Protected Attributes</h2></td></tr>
 
 <p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -455,7 +485,7 @@ Protected Attributes</h2></td></tr>
 <p>Get the EBML read version. </p>
 <p>This property gives the minimum EBML parser version necessary to read the file. It is set internally by the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> EBML parser, and read from the file. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00084">84</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00081">81</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -477,26 +507,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2e94dfdd80201718ff145e99a2a99087"></a><!-- doxytag: member="tide::EBMLElement::size" ref="a2e94dfdd80201718ff145e99a2a99087" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::EBMLElement::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of the body of this element. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ae0afa0ac1e1c5d73b0b750ef364f8cbf"></a><!-- doxytag: member="tide::EBMLElement::version" ref="ae0afa0ac1e1c5d73b0b750ef364f8cbf" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -514,7 +524,7 @@ Protected Attributes</h2></td></tr>
 <p>Get the EBML version. </p>
 <p>The EBML version is the version of the parser used to create the file. It is set internally by the <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> EBML parser, and read from the file. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00077">77</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00074">74</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -553,7 +563,7 @@ Protected Attributes</h2></td></tr>
 
 <p>EBML document type. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00148">148</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00142">142</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -570,7 +580,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Minimum document type version necessary to read. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00152">152</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00146">146</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -587,7 +597,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Document type version. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00150">150</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00144">144</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -604,7 +614,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Maximum ID length in bytes. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00144">144</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00138">138</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -621,7 +631,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Maximum size length in bytes. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00146">146</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00140">140</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -638,7 +648,7 @@ Protected Attributes</h2></td></tr>
 
 <p>EBML minimum-version-to-read. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00142">142</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00136">136</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -655,7 +665,7 @@ Protected Attributes</h2></td></tr>
 
 <p>EBML version. </p>
 
-<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00140">140</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
+<p>Definition at line <a class="el" href="ebml__element_8h_source.html#l00134">134</a> of file <a class="el" href="ebml__element_8h_source.html">ebml_element.h</a>.</p>
 
 </div>
 </div>
@@ -677,7 +687,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

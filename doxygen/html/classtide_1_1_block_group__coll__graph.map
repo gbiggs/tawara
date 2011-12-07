@@ -1,0 +1,18 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classtide_1_1_block_element.html" title="tide::BlockElement" alt="" coords="1011,207,1155,235"/>
+<area shape="rect" id="node4" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="197,133,307,161"/>
+<area shape="rect" id="node19" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="636,106,791,134"/>
+<area shape="rect" id="node26" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="591,5,836,33"/>
+<area shape="rect" id="node33" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="552,157,875,185"/>
+<area shape="rect" id="node6" href="$classtide_1_1_block.html" title="Block interface." alt="" coords="668,266,759,294"/>
+<area shape="rect" id="node12" href="$classtide_1_1_block_impl.html" title="Common block functionality implementation." alt="" coords="1024,266,1141,294"/>
+<area shape="rect" id="node8" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; Block \&gt;" alt="" coords="119,291,385,319"/>
+<area shape="rect" id="node10" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; BlockGroup \&gt;" alt="" coords="929,317,1236,345"/>
+<area shape="rect" id="node15" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; BlockImpl \&gt;" alt="" coords="565,317,861,345"/>
+<area shape="rect" id="node17" href="$classtide_1_1_block_additions.html" title="This element is used to specify reference blocks." alt="" coords="1008,106,1157,134"/>
+<area shape="rect" id="node22" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; BlockAdditions \&gt;" alt="" coords="549,55,877,83"/>
+<area shape="rect" id="node24" href="$classtide_1_1_u_int_element.html" title="Unsigned integer primitive element." alt="" coords="1015,34,1151,62"/>
+<area shape="rect" id="node29" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; PrimitiveElement\&lt; uint64_t \&gt; \&gt;" alt="" coords="40,5,464,33"/>
+<area shape="rect" id="node31" href="$classtide_1_1_binary_element.html" title="Binary primitive element." alt="" coords="1008,157,1157,185"/>
+<area shape="rect" id="node36" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt;PrimitiveElement\&lt;std::vector\&lt; char \&gt; \&gt; \&gt;" alt="" coords="7,241,497,269"/>
+</map>

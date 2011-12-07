@@ -77,10 +77,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ebml__int.html#ad9349f253c126869089ce53f67d624a2">coded_size_u</a> (uint64_t integer)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of an unsigned integer after encoding.  <a href="#ad9349f253c126869089ce53f67d624a2"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ebml__int.html#ab4ac4ba2d910fe663e2942eda05c2e93">coded_size_s</a> (int64_t integer)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of a signed integer after encoding.  <a href="#ab4ac4ba2d910fe663e2942eda05c2e93"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ebml__int.html#a763d23e2da655485b1b22e7e7af74dcb">size_u</a> (uint64_t integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of an unsigned integer after encoding.  <a href="#a763d23e2da655485b1b22e7e7af74dcb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ebml__int.html#ac251ca038b25a06b86e2336af1b5dc2d">size_s</a> (int64_t integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of a signed integer after encoding.  <a href="#ac251ca038b25a06b86e2336af1b5dc2d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ebml__int.html#a2c211d56157a9280da5c1567fd6ae62a">encode_u</a> (uint64_t integer)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode an unsigned integer into a buffer.  <a href="#a2c211d56157a9280da5c1567fd6ae62a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1ebml__int.html#a0586252cf7d9b6ef3ca561cdac6606a4">encode_s</a> (int64_t integer)</td></tr>
@@ -103,60 +103,6 @@ Functions</h2></td></tr>
 <p>This namespace contains the functions used to mange the way integers, both signed and unsigned, are stored in EBML files. Rather than writing a constant number of bytes regardless of the value being stored, EBML specifies that leading 0x00 bytes and, for negative signed integers, leading 0xFF bytes, be trimmed. For example, a value of 2 will be stored as 0x02, even if the variable that holds it is 32-bit (i.e. 0x00000002). Similarly, a value of -30000, or 0xFFFFF530 in 32 bits, will be stored as 0xF530.</p>
 <p>Note that this is distinct from the coding used on EBML <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> IDs and data sizes, which relies on leading zero bits to indicate the stored size. </p>
 </div><hr/><h2>Function Documentation</h2>
-<a class="anchor" id="ab4ac4ba2d910fe663e2942eda05c2e93"></a><!-- doxytag: member="tide::ebml_int::coded_size_s" ref="ab4ac4ba2d910fe663e2942eda05c2e93" args="(int64_t integer)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::streamsize tide::ebml_int::coded_size_s </td>
-          <td>(</td>
-          <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>integer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of a signed integer after encoding. </p>
-<p>The size required by an encoded integer depends on the value of that integer, and will range from 1 to 8 bytes.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to get the size of. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The size, in bytes, that the integer will require when coded. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ad9349f253c126869089ce53f67d624a2"></a><!-- doxytag: member="tide::ebml_int::coded_size_u" ref="ad9349f253c126869089ce53f67d624a2" args="(uint64_t integer)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::streamsize tide::ebml_int::coded_size_u </td>
-          <td>(</td>
-          <td class="paramtype">uint64_t&#160;</td>
-          <td class="paramname"><em>integer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of an unsigned integer after encoding. </p>
-<p>The size required by an encoded integer depends on the value of that integer, and will range from 1 to 8 bytes.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to get the size of. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The size, in bytes, that the integer will require when coded. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a29636d77e3ce2eaed45d605a48baf3b7"></a><!-- doxytag: member="tide::ebml_int::decode_s" ref="a29636d77e3ce2eaed45d605a48baf3b7" args="(std::vector&lt; char &gt; const &amp;buffer)" -->
 <div class="memitem">
 <div class="memproto">
@@ -353,6 +299,60 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac251ca038b25a06b86e2336af1b5dc2d"></a><!-- doxytag: member="tide::ebml_int::size_s" ref="ac251ca038b25a06b86e2336af1b5dc2d" args="(int64_t integer)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::ebml_int::size_s </td>
+          <td>(</td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>integer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of a signed integer after encoding. </p>
+<p>The size required by an encoded integer depends on the value of that integer, and will range from 1 to 8 bytes.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to get the size of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The size, in bytes, that the integer will require when coded. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a763d23e2da655485b1b22e7e7af74dcb"></a><!-- doxytag: member="tide::ebml_int::size_u" ref="a763d23e2da655485b1b22e7e7af74dcb" args="(uint64_t integer)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::ebml_int::size_u </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>integer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of an unsigned integer after encoding. </p>
+<p>The size required by an encoded integer depends on the value of that integer, and will range from 1 to 8 bytes.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to get the size of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The size, in bytes, that the integer will require when coded. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a12e70802ba18c46ba0058b4693d64f70"></a><!-- doxytag: member="tide::ebml_int::write_s" ref="a12e70802ba18c46ba0058b4693d64f70" args="(int64_t integer, std::ostream &amp;output)" -->
 <div class="memitem">
 <div class="memproto">
@@ -456,7 +456,7 @@ Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:18 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

@@ -65,6 +65,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_func.html"><span>Functions</span></a></li>
       <li><a href="functions_vars.html"><span>Variables</span></a></li>
       <li><a href="functions_type.html"><span>Typedefs</span></a></li>
+      <li><a href="functions_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
       <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
@@ -100,7 +102,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
 <li>clear()
-: <a class="el" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba">tide::Tracks</a>
+: <a class="el" href="classtide_1_1_block.html#ad6183429c7f6e50ffd30adf5293deeb6">tide::Block</a>
+, <a class="el" href="classtide_1_1_block_additions.html#afd7d6cda9b1f6fbe0d7aedb3e0a47ef8">tide::BlockAdditions</a>
+, <a class="el" href="classtide_1_1_block_impl.html#a6f39d934bf5aff131f5f0edc1ce47c5d">tide::BlockImpl</a>
+, <a class="el" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba">tide::Tracks</a>
+, <a class="el" href="classtide_1_1_cluster.html#a7519f28b8897e7c54b10412a21ee4b57">tide::Cluster</a>
+, <a class="el" href="classtide_1_1_block_group.html#a1993ad454c25147297d2d828a351846d">tide::BlockGroup</a>
+, <a class="el" href="classtide_1_1_memory_cluster.html#aaee9f240b2b786ea06d15fad2faf85c6">tide::MemoryCluster</a>
+, <a class="el" href="classtide_1_1_simple_block.html#ab121a048c071b71c7cb8fecc2cb4ad93">tide::SimpleBlock</a>
+</li>
+<li>Cluster()
+: <a class="el" href="classtide_1_1_cluster.html#afc9ca9e8d660e65469c79c25936f21c8">tide::Cluster</a>
 </li>
 <li>codec_id()
 : <a class="el" href="classtide_1_1_track_entry.html#a1e6b513b1fc43ecb645e0f0625efd0d0">tide::TrackEntry</a>
@@ -120,20 +132,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>codec_private_
 : <a class="el" href="classtide_1_1_track_entry.html#a59dab3a3ebdadc0e7703980e7c4802ad">tide::TrackEntry</a>
 </li>
+<li>codec_state()
+: <a class="el" href="classtide_1_1_block_group.html#a8433291070083ff4ff7caa256e66c0e8">tide::BlockGroup</a>
+</li>
+<li>codec_state_
+: <a class="el" href="classtide_1_1_block_group.html#a6e002a3bc5481c311d2b082e95a42c6c">tide::BlockGroup</a>
+</li>
 <li>const_iterator
-: <a class="el" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4">tide::Tracks</a>
+: <a class="el" href="classtide_1_1_block.html#af9031cc64ae700796d09bfd89aa29d8d">tide::Block</a>
+, <a class="el" href="classtide_1_1_block_additions.html#a4fba5d5ddd00262b8d0ad85a528ec9b9">tide::BlockAdditions</a>
+, <a class="el" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4">tide::Tracks</a>
 </li>
 <li>const_reference
-: <a class="el" href="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00">tide::Tracks</a>
+: <a class="el" href="classtide_1_1_cluster.html#a496098468a0aeeec517876659fe5a1b8">tide::Cluster</a>
+, <a class="el" href="classtide_1_1_block.html#ab3e44b2495804cee75c2e26c38143caa">tide::Block</a>
+, <a class="el" href="classtide_1_1_block_additions.html#a6c2e9b6c772040fce8f767aa63c3681d">tide::BlockAdditions</a>
+, <a class="el" href="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00">tide::Tracks</a>
 </li>
 <li>const_reverse_iterator
-: <a class="el" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8">tide::Tracks</a>
+: <a class="el" href="classtide_1_1_block.html#a90223f23b06f7d7c466766dc65c693c1">tide::Block</a>
+, <a class="el" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8">tide::Tracks</a>
+, <a class="el" href="classtide_1_1_block_additions.html#af9f34de826d4fe1fd70bbe8a875c47f5">tide::BlockAdditions</a>
+</li>
+<li>ConstIterator
+: <a class="el" href="classtide_1_1_memory_cluster.html#a1fad81f75f2c0eb38fe3a1ba16badd24">tide::MemoryCluster</a>
 </li>
 <li>ConstPtr
-: <a class="el" href="classtide_1_1_track_entry.html#a465cfaec68398e09f4f9d07c3d4c1451">tide::TrackEntry</a>
+: <a class="el" href="classtide_1_1_block.html#a9f96626816e92c4b5db1cd47d0d75905">tide::Block</a>
+, <a class="el" href="classtide_1_1_track_entry.html#a465cfaec68398e09f4f9d07c3d4c1451">tide::TrackEntry</a>
 </li>
 <li>count()
-: <a class="el" href="classtide_1_1_track_join_blocks.html#a75c1b4f76fc78cbe47fbd89f718d6c44">tide::TrackJoinBlocks</a>
+: <a class="el" href="classtide_1_1_block_group.html#a8ba5545048523b215919f950aa7d44c6">tide::BlockGroup</a>
+, <a class="el" href="classtide_1_1_block_additions.html#a303f4a687c47fc2b809749f307701507">tide::BlockAdditions</a>
+, <a class="el" href="classtide_1_1_simple_block.html#a867bde3d52a8be087595c7fc5b3eeba8">tide::SimpleBlock</a>
+, <a class="el" href="classtide_1_1_track_join_blocks.html#a75c1b4f76fc78cbe47fbd89f718d6c44">tide::TrackJoinBlocks</a>
+, <a class="el" href="classtide_1_1_block_impl.html#ac78c4dc39dc6d159931fc542c88f2718">tide::BlockImpl</a>
+, <a class="el" href="classtide_1_1_memory_cluster.html#ac3eb69bceb8ac18a63e5467f4a47d1d5">tide::MemoryCluster</a>
+, <a class="el" href="classtide_1_1_block.html#a98dd2bbda536c3864d37a5414c341fe1">tide::Block</a>
+, <a class="el" href="classtide_1_1_cluster.html#aad9bdaf135c096ce763255cca673ea47">tide::Cluster</a>
 , <a class="el" href="classtide_1_1_tracks.html#a916f2798f2a693b6b4343817796b0006">tide::Tracks</a>
 </li>
 </ul>
@@ -152,7 +188,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

@@ -155,14 +155,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the writing application.  <a href="#af5d3f0cf7a05e074306bea1530c3fd8c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html#ad6f87dd3f15e230fc3d24f2af0185909">writing_app</a> (std::string const &amp;writing_app)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the writing application.  <a href="#ad6f87dd3f15e230fc3d24f2af0185909"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html#a99b8fb44c48d30fc47c3ae3044ee3a16">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a99b8fb44c48d30fc47c3ae3044ee3a16"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html#accd056b309b86f2f7a051e2f6a442d79">write_body</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#accd056b309b86f2f7a051e2f6a442d79"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html#a8d504d19f2aeff712bc9cd3f2fb64e45">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a8d504d19f2aeff712bc9cd3f2fb64e45"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html#ad9f3408a33c3df9f4f8be21caea25dd6">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#ad9f3408a33c3df9f4f8be21caea25dd6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html#a54ecd0a83fe37acbebd03ca7f4fc2ca6">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a54ecd0a83fe37acbebd03ca7f4fc2ca6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html#ac2cc0a89f740b25075859175db89dcb5">reset</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets all child elements to clean values.  <a href="#ac2cc0a89f740b25075859175db89dcb5"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
@@ -244,24 +244,23 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a5ba7d843161cc8e09eda6e63604df626"></a><!-- doxytag: member="tide::SegmentInfo::date" ref="a5ba7d843161cc8e09eda6e63604df626" args="() const " -->
+<a class="anchor" id="ad9f3408a33c3df9f4f8be21caea25dd6"></a><!-- doxytag: member="tide::SegmentInfo::body_size" ref="ad9f3408a33c3df9f4f8be21caea25dd6" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int64_t tide::SegmentInfo::date </td>
+          <td class="memname">virtual std::streamsize tide::SegmentInfo::body_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const<code> [inline]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Get the segment's date. </p>
-<p>The segment's date is given in UTC as the number of seconds since 2001-01-01T00:00:00,0 UTC. They are signed, allowing dates before the origin. </p>
+<p>Get the size of the body of this element. </p>
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00200">200</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -281,6 +280,27 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 
 <p>Set the segment's date. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5ba7d843161cc8e09eda6e63604df626"></a><!-- doxytag: member="tide::SegmentInfo::date" ref="a5ba7d843161cc8e09eda6e63604df626" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t tide::SegmentInfo::date </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the segment's date. </p>
+<p>The segment's date is given in UTC as the number of seconds since 2001-01-01T00:00:00,0 UTC. They are signed, allowing dates before the origin. </p>
+
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00200">200</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -569,7 +589,7 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8d504d19f2aeff712bc9cd3f2fb64e45"></a><!-- doxytag: member="tide::SegmentInfo::read_body" ref="a8d504d19f2aeff712bc9cd3f2fb64e45" args="(std::istream &amp;input)" -->
+<a class="anchor" id="a54ecd0a83fe37acbebd03ca7f4fc2ca6"></a><!-- doxytag: member="tide::SegmentInfo::read_body" ref="a54ecd0a83fe37acbebd03ca7f4fc2ca6" args="(std::istream &amp;input, std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -577,8 +597,18 @@ Protected Attributes</h2></td></tr>
           <td class="memname">virtual std::streamsize tide::SegmentInfo::read_body </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -586,7 +616,7 @@ Protected Attributes</h2></td></tr>
 
 <p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -648,26 +678,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a99b8fb44c48d30fc47c3ae3044ee3a16"></a><!-- doxytag: member="tide::SegmentInfo::size" ref="a99b8fb44c48d30fc47c3ae3044ee3a16" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::SegmentInfo::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of the body of this element. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a4824c005694a78a56be4425040c4f8f9"></a><!-- doxytag: member="tide::SegmentInfo::timecode_scale" ref="a4824c005694a78a56be4425040c4f8f9" args="(uint64_t scale)" -->
 <div class="memitem">
 <div class="memproto">
@@ -709,6 +719,26 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab3356a4f7e2806737f47bf1f2c6da4ec"></a><!-- doxytag: member="tide::SegmentInfo::title" ref="ab3356a4f7e2806737f47bf1f2c6da4ec" args="(std::string const &amp;title)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tide::SegmentInfo::title </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>title</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set the segment's title. </p>
+<p>Setting this value to an empty string will clear any existing value, resulting in the element not being written to the file. </p>
+
+</div>
+</div>
 <a class="anchor" id="af6badc5944ea037b7b93bcd2c544d037"></a><!-- doxytag: member="tide::SegmentInfo::title" ref="af6badc5944ea037b7b93bcd2c544d037" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -727,26 +757,6 @@ Protected Attributes</h2></td></tr>
 <p>This string gives a (usually) human-readable title for the segment. </p>
 
 <p>Definition at line <a class="el" href="segment__info_8h_source.html#l00209">209</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab3356a4f7e2806737f47bf1f2c6da4ec"></a><!-- doxytag: member="tide::SegmentInfo::title" ref="ab3356a4f7e2806737f47bf1f2c6da4ec" args="(std::string const &amp;title)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tide::SegmentInfo::title </td>
-          <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>title</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Set the segment's title. </p>
-<p>Setting this value to an empty string will clear any existing value, resulting in the element not being written to the file. </p>
 
 </div>
 </div>
@@ -864,7 +874,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00263">263</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00257">257</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -879,7 +889,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00261">261</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00255">255</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -894,7 +904,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00264">264</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00258">258</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -909,7 +919,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00262">262</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00256">256</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -924,7 +934,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00268">268</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00262">262</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -939,7 +949,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00256">256</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00250">250</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -954,7 +964,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00254">254</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00248">248</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -969,7 +979,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00252">252</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00246">246</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -984,7 +994,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00250">250</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00244">244</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -999,7 +1009,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00258">258</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00252">252</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1014,7 +1024,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00248">248</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00242">242</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1029,7 +1039,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00266">266</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00260">260</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1044,7 +1054,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00246">246</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00240">240</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1059,7 +1069,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00270">270</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00264">264</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1074,7 +1084,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00267">267</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00261">261</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1089,7 +1099,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00255">255</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00249">249</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1104,7 +1114,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00253">253</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00247">247</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1119,7 +1129,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00251">251</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00245">245</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1134,7 +1144,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00249">249</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00243">243</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1149,7 +1159,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00257">257</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00251">251</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1164,7 +1174,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00247">247</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00241">241</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1179,7 +1189,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00260">260</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00254">254</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1194,7 +1204,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00265">265</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00259">259</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1209,7 +1219,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00245">245</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00239">239</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1224,7 +1234,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00269">269</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
+<p>Definition at line <a class="el" href="segment__info_8h_source.html#l00263">263</a> of file <a class="el" href="segment__info_8h_source.html">segment_info.h</a>.</p>
 
 </div>
 </div>
@@ -1246,7 +1256,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

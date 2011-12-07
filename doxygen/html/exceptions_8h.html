@@ -91,6 +91,8 @@ Include dependency graph for exceptions.h:</div>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_tide_error.html">tide::TideError</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base error type.  <a href="structtide_1_1_tide_error.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_implemented.html">tide::NotImplemented</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Something is not supported.  <a href="structtide_1_1_not_implemented.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_e_b_m_l.html">tide::NotEBML</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File is not an EBML file.  <a href="structtide_1_1_not_e_b_m_l.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_tide.html">tide::NotTide</a></td></tr>
@@ -133,6 +135,16 @@ Classes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A duplicate track number was encountered.  <a href="structtide_1_1_duplicate_track_number.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_duplicate_u_i_d.html">tide::DuplicateUID</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A UID collision was encountered.  <a href="structtide_1_1_duplicate_u_i_d.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_empty_block.html">tide::EmptyBlock</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An empty block was encountered.  <a href="structtide_1_1_empty_block.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_empty_frame.html">tide::EmptyFrame</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An empty frame was encountered.  <a href="structtide_1_1_empty_frame.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_max_lace_size_exceeded.html">tide::MaxLaceSizeExceeded</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum lace size for a block was exceeded.  <a href="structtide_1_1_max_lace_size_exceeded.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_bad_laced_frame_size.html">tide::BadLacedFrameSize</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A frame with a bad size was added to a block.  <a href="structtide_1_1_bad_laced_frame_size.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_empty_block_additions_element.html">tide::EmptyBlockAdditionsElement</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An empty <a class="el" href="classtide_1_1_block_additions.html" title="This element is used to specify reference blocks.">BlockAdditions</a> element was read or written.  <a href="structtide_1_1_empty_block_additions_element.html#_details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html">tide</a></td></tr>
@@ -182,6 +194,18 @@ uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
 &lt; struct tag_int_uid, uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ab0033963be38bf7ca312481c0172bd65">tide::err_int_uid</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An integer UID.  <a href="#ab0033963be38bf7ca312481c0172bd65"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_max_lace, <br class="typebreak"/>
+unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#abd0dbeae5966b5fdb18b897e7b863223">tide::err_max_lace</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum size of a lace.  <a href="#abd0dbeae5966b5fdb18b897e7b863223"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_req_lace, <br class="typebreak"/>
+unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a3b5e68a7ab930dc804546a8848f2e525">tide::err_req_lace</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The requested size of a lace.  <a href="#a3b5e68a7ab930dc804546a8848f2e525"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::error_info<br class="typebreak"/>
+&lt; struct tag_frame_size, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ad52c4f355d4a348987d99e99b44f7784">tide::err_frame_size</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of a frame.  <a href="#ad52c4f355d4a348987d99e99b44f7784"></a><br/></td></tr>
 </table>
 </div>
 <!--- window showing the filter options -->
@@ -198,7 +222,7 @@ uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

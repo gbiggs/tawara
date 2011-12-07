@@ -68,7 +68,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a>  </div>
   <div class="headertitle">
 <h1>tide::BinaryElement Class Reference</h1>  </div>
 </div>
@@ -103,12 +104,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary element with a default value.  <a href="#a6d4128f0454d1e6bfdc615cb10fb482a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtide_1_1_binary_element.html">BinaryElement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_binary_element.html#a6bede6f7644fec16898c1dae3a8a36ae">operator=</a> (std::vector&lt; char &gt; const &amp;rhs)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Value assignment operator.  <a href="#a6bede6f7644fec16898c1dae3a8a36ae"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_binary_element.html#aa19974b31ef4ed52dff43d8375e6e478">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#aa19974b31ef4ed52dff43d8375e6e478"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_binary_element.html#a166830f354619ae08f420f660e74c133">body_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a166830f354619ae08f420f660e74c133"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_binary_element.html#adeccbb7394f8eb0f1052f616f49d9487">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#adeccbb7394f8eb0f1052f616f49d9487"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_binary_element.html#a298e9d6a72915a289b5c18c5d4a5539d">write_body</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#a298e9d6a72915a289b5c18c5d4a5539d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_binary_element.html#a66601e2ae0a2bc2262910e6868329ef2">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a66601e2ae0a2bc2262910e6868329ef2"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Binary primitive element. </p>
@@ -196,6 +199,26 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a166830f354619ae08f420f660e74c133"></a><!-- doxytag: member="tide::BinaryElement::body_size" ref="a166830f354619ae08f420f660e74c133" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::streamsize tide::BinaryElement::body_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of the body of this element. </p>
+
+<p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6bede6f7644fec16898c1dae3a8a36ae"></a><!-- doxytag: member="tide::BinaryElement::operator=" ref="a6bede6f7644fec16898c1dae3a8a36ae" args="(std::vector&lt; char &gt; const &amp;rhs)" -->
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +240,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a66601e2ae0a2bc2262910e6868329ef2"></a><!-- doxytag: member="tide::BinaryElement::read_body" ref="a66601e2ae0a2bc2262910e6868329ef2" args="(std::istream &amp;input)" -->
+<a class="anchor" id="adeccbb7394f8eb0f1052f616f49d9487"></a><!-- doxytag: member="tide::BinaryElement::read_body" ref="adeccbb7394f8eb0f1052f616f49d9487" args="(std::istream &amp;input, std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -225,8 +248,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual std::streamsize tide::BinaryElement::read_body </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::streamsize&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -234,27 +267,7 @@ Public Member Functions</h2></td></tr>
 
 <p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa19974b31ef4ed52dff43d8375e6e478"></a><!-- doxytag: member="tide::BinaryElement::size" ref="aa19974b31ef4ed52dff43d8375e6e478" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::BinaryElement::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of the body of this element. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
+<p>Implements <a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -267,7 +280,7 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
           <td class="paramname"><em>output</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -297,7 +310,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

@@ -2,24 +2,57 @@
 <Tokens version="1.0">
   <Token>
     <TokenIdentifier>
-      <Name>coded_size_u</Name>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a79ccf008fce2af9cd296d4062198df0e</Anchor>
+    <Abstract>Equality operator for BlockAdditions elements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a64ce66f60daa44769a1be546eecb3935</Anchor>
+    <Abstract>Equality operator for BlockGroup elements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a00a57da516199515536079123f67ebb4</Anchor>
+    <Abstract>Equality operator for BlockImpl objects.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size_u</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::ebml_int</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1ebml__int.html</Path>
-    <Anchor>ad9349f253c126869089ce53f67d624a2</Anchor>
+    <Anchor>a763d23e2da655485b1b22e7e7af74dcb</Anchor>
     <Abstract>Get the size of an unsigned integer after encoding.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>coded_size_s</Name>
+      <Name>size_s</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::ebml_int</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1ebml__int.html</Path>
-    <Anchor>ab4ac4ba2d910fe663e2942eda05c2e93</Anchor>
+    <Anchor>ac251ca038b25a06b86e2336af1b5dc2d</Anchor>
     <Abstract>Get the size of a signed integer after encoding.</Abstract>
   </Token>
   <Token>
@@ -444,6 +477,176 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Cluster</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3e54cb65ac53a23e1d2993acc625a887</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a6774a9026fa4881f3f6b9a4c86b2c690</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SilentTracks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a9d4726cb8602429f6f17db5581c274ca</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SilentTrackNumber</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7cf1d16e03f8cc481618151bdd021bfd</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Position</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa686a5f280afc4477f4807744f43ca12</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>PrevSize</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a2b704a0401a14e548dd52c13c3598362</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SimpleBlock</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a343094a96d9894f209e9612359f28902</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockGroup</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a326145fe2d19c26c83c7c9435fe8c753</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Block</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a03c4c1926e9c05e4ad032cdb61e8b22f</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockAdditions</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3898bd1f7e1b1b49b5abc4b959f9a971</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockMore</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af5250b541755552c3ddca59131698e12</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockAddID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ae0185ffa9e5c634f24c3622da38a15d9</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockAdditional</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa1e56a02304a94f934ffd63d41cc20e5</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockDuration</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3c54ebb350977403758ba947a3c30716</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ReferencePriority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a763c85a7b0f59ace471dbdec08676479</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ReferenceBlock</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af7491ef07ea01c9038e4a93ac51aca5d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CodecState</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a80bcb060dee034ae5fdac674cd969eee</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>Tracks</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
@@ -684,13 +887,13 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>coded_size</Name>
+      <Name>size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::ids</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1ids.html</Path>
-    <Anchor>a178b4e10175511e78055c5de3be69f02</Anchor>
+    <Anchor>a689973eb2065e63b1f9b6be026dbe93b</Anchor>
     <Abstract>Get the number of bytes required by an ID.</Abstract>
   </Token>
   <Token>
@@ -893,6 +1096,50 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>err_max_lace</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>abd0dbeae5966b5fdb18b897e7b863223</Anchor>
+    <Abstract>The maximum size of a lace.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>err_req_lace</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a3b5e68a7ab930dc804546a8848f2e525</Anchor>
+    <Abstract>The requested size of a lace.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>err_frame_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>ad52c4f355d4a348987d99e99b44f7784</Anchor>
+    <Abstract>The size of a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a5f2dfb777b63b82be3a567fc59f83c5a</Anchor>
+    <Abstract>Equality operator for SimpleBlock elements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>operator==</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
@@ -924,6 +1171,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>OffsetInt</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::vint</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1vint.html</Path>
+    <Anchor>aa910c61aa666d3473b9792f1aadd6b87</Anchor>
+    <Abstract>The result type of s_to_u().</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>DecodeResult</Name>
       <APILanguage>cpp</APILanguage>
       <Type>tdef</Type>
@@ -946,14 +1204,36 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>coded_size</Name>
+      <Name>size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::vint</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1vint.html</Path>
-    <Anchor>a2a4d7692ba13f5e5a0a5bfe9dfcb58c6</Anchor>
+    <Anchor>a05044eff9d310d1748bd0109457d6426</Anchor>
     <Abstract>Get the size of an integer after encoding.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>s_to_u</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::vint</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1vint.html</Path>
+    <Anchor>a3af4e7ea53bf233713373c76d513edd6</Anchor>
+    <Abstract>Offsets a signed integer into unsigned territory.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>u_to_s</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::vint</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1vint.html</Path>
+    <Anchor>a7e7627adfb4d3d28d3d0819d6905fdb5</Anchor>
+    <Abstract>Offsets an unsigned integer into signed territory.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1060,6 +1340,16 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>make_blob</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>test_utils</Scope>
+    </TokenIdentifier>
+    <Path>namespacetest__utils.html</Path>
+    <Anchor>aa972ec27cd7b76f0a511b0df35b280a3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>implementations</Name>
       <APILanguage>c</APILanguage>
     </TokenIdentifier>
@@ -1074,6 +1364,13 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>elements</Name>
+      <APILanguage>c</APILanguage>
+    </TokenIdentifier>
+    <Path>group__elements.html</Path>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ebml</Name>
       <APILanguage>c</APILanguage>
     </TokenIdentifier>
@@ -1085,13 +1382,6 @@
       <APILanguage>c</APILanguage>
     </TokenIdentifier>
     <Path>group__exceptions.html</Path>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>elements</Name>
-      <APILanguage>c</APILanguage>
-    </TokenIdentifier>
-    <Path>group__elements.html</Path>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1167,6 +1457,16 @@
     </TokenIdentifier>
     <Path>namespacetest__utils.html</Path>
     <Anchor>a6299862f403bc9ca8ddc0e52b4351152</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>make_blob</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>test_utils</Scope>
+    </TokenIdentifier>
+    <Path>namespacetest__utils.html</Path>
+    <Anchor>aa972ec27cd7b76f0a511b0df35b280a3</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1331,6 +1631,72 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>err_max_lace</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>abd0dbeae5966b5fdb18b897e7b863223</Anchor>
+    <Abstract>The maximum size of a lace.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>err_req_lace</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a3b5e68a7ab930dc804546a8848f2e525</Anchor>
+    <Abstract>The requested size of a lace.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>err_frame_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>ad52c4f355d4a348987d99e99b44f7784</Anchor>
+    <Abstract>The size of a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a79ccf008fce2af9cd296d4062198df0e</Anchor>
+    <Abstract>Equality operator for BlockAdditions elements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a64ce66f60daa44769a1be546eecb3935</Anchor>
+    <Abstract>Equality operator for BlockGroup elements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a00a57da516199515536079123f67ebb4</Anchor>
+    <Abstract>Equality operator for BlockImpl objects.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>skip_read</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
@@ -1350,6 +1716,17 @@
     <Path>namespacetide.html</Path>
     <Anchor>a865bbc5fdbdbbcfc30dffa74d40713f2</Anchor>
     <Abstract>Skip an element in an input/output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>a5f2dfb777b63b82be3a567fc59f83c5a</Anchor>
+    <Abstract>Equality operator for SimpleBlock elements.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1450,14 +1827,25 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
+      <Name>body_size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::BinaryElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_binary_element.html</Path>
-    <Anchor>aa19974b31ef4ed52dff43d8375e6e478</Anchor>
+    <Anchor>a166830f354619ae08f420f660e74c133</Anchor>
     <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BinaryElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_binary_element.html</Path>
+    <Anchor>adeccbb7394f8eb0f1052f616f49d9487</Anchor>
+    <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1472,14 +1860,2404 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>tide::Block</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Abstract>Block interface.</Abstract>
+    <DeclaredIn>tide/block.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Ptr</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aa5364c79deabcf3f82c1b21f1686d9ed</Anchor>
+    <Abstract>Pointer to a block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ConstPtr</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a9f96626816e92c4b5db1cd47d0d75905</Anchor>
+    <Abstract>Constant pointer to a block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Frame</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>acdbc0142f3553ef352f8d11a262515ef</Anchor>
+    <Abstract>The type of a single frame of data.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FramePtr</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>ab63cc0985ee726779a064fb07ca51a6a</Anchor>
+    <Abstract>A pointer to a frame of data.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>value_type</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>ace4c97e0343bd24ee52e5122e1dd69e3</Anchor>
+    <Abstract>The value type of this container.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size_type</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a72e229732178d5b30d779b51b06a62f6</Anchor>
+    <Abstract>The size type of this container.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a00dd9f2451d3c0194a05b507635cd410</Anchor>
+    <Abstract>The reference type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_reference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>ab3e44b2495804cee75c2e26c38143caa</Anchor>
+    <Abstract>The constant reference type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a643b6e5bb69d07b67e7dca37f431cf85</Anchor>
+    <Abstract>The random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>af9031cc64ae700796d09bfd89aa29d8d</Anchor>
+    <Abstract>The constant random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aa3f8999b1bc98f5e2d9f1d067e9163f1</Anchor>
+    <Abstract>The reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a90223f23b06f7d7c466766dc65c693c1</Anchor>
+    <Abstract>The constant reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Block</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a0edb93423ed371fc4b85652188bcb775</Anchor>
+    <Abstract>Constructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>~Block</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aba276f14eff4ccb4d2a1e8a3f14d098b</Anchor>
+    <Abstract>Desctructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a20f39b4ba8fa2e551a4e84e07870b44c</Anchor>
+    <Abstract>The block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aec447ef6cf9442ca0edbfe97de916e8d</Anchor>
+    <Abstract>Set the block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a2e1ad5010ed115f7823b2bb9a2f731d9</Anchor>
+    <Abstract>The timecode of this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aa7bbd13e07229e0a320e3273025684eb</Anchor>
+    <Abstract>Set the block&amp;#39;s timecode.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>adf52347cd6a9d1c70df070c84c2a73e5</Anchor>
+    <Abstract>If this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a6cd2088b9a74905e683992ed8bc9fdd8</Anchor>
+    <Abstract>Set if this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a800f9617766de4746379ba4a31ec21c0</Anchor>
+    <Abstract>Get the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>ae926188d66eb5017cbe2a3de6a67b6f3</Anchor>
+    <Abstract>Set the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a69be5dac7533adb38c430f9bf02ffbf3</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a9200ea0af6efccc9e7db7a422ea62813</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>afc33b8edb029bd17629bf8d9fcae708c</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a37ff242094532c13d8d80d4a839eeb97</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a1494c127ef717c9536d7f176c6ed5937</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aa5de30823027a614a9d753e397e2bfd4</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>abf6c69abc03d785ec22da88e60ae7826</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a0f598eb63adb837bb663b05324e71cac</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a515f3bfc09a59d85a52cb6d3470788ca</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aea1a8a5b8cd55a3395491ca6330e5034</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>aab86d743df2a663739d3c7728624d47e</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a017cacc214364288cb2d1003efd00991</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>af97d6af79015450c5fbc8de375a57cae</Anchor>
+    <Abstract>Check if there are no frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a98dd2bbda536c3864d37a5414c341fe1</Anchor>
+    <Abstract>Get the number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>max_count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a8848745f95a876c7d3d71439869b6a7a</Anchor>
+    <Abstract>Get the maximum number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>ad6183429c7f6e50ffd30adf5293deeb6</Anchor>
+    <Abstract>Remove all frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a45e027b51fac905117587afc67018a50</Anchor>
+    <Abstract>Erase the frame at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>afaa085797e6d809de8c50ca4325c6cfe</Anchor>
+    <Abstract>Erase a range of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>push_back</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a64d7dcf07f71cf570293f9cec746ba16</Anchor>
+    <Abstract>Add a frame to this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>resize</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a1b0e84fb79bf48f63722e2d0673b4766</Anchor>
+    <Abstract>Resizes the frames storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>swap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a94d7d29cdfb4c166637ec09ef1679c24</Anchor>
+    <Abstract>Swaps the contents of this block with another.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>LACING_NONE</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>econst</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a0273dc160ba35a7b59bcdab0e80bba00a8b2b4944a429298f8e1662aee4037eba</Anchor>
+    <Abstract>No lacing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>LACING_EBML</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>econst</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a0273dc160ba35a7b59bcdab0e80bba00a6d0cd7067fa474b6d0ecd468946b16c6</Anchor>
+    <Abstract>EBML-style lacing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>LACING_FIXED</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>econst</Type>
+      <Scope>tide::Block</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block.html</Path>
+    <Anchor>a0273dc160ba35a7b59bcdab0e80bba00a758d05ca911b7e0c0bf2ed5056d2dedd</Anchor>
+    <Abstract>Fixed-size lacing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::BlockAdditions</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Abstract>This element is used to specify reference blocks.</Abstract>
+    <DeclaredIn>tide/block_additions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Addition</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a8278baaadc03a8009fb2a98060312fd8</Anchor>
+    <Abstract>The type of a single block addition of data.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>AdditionPtr</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a828f3d8c14fd2d9c59f64e9495e1b58a</Anchor>
+    <Abstract>A pointer to an addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>value_type</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>ad0d20033fcd694718eaaea6e808402f6</Anchor>
+    <Abstract>The value type of this container.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size_type</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a4cd8bb670617e11bf5b22e81ad7100f5</Anchor>
+    <Abstract>The size type of this container.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>ac22ad4328b9a02a2bf7d3a57fa1d1cfe</Anchor>
+    <Abstract>The reference type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_reference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a6c2e9b6c772040fce8f767aa63c3681d</Anchor>
+    <Abstract>The constant reference type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a23a2201b2be87a4b0b2fe9b0b5248709</Anchor>
+    <Abstract>The random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a4fba5d5ddd00262b8d0ad85a528ec9b9</Anchor>
+    <Abstract>The constant random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a6cfe737025f6d93e1aee1d4e478f3001</Anchor>
+    <Abstract>The reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>af9f34de826d4fe1fd70bbe8a875c47f5</Anchor>
+    <Abstract>The constant reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockAdditions</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a4a7885da19261d74e2ce1b00364df3ef</Anchor>
+    <Abstract>Constructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a5f271fde77fded96844fce014587459c</Anchor>
+    <Abstract>Get the addition at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a086ebab78990ef7075779d85392b4b9a</Anchor>
+    <Abstract>Get the addition at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a6bf2d51b4450f37fb7002f6eae375ef0</Anchor>
+    <Abstract>Get a reference to an addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a8872c9a254720d1c99c0ca67ed078511</Anchor>
+    <Abstract>Get a reference to an addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a2f9f84f3564780b3c6ce4d03819327c8</Anchor>
+    <Abstract>Get an iterator to the first addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a8d7219f2f9ca8b38d9722848f5eae99f</Anchor>
+    <Abstract>Get an iterator to the first addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>acf44b1ba7eb8a2a7c0b157fbb1bb99de</Anchor>
+    <Abstract>Get an iterator to the position past the last addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a3bd0cf2264923162b423e4744d75b5d8</Anchor>
+    <Abstract>Get an iterator to the position past the last addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a13eb920da5f3d9f745588ac683445ccb</Anchor>
+    <Abstract>Get a reverse iterator to the last addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a307bf1cb67b5ab06c110deae45f79e75</Anchor>
+    <Abstract>Get a reverse iterator to the last addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a8c886ad044daf263d8bf122f12045252</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a6c4283edb0ccaa6785e4656cffc22868</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first addition.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>ae181ca8b61c09263bfe7c01c13e26bb9</Anchor>
+    <Abstract>Check if there are no additions.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a303f4a687c47fc2b809749f307701507</Anchor>
+    <Abstract>Get the number of additions.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>max_count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a87d5609a0d4ef224908c5214511c5a91</Anchor>
+    <Abstract>Get the maximum number of additions.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>afd7d6cda9b1f6fbe0d7aedb3e0a47ef8</Anchor>
+    <Abstract>Remove all additions.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a22aa33dca4600d3d8eac6876c3eaa6d5</Anchor>
+    <Abstract>Erase the addition at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>aa76c5e0ad9a639185ab27f3d61c14fd2</Anchor>
+    <Abstract>Erase a range of additions.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>push_back</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a7349323d9743a0552b8908928dbb2185</Anchor>
+    <Abstract>Add an addition to this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>resize</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>ad38bf7759a039b2ec5d7cd8275d6ddd2</Anchor>
+    <Abstract>Resizes the additions storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>swap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a3ddd6803f78b40caefbd3ed082ff0cd9</Anchor>
+    <Abstract>Swaps the contents of this BlockAdditions with another.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>abd400a064784728c3a9932ffb0cec554</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>ae9ad79b102445029310650bc28a36f76</Anchor>
+    <Abstract>Element body writing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
-      <Scope>tide::BinaryElement</Scope>
+      <Scope>tide::BlockAdditions</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_binary_element.html</Path>
-    <Anchor>a66601e2ae0a2bc2262910e6868329ef2</Anchor>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>acef28c288e47b964bfe652036b591f24</Anchor>
     <Abstract>Element body loading.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_addition</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a39b3a45a20c2e4a644b36ccff888c120</Anchor>
+    <Abstract>Loading BlockMore elements.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>additions_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a04d0bc11ca1eecf24777f713af02a6b6</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::BlockAdditions</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_additions.html</Path>
+    <Anchor>a5da4c2381e49049ea940131d53a6de98</Anchor>
+    <Abstract>Equality operator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::BlockElement</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::BlockElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_element.html</Path>
+    <DeclaredIn>tide/block_element.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Ptr</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_element.html</Path>
+    <Anchor>a43101bf9504ec1c4ca409b5b4f54eb3f</Anchor>
+    <Abstract>Pointer to a block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockElement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_element.html</Path>
+    <Anchor>a08c18866a24220140f0732b9d080c618</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::BlockGroup</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Abstract>The BlockGroup is the standard block.</Abstract>
+    <DeclaredIn>tide/block_group.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockGroup</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a5938948bb59cf2200bb018c10c55b9ca</Anchor>
+    <Abstract>Create a new BlockGroup.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>additions</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ad757411fc9ef319abaf3003d3d17cf86</Anchor>
+    <Abstract>Access the block additions property.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>duration</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a90b766407878f03d2a113169088a0984</Anchor>
+    <Abstract>Get the block&amp;#39;s duration.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>duration</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a704a1272351748a003f2533d1d3026f2</Anchor>
+    <Abstract>Set the block&amp;#39;s duration.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ref_priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a17fe5ebaf33a1fbc18ad9dc488ac3265</Anchor>
+    <Abstract>Get the block&amp;#39;s reference priority.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ref_priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a4920c82487fa5e7274e35a4be4acdbe4</Anchor>
+    <Abstract>Set the block&amp;#39;s reference priority.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ref_blocks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ab3853bba13f0182ac92e492f7e5aa42d</Anchor>
+    <Abstract>Get the reference block timecode array.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>codec_state</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a8433291070083ff4ff7caa256e66c0e8</Anchor>
+    <Abstract>Get the codec state for this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>codec_state</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>acb64326115b6e28573a4cdd0ce81efd2</Anchor>
+    <Abstract>Set the codec state for this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ae5ac741ee34648a70ec49b422daafccb</Anchor>
+    <Abstract>The block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ab1990c24b54547c63abcd47fa4662a52</Anchor>
+    <Abstract>Set the block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a3315335a127c18164719d6e5cec630ab</Anchor>
+    <Abstract>The timecode of this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>aeffbb42d5e666ca3f245d144ec7a5ac9</Anchor>
+    <Abstract>Set the block&amp;#39;s timecode.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a6e370842e6f09a791ae3023e51e33eab</Anchor>
+    <Abstract>If this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ac0a9215e1ae03620de83d06df3aeb5be</Anchor>
+    <Abstract>Set if this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>aaad541520d9de32fec64e9eb1c723e46</Anchor>
+    <Abstract>Get the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a828e458d0015d8cee681df7dd8c58023</Anchor>
+    <Abstract>Set the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a88979b0198cb28b3ade3620209ee1754</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a188b26a6b214711fabc9dfc48114ccab</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ab9aa37f586ea3febf7e08428db13cbe4</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a9ddc7820fe462428b4809ca1ec14ba30</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a5ea0e902e2fb0fbc4747dc6bb3899fee</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a0dc974bddf9cfe1cc312a8c633277683</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ac833e77d382e8f508122e8717c8c4c4d</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a78b9149466f62fae3c8d5b88c786b4a5</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>adc7349817866986957fef02dabdf09af</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a815e81c8a627622f05eacac82c1919ae</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ac9c73bc7b8cf4b88275214f3db2231d6</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ac5a4e8218a83d32a7f5c23950d0f8989</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>af994907a175f9fe74d007d7f342ade11</Anchor>
+    <Abstract>Check if there are no frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a8ba5545048523b215919f950aa7d44c6</Anchor>
+    <Abstract>Get the number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>max_count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ac378dab8338014666c36bc77320ae15b</Anchor>
+    <Abstract>Get the maximum number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a1993ad454c25147297d2d828a351846d</Anchor>
+    <Abstract>Remove all frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>aac064eade1df8be578f0f051f5d0e921</Anchor>
+    <Abstract>Erase the frame at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a45d0e52674cbd3c06c070e073728a5f5</Anchor>
+    <Abstract>Erase a range of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>push_back</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>af9225410d3a3debe9faf79152acce447</Anchor>
+    <Abstract>Add a frame to this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>resize</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>ada62986af447e32d41a5be9d867c3dfa</Anchor>
+    <Abstract>Resizes the frames storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>swap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a2dd26cf8a647864a111d1709173070be</Anchor>
+    <Abstract>Swaps the contents of this block with another.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a463fbc42907257dd7a8d37edc508beff</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a820d2465e2dbd0af946456ddf6182f07</Anchor>
+    <Abstract>Element body loading.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>abf9d7d95cf4366d37dc817bb08daa383</Anchor>
+    <Abstract>Element body writing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reset</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a0677df71b02096b895765c698b7999d3</Anchor>
+    <Abstract>Reset all values to their defaults.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>additions_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a3490aa27484d9826ae6effaaee3e1bc5</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>duration_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a37cbde6616a95f9aabcb77e0ccefb27f</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ref_priority_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a32f3f832814b863b59570bb0ea79ba9b</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ref_blocks_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a988df94187dd4aca8ec79b7b2c9bd576</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>codec_state_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a6e002a3bc5481c311d2b082e95a42c6c</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>block_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a40d2ca039b0c94821481cc223a4f77c1</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::BlockGroup</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_group.html</Path>
+    <Anchor>a4a5149666a7483e04c943bce7f1d568a</Anchor>
+    <Abstract>Equality operator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::BlockImpl</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Abstract>Common block functionality implementation.</Abstract>
+    <DeclaredIn>tide/block_impl.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ReadResult</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>adfffa0afb6e63cf7d4606466e6983bf5</Anchor>
+    <Abstract>The return result of a read.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>value_type</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>af007ff5977b2caaeb9837c0b5d669282</Anchor>
+    <Abstract>The stored type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockImpl</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a3e2418feba0702a5e102a94fdabb20ab</Anchor>
+    <Abstract>Constructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a8c71b96d45abc65e1735886dcaa3f1ad</Anchor>
+    <Abstract>The block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a1c8e9b5e85a8fa03c09743f53183b439</Anchor>
+    <Abstract>Set the block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>ab5c2733b1745bd2786148ac8005676c7</Anchor>
+    <Abstract>The timecode of this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a6aea9fbc0a74a388457c4bb5b1fd7b0d</Anchor>
+    <Abstract>Set the block&amp;#39;s timecode.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>afa3ecd31e6ada2d8c2876293c215aca7</Anchor>
+    <Abstract>If this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a66ac394f8b41042a0b4e45da69f488c0</Anchor>
+    <Abstract>Set if this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a2f05d6a2ac4cb59e23d801390d2f2d3f</Anchor>
+    <Abstract>Get the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a6e131a31250ebb53f5c4eec19f0fc720</Anchor>
+    <Abstract>Set the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>ab60a15a7be73f959a842dba43a32a2a2</Anchor>
+    <Abstract>Replace the content of this block with another block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>aee0f49367d42fbc2a4be5a37e88cf548</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a76eebd8e584095f512fe5aec8134dbe3</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a6f33a4083495220fbe68eca7b985409d</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a9989b629e695ff7d6d65870a7794c0df</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a808deec5f1289ec0df2be7d0f24bb48d</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a47971c0d4ee3f455c33e0797a0640461</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a7df71185bf9d90343fbca8ba7d01cb42</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>adfd2803ff24d8c24d531e035c6847a1d</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>abe65ecc0ee5579b2bc408bfd6d1f5c12</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a4c019c8a1a04ad5475b4b0d3bf226f27</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>ae07a964eb7d2a9822f706c9f1311c844</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a68e0266086253df4a2983f0ed8c184fa</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>aa7896ca2de4e58abead8ee6572905e99</Anchor>
+    <Abstract>Check if there are no frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>ac78c4dc39dc6d159931fc542c88f2718</Anchor>
+    <Abstract>Get the number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>max_count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a444bc3297f0569968cac463a252a74b3</Anchor>
+    <Abstract>Get the maximum number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a6f39d934bf5aff131f5f0edc1ce47c5d</Anchor>
+    <Abstract>Remove all frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a817f7f01da9fcc291c73ee4229cc5a11</Anchor>
+    <Abstract>Erase the frame at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>ac0a7a3f851d67224e722f75ddb0ae4e3</Anchor>
+    <Abstract>Erase a range of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>push_back</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a063a676f50d9ec79bf5469f01c072dfb</Anchor>
+    <Abstract>Add a frame to this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>resize</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>af4e09eac0a5d42f1d9fab2ef9f5a7b62</Anchor>
+    <Abstract>Resizes the frames storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>swap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a5730d479248b1bf35086c190519a4cfe</Anchor>
+    <Abstract>Swaps the contents of this block with another.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>abfe7ae627d9767674e5f25fb37773ef1</Anchor>
+    <Abstract>Gets the size of the block data.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>acfc1ffa72f0a5ebc7b318a6499decadd</Anchor>
+    <Abstract>Write the block data to an output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>ae1ba8139f2740a132a3ccb7d9d2c4b2d</Anchor>
+    <Abstract>Read the block data from an input stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>validate</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>aa7e7845f3db30b9fad83d989346a0948</Anchor>
+    <Abstract>Checks that the block is in a good condition to write.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reset</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>aa6f4615be0c38814baac89e85164caff</Anchor>
+    <Abstract>Resets this block to an empty state.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_ebml_laced_frames</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a2355b08e81ce1e3a5aaaa1d2ec37ff92</Anchor>
+    <Abstract>Reads frames laced using EBML lacing, including the lace header.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_fixed_frames</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a68d5ce5121d5339b9580c50c6e0e06e4</Anchor>
+    <Abstract>Reads frames laced using fixed lacing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_num_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a437669e27ba512e799a08f361d9e5b13</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>aa7038d92fe51dbd5cc4183a489e645a3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a919fd5de69d63a7cdc0694fe57bccdcd</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a0ade671123f7fc663ef8e15a56c3431c</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>frames_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>aad4108454ef24b307a51a0fa9cb48cc5</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::BlockImpl</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_block_impl.html</Path>
+    <Anchor>a8db02cee03bf410794e13ac09d2a21b4</Anchor>
+    <Abstract>Equality operator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::SilentTrackNumber</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::SilentTrackNumber</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_silent_track_number.html</Path>
+    <Abstract>The track number of a silent track.</Abstract>
+    <DeclaredIn>tide/cluster.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SilentTrackNumber</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SilentTrackNumber</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_silent_track_number.html</Path>
+    <Anchor>a108651a834b2081d50dcbcc56c614a06</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::Cluster</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Abstract>The base Cluster, defining the common interface for Cluster element implementations.</Abstract>
+    <DeclaredIn>tide/cluster.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Ptr</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a7705889bfcbb551bea5bf757af1c9abb</Anchor>
+    <Abstract>Pointer to a cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>value_type</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>ac226a55e666bd23129e5e4b70353c492</Anchor>
+    <Abstract>The value type of this container.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size_type</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>add3dae877766245cf26a30a3733ddf14</Anchor>
+    <Abstract>The size type of this container.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>acf61badb0e0c8ecfadc70f1dc4e9276a</Anchor>
+    <Abstract>The reference type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_reference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a496098468a0aeeec517876659fe5a1b8</Anchor>
+    <Abstract>The constant reference type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Cluster</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>afc9ca9e8d660e65469c79c25936f21c8</Anchor>
+    <Abstract>Construct a new Cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>~Cluster</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>ac409b4693bd7c94a0dbd8c15c41e28db</Anchor>
+    <Abstract>Destructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>ad7325012bc6647f151535cb75ada6f81</Anchor>
+    <Abstract>Check if there are no blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>aad9bdaf135c096ce763255cca673ea47</Anchor>
+    <Abstract>Get the number of blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a7519f28b8897e7c54b10412a21ee4b57</Anchor>
+    <Abstract>Remove all blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>push_back</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a1dbebc9911aee9d0b885e51b20f38308</Anchor>
+    <Abstract>Erase the block at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a2070b97384f4c2caf3afa89e24c544ce</Anchor>
+    <Abstract>Get the cluster&amp;#39;s timecode.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a35d09d92951ab63f2d0d5a8ae91cefc5</Anchor>
+    <Abstract>Set the cluster&amp;#39;s timecode.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>silent_tracks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>ae2315ad3558924ada3d4a0f8d51945cb</Anchor>
+    <Abstract>Get the list of silent tracks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>position</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a911b0b8591f956bf8e7e09a88a0ca6a5</Anchor>
+    <Abstract>Get the position of this cluster in the segment.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>previous_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>aa86a4cdae18b7ca3a876b1f864ac463b</Anchor>
+    <Abstract>Get the size of the previous cluster in the segment.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>previous_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a456e460598167b4a09399e912d2649e5</Anchor>
+    <Abstract>Set the size of the previous cluster in the segment.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a4aa8f6ad5e8dcffbe44e944564a7d036</Anchor>
+    <Abstract>Element reading.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>finalise</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>abfc14b7b85b998e708a37361c8b8a4be</Anchor>
+    <Abstract>Finalise writing of the cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a9c98dd452cb3d38f117d7b0b7ee3b961</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>ab966277e895033c374964dca9bebef47</Anchor>
+    <Abstract>Element body writing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>ad1a7feb0128c92b25ff5af3458a08977</Anchor>
+    <Abstract>Element body loading.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>blocks_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>aeba7852c2471b2b8178de18169bf4d8f</Anchor>
+    <Abstract>Get the size of the blocks in this cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_blocks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>acea6e63c9c4fa4a4c6abd141b6f88c82</Anchor>
+    <Abstract>Write the blocks in this cluster to the output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_blocks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a8935baa58d822d33a089d5d3985130e2</Anchor>
+    <Abstract>Read the blocks in this cluster from the output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_silent_tracks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a86af3f1b20cfd9259674ca1171e1e68b</Anchor>
+    <Abstract>Read the SilentTracks child element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reset</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a05415d868f4275631549b78bf3bc7f4c</Anchor>
+    <Abstract>Reset the cluster&amp;#39;s members to default values.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>aef2f4b8b462c900f49f16a381a811b81</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>silent_tracks_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a4447d29c2a470a94f7b16d7ac7392bc1</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>position_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a1948dc11aa87bfee1543fafd64366c1d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>prev_size_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>ac6f42182ecb60708ad34e49355c7415b</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1527,17 +4305,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::DateElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_date_element.html</Path>
-    <Anchor>adb00cee73c784e7aa0a4cd81a4b8ed60</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -1549,13 +4316,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::DateElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_date_element.html</Path>
+    <Anchor>a3863406c85cc7212fae79b5e8478a2cb</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::DateElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_date_element.html</Path>
-    <Anchor>aa8657eade594c2cd4d350811289d4f70</Anchor>
+    <Anchor>a62d9cceb9c223446fa8f8aee917c7407</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -1590,17 +4368,6 @@
     <Path>classtide_1_1_e_b_m_l_element.html</Path>
     <Anchor>a6dc5ad3529620c6755ceff31caf9d7b0</Anchor>
     <Abstract>Destructor.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::EBMLElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_e_b_m_l_element.html</Path>
-    <Anchor>a2e94dfdd80201718ff145e99a2a99087</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1747,13 +4514,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::EBMLElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_e_b_m_l_element.html</Path>
+    <Anchor>a794944fc90d4fefc57556b5c7076b2e4</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::EBMLElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_e_b_m_l_element.html</Path>
-    <Anchor>af8d9e63ddddf655eaa24bf729a396fe7</Anchor>
+    <Anchor>a29e77d07bcc4bbec0d8398748f69060d</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -1885,8 +4663,19 @@
       <Scope>tide::Element</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_element.html</Path>
-    <Anchor>a936f48bd9dc10ae1fc738eef6b6bebde</Anchor>
+    <Anchor>a749e97f8b57ec8c7aad701f8e156ac27</Anchor>
     <Abstract>Get the element&amp;#39;s ID.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>offset</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Element</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_element.html</Path>
+    <Anchor>a2d4594265bea48cf4ab3c7b63d756b38</Anchor>
+    <Abstract>Get the element&amp;#39;s offset in the byte stream.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1896,18 +4685,7 @@
       <Scope>tide::Element</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_element.html</Path>
-    <Anchor>a8d7952c8c1054057805b3fb5623de013</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>total_size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Element</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_element.html</Path>
-    <Anchor>aa42878af00b801e2f4bb0872f6bd2313</Anchor>
+    <Anchor>a40be2f4bbdc5aee9c5184e181343383d</Anchor>
     <Abstract>Get the total size of the element.</Abstract>
   </Token>
   <Token>
@@ -1923,13 +4701,35 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>read</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Element</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_element.html</Path>
+    <Anchor>ad93208d53ae6c0567106c62cba71d842</Anchor>
+    <Abstract>Element reading.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Element</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_element.html</Path>
+    <Anchor>afa34637edb097a0c084e3c8f0c51a84b</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>write_id</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::Element</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_element.html</Path>
-    <Anchor>a050d160a6595745def7c97e2017507da</Anchor>
+    <Anchor>a471080b44e7ad606b0e73fe7a1132f27</Anchor>
     <Abstract>Element ID writing.</Abstract>
   </Token>
   <Token>
@@ -1962,8 +4762,8 @@
       <Scope>tide::Element</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_element.html</Path>
-    <Anchor>aa5d8106ca4e44d272c832716d897c8f6</Anchor>
-    <Abstract>Element body loading.</Abstract>
+    <Anchor>a1880e36bed980635cdee8ad99045e385</Anchor>
+    <Abstract>Element body reading implementation.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1977,6 +4777,16 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>offset_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Element</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_element.html</Path>
+    <Anchor>a309f8f8babb042f6922b82fcd22a5395</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>tide::TideError</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -1984,6 +4794,17 @@
     </TokenIdentifier>
     <Path>structtide_1_1_tide_error.html</Path>
     <Abstract>Base error type.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::NotImplemented</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::NotImplemented</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_not_implemented.html</Path>
+    <Abstract>Something is not supported.</Abstract>
     <DeclaredIn>tide/exceptions.h</DeclaredIn>
   </Token>
   <Token>
@@ -2219,6 +5040,61 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>tide::EmptyBlock</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::EmptyBlock</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_empty_block.html</Path>
+    <Abstract>An empty block was encountered.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::EmptyFrame</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::EmptyFrame</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_empty_frame.html</Path>
+    <Abstract>An empty frame was encountered.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::MaxLaceSizeExceeded</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::MaxLaceSizeExceeded</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_max_lace_size_exceeded.html</Path>
+    <Abstract>The maximum lace size for a block was exceeded.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::BadLacedFrameSize</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::BadLacedFrameSize</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_bad_laced_frame_size.html</Path>
+    <Abstract>A frame with a bad size was added to a block.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::EmptyBlockAdditionsElement</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::EmptyBlockAdditionsElement</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_empty_block_additions_element.html</Path>
+    <Abstract>An empty BlockAdditions element was read or written.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>tide::FloatElement</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -2285,17 +5161,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::FloatElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_float_element.html</Path>
-    <Anchor>a9a522f8d7b48f72e22ff5fc4038ed071</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -2307,13 +5172,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::FloatElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_float_element.html</Path>
+    <Anchor>a71807f788347613d879369c240bba9d4</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::FloatElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_float_element.html</Path>
-    <Anchor>a4dd31ff2567f3880dbfe4e26983a9367</Anchor>
+    <Anchor>af765edac870f168c0012835855235ce9</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -2372,17 +5248,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::IntElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_int_element.html</Path>
-    <Anchor>ae40299af04c5e6aee9d0182dc64a26bd</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -2394,13 +5259,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::IntElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_int_element.html</Path>
+    <Anchor>a47188f472f3d8679a512feeccd7dd625</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::IntElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_int_element.html</Path>
-    <Anchor>a57503e4902f0cdc19bf577d6b30acbac</Anchor>
+    <Anchor>ab22b2374cfa308adecd8450874072496</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -2435,6 +5311,343 @@
     <Path>classtide_1_1_master_element.html</Path>
     <Anchor>add62c8bd9490c14f269b2c7936e910c8</Anchor>
     <Abstract>Destructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::MemoryCluster</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Abstract>The in-memory Cluster implementation.</Abstract>
+    <DeclaredIn>tide/memory_cluster.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a0cfc07b2b2e7cebfa029bd456677c39e</Anchor>
+    <Abstract>Block iterator interface.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ConstIterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a1fad81f75f2c0eb38fe3a1ba16badd24</Anchor>
+    <Abstract>Block const iterator interface.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>MemoryCluster</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a9c7cab65003f2185de1ccd8847cc778d</Anchor>
+    <Abstract>Construct a new cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>ade0f12022cf7f3c7babc2497d783fdcc</Anchor>
+    <Abstract>Access the start of the blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a501f01a551b32f22b62626c103e72fdf</Anchor>
+    <Abstract>Access the start of the blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a27dc0e26fa43b17d17ad2d1253af73ab</Anchor>
+    <Abstract>Access the end of the blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a5f85ea42b8c97b3a22ebb4ab296895c9</Anchor>
+    <Abstract>Access the end of the blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a80a7fbc844cff527e7358b7958fb8ed5</Anchor>
+    <Abstract>Check if there are no blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>ac3eb69bceb8ac18a63e5467f4a47d1d5</Anchor>
+    <Abstract>Get the number of blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>aaee9f240b2b786ea06d15fad2faf85c6</Anchor>
+    <Abstract>Remove all blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>ae7d07dc024d8e49c4727d135377aeabf</Anchor>
+    <Abstract>Erase the block at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a0166cd12c47fefaf32fe13229c860d26</Anchor>
+    <Abstract>Erase a range of blocks.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>push_back</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>af0014b7e9cc4cbf8f9dc0c8d79264c99</Anchor>
+    <Abstract>Add a block to this cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>finalise</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a0df7dd64e369c5f02a1f27478e8d49ed</Anchor>
+    <Abstract>Finalise writing of the cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockStore</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a0371c9669f8f22732f1234fe53c34f3b</Anchor>
+    <Abstract>Block storage type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>blocks_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>ac43849d61799859ba871d0d04f09f71a</Anchor>
+    <Abstract>Get the size of the blocks in this cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_blocks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>a2f4d0933fcb7addcb16ba23961008a3d</Anchor>
+    <Abstract>Write the blocks in this cluster to the output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_blocks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>aee94e62fa702cf76536f1966a37dc942</Anchor>
+    <Abstract>Read the blocks in this cluster from the output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>blocks_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::MemoryCluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster.html</Path>
+    <Anchor>af149e11a2e7d645b7aab94b9b20874b4</Anchor>
+    <Abstract>Block storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::MemoryCluster::IteratorBase</Name>
+      <APILanguage>c</APILanguage>
+      <Type>tmplt</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <DeclaredIn>tide/memory_cluster.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>IteratorBase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a0b957849de90d71a57d53cfbe0d737b5</Anchor>
+    <Abstract>Base constructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>IteratorBase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a2d86ff731875838103d77e8ce81203c8</Anchor>
+    <Abstract>Constructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>IteratorBase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a75c24091b195dac43edc27437353d795</Anchor>
+    <Abstract>Templated base constructor.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>increment</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a4e907584094ef80916511f636e20eca6</Anchor>
+    <Abstract>Increment the Iterator to the next block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>decrement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a4dcf5e7599628a04c993a41cf5289dd4</Anchor>
+    <Abstract>Decrement the Iterator to the previous block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>equal</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a68217bd3618e0f061d7e172789fe8d38</Anchor>
+    <Abstract>Test for equality with another Iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>dereference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a85780a26cbc86c58fb5653f25014bbdc</Anchor>
+    <Abstract>Dereference the iterator to get the Block pointer.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>iter_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a91db73c50e41d3c2c848340db33d4296</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>boost::iterator_core_access</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>ac09f73e325921cc50ebcd96bed0f8096</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>MemoryCluster</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::MemoryCluster::IteratorBase</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+    <Anchor>a790763cfe3a847eaf024e0d3a9dc1a2b</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2482,17 +5695,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>aa48bd8e85f9b677b8eee8c6ec7462214</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>append</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -2537,6 +5739,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Metaseek</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_metaseek.html</Path>
+    <Anchor>ad0f551d5ed068cb664f00a2c174d9a19</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -2544,7 +5757,7 @@
     </TokenIdentifier>
     <Path>classtide_1_1_metaseek.html</Path>
     <Anchor>ab1cbe29bc9333df9a6f52a689adb8381</Anchor>
-    <Abstract>TODO: Proper iterator model for the index.</Abstract>
+    <Abstract>Element body writing.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2554,7 +5767,7 @@
       <Scope>tide::Metaseek</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a920f42f5a7fb97253f490023f838dc85</Anchor>
+    <Anchor>a7d34b0f84bfdb5acc1d8f421f2318ab5</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -2566,6 +5779,7 @@
     </TokenIdentifier>
     <Path>classtide_1_1_metaseek.html</Path>
     <Anchor>a7799525636574af83a517ee78d8435b2</Anchor>
+    <Abstract>TODO: Proper iterator model for the index.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2851,17 +6065,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::SeekElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_seek_element.html</Path>
-    <Anchor>a302ecffe32c4143d9609576d983a9c7d</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -2873,13 +6076,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_element.html</Path>
+    <Anchor>ae3e2098d9217c530225a157fafd12b7b</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::SeekElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_seek_element.html</Path>
-    <Anchor>ac79cfb0b853835aa6c29c12eae9695e6</Anchor>
+    <Anchor>a5dcaac296346faab18b28af62c255f2d</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -2910,6 +6124,7 @@
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
+    <Abstract>The Segment element.</Abstract>
     <DeclaredIn>tide/segment.h</DeclaredIn>
   </Token>
   <Token>
@@ -2925,25 +6140,47 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>~Segment</Name>
+      <Name>finalise</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>a9f37d84c918e32bc23558ff4edc1df3e</Anchor>
-    <Abstract>Destructor.</Abstract>
+    <Anchor>a4172d37b439181d04b07bf76c2a0c009</Anchor>
+    <Abstract>Finalise writing of the segment.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
+      <Name>index</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>acc4b9f465583e644734e7cf8829e131d</Anchor>
+    <Abstract>The segment index.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>body_size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>ad158f45b76a144072cf8e21d8ceee40b</Anchor>
+    <Anchor>af631e107314ab22d5df77c7e99f9731b</Anchor>
     <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a8fb639741c7ccd4fa9147241bf708f8a</Anchor>
+    <Abstract>Element size writing.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2953,7 +6190,7 @@
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>a9492ba2235d7cf925a829fac67c9757b</Anchor>
+    <Anchor>a5460341a58da66ac462d459588e192fe</Anchor>
     <Abstract>Element body writing.</Abstract>
   </Token>
   <Token>
@@ -2964,8 +6201,30 @@
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>a24a2f40088f9821b76d6bee48c1ffb9f</Anchor>
+    <Anchor>a12792f92d03e87c7265ebea6968040e3</Anchor>
     <Abstract>Element body loading.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_seekhead</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a54da4da1bef73f1d7e7760128f55ce65</Anchor>
+    <Abstract>Reads a SeekHead element to populate the index.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a09c0c05f1b422932b1089d8cd221a5c4</Anchor>
+    <Abstract>The size of the segment, as read from the file.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3288,17 +6547,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::SegmentInfo</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_segment_info.html</Path>
-    <Anchor>a99b8fb44c48d30fc47c3ae3044ee3a16</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -3310,13 +6558,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SegmentInfo</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment_info.html</Path>
+    <Anchor>ad9f3408a33c3df9f4f8be21caea25dd6</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::SegmentInfo</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment_info.html</Path>
-    <Anchor>a8d504d19f2aeff712bc9cd3f2fb64e45</Anchor>
+    <Anchor>a54ecd0a83fe37acbebd03ca7f4fc2ca6</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -3582,6 +6841,402 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>tide::SimpleBlock</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Abstract>The SimpleBlock element, a simplified version of Blocks.</Abstract>
+    <DeclaredIn>tide/simple_block.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SimpleBlock</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>ab7ec69f271cd563bb5f54d7295360453</Anchor>
+    <Abstract>Create a new SimpleBlock element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>keyframe</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a669a09951983da0c0071ba9eedd75cf5</Anchor>
+    <Abstract>Check if this block is a keyframe or not.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>keyframe</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>ae2d6cf20c330c662c21fbf516a896dcd</Anchor>
+    <Abstract>Set if this block is a keyframe.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>discardable</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a9132d09993e70f6b006d7fd7e20bc31b</Anchor>
+    <Abstract>Check if this block can be discarded during playback.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>discardable</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a208d156edea12abcf399831f81ef4165</Anchor>
+    <Abstract>Set if this block can be discarded during playback.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a9d77032680aaf6a7cd0fe908bd1e700d</Anchor>
+    <Abstract>The block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>track_number</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a173b461eb3296d0623cea684a5bca06b</Anchor>
+    <Abstract>Set the block&amp;#39;s track number.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a7d6e61b724c12f9b5d556b744531eb1f</Anchor>
+    <Abstract>The timecode of this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a55333df35250cd6aa27e4a454f72a509</Anchor>
+    <Abstract>Set the block&amp;#39;s timecode.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a27f112dd6689a1331a8f5fdc662f4aec</Anchor>
+    <Abstract>If this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>invisible</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>ac2556e88eeb3271af4af90a716ca7cb8</Anchor>
+    <Abstract>Set if this block is invisible.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a5a57477a740593a1755a3ed295ae7aa4</Anchor>
+    <Abstract>Get the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>lacing</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>ab693d60c9f50e91b1cbc35829fe7dc1e</Anchor>
+    <Abstract>Set the lacing type in use.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a4110a33d327a6f30c606c2431bc0d4b2</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>at</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a6b9ae6031b454076badf1a319de68381</Anchor>
+    <Abstract>Get the frame at the given position, with bounds checking.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a0766a50c3e230de261f13c93e896c848</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator[]</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a660463c8b8cda47972a746d8120f33d9</Anchor>
+    <Abstract>Get a reference to a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a202d25b6b317f5c0851731189de43838</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a78e7846ab0213be3904d41b241a75b13</Anchor>
+    <Abstract>Get an iterator to the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a8fe7e678d9aa44f677f212bd23892225</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>af5c41df92abaa880c2f5dbc92725c811</Anchor>
+    <Abstract>Get an iterator to the position past the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>aaca3126a0d0338f2502fd30a11cf6cb6</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a14930209752925eff27d29e2dfeedfea</Anchor>
+    <Abstract>Get a reverse iterator to the last frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>acb98d10c52c317418861c2ad259b1a91</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a45504502bfefd565dd3ca7b1520fd675</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>afb64e5ac9e23d05539f624ee6376e4d1</Anchor>
+    <Abstract>Check if there are no frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a867bde3d52a8be087595c7fc5b3eeba8</Anchor>
+    <Abstract>Get the number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>max_count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a89207fffb966dfdf8a2ce0eb7a191e24</Anchor>
+    <Abstract>Get the maximum number of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>ab121a048c071b71c7cb8fecc2cb4ad93</Anchor>
+    <Abstract>Remove all frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a94265628b1c8e77f25020b5534f7119d</Anchor>
+    <Abstract>Erase the frame at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>abca4040e1e29394ad3358a8e90ee9293</Anchor>
+    <Abstract>Erase a range of frames.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>push_back</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a87e98042f3996975e7b529837f90d1ab</Anchor>
+    <Abstract>Add a frame to this block.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>resize</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a4c672fc97e5e0cd2d414f17f2be0225a</Anchor>
+    <Abstract>Resizes the frames storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>swap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a122b91974cd540452ad783f914e61ec6</Anchor>
+    <Abstract>Swaps the contents of this block with another.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::SimpleBlock</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_simple_block.html</Path>
+    <Anchor>a0e64e2d2c303598d2535b6b82b61b096</Anchor>
+    <Abstract>Equality operator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>tide::StringElement</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -3648,17 +7303,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::StringElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_string_element.html</Path>
-    <Anchor>a594796f1d447b7bbf4055234c8bdcb2d</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -3670,13 +7314,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::StringElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_string_element.html</Path>
+    <Anchor>a98604ce395e9d711b9ef138a7dbf03b2</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::StringElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_string_element.html</Path>
-    <Anchor>a863ed9f2da35d9c655e0f36ec1dd7fe2</Anchor>
+    <Anchor>a8d1e2696c0d4ea33c6de735b7c8da272</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -4263,17 +7918,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::TrackEntry</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_track_entry.html</Path>
-    <Anchor>a3e50cb15c0b9fea845082a5b6364c02e</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -4285,13 +7929,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::TrackEntry</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_track_entry.html</Path>
+    <Anchor>a99f8dec774e197179df66f64d01b3fb0</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::TrackEntry</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_track_entry.html</Path>
-    <Anchor>a16c3ba3b1b95861c977a7bb66eb20bc7</Anchor>
+    <Anchor>af51a113a47b6bece425473f30b81578f</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -4662,17 +8317,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::TrackJoinBlocks</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_track_join_blocks.html</Path>
-    <Anchor>a7b177fcd1980eeec08b5b7b0ba108f31</Anchor>
-    <Abstract>TODO: Proper vector model for UIDs.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -4680,7 +8324,18 @@
     </TokenIdentifier>
     <Path>classtide_1_1_track_join_blocks.html</Path>
     <Anchor>a3cc74546295ebee358af0ad13f344487</Anchor>
-    <Abstract>Element body writing.</Abstract>
+    <Abstract>TODO: Proper vector model for UIDs.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::TrackJoinBlocks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_track_join_blocks.html</Path>
+    <Anchor>ab2105dd842147d538bf0cdd3a2821700</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4690,7 +8345,7 @@
       <Scope>tide::TrackJoinBlocks</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_track_join_blocks.html</Path>
-    <Anchor>a23cc0c1c5027c4ce184dc5a54020b6c3</Anchor>
+    <Anchor>a66604646a0bb18c1f99335a77be55560</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -4856,39 +8511,6 @@
     <Path>classtide_1_1_tracks.html</Path>
     <Anchor>a4d27eb1e4fe90ab226385da99a07152a</Anchor>
     <Abstract>Destructor.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Tracks</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a2449adfddb40d28074291fa5ee7ca105</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>write_body</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Tracks</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a69b113316cb62087589100520da4ff5a</Anchor>
-    <Abstract>Element body writing.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>read_body</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Tracks</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_tracks.html</Path>
-    <Anchor>a69f3c8b7e5401d798c79de0f2fd5e1b6</Anchor>
-    <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -5167,6 +8789,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>write_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>a69b113316cb62087589100520da4ff5a</Anchor>
+    <Abstract>Element body writing.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>storage_type_</Name>
       <APILanguage>cpp</APILanguage>
       <Type>tdef</Type>
@@ -5175,6 +8808,28 @@
     <Path>classtide_1_1_tracks.html</Path>
     <Anchor>a45d744f7a953dcd94e5ccc39e1bcdcac</Anchor>
     <Abstract>The type of the internal storage.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>aca71c79a520221bdd3b7169c78f294ed</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>read_body</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Tracks</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_tracks.html</Path>
+    <Anchor>ac92cf6a067ce4c634750b1060614c739</Anchor>
+    <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -5266,17 +8921,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::UIntElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_u_int_element.html</Path>
-    <Anchor>a27bf1866339b95ab8c2810b4e4ed3ede</Anchor>
-    <Abstract>Get the size of the body of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -5288,13 +8932,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>body_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::UIntElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_u_int_element.html</Path>
+    <Anchor>a5697f61181b0010035f105e1af7c6b41</Anchor>
+    <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::UIntElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_u_int_element.html</Path>
-    <Anchor>a8e76adb5683d2c0e8c2aade299f1cb51</Anchor>
+    <Anchor>ae111c24e05df875cafaa3d8d3588e01b</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -5332,6 +8987,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>set_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::VoidElement</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_void_element.html</Path>
+    <Anchor>acd534c2ba95ad1ecf49134894ee52f50</Anchor>
+    <Abstract>Set the size of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -5339,28 +9005,6 @@
     </TokenIdentifier>
     <Path>classtide_1_1_void_element.html</Path>
     <Anchor>afa217bd9762e2849f0cde2c2362b7f01</Anchor>
-    <Abstract>Get the size of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::VoidElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_void_element.html</Path>
-    <Anchor>a68c43288c7f7cffe0ed09a08df91fba0</Anchor>
-    <Abstract>Set the size of this element.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>total_size</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::VoidElement</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_void_element.html</Path>
-    <Anchor>aae39a54ab3b9aac9109057c9cecf7d41</Anchor>
     <Abstract>Get the total size of the element.</Abstract>
   </Token>
   <Token>
@@ -5409,14 +9053,14 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>read_body</Name>
+      <Name>read</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>tide::VoidElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_void_element.html</Path>
-    <Anchor>a67cb437ace1b16eac4a715df95f1dea3</Anchor>
-    <Abstract>Element body loading.</Abstract>
+    <Anchor>a275dae0e292835f10c8557ae467f9ce8</Anchor>
+    <Abstract>Element reading.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -5430,24 +9074,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>coded_size_u</Name>
+      <Name>size_u</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::ebml_int</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1ebml__int.html</Path>
-    <Anchor>ad9349f253c126869089ce53f67d624a2</Anchor>
+    <Anchor>a763d23e2da655485b1b22e7e7af74dcb</Anchor>
     <Abstract>Get the size of an unsigned integer after encoding.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>coded_size_s</Name>
+      <Name>size_s</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::ebml_int</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1ebml__int.html</Path>
-    <Anchor>ab4ac4ba2d910fe663e2942eda05c2e93</Anchor>
+    <Anchor>ac251ca038b25a06b86e2336af1b5dc2d</Anchor>
     <Abstract>Get the size of a signed integer after encoding.</Abstract>
   </Token>
   <Token>
@@ -5882,6 +9526,176 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Cluster</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3e54cb65ac53a23e1d2993acc625a887</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Timecode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a6774a9026fa4881f3f6b9a4c86b2c690</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SilentTracks</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a9d4726cb8602429f6f17db5581c274ca</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SilentTrackNumber</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7cf1d16e03f8cc481618151bdd021bfd</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Position</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa686a5f280afc4477f4807744f43ca12</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>PrevSize</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a2b704a0401a14e548dd52c13c3598362</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SimpleBlock</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a343094a96d9894f209e9612359f28902</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockGroup</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a326145fe2d19c26c83c7c9435fe8c753</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Block</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a03c4c1926e9c05e4ad032cdb61e8b22f</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockAdditions</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3898bd1f7e1b1b49b5abc4b959f9a971</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockMore</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af5250b541755552c3ddca59131698e12</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockAddID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ae0185ffa9e5c634f24c3622da38a15d9</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockAdditional</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa1e56a02304a94f934ffd63d41cc20e5</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>BlockDuration</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3c54ebb350977403758ba947a3c30716</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ReferencePriority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a763c85a7b0f59ace471dbdec08676479</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ReferenceBlock</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af7491ef07ea01c9038e4a93ac51aca5d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CodecState</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a80bcb060dee034ae5fdac674cd969eee</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>Tracks</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
@@ -6122,13 +9936,13 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>coded_size</Name>
+      <Name>size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::ids</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1ids.html</Path>
-    <Anchor>a178b4e10175511e78055c5de3be69f02</Anchor>
+    <Anchor>a689973eb2065e63b1f9b6be026dbe93b</Anchor>
     <Abstract>Get the number of bytes required by an ID.</Abstract>
   </Token>
   <Token>
@@ -6187,6 +10001,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>OffsetInt</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::vint</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1vint.html</Path>
+    <Anchor>aa910c61aa666d3473b9792f1aadd6b87</Anchor>
+    <Abstract>The result type of s_to_u().</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>DecodeResult</Name>
       <APILanguage>cpp</APILanguage>
       <Type>tdef</Type>
@@ -6209,14 +10034,36 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>coded_size</Name>
+      <Name>size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>tide::vint</Scope>
     </TokenIdentifier>
     <Path>namespacetide_1_1vint.html</Path>
-    <Anchor>a2a4d7692ba13f5e5a0a5bfe9dfcb58c6</Anchor>
+    <Anchor>a05044eff9d310d1748bd0109457d6426</Anchor>
     <Abstract>Get the size of an integer after encoding.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>s_to_u</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::vint</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1vint.html</Path>
+    <Anchor>a3af4e7ea53bf233713373c76d513edd6</Anchor>
+    <Abstract>Offsets a signed integer into unsigned territory.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>u_to_s</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::vint</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1vint.html</Path>
+    <Anchor>a7e7627adfb4d3d28d3d0819d6905fdb5</Anchor>
+    <Abstract>Offsets an unsigned integer into signed territory.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>

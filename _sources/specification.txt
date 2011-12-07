@@ -559,7 +559,7 @@ Segment Information
 ------------------------------------------------------------------------
 Element name         Level EBML ID     Ma Mu Rng   Default T Description
 ==================== ===== =========== == == ===== ======= = ===========
-Segment Info         1     15 49 A9 66 \* \*               m Contains general information about the segment.
+Info                 1     15 49 A9 66 \* \*               m Contains general information about the segment.
 SegmentUID           2     73 A4             not 0         b A unique 128-bit ID to identify this segment among others.
 SegmentFileName      2     73 84                           s A file name corresponding to this segment.
 PrevUID              2     3C B9 23                        b A unique 128-bit ID to identify the previous linked segment.
@@ -615,7 +615,7 @@ ReferencePriority    3     FA          \*          0       u This block is refer
 ReferenceBlock       3     FB             \*               i Time code of another block in the same track used as a reference
                                                              when understanding this frame. The time code is relative to the block
                                                              it is attached to.
-CodecState           4     A4                              b The new codec state to use from this block on. How this data is
+CodecState           3     A4                              b The new codec state to use from this block on. How this data is
                                                              interpreted is private to the codec used. This information should
                                                              always be referenced by a seek entity.
 ==================== ===== =========== == == ===== ======= = ===========
@@ -861,17 +861,17 @@ flags. The header format is as follows:
 |        |7  |Not used                                                      |
 +--------+---+--------------------------------------------------------------+
 
-When Lacing is enabled for a Block, the header is immediately followed
+When lacing is enabled for a Block, the header is immediately followed
 by the following bytes:
 
 +--------+------------------------------------------------------------------+
 |Offset  |Description                                                       |
 +--------+------------------------------------------------------------------+
-|0x00    |Number of frames in the lace - 1, as an unsigned integer.         |
+|0x00    |Number of frames in the lace - 1, as an unsigned 8-bit integer.   |
 +--------+------------------------------------------------------------------+
-|0x01 -  |Lace-coded size of each block in the lace, except for the last    |
-|0xXX    |block. This value is not used and MUST NOT be present when fixed- |
-|        |size lacing is used, as the size of each block can be calculated. |
+|0x01 -  |Lace-coded size of each frame in the lace, except for the last    |
+|0xXX    |frame. This value is not used and MUST NOT be present when fixed- |
+|        |size lacing is used, as the size of each frame can be calculated. |
 +--------+------------------------------------------------------------------+
 
 Following this is the binary data of the Block, which may consist of
@@ -915,6 +915,8 @@ only change is the addition of two flags: Keyframe and Discardable.
 |        |   |playback if necessary.                                        |
 +--------+---+--------------------------------------------------------------+
 
+Data after this is in the same format as normal Blocks.
+
 Lacing
 ------
 
@@ -924,7 +926,7 @@ contain 800, 500 and 1000 bytes of data, they can be stored in a lace,
 allowing them to share a block and save space. An example of where this
 is useful is audio data, which often has small sample sizes. However,
 there is a trade-off: the longer a lace, the more difficult it is to
-seek within the track.
+seek within the track. Generally, laces should be kept short.
 
 Two types of lacing are supported by Tide: EBML-based lacing and
 fixed-size lacing.
@@ -932,10 +934,11 @@ fixed-size lacing.
 EBML lacing
 '''''''''''
 
-In EBML lacing, the size of each block's data in a lace is stored as
-the difference with the previous size, encoded as an EBML unsigned
-variable-length integer. Range-shifting is used to get a sign in the
-value by subtracting half the available range:
+In EBML lacing, the size of each block's data in a lace is stored as the
+difference with the previous size, encoded as an EBML unsigned
+variable-length integer. The first value is always an unsigned integer,
+while the remainder are stored as signed integers. Range-shifting is
+used to get a sign in the value by subtracting half the available range:
 
 ============== ========
 Integer length Offset
@@ -1088,6 +1091,10 @@ Cluster Timecode placement
 Each Block/BlockGroup/SimpleBlock in a cluster needs that cluster's time
 code.  Therefore, the Cluster Timecode MUST be the first element in the
 Cluster.
+
+Additionally, it is RECOMMENDED that the SimpleBlock/Block elements are
+placed after the other elements in a Cluster, as this simplifies
+reading.
 
 CRC-32 placement
 ----------------

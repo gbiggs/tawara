@@ -864,7 +864,7 @@ level 1 element.</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td>Segment Info</td>
+<tr><td>Info</td>
 <td>1</td>
 <td>15 49 A9 66</td>
 <td>*</td>
@@ -1214,7 +1214,7 @@ when understanding this frame. The time code is relative to the block
 it is attached to.</td>
 </tr>
 <tr><td>CodecState</td>
-<td>4</td>
+<td>3</td>
 <td>A4</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -2244,7 +2244,7 @@ number</td>
 </tr>
 </tbody>
 </table>
-<p>When Lacing is enabled for a Block, the header is immediately followed
+<p>When lacing is enabled for a Block, the header is immediately followed
 by the following bytes:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -2256,13 +2256,13 @@ by the following bytes:</p>
 <td>Description</td>
 </tr>
 <tr><td>0x00</td>
-<td>Number of frames in the lace - 1, as an unsigned integer.</td>
+<td>Number of frames in the lace - 1, as an unsigned 8-bit integer.</td>
 </tr>
 <tr><td>0x01 -
 0xXX</td>
-<td>Lace-coded size of each block in the lace, except for the last
-block. This value is not used and MUST NOT be present when fixed-
-size lacing is used, as the size of each block can be calculated.</td>
+<td>Lace-coded size of each frame in the lace, except for the last
+frame. This value is not used and MUST NOT be present when fixed-
+size lacing is used, as the size of each frame can be calculated.</td>
 </tr>
 </tbody>
 </table>
@@ -2329,6 +2329,7 @@ playback if necessary.</td>
 </tr>
 </tbody>
 </table>
+<p>Data after this is in the same format as normal Blocks.</p>
 </div>
 <div class="section" id="lacing">
 <h2>Lacing<a class="headerlink" href="#lacing" title="Permalink to this headline">¶</a></h2>
@@ -2338,15 +2339,16 @@ contain 800, 500 and 1000 bytes of data, they can be stored in a lace,
 allowing them to share a block and save space. An example of where this
 is useful is audio data, which often has small sample sizes. However,
 there is a trade-off: the longer a lace, the more difficult it is to
-seek within the track.</p>
+seek within the track. Generally, laces should be kept short.</p>
 <p>Two types of lacing are supported by Tide: EBML-based lacing and
 fixed-size lacing.</p>
 <div class="section" id="ebml-lacing">
 <h3>EBML lacing<a class="headerlink" href="#ebml-lacing" title="Permalink to this headline">¶</a></h3>
-<p>In EBML lacing, the size of each block&#8217;s data in a lace is stored as
-the difference with the previous size, encoded as an EBML unsigned
-variable-length integer. Range-shifting is used to get a sign in the
-value by subtracting half the available range:</p>
+<p>In EBML lacing, the size of each block&#8217;s data in a lace is stored as the
+difference with the previous size, encoded as an EBML unsigned
+variable-length integer. The first value is always an unsigned integer,
+while the remainder are stored as signed integers. Range-shifting is
+used to get a sign in the value by subtracting half the available range:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="64%" />
@@ -2515,6 +2517,9 @@ vulnerable to crashes making the entire file unreadable.</p>
 <p>Each Block/BlockGroup/SimpleBlock in a cluster needs that cluster&#8217;s time
 code.  Therefore, the Cluster Timecode MUST be the first element in the
 Cluster.</p>
+<p>Additionally, it is RECOMMENDED that the SimpleBlock/Block elements are
+placed after the other elements in a Cluster, as this simplifies
+reading.</p>
 </div>
 <div class="section" id="crc-32-placement">
 <h2>CRC-32 placement<a class="headerlink" href="#crc-32-placement" title="Permalink to this headline">¶</a></h2>

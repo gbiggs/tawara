@@ -22,6 +22,12 @@
           </Subnodes>
          </Node>
          <Node>
+          <Name>Elements</Name>
+          <Path>group__elements.html</Path>
+          <Subnodes>
+          </Subnodes>
+         </Node>
+         <Node>
           <Name>EBML</Name>
           <Path>group__ebml.html</Path>
           <Subnodes>
@@ -30,12 +36,6 @@
          <Node>
           <Name>Exceptions</Name>
           <Path>group__exceptions.html</Path>
-          <Subnodes>
-          </Subnodes>
-         </Node>
-         <Node>
-          <Name>Elements</Name>
-          <Path>group__elements.html</Path>
           <Subnodes>
           </Subnodes>
          </Node>
@@ -64,6 +64,10 @@
           <Path>structtide_1_1_bad_element_length.html</Path>
          </Node>
          <Node>
+          <Name>tide::BadLacedFrameSize</Name>
+          <Path>structtide_1_1_bad_laced_frame_size.html</Path>
+         </Node>
+         <Node>
           <Name>tide::BadReadVersion</Name>
           <Path>structtide_1_1_bad_read_version.html</Path>
          </Node>
@@ -72,8 +76,32 @@
           <Path>classtide_1_1_binary_element.html</Path>
          </Node>
          <Node>
+          <Name>tide::Block</Name>
+          <Path>classtide_1_1_block.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BlockAdditions</Name>
+          <Path>classtide_1_1_block_additions.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BlockElement</Name>
+          <Path>classtide_1_1_block_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BlockGroup</Name>
+          <Path>classtide_1_1_block_group.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::BlockImpl</Name>
+          <Path>classtide_1_1_block_impl.html</Path>
+         </Node>
+         <Node>
           <Name>tide::BufferTooSmall</Name>
           <Path>structtide_1_1_buffer_too_small.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::Cluster</Name>
+          <Path>classtide_1_1_cluster.html</Path>
          </Node>
          <Node>
           <Name>tide::DateElement</Name>
@@ -94,6 +122,18 @@
          <Node>
           <Name>tide::Element</Name>
           <Path>classtide_1_1_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::EmptyBlock</Name>
+          <Path>structtide_1_1_empty_block.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::EmptyBlockAdditionsElement</Name>
+          <Path>structtide_1_1_empty_block_additions_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::EmptyFrame</Name>
+          <Path>structtide_1_1_empty_frame.html</Path>
          </Node>
          <Node>
           <Name>tide::EmptyTracksElement</Name>
@@ -128,8 +168,20 @@
           <Path>structtide_1_1_invalid_var_int.html</Path>
          </Node>
          <Node>
+          <Name>tide::MemoryCluster::IteratorBase&lt; BlockType, IterType &gt;</Name>
+          <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
+         </Node>
+         <Node>
           <Name>tide::MasterElement</Name>
           <Path>classtide_1_1_master_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::MaxLaceSizeExceeded</Name>
+          <Path>structtide_1_1_max_lace_size_exceeded.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::MemoryCluster</Name>
+          <Path>classtide_1_1_memory_cluster.html</Path>
          </Node>
          <Node>
           <Name>tide::Metaseek</Name>
@@ -142,6 +194,10 @@
          <Node>
           <Name>tide::NotEBML</Name>
           <Path>structtide_1_1_not_e_b_m_l.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::NotImplemented</Name>
+          <Path>structtide_1_1_not_implemented.html</Path>
          </Node>
          <Node>
           <Name>tide::NotTide</Name>
@@ -166,6 +222,14 @@
          <Node>
           <Name>tide::SegmentInfo</Name>
           <Path>classtide_1_1_segment_info.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::SilentTrackNumber</Name>
+          <Path>classtide_1_1_silent_track_number.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::SimpleBlock</Name>
+          <Path>classtide_1_1_simple_block.html</Path>
          </Node>
          <Node>
           <Name>tide::SpecSizeTooSmall</Name>
@@ -296,6 +360,26 @@
              <Node>
               <Name>tide::UIntElement</Name>
               <Path>classtide_1_1_u_int_element.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>tide::SilentTrackNumber</Name>
+                <Path>classtide_1_1_silent_track_number.html</Path>
+               </Node>
+              </Subnodes>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::BlockElement</Name>
+            <Path>classtide_1_1_block_element.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::BlockGroup</Name>
+              <Path>classtide_1_1_block_group.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::SimpleBlock</Name>
+              <Path>classtide_1_1_simple_block.html</Path>
              </Node>
             </Subnodes>
            </Node>
@@ -303,6 +387,20 @@
             <Name>tide::MasterElement</Name>
             <Path>classtide_1_1_master_element.html</Path>
             <Subnodes>
+             <Node>
+              <Name>tide::BlockAdditions</Name>
+              <Path>classtide_1_1_block_additions.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::Cluster</Name>
+              <Path>classtide_1_1_cluster.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>tide::MemoryCluster</Name>
+                <Path>classtide_1_1_memory_cluster.html</Path>
+               </Node>
+              </Subnodes>
+             </Node>
              <Node>
               <Name>tide::EBMLElement</Name>
               <Path>classtide_1_1_e_b_m_l_element.html</Path>
@@ -378,8 +476,38 @@
             <Path>classtide_1_1_primitive_element.html</Path>
            </Node>
            <Node>
+            <Name>tide::Block</Name>
+            <Path>classtide_1_1_block.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>tide::BlockElement</Name>
+              <Path>classtide_1_1_block_element.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::BlockImpl</Name>
+              <Path>classtide_1_1_block_impl.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>tide::BlockAdditions</Name>
+            <Path>classtide_1_1_block_additions.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::BlockGroup</Name>
+            <Path>classtide_1_1_block_group.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::BlockImpl</Name>
+            <Path>classtide_1_1_block_impl.html</Path>
+           </Node>
+           <Node>
             <Name>tide::PrimitiveElement&lt; T &gt;</Name>
             <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::SimpleBlock</Name>
+            <Path>classtide_1_1_simple_block.html</Path>
            </Node>
            <Node>
             <Name>tide::TrackEntry</Name>
@@ -394,6 +522,10 @@
             <Path>classtide_1_1_tracks.html</Path>
            </Node>
           </Subnodes>
+         </Node>
+         <Node>
+          <Name>tide::MemoryCluster::IteratorBase&lt; BlockType, IterType &gt;</Name>
+          <Path>classtide_1_1_memory_cluster_1_1_iterator_base.html</Path>
          </Node>
          <Node>
           <Name>tide::Tide</Name>
@@ -422,6 +554,10 @@
             <Path>structtide_1_1_bad_element_length.html</Path>
            </Node>
            <Node>
+            <Name>tide::BadLacedFrameSize</Name>
+            <Path>structtide_1_1_bad_laced_frame_size.html</Path>
+           </Node>
+           <Node>
             <Name>tide::BadReadVersion</Name>
             <Path>structtide_1_1_bad_read_version.html</Path>
            </Node>
@@ -436,6 +572,18 @@
            <Node>
             <Name>tide::DuplicateUID</Name>
             <Path>structtide_1_1_duplicate_u_i_d.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::EmptyBlock</Name>
+            <Path>structtide_1_1_empty_block.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::EmptyBlockAdditionsElement</Name>
+            <Path>structtide_1_1_empty_block_additions_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::EmptyFrame</Name>
+            <Path>structtide_1_1_empty_frame.html</Path>
            </Node>
            <Node>
             <Name>tide::EmptyTracksElement</Name>
@@ -458,12 +606,20 @@
             <Path>structtide_1_1_invalid_var_int.html</Path>
            </Node>
            <Node>
+            <Name>tide::MaxLaceSizeExceeded</Name>
+            <Path>structtide_1_1_max_lace_size_exceeded.html</Path>
+           </Node>
+           <Node>
             <Name>tide::MissingChild</Name>
             <Path>structtide_1_1_missing_child.html</Path>
            </Node>
            <Node>
             <Name>tide::NotEBML</Name>
             <Path>structtide_1_1_not_e_b_m_l.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::NotImplemented</Name>
+            <Path>structtide_1_1_not_implemented.html</Path>
            </Node>
            <Node>
             <Name>tide::NotTide</Name>
@@ -544,6 +700,30 @@
           <Path>binary__element_8h.html</Path>
          </Node>
          <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/block.h</Name>
+          <Path>block_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/block_additions.h</Name>
+          <Path>block__additions_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/block_element.h</Name>
+          <Path>block__element_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/block_group.h</Name>
+          <Path>block__group_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/block_impl.h</Name>
+          <Path>block__impl_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/cluster.h</Name>
+          <Path>cluster_8h.html</Path>
+         </Node>
+         <Node>
           <Name>/home/geoff/research/src/tide/include/tide/date_element.h</Name>
           <Path>date__element_8h.html</Path>
          </Node>
@@ -580,6 +760,10 @@
           <Path>master__element_8h.html</Path>
          </Node>
          <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/memory_cluster.h</Name>
+          <Path>memory__cluster_8h.html</Path>
+         </Node>
+         <Node>
           <Name>/home/geoff/research/src/tide/include/tide/metaseek.h</Name>
           <Path>metaseek_8h.html</Path>
          </Node>
@@ -598,6 +782,10 @@
          <Node>
           <Name>/home/geoff/research/src/tide/include/tide/segment_info.h</Name>
           <Path>segment__info_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/home/geoff/research/src/tide/include/tide/simple_block.h</Name>
+          <Path>simple__block_8h.html</Path>
          </Node>
          <Node>
           <Name>/home/geoff/research/src/tide/include/tide/string_element.h</Name>

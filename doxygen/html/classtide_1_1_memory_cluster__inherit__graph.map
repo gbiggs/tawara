@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations." alt="" coords="32,161,133,189"/>
+<area shape="rect" id="node4" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="5,83,160,111"/>
+<area shape="rect" id="node6" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="28,6,137,34"/>
+</map>

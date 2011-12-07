@@ -98,6 +98,9 @@ Namespaces</h2></td></tr>
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; uint64_t, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#aa910c61aa666d3473b9792f1aadd6b87">tide::vint::OffsetInt</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The result type of <a class="el" href="namespacetide_1_1vint.html#a3af4e7ea53bf233713373c76d513edd6" title="Offsets a signed integer into unsigned territory.">s_to_u()</a>.  <a href="#aa910c61aa666d3473b9792f1aadd6b87"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; uint64_t, <br class="typebreak"/>
 std::vector&lt; char &gt;<br class="typebreak"/>
 ::const_iterator &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a2831d683ac5ae6466f8d219398c73cc3">tide::vint::DecodeResult</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of a decode operation is a pair of the integer decoded and an iterator pointing to the first element after the used data.  <a href="#a2831d683ac5ae6466f8d219398c73cc3"></a><br/></td></tr>
@@ -106,8 +109,12 @@ std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of a read operation is a pair of the integer read and the number of bytes read.  <a href="#a0052774240921bfc839a9c632a1c26ff"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6">tide::vint::coded_size</a> (uint64_t integer)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of an integer after encoding.  <a href="#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a05044eff9d310d1748bd0109457d6426">tide::vint::size</a> (uint64_t integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of an integer after encoding.  <a href="#a05044eff9d310d1748bd0109457d6426"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">OffsetInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a3af4e7ea53bf233713373c76d513edd6">tide::vint::s_to_u</a> (int64_t integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Offsets a signed integer into unsigned territory.  <a href="#a3af4e7ea53bf233713373c76d513edd6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a7e7627adfb4d3d28d3d0819d6905fdb5">tide::vint::u_to_s</a> (OffsetInt integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Offsets an unsigned integer into signed territory.  <a href="#a7e7627adfb4d3d28d3d0819d6905fdb5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a6351e7bf1f5c6370ff01a78595587abd">tide::vint::encode</a> (uint64_t integer, std::streamsize req_size=0)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode an unsigned integer into a buffer.  <a href="#a6351e7bf1f5c6370ff01a78595587abd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">DecodeResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a6cb533f4f9dfff48c5dcd457a2945b8a">tide::vint::decode</a> (std::vector&lt; char &gt; const &amp;buffer)</td></tr>
@@ -132,7 +139,7 @@ Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

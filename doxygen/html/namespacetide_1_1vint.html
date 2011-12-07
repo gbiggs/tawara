@@ -79,6 +79,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; uint64_t, <br class="typebreak"/>
+std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#aa910c61aa666d3473b9792f1aadd6b87">OffsetInt</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The result type of <a class="el" href="namespacetide_1_1vint.html#a3af4e7ea53bf233713373c76d513edd6" title="Offsets a signed integer into unsigned territory.">s_to_u()</a>.  <a href="#aa910c61aa666d3473b9792f1aadd6b87"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; uint64_t, <br class="typebreak"/>
 std::vector&lt; char &gt;<br class="typebreak"/>
 ::const_iterator &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a2831d683ac5ae6466f8d219398c73cc3">DecodeResult</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of a decode operation is a pair of the integer decoded and an iterator pointing to the first element after the used data.  <a href="#a2831d683ac5ae6466f8d219398c73cc3"></a><br/></td></tr>
@@ -87,8 +90,12 @@ std::streamsize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of a read operation is a pair of the integer read and the number of bytes read.  <a href="#a0052774240921bfc839a9c632a1c26ff"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6">coded_size</a> (uint64_t integer)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of an integer after encoding.  <a href="#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a05044eff9d310d1748bd0109457d6426">size</a> (uint64_t integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of an integer after encoding.  <a href="#a05044eff9d310d1748bd0109457d6426"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetide_1_1vint.html#aa910c61aa666d3473b9792f1aadd6b87">OffsetInt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a3af4e7ea53bf233713373c76d513edd6">s_to_u</a> (int64_t integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Offsets a signed integer into unsigned territory.  <a href="#a3af4e7ea53bf233713373c76d513edd6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a7e7627adfb4d3d28d3d0819d6905fdb5">u_to_s</a> (<a class="el" href="namespacetide_1_1vint.html#aa910c61aa666d3473b9792f1aadd6b87">OffsetInt</a> integer)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Offsets an unsigned integer into signed territory.  <a href="#a7e7627adfb4d3d28d3d0819d6905fdb5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a6351e7bf1f5c6370ff01a78595587abd">encode</a> (uint64_t integer, std::streamsize req_size=0)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode an unsigned integer into a buffer.  <a href="#a6351e7bf1f5c6370ff01a78595587abd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetide_1_1vint.html#a2831d683ac5ae6466f8d219398c73cc3">DecodeResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide_1_1vint.html#a6cb533f4f9dfff48c5dcd457a2945b8a">decode</a> (std::vector&lt; char &gt; const &amp;buffer)</td></tr>
@@ -116,7 +123,25 @@ Functions</h2></td></tr>
 
 <p>The result of a decode operation is a pair of the integer decoded and an iterator pointing to the first element after the used data. </p>
 
-<p>Definition at line <a class="el" href="vint_8h_source.html#l00098">98</a> of file <a class="el" href="vint_8h_source.html">vint.h</a>.</p>
+<p>Definition at line <a class="el" href="vint_8h_source.html#l00137">137</a> of file <a class="el" href="vint_8h_source.html">vint.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa910c61aa666d3473b9792f1aadd6b87"></a><!-- doxytag: member="tide::vint::OffsetInt" ref="aa910c61aa666d3473b9792f1aadd6b87" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::pair&lt;uint64_t, std::streamsize&gt; <a class="el" href="namespacetide_1_1vint.html#aa910c61aa666d3473b9792f1aadd6b87">tide::vint::OffsetInt</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The result type of <a class="el" href="namespacetide_1_1vint.html#a3af4e7ea53bf233713373c76d513edd6" title="Offsets a signed integer into unsigned territory.">s_to_u()</a>. </p>
+<p>The first contains the offset integer. The second contains the number of bytes to be used to store the integer. </p>
+
+<p>Definition at line <a class="el" href="vint_8h_source.html#l00077">77</a> of file <a class="el" href="vint_8h_source.html">vint.h</a>.</p>
 
 </div>
 </div>
@@ -133,44 +158,11 @@ Functions</h2></td></tr>
 
 <p>The result of a read operation is a pair of the integer read and the number of bytes read. </p>
 
-<p>Definition at line <a class="el" href="vint_8h_source.html#l00139">139</a> of file <a class="el" href="vint_8h_source.html">vint.h</a>.</p>
+<p>Definition at line <a class="el" href="vint_8h_source.html#l00178">178</a> of file <a class="el" href="vint_8h_source.html">vint.h</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
-<a class="anchor" id="a2a4d7692ba13f5e5a0a5bfe9dfcb58c6"></a><!-- doxytag: member="tide::vint::coded_size" ref="a2a4d7692ba13f5e5a0a5bfe9dfcb58c6" args="(uint64_t integer)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::streamsize tide::vint::coded_size </td>
-          <td>(</td>
-          <td class="paramtype">uint64_t&#160;</td>
-          <td class="paramname"><em>integer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of an integer after encoding. </p>
-<p>The size required by an encoded integer depends on the value of that integer, and will range from 1 to 8 bytes.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to get the size of. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The size, in bytes, that the integer will require when coded. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="structtide_1_1_var_int_too_big.html" title="A variable-length integer is too large to be encoded.">VarIntTooBig</a></td><td>if the integer is above the maximum value for variable-length integers (0xFFFFFFFFFFFFFF). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a6cb533f4f9dfff48c5dcd457a2945b8a"></a><!-- doxytag: member="tide::vint::decode" ref="a6cb533f4f9dfff48c5dcd457a2945b8a" args="(std::vector&lt; char &gt; const &amp;buffer)" -->
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +224,7 @@ Functions</h2></td></tr>
 
 <p>Encode an unsigned integer into a buffer. </p>
 <p>Encodes an unsigned variable-length integer according to the EBML specification. Leading zero bits are used to indicate the length of the encoded integer in bytes.</p>
-<p>The vector provided as a buffer must already have enough space to store the encoded data reserved. This can be done by either reserving the maximum possible size (8 bytes) or by using <a class="el" href="namespacetide_1_1vint.html#a2a4d7692ba13f5e5a0a5bfe9dfcb58c6" title="Get the size of an integer after encoding.">coded_size()</a> to find the required size.</p>
+<p>The vector provided as a buffer must already have enough space to store the encoded data reserved. This can be done by either reserving the maximum possible size (8 bytes) or by using <a class="el" href="namespacetide_1_1vint.html#a05044eff9d310d1748bd0109457d6426" title="Get the size of an integer after encoding.">size()</a> to find the required size.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to encode. </td></tr>
@@ -279,6 +271,105 @@ Functions</h2></td></tr>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="structtide_1_1_invalid_var_int.html" title="An invalid variable-length integer was found.">InvalidVarInt</a></td><td>if the variable-length integer in the byte stream is invalid. </td></tr>
     <tr><td class="paramname"><a class="el" href="structtide_1_1_read_error.html" title="A read error was encountered during a read.">ReadError</a></td><td>if there is an error reading the input stream. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3af4e7ea53bf233713373c76d513edd6"></a><!-- doxytag: member="tide::vint::s_to_u" ref="a3af4e7ea53bf233713373c76d513edd6" args="(int64_t integer)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacetide_1_1vint.html#aa910c61aa666d3473b9792f1aadd6b87">OffsetInt</a> tide::vint::s_to_u </td>
+          <td>(</td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>integer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Offsets a signed integer into unsigned territory. </p>
+<p>EBML variable-length integers are always unsigned. In order to represent a signed integer, as is done in laced blocks using EBML lacing, it must be offset into the unsigned territory. This function offsets a signed integer by half the range of its required storage space to make it unsigned.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to offset. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The offset integer as an unsigned data type and the number of bytes it requires. </dd></dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_var_int_too_big.html" title="A variable-length integer is too large to be encoded.">VarIntTooBig</a></td><td>if the integer is above the maximum value for variable-length integers (0xFFFFFFFFFFFFFF). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a05044eff9d310d1748bd0109457d6426"></a><!-- doxytag: member="tide::vint::size" ref="a05044eff9d310d1748bd0109457d6426" args="(uint64_t integer)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::vint::size </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>integer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of an integer after encoding. </p>
+<p>The size required by an encoded integer depends on the value of that integer, and will range from 1 to 8 bytes.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to get the size of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The size, in bytes, that the integer will require when coded. </dd></dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_var_int_too_big.html" title="A variable-length integer is too large to be encoded.">VarIntTooBig</a></td><td>if the integer is above the maximum value for variable-length integers (0xFFFFFFFFFFFFFF). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7e7627adfb4d3d28d3d0819d6905fdb5"></a><!-- doxytag: member="tide::vint::u_to_s" ref="a7e7627adfb4d3d28d3d0819d6905fdb5" args="(OffsetInt integer)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t tide::vint::u_to_s </td>
+          <td>(</td>
+          <td class="paramtype">OffsetInt&#160;</td>
+          <td class="paramname"><em>integer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Offsets an unsigned integer into signed territory. </p>
+<p>EBML variable-length integers are always unsigned. In order to represent a signed integer, as is done in laced blocks using EBML lacing, it must be offset into the unsigned territory. This function offsets an unsigned integer by half the range of its required storage space to make it signed.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">integer</td><td>The integer to offset, including both the integer itself and its size in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The offset integer as a signed data type. </dd></dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_var_int_too_big.html" title="A variable-length integer is too large to be encoded.">VarIntTooBig</a></td><td>if the integer is above the maximum value for variable-length integers (0xFFFFFFFFFFFFFF). </td></tr>
   </table>
   </dd>
 </dl>
@@ -353,7 +444,7 @@ Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:18 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

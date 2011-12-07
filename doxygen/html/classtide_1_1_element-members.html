@@ -72,16 +72,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="classtide_1_1_element.html">tide::Element</a>, including all inherited members.<table>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">body_size</a>() const =0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a321eabc90b92326f5a1a703b95115a1f">Element</a>(tide::ids::ID id)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a936f48bd9dc10ae1fc738eef6b6bebde">id</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a749e97f8b57ec8c7aad701f8e156ac27">id</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#afdb6205ee28712afa92b4faf3672e106">id_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">read_body</a>(std::istream &amp;input)=0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [pure virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">size</a>() const =0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [pure virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#aa42878af00b801e2f4bb0872f6bd2313">total_size</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a2d4594265bea48cf4ab3c7b63d756b38">offset</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a309f8f8babb042f6922b82fcd22a5395">offset_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#ad93208d53ae6c0567106c62cba71d842">read</a>(std::istream &amp;input)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">read_body</a>(std::istream &amp;input, std::streamsize size)=0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, pure virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d">size</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d">write</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#ad6040279595409e4577c62f77cb2c5db">write_body</a>(std::ostream &amp;output)=0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [pure virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a050d160a6595745def7c97e2017507da">write_id</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74">write_size</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#ad6040279595409e4577c62f77cb2c5db">write_body</a>(std::ostream &amp;output)=0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, pure virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a471080b44e7ad606b0e73fe7a1132f27">write_id</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74">write_size</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a47ecd12ddb6e4552bb6a6f0de4cf9820">~Element</a>()</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline, virtual]</code></td></tr>
 </table></div>
 <!--- window showing the filter options -->
@@ -98,7 +101,7 @@ This is the complete list of members for <a class="el" href="classtide_1_1_eleme
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

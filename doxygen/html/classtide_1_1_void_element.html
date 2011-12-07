@@ -101,12 +101,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new void element.  <a href="#a8042a8c211b8dd163320fe0d0185068f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a131477d096321ec2deb458e16a64ca68">VoidElement</a> (<a class="el" href="classtide_1_1_element.html">Element</a> const &amp;element, bool fill=false)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="classtide_1_1_void_element.html" title="Void primitive element.">VoidElement</a> that replaces another element.  <a href="#a131477d096321ec2deb458e16a64ca68"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#acd534c2ba95ad1ecf49134894ee52f50">set_size</a> (std::streamsize size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the size of this element.  <a href="#acd534c2ba95ad1ecf49134894ee52f50"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#afa217bd9762e2849f0cde2c2362b7f01">size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of this element.  <a href="#afa217bd9762e2849f0cde2c2362b7f01"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a68c43288c7f7cffe0ed09a08df91fba0">size</a> (std::streamsize size)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the size of this element.  <a href="#a68c43288c7f7cffe0ed09a08df91fba0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#aae39a54ab3b9aac9109057c9cecf7d41">total_size</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total size of the element.  <a href="#aae39a54ab3b9aac9109057c9cecf7d41"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total size of the element.  <a href="#afa217bd9762e2849f0cde2c2362b7f01"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a69f8bbeac9343e0ac1f1329562760185">fill</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the fill setting.  <a href="#a69f8bbeac9343e0ac1f1329562760185"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#ae9b7044ff60929aabd969d887f424c54">fill</a> (bool fill)</td></tr>
@@ -115,8 +113,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> writing.  <a href="#a4220de6abef96281f43591b37621cbd0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a2c061d10d8baad96eb7d3b663154c021">write_body</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#a2c061d10d8baad96eb7d3b663154c021"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a67cb437ace1b16eac4a715df95f1dea3">read_body</a> (std::istream &amp;input)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#a67cb437ace1b16eac4a715df95f1dea3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a275dae0e292835f10c8557ae467f9ce8">read</a> (std::istream &amp;input)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> reading.  <a href="#a275dae0e292835f10c8557ae467f9ce8"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Void primitive element. </p>
@@ -214,7 +212,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the fill setting. </p>
 
-<p>Definition at line <a class="el" href="void__element_8h_source.html#l00086">86</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
+<p>Definition at line <a class="el" href="void__element_8h_source.html#l00084">84</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
 
 </div>
 </div>
@@ -237,16 +235,16 @@ Public Member Functions</h2></td></tr>
 <p>A void element may fill its body when written. This is typically used when writing it at the end of a byte stream, such as reserving space in a file to be filled in later with other data. Set fill to true to do so.</p>
 <p>On the other hand, void elements are also used for blanking out existing elements that are no longer used, such as when removing a tag, without needing to rewrite the entire file. In this case, only the element ID and size need to be written, with the remainder of the element's body being left as-is. Set fill to false for this style of writing. </p>
 
-<p>Definition at line <a class="el" href="void__element_8h_source.html#l00101">101</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
+<p>Definition at line <a class="el" href="void__element_8h_source.html#l00099">99</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a67cb437ace1b16eac4a715df95f1dea3"></a><!-- doxytag: member="tide::VoidElement::read_body" ref="a67cb437ace1b16eac4a715df95f1dea3" args="(std::istream &amp;input)" -->
+<a class="anchor" id="a275dae0e292835f10c8557ae467f9ce8"></a><!-- doxytag: member="tide::VoidElement::read" ref="a275dae0e292835f10c8557ae467f9ce8" args="(std::istream &amp;input)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::streamsize tide::VoidElement::read_body </td>
+          <td class="memname">std::streamsize tide::VoidElement::read </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
           <td class="paramname"><em>input</em></td><td>)</td>
@@ -256,21 +254,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading. </p>
-<p>Reads the element from a byte stream providing a std::istream interface.</p>
-<p>This method assumes that the <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID has already been read (and thus used to construct the <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> instance doing the reading), which means that the file's read pointer should be positioned at the first byte of the element's size.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes read. </dd></dl>
+<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> reading. </p>
 
-<p>Implements <a class="el" href="classtide_1_1_element.html#aa5d8106ca4e44d272c832716d897c8f6">tide::Element</a>.</p>
+<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#ad93208d53ae6c0567106c62cba71d842">tide::Element</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a68c43288c7f7cffe0ed09a08df91fba0"></a><!-- doxytag: member="tide::VoidElement::size" ref="a68c43288c7f7cffe0ed09a08df91fba0" args="(std::streamsize size)" -->
+<a class="anchor" id="acd534c2ba95ad1ecf49134894ee52f50"></a><!-- doxytag: member="tide::VoidElement::set_size" ref="acd534c2ba95ad1ecf49134894ee52f50" args="(std::streamsize size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void tide::VoidElement::size </td>
+          <td class="memname">void tide::VoidElement::set_size </td>
           <td>(</td>
           <td class="paramtype">std::streamsize&#160;</td>
           <td class="paramname"><em>size</em></td><td>)</td>
@@ -283,7 +278,7 @@ Public Member Functions</h2></td></tr>
 <p>Set the size of this element. </p>
 <p>A void element has a size value, given in bytes, which determines how much space it reserves in the byte stream. </p>
 
-<p>Definition at line <a class="el" href="void__element_8h_source.html#l00080">80</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
+<p>Definition at line <a class="el" href="void__element_8h_source.html#l00078">78</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
 
 </div>
 </div>
@@ -295,28 +290,6 @@ Public Member Functions</h2></td></tr>
           <td class="memname">std::streamsize tide::VoidElement::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the size of this element. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_element.html#a8d7952c8c1054057805b3fb5623de013">tide::Element</a>.</p>
-
-<p>Definition at line <a class="el" href="void__element_8h_source.html#l00074">74</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aae39a54ab3b9aac9109057c9cecf7d41"></a><!-- doxytag: member="tide::VoidElement::total_size" ref="aae39a54ab3b9aac9109057c9cecf7d41" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::streamsize tide::VoidElement::total_size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
           <td> const<code> [virtual]</code></td>
         </tr>
       </table>
@@ -325,7 +298,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the total size of the element. </p>
 
-<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#aa42878af00b801e2f4bb0872f6bd2313">tide::Element</a>.</p>
+<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d">tide::Element</a>.</p>
 
 </div>
 </div>
@@ -392,7 +365,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

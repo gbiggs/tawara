@@ -157,47 +157,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00227"></a><a class="code" href="classtide_1_1_segment_info.html#af5d3f0cf7a05e074306bea1530c3fd8c">00227</a>             std::string <a class="code" href="classtide_1_1_segment_info.html#af5d3f0cf7a05e074306bea1530c3fd8c" title="Get the name of the writing application.">writing_app</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> writer_.value(); }
 <a name="l00233"></a>00233             <span class="keywordtype">void</span> writing_app(std::string <span class="keyword">const</span>&amp; writing_app);
 <a name="l00234"></a>00234 
-<a name="l00236"></a>00236             <span class="keyword">virtual</span> std::streamsize size() <span class="keyword">const</span>;
+<a name="l00236"></a>00236             <span class="keyword">virtual</span> std::streamsize write_body(std::ostream&amp; output);
 <a name="l00237"></a>00237 
-<a name="l00239"></a>00239             <span class="keyword">virtual</span> std::streamsize write_body(std::ostream&amp; output);
-<a name="l00240"></a>00240 
-<a name="l00242"></a>00242             <span class="keyword">virtual</span> std::streamsize read_body(std::istream&amp; input);
-<a name="l00243"></a>00243 
-<a name="l00244"></a>00244         <span class="keyword">protected</span>:
-<a name="l00245"></a><a class="code" href="classtide_1_1_segment_info.html#aca333b2082f415f69a41130b8768d528">00245</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#aca333b2082f415f69a41130b8768d528">uid_</a>;
-<a name="l00246"></a><a class="code" href="classtide_1_1_segment_info.html#a95a01bd09b212676c7ba736e6b2b5177">00246</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a95a01bd09b212676c7ba736e6b2b5177">have_uid_</a>;
-<a name="l00247"></a><a class="code" href="classtide_1_1_segment_info.html#a127064f2ba20a072e48fb087ebb37b86">00247</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a127064f2ba20a072e48fb087ebb37b86">seg_fn_</a>;
-<a name="l00248"></a><a class="code" href="classtide_1_1_segment_info.html#a56a472dd10fb658a4b349217737367d8">00248</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a56a472dd10fb658a4b349217737367d8">have_seg_fn_</a>;
-<a name="l00249"></a><a class="code" href="classtide_1_1_segment_info.html#aabeaa92dac7b53d4939ed7c9edc49e85">00249</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#aabeaa92dac7b53d4939ed7c9edc49e85">prev_uid_</a>;
-<a name="l00250"></a><a class="code" href="classtide_1_1_segment_info.html#a891a79a5f98182c5f7f5ee0c6ad44128">00250</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a891a79a5f98182c5f7f5ee0c6ad44128">have_prev_uid_</a>;
-<a name="l00251"></a><a class="code" href="classtide_1_1_segment_info.html#aa1a4cc176229f7a750bd86dd7ae06a5e">00251</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#aa1a4cc176229f7a750bd86dd7ae06a5e">prev_fn_</a>;
-<a name="l00252"></a><a class="code" href="classtide_1_1_segment_info.html#abb96011a0990f659b7ea8a28ddc2ddbf">00252</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#abb96011a0990f659b7ea8a28ddc2ddbf">have_prev_fn_</a>;
-<a name="l00253"></a><a class="code" href="classtide_1_1_segment_info.html#a34e8cd4f0726beef496d4b899884256a">00253</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#a34e8cd4f0726beef496d4b899884256a">next_uid_</a>;
-<a name="l00254"></a><a class="code" href="classtide_1_1_segment_info.html#a5d45eaddf9d3cc46c8f08b39dd3ebeae">00254</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a5d45eaddf9d3cc46c8f08b39dd3ebeae">have_next_uid_</a>;
-<a name="l00255"></a><a class="code" href="classtide_1_1_segment_info.html#a6e2beb13785d7d84f1877d51a1709544">00255</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a6e2beb13785d7d84f1877d51a1709544">next_fn_</a>;
-<a name="l00256"></a><a class="code" href="classtide_1_1_segment_info.html#afb12bdab13c510b5d5fb2708f4122c68">00256</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#afb12bdab13c510b5d5fb2708f4122c68">have_next_fn_</a>;
-<a name="l00257"></a><a class="code" href="classtide_1_1_segment_info.html#ae3909a95246cc255ac1556887b6a29cc">00257</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#ae3909a95246cc255ac1556887b6a29cc">seg_fam_</a>;
-<a name="l00258"></a><a class="code" href="classtide_1_1_segment_info.html#adcd7b899ff078322bafce2e3cae483ce">00258</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#adcd7b899ff078322bafce2e3cae483ce">have_seg_fam_</a>;
-<a name="l00259"></a>00259             <span class="comment">// TimecodeScale is a mandatory element, so no boolean is needed</span>
-<a name="l00260"></a><a class="code" href="classtide_1_1_segment_info.html#a8f25b162f10766dd44d1f1e6dc96757e">00260</a>             <a class="code" href="classtide_1_1_u_int_element.html" title="Unsigned integer primitive element.">UIntElement</a> <a class="code" href="classtide_1_1_segment_info.html#a8f25b162f10766dd44d1f1e6dc96757e">tc_scale_</a>;
-<a name="l00261"></a><a class="code" href="classtide_1_1_segment_info.html#a71373de21f43ce2fac559e0950efde1a">00261</a>             <a class="code" href="classtide_1_1_float_element.html" title="Float primitive element.">FloatElement</a> <a class="code" href="classtide_1_1_segment_info.html#a71373de21f43ce2fac559e0950efde1a">duration_</a>;
-<a name="l00262"></a><a class="code" href="classtide_1_1_segment_info.html#ad2bc7aea25b596265bab025ac93152f3">00262</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#ad2bc7aea25b596265bab025ac93152f3">have_duration_</a>;
-<a name="l00263"></a><a class="code" href="classtide_1_1_segment_info.html#acf8eade93641e29a9a0f914ed8ec815b">00263</a>             <a class="code" href="classtide_1_1_date_element.html" title="Date primitive element.">DateElement</a> <a class="code" href="classtide_1_1_segment_info.html#acf8eade93641e29a9a0f914ed8ec815b">date_</a>;
-<a name="l00264"></a><a class="code" href="classtide_1_1_segment_info.html#a1c3ffcc6a1a79f71c857e5d228bde885">00264</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a1c3ffcc6a1a79f71c857e5d228bde885">have_date_</a>;
-<a name="l00265"></a><a class="code" href="classtide_1_1_segment_info.html#a60a10958b4b70bf0ac7cec9059ef3c6c">00265</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a60a10958b4b70bf0ac7cec9059ef3c6c">title_</a>;
-<a name="l00266"></a><a class="code" href="classtide_1_1_segment_info.html#afc6565e4d6b124d230bf498817dda57c">00266</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#afc6565e4d6b124d230bf498817dda57c">have_title_</a>;
-<a name="l00267"></a><a class="code" href="classtide_1_1_segment_info.html#a846d44992011c0b8f70eeb7229f019f2">00267</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a846d44992011c0b8f70eeb7229f019f2">muxer_</a>;
-<a name="l00268"></a><a class="code" href="classtide_1_1_segment_info.html#af9e7ea52bea552de78c7008ca757fccf">00268</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#af9e7ea52bea552de78c7008ca757fccf">have_muxer_</a>;
-<a name="l00269"></a><a class="code" href="classtide_1_1_segment_info.html#ac4a14738fc51a92487e58ea7344fa19b">00269</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#ac4a14738fc51a92487e58ea7344fa19b">writer_</a>;
-<a name="l00270"></a><a class="code" href="classtide_1_1_segment_info.html#aafcb9d9ec86a2c103a49db8b4fa636cf">00270</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#aafcb9d9ec86a2c103a49db8b4fa636cf">have_writer_</a>;
-<a name="l00271"></a>00271 
-<a name="l00273"></a>00273             <span class="keywordtype">void</span> reset();
-<a name="l00274"></a>00274     }; <span class="comment">// class SegmentInfo</span>
-<a name="l00275"></a>00275 }; <span class="comment">// namespace tide</span>
-<a name="l00276"></a>00276 
-<a name="l00278"></a>00278 
-<a name="l00279"></a>00279 <span class="preprocessor">#endif // TIDE_SEGMENT_INFO_H_</span>
-<a name="l00280"></a>00280 <span class="preprocessor"></span>
+<a name="l00238"></a>00238         <span class="keyword">protected</span>:
+<a name="l00239"></a><a class="code" href="classtide_1_1_segment_info.html#aca333b2082f415f69a41130b8768d528">00239</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#aca333b2082f415f69a41130b8768d528">uid_</a>;
+<a name="l00240"></a><a class="code" href="classtide_1_1_segment_info.html#a95a01bd09b212676c7ba736e6b2b5177">00240</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a95a01bd09b212676c7ba736e6b2b5177">have_uid_</a>;
+<a name="l00241"></a><a class="code" href="classtide_1_1_segment_info.html#a127064f2ba20a072e48fb087ebb37b86">00241</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a127064f2ba20a072e48fb087ebb37b86">seg_fn_</a>;
+<a name="l00242"></a><a class="code" href="classtide_1_1_segment_info.html#a56a472dd10fb658a4b349217737367d8">00242</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a56a472dd10fb658a4b349217737367d8">have_seg_fn_</a>;
+<a name="l00243"></a><a class="code" href="classtide_1_1_segment_info.html#aabeaa92dac7b53d4939ed7c9edc49e85">00243</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#aabeaa92dac7b53d4939ed7c9edc49e85">prev_uid_</a>;
+<a name="l00244"></a><a class="code" href="classtide_1_1_segment_info.html#a891a79a5f98182c5f7f5ee0c6ad44128">00244</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a891a79a5f98182c5f7f5ee0c6ad44128">have_prev_uid_</a>;
+<a name="l00245"></a><a class="code" href="classtide_1_1_segment_info.html#aa1a4cc176229f7a750bd86dd7ae06a5e">00245</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#aa1a4cc176229f7a750bd86dd7ae06a5e">prev_fn_</a>;
+<a name="l00246"></a><a class="code" href="classtide_1_1_segment_info.html#abb96011a0990f659b7ea8a28ddc2ddbf">00246</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#abb96011a0990f659b7ea8a28ddc2ddbf">have_prev_fn_</a>;
+<a name="l00247"></a><a class="code" href="classtide_1_1_segment_info.html#a34e8cd4f0726beef496d4b899884256a">00247</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#a34e8cd4f0726beef496d4b899884256a">next_uid_</a>;
+<a name="l00248"></a><a class="code" href="classtide_1_1_segment_info.html#a5d45eaddf9d3cc46c8f08b39dd3ebeae">00248</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a5d45eaddf9d3cc46c8f08b39dd3ebeae">have_next_uid_</a>;
+<a name="l00249"></a><a class="code" href="classtide_1_1_segment_info.html#a6e2beb13785d7d84f1877d51a1709544">00249</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a6e2beb13785d7d84f1877d51a1709544">next_fn_</a>;
+<a name="l00250"></a><a class="code" href="classtide_1_1_segment_info.html#afb12bdab13c510b5d5fb2708f4122c68">00250</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#afb12bdab13c510b5d5fb2708f4122c68">have_next_fn_</a>;
+<a name="l00251"></a><a class="code" href="classtide_1_1_segment_info.html#ae3909a95246cc255ac1556887b6a29cc">00251</a>             <a class="code" href="classtide_1_1_binary_element.html" title="Binary primitive element.">BinaryElement</a> <a class="code" href="classtide_1_1_segment_info.html#ae3909a95246cc255ac1556887b6a29cc">seg_fam_</a>;
+<a name="l00252"></a><a class="code" href="classtide_1_1_segment_info.html#adcd7b899ff078322bafce2e3cae483ce">00252</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#adcd7b899ff078322bafce2e3cae483ce">have_seg_fam_</a>;
+<a name="l00253"></a>00253             <span class="comment">// TimecodeScale is a mandatory element, so no boolean is needed</span>
+<a name="l00254"></a><a class="code" href="classtide_1_1_segment_info.html#a8f25b162f10766dd44d1f1e6dc96757e">00254</a>             <a class="code" href="classtide_1_1_u_int_element.html" title="Unsigned integer primitive element.">UIntElement</a> <a class="code" href="classtide_1_1_segment_info.html#a8f25b162f10766dd44d1f1e6dc96757e">tc_scale_</a>;
+<a name="l00255"></a><a class="code" href="classtide_1_1_segment_info.html#a71373de21f43ce2fac559e0950efde1a">00255</a>             <a class="code" href="classtide_1_1_float_element.html" title="Float primitive element.">FloatElement</a> <a class="code" href="classtide_1_1_segment_info.html#a71373de21f43ce2fac559e0950efde1a">duration_</a>;
+<a name="l00256"></a><a class="code" href="classtide_1_1_segment_info.html#ad2bc7aea25b596265bab025ac93152f3">00256</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#ad2bc7aea25b596265bab025ac93152f3">have_duration_</a>;
+<a name="l00257"></a><a class="code" href="classtide_1_1_segment_info.html#acf8eade93641e29a9a0f914ed8ec815b">00257</a>             <a class="code" href="classtide_1_1_date_element.html" title="Date primitive element.">DateElement</a> <a class="code" href="classtide_1_1_segment_info.html#acf8eade93641e29a9a0f914ed8ec815b">date_</a>;
+<a name="l00258"></a><a class="code" href="classtide_1_1_segment_info.html#a1c3ffcc6a1a79f71c857e5d228bde885">00258</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#a1c3ffcc6a1a79f71c857e5d228bde885">have_date_</a>;
+<a name="l00259"></a><a class="code" href="classtide_1_1_segment_info.html#a60a10958b4b70bf0ac7cec9059ef3c6c">00259</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a60a10958b4b70bf0ac7cec9059ef3c6c">title_</a>;
+<a name="l00260"></a><a class="code" href="classtide_1_1_segment_info.html#afc6565e4d6b124d230bf498817dda57c">00260</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#afc6565e4d6b124d230bf498817dda57c">have_title_</a>;
+<a name="l00261"></a><a class="code" href="classtide_1_1_segment_info.html#a846d44992011c0b8f70eeb7229f019f2">00261</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#a846d44992011c0b8f70eeb7229f019f2">muxer_</a>;
+<a name="l00262"></a><a class="code" href="classtide_1_1_segment_info.html#af9e7ea52bea552de78c7008ca757fccf">00262</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#af9e7ea52bea552de78c7008ca757fccf">have_muxer_</a>;
+<a name="l00263"></a><a class="code" href="classtide_1_1_segment_info.html#ac4a14738fc51a92487e58ea7344fa19b">00263</a>             <a class="code" href="classtide_1_1_string_element.html" title="String primitive element.">StringElement</a> <a class="code" href="classtide_1_1_segment_info.html#ac4a14738fc51a92487e58ea7344fa19b">writer_</a>;
+<a name="l00264"></a><a class="code" href="classtide_1_1_segment_info.html#aafcb9d9ec86a2c103a49db8b4fa636cf">00264</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_segment_info.html#aafcb9d9ec86a2c103a49db8b4fa636cf">have_writer_</a>;
+<a name="l00265"></a>00265 
+<a name="l00267"></a>00267             <span class="keyword">virtual</span> std::streamsize body_size() <span class="keyword">const</span>;
+<a name="l00268"></a>00268 
+<a name="l00270"></a>00270             <span class="keyword">virtual</span> std::streamsize read_body(std::istream&amp; input,
+<a name="l00271"></a>00271                     std::streamsize <a class="code" href="namespacetide_1_1ids.html#a689973eb2065e63b1f9b6be026dbe93b" title="Get the number of bytes required by an ID.">size</a>);
+<a name="l00272"></a>00272 
+<a name="l00274"></a>00274             <span class="keywordtype">void</span> reset();
+<a name="l00275"></a>00275     }; <span class="comment">// class SegmentInfo</span>
+<a name="l00276"></a>00276 }; <span class="comment">// namespace tide</span>
+<a name="l00277"></a>00277 
+<a name="l00279"></a>00279 
+<a name="l00280"></a>00280 <span class="preprocessor">#endif // TIDE_SEGMENT_INFO_H_</span>
+<a name="l00281"></a>00281 <span class="preprocessor"></span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -214,7 +215,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

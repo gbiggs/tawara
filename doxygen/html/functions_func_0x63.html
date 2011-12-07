@@ -65,6 +65,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
       <li><a href="functions_vars.html"><span>Variables</span></a></li>
       <li><a href="functions_type.html"><span>Typedefs</span></a></li>
+      <li><a href="functions_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
       <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
@@ -79,6 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_func_0x67.html#index_g"><span>g</span></a></li>
       <li><a href="functions_func_0x68.html#index_h"><span>h</span></a></li>
       <li><a href="functions_func_0x69.html#index_i"><span>i</span></a></li>
+      <li><a href="functions_func_0x6b.html#index_k"><span>k</span></a></li>
       <li><a href="functions_func_0x6c.html#index_l"><span>l</span></a></li>
       <li><a href="functions_func_0x6d.html#index_m"><span>m</span></a></li>
       <li><a href="functions_func_0x6e.html#index_n"><span>n</span></a></li>
@@ -99,7 +102,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
 <li>clear()
-: <a class="el" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba">tide::Tracks</a>
+: <a class="el" href="classtide_1_1_block.html#ad6183429c7f6e50ffd30adf5293deeb6">tide::Block</a>
+, <a class="el" href="classtide_1_1_block_additions.html#afd7d6cda9b1f6fbe0d7aedb3e0a47ef8">tide::BlockAdditions</a>
+, <a class="el" href="classtide_1_1_block_impl.html#a6f39d934bf5aff131f5f0edc1ce47c5d">tide::BlockImpl</a>
+, <a class="el" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba">tide::Tracks</a>
+, <a class="el" href="classtide_1_1_cluster.html#a7519f28b8897e7c54b10412a21ee4b57">tide::Cluster</a>
+, <a class="el" href="classtide_1_1_block_group.html#a1993ad454c25147297d2d828a351846d">tide::BlockGroup</a>
+, <a class="el" href="classtide_1_1_memory_cluster.html#aaee9f240b2b786ea06d15fad2faf85c6">tide::MemoryCluster</a>
+, <a class="el" href="classtide_1_1_simple_block.html#ab121a048c071b71c7cb8fecc2cb4ad93">tide::SimpleBlock</a>
+</li>
+<li>Cluster()
+: <a class="el" href="classtide_1_1_cluster.html#afc9ca9e8d660e65469c79c25936f21c8">tide::Cluster</a>
 </li>
 <li>codec_id()
 : <a class="el" href="classtide_1_1_track_entry.html#a1e6b513b1fc43ecb645e0f0625efd0d0">tide::TrackEntry</a>
@@ -110,9 +123,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>codec_private()
 : <a class="el" href="classtide_1_1_track_entry.html#ade620ee8e816fa6b67ef9f5c4744639a">tide::TrackEntry</a>
 </li>
+<li>codec_state()
+: <a class="el" href="classtide_1_1_block_group.html#a8433291070083ff4ff7caa256e66c0e8">tide::BlockGroup</a>
+</li>
 <li>count()
-: <a class="el" href="classtide_1_1_tracks.html#a916f2798f2a693b6b4343817796b0006">tide::Tracks</a>
+: <a class="el" href="classtide_1_1_simple_block.html#a867bde3d52a8be087595c7fc5b3eeba8">tide::SimpleBlock</a>
 , <a class="el" href="classtide_1_1_track_join_blocks.html#a75c1b4f76fc78cbe47fbd89f718d6c44">tide::TrackJoinBlocks</a>
+, <a class="el" href="classtide_1_1_memory_cluster.html#ac3eb69bceb8ac18a63e5467f4a47d1d5">tide::MemoryCluster</a>
+, <a class="el" href="classtide_1_1_block_impl.html#ac78c4dc39dc6d159931fc542c88f2718">tide::BlockImpl</a>
+, <a class="el" href="classtide_1_1_tracks.html#a916f2798f2a693b6b4343817796b0006">tide::Tracks</a>
+, <a class="el" href="classtide_1_1_block.html#a98dd2bbda536c3864d37a5414c341fe1">tide::Block</a>
+, <a class="el" href="classtide_1_1_cluster.html#aad9bdaf135c096ce763255cca673ea47">tide::Cluster</a>
+, <a class="el" href="classtide_1_1_block_group.html#a8ba5545048523b215919f950aa7d44c6">tide::BlockGroup</a>
+, <a class="el" href="classtide_1_1_block_additions.html#a303f4a687c47fc2b809749f307701507">tide::BlockAdditions</a>
 </li>
 </ul>
 </div>
@@ -130,7 +153,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 25 2011 16:59:11 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

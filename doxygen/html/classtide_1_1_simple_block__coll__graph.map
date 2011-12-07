@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classtide_1_1_block_element.html" title="tide::BlockElement" alt="" coords="51,166,195,194"/>
+<area shape="rect" id="node4" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="5,86,115,114"/>
+<area shape="rect" id="node6" href="$classtide_1_1_block.html" title="Block interface." alt="" coords="139,86,229,114"/>
+<area shape="rect" id="node12" href="$classtide_1_1_block_impl.html" title="Common block functionality implementation." alt="" coords="219,166,336,194"/>
+<area shape="rect" id="node8" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; Block \&gt;" alt="" coords="51,6,317,34"/>
+<area shape="rect" id="node10" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; SimpleBlock \&gt;" alt="" coords="360,166,669,194"/>
+<area shape="rect" id="node15" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; BlockImpl \&gt;" alt="" coords="253,86,549,114"/>
+</map>

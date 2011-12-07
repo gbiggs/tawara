@@ -1,6 +1,6 @@
 /* Tide
  *
- * Source file for the Metaseek element.
+ * Source file for the SeekHead element.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -28,6 +28,7 @@
 #include <tide/metaseek.h>
 
 #include <boost/foreach.hpp>
+#include <numeric>
 #include <tide/seek_element.h>
 #include <tide/vint.h>
 
@@ -38,34 +39,19 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-Metaseek::Metaseek()
+SeekHead::SeekHead()
     : MasterElement(ids::SeekHead)
 {
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// Index management
+// Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-void Metaseek::append(Metaseek::IndexItem item)
+bool tide::operator==(SeekHead const& lhs, SeekHead const& rhs)
 {
-    index_.push_back(SeekElement(item.first, item.second));
-}
-
-
-Metaseek::IndexItem Metaseek::remove(unsigned int pos)
-{
-    SeekElement se = index_[pos];
-    index_.erase(index_.begin() + pos);
-    return Metaseek::IndexItem(se.indexed_id(), se.offset());
-}
-
-
-Metaseek::IndexItem Metaseek::operator[](unsigned int pos)
-{
-    SeekElement se = index_[pos];
-    return Metaseek::IndexItem(se.indexed_id(), se.offset());
+    return lhs.index_ == rhs.index_;
 }
 
 
@@ -77,29 +63,32 @@ Metaseek::IndexItem Metaseek::operator[](unsigned int pos)
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize Metaseek::body_size() const
+std::streamsize add_size(std::streamsize x, tide::SeekHead::value_type v)
 {
-    std::streamsize result(0);
-    BOOST_FOREACH(SeekElement ii, index_)
-    {
-        result += ii.size();
-    }
-    return result;
+    SeekElement se(v.first, v.second);
+    return x + se.size();
+}
+
+std::streamsize SeekHead::body_size() const
+{
+    return std::accumulate(index_.begin(), index_.end(), 0,
+            std::ptr_fun(add_size));
 }
 
 
-std::streamsize Metaseek::write_body(std::ostream& output)
+std::streamsize SeekHead::write_body(std::ostream& output)
 {
     std::streamsize written(0);
-    BOOST_FOREACH(SeekElement ii, index_)
+    BOOST_FOREACH(value_type entry, index_)
     {
-        written += ii.write(output);
+        SeekElement se(entry.first, entry.second);
+        written += se.write(output);
     }
     return written;
 }
 
 
-std::streamsize Metaseek::read_body(std::istream& input,
+std::streamsize SeekHead::read_body(std::istream& input,
         std::streamsize size)
 {
     // Clear the index
@@ -123,7 +112,7 @@ std::streamsize Metaseek::read_body(std::istream& input,
         // Read the body
         SeekElement se(ids::Null, 0);
         read_bytes += se.read(input);
-        index_.push_back(se);
+        index_.insert(std::make_pair(se.indexed_id(), se.offset()));
     }
     if (read_bytes != size)
     {

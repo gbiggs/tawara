@@ -381,6 +381,46 @@ namespace tide
      */
     struct EmptyBlockAdditionsElement : virtual TideError{};
 
+    /** \brief A segment was found with multiple meta-seeks.
+     *
+     * Segments may only have one SeekHead element. If multiple are found, this
+     * error occurs.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct MultipleSeekHeads : virtual TideError{};
+
+    /** \brief A segment was found without a segment info element.
+     *
+     * Every Segment element must have an Info element present. If none is
+     * found, this error occurs.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct NoSegmentInfo : virtual TideError{};
+
+    /** \brief A segment was found without a tracks information element.
+     *
+     * Every Segment element must have a Tracks element present. If none is
+     * found, this error occurs.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct NoTracks : virtual TideError{};
+
+    /** \brief A segment was found without at least one cluster.
+     *
+     * Every Segment element must have at least one Cluster element present. If
+     * none is found, this error occurs.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct NoClusters : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags

@@ -738,10 +738,10 @@ Tag                  2     73 73       \* \*               m A single tag.
 Targets              3     63 C0                           m All UIDs where the tags applies. Empty if the tag applies to everything in the segment.
 TagTrackUID          4     63 C5          \*       0       u A unique ID to identify a Track(s) the tag applies to. If the value is
                                                              zero at this level, the tag applies to all tracks in the segment.
-TagEditionUID        4     63 C5          \*       0       u A unique ID to identify the EditionEntry(s) the tag applies to. If the
+TagEditionUID        4     63 C9          \*       0       u A unique ID to identify the EditionEntry(s) the tag applies to. If the
                                                              value is zero at this level, the tag applies to all editions in the
                                                              Segment.
-TagChapterUID        4     63 C5          \*       0       u A unique ID to identify the Chapter(s) the tag applies to. If the
+TagChapterUID        4     63 C4          \*       0       u A unique ID to identify the Chapter(s) the tag applies to. If the
                                                              value is zero at this level, the tag applies to all chapters in the
                                                              Segment.
 TagAttachmentUID     4     63 C6          \*       0       u A unique ID to identify an Attachment(s) the tag applies to. If the

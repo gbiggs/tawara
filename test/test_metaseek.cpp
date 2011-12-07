@@ -36,56 +36,56 @@
 #include "test_utils.h"
 
 
-TEST(Metaseek, Create)
+TEST(SeekHead, Create)
 {
-    tide::Metaseek e;
+    tide::SeekHead e;
     EXPECT_EQ(tide::ids::SeekHead, e.id());
     EXPECT_EQ(0, e.index_size());
 }
 
 
-TEST(Metaseek, Append)
+TEST(SeekHead, Append)
 {
-    tide::Metaseek e;
-    e.append(tide::Metaseek::IndexItem(tide::ids::EBML, 15));
+    tide::SeekHead e;
+    e.append(tide::SeekHead::IndexItem(tide::ids::EBML, 15));
     ASSERT_EQ(1, e.index_size());
-    e.append(tide::Metaseek::IndexItem(tide::ids::SeekHead, 4829));
+    e.append(tide::SeekHead::IndexItem(tide::ids::SeekHead, 4829));
     ASSERT_EQ(2, e.index_size());
-    tide::Metaseek::IndexItem i0 = e[0];
+    tide::SeekHead::IndexItem i0 = e[0];
     EXPECT_EQ(i0.first, tide::ids::EBML);
     EXPECT_EQ(i0.second, 15);
-    tide::Metaseek::IndexItem i1 = e[1];
+    tide::SeekHead::IndexItem i1 = e[1];
     EXPECT_EQ(i1.first, tide::ids::SeekHead);
     EXPECT_EQ(i1.second, 4829);
 }
 
 
-TEST(Metaseek, Remove)
+TEST(SeekHead, Remove)
 {
-    tide::Metaseek e;
-    e.append(tide::Metaseek::IndexItem(tide::ids::SeekHead, 4829));
-    e.append(tide::Metaseek::IndexItem(tide::ids::EBML, 15));
+    tide::SeekHead e;
+    e.append(tide::SeekHead::IndexItem(tide::ids::SeekHead, 4829));
+    e.append(tide::SeekHead::IndexItem(tide::ids::EBML, 15));
     ASSERT_EQ(2, e.index_size());
     e.remove(0);
     ASSERT_EQ(1, e.index_size());
-    tide::Metaseek::IndexItem i0 = e[0];
+    tide::SeekHead::IndexItem i0 = e[0];
     EXPECT_EQ(i0.first, tide::ids::EBML);
     EXPECT_EQ(i0.second, 15);
-    e.append(tide::Metaseek::IndexItem(tide::ids::DocType, 42));
+    e.append(tide::SeekHead::IndexItem(tide::ids::DocType, 42));
     e.remove(1);
-    tide::Metaseek::IndexItem i1 = e[0];
+    tide::SeekHead::IndexItem i1 = e[0];
     EXPECT_EQ(i1.first, tide::ids::EBML);
     EXPECT_EQ(i1.second, 15);
 }
 
 
-TEST(Metaseek, IndexOperator)
+TEST(SeekHead, IndexOperator)
 {
-    tide::Metaseek e;
-    e.append(tide::Metaseek::IndexItem(tide::ids::SeekHead, 4829));
-    e.append(tide::Metaseek::IndexItem(tide::ids::EBML, 15));
-    e.append(tide::Metaseek::IndexItem(tide::ids::DocType, 42));
-    tide::Metaseek::IndexItem i0 = e[0];
+    tide::SeekHead e;
+    e.append(tide::SeekHead::IndexItem(tide::ids::SeekHead, 4829));
+    e.append(tide::SeekHead::IndexItem(tide::ids::EBML, 15));
+    e.append(tide::SeekHead::IndexItem(tide::ids::DocType, 42));
+    tide::SeekHead::IndexItem i0 = e[0];
     EXPECT_EQ(i0.first, tide::ids::SeekHead);
     EXPECT_EQ(i0.second, 4829);
     i0 = e[2];
@@ -94,9 +94,9 @@ TEST(Metaseek, IndexOperator)
 }
 
 
-TEST(Metaseek, Size)
+TEST(SeekHead, Size)
 {
-    tide::Metaseek ms;
+    tide::SeekHead ms;
 
     EXPECT_EQ(tide::ids::size(tide::ids::SeekHead) +
             tide::vint::size(0),
@@ -111,7 +111,7 @@ TEST(Metaseek, Size)
     BOOST_FOREACH(tide::SeekElement e, children)
     {
         body_size += e.size();
-        ms.append(tide::Metaseek::IndexItem(e.indexed_id(), e.offset()));
+        ms.append(tide::SeekHead::IndexItem(e.indexed_id(), e.offset()));
     }
     EXPECT_EQ(tide::ids::size(tide::ids::SeekHead) +
             tide::vint::size(body_size) + body_size,
@@ -119,12 +119,12 @@ TEST(Metaseek, Size)
 }
 
 
-TEST(Metaseek, Write)
+TEST(SeekHead, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
 
-    tide::Metaseek ms;
+    tide::SeekHead ms;
 
     std::vector<tide::SeekElement> children;
     children.push_back(tide::SeekElement(tide::ids::SeekHead, 0x7F));
@@ -135,7 +135,7 @@ TEST(Metaseek, Write)
     BOOST_FOREACH(tide::SeekElement e, children)
     {
         body_size += e.size();
-        ms.append(tide::Metaseek::IndexItem(e.indexed_id(), e.offset()));
+        ms.append(tide::SeekHead::IndexItem(e.indexed_id(), e.offset()));
     }
     tide::ids::write(tide::ids::SeekHead, expected);
     tide::vint::write(body_size, expected);
@@ -151,7 +151,7 @@ TEST(Metaseek, Write)
 }
 
 
-TEST(Metaseek, Read)
+TEST(SeekHead, Read)
 {
     std::stringstream input;
 
@@ -171,11 +171,11 @@ TEST(Metaseek, Read)
         e.write(input);
     }
 
-    tide::Metaseek ms;
+    tide::SeekHead ms;
     EXPECT_EQ(tide::vint::size(body_size) + body_size,
             ms.read(input));
     EXPECT_EQ(3, ms.index_size());
-    tide::Metaseek::IndexItem ii(ms[0]);
+    tide::SeekHead::IndexItem ii(ms[0]);
     EXPECT_EQ(tide::ids::SeekHead, ii.first);
     EXPECT_EQ(0x7F, ii.second);
     ii = ms[1];
@@ -189,7 +189,7 @@ TEST(Metaseek, Read)
     input.str(std::string());
     tide::vint::write(0, input);
     EXPECT_EQ(tide::vint::size(0), ms.read(input));
-    // Metaseek should be clearing its stored index before reading, so the
+    // SeekHead should be clearing its stored index before reading, so the
     // previous test's index should not affect this result
     EXPECT_EQ(0, ms.index_size());
     // Body size value wrong (too small)

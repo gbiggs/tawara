@@ -28,7 +28,9 @@
 #if !defined(TIDE_SEGMENT_H_)
 #define TIDE_SEGMENT_H_
 
+#include <map>
 #include <tide/master_element.h>
+#include <tide/metaseek.h>
 #include <tide/win_dll.h>
 
 /// \addtogroup elements Elements
@@ -71,7 +73,8 @@ namespace tide
             /** \brief Finalise writing of the segment.
              *
              * Calculates the total size of the segment and writes it into the
-             * segment header, finalising the segment.
+             * segment header, followed by writing in the SeekHead element as
+             * the first child of the Segment, thus finalising the segment.
              *
              * The write pointer in output must be positioned at the first byte
              * after the last byte of the segment before this method is called.
@@ -93,7 +96,7 @@ namespace tide
              * in this index. Typically, all but the first cluster are not
              * found in the index.
              */
-            std::multimap<ids::ID, std::streamoff> index;
+            SeekHead index;
 
         protected:
             /// The size of the segment, as read from the file.
@@ -121,12 +124,14 @@ namespace tide
 
             /** \brief Element body writing.
              *
-             * This function does not write anything. The segment's child
-             * elements must be manually written, followed by calling
-             * finalise().
+             * This function, which opens up a segment for writing, does not
+             * actually write any final content. Instead, it preserves a chunk
+             * of space at the beginning of the file using a Void element for
+             * the SeekHead element to be written into by finalise().
+             *
+             * The size of space reserved is 1024 bytes.
              */
-            std::streamsize write_body(std::ostream& output)
-                { return 0; }
+            std::streamsize write_body(std::ostream& output);
 
             /** \brief Element body loading.
              *
@@ -147,6 +152,7 @@ namespace tide
              * read during element presence checks. In other words, this is the
              * number of bytes into the segment that the read pointer has
              * moved.
+             * \throw MultipleSeekHeads if the segment has more than one index.
              * \throw NoSegmentInfo if the SegmentInfo element is not found.
              * \throw NoTracks if the Tracks element is not found.
              * \throw NoClusters if at least one Cluster element is not found.

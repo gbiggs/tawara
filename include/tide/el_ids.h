@@ -127,6 +127,59 @@ namespace tide
                         const ID TrackJoinBlocks(0xE9);
                             const ID TrackJoinUID(0xED);
 
+            const ID Cues(0x1C53BB6B);
+                const ID CuePoint(0xBB);
+                    const ID CueTime(0xB3);
+                    const ID CueTrackPositions(0xB7);
+                        const ID CueTrack(0xF7);
+                        const ID CueClusterPosition(0xF1);
+                        const ID CueBlockNumber(0x5378);
+                        const ID CueCodecState(0xEA);
+                        const ID CueReference(0xDB);
+                            const ID CueRefTime(0x96);
+
+            const ID Attachments(0x1941A469);
+                const ID AttachedFile(0x61A7);
+                    const ID FileDescription(0x467E);
+                    const ID FileName(0x466E);
+                    const ID FileMimeType(0x4660);
+                    const ID FileData(0x465C);
+                    const ID FileUID(0x46AE);
+
+            const ID Chapters(0x1043A770);
+                const ID EditionEntry(0x45B9);
+                    const ID EditionUID(0x45BC);
+                    const ID EditionFlagHidden(0x45BD);
+                    const ID EditionFlagDefault(0x45DB);
+                    const ID EditionFlagOrdered(0x45DD);
+                    const ID ChapterAtom(0xB6);
+                        const ID ChapterUID(0x73C4);
+                        const ID ChapterTimeStart(0x91);
+                        const ID ChapterTimeEnd(0x92);
+                        const ID ChapterFlagHidden(0x98);
+                        const ID ChapterFlagEnabled(0x4598);
+                        const ID ChapterSegmentUID(0x6E67);
+                        const ID ChapterTrack(0x8F);
+                            const ID ChapterTrackNumber(0x89);
+                        const ID ChapterDisplay(0x80);
+                            const ID ChapString(0x85);
+                            const ID ChapLanguage(0x437C);
+                            const ID ChapCountry(0x437E);
+
+            const ID Tags(0x1254C367);
+                const ID Tag(0x7373);
+                    const ID Targets(0x63C0);
+                        const ID TagTrackUID(0x63C5);
+                        const ID TagEditionUID(0x63C9);
+                        const ID TagChapterUID(0x63C4);
+                        const ID TagAttachmentUID(0x63C6);
+                    const ID SimpleTag(0x67C8);
+                        const ID TagName(0x45A3);
+                        const ID TagLanguage(0x447A);
+                        const ID TagDefault(0x4484);
+                        const ID TagString(0x4487);
+                        const ID TagBinary(0x4485);
+
         /** \brief Get the number of bytes required by an ID.
          *
          * The size required by an ID depends on its value, and will range from

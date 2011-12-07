@@ -1,6 +1,6 @@
 /* Tide
  *
- * Header file for the Metaseek element.
+ * Header file for the SeekHead element.
  *
  * Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
  *     RT-Synthesis Research Group
@@ -28,72 +28,176 @@
 #if !defined(TIDE_METASEEK_H_)
 #define TIDE_METASEEK_H_
 
+#include <map>
 #include <tide/el_ids.h>
 #include <tide/master_element.h>
 #include <tide/seek_element.h>
 #include <tide/win_dll.h>
-#include <vector>
 
 /// \addtogroup elements Elements
 /// @{
 
 namespace tide
 {
-    /** \brief The Metaseek element, used as an index for a Tide file.
+    /** \brief The SeekHead element, used as an index for a Tide file.
      *
      * Generally, any Tide segment should contain one, and only one, instance
-     * of a Metaseek element. This element should provide the byte offsets in
+     * of a SeekHead element. This element should provide the byte offsets in
      * the data stream of the other Level 1 elements (SegmentInfo, Tracks,
-     * etc.) in the segment. This function also means that the Metaseek element
+     * etc.) in the segment. This function also means that the SeekHead element
      * should be placed first in its segment, so that it can be found quickly
      * to speed up file loading.
      *
      * When writing Tide files, it is advisable to reserve some space at the
-     * start of the segment for the Metaseek element to be written in once the
+     * start of the segment for the SeekHead element to be written in once the
      * file is complete.
      */
-    class TIDE_EXPORT Metaseek : public MasterElement
+    class TIDE_EXPORT SeekHead : public MasterElement
     {
         public:
-            /** Create a new Metaseek element.
+            /// \brief The key type (Key) of this container.
+            typedef ids::ID key_type;
+            /// \brief The mapped type (T) of this container.
+            typedef std::streamoff mapped_type;
+
+        protected:
+            /// \brief The type of the internal storage.
+            typedef std::multimap<key_type, mapped_type> storage_type_;
+
+        public:
+            /** Create a new SeekHead element.
              *
              * Upon creation, the element's index will be empty.
              */
-            Metaseek();
+            SeekHead();
 
-            /// \brief Destructor.
-            virtual ~Metaseek() {}
+            /// \brief The value type of this container.
+            typedef storage_type_::value_type value_type;
+            /// \brief The size type of this container.
+            typedef storage_type_::size_type size_type;
+            /// \brief The reference type.
+            typedef storage_type_::reference reference;
+            /// \brief The constant reference type.
+            typedef storage_type_::const_reference const_reference;
+            /// \brief The random access iterator type.
+            typedef storage_type_::iterator iterator;
+            /// \brief The constant random access iterator type.
+            typedef storage_type_::const_iterator const_iterator;
+            /// \brief The reversed random access iterator type.
+            typedef storage_type_::reverse_iterator reverse_iterator;
+            /// \brief The constant reversed random access iterator type.
+            typedef storage_type_::const_reverse_iterator
+                const_reverse_iterator;
 
-            /** \brief An index item, as a mapping from an EBML element ID to
-             * a stream offset.
+            /** \brief Replace the stored offsets with those from another
+             * SeekHead element.
              */
-            typedef std::pair<ids::ID, std::streampos> IndexItem;
+            SeekHead& operator=(SeekHead const& other)
+                { index_ = other.index_; return *this; }
 
-            /** \brief Append a new index item.
+            /// \brief Get an iterator to the first index entry.
+            iterator begin() { return index_.begin(); }
+            /// \brief Get an iterator to the first index entry.
+            const_iterator begin() const { return index_.begin(); }
+            /** \brief Get an iterator to the position past the last index
+             * entry.
+             */
+            iterator end() { return index_.end(); }
+            /** \brief Get an iterator to the position past the last index
+             * entry.
+             */
+            const_iterator end() const { return index_.end(); }
+            /// \brief Get a reverse iterator to the last index entry.
+            reverse_iterator rbegin() { return index_.rbegin(); }
+            /// \brief Get a reverse iterator to the last index entry.
+            const_reverse_iterator rbegin() const { return index_.rbegin(); }
+            /** \brief Get a reverse iterator to the position before the first
+             * index entry.
+             */
+            reverse_iterator rend() { return index_.rend(); }
+            /** \brief Get a reverse iterator to the position before the first
+             * index entry.
+             */
+            const_reverse_iterator rend() const { return index_.rend(); }
+
+            /// \brief Check if there are no index entries.
+            bool empty() const { return index_.empty(); }
+            /// \brief Get the number of index entries.
+            size_type count() const { return index_.size(); }
+            /// \brief Get the maximum number of index entries.
+            size_type max_count() const { return index_.max_size(); }
+
+            /// \brief Remove all index entries.
+            void clear() { index_.clear(); }
+            /** \brief Insert a new index entry.
              *
-             * \param[in] item The index item to append.
-             */
-            void append(IndexItem item);
-            /** \brief Remove an index item.
+             * If an index entry already exists with the same ID, the new
+             * offset is entered into the index after it. No index entries are
+             * overwritten.
              *
-             * \param[in] pos The position in the index of the item to remove.
-             * \return The removed IndexItem.
-             */
-            IndexItem remove(unsigned int pos);
-
-            /** \brief Indexing operator.
+             * \param[in] value The offset to insert and its ID.
              *
-             * Gets the index item at the specified position.
+             * \return The iterator at the position where the offset was added.
              */
-            IndexItem operator[](unsigned int pos);
+            iterator insert(value_type const& value)
+                { return index_.insert(value); }
+            /** \brief Insert a range of offsets.
+             *
+             * \param[in] first The start of the range.
+             * \param[in] last The end of the range.
+             */
+            void insert(const_iterator first, const_iterator last)
+                { index_.insert(first, last); }
+            /** \brief Erase the index entry at the specified iterator.
+             *
+             * \param[in] position The position to erase at.
+             */
+            void erase(iterator position) { index_.erase(position); }
+            /** \brief Erase a range of index entries.
+             *
+             * \param[in] first The start of the range.
+             * \param[in] last The end of the range.
+             */
+            void erase(iterator first, iterator last)
+                { index_.erase(first, last); }
+            /** \brief Erase all index entries with the given ID.
+             *
+             * \param[in] id The ID to erase.
+             * \return The ID of entries erased.
+             */
+            size_type erase(key_type const& id)
+                { return index_.erase(id); }
+            /** \brief Swaps the contents of this SeekHead with another.
+             *
+             * \param[in] other The other SeekHead to swap with.
+             */
+            void swap(SeekHead& other)
+                { index_.swap(other.index_); }
 
-            /// \brief Get the number of items in the index.
-            unsigned int index_size() const { return index_.size(); }
+            /** \brief Search for the index entry with the given ID.
+             *
+             * If multiple offsets exist for the ID, the first one inserted
+             * will be returned.
+             *
+             * \param[in] id The ID to search for.
+             * \return An iterator to the matching offset, or end() if
+             * there is no index entry with that ID.
+             */
+            iterator find(key_type const& id) { return index_.find(id); }
+            /** \brief Search for the index entry with the given ID.
+             *
+             * \param[in] id The ID to search for.
+             * \return An iterator to the matching offset, or end() if
+             * there is no index entry with that ID.
+             */
+            const_iterator find(key_type const& id) const
+                { return index_.find(id); }
 
-            /// TODO: Proper iterator model for the index
+            /// \brief Equality operator.
+            friend bool operator==(SeekHead const& lhs, SeekHead const& rhs);
 
         protected:
-            std::vector<SeekElement> index_;
+            storage_type_ index_;
 
             /// \brief Get the size of the body of this element.
             virtual std::streamsize body_size() const;
@@ -104,7 +208,10 @@ namespace tide
             /// \brief Element body loading.
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
-    }; // class Metaseek
+    }; // class SeekHead
+
+    /// \brief Equality operator.
+    bool operator==(SeekHead const& lhs, SeekHead const& rhs);
 }; // namespace Tide
 
 /// @}

@@ -56,6 +56,9 @@ std::streamsize Segment::finalise(std::ostream& output)
     output.seekp(offset_ + ids::size(ids::Segment), std::ios::beg);
     write_size(output);
     output.seekp(cur_pos);
+
+    // Write the metaseek element.
+
     return size();
 }
 
@@ -91,32 +94,95 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
     if (id_res.first == ids::SeekHead)
     {
         have_seekhead = true;
-        // Read the SeekHead element size
-        vint::ReadResult size_res = vint::read(input);
-        read_bytes += size_res.second;
-        read_bytes += read_seekhead(input, size_res.first);
-        if (index.find(ids::SegmentInfo))
+        // Read the SeekHead element
+        read_bytes += index.read(input);
+        if (index.find(ids::Info) != index.end())
         {
             have_segmentinfo = true;
         }
-        if (index.find(ids::Tracks))
+        if (index.find(ids::Tracks) != index.end())
         {
             have_tracks = true;
         }
-        if (index.find(ids::Cluster))
+        if (index.find(ids::Cluster) != index.end())
         {
             have_clusters = true;
         }
     }
 
-    if (!have_segmentinfo)
+    // Search for the other necessary elements
+    while (read_bytes < size &&
+            (!have_segmentinfo || !have_tracks || !have_clusters))
     {
+        // Read the ID
+        ids::ReadResult id_res = ids::read(input);
+        ids::ID id(id_res.first);
+        read_bytes += id_res.second;
+        switch(id)
+        {
+            case ids::SeekHead:
+                if (have_seekhead)
+                {
+                    throw MultipleSeekHeads() << err_pos(offset_);
+                }
+                // Read the SeekHead element
+                read_bytes += index.read(input);
+                if (index.find(ids::Info) != index.end())
+                {
+                    have_segmentinfo = true;
+                }
+                if (index.find(ids::Tracks) != index.end())
+                {
+                    have_tracks = true;
+                }
+                if (index.find(ids::Cluster) != index.end())
+                {
+                    have_clusters = true;
+                }
+                break;
+            case ids::Info:
+                have_segmentinfo = true;
+                index.insert(std::make_pair(ids::Info,
+                            input.tellg() - id_res.second));
+                break;
+            case ids::Tracks:
+                have_tracks = true;
+                index.insert(std::make_pair(ids::Tracks,
+                            input.tellg() - id_res.second));
+                break;
+            case ids::Cluster:
+                have_clusters = true;
+                index.insert(std::make_pair(ids::Cluster,
+                            input.tellg() - id_res.second));
+                break;
+            case ids::Cues:
+            case ids::Attachments:
+            case ids::Chapters:
+            case ids::Tags:
+                index.insert(std::make_pair(id,
+                            input.tellg() - id_res.second));
+                break;
+            default:
+                throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
+                    // The cast here makes Apple's LLVM compiler happy
+                    err_pos(static_cast<std::streamsize>(input.tellg()) -
+                            id_res.second);
+        }
     }
 
-    default:
-        throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
-            // The cast here makes Apple's LLVM compiler happy
-            err_pos(static_cast<std::streamsize>(input.tellg()) -
-                    id_res.second);
+    if (!have_segmentinfo)
+    {
+        throw NoSegmentInfo() << err_pos(offset_);
+    }
+    if (!have_tracks)
+    {
+        throw NoTracks() << err_pos(offset_);
+    }
+    if (!have_clusters)
+    {
+        throw NoClusters() << err_pos(offset_);
+    }
+
+    return read_bytes;
 }
 

@@ -28,6 +28,7 @@
 #if !defined(TIDE_TRACKS_H_)
 #define TIDE_TRACKS_H_
 
+#include <boost/operators.hpp>
 #include <map>
 #include <tide/master_element.h>
 #include <tide/track_entry.h>

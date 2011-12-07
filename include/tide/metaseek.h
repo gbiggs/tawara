@@ -28,6 +28,7 @@
 #if !defined(TIDE_METASEEK_H_)
 #define TIDE_METASEEK_H_
 
+#include <boost/operators.hpp>
 #include <map>
 #include <tide/el_ids.h>
 #include <tide/master_element.h>
@@ -52,7 +53,8 @@ namespace tide
      * start of the segment for the SeekHead element to be written in once the
      * file is complete.
      */
-    class TIDE_EXPORT SeekHead : public MasterElement
+    class TIDE_EXPORT SeekHead : public MasterElement,
+            public boost::equality_comparable<SeekHead>
     {
         public:
             /// \brief The key type (Key) of this container.

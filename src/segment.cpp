@@ -69,6 +69,12 @@ std::streamsize Segment::write_size(std::ostream& output)
 }
 
 
+std::streamsize Segment::write_body(std::ostream& output)
+{
+    return 0;
+}
+
+
 std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
 {
     // +2 for the size values (which must be at least 1 byte each)

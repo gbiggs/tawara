@@ -49,6 +49,13 @@ Segment::Segment()
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
+std::streamsize Segment::size() const
+{
+    // The size of a segment is always written using 8 bytes
+    return tide::ids::size(id_) + 8 + body_size();
+}
+
+
 std::streamsize Segment::finalise(std::iostream& stream)
 {
     if (!writing_)
@@ -60,7 +67,8 @@ std::streamsize Segment::finalise(std::iostream& stream)
     std::streamoff cur_pos(stream.tellp());
 
     // Move to the beginning of the segment
-    stream.seekp(offset_ + ids::size(ids::Segment), std::ios::beg);
+    stream.seekp(static_cast<std::streamsize>(offset_) +
+            ids::size(ids::Segment), std::ios::beg);
     // Skip the (dummy) size value
     stream.seekp(8, std::ios::cur);
     // Get the size of the void element that is providing padding
@@ -113,7 +121,8 @@ std::streamsize Segment::finalise(std::iostream& stream)
     // Calculate the size of the segment
     size_ = stream.tellp() - offset_;
     // Write the size way back at the beginning of the segment
-    stream.seekp(offset_ + ids::size(ids::Segment), std::ios::beg);
+    stream.seekp(static_cast<std::streamsize>(offset_) +
+            ids::size(ids::Segment), std::ios::beg);
     write_size(stream);
 
     return size();
@@ -221,12 +230,14 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
             case ids::Info:
                 have_segmentinfo = true;
                 index.insert(std::make_pair(ids::Info,
-                            input.tellg() - id_res.second));
+                            static_cast<std::streamsize>(input.tellg()) -
+                            id_res.second));
                 break;
             case ids::Tracks:
                 have_tracks = true;
                 index.insert(std::make_pair(ids::Tracks,
-                            input.tellg() - id_res.second));
+                            static_cast<std::streamsize>(input.tellg()) -
+                            id_res.second));
                 break;
             case ids::Cluster:
                 if (!have_clusters)
@@ -234,7 +245,8 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
                     // Only store the first cluster in the index
                     have_clusters = true;
                     index.insert(std::make_pair(ids::Cluster,
-                                input.tellg() - id_res.second));
+                                static_cast<std::streamsize>(input.tellg()) -
+                                id_res.second));
                 }
                 break;
             case ids::Cues:
@@ -242,7 +254,8 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
             case ids::Chapters:
             case ids::Tags:
                 index.insert(std::make_pair(id,
-                            input.tellg() - id_res.second));
+                            static_cast<std::streamsize>(input.tellg()) -
+                            id_res.second));
                 skip_read(input, false);
                 break;
             case ids::Void:

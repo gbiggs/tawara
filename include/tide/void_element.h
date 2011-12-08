@@ -51,12 +51,12 @@ namespace tide
         public:
             /** \brief Create a new void element.
              *
-             * \param[in] size The size of the element, in bytes. This much
+             * \param[in] tgt_size The size of the element, in bytes. This much
              * space will be reserved in the file.
              * \param[in] fill If true, when writing the element, the element's
              * body will be filled with 0x00.
              */
-            VoidElement(std::streamsize size, bool fill=false);
+            VoidElement(std::streamsize tgt_size, bool fill=false);
 
             /** \brief Create a new VoidElement that replaces another element.
              *
@@ -75,7 +75,7 @@ namespace tide
              * A void element has a size value, given in bytes, which
              * determines how much space it reserves in the byte stream.
              */
-            void set_size(std::streamsize size) { size_ = size; }
+            void set_size(std::streamsize tgt_size);
 
             /// \brief Get the total size of the element.
             std::streamsize size() const;

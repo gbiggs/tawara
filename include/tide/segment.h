@@ -71,6 +71,9 @@ namespace tide
             /// \brief Create a new segment element.
             Segment();
 
+            /// \brief Get the total size of the element.
+            std::streamsize size() const;
+
             /** \brief Finalise writing of the segment.
              *
              * Calculates the total size of the segment and writes it into the
@@ -107,6 +110,14 @@ namespace tide
              * origin timecode of the segment and its timecode scale.
              */
             SegmentInfo info;
+
+            /** \brief Calculate an offset within the segment.
+             *
+             * This function turns an offset in the output stream into an
+             * offset in this segment, which is necessary for the index.
+             */
+            std::streamsize offset_in(std::streamsize file_offset)
+                { return file_offset - offset_; }
 
         protected:
             /// The size of the segment, as read from the file.

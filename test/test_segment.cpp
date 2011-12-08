@@ -28,177 +28,149 @@
 #include <gtest/gtest.h>
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
+#include <tide/memory_cluster.h>
 #include <tide/segment.h>
+#include <tide/segment_info.h>
+#include <tide/tracks.h>
 #include <tide/vint.h>
+#include <tide/void_element.h>
 
 #include "test_utils.h"
 
 
 TEST(Segment, Create)
 {
-    Segment s;
+    EXPECT_NO_THROW(tide::Segment s);
 }
 
 
-TEST(Segment, Timecode)
+TEST(Segment, OffsetIn)
 {
-    FakeCluster e(42);
-    EXPECT_EQ(42, e.timecode());
-    e.timecode(84);
-    EXPECT_EQ(84, e.timecode());
-}
-
-
-TEST(Segment, SilentTracks)
-{
-    FakeCluster e;
-    EXPECT_TRUE(e.silent_tracks().empty());
-    e.silent_tracks().push_back(tide::SilentTrackNumber(15));
-    EXPECT_FALSE(e.silent_tracks().empty());
-    EXPECT_EQ(e.silent_tracks()[0], 15);
-}
-
-
-TEST(Segment, Position)
-{
-    FakeCluster e;
-    EXPECT_THROW(e.position(), tide::NotImplemented);
-}
-
-
-TEST(Segment, PreviousSize)
-{
-    FakeCluster e;
-    EXPECT_EQ(0, e.previous_size());
-    e.previous_size(0x1234);
-    EXPECT_EQ(0x1234, e.previous_size());
+    tide::Segment s;
+    // For a new segment, the offset is zero
+    EXPECT_EQ(s.offset_in(42), 42);
 }
 
 
 TEST(Segment, Size)
 {
-    FakeCluster e;
-    tide::UIntElement tc(tide::ids::Timecode, 0);
-    std::streamsize body_size(tc.size());
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            e.size());
-
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    body_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
-        st1.size() + st2.size();
-    e.silent_tracks().push_back(tide::SilentTrackNumber(1));
-    e.silent_tracks().push_back(tide::SilentTrackNumber(2));
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            e.size());
-
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
-    body_size += ps.size();
-    e.previous_size(0x1234);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            e.size());
+    tide::Segment s;
+    // Segment size always 8 bytes
+    EXPECT_EQ(tide::ids::size(tide::ids::Segment) + 8 +
+            4096, s.size());
 }
 
 
 TEST(Segment, Write)
 {
-    std::ostringstream output;
+    std::stringstream output;
     std::stringstream expected;
-    tide::UIntElement tc(tide::ids::Timecode, 0);
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
+    tide::Segment s;
+    std::streamsize body_size(0), expected_size(0);
 
-    FakeCluster e;
-    std::streamsize expected_size(tc.size());
-    tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected);
-    tc.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(expected_size) + expected_size,
-            e.write(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
+    tide::SeekHead index;
+    index.insert(std::make_pair(tide::ids::Tracks, 4096));
+    index.insert(std::make_pair(tide::ids::Cluster, 5000));
+    tide::SegmentInfo info;
+    info.date(12345);
+    info.title("test segment");
+    body_size = index.size() + info.size();
 
-    expected_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
-        st1.size() + st2.size() + ps.size();
-    e.silent_tracks().push_back(tide::SilentTrackNumber(1));
-    e.silent_tracks().push_back(tide::SilentTrackNumber(2));
-    e.previous_size(0x1234);
-    output.str(std::string());
-    expected.str(std::string());
-    tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected);
-    tc.write(expected);
-    tide::ids::write(tide::ids::SilentTracks, expected);
-    tide::vint::write(st1.size() + st2.size(), expected);
-    st1.write(expected);
-    st2.write(expected);
-    ps.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(expected_size) + expected_size,
-            e.write(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
+    s.index.insert(std::make_pair(tide::ids::Tracks, 4096));
+    s.index.insert(std::make_pair(tide::ids::Cluster, 5000));
+    s.info.date(12345);
+    s.info.title("test segment");
+
+    expected_size = tide::ids::write(tide::ids::Segment, expected);
+    expected_size += tide::vint::write(4096, expected);
+    expected_size += 4096;
+    index.write(expected);
+    info.write(expected);
+    EXPECT_EQ(tide::ids::size(tide::ids::Segment) + 8 + 4096,
+            s.write(output));
+    EXPECT_EQ(tide::ids::size(tide::ids::Segment) + 8 + 4096,
+            s.finalise(output));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
+            output.str());
+
+    // TODO: test the case where there is not enough padding for the SeekHead
+    // or the SegmentInfo or both.
 }
 
 
 TEST(Segment, Read)
 {
     std::stringstream input;
-    tide::UIntElement tc(tide::ids::Timecode, 42);
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
 
-    FakeCluster e;
-    std::streamsize body_size(tc.size());
+    // Reading with a complete index
+    tide::SeekHead index;
+    index.insert(std::make_pair(tide::ids::Tracks, 4096));
+    index.insert(std::make_pair(tide::ids::Cluster, 5000));
+    tide::SegmentInfo info;
+    info.date(12345);
+    info.title("test segment");
+    tide::VoidElement ve(2000, true);
+    tide::Tracks tracks;
+    tide::MemoryCluster cluster;
+    std::streamsize body_size(index.size() + info.size() + ve.size() +
+            tracks.size() + cluster.size());
+
     tide::vint::write(body_size, input);
-    tc.write(input);
+    index.write(input);
+    info.write(input);
+    ve.write(input);
+    tracks.write(input);
+    cluster.write(input);
+    tide::Segment s;
     EXPECT_EQ(tide::vint::size(body_size) + body_size,
-            e.read(input));
-    EXPECT_EQ(42, e.timecode());
-    EXPECT_TRUE(e.silent_tracks().empty());
-    EXPECT_EQ(0, e.previous_size());
+            s.read(input));
+    EXPECT_TRUE(s.index.find(tide::ids::Tracks) != s.index.end());
+    EXPECT_EQ(s.index.find(tide::ids::Tracks)->second, 4096);
+    EXPECT_TRUE(s.index.find(tide::ids::Info) != s.index.end());
+    EXPECT_EQ(s.index.find(tide::ids::Info)->second, index.size());
 
-    body_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
-        st1.size() + st2.size() + ps.size();
+    // Reading without an index
+    input.str(std::string());
+    body_size -= index.size();
     tide::vint::write(body_size, input);
-    tc.write(input);
-    tide::ids::write(tide::ids::SilentTracks, input);
-    tide::vint::write(st1.size() + st2.size(), input);
-    st1.write(input);
-    st2.write(input);
-    ps.write(input);
+    info.write(input);
+    ve.write(input);
+    tracks.write(input);
+    cluster.write(input);
     EXPECT_EQ(tide::vint::size(body_size) + body_size,
-            e.read(input));
-    EXPECT_EQ(42, e.timecode());
-    EXPECT_FALSE(e.silent_tracks().empty());
-    EXPECT_EQ(0x1234, e.previous_size());
+            s.read(input));
+    EXPECT_TRUE(s.index.find(tide::ids::Tracks) != s.index.end());
+    EXPECT_EQ(s.index.find(tide::ids::Tracks)->second, info.size() + ve.size());
+    EXPECT_TRUE(s.index.find(tide::ids::Info) != s.index.end());
+    EXPECT_EQ(s.index.find(tide::ids::Info)->second, 0);
+    EXPECT_TRUE(s.index.find(tide::ids::Cluster) != s.index.end());
+    EXPECT_EQ(s.index.find(tide::ids::Cluster)->second,
+            info.size() + ve.size() + tracks.size());
 
-    // Body size value wrong (too small)
+    // No SegmentInfo
     input.str(std::string());
-    tide::vint::write(2, input);
-    tc.write(input);
-    ps.write(input);
-    EXPECT_THROW(e.read(input), tide::BadBodySize);
-    // Invalid child
+    tide::vint::write(body_size, input);
+    ve.write(input);
+    tracks.write(input);
+    cluster.write(input);
+    EXPECT_THROW(s.read(input), tide::NoSegmentInfo);
+    // No Tracks
     input.str(std::string());
-    tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.size(), input);
-    ue.write(input);
-    EXPECT_THROW(e.read(input), tide::InvalidChildID);
-    // Missing timecode
+    tide::vint::write(body_size, input);
+    info.write(input);
+    ve.write(input);
+    cluster.write(input);
+    EXPECT_THROW(s.read(input), tide::NoTracks);
+    // No clusters
     input.str(std::string());
-    tide::vint::write(ps.size(), input);
-    ps.write(input);
-    EXPECT_THROW(e.read(input), tide::MissingChild);
+    tide::vint::write(body_size, input);
+    info.write(input);
+    ve.write(input);
+    tracks.write(input);
+    EXPECT_THROW(s.read(input), tide::NoClusters);
+    // Size too small
+    input.str(std::string());
+    tide::vint::write(4, input);
+    EXPECT_THROW(s.read(input), tide::BadBodySize);
 }
-
 

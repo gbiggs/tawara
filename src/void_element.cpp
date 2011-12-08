@@ -37,9 +37,26 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-VoidElement::VoidElement(std::streamsize size, bool fill)
-    : Element(ids::Void), size_(size), fill_(fill), extra_size_(0)
+VoidElement::VoidElement(std::streamsize tgt_size, bool fill)
+    : Element(ids::Void), fill_(fill), extra_size_(0)
 {
+    // Set this element's size from the total size required.  We need to
+    // calculate an appropriate body size that, when combined with the data
+    // size and the ID size, will give the same size as size_. Start by
+    // estimating the bytes required for the body size.
+    size_ = tgt_size - 1;
+    size_ -= tide::vint::size(size_);
+    // Check if enough space is used
+    if (size() != tgt_size)
+    {
+        // Need to use more space (typically 1 more byte), but if we increase
+        // the body size, it might push the data size value over the line to
+        // requiring another byte, meaning that the void element's total size
+        // would go from 1 byte under to 1 byte over. Instead, we require that
+        // the body size is stored with an extra byte.
+        extra_size_ = 1;
+    }
+    assert(size() == tgt_size);
 }
 
 
@@ -70,6 +87,28 @@ VoidElement::VoidElement(Element const& element, bool fill)
 ///////////////////////////////////////////////////////////////////////////////
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
+
+void VoidElement::set_size(std::streamsize tgt_size)
+{
+    // Set this element's size from the total size required.  We need to
+    // calculate an appropriate body size that, when combined with the data
+    // size and the ID size, will give the same size as size_. Start by
+    // estimating the bytes required for the body size.
+    size_ = tgt_size - 1;
+    size_ -= tide::vint::size(size_);
+    // Check if enough space is used
+    if (size() != tgt_size)
+    {
+        // Need to use more space (typically 1 more byte), but if we increase
+        // the body size, it might push the data size value over the line to
+        // requiring another byte, meaning that the void element's total size
+        // would go from 1 byte under to 1 byte over. Instead, we require that
+        // the body size is stored with an extra byte.
+        extra_size_ = 1;
+    }
+    assert(size() == tgt_size);
+}
+
 
 std::streamsize VoidElement::size() const
 {

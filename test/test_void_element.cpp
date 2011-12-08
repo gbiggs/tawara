@@ -88,20 +88,17 @@ TEST(VoidElement, Construction)
 {
     tide::VoidElement ve1(8);
     EXPECT_EQ(tide::ids::Void, ve1.id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(8) + 8, ve1.size());
+    EXPECT_EQ(8, ve1.size());
     EXPECT_FALSE(ve1.fill());
 
     tide::VoidElement ve2(8, true);
     EXPECT_EQ(tide::ids::Void, ve2.id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(8) + 8, ve2.size());
+    EXPECT_EQ(8, ve2.size());
     EXPECT_TRUE(ve2.fill());
 
     tide::VoidElement ve3(8, false);
     EXPECT_EQ(tide::ids::Void, ve3.id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(8) + 8, ve3.size());
+    EXPECT_EQ(8, ve3.size());
     EXPECT_FALSE(ve3.fill());
 }
 
@@ -110,20 +107,17 @@ TEST(VoidElement, CopyConstruction)
 {
     tide::VoidElement ve1(8);
     EXPECT_EQ(tide::ids::Void, tide::VoidElement(ve1).id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(8) + 8, tide::VoidElement(ve1).size());
+    EXPECT_EQ(8, tide::VoidElement(ve1).size());
     EXPECT_FALSE(tide::VoidElement(ve1).fill());
 
     tide::VoidElement ve2(8, true);
     EXPECT_EQ(tide::ids::Void, tide::VoidElement(ve2).id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(8) + 8, tide::VoidElement(ve2).size());
+    EXPECT_EQ(8, tide::VoidElement(ve2).size());
     EXPECT_TRUE(tide::VoidElement(ve2).fill());
 
     tide::VoidElement ve3(8, false);
     EXPECT_EQ(tide::ids::Void, tide::VoidElement(ve3).id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(8) + 8, tide::VoidElement(ve3).size());
+    EXPECT_EQ(8, tide::VoidElement(ve3).size());
     EXPECT_FALSE(tide::VoidElement(ve3).fill());
 }
 
@@ -177,11 +171,11 @@ TEST(VoidElement, Assignment)
 TEST(VoidElement, Size)
 {
     tide::VoidElement e1(8);
-    EXPECT_EQ(10, e1.size());
+    EXPECT_EQ(8, e1.size());
     e1.set_size(16000);
-    EXPECT_EQ(16003, e1.size());
+    EXPECT_EQ(16000, e1.size());
     e1.set_size(4);
-    EXPECT_EQ(6, e1.size());
+    EXPECT_EQ(4, e1.size());
 }
 
 
@@ -223,8 +217,7 @@ TEST(VoidElement, Write)
     output.str(c0);
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, f_size, fill, true, true);
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(size) + size, v.write(output));
+    EXPECT_EQ(size, v.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
     // With or without filling, the stream write pointer should be after the
     // body of the void element

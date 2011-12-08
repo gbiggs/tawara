@@ -68,8 +68,29 @@ namespace tide
     class TIDE_EXPORT Segment : public MasterElement
     {
         public:
-            /// \brief Create a new segment element.
-            Segment();
+            /** \brief Create a new segment element.
+             *
+             * \param[in] pad_size The size of the padding to place at the
+             * start of the segment when opening it for writing.
+             */
+            Segment(std::streamsize pad_size=200);
+
+            /** \brief Get the padding size.
+             *
+             * When the segment is opened for writing, it places a certain
+             * quantity of padding at the start of the segment using a Void
+             * element. This padding is over-written during finalisation with
+             * the SeekHead and SegmentInfo elements. The length of the padding
+             * is controlled by this property. Setting it to a value that is
+             * too small for one or both of the SeekHead and SegmentInfo
+             * elements will result in those that don't fit being written at
+             * the end of the segment. In the case of the SeekHead, this can
+             * significantly degrade start-up performance when reading the
+             * segment.
+             */
+            std::streamsize pad_size() const { return pad_size_; }
+            /// \brief Set the padding size.
+            void pad_size(std::streamsize pad_size) { pad_size_ = pad_size; }
 
             /// \brief Get the total size of the element.
             std::streamsize size() const;
@@ -116,10 +137,19 @@ namespace tide
              * This function turns an offset in the output stream into an
              * offset in this segment, which is necessary for the index.
              */
-            std::streamsize offset_in(std::streamsize file_offset)
-                { return file_offset - offset_; }
+            std::streamsize to_segment_offset(std::streamsize stream_offset);
+
+            /** \brief Calculate the offset in a stream of a position in the
+             * segment.
+             *
+             * This function turns an offset within the segment into an
+             * absolute position in a byte stream.
+             */
+            std::streamsize to_stream_offset(std::streamsize seg_offset);
 
         protected:
+            /// The size of the padding to place at the start of the file.
+            std::streamsize pad_size_;
             /// The size of the segment, as read from the file.
             std::streamsize size_;
             /// If the segment is currently being written.
@@ -153,7 +183,7 @@ namespace tide
              * the SeekHead and SegmentInfo elements to be written into by
              * finalise().
              *
-             * The size of space reserved is 4096 bytes.
+             * The size of space reserved is controlled by pad_size().
              */
             std::streamsize write_body(std::ostream& output);
 

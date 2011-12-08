@@ -40,6 +40,11 @@ using namespace tide;
 VoidElement::VoidElement(std::streamsize tgt_size, bool fill)
     : Element(ids::Void), fill_(fill), extra_size_(0)
 {
+    if (tgt_size < 2)
+    {
+        // Void elements must be at least 2 bytes
+        throw VoidTooSmall();
+    }
     // Set this element's size from the total size required.  We need to
     // calculate an appropriate body size that, when combined with the data
     // size and the ID size, will give the same size as size_. Start by
@@ -90,6 +95,11 @@ VoidElement::VoidElement(Element const& element, bool fill)
 
 void VoidElement::set_size(std::streamsize tgt_size)
 {
+    if (tgt_size < 2)
+    {
+        // Void elements must be at least 2 bytes
+        throw VoidTooSmall();
+    }
     // Set this element's size from the total size required.  We need to
     // calculate an appropriate body size that, when combined with the data
     // size and the ID size, will give the same size as size_. Start by
@@ -171,7 +181,6 @@ std::streamsize VoidElement::read(std::istream& input)
     std::streamsize read_bytes(result.second);
     // Record the extra body size byte count for future writing
     extra_size_ = result.second - tide::vint::size(size_);
-    // The rest of the read is implemented by child classes
     return read_bytes + read_body(input, size_);
 }
 

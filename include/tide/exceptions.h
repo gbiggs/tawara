@@ -429,6 +429,15 @@ namespace tide
      */
     struct NotWriting : virtual TideError{};
 
+    /** \brief The requested size of a void element is too small.
+     *
+     * Void elements must be at least 2 bytes long to accomodate the ID and the
+     * element size value.
+     *
+     * The err_reqsize tag may be included to give the requested size.
+     */
+    struct VoidTooSmall : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags

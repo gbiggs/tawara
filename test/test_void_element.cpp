@@ -54,9 +54,14 @@ std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::stre
         b.append(&tmp[0], 0, tmp.size());
         written += tmp.size();
     }
+    else
+    {
+        // Ensure the written body size is correct for the void's total size
+        void_size -= 1;
+    }
     if (write_body)
     {
-        std::vector<char> tmp(tide::vint::encode(void_size));
+        std::vector<char> tmp(tide::vint::encode(void_size - written - 1));
         b.append(&tmp[0], 0, tmp.size());
         written += tmp.size();
         int remaining(total_size - written);
@@ -229,8 +234,7 @@ TEST(VoidElement, Write)
     output.seekp(0, std::ios::beg);
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, f_size, fill, true, true);
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(size) + size, v.write(output));
+    EXPECT_EQ(size, v.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
     EXPECT_EQ(v.size(), output.tellp());
 
@@ -251,13 +255,12 @@ TEST(VoidElement, Read)
     std::streamsize size(5), f_size(20);
     bool fill(false);
 
-    tide::VoidElement v(0);
+    tide::VoidElement v(2);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::size(size) + size, v.read(input));
+    EXPECT_EQ(size - tide::ids::size(tide::ids::Void), v.read(input));
     EXPECT_EQ(tide::ids::Void, v.id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(size) + size, v.size());
+    EXPECT_EQ(size, v.size());
     // Subtract the ID size because it wasn't written to input
     EXPECT_EQ(v.size() - tide::ids::size(tide::ids::Void),
             input.tellg());
@@ -266,14 +269,14 @@ TEST(VoidElement, Read)
     std::string().swap(input_val);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::size(size) + size, v.read(input));
+    EXPECT_EQ(size - tide::ids::size(tide::ids::Void), v.read(input));
     EXPECT_EQ(tide::ids::Void, v.id());
-    EXPECT_EQ(tide::ids::size(tide::ids::Void) +
-            tide::vint::size(size) + size, v.size());
+    EXPECT_EQ(size, v.size());
     // Subtract the ID size because it wasn't written to input
     EXPECT_EQ(v.size() - tide::ids::size(tide::ids::Void),
             input.tellg());
 
+    // Offset test
     input_val = "ab";
     input_val.push_back(tide::ids::Void);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
@@ -285,7 +288,7 @@ TEST(VoidElement, Read)
     // Test for ReadError exception
     std::string().swap(input_val);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
-    input.str(input_val.substr(0, 4));
+    input.str(input_val.substr(0, 3));
     EXPECT_THROW(v.read(input), tide::ReadError);
 }
 

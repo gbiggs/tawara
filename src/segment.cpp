@@ -39,9 +39,26 @@ using namespace tide;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-Segment::Segment()
-    : MasterElement(ids::Segment), size_(4096), writing_(false)
+Segment::Segment(std::streamsize pad_size)
+    : MasterElement(ids::Segment), pad_size_(pad_size), size_(pad_size),
+    writing_(false)
 {
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Miscellaneous member functions
+///////////////////////////////////////////////////////////////////////////////
+
+std::streamsize Segment::to_segment_offset(std::streamsize stream_offset)
+{
+    return stream_offset - offset_ - ids::size(ids::Segment) - 8;
+}
+
+
+std::streamsize Segment::to_stream_offset(std::streamsize seg_offset)
+{
+    return seg_offset + offset_ + ids::size(ids::Segment) + 8;
 }
 
 
@@ -64,15 +81,15 @@ std::streamsize Segment::finalise(std::iostream& stream)
     }
 
     // Store the current end of the file
-    std::streamoff cur_pos(stream.tellp());
+    std::streamoff end_pos(stream.tellp());
+    // Store the current read point
+    std::streamoff cur_read(stream.tellg());
 
-    // Move to the beginning of the segment
-    stream.seekp(static_cast<std::streamsize>(offset_) +
-            ids::size(ids::Segment), std::ios::beg);
-    // Skip the (dummy) size value
-    stream.seekp(8, std::ios::cur);
+    // Move to the beginning of the segment, skipping the dummy size value
+    stream.seekg(static_cast<std::streamsize>(offset_) +
+            ids::size(ids::Segment) + 8, std::ios::beg);
     // Get the size of the void element that is providing padding
-    std::streamoff pad_start(stream.tellp());
+    std::streamoff pad_start(stream.tellg());
     std::streamsize pad_size(0);
     ids::ReadResult id_res = ids::read(stream);
     if (id_res.first != ids::Void)
@@ -81,7 +98,7 @@ std::streamsize Segment::finalise(std::iostream& stream)
     }
     else
     {
-        VoidElement ve(0);
+        VoidElement ve(2);
         ve.read(stream);
         pad_size = ve.size();
     }
@@ -96,35 +113,46 @@ std::streamsize Segment::finalise(std::iostream& stream)
         if (!wrote_seekhead && index.size() < pad_size - written)
         {
             written += index.write(stream);
+            wrote_seekhead = true;
         }
         else if (!wrote_seginfo && info.size() < pad_size - written)
         {
             written += info.write(stream);
+            wrote_seginfo = true;
         }
     }
     // Re-do the padding
-    VoidElement ve(pad_size - written, true);
-    ve.write(stream);
+    if (pad_size - written != 0)
+    {
+        VoidElement ve(pad_size - written, false);
+        ve.write(stream);
+    }
     // Move to the end of the file
-    stream.seekp(cur_pos);
+    stream.seekp(end_pos);
     if (!wrote_seekhead)
     {
         // Write the index at the end
         index.write(stream);
+        end_pos = stream.tellp();
     }
     if (!wrote_seginfo)
     {
         // Write the segment info at the end
         info.write(stream);
+        end_pos = stream.tellp();
     }
 
     // Calculate the size of the segment
-    size_ = stream.tellp() - offset_;
+    size_ = stream.tellp() - offset_ - ids::size(ids::Segment) - 8;
     // Write the size way back at the beginning of the segment
     stream.seekp(static_cast<std::streamsize>(offset_) +
             ids::size(ids::Segment), std::ios::beg);
     write_size(stream);
+    // Reset pointers
+    stream.seekp(end_pos);
+    stream.seekg(cur_read);
 
+    writing_ = false;
     return size();
 }
 
@@ -139,13 +167,14 @@ std::streamsize Segment::write_body(std::ostream& output)
 {
     writing_ = true;
     // Write some padding
-    VoidElement ve(4096, true);
+    VoidElement ve(pad_size_, true);
     return ve.write(output);
 }
 
 
 std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
 {
+    index.clear();
     // +2 for the size values (which must be at least 1 byte each)
     if (size < ids::size(ids::Tracks) + ids::size(ids::Cluster) + 2)
     {
@@ -193,6 +222,7 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
     {
         // Rewind back to the ID for the search
         input.seekg(-id_res.second, std::ios::cur);
+        read_bytes -= id_res.second;
     }
     last_read_end = input.tellg();
 
@@ -230,14 +260,18 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
             case ids::Info:
                 have_segmentinfo = true;
                 index.insert(std::make_pair(ids::Info,
-                            static_cast<std::streamsize>(input.tellg()) -
-                            id_res.second));
+                    to_segment_offset(
+                        static_cast<std::streamsize>(input.tellg()) -
+                        id_res.second)));
+                read_bytes += skip_read(input, false);
                 break;
             case ids::Tracks:
                 have_tracks = true;
                 index.insert(std::make_pair(ids::Tracks,
-                            static_cast<std::streamsize>(input.tellg()) -
-                            id_res.second));
+                    to_segment_offset(
+                        static_cast<std::streamsize>(input.tellg()) -
+                        id_res.second)));
+                read_bytes += skip_read(input, false);
                 break;
             case ids::Cluster:
                 if (!have_clusters)
@@ -245,21 +279,24 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
                     // Only store the first cluster in the index
                     have_clusters = true;
                     index.insert(std::make_pair(ids::Cluster,
-                                static_cast<std::streamsize>(input.tellg()) -
-                                id_res.second));
+                        to_segment_offset(
+                            static_cast<std::streamsize>(input.tellg()) -
+                            id_res.second)));
                 }
+                read_bytes += skip_read(input, false);
                 break;
             case ids::Cues:
             case ids::Attachments:
             case ids::Chapters:
             case ids::Tags:
                 index.insert(std::make_pair(id,
-                            static_cast<std::streamsize>(input.tellg()) -
-                            id_res.second));
-                skip_read(input, false);
+                    to_segment_offset(
+                        static_cast<std::streamsize>(input.tellg()) -
+                        id_res.second)));
+                read_bytes += skip_read(input, false);
                 break;
             case ids::Void:
-                skip_read(input, false);
+                read_bytes += skip_read(input, false);
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
@@ -275,7 +312,13 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
     }
     else
     {
-        input.seekg(index.find(ids::Info)->second);
+        input.seekg(to_stream_offset(index.find(ids::Info)->second));
+        // Check the ID is correct
+        ids::ReadResult id_res = ids::read(input);
+        if (id_res.first != ids::Info)
+        {
+            throw NoSegmentInfo() << err_pos(index.find(ids::Info)->second);
+        }
         info.read(input);
         if (input.tellg() > last_read_end)
         {
@@ -292,6 +335,6 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
     }
 
     input.seekg(last_read_end);
-    return read_bytes;
+    return last_read_end - offset_ - ids::size(ids::Segment) - 8;
 }
 

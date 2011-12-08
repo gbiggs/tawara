@@ -55,6 +55,7 @@ namespace tide
              * space will be reserved in the file.
              * \param[in] fill If true, when writing the element, the element's
              * body will be filled with 0x00.
+             * \throw VoidTooSmall if tgt_size is less than 2 bytes.
              */
             VoidElement(std::streamsize tgt_size, bool fill=false);
 
@@ -74,6 +75,8 @@ namespace tide
              *
              * A void element has a size value, given in bytes, which
              * determines how much space it reserves in the byte stream.
+             *
+             * \throw VoidTooSmall if tgt_size is less than 2 bytes.
              */
             void set_size(std::streamsize tgt_size);
 

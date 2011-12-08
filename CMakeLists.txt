@@ -3,10 +3,12 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(Tide)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 include(${PROJECT_SOURCE_DIR}/cmake/utils.cmake)
-set(PROJECT_VERSION 1.0.0 CACHE STRING "Tide version")
+set(PROJECT_VERSION 0.1.0 CACHE STRING "Tide version")
 DISSECT_VERSION()
 set(PROJECT_DESCRIPTION "Time-Indexed Data Entries file format implementation")
+set(PROJECT_AUTHOR "Geoffrey Biggs")
 set(PROJECT_VENDOR "AIST")
+set(PROJECT_YEAR "2011")
 
 # Add an "uninstall" target
 CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/cmake/uninstall_target.cmake.in"

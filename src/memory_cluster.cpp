@@ -78,9 +78,29 @@ MemoryCluster::ConstIterator MemoryCluster::end() const
 
 std::streamsize MemoryCluster::finalise(std::ostream& output)
 {
-    // The MemoryCluster implementation does not have to do anything to
-    // finalise writing.
-    return 0;
+    if (!writing_)
+    {
+        throw NotWriting();
+    }
+
+    std::streamsize written(0);
+
+    // Write the blocks to the file
+    BOOST_FOREACH(BlockElement::Ptr& block, blocks_)
+    {
+        written += block->write(output);
+    }
+
+    // Go back and write the cluster's actual size in the element header
+    std::streampos cluster_end(output.tellp());
+    size_ = cluster_end - offset_ - 8 - ids::size(id_);
+    output.seekp(offset_ + ids::size(ids::Cluster));
+    write_size(output);
+    // And return back to the end of the cluster again
+    output.seekp(cluster_end);
+
+    writing_ = false;
+    return ids::size(id_) + 8 + size_;
 }
 
 
@@ -93,18 +113,6 @@ std::streamsize MemoryCluster::blocks_size() const
 {
     return std::accumulate(blocks_.begin(), blocks_.end(), 0,
             std::ptr_fun(add_size));
-}
-
-
-std::streamsize MemoryCluster::write_blocks(std::ostream& output)
-{
-    std::streamsize written(0);
-
-    BOOST_FOREACH(BlockElement::Ptr& block, blocks_)
-    {
-        written += block->write(output);
-    }
-    return written;
 }
 
 

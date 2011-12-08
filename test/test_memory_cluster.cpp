@@ -144,25 +144,7 @@ TEST(MemoryCluster, Size)
     tide::MemoryCluster c;
     tide::UIntElement tc(tide::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            c.size());
-
-    tide::BlockElement::Ptr b1(new tide::SimpleBlock(1, 12345,
-                tide::Block::LACING_NONE));
-    tide::BlockElement::Ptr b2(new tide::SimpleBlock(2, 26262,
-                tide::Block::LACING_NONE));
-    tide::Block::value_type f1(test_utils::make_blob(5));
-    b1->push_back(f1);
-    c.push_back(b1);
-    tide::Block::value_type f2(test_utils::make_blob(10));
-    b2->push_back(f2);
-    c.push_back(b2);
-    body_size += b1->size() + b2->size();
-
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            c.size());
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + body_size, c.size());
 }
 
 
@@ -183,25 +165,29 @@ TEST(MemoryCluster, Write)
 
     std::streamsize expected_size(tc.size());
     tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected);
+    tide::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + expected_size,
             c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
-    expected_size += b1->size() + b2->size();
+    output.str(std::string());
+    expected.str(std::string());
     c.push_back(b1);
     c.push_back(b2);
     tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected);
+    tide::vint::write(expected_size, expected, 8);
     tc.write(expected);
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + expected_size,
+            c.write(output));
+    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
+            expected.str());
+    expected_size += b1->size() + b2->size();
     b1->write(expected);
     b2->write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(expected_size) + expected_size,
-            c.write(output));
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + expected_size,
+            c.finalise(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 }

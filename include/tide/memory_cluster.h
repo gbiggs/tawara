@@ -224,9 +224,6 @@ namespace tide
             /// \brief Get the size of the blocks in this cluster.
             std::streamsize blocks_size() const;
 
-            /// \brief Write the blocks in this cluster to the output stream.
-            std::streamsize write_blocks(std::ostream& output);
-
             /// \brief Read the blocks in this cluster from the output stream.
             std::streamsize read_blocks(std::istream& input,
                     std::streamsize size);

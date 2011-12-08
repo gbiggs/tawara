@@ -164,15 +164,7 @@ namespace tide
             std::streamsize body_size() const
                 { return size_; }
 
-            /** \brief Element size writing.
-             *
-             * Writes the element's size to a byte stream providing a
-             * std::ostream interface, using the full 8 bytes no matter what
-             * the required size is.
-             *
-             * \return The number of bytes written.
-             * \exception WriteError if an error occurs writing data.
-             */
+            /// \brief Element size writing.
             std::streamsize write_size(std::ostream& output);
 
             /** \brief Element body writing.

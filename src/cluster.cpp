@@ -42,7 +42,7 @@ using namespace tide;
 Cluster::Cluster(uint64_t timecode)
     : MasterElement(ids::Cluster),
     timecode_(ids::Timecode, timecode), position_(ids::Position, 0),
-    prev_size_(ids::PrevSize, 0)
+    prev_size_(ids::PrevSize, 0), size_(0), writing_(false)
 {
 }
 
@@ -61,12 +61,19 @@ uint64_t Cluster::position() const
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
 
+std::streamsize Cluster::size() const
+{
+    // The size of a cluster is always written using 8 bytes
+    return tide::ids::size(id_) + 8 + meta_size() + size_;
+}
+
+
 std::streamsize add_size(std::streamsize x, SilentTrackNumber stn)
 {
     return x + stn.size();
 }
 
-std::streamsize Cluster::body_size() const
+std::streamsize Cluster::meta_size() const
 {
     std::streamsize result(timecode_.size());
 
@@ -86,13 +93,20 @@ std::streamsize Cluster::body_size() const
         result += prev_size_.size();
     }
 
-    return result + blocks_size();
+    return result;
+}
+
+
+std::streamsize Cluster::write_size(std::ostream& output)
+{
+    return vint::write(body_size(), output, 8);
 }
 
 
 std::streamsize Cluster::write_body(std::ostream& output)
 {
     std::streamsize written(0);
+    writing_ = true;
 
     written += timecode_.write(output);
     if (!silent_tracks_.empty())
@@ -115,7 +129,8 @@ std::streamsize Cluster::write_body(std::ostream& output)
         written += prev_size_.write(output);
     }
 
-    return written + write_blocks(output);
+    size_ = written;
+    return written;
 }
 
 
@@ -124,6 +139,10 @@ std::streamsize Cluster::read_body(std::istream& input,
 {
     // Reset to defaults
     reset();
+    // Save the size
+    size_ = size;
+    // Cannot write a cluster being read
+    writing_ = false;
 
     std::streamsize read_bytes(0);
     // Read elements until the body is exhausted

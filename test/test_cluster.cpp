@@ -71,11 +71,6 @@ class FakeCluster : public tide::Cluster
             return 0;
         }
 
-        std::streamsize write_blocks(std::ostream& output)
-        {
-            return 0;
-        }
-
         std::streamsize read_blocks(std::istream& input, std::streamsize size)
         {
             return 0;
@@ -132,9 +127,7 @@ TEST(BaseCluster, Size)
     FakeCluster e;
     tide::UIntElement tc(tide::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            e.size());
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + body_size, e.size());
 
     tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
     tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
@@ -143,16 +136,12 @@ TEST(BaseCluster, Size)
         st1.size() + st2.size();
     e.silent_tracks().push_back(tide::SilentTrackNumber(1));
     e.silent_tracks().push_back(tide::SilentTrackNumber(2));
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            e.size());
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + body_size, e.size());
 
     tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
     body_size += ps.size();
     e.previous_size(0x1234);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(body_size) + body_size,
-            e.size());
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + body_size, e.size());
 }
 
 
@@ -168,10 +157,9 @@ TEST(BaseCluster, Write)
     FakeCluster e;
     std::streamsize expected_size(tc.size());
     tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected);
+    tide::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -185,15 +173,14 @@ TEST(BaseCluster, Write)
     output.str(std::string());
     expected.str(std::string());
     tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected);
+    tide::vint::write(expected_size, expected, 8);
     tc.write(expected);
     tide::ids::write(tide::ids::SilentTracks, expected);
     tide::vint::write(st1.size() + st2.size(), expected);
     st1.write(expected);
     st2.write(expected);
     ps.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) +
-            tide::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());

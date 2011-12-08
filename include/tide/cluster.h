@@ -238,6 +238,9 @@ namespace tide
             /// \brief Set the size of the previous cluster in the segment.
             void previous_size(uint64_t size) { prev_size_ = size; }
 
+            /// \brief Get the total size of the element.
+            std::streamsize size() const;
+
             /** \brief Element reading.
              *
              * \throw DuplicateTrackNumber if more than one TrackEntry in the
@@ -256,7 +259,7 @@ namespace tide
              * cluster's meta-data and all blocks.
              *
              * \param[in] output The byte stream to write the cluster to.
-             * \return The final size, in bytes, of the cluster.
+             * \return The final total size, in bytes, of the cluster.
              */
             virtual std::streamsize finalise(std::ostream& output) = 0;
 
@@ -265,9 +268,20 @@ namespace tide
             std::vector<SilentTrackNumber> silent_tracks_;
             UIntElement position_;
             UIntElement prev_size_;
+            /// The size of the cluster.
+            std::streamsize size_;
+            bool writing_;
+
+            /// \brief Get the size of the meta-data portion of the body of
+            //this element.
+            std::streamsize meta_size() const;
 
             /// \brief Get the size of the body of this element.
-            std::streamsize body_size() const;
+            std::streamsize body_size() const
+                { return size_; }
+
+            /// \brief Element size writing.
+            std::streamsize write_size(std::ostream& output);
 
             /// \brief Element body writing.
             std::streamsize write_body(std::ostream& output);
@@ -278,22 +292,6 @@ namespace tide
 
             /// \brief Get the size of the blocks in this cluster.
             virtual std::streamsize blocks_size() const = 0;
-
-            /** \brief Write the blocks in this cluster to the output stream.
-             *
-             * This function will be called during a call to the write() method
-             * of the cluster.
-             *
-             * This function may be implemented to do nothing if the blocks are
-             * written in some other way.
-             *
-             * For example, if the blocks are actually written by an iterator
-             * over a period of time, this function would be implemented to
-             * write the complete size of the cluster in its header.
-             *
-             * \return The number of bytes actually written.
-             */
-            virtual std::streamsize write_blocks(std::ostream& output) = 0;
 
             /** \brief Read the blocks in this cluster from the output stream.
              *

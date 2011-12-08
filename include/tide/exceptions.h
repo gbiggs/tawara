@@ -421,6 +421,14 @@ namespace tide
      */
     struct NoClusters : virtual TideError{};
 
+    /** \brief A segment or cluster was finalised before being started.
+     *
+     * Segments and clusters must be finalised to complete their writing, but
+     * this must occur after a call to write. If a segment or cluster is
+     * finalised before writing is begun, this error occurs.
+     */
+    struct NotWriting : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags

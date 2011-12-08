@@ -31,6 +31,7 @@
 #include <map>
 #include <tide/master_element.h>
 #include <tide/metaseek.h>
+#include <tide/segment_info.h>
 #include <tide/win_dll.h>
 
 /// \addtogroup elements Elements
@@ -76,21 +77,23 @@ namespace tide
              * segment header, followed by writing in the SeekHead element as
              * the first child of the Segment, thus finalising the segment.
              *
-             * The write pointer in output must be positioned at the first byte
+             * The write pointer in stream must be positioned at the first byte
              * after the last byte of the segment before this method is called.
              *
-             * \param[in] output The byte stream to write the segment to.
+             * \param[in] stream The byte stream to write the segment to.
              * \return The final size, in bytes, of the segment (including the
              * element header).
+             * \throw NotWriting if the segment has not yet been opened for
+             * writing by calling write().
              */
-            std::streamsize finalise(std::ostream& output);
+            std::streamsize finalise(std::iostream& stream);
 
             /** \brief The segment index.
              *
              * All known level 1 elements are included in this index. It is a
              * mapping from element ID (the key) to position, in bytes, in the
              * segment (the value). The first level 1 element has a position of
-             * 0.
+             * 0. An ID may occur multiple times.
              *
              * There may be additional level 1 elements that are not mentioned
              * in this index. Typically, all but the first cluster are not
@@ -98,9 +101,18 @@ namespace tide
              */
             SeekHead index;
 
+            /** \brief The segment information.
+             *
+             * This property stores all the segment's meta-data, such as the
+             * origin timecode of the segment and its timecode scale.
+             */
+            SegmentInfo info;
+
         protected:
             /// The size of the segment, as read from the file.
             std::streamsize size_;
+            /// If the segment is currently being written.
+            bool writing_;
 
             /** \brief Get the size of the body of this element.
              *
@@ -115,7 +127,7 @@ namespace tide
              *
              * Writes the element's size to a byte stream providing a
              * std::ostream interface, using the full 8 bytes no matter what
-             * the actual size is.
+             * the required size is.
              *
              * \return The number of bytes written.
              * \exception WriteError if an error occurs writing data.
@@ -127,9 +139,10 @@ namespace tide
              * This function, which opens up a segment for writing, does not
              * actually write any final content. Instead, it preserves a chunk
              * of space at the beginning of the file using a Void element for
-             * the SeekHead element to be written into by finalise().
+             * the SeekHead and SegmentInfo elements to be written into by
+             * finalise().
              *
-             * The size of space reserved is 1024 bytes.
+             * The size of space reserved is 4096 bytes.
              */
             std::streamsize write_body(std::ostream& output);
 
@@ -148,10 +161,15 @@ namespace tide
              *   Checks for the existence of at least one Cluster element.
              *   Raises an error if not present.
              *
-             * \return The number of bytes read from the file, excluding bytes
-             * read during element presence checks. In other words, this is the
-             * number of bytes into the segment that the read pointer has
-             * moved.
+             * When this function returns, the stream's read pointer will be
+             * placed at the end of the SegmentInformation element, unless the
+             * SeekHead element occurs after it, in which case it will be
+             * placed at the end of the SeekHead element.
+             *
+             * \return The number of bytes read from the stream, excluding
+             * bytes read during element presence checks. In other words, this
+             * is the number of bytes into the segment that the read pointer
+             * has moved.
              * \throw MultipleSeekHeads if the segment has more than one index.
              * \throw NoSegmentInfo if the SegmentInfo element is not found.
              * \throw NoTracks if the Tracks element is not found.

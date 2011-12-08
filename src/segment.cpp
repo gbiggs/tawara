@@ -29,7 +29,9 @@
 
 #include <tide/el_ids.h>
 #include <tide/exceptions.h>
+#include <tide/seek_element.h>
 #include <tide/vint.h>
+#include <tide/void_element.h>
 
 using namespace tide;
 
@@ -38,7 +40,7 @@ using namespace tide;
 ///////////////////////////////////////////////////////////////////////////////
 
 Segment::Segment()
-    : MasterElement(ids::Segment), size_(0)
+    : MasterElement(ids::Segment), size_(4096), writing_(false)
 {
 }
 
@@ -47,17 +49,72 @@ Segment::Segment()
 // I/O
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize Segment::finalise(std::ostream& output)
+std::streamsize Segment::finalise(std::iostream& stream)
 {
-    // Calculate the size of the segment
-    size_ = output.tellp() - offset_;
-    // Write the size way back at the beginning of the segment
-    std::streamoff cur_pos(output.tellp());
-    output.seekp(offset_ + ids::size(ids::Segment), std::ios::beg);
-    write_size(output);
-    output.seekp(cur_pos);
+    if (!writing_)
+    {
+        throw NotWriting();
+    }
 
-    // Write the metaseek element.
+    // Store the current end of the file
+    std::streamoff cur_pos(stream.tellp());
+
+    // Move to the beginning of the segment
+    stream.seekp(offset_ + ids::size(ids::Segment), std::ios::beg);
+    // Skip the (dummy) size value
+    stream.seekp(8, std::ios::cur);
+    // Get the size of the void element that is providing padding
+    std::streamoff pad_start(stream.tellp());
+    std::streamsize pad_size(0);
+    ids::ReadResult id_res = ids::read(stream);
+    if (id_res.first != ids::Void)
+    {
+        pad_size = 0;
+    }
+    else
+    {
+        VoidElement ve(0);
+        ve.read(stream);
+        pad_size = ve.size();
+    }
+    stream.seekp(pad_start);
+
+    // TODO: Add the SegmentInfo to the SeekHead (not having it is not a
+    // disaster if it's placed immediately afterwards).
+    std::streamsize written(0);
+    bool wrote_seekhead(false), wrote_seginfo(false);
+    while(written < pad_size && (!wrote_seekhead || !wrote_seginfo))
+    {
+        if (!wrote_seekhead && index.size() < pad_size - written)
+        {
+            written += index.write(stream);
+        }
+        else if (!wrote_seginfo && info.size() < pad_size - written)
+        {
+            written += info.write(stream);
+        }
+    }
+    // Re-do the padding
+    VoidElement ve(pad_size - written, true);
+    ve.write(stream);
+    // Move to the end of the file
+    stream.seekp(cur_pos);
+    if (!wrote_seekhead)
+    {
+        // Write the index at the end
+        index.write(stream);
+    }
+    if (!wrote_seginfo)
+    {
+        // Write the segment info at the end
+        info.write(stream);
+    }
+
+    // Calculate the size of the segment
+    size_ = stream.tellp() - offset_;
+    // Write the size way back at the beginning of the segment
+    stream.seekp(offset_ + ids::size(ids::Segment), std::ios::beg);
+    write_size(stream);
 
     return size();
 }
@@ -71,7 +128,10 @@ std::streamsize Segment::write_size(std::ostream& output)
 
 std::streamsize Segment::write_body(std::ostream& output)
 {
-    return 0;
+    writing_ = true;
+    // Write some padding
+    VoidElement ve(4096, true);
+    return ve.write(output);
 }
 
 
@@ -85,6 +145,9 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
         throw BadBodySize() << err_id(id_) << err_pos(offset_);
     }
 
+    // Segments being read cannot be written.
+    writing_ = false;
+
     // Store the segment's size
     size_ = size;
 
@@ -93,6 +156,8 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
     bool have_tracks(false);
     bool have_clusters(false);
     std::streamsize read_bytes(0);
+    std::streamoff last_read_end(0); // Tracks where the read pointer should be
+                                     // placed when this method returns.
 
     // Check if the first child is the meta-seek
     ids::ReadResult id_res = ids::read(input);
@@ -115,10 +180,16 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
             have_clusters = true;
         }
     }
+    else
+    {
+        // Rewind back to the ID for the search
+        input.seekg(-id_res.second, std::ios::cur);
+    }
+    last_read_end = input.tellg();
 
     // Search for the other necessary elements
     while (read_bytes < size &&
-            (!have_segmentinfo || !have_tracks || !have_clusters))
+        (!have_seekhead || !have_segmentinfo || !have_tracks || !have_clusters))
     {
         // Read the ID
         ids::ReadResult id_res = ids::read(input);
@@ -133,6 +204,7 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
                 }
                 // Read the SeekHead element
                 read_bytes += index.read(input);
+                last_read_end = input.tellg();
                 if (index.find(ids::Info) != index.end())
                 {
                     have_segmentinfo = true;
@@ -157,9 +229,13 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
                             input.tellg() - id_res.second));
                 break;
             case ids::Cluster:
-                have_clusters = true;
-                index.insert(std::make_pair(ids::Cluster,
-                            input.tellg() - id_res.second));
+                if (!have_clusters)
+                {
+                    // Only store the first cluster in the index
+                    have_clusters = true;
+                    index.insert(std::make_pair(ids::Cluster,
+                                input.tellg() - id_res.second));
+                }
                 break;
             case ids::Cues:
             case ids::Attachments:
@@ -167,6 +243,10 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
             case ids::Tags:
                 index.insert(std::make_pair(id,
                             input.tellg() - id_res.second));
+                skip_read(input, false);
+                break;
+            case ids::Void:
+                skip_read(input, false);
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
@@ -180,6 +260,15 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
     {
         throw NoSegmentInfo() << err_pos(offset_);
     }
+    else
+    {
+        input.seekg(index.find(ids::Info)->second);
+        info.read(input);
+        if (input.tellg() > last_read_end)
+        {
+            last_read_end = input.tellg();
+        }
+    }
     if (!have_tracks)
     {
         throw NoTracks() << err_pos(offset_);
@@ -189,6 +278,7 @@ std::streamsize Segment::read_body(std::istream& input, std::streamsize size)
         throw NoClusters() << err_pos(offset_);
     }
 
+    input.seekg(last_read_end);
     return read_bytes;
 }
 

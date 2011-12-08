@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 This is the complete list of members for <a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a>, including all inherited members.<table>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#aeba7852c2471b2b8178de18169bf4d8f">blocks_size</a>() const =0</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected, pure virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a9c98dd452cb3d38f117d7b0b7ee3b961">body_size</a>() const </td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a9c98dd452cb3d38f117d7b0b7ee3b961">body_size</a>() const </td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [inline, protected, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a7519f28b8897e7c54b10412a21ee4b57">clear</a>()=0</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#afc9ca9e8d660e65469c79c25936f21c8">Cluster</a>(uint64_t timecode=0)</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a496098468a0aeeec517876659fe5a1b8">const_reference</a> typedef</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td></td></tr>
@@ -84,6 +84,7 @@ This is the complete list of members for <a class="el" href="classtide_1_1_clust
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a749e97f8b57ec8c7aad701f8e156ac27">id</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#afdb6205ee28712afa92b4faf3672e106">id_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_master_element.html#af7606d7e6b05cf54215ce1c8e47b33fc">MasterElement</a>(uint32_t id, bool crc=false)</td><td><a class="el" href="classtide_1_1_master_element.html">tide::MasterElement</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a52b64631201d8c7891ef99b3688d0353">meta_size</a>() const </td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a2d4594265bea48cf4ab3c7b63d756b38">offset</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a309f8f8babb042f6922b82fcd22a5395">offset_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a911b0b8591f956bf8e7e09a88a0ca6a5">position</a>() const </td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td></td></tr>
@@ -101,17 +102,18 @@ This is the complete list of members for <a class="el" href="classtide_1_1_clust
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a05415d868f4275631549b78bf3bc7f4c">reset</a>()</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#ae2315ad3558924ada3d4a0f8d51945cb">silent_tracks</a>()</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a4447d29c2a470a94f7b16d7ac7392bc1">silent_tracks_</a></td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d">size</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a60e366f8ba6ca7122d7f84b5f643930d">size</a>() const </td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a21103694d429d9d9eb3641d029d685ba">size_</a></td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#add3dae877766245cf26a30a3733ddf14">size_type</a> typedef</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a2070b97384f4c2caf3afa89e24c544ce">timecode</a>() const </td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a35d09d92951ab63f2d0d5a8ae91cefc5">timecode</a>(uint64_t timecode)</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#aef2f4b8b462c900f49f16a381a811b81">timecode_</a></td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#ac226a55e666bd23129e5e4b70353c492">value_type</a> typedef</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d">write</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#acea6e63c9c4fa4a4c6abd141b6f88c82">write_blocks</a>(std::ostream &amp;output)=0</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected, pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#ab966277e895033c374964dca9bebef47">write_body</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a471080b44e7ad606b0e73fe7a1132f27">write_id</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74">write_size</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a63d7ba8ce7fa46793ab9a2552de9f6f3">write_size</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#a7589730adca3ad689ece39dfa3095dc2">writing_</a></td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_cluster.html#ac409b4693bd7c94a0dbd8c15c41e28db">~Cluster</a>()</td><td><a class="el" href="classtide_1_1_cluster.html">tide::Cluster</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a47ecd12ddb6e4552bb6a6f0de4cf9820">~Element</a>()</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_master_element.html#add62c8bd9490c14f269b2c7936e910c8">~MasterElement</a>()</td><td><a class="el" href="classtide_1_1_master_element.html">tide::MasterElement</a></td><td><code> [inline, virtual]</code></td></tr>
@@ -130,7 +132,7 @@ This is the complete list of members for <a class="el" href="classtide_1_1_clust
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

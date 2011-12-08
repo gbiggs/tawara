@@ -887,6 +887,496 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Cues</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a6f6ce565ba6f1f6541ed65aff636ffc0</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CuePoint</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a92502c34292bf2654081605374491687</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueTime</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a65d0eadf05399368791354e0dacb20d1</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueTrackPositions</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af6541e59a4dae37c21262b7e8a389cb8</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueTrack</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a30e9587f583708e6a96431080213b303</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueClusterPosition</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a6f65395333f81945df00afd6e6beb730</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueBlockNumber</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ad13bec74d3cc0a516240b8ca84377d9b</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueCodecState</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ac5f6d0f474efd84cc9fde7a44a3c3b02</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueReference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aeb46f83c2c61b807fc16c65c32db89d3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueRefTime</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aca4e99e8ecbe1b2ee7ba653f19a936d4</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Attachments</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af5949ca7041ecd7844a37b21fd195b9c</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>AttachedFile</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7c520840b9aea7c39fffa08ac96a02b7</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileDescription</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3600fcf90530b76582219657a57bbea9</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileName</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a0e89bc3c237b19ed3aca58befb6247fb</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileMimeType</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a48c9441d41557871998fe4b07dac7e38</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileData</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7b51543fefe3611d2a2fd5f6ec1cf97d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a8930e0e0f4ea4ba8e9cebad080746302</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Chapters</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a64f44c7dfec3eb78be039e55d7f0d58d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionEntry</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7ceddee9a0d9cba4fabb171d2be46b8a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a9b98dd38ce9554a4562032e1658769b5</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionFlagHidden</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a1d03b4d0528c3bdd4461a4a6fd367a6a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionFlagDefault</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>afc6d2360ba7bf9febeac3b0a229d8c53</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionFlagOrdered</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>abd036fb510520c43c9c43f95c2afcea3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterAtom</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a47a002f29211ffad0fa9362790874c32</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a600409253d7009bbaff5b9921076530d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTimeStart</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a5c7053f5ac31e953103a83505c0e09f2</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTimeEnd</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a40ea3a9ebb5b9e7e71e68d38b39f8e26</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterFlagHidden</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa5a09c20f9bdbdc30e30b557fa040744</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterFlagEnabled</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a768d33af66b58d9d1ed691142b316cc2</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterSegmentUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a5c176c4a6d950a5d0d3fac6476809352</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTrack</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a0747f7b9d449545b582ce2d863f88c6a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTrackNumber</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af96b239314e5004faca8d2a69beb6c2c</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterDisplay</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a8a458fc0395284d10e7ce2ca8ad6c2b6</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapString</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a9516305f414130509ab1293725bbd1d9</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapLanguage</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>adbeacd8df32feec41375437e551d9874</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapCountry</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a941bb7a0500c9ee1b1378ac10d3f2427</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Tags</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ac81cd525eba962520059adf96525aef3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Tag</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa0dafffe5afebdf6605d45c8ea9848d3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Targets</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>afe81f70d145ad9557f7234205562c87a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagTrackUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a29add9247c9dfe2c8fc9ee3eb1b94035</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagEditionUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>afa70ba8851256ed3c623eccdf495b43f</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagChapterUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ae4a9a07f29fd39a9ded48331967d4377</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagAttachmentUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7101aa6ce2b24acac0c66918c81b6d48</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SimpleTag</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a0446ca785a9085d917deeaef5bd939f6</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagName</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a5be3891e85795fdd669e3f1e45548149</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagLanguage</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3a887a3997b8b4e0391fe05bf9f20628</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagDefault</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a23a67ee9fc196fd84283a8e2d2bdb4b3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagString</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ab743fa02f8be61c1b968bf603ceb7806</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagBinary</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a18a70c55560cdfc2dc04d7af9a50c807</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
@@ -1126,6 +1616,17 @@
     <Path>namespacetide.html</Path>
     <Anchor>ad52c4f355d4a348987d99e99b44f7784</Anchor>
     <Abstract>The size of a frame.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>ab5f87d53133ec9658a9782c5ff35fa80</Anchor>
+    <Abstract>Equality operator.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1716,6 +2217,17 @@
     <Path>namespacetide.html</Path>
     <Anchor>a865bbc5fdbdbbcfc30dffa74d40713f2</Anchor>
     <Abstract>Skip an element in an input/output stream.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide.html</Path>
+    <Anchor>ab5f87d53133ec9658a9782c5ff35fa80</Anchor>
+    <Abstract>Equality operator.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4111,6 +4623,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a60e366f8ba6ca7122d7f84b5f643930d</Anchor>
+    <Abstract>Get the total size of the element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>read</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -4133,6 +4656,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>meta_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a52b64631201d8c7891ef99b3688d0353</Anchor>
+    <Abstract>Get the size of the meta-data portion of the body of.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>body_size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -4141,6 +4675,17 @@
     <Path>classtide_1_1_cluster.html</Path>
     <Anchor>a9c98dd452cb3d38f117d7b0b7ee3b961</Anchor>
     <Abstract>Get the size of the body of this element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>write_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a63d7ba8ce7fa46793ab9a2552de9f6f3</Anchor>
+    <Abstract>Element size writing.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4174,17 +4719,6 @@
     <Path>classtide_1_1_cluster.html</Path>
     <Anchor>aeba7852c2471b2b8178de18169bf4d8f</Anchor>
     <Abstract>Get the size of the blocks in this cluster.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>write_blocks</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Cluster</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_cluster.html</Path>
-    <Anchor>acea6e63c9c4fa4a4c6abd141b6f88c82</Anchor>
-    <Abstract>Write the blocks in this cluster to the output stream.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -4258,6 +4792,27 @@
     </TokenIdentifier>
     <Path>classtide_1_1_cluster.html</Path>
     <Anchor>ac6f42182ecb60708ad34e49355c7415b</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a21103694d429d9d9eb3641d029d685ba</Anchor>
+    <Abstract>The size of the cluster.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>writing_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Cluster</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_cluster.html</Path>
+    <Anchor>a7589730adca3ad689ece39dfa3095dc2</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -5095,6 +5650,72 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>tide::MultipleSeekHeads</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::MultipleSeekHeads</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_multiple_seek_heads.html</Path>
+    <Abstract>A segment was found with multiple meta-seeks.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::NoSegmentInfo</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::NoSegmentInfo</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_no_segment_info.html</Path>
+    <Abstract>A segment was found without a segment info element.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::NoTracks</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::NoTracks</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_no_tracks.html</Path>
+    <Abstract>A segment was found without a tracks information element.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::NoClusters</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::NoClusters</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_no_clusters.html</Path>
+    <Abstract>A segment was found without at least one cluster.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::NotWriting</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::NotWriting</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_not_writing.html</Path>
+    <Abstract>A segment or cluster was finalised before being started.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>tide::VoidTooSmall</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>tide::VoidTooSmall</Scope>
+    </TokenIdentifier>
+    <Path>structtide_1_1_void_too_small.html</Path>
+    <Abstract>The requested size of a void element is too small.</Abstract>
+    <DeclaredIn>tide/exceptions.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>tide::FloatElement</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -5501,17 +6122,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>write_blocks</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::MemoryCluster</Scope>
-    </TokenIdentifier>
-    <Path>classtide_1_1_memory_cluster.html</Path>
-    <Anchor>a2f4d0933fcb7addcb16ba23961008a3d</Anchor>
-    <Abstract>Write the blocks in this cluster to the output stream.</Abstract>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>read_blocks</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
@@ -5651,101 +6261,387 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>tide::Metaseek</Name>
+      <Name>tide::SeekHead</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Abstract>The Metaseek element, used as an index for a Tide file.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Abstract>The SeekHead element, used as an index for a Tide file.</Abstract>
     <DeclaredIn>tide/metaseek.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>IndexItem</Name>
+      <Name>key_type</Name>
       <APILanguage>cpp</APILanguage>
       <Type>tdef</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a267788b88158018adf7eb0ba3bcbb08e</Anchor>
-    <Abstract>An index item, as a mapping from an EBML element ID to a stream offset.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ad630e91026e0dbdf872fb0791ab09c1e</Anchor>
+    <Abstract>The key type (Key) of this container.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>Metaseek</Name>
+      <Name>mapped_type</Name>
       <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a73d841cc75d18a42c17756d27fe5f738</Anchor>
-    <Abstract>Create a new Metaseek element.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a62fd86e6826db9b7e9fc5d0287fd354e</Anchor>
+    <Abstract>The mapped type (T) of this container.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>~Metaseek</Name>
+      <Name>value_type</Name>
       <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>ae66e63d5412993722c5e3a6a1706eb97</Anchor>
-    <Abstract>Destructor.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ac9f2d677cb34c42425d397c8e073d259</Anchor>
+    <Abstract>The value type of this container.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>append</Name>
+      <Name>size_type</Name>
       <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a68d734d2245a8ec8fc8423806e7e9b92</Anchor>
-    <Abstract>Append a new index item.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>adefd472f2ed470c240d3c3e82feb4a7a</Anchor>
+    <Abstract>The size type of this container.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>remove</Name>
+      <Name>reference</Name>
       <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>aac2ccbd5f1373400229e4d616313c8a6</Anchor>
-    <Abstract>Remove an index item.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ab150c1bc980aa2c4c94db5182dd11045</Anchor>
+    <Abstract>The reference type.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>operator[]</Name>
+      <Name>const_reference</Name>
       <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a293120a8df5e171a5b92534a946cfa3f</Anchor>
-    <Abstract>Indexing operator.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a5553e6ba33a62b53abedbd7f97405430</Anchor>
+    <Abstract>The constant reference type.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>index_size</Name>
+      <Name>iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ac3a7c3419107de4c400453613d549edc</Anchor>
+    <Abstract>The random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a8c6ac3dc6a1d958214890a8f8c3b88b8</Anchor>
+    <Abstract>The constant random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a45df23dba60ef87dce285182e2baa07a</Anchor>
+    <Abstract>The reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>const_reverse_iterator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>adb4d5682204703cc580e9dab8b3324f3</Anchor>
+    <Abstract>The constant reversed random access iterator type.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SeekHead</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a85079b8e115717fbb5f602ccecc9f876</Anchor>
-    <Abstract>Get the number of items in the index.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>abbb60d3aac42ca33b4ea878dd77506a4</Anchor>
+    <Abstract>Create a new SeekHead element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ad0d7d785652c861a1e779ea1f85689f9</Anchor>
+    <Abstract>Replace the stored offsets with those from another SeekHead element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a9e6d628f6c9030d22028cae67a89ab07</Anchor>
+    <Abstract>Get an iterator to the first index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>begin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a5cda8dec3ed4de0eb20d3516f1cc21da</Anchor>
+    <Abstract>Get an iterator to the first index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a3300a974ca46506b2367711e045b3722</Anchor>
+    <Abstract>Get an iterator to the position past the last index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>end</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a784eae0ad83b14a3130b7bbb119832d6</Anchor>
+    <Abstract>Get an iterator to the position past the last index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a43b69e521ccf5547aade0fd78c4e62e0</Anchor>
+    <Abstract>Get a reverse iterator to the last index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rbegin</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>acf0f2b1d9b42bc05937c612793e16df7</Anchor>
+    <Abstract>Get a reverse iterator to the last index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>adcd1aab21bc10830af1f5bc25f27409c</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rend</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ac3478d6b3640f3a59b010530faf20a8c</Anchor>
+    <Abstract>Get a reverse iterator to the position before the first index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>aa11479f1dfdfb1c158a7a3c29108757c</Anchor>
+    <Abstract>Check if there are no index entries.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a5d760e50c21009ef843e2610eb08176d</Anchor>
+    <Abstract>Get the number of index entries.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>max_count</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a47ff5a6af84430069dc0363e9c5c8db4</Anchor>
+    <Abstract>Get the maximum number of index entries.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clear</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a46a0d9d3cfc9bf8e78c17e75b869efa3</Anchor>
+    <Abstract>Remove all index entries.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>insert</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a108782d6ebdcb4008b6ffaf734c5cbee</Anchor>
+    <Abstract>Insert a new index entry.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>insert</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a7db98f3b5774261a9b793995a0538fcf</Anchor>
+    <Abstract>Insert a range of offsets.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ab9a3b623764a8e30e933091dd4bfc825</Anchor>
+    <Abstract>Erase the index entry at the specified iterator.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ab53b1f36ffa131807402bc0e912c3c84</Anchor>
+    <Abstract>Erase a range of index entries.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>erase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a2f271354520f45ac72b6e99e6952560d</Anchor>
+    <Abstract>Erase all index entries with the given ID.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>swap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a124f09ba4ffacbcd19a16776407d62a8</Anchor>
+    <Abstract>Swaps the contents of this SeekHead with another.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>find</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a95ad0a55195aeb617ecc8cd403609aa3</Anchor>
+    <Abstract>Search for the index entry with the given ID.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>find</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a5ed00c0dee2bcc8d102bd94cff29e4ea</Anchor>
+    <Abstract>Search for the index entry with the given ID.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>storage_type_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>aef095b925e800ad913bb0468c5bdf0e6</Anchor>
+    <Abstract>The type of the internal storage.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
       <Name>body_size</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>ad0f551d5ed068cb664f00a2c174d9a19</Anchor>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a0926eb587912d3268fae521036b7d6d5</Anchor>
     <Abstract>Get the size of the body of this element.</Abstract>
   </Token>
   <Token>
@@ -5753,10 +6649,10 @@
       <Name>write_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>ab1cbe29bc9333df9a6f52a689adb8381</Anchor>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a9ba20fea0ea42ba312afa515408b1e7c</Anchor>
     <Abstract>Element body writing.</Abstract>
   </Token>
   <Token>
@@ -5764,10 +6660,10 @@
       <Name>read_body</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a7d34b0f84bfdb5acc1d8f421f2318ab5</Anchor>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>aea9be172e9b250e0ccde91ffec5ebf1a</Anchor>
     <Abstract>Element body loading.</Abstract>
   </Token>
   <Token>
@@ -5775,11 +6671,21 @@
       <Name>index_</Name>
       <APILanguage>cpp</APILanguage>
       <Type>data</Type>
-      <Scope>tide::Metaseek</Scope>
+      <Scope>tide::SeekHead</Scope>
     </TokenIdentifier>
-    <Path>classtide_1_1_metaseek.html</Path>
-    <Anchor>a7799525636574af83a517ee78d8435b2</Anchor>
-    <Abstract>TODO: Proper iterator model for the index.</Abstract>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>ab4ed0f124f49bd4a038855ad16c32060</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>tide::SeekHead</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_seek_head.html</Path>
+    <Anchor>a90f98c7fd0e3f6b5c1ab6657e68cea2b</Anchor>
+    <Abstract>Equality operator.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -6135,8 +7041,41 @@
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>a1ab5a1fa79425526d7f92a5d26359e69</Anchor>
+    <Anchor>a955805c3e3d0c75f597ce90f60890415</Anchor>
     <Abstract>Create a new segment element.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>pad_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a856840c6641ed2b447d8fb48e1fb139c</Anchor>
+    <Abstract>Get the padding size.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>pad_size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a260e8ccb8153afeb9682a818e941347c</Anchor>
+    <Abstract>Set the padding size.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>size</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>abd031dd2200d90804e973b823fb1f0d2</Anchor>
+    <Abstract>Get the total size of the element.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -6146,8 +7085,30 @@
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>a4172d37b439181d04b07bf76c2a0c009</Anchor>
+    <Anchor>a69b42768bed4ead30196b59a5e2c7778</Anchor>
     <Abstract>Finalise writing of the segment.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>to_segment_offset</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a2246f54fe2cbfc06522733952f4c0d48</Anchor>
+    <Abstract>Calculate an offset within the segment.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>to_stream_offset</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a581e101b1278c9c3fe5fe359616b29d3</Anchor>
+    <Abstract>Calculate the offset in a stream of a position in the segment.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -6157,8 +7118,19 @@
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>acc4b9f465583e644734e7cf8829e131d</Anchor>
+    <Anchor>af83935348df2f270a1b97d3379992f8f</Anchor>
     <Abstract>The segment index.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>info</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a502ba2e12e8c5c2e045b146074806775</Anchor>
+    <Abstract>The segment information.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -6206,14 +7178,14 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>read_seekhead</Name>
+      <Name>pad_size_</Name>
       <APILanguage>cpp</APILanguage>
-      <Type>instm</Type>
+      <Type>data</Type>
       <Scope>tide::Segment</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_segment.html</Path>
-    <Anchor>a54da4da1bef73f1d7e7760128f55ce65</Anchor>
-    <Abstract>Reads a SeekHead element to populate the index.</Abstract>
+    <Anchor>a1cd43127d51308de2453270e074b61b1</Anchor>
+    <Abstract>The size of the padding to place at the start of the file.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -6225,6 +7197,17 @@
     <Path>classtide_1_1_segment.html</Path>
     <Anchor>a09c0c05f1b422932b1089d8cd221a5c4</Anchor>
     <Abstract>The size of the segment, as read from the file.</Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>writing_</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>tide::Segment</Scope>
+    </TokenIdentifier>
+    <Path>classtide_1_1_segment.html</Path>
+    <Anchor>a1e4a8547140663da467245d1300dda3d</Anchor>
+    <Abstract>If the segment is currently being written.</Abstract>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -8971,7 +9954,7 @@
       <Scope>tide::VoidElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_void_element.html</Path>
-    <Anchor>a8042a8c211b8dd163320fe0d0185068f</Anchor>
+    <Anchor>a23019550ea67531990579e75e85a5741</Anchor>
     <Abstract>Create a new void element.</Abstract>
   </Token>
   <Token>
@@ -8993,7 +9976,7 @@
       <Scope>tide::VoidElement</Scope>
     </TokenIdentifier>
     <Path>classtide_1_1_void_element.html</Path>
-    <Anchor>acd534c2ba95ad1ecf49134894ee52f50</Anchor>
+    <Anchor>ac13972cdf3472a5d73375a12bdbf4fb7</Anchor>
     <Abstract>Set the size of this element.</Abstract>
   </Token>
   <Token>
@@ -9933,6 +10916,496 @@
     </TokenIdentifier>
     <Path>namespacetide_1_1ids.html</Path>
     <Anchor>a47c8a5f8233c287c91eeea03e647e4ae</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Cues</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a6f6ce565ba6f1f6541ed65aff636ffc0</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CuePoint</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a92502c34292bf2654081605374491687</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueTime</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a65d0eadf05399368791354e0dacb20d1</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueTrackPositions</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af6541e59a4dae37c21262b7e8a389cb8</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueTrack</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a30e9587f583708e6a96431080213b303</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueClusterPosition</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a6f65395333f81945df00afd6e6beb730</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueBlockNumber</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ad13bec74d3cc0a516240b8ca84377d9b</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueCodecState</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ac5f6d0f474efd84cc9fde7a44a3c3b02</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueReference</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aeb46f83c2c61b807fc16c65c32db89d3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CueRefTime</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aca4e99e8ecbe1b2ee7ba653f19a936d4</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Attachments</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af5949ca7041ecd7844a37b21fd195b9c</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>AttachedFile</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7c520840b9aea7c39fffa08ac96a02b7</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileDescription</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3600fcf90530b76582219657a57bbea9</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileName</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a0e89bc3c237b19ed3aca58befb6247fb</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileMimeType</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a48c9441d41557871998fe4b07dac7e38</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileData</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7b51543fefe3611d2a2fd5f6ec1cf97d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>FileUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a8930e0e0f4ea4ba8e9cebad080746302</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Chapters</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a64f44c7dfec3eb78be039e55d7f0d58d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionEntry</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7ceddee9a0d9cba4fabb171d2be46b8a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a9b98dd38ce9554a4562032e1658769b5</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionFlagHidden</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a1d03b4d0528c3bdd4461a4a6fd367a6a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionFlagDefault</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>afc6d2360ba7bf9febeac3b0a229d8c53</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EditionFlagOrdered</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>abd036fb510520c43c9c43f95c2afcea3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterAtom</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a47a002f29211ffad0fa9362790874c32</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a600409253d7009bbaff5b9921076530d</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTimeStart</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a5c7053f5ac31e953103a83505c0e09f2</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTimeEnd</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a40ea3a9ebb5b9e7e71e68d38b39f8e26</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterFlagHidden</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa5a09c20f9bdbdc30e30b557fa040744</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterFlagEnabled</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a768d33af66b58d9d1ed691142b316cc2</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterSegmentUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a5c176c4a6d950a5d0d3fac6476809352</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTrack</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a0747f7b9d449545b582ce2d863f88c6a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterTrackNumber</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>af96b239314e5004faca8d2a69beb6c2c</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapterDisplay</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a8a458fc0395284d10e7ce2ca8ad6c2b6</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapString</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a9516305f414130509ab1293725bbd1d9</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapLanguage</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>adbeacd8df32feec41375437e551d9874</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ChapCountry</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a941bb7a0500c9ee1b1378ac10d3f2427</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Tags</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ac81cd525eba962520059adf96525aef3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Tag</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>aa0dafffe5afebdf6605d45c8ea9848d3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Targets</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>afe81f70d145ad9557f7234205562c87a</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagTrackUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a29add9247c9dfe2c8fc9ee3eb1b94035</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagEditionUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>afa70ba8851256ed3c623eccdf495b43f</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagChapterUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ae4a9a07f29fd39a9ded48331967d4377</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagAttachmentUID</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a7101aa6ce2b24acac0c66918c81b6d48</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SimpleTag</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a0446ca785a9085d917deeaef5bd939f6</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagName</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a5be3891e85795fdd669e3f1e45548149</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagLanguage</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a3a887a3997b8b4e0391fe05bf9f20628</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagDefault</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a23a67ee9fc196fd84283a8e2d2bdb4b3</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagString</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>ab743fa02f8be61c1b968bf603ceb7806</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>TagBinary</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>tide::ids</Scope>
+    </TokenIdentifier>
+    <Path>namespacetide_1_1ids.html</Path>
+    <Anchor>a18a70c55560cdfc2dc04d7af9a50c807</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>

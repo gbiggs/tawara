@@ -72,30 +72,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a>, including all inherited members.<table>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#a68d734d2245a8ec8fc8423806e7e9b92">append</a>(IndexItem item)</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#ad0f551d5ed068cb664f00a2c174d9a19">body_size</a>() const </td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">body_size</a>() const =0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a321eabc90b92326f5a1a703b95115a1f">Element</a>(tide::ids::ID id)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a749e97f8b57ec8c7aad701f8e156ac27">id</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#afdb6205ee28712afa92b4faf3672e106">id_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#a7799525636574af83a517ee78d8435b2">index_</a></td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#a85079b8e115717fbb5f602ccecc9f876">index_size</a>() const </td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#a267788b88158018adf7eb0ba3bcbb08e">IndexItem</a> typedef</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_master_element.html#af7606d7e6b05cf54215ce1c8e47b33fc">MasterElement</a>(uint32_t id, bool crc=false)</td><td><a class="el" href="classtide_1_1_master_element.html">tide::MasterElement</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#a73d841cc75d18a42c17756d27fe5f738">Metaseek</a>()</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a2d4594265bea48cf4ab3c7b63d756b38">offset</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a309f8f8babb042f6922b82fcd22a5395">offset_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#a293120a8df5e171a5b92534a946cfa3f">operator[]</a>(unsigned int pos)</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#ad93208d53ae6c0567106c62cba71d842">read</a>(std::istream &amp;input)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#a7d34b0f84bfdb5acc1d8f421f2318ab5">read_body</a>(std::istream &amp;input, std::streamsize size)</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td><code> [protected, virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#aac2ccbd5f1373400229e4d616313c8a6">remove</a>(unsigned int pos)</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a1880e36bed980635cdee8ad99045e385">read_body</a>(std::istream &amp;input, std::streamsize size)=0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d">size</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d">write</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#ab1cbe29bc9333df9a6f52a689adb8381">write_body</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#ad6040279595409e4577c62f77cb2c5db">write_body</a>(std::ostream &amp;output)=0</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a471080b44e7ad606b0e73fe7a1132f27">write_id</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74">write_size</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a47ecd12ddb6e4552bb6a6f0de4cf9820">~Element</a>()</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_master_element.html#add62c8bd9490c14f269b2c7936e910c8">~MasterElement</a>()</td><td><a class="el" href="classtide_1_1_master_element.html">tide::MasterElement</a></td><td><code> [inline, virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_metaseek.html#ae66e63d5412993722c5e3a6a1706eb97">~Metaseek</a>()</td><td><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td><code> [inline, virtual]</code></td></tr>
 </table></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -111,7 +103,7 @@ This is the complete list of members for <a class="el" href="classtide_1_1_metas
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:30:02 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

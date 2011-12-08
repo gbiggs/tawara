@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -99,105 +99,106 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00028"></a>00028 <span class="preprocessor">#if !defined(TIDE_TRACKS_H_)</span>
 <a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#define TIDE_TRACKS_H_</span>
 <a name="l00030"></a>00030 <span class="preprocessor"></span>
-<a name="l00031"></a>00031 <span class="preprocessor">#include &lt;map&gt;</span>
-<a name="l00032"></a>00032 <span class="preprocessor">#include &lt;tide/master_element.h&gt;</span>
-<a name="l00033"></a>00033 <span class="preprocessor">#include &lt;tide/track_entry.h&gt;</span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;tide/uint_element.h&gt;</span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;tide/win_dll.h&gt;</span>
-<a name="l00036"></a>00036 
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="keyword">namespace </span>tide
-<a name="l00041"></a>00041 {
-<a name="l00049"></a><a class="code" href="classtide_1_1_tracks.html">00049</a>     <span class="keyword">class </span><a class="code" href="win__dll_8h.html#adedfce2bc7606d774db0029a38b3d68e">TIDE_EXPORT</a> <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> : <span class="keyword">public</span> <a class="code" href="classtide_1_1_master_element.html" title="The MasterElement interface.">MasterElement</a>,
-<a name="l00050"></a>00050             <span class="keyword">public</span> boost::<a class="code" href="classboost_1_1equality__comparable.html">equality_comparable</a>&lt;Tracks&gt;
-<a name="l00051"></a>00051     {
-<a name="l00052"></a>00052         <span class="keyword">public</span>:
-<a name="l00054"></a><a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c">00054</a>             <span class="keyword">typedef</span> uint64_t <a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a>;
-<a name="l00056"></a><a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde">00056</a>             <span class="keyword">typedef</span> <a class="code" href="classtide_1_1_track_entry.html#aa1e183af496258944353c996c738736d" title="The type of a shared pointer to a TrackEntry.">TrackEntry::Ptr</a> <a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde" title="The mapped type (T) of this container.">mapped_type</a>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058         <span class="keyword">protected</span>:
-<a name="l00060"></a><a class="code" href="classtide_1_1_tracks.html#a45d744f7a953dcd94e5ccc39e1bcdcac">00060</a>             <span class="keyword">typedef</span> std::map&lt;key_type, mapped_type&gt; <a class="code" href="classtide_1_1_tracks.html#a45d744f7a953dcd94e5ccc39e1bcdcac" title="The type of the internal storage.">storage_type_</a>;
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062         <span class="keyword">public</span>:
-<a name="l00068"></a>00068             <a class="code" href="namespacetide_1_1ids.html#a6cf553bd43f55ba100c023c8d55d9f43">Tracks</a>();
-<a name="l00069"></a>00069 
-<a name="l00071"></a><a class="code" href="classtide_1_1_tracks.html#a4d27eb1e4fe90ab226385da99a07152a">00071</a>             <span class="keyword">virtual</span> <a class="code" href="classtide_1_1_tracks.html#a4d27eb1e4fe90ab226385da99a07152a" title="Destructor.">~Tracks</a>() {};
-<a name="l00072"></a>00072 
-<a name="l00074"></a>00074             <span class="keyword">typedef</span> storage_type_::value_type value_type;
-<a name="l00076"></a><a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa">00076</a>             <span class="keyword">typedef</span> storage_type_::size_type <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a>;
-<a name="l00078"></a><a class="code" href="classtide_1_1_tracks.html#a1dd5105dac28d6a17f8d835f9a2fa0e1">00078</a>             <span class="keyword">typedef</span> storage_type_::reference <a class="code" href="classtide_1_1_tracks.html#a1dd5105dac28d6a17f8d835f9a2fa0e1" title="The reference type.">reference</a>;
-<a name="l00080"></a><a class="code" href="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00">00080</a>             <span class="keyword">typedef</span> storage_type_::const_reference <a class="code" href="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00" title="The constant reference type.">const_reference</a>;
-<a name="l00082"></a><a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20">00082</a>             <span class="keyword">typedef</span> storage_type_::iterator <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a>;
-<a name="l00084"></a><a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4">00084</a>             <span class="keyword">typedef</span> storage_type_::const_iterator <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a>;
-<a name="l00086"></a><a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f">00086</a>             <span class="keyword">typedef</span> storage_type_::reverse_iterator <a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f" title="The reversed random access iterator type.">reverse_iterator</a>;
-<a name="l00088"></a>00088             <span class="keyword">typedef</span> storage_type_::const_reverse_iterator
-<a name="l00089"></a><a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8">00089</a>                 <a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8" title="The constant reversed random access iterator type.">const_reverse_iterator</a>;
-<a name="l00090"></a>00090 
-<a name="l00094"></a><a class="code" href="classtide_1_1_tracks.html#ae14fb4eb9d33d017b23208d6c3c4635b">00094</a>             <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a>&amp; operator=(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; other)
-<a name="l00095"></a>00095                 { entries_ = other.<a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca" title="The track entry store.">entries_</a>; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }
-<a name="l00096"></a>00096 
-<a name="l00102"></a><a class="code" href="classtide_1_1_tracks.html#a5da8e8e0977ac551d48c877fc0b343f7">00102</a>             <a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde" title="The mapped type (T) of this container.">mapped_type</a>&amp; at(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; pos)
-<a name="l00103"></a>00103                 { <span class="keywordflow">return</span> entries_.at(pos); }
-<a name="l00109"></a><a class="code" href="classtide_1_1_tracks.html#ad0407403d82d0da5859157328979899f">00109</a>             <a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde" title="The mapped type (T) of this container.">mapped_type</a> <span class="keyword">const</span>&amp; at(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; pos)<span class="keyword"> const</span>
-<a name="l00110"></a>00110 <span class="keyword">                </span>{ <span class="keywordflow">return</span> entries_.at(pos); }
-<a name="l00111"></a>00111 
-<a name="l00118"></a>00118             mapped_type&amp; operator[](key_type <span class="keyword">const</span>&amp; key);
-<a name="l00125"></a>00125             mapped_type <span class="keyword">const</span>&amp; operator[](key_type <span class="keyword">const</span>&amp; key) <span class="keyword">const</span>;
-<a name="l00126"></a>00126 
-<a name="l00128"></a><a class="code" href="classtide_1_1_tracks.html#abebacf03c850ef62f7297aa8664ef59e">00128</a>             <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> <a class="code" href="classtide_1_1_tracks.html#abebacf03c850ef62f7297aa8664ef59e" title="Get an iterator to the first TrackEntry.">begin</a>() { <span class="keywordflow">return</span> entries_.begin(); }
-<a name="l00130"></a><a class="code" href="classtide_1_1_tracks.html#a4df8279a0d61bdcdecb64234f6f958b7">00130</a>             <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a4df8279a0d61bdcdecb64234f6f958b7" title="Get an iterator to the first TrackEntry.">begin</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.begin(); }
-<a name="l00132"></a><a class="code" href="classtide_1_1_tracks.html#ad1c23725e1970821db9b1d016f4dbee6">00132</a>             <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> <a class="code" href="classtide_1_1_tracks.html#ad1c23725e1970821db9b1d016f4dbee6" title="Get an iterator to the position past the last TrackEntry.">end</a>() { <span class="keywordflow">return</span> entries_.end(); }
-<a name="l00134"></a><a class="code" href="classtide_1_1_tracks.html#a736911081fc0ed5a8e7cccf28a8b9d26">00134</a>             <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a736911081fc0ed5a8e7cccf28a8b9d26" title="Get an iterator to the position past the last TrackEntry.">end</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.end(); }
-<a name="l00136"></a><a class="code" href="classtide_1_1_tracks.html#a69a65d8a991a000f3318a334aea3aa71">00136</a>             <a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f" title="The reversed random access iterator type.">reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a69a65d8a991a000f3318a334aea3aa71" title="Get a reverse iterator to the last TrackEntry.">rbegin</a>() { <span class="keywordflow">return</span> entries_.rbegin(); }
-<a name="l00138"></a><a class="code" href="classtide_1_1_tracks.html#a7fa898d88f0448f87bb47b88f35b48c2">00138</a>             <a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8" title="The constant reversed random access iterator type.">const_reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a7fa898d88f0448f87bb47b88f35b48c2" title="Get a reverse iterator to the last TrackEntry.">rbegin</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.rbegin(); }
-<a name="l00142"></a><a class="code" href="classtide_1_1_tracks.html#a9585733b6d802d58a4a5f757f98ef875">00142</a>             <a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f" title="The reversed random access iterator type.">reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a9585733b6d802d58a4a5f757f98ef875" title="Get a reverse iterator to the position before the first TrackEntry.">rend</a>() { <span class="keywordflow">return</span> entries_.rend(); }
-<a name="l00146"></a><a class="code" href="classtide_1_1_tracks.html#a7800349a915f8af4eaa8766bde43f7a2">00146</a>             <a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8" title="The constant reversed random access iterator type.">const_reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a7800349a915f8af4eaa8766bde43f7a2" title="Get a reverse iterator to the position before the first TrackEntry.">rend</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.rend(); }
-<a name="l00147"></a>00147 
-<a name="l00149"></a><a class="code" href="classtide_1_1_tracks.html#a316c18c800561fdc3b5d86d9b02651dc">00149</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_tracks.html#a316c18c800561fdc3b5d86d9b02651dc" title="Check if there are no TrackElements.">empty</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.empty(); }
-<a name="l00151"></a><a class="code" href="classtide_1_1_tracks.html#a916f2798f2a693b6b4343817796b0006">00151</a>             <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a> <a class="code" href="classtide_1_1_tracks.html#a916f2798f2a693b6b4343817796b0006" title="Get the number of TrackElements.">count</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.size(); }
-<a name="l00153"></a><a class="code" href="classtide_1_1_tracks.html#a29fb5435a8771bbcbb1a62e795649921">00153</a>             <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a> <a class="code" href="classtide_1_1_tracks.html#a29fb5435a8771bbcbb1a62e795649921" title="Get the maximum number of TrackElements.">max_count</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.max_size(); }
-<a name="l00154"></a>00154 
-<a name="l00156"></a><a class="code" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba">00156</a>             <span class="keywordtype">void</span> <a class="code" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba" title="Remove all TrackElements.">clear</a>() { entries_.clear(); }
-<a name="l00174"></a>00174             std::pair&lt;iterator, bool&gt; insert(mapped_type <span class="keyword">const</span>&amp; value);
-<a name="l00184"></a>00184             <span class="keywordtype">void</span> insert(const_iterator first, const_iterator last);
-<a name="l00189"></a><a class="code" href="classtide_1_1_tracks.html#acc5b7ff491f19972a7d99dda6f5227c2">00189</a>             <span class="keywordtype">void</span> erase(<a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> position)
-<a name="l00190"></a>00190                 { entries_.erase(position); }
-<a name="l00196"></a><a class="code" href="classtide_1_1_tracks.html#a329dd974a576467c3d55708e14e46d08">00196</a>             <span class="keywordtype">void</span> erase(<a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> first, <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> last)
-<a name="l00197"></a>00197                 { entries_.erase(first, last); }
-<a name="l00203"></a><a class="code" href="classtide_1_1_tracks.html#a92a37499285650160444e1c15939b1ac">00203</a>             <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a> erase(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; number)
-<a name="l00204"></a>00204                 { <span class="keywordflow">return</span> entries_.erase(number); }
-<a name="l00209"></a><a class="code" href="classtide_1_1_tracks.html#ab3a4baae1dd65c8b7329ee4384a72d25">00209</a>             <span class="keywordtype">void</span> swap(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a>&amp; other)
-<a name="l00210"></a>00210                 { entries_.swap(other.<a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca" title="The track entry store.">entries_</a>); }
-<a name="l00211"></a>00211 
-<a name="l00218"></a><a class="code" href="classtide_1_1_tracks.html#ae9f28e4fbce3236ba16d5ea48e42f23d">00218</a>             <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> find(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; number)
-<a name="l00219"></a>00219                 { <span class="keywordflow">return</span> entries_.find(number); }
-<a name="l00226"></a><a class="code" href="classtide_1_1_tracks.html#a38c343949c7531f6c7ba1791402d2279">00226</a>             <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a> find(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; number)<span class="keyword"> const</span>
-<a name="l00227"></a>00227 <span class="keyword">                </span>{ <span class="keywordflow">return</span> entries_.find(number); }
-<a name="l00228"></a>00228 
-<a name="l00236"></a>00236             <span class="keyword">virtual</span> std::streamsize write_body(std::ostream&amp; output);
-<a name="l00237"></a>00237 
-<a name="l00239"></a>00239             <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="namespacetide.html#a79ccf008fce2af9cd296d4062198df0e" title="Equality operator for BlockAdditions elements.">operator==</a>(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; lhs, <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; rhs);
-<a name="l00240"></a>00240 
-<a name="l00241"></a>00241         <span class="keyword">protected</span>:
-<a name="l00246"></a><a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca">00246</a>             <a class="code" href="classtide_1_1_tracks.html#a45d744f7a953dcd94e5ccc39e1bcdcac" title="The type of the internal storage.">storage_type_</a> <a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca" title="The track entry store.">entries_</a>;
-<a name="l00247"></a>00247 
-<a name="l00249"></a>00249             <span class="keyword">virtual</span> std::streamsize body_size() <span class="keyword">const</span>;
-<a name="l00250"></a>00250 
-<a name="l00258"></a>00258             <span class="keyword">virtual</span> std::streamsize read_body(std::istream&amp; input,
-<a name="l00259"></a>00259                     std::streamsize <a class="code" href="namespacetide_1_1ids.html#a689973eb2065e63b1f9b6be026dbe93b" title="Get the number of bytes required by an ID.">size</a>);
-<a name="l00260"></a>00260 
-<a name="l00268"></a>00268             <span class="keywordtype">void</span> validate_entries() <span class="keyword">const</span>;
-<a name="l00269"></a>00269 
-<a name="l00284"></a>00284             <span class="keywordtype">void</span> verify_not_duplicate(<a class="code" href="classtide_1_1_track_entry.html#aa1e183af496258944353c996c738736d" title="The type of a shared pointer to a TrackEntry.">TrackEntry::Ptr</a> entry) <span class="keyword">const</span>;
-<a name="l00285"></a>00285     }; <span class="comment">// class Tracks</span>
-<a name="l00286"></a>00286 
-<a name="l00287"></a>00287     <span class="keywordtype">bool</span> <a class="code" href="namespacetide.html#a79ccf008fce2af9cd296d4062198df0e" title="Equality operator for BlockAdditions elements.">operator==</a>(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; lhs, <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; rhs);
-<a name="l00288"></a>00288 }; <span class="comment">// namespace tide</span>
-<a name="l00289"></a>00289 
-<a name="l00291"></a>00291 <span class="comment">// group elements</span>
-<a name="l00292"></a>00292 
-<a name="l00293"></a>00293 <span class="preprocessor">#endif // TIDE_TRACKS_H_</span>
-<a name="l00294"></a>00294 <span class="preprocessor"></span>
+<a name="l00031"></a>00031 <span class="preprocessor">#include &lt;boost/operators.hpp&gt;</span>
+<a name="l00032"></a>00032 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00033"></a>00033 <span class="preprocessor">#include &lt;tide/master_element.h&gt;</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;tide/track_entry.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;tide/uint_element.h&gt;</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;tide/win_dll.h&gt;</span>
+<a name="l00037"></a>00037 
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="keyword">namespace </span>tide
+<a name="l00042"></a>00042 {
+<a name="l00050"></a><a class="code" href="classtide_1_1_tracks.html">00050</a>     <span class="keyword">class </span><a class="code" href="win__dll_8h.html#adedfce2bc7606d774db0029a38b3d68e">TIDE_EXPORT</a> <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> : <span class="keyword">public</span> <a class="code" href="classtide_1_1_master_element.html" title="The MasterElement interface.">MasterElement</a>,
+<a name="l00051"></a>00051             <span class="keyword">public</span> boost::<a class="code" href="classboost_1_1equality__comparable.html">equality_comparable</a>&lt;Tracks&gt;
+<a name="l00052"></a>00052     {
+<a name="l00053"></a>00053         <span class="keyword">public</span>:
+<a name="l00055"></a><a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c">00055</a>             <span class="keyword">typedef</span> uint64_t <a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a>;
+<a name="l00057"></a><a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde">00057</a>             <span class="keyword">typedef</span> <a class="code" href="classtide_1_1_track_entry.html#aa1e183af496258944353c996c738736d" title="The type of a shared pointer to a TrackEntry.">TrackEntry::Ptr</a> <a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde" title="The mapped type (T) of this container.">mapped_type</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <span class="keyword">protected</span>:
+<a name="l00061"></a><a class="code" href="classtide_1_1_tracks.html#a45d744f7a953dcd94e5ccc39e1bcdcac">00061</a>             <span class="keyword">typedef</span> std::map&lt;key_type, mapped_type&gt; <a class="code" href="classtide_1_1_tracks.html#a45d744f7a953dcd94e5ccc39e1bcdcac" title="The type of the internal storage.">storage_type_</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063         <span class="keyword">public</span>:
+<a name="l00069"></a>00069             <a class="code" href="namespacetide_1_1ids.html#a6cf553bd43f55ba100c023c8d55d9f43">Tracks</a>();
+<a name="l00070"></a>00070 
+<a name="l00072"></a><a class="code" href="classtide_1_1_tracks.html#a4d27eb1e4fe90ab226385da99a07152a">00072</a>             <span class="keyword">virtual</span> <a class="code" href="classtide_1_1_tracks.html#a4d27eb1e4fe90ab226385da99a07152a" title="Destructor.">~Tracks</a>() {};
+<a name="l00073"></a>00073 
+<a name="l00075"></a>00075             <span class="keyword">typedef</span> storage_type_::value_type value_type;
+<a name="l00077"></a><a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa">00077</a>             <span class="keyword">typedef</span> storage_type_::size_type <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a>;
+<a name="l00079"></a><a class="code" href="classtide_1_1_tracks.html#a1dd5105dac28d6a17f8d835f9a2fa0e1">00079</a>             <span class="keyword">typedef</span> storage_type_::reference <a class="code" href="classtide_1_1_tracks.html#a1dd5105dac28d6a17f8d835f9a2fa0e1" title="The reference type.">reference</a>;
+<a name="l00081"></a><a class="code" href="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00">00081</a>             <span class="keyword">typedef</span> storage_type_::const_reference <a class="code" href="classtide_1_1_tracks.html#a87d0f864087a5ecc4a8946e244c9ff00" title="The constant reference type.">const_reference</a>;
+<a name="l00083"></a><a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20">00083</a>             <span class="keyword">typedef</span> storage_type_::iterator <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a>;
+<a name="l00085"></a><a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4">00085</a>             <span class="keyword">typedef</span> storage_type_::const_iterator <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a>;
+<a name="l00087"></a><a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f">00087</a>             <span class="keyword">typedef</span> storage_type_::reverse_iterator <a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f" title="The reversed random access iterator type.">reverse_iterator</a>;
+<a name="l00089"></a>00089             <span class="keyword">typedef</span> storage_type_::const_reverse_iterator
+<a name="l00090"></a><a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8">00090</a>                 <a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8" title="The constant reversed random access iterator type.">const_reverse_iterator</a>;
+<a name="l00091"></a>00091 
+<a name="l00095"></a><a class="code" href="classtide_1_1_tracks.html#ae14fb4eb9d33d017b23208d6c3c4635b">00095</a>             <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a>&amp; operator=(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; other)
+<a name="l00096"></a>00096                 { entries_ = other.<a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca" title="The track entry store.">entries_</a>; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }
+<a name="l00097"></a>00097 
+<a name="l00103"></a><a class="code" href="classtide_1_1_tracks.html#a5da8e8e0977ac551d48c877fc0b343f7">00103</a>             <a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde" title="The mapped type (T) of this container.">mapped_type</a>&amp; at(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; pos)
+<a name="l00104"></a>00104                 { <span class="keywordflow">return</span> entries_.at(pos); }
+<a name="l00110"></a><a class="code" href="classtide_1_1_tracks.html#ad0407403d82d0da5859157328979899f">00110</a>             <a class="code" href="classtide_1_1_tracks.html#a0e72f98ef5ab88c2c4cbcf62ac67bbde" title="The mapped type (T) of this container.">mapped_type</a> <span class="keyword">const</span>&amp; at(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; pos)<span class="keyword"> const</span>
+<a name="l00111"></a>00111 <span class="keyword">                </span>{ <span class="keywordflow">return</span> entries_.at(pos); }
+<a name="l00112"></a>00112 
+<a name="l00119"></a>00119             mapped_type&amp; operator[](key_type <span class="keyword">const</span>&amp; key);
+<a name="l00126"></a>00126             mapped_type <span class="keyword">const</span>&amp; operator[](key_type <span class="keyword">const</span>&amp; key) <span class="keyword">const</span>;
+<a name="l00127"></a>00127 
+<a name="l00129"></a><a class="code" href="classtide_1_1_tracks.html#abebacf03c850ef62f7297aa8664ef59e">00129</a>             <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> <a class="code" href="classtide_1_1_tracks.html#abebacf03c850ef62f7297aa8664ef59e" title="Get an iterator to the first TrackEntry.">begin</a>() { <span class="keywordflow">return</span> entries_.begin(); }
+<a name="l00131"></a><a class="code" href="classtide_1_1_tracks.html#a4df8279a0d61bdcdecb64234f6f958b7">00131</a>             <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a4df8279a0d61bdcdecb64234f6f958b7" title="Get an iterator to the first TrackEntry.">begin</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.begin(); }
+<a name="l00133"></a><a class="code" href="classtide_1_1_tracks.html#ad1c23725e1970821db9b1d016f4dbee6">00133</a>             <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> <a class="code" href="classtide_1_1_tracks.html#ad1c23725e1970821db9b1d016f4dbee6" title="Get an iterator to the position past the last TrackEntry.">end</a>() { <span class="keywordflow">return</span> entries_.end(); }
+<a name="l00135"></a><a class="code" href="classtide_1_1_tracks.html#a736911081fc0ed5a8e7cccf28a8b9d26">00135</a>             <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a736911081fc0ed5a8e7cccf28a8b9d26" title="Get an iterator to the position past the last TrackEntry.">end</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.end(); }
+<a name="l00137"></a><a class="code" href="classtide_1_1_tracks.html#a69a65d8a991a000f3318a334aea3aa71">00137</a>             <a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f" title="The reversed random access iterator type.">reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a69a65d8a991a000f3318a334aea3aa71" title="Get a reverse iterator to the last TrackEntry.">rbegin</a>() { <span class="keywordflow">return</span> entries_.rbegin(); }
+<a name="l00139"></a><a class="code" href="classtide_1_1_tracks.html#a7fa898d88f0448f87bb47b88f35b48c2">00139</a>             <a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8" title="The constant reversed random access iterator type.">const_reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a7fa898d88f0448f87bb47b88f35b48c2" title="Get a reverse iterator to the last TrackEntry.">rbegin</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.rbegin(); }
+<a name="l00143"></a><a class="code" href="classtide_1_1_tracks.html#a9585733b6d802d58a4a5f757f98ef875">00143</a>             <a class="code" href="classtide_1_1_tracks.html#af9fab2792cfa25945c32306ca6e7837f" title="The reversed random access iterator type.">reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a9585733b6d802d58a4a5f757f98ef875" title="Get a reverse iterator to the position before the first TrackEntry.">rend</a>() { <span class="keywordflow">return</span> entries_.rend(); }
+<a name="l00147"></a><a class="code" href="classtide_1_1_tracks.html#a7800349a915f8af4eaa8766bde43f7a2">00147</a>             <a class="code" href="classtide_1_1_tracks.html#a3042bb67da7f9280373c86085b84a2f8" title="The constant reversed random access iterator type.">const_reverse_iterator</a> <a class="code" href="classtide_1_1_tracks.html#a7800349a915f8af4eaa8766bde43f7a2" title="Get a reverse iterator to the position before the first TrackEntry.">rend</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.rend(); }
+<a name="l00148"></a>00148 
+<a name="l00150"></a><a class="code" href="classtide_1_1_tracks.html#a316c18c800561fdc3b5d86d9b02651dc">00150</a>             <span class="keywordtype">bool</span> <a class="code" href="classtide_1_1_tracks.html#a316c18c800561fdc3b5d86d9b02651dc" title="Check if there are no TrackElements.">empty</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.empty(); }
+<a name="l00152"></a><a class="code" href="classtide_1_1_tracks.html#a916f2798f2a693b6b4343817796b0006">00152</a>             <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a> <a class="code" href="classtide_1_1_tracks.html#a916f2798f2a693b6b4343817796b0006" title="Get the number of TrackElements.">count</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.size(); }
+<a name="l00154"></a><a class="code" href="classtide_1_1_tracks.html#a29fb5435a8771bbcbb1a62e795649921">00154</a>             <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a> <a class="code" href="classtide_1_1_tracks.html#a29fb5435a8771bbcbb1a62e795649921" title="Get the maximum number of TrackElements.">max_count</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entries_.max_size(); }
+<a name="l00155"></a>00155 
+<a name="l00157"></a><a class="code" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba">00157</a>             <span class="keywordtype">void</span> <a class="code" href="classtide_1_1_tracks.html#a8af3b57f7113daea431939b24d07d8ba" title="Remove all TrackElements.">clear</a>() { entries_.clear(); }
+<a name="l00175"></a>00175             std::pair&lt;iterator, bool&gt; insert(mapped_type <span class="keyword">const</span>&amp; value);
+<a name="l00185"></a>00185             <span class="keywordtype">void</span> insert(const_iterator first, const_iterator last);
+<a name="l00190"></a><a class="code" href="classtide_1_1_tracks.html#acc5b7ff491f19972a7d99dda6f5227c2">00190</a>             <span class="keywordtype">void</span> erase(<a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> position)
+<a name="l00191"></a>00191                 { entries_.erase(position); }
+<a name="l00197"></a><a class="code" href="classtide_1_1_tracks.html#a329dd974a576467c3d55708e14e46d08">00197</a>             <span class="keywordtype">void</span> erase(<a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> first, <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> last)
+<a name="l00198"></a>00198                 { entries_.erase(first, last); }
+<a name="l00204"></a><a class="code" href="classtide_1_1_tracks.html#a92a37499285650160444e1c15939b1ac">00204</a>             <a class="code" href="classtide_1_1_tracks.html#afbc91eb0c17d1d598514324ba1398bfa" title="The size type of this container.">size_type</a> erase(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; number)
+<a name="l00205"></a>00205                 { <span class="keywordflow">return</span> entries_.erase(number); }
+<a name="l00210"></a><a class="code" href="classtide_1_1_tracks.html#ab3a4baae1dd65c8b7329ee4384a72d25">00210</a>             <span class="keywordtype">void</span> swap(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a>&amp; other)
+<a name="l00211"></a>00211                 { entries_.swap(other.<a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca" title="The track entry store.">entries_</a>); }
+<a name="l00212"></a>00212 
+<a name="l00219"></a><a class="code" href="classtide_1_1_tracks.html#ae9f28e4fbce3236ba16d5ea48e42f23d">00219</a>             <a class="code" href="classtide_1_1_tracks.html#a26d40aac1bdf9d1fb38c8f9ce1420b20" title="The random access iterator type.">iterator</a> find(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; number)
+<a name="l00220"></a>00220                 { <span class="keywordflow">return</span> entries_.find(number); }
+<a name="l00227"></a><a class="code" href="classtide_1_1_tracks.html#a38c343949c7531f6c7ba1791402d2279">00227</a>             <a class="code" href="classtide_1_1_tracks.html#a3e620c36324c34c3900c905b95fd65c4" title="The constant random access iterator type.">const_iterator</a> find(<a class="code" href="classtide_1_1_tracks.html#a447a116a16841ec01e0a4b0ac534901c" title="The key type (Key) of this container.">key_type</a> <span class="keyword">const</span>&amp; number)<span class="keyword"> const</span>
+<a name="l00228"></a>00228 <span class="keyword">                </span>{ <span class="keywordflow">return</span> entries_.find(number); }
+<a name="l00229"></a>00229 
+<a name="l00237"></a>00237             <span class="keyword">virtual</span> std::streamsize write_body(std::ostream&amp; output);
+<a name="l00238"></a>00238 
+<a name="l00240"></a>00240             <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="namespacetide.html#a79ccf008fce2af9cd296d4062198df0e" title="Equality operator for BlockAdditions elements.">operator==</a>(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; lhs, <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; rhs);
+<a name="l00241"></a>00241 
+<a name="l00242"></a>00242         <span class="keyword">protected</span>:
+<a name="l00247"></a><a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca">00247</a>             <a class="code" href="classtide_1_1_tracks.html#a45d744f7a953dcd94e5ccc39e1bcdcac" title="The type of the internal storage.">storage_type_</a> <a class="code" href="classtide_1_1_tracks.html#a080233f85e86713e039490280ad101ca" title="The track entry store.">entries_</a>;
+<a name="l00248"></a>00248 
+<a name="l00250"></a>00250             <span class="keyword">virtual</span> std::streamsize body_size() <span class="keyword">const</span>;
+<a name="l00251"></a>00251 
+<a name="l00259"></a>00259             <span class="keyword">virtual</span> std::streamsize read_body(std::istream&amp; input,
+<a name="l00260"></a>00260                     std::streamsize <a class="code" href="namespacetide_1_1ids.html#a689973eb2065e63b1f9b6be026dbe93b" title="Get the number of bytes required by an ID.">size</a>);
+<a name="l00261"></a>00261 
+<a name="l00269"></a>00269             <span class="keywordtype">void</span> validate_entries() <span class="keyword">const</span>;
+<a name="l00270"></a>00270 
+<a name="l00285"></a>00285             <span class="keywordtype">void</span> verify_not_duplicate(<a class="code" href="classtide_1_1_track_entry.html#aa1e183af496258944353c996c738736d" title="The type of a shared pointer to a TrackEntry.">TrackEntry::Ptr</a> entry) <span class="keyword">const</span>;
+<a name="l00286"></a>00286     }; <span class="comment">// class Tracks</span>
+<a name="l00287"></a>00287 
+<a name="l00288"></a>00288     <span class="keywordtype">bool</span> <a class="code" href="namespacetide.html#a79ccf008fce2af9cd296d4062198df0e" title="Equality operator for BlockAdditions elements.">operator==</a>(<a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; lhs, <a class="code" href="classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment.">Tracks</a> <span class="keyword">const</span>&amp; rhs);
+<a name="l00289"></a>00289 }; <span class="comment">// namespace tide</span>
+<a name="l00290"></a>00290 
+<a name="l00292"></a>00292 <span class="comment">// group elements</span>
+<a name="l00293"></a>00293 
+<a name="l00294"></a>00294 <span class="preprocessor">#endif // TIDE_TRACKS_H_</span>
+<a name="l00295"></a>00295 <span class="preprocessor"></span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -214,7 +215,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

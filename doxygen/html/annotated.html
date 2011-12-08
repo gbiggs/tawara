@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -99,14 +99,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_master_element.html">tide::MasterElement</a></td><td class="indexvalue">The <a class="el" href="classtide_1_1_master_element.html" title="The MasterElement interface.">MasterElement</a> interface </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_max_lace_size_exceeded.html">tide::MaxLaceSizeExceeded</a></td><td class="indexvalue">The maximum lace size for a block was exceeded </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_memory_cluster.html">tide::MemoryCluster</a></td><td class="indexvalue">The in-memory <a class="el" href="classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations.">Cluster</a> implementation </td></tr>
-  <tr><td class="indexkey"><a class="el" href="classtide_1_1_metaseek.html">tide::Metaseek</a></td><td class="indexvalue">The <a class="el" href="classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file.">Metaseek</a> element, used as an index for a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_missing_child.html">tide::MissingChild</a></td><td class="indexvalue">A necessary child element was missing </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_multiple_seek_heads.html">tide::MultipleSeekHeads</a></td><td class="indexvalue">A segment was found with multiple meta-seeks </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_no_clusters.html">tide::NoClusters</a></td><td class="indexvalue">A segment was found without at least one cluster </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_no_segment_info.html">tide::NoSegmentInfo</a></td><td class="indexvalue">A segment was found without a segment info element </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_not_e_b_m_l.html">tide::NotEBML</a></td><td class="indexvalue">File is not an EBML file </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_not_implemented.html">tide::NotImplemented</a></td><td class="indexvalue">Something is not supported </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_no_tracks.html">tide::NoTracks</a></td><td class="indexvalue">A segment was found without a tracks information element </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_not_tide.html">tide::NotTide</a></td><td class="indexvalue">File is not a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_not_writing.html">tide::NotWriting</a></td><td class="indexvalue">A segment or cluster was finalised before being started </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_primitive_element.html">tide::PrimitiveElement&lt; T &gt;</a></td><td class="indexvalue">The primitive data element interface </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_read_error.html">tide::ReadError</a></td><td class="indexvalue">A read error was encountered during a read </td></tr>
-  <tr><td class="indexkey"><a class="el" href="classtide_1_1_seek_element.html">tide::SeekElement</a></td><td class="indexvalue">The Seek element, which contains a single index point in the SeekHead element </td></tr>
+  <tr><td class="indexkey"><a class="el" href="classtide_1_1_seek_element.html">tide::SeekElement</a></td><td class="indexvalue">The Seek element, which contains a single index point in the <a class="el" href="classtide_1_1_seek_head.html" title="The SeekHead element, used as an index for a Tide file.">SeekHead</a> element </td></tr>
+  <tr><td class="indexkey"><a class="el" href="classtide_1_1_seek_head.html">tide::SeekHead</a></td><td class="indexvalue">The <a class="el" href="classtide_1_1_seek_head.html" title="The SeekHead element, used as an index for a Tide file.">SeekHead</a> element, used as an index for a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td class="indexvalue">The <a class="el" href="classtide_1_1_segment.html" title="The Segment element.">Segment</a> element </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_segment_info.html">tide::SegmentInfo</a></td><td class="indexvalue">The <a class="el" href="classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta-data for a segment.">SegmentInfo</a> element, containing the meta-data for a segment </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_silent_track_number.html">tide::SilentTrackNumber</a></td><td class="indexvalue">The track number of a silent track </td></tr>
@@ -126,6 +131,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_value_size_out_of_range.html">tide::ValueSizeOutOfRange</a></td><td class="indexvalue">A child element's size is below or above the required size </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_var_int_too_big.html">tide::VarIntTooBig</a></td><td class="indexvalue">A variable-length integer is too large to be encoded </td></tr>
   <tr><td class="indexkey"><a class="el" href="classtide_1_1_void_element.html">tide::VoidElement</a></td><td class="indexvalue">Void primitive element </td></tr>
+  <tr><td class="indexkey"><a class="el" href="structtide_1_1_void_too_small.html">tide::VoidTooSmall</a></td><td class="indexvalue">The requested size of a void element is too small </td></tr>
   <tr><td class="indexkey"><a class="el" href="structtide_1_1_write_error.html">tide::WriteError</a></td><td class="indexvalue">A write error was encountered during a write </td></tr>
 </table>
 </div>
@@ -143,7 +149,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

@@ -184,12 +184,20 @@
           <Path>classtide_1_1_memory_cluster.html</Path>
          </Node>
          <Node>
-          <Name>tide::Metaseek</Name>
-          <Path>classtide_1_1_metaseek.html</Path>
-         </Node>
-         <Node>
           <Name>tide::MissingChild</Name>
           <Path>structtide_1_1_missing_child.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::MultipleSeekHeads</Name>
+          <Path>structtide_1_1_multiple_seek_heads.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::NoClusters</Name>
+          <Path>structtide_1_1_no_clusters.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::NoSegmentInfo</Name>
+          <Path>structtide_1_1_no_segment_info.html</Path>
          </Node>
          <Node>
           <Name>tide::NotEBML</Name>
@@ -200,8 +208,16 @@
           <Path>structtide_1_1_not_implemented.html</Path>
          </Node>
          <Node>
+          <Name>tide::NoTracks</Name>
+          <Path>structtide_1_1_no_tracks.html</Path>
+         </Node>
+         <Node>
           <Name>tide::NotTide</Name>
           <Path>structtide_1_1_not_tide.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::NotWriting</Name>
+          <Path>structtide_1_1_not_writing.html</Path>
          </Node>
          <Node>
           <Name>tide::PrimitiveElement&lt; T &gt;</Name>
@@ -214,6 +230,10 @@
          <Node>
           <Name>tide::SeekElement</Name>
           <Path>classtide_1_1_seek_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::SeekHead</Name>
+          <Path>classtide_1_1_seek_head.html</Path>
          </Node>
          <Node>
           <Name>tide::Segment</Name>
@@ -290,6 +310,10 @@
          <Node>
           <Name>tide::VoidElement</Name>
           <Path>classtide_1_1_void_element.html</Path>
+         </Node>
+         <Node>
+          <Name>tide::VoidTooSmall</Name>
+          <Path>structtide_1_1_void_too_small.html</Path>
          </Node>
          <Node>
           <Name>tide::WriteError</Name>
@@ -406,12 +430,12 @@
               <Path>classtide_1_1_e_b_m_l_element.html</Path>
              </Node>
              <Node>
-              <Name>tide::Metaseek</Name>
-              <Path>classtide_1_1_metaseek.html</Path>
-             </Node>
-             <Node>
               <Name>tide::SeekElement</Name>
               <Path>classtide_1_1_seek_element.html</Path>
+             </Node>
+             <Node>
+              <Name>tide::SeekHead</Name>
+              <Path>classtide_1_1_seek_head.html</Path>
              </Node>
              <Node>
               <Name>tide::Segment</Name>
@@ -504,6 +528,10 @@
            <Node>
             <Name>tide::PrimitiveElement&lt; T &gt;</Name>
             <Path>classtide_1_1_primitive_element.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::SeekHead</Name>
+            <Path>classtide_1_1_seek_head.html</Path>
            </Node>
            <Node>
             <Name>tide::SimpleBlock</Name>
@@ -614,6 +642,18 @@
             <Path>structtide_1_1_missing_child.html</Path>
            </Node>
            <Node>
+            <Name>tide::MultipleSeekHeads</Name>
+            <Path>structtide_1_1_multiple_seek_heads.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::NoClusters</Name>
+            <Path>structtide_1_1_no_clusters.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::NoSegmentInfo</Name>
+            <Path>structtide_1_1_no_segment_info.html</Path>
+           </Node>
+           <Node>
             <Name>tide::NotEBML</Name>
             <Path>structtide_1_1_not_e_b_m_l.html</Path>
            </Node>
@@ -622,8 +662,16 @@
             <Path>structtide_1_1_not_implemented.html</Path>
            </Node>
            <Node>
+            <Name>tide::NoTracks</Name>
+            <Path>structtide_1_1_no_tracks.html</Path>
+           </Node>
+           <Node>
             <Name>tide::NotTide</Name>
             <Path>structtide_1_1_not_tide.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::NotWriting</Name>
+            <Path>structtide_1_1_not_writing.html</Path>
            </Node>
            <Node>
             <Name>tide::ReadError</Name>
@@ -644,6 +692,10 @@
            <Node>
             <Name>tide::VarIntTooBig</Name>
             <Path>structtide_1_1_var_int_too_big.html</Path>
+           </Node>
+           <Node>
+            <Name>tide::VoidTooSmall</Name>
+            <Path>structtide_1_1_void_too_small.html</Path>
            </Node>
            <Node>
             <Name>tide::WriteError</Name>

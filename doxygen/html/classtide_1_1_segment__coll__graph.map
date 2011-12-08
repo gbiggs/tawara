@@ -1,4 +1,22 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="5,83,160,111"/>
-<area shape="rect" id="node4" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="28,6,137,34"/>
+<area shape="rect" id="node2" href="$classtide_1_1_master_element.html" title="The MasterElement interface." alt="" coords="995,89,1149,117"/>
+<area shape="rect" id="node6" href="$classtide_1_1_seek_head.html" title="The SeekHead element, used as an index for a Tide file." alt="" coords="1343,21,1463,49"/>
+<area shape="rect" id="node11" href="$classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="1333,267,1472,295"/>
+<area shape="rect" id="node4" href="$classtide_1_1_element.html" title="The Element interface, a basic interface to an element object." alt="" coords="197,281,307,309"/>
+<area shape="rect" id="node16" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::string \&gt;" alt="" coords="580,198,841,226"/>
+<area shape="rect" id="node23" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; double \&gt;" alt="" coords="592,263,829,291"/>
+<area shape="rect" id="node30" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; uint64_t \&gt;" alt="" coords="588,314,833,342"/>
+<area shape="rect" id="node37" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; std::vector\&lt; char \&gt; \&gt;" alt="" coords="549,455,872,483"/>
+<area shape="rect" id="node44" href="$classtide_1_1_primitive_element.html" title="tide::PrimitiveElement\&lt; int64_t \&gt;" alt="" coords="592,365,829,393"/>
+<area shape="rect" id="node9" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; SeekHead \&gt;" alt="" coords="923,5,1221,33"/>
+<area shape="rect" id="node14" href="$classtide_1_1_string_element.html" title="String primitive element." alt="" coords="999,209,1145,237"/>
+<area shape="rect" id="node19" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; PrimitiveElement\&lt; std::string \&gt; \&gt;" alt="" coords="33,165,471,193"/>
+<area shape="rect" id="node21" href="$classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="1001,263,1143,291"/>
+<area shape="rect" id="node26" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; PrimitiveElement\&lt; double \&gt; \&gt;" alt="" coords="44,230,460,258"/>
+<area shape="rect" id="node28" href="$classtide_1_1_u_int_element.html" title="Unsigned integer primitive element." alt="" coords="1004,314,1140,342"/>
+<area shape="rect" id="node33" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; PrimitiveElement\&lt; uint64_t \&gt; \&gt;" alt="" coords="40,331,464,359"/>
+<area shape="rect" id="node35" href="$classtide_1_1_binary_element.html" title="Binary primitive element." alt="" coords="997,455,1147,483"/>
+<area shape="rect" id="node40" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt;PrimitiveElement\&lt;std::vector\&lt; char \&gt; \&gt; \&gt;" alt="" coords="7,465,497,493"/>
+<area shape="rect" id="node42" href="$classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="1001,365,1143,393"/>
+<area shape="rect" id="node47" href="$classboost_1_1equality__comparable.html" title="boost::equality_comparable\&lt; PrimitiveElement\&lt; int64_t \&gt; \&gt;" alt="" coords="44,398,460,426"/>
 </map>

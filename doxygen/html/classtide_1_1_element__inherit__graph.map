@@ -20,8 +20,8 @@
 <area shape="rect" id="node35" href="$classtide_1_1_block_additions.html" title="This element is used to specify reference blocks." alt="" coords="555,410,704,438"/>
 <area shape="rect" id="node37" href="$classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations." alt="" coords="579,461,680,489"/>
 <area shape="rect" id="node41" href="$classtide_1_1_e_b_m_l_element.html" title="The EBML Header element." alt="" coords="556,511,703,539"/>
-<area shape="rect" id="node43" href="$classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file." alt="" coords="571,562,688,590"/>
-<area shape="rect" id="node45" href="$classtide_1_1_seek_element.html" title="The Seek element, which contains a single index point in the SeekHead element." alt="" coords="559,613,700,641"/>
+<area shape="rect" id="node43" href="$classtide_1_1_seek_element.html" title="The Seek element, which contains a single index point in the SeekHead element." alt="" coords="559,562,700,590"/>
+<area shape="rect" id="node45" href="$classtide_1_1_seek_head.html" title="The SeekHead element, used as an index for a Tide file." alt="" coords="569,613,689,641"/>
 <area shape="rect" id="node47" href="$classtide_1_1_segment.html" title="The Segment element." alt="" coords="572,663,687,691"/>
 <area shape="rect" id="node49" href="$classtide_1_1_segment_info.html" title="The SegmentInfo element, containing the meta&#45;data for a segment." alt="" coords="560,714,699,742"/>
 <area shape="rect" id="node51" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="568,765,691,793"/>

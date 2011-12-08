@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -148,8 +148,6 @@ Protected Types</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_memory_cluster.html#ac43849d61799859ba871d0d04f09f71a">blocks_size</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the blocks in this cluster.  <a href="#ac43849d61799859ba871d0d04f09f71a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_memory_cluster.html#a2f4d0933fcb7addcb16ba23961008a3d">write_blocks</a> (std::ostream &amp;output)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the blocks in this cluster to the output stream.  <a href="#a2f4d0933fcb7addcb16ba23961008a3d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_memory_cluster.html#aee94e62fa702cf76536f1966a37dc942">read_blocks</a> (std::istream &amp;input, std::streamsize size)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the blocks in this cluster from the output stream.  <a href="#aee94e62fa702cf76536f1966a37dc942"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
@@ -405,6 +403,33 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae7d07dc024d8e49c4727d135377aeabf"></a><!-- doxytag: member="tide::MemoryCluster::erase" ref="ae7d07dc024d8e49c4727d135377aeabf" args="(Iterator position)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void tide::MemoryCluster::erase </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtide_1_1_memory_cluster_1_1_iterator_base.html">Iterator</a>&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Erase the block at the specified iterator. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>The position to erase at. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="memory__cluster_8h_source.html#l00199">199</a> of file <a class="el" href="memory__cluster_8h_source.html">memory_cluster.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a0166cd12c47fefaf32fe13229c860d26"></a><!-- doxytag: member="tide::MemoryCluster::erase" ref="a0166cd12c47fefaf32fe13229c860d26" args="(Iterator first, Iterator last)" -->
 <div class="memitem">
 <div class="memproto">
@@ -440,33 +465,6 @@ Protected Attributes</h2></td></tr>
 </dl>
 
 <p>Definition at line <a class="el" href="memory__cluster_8h_source.html#l00206">206</a> of file <a class="el" href="memory__cluster_8h_source.html">memory_cluster.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae7d07dc024d8e49c4727d135377aeabf"></a><!-- doxytag: member="tide::MemoryCluster::erase" ref="ae7d07dc024d8e49c4727d135377aeabf" args="(Iterator position)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void tide::MemoryCluster::erase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classtide_1_1_memory_cluster_1_1_iterator_base.html">Iterator</a>&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td><code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Erase the block at the specified iterator. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>The position to erase at. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="memory__cluster_8h_source.html#l00199">199</a> of file <a class="el" href="memory__cluster_8h_source.html">memory_cluster.h</a>.</p>
 
 </div>
 </div>
@@ -546,27 +544,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2f4d0933fcb7addcb16ba23961008a3d"></a><!-- doxytag: member="tide::MemoryCluster::write_blocks" ref="a2f4d0933fcb7addcb16ba23961008a3d" args="(std::ostream &amp;output)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::streamsize tide::MemoryCluster::write_blocks </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td><code> [protected, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Write the blocks in this cluster to the output stream. </p>
-
-<p>Implements <a class="el" href="classtide_1_1_cluster.html#acea6e63c9c4fa4a4c6abd141b6f88c82">tide::Cluster</a>.</p>
-
-</div>
-</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="af149e11a2e7d645b7aab94b9b20874b4"></a><!-- doxytag: member="tide::MemoryCluster::blocks_" ref="af149e11a2e7d645b7aab94b9b20874b4" args="" -->
 <div class="memitem">
@@ -603,7 +580,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

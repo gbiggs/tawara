@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -97,12 +97,12 @@ Collaboration diagram for tide::VoidElement:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a8042a8c211b8dd163320fe0d0185068f">VoidElement</a> (std::streamsize size, bool fill=false)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new void element.  <a href="#a8042a8c211b8dd163320fe0d0185068f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a23019550ea67531990579e75e85a5741">VoidElement</a> (std::streamsize tgt_size, bool fill=false)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new void element.  <a href="#a23019550ea67531990579e75e85a5741"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a131477d096321ec2deb458e16a64ca68">VoidElement</a> (<a class="el" href="classtide_1_1_element.html">Element</a> const &amp;element, bool fill=false)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="classtide_1_1_void_element.html" title="Void primitive element.">VoidElement</a> that replaces another element.  <a href="#a131477d096321ec2deb458e16a64ca68"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#acd534c2ba95ad1ecf49134894ee52f50">set_size</a> (std::streamsize size)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the size of this element.  <a href="#acd534c2ba95ad1ecf49134894ee52f50"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#ac13972cdf3472a5d73375a12bdbf4fb7">set_size</a> (std::streamsize tgt_size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the size of this element.  <a href="#ac13972cdf3472a5d73375a12bdbf4fb7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#afa217bd9762e2849f0cde2c2362b7f01">size</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total size of the element.  <a href="#afa217bd9762e2849f0cde2c2362b7f01"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_void_element.html#a69f8bbeac9343e0ac1f1329562760185">fill</a> () const </td></tr>
@@ -122,7 +122,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="void__element_8h_source.html#l00049">49</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a8042a8c211b8dd163320fe0d0185068f"></a><!-- doxytag: member="tide::VoidElement::VoidElement" ref="a8042a8c211b8dd163320fe0d0185068f" args="(std::streamsize size, bool fill=false)" -->
+<a class="anchor" id="a23019550ea67531990579e75e85a5741"></a><!-- doxytag: member="tide::VoidElement::VoidElement" ref="a23019550ea67531990579e75e85a5741" args="(std::streamsize tgt_size, bool fill=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -130,7 +130,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">tide::VoidElement::VoidElement </td>
           <td>(</td>
           <td class="paramtype">std::streamsize&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
+          <td class="paramname"><em>tgt_size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -150,8 +150,14 @@ Public Member Functions</h2></td></tr>
 <p>Create a new void element. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>The size of the element, in bytes. This much space will be reserved in the file. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tgt_size</td><td>The size of the element, in bytes. This much space will be reserved in the file. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">fill</td><td>If true, when writing the element, the element's body will be filled with 0x00. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_void_too_small.html" title="The requested size of a void element is too small.">VoidTooSmall</a></td><td>if tgt_size is less than 2 bytes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -212,7 +218,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the fill setting. </p>
 
-<p>Definition at line <a class="el" href="void__element_8h_source.html#l00084">84</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
+<p>Definition at line <a class="el" href="void__element_8h_source.html#l00087">87</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
 
 </div>
 </div>
@@ -235,7 +241,7 @@ Public Member Functions</h2></td></tr>
 <p>A void element may fill its body when written. This is typically used when writing it at the end of a byte stream, such as reserving space in a file to be filled in later with other data. Set fill to true to do so.</p>
 <p>On the other hand, void elements are also used for blanking out existing elements that are no longer used, such as when removing a tag, without needing to rewrite the entire file. In this case, only the element ID and size need to be written, with the remainder of the element's body being left as-is. Set fill to false for this style of writing. </p>
 
-<p>Definition at line <a class="el" href="void__element_8h_source.html#l00099">99</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
+<p>Definition at line <a class="el" href="void__element_8h_source.html#l00102">102</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
 
 </div>
 </div>
@@ -260,7 +266,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acd534c2ba95ad1ecf49134894ee52f50"></a><!-- doxytag: member="tide::VoidElement::set_size" ref="acd534c2ba95ad1ecf49134894ee52f50" args="(std::streamsize size)" -->
+<a class="anchor" id="ac13972cdf3472a5d73375a12bdbf4fb7"></a><!-- doxytag: member="tide::VoidElement::set_size" ref="ac13972cdf3472a5d73375a12bdbf4fb7" args="(std::streamsize tgt_size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -268,17 +274,21 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void tide::VoidElement::set_size </td>
           <td>(</td>
           <td class="paramtype">std::streamsize&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td class="paramname"><em>tgt_size</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Set the size of this element. </p>
-<p>A void element has a size value, given in bytes, which determines how much space it reserves in the byte stream. </p>
-
-<p>Definition at line <a class="el" href="void__element_8h_source.html#l00078">78</a> of file <a class="el" href="void__element_8h_source.html">void_element.h</a>.</p>
+<p>A void element has a size value, given in bytes, which determines how much space it reserves in the byte stream.</p>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structtide_1_1_void_too_small.html" title="The requested size of a void element is too small.">VoidTooSmall</a></td><td>if tgt_size is less than 2 bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -365,7 +375,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

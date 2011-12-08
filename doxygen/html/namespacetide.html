@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -166,6 +166,18 @@ Classes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A frame with a bad size was added to a block.  <a href="structtide_1_1_bad_laced_frame_size.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_empty_block_additions_element.html">EmptyBlockAdditionsElement</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An empty <a class="el" href="classtide_1_1_block_additions.html" title="This element is used to specify reference blocks.">BlockAdditions</a> element was read or written.  <a href="structtide_1_1_empty_block_additions_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_multiple_seek_heads.html">MultipleSeekHeads</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A segment was found with multiple meta-seeks.  <a href="structtide_1_1_multiple_seek_heads.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_no_segment_info.html">NoSegmentInfo</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A segment was found without a segment info element.  <a href="structtide_1_1_no_segment_info.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_no_tracks.html">NoTracks</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A segment was found without a tracks information element.  <a href="structtide_1_1_no_tracks.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_no_clusters.html">NoClusters</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A segment was found without at least one cluster.  <a href="structtide_1_1_no_clusters.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_not_writing.html">NotWriting</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A segment or cluster was finalised before being started.  <a href="structtide_1_1_not_writing.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtide_1_1_void_too_small.html">VoidTooSmall</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The requested size of a void element is too small.  <a href="structtide_1_1_void_too_small.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_float_element.html">FloatElement</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Float primitive element.  <a href="classtide_1_1_float_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_int_element.html">IntElement</a></td></tr>
@@ -174,12 +186,12 @@ Classes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_master_element.html" title="The MasterElement interface.">MasterElement</a> interface.  <a href="classtide_1_1_master_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_memory_cluster.html">MemoryCluster</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The in-memory <a class="el" href="classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations.">Cluster</a> implementation.  <a href="classtide_1_1_memory_cluster.html#_details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_metaseek.html">Metaseek</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_metaseek.html" title="The Metaseek element, used as an index for a Tide file.">Metaseek</a> element, used as an index for a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file.  <a href="classtide_1_1_metaseek.html#_details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_head.html">SeekHead</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_seek_head.html" title="The SeekHead element, used as an index for a Tide file.">SeekHead</a> element, used as an index for a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file.  <a href="classtide_1_1_seek_head.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_primitive_element.html">PrimitiveElement</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The primitive data element interface.  <a href="classtide_1_1_primitive_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_seek_element.html">SeekElement</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The Seek element, which contains a single index point in the SeekHead element.  <a href="classtide_1_1_seek_element.html#_details">More...</a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The Seek element, which contains a single index point in the <a class="el" href="classtide_1_1_seek_head.html" title="The SeekHead element, used as an index for a Tide file.">SeekHead</a> element.  <a href="classtide_1_1_seek_element.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment.html">Segment</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classtide_1_1_segment.html" title="The Segment element.">Segment</a> element.  <a href="classtide_1_1_segment.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_segment_info.html">SegmentInfo</a></td></tr>
@@ -281,6 +293,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip an element in an input stream.  <a href="#a1da09d1196f3e8a0f59f9f3a0bae73f1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a865bbc5fdbdbbcfc30dffa74d40713f2">skip_write</a> (std::iostream &amp;stream, bool and_id)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip an element in an input/output stream.  <a href="#a865bbc5fdbdbbcfc30dffa74d40713f2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#ab5f87d53133ec9658a9782c5ff35fa80">operator==</a> (<a class="el" href="classtide_1_1_seek_head.html">SeekHead</a> const &amp;lhs, <a class="el" href="classtide_1_1_seek_head.html">SeekHead</a> const &amp;rhs)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator.  <a href="#ab5f87d53133ec9658a9782c5ff35fa80"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a5f2dfb777b63b82be3a567fc59f83c5a">operator==</a> (<a class="el" href="classtide_1_1_simple_block.html">SimpleBlock</a> const &amp;lhs, <a class="el" href="classtide_1_1_simple_block.html">SimpleBlock</a> const &amp;rhs)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator for <a class="el" href="classtide_1_1_simple_block.html" title="The SimpleBlock element, a simplified version of Blocks.">SimpleBlock</a> elements.  <a href="#a5f2dfb777b63b82be3a567fc59f83c5a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetide.html#a5a56229ca969617be60ae4a1fa3b0123">operator==</a> (<a class="el" href="classtide_1_1_track_entry.html">TrackEntry</a> const &amp;lhs, <a class="el" href="classtide_1_1_track_entry.html">TrackEntry</a> const &amp;rhs)</td></tr>
@@ -302,7 +316,7 @@ Functions</h2></td></tr>
 
 <p>The size of a buffer. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00399">399</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00456">456</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -319,7 +333,7 @@ Functions</h2></td></tr>
 
 <p>The size of an element. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00419">419</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00476">476</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -336,7 +350,7 @@ Functions</h2></td></tr>
 
 <p>The size of a frame. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00435">435</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00492">492</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -353,7 +367,7 @@ Functions</h2></td></tr>
 
 <p>An <a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> ID. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00409">409</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00466">466</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -370,7 +384,7 @@ Functions</h2></td></tr>
 
 <p>An integer UID. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00425">425</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00482">482</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -387,7 +401,7 @@ Functions</h2></td></tr>
 
 <p>The maximum size of a lace. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00428">428</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00485">485</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -404,7 +418,7 @@ Functions</h2></td></tr>
 
 <p>A parent element ID. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00412">412</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00469">469</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -421,7 +435,7 @@ Functions</h2></td></tr>
 
 <p>Position in a <a class="el" href="classtide_1_1_tide.html" title="The Tide interface, the interface provided by all Tide objects.">Tide</a> file. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00393">393</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00450">450</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -438,7 +452,7 @@ Functions</h2></td></tr>
 
 <p>The requested size of a lace. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00431">431</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00488">488</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -455,7 +469,7 @@ Functions</h2></td></tr>
 
 <p>The required size of a buffer or a file read. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00402">402</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00459">459</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -472,7 +486,7 @@ Functions</h2></td></tr>
 
 <p>The specified size to encode a variable-length integer into. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00406">406</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00463">463</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -489,7 +503,7 @@ Functions</h2></td></tr>
 
 <p>A track number. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00422">422</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00479">479</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -506,7 +520,7 @@ Functions</h2></td></tr>
 
 <p>A set of valid element sizes. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00416">416</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00473">473</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -523,7 +537,7 @@ Functions</h2></td></tr>
 
 <p>Value of a variable-length integer. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00396">396</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00453">453</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -540,7 +554,7 @@ Functions</h2></td></tr>
 
 <p>A version. </p>
 
-<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00390">390</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="exceptions_8h_source.html#l00447">447</a> of file <a class="el" href="exceptions_8h_source.html">exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -603,33 +617,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a38cf0b135dc3c89bfc9954d38ef7c041"></a><!-- doxytag: member="tide::operator==" ref="a38cf0b135dc3c89bfc9954d38ef7c041" args="(Tracks const &amp;lhs, Tracks const &amp;rhs)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tide::operator== </td>
-          <td>(</td>
-          <td class="paramtype">Tracks const &amp;&#160;</td>
-          <td class="paramname"><em>lhs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Tracks const &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a64ce66f60daa44769a1be546eecb3935"></a><!-- doxytag: member="tide::operator==" ref="a64ce66f60daa44769a1be546eecb3935" args="(BlockGroup const &amp;lhs, BlockGroup const &amp;rhs)" -->
 <div class="memitem">
 <div class="memproto">
@@ -687,6 +674,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9d59024ca155a5560f638f94eb209d16"></a><!-- doxytag: member="tide::operator==" ref="a9d59024ca155a5560f638f94eb209d16" args="(TrackJoinBlocks const &amp;lhs, TrackJoinBlocks const &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tide::operator== </td>
+          <td>(</td>
+          <td class="paramtype">TrackJoinBlocks const &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TrackJoinBlocks const &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Equality operator for <a class="el" href="classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation.">TrackJoinBlocks</a>. </p>
+<p>Equality operator. </p>
+
+<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00142">142</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a5f2dfb777b63b82be3a567fc59f83c5a"></a><!-- doxytag: member="tide::operator==" ref="a5f2dfb777b63b82be3a567fc59f83c5a" args="(SimpleBlock const &amp;lhs, SimpleBlock const &amp;rhs)" -->
 <div class="memitem">
 <div class="memproto">
@@ -717,35 +736,59 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9d59024ca155a5560f638f94eb209d16"></a><!-- doxytag: member="tide::operator==" ref="a9d59024ca155a5560f638f94eb209d16" args="(TrackJoinBlocks const &amp;lhs, TrackJoinBlocks const &amp;rhs)" -->
+<a class="anchor" id="ab5f87d53133ec9658a9782c5ff35fa80"></a><!-- doxytag: member="tide::operator==" ref="ab5f87d53133ec9658a9782c5ff35fa80" args="(SeekHead const &amp;lhs, SeekHead const &amp;rhs)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool tide::operator== </td>
           <td>(</td>
-          <td class="paramtype">TrackJoinBlocks const &amp;&#160;</td>
+          <td class="paramtype">SeekHead const &amp;&#160;</td>
           <td class="paramname"><em>lhs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TrackJoinBlocks const &amp;&#160;</td>
+          <td class="paramtype">SeekHead const &amp;&#160;</td>
           <td class="paramname"><em>rhs</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td><code> [inline]</code></td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Equality operator for <a class="el" href="classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation.">TrackJoinBlocks</a>. </p>
 <p>Equality operator. </p>
 
-<p>Definition at line <a class="el" href="track__operation_8h_source.html#l00142">142</a> of file <a class="el" href="track__operation_8h_source.html">track_operation.h</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a38cf0b135dc3c89bfc9954d38ef7c041"></a><!-- doxytag: member="tide::operator==" ref="a38cf0b135dc3c89bfc9954d38ef7c041" args="(Tracks const &amp;lhs, Tracks const &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tide::operator== </td>
+          <td>(</td>
+          <td class="paramtype">Tracks const &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tracks const &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -870,7 +913,7 @@ Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

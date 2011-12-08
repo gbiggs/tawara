@@ -9,10 +9,11 @@
 <area shape="rect" id="node39" href="$classtide_1_1_block_group.html" title="The BlockGroup is the standard block." alt="" coords="265,410,500,438"/>
 <area shape="rect" id="node41" href="$classtide_1_1_block_impl.html" title="Common block functionality implementation." alt="" coords="277,461,488,489"/>
 <area shape="rect" id="node43" href="$classtide_1_1_primitive_element.html" title="The primitive data element interface." alt="" coords="212,511,553,539"/>
-<area shape="rect" id="node45" href="$classtide_1_1_simple_block.html" title="The SimpleBlock element, a simplified version of Blocks." alt="" coords="263,562,503,590"/>
-<area shape="rect" id="node47" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="273,613,492,641"/>
-<area shape="rect" id="node49" href="$classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="241,663,524,691"/>
-<area shape="rect" id="node51" href="$classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="301,714,464,742"/>
+<area shape="rect" id="node45" href="$classtide_1_1_seek_head.html" title="The SeekHead element, used as an index for a Tide file." alt="" coords="276,562,489,590"/>
+<area shape="rect" id="node47" href="$classtide_1_1_simple_block.html" title="The SimpleBlock element, a simplified version of Blocks." alt="" coords="263,613,503,641"/>
+<area shape="rect" id="node49" href="$classtide_1_1_track_entry.html" title="A track entry provides the meta&#45;data for a single track." alt="" coords="273,663,492,691"/>
+<area shape="rect" id="node51" href="$classtide_1_1_track_join_blocks.html" title="JoinBlocks track operation." alt="" coords="241,714,524,742"/>
+<area shape="rect" id="node53" href="$classtide_1_1_tracks.html" title="The Tracks element, listing all tracks in the segment." alt="" coords="301,765,464,793"/>
 <area shape="rect" id="node5" href="$classtide_1_1_float_element.html" title="Float primitive element." alt="" coords="608,5,749,33"/>
 <area shape="rect" id="node9" href="$classtide_1_1_date_element.html" title="Date primitive element." alt="" coords="608,55,749,83"/>
 <area shape="rect" id="node11" href="$classtide_1_1_int_element.html" title="Signed integer primitive element." alt="" coords="616,106,741,134"/>

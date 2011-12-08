@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -137,22 +137,26 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the previous cluster in the segment.  <a href="#aa86a4cdae18b7ca3a876b1f864ac463b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a456e460598167b4a09399e912d2649e5">previous_size</a> (uint64_t size)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the size of the previous cluster in the segment.  <a href="#a456e460598167b4a09399e912d2649e5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a60e366f8ba6ca7122d7f84b5f643930d">size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total size of the element.  <a href="#a60e366f8ba6ca7122d7f84b5f643930d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a4aa8f6ad5e8dcffbe44e944564a7d036">read</a> (std::istream &amp;input)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> reading.  <a href="#a4aa8f6ad5e8dcffbe44e944564a7d036"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#abfc14b7b85b998e708a37361c8b8a4be">finalise</a> (std::ostream &amp;output)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalise writing of the cluster.  <a href="#abfc14b7b85b998e708a37361c8b8a4be"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a52b64631201d8c7891ef99b3688d0353">meta_size</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the meta-data portion of the body of.  <a href="#a52b64631201d8c7891ef99b3688d0353"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a9c98dd452cb3d38f117d7b0b7ee3b961">body_size</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the body of this element.  <a href="#a9c98dd452cb3d38f117d7b0b7ee3b961"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a63d7ba8ce7fa46793ab9a2552de9f6f3">write_size</a> (std::ostream &amp;output)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> size writing.  <a href="#a63d7ba8ce7fa46793ab9a2552de9f6f3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#ab966277e895033c374964dca9bebef47">write_body</a> (std::ostream &amp;output)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body writing.  <a href="#ab966277e895033c374964dca9bebef47"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#ad1a7feb0128c92b25ff5af3458a08977">read_body</a> (std::istream &amp;input, std::streamsize size)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> body loading.  <a href="#ad1a7feb0128c92b25ff5af3458a08977"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#aeba7852c2471b2b8178de18169bf4d8f">blocks_size</a> () const =0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the blocks in this cluster.  <a href="#aeba7852c2471b2b8178de18169bf4d8f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#acea6e63c9c4fa4a4c6abd141b6f88c82">write_blocks</a> (std::ostream &amp;output)=0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the blocks in this cluster to the output stream.  <a href="#acea6e63c9c4fa4a4c6abd141b6f88c82"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a8935baa58d822d33a089d5d3985130e2">read_blocks</a> (std::istream &amp;input, std::streamsize size)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the blocks in this cluster from the output stream.  <a href="#a8935baa58d822d33a089d5d3985130e2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a86af3f1b20cfd9259674ca1171e1e68b">read_silent_tracks</a> (std::istream &amp;input)</td></tr>
@@ -165,6 +169,9 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classtide_1_1_silent_track_number.html">SilentTrackNumber</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a4447d29c2a470a94f7b16d7ac7392bc1">silent_tracks_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtide_1_1_u_int_element.html">UIntElement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a1948dc11aa87bfee1543fafd64366c1d">position_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtide_1_1_u_int_element.html">UIntElement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#ac6f42182ecb60708ad34e49355c7415b">prev_size_</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a21103694d429d9d9eb3641d029d685ba">size_</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of the cluster.  <a href="#a21103694d429d9d9eb3641d029d685ba"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtide_1_1_cluster.html#a7589730adca3ad689ece39dfa3095dc2">writing_</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The base <a class="el" href="classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations.">Cluster</a>, defining the common interface for <a class="el" href="classtide_1_1_cluster.html" title="The base Cluster, defining the common interface for Cluster element implementations.">Cluster</a> element implementations. </p>
@@ -373,7 +380,7 @@ Protected Attributes</h2></td></tr>
           <td class="memname">std::streamsize tide::Cluster::body_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const<code> [protected, virtual]</code></td>
+          <td> const<code> [inline, protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -382,6 +389,8 @@ Protected Attributes</h2></td></tr>
 <p>Get the size of the body of this element. </p>
 
 <p>Implements <a class="el" href="classtide_1_1_element.html#afa34637edb097a0c084e3c8f0c51a84b">tide::Element</a>.</p>
+
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00280">280</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
 
 </div>
 </div>
@@ -468,9 +477,27 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The final size, in bytes, of the cluster. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The final total size, in bytes, of the cluster. </dd></dl>
 
 <p>Implemented in <a class="el" href="classtide_1_1_memory_cluster.html#a0df7dd64e369c5f02a1f27478e8d49ed">tide::MemoryCluster</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a52b64631201d8c7891ef99b3688d0353"></a><!-- doxytag: member="tide::Cluster::meta_size" ref="a52b64631201d8c7891ef99b3688d0353" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::Cluster::meta_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the size of the meta-data portion of the body of. </p>
 
 </div>
 </div>
@@ -599,7 +626,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtide_1_1_element.html#ad93208d53ae6c0567106c62cba71d842">tide::Element</a>.</p>
 
-<p>Definition at line <a class="el" href="cluster_8h_source.html#l00248">248</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00251">251</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
 
 </div>
 </div>
@@ -735,6 +762,26 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a60e366f8ba6ca7122d7f84b5f643930d"></a><!-- doxytag: member="tide::Cluster::size" ref="a60e366f8ba6ca7122d7f84b5f643930d" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::Cluster::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the total size of the element. </p>
+
+<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d">tide::Element</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a35d09d92951ab63f2d0d5a8ae91cefc5"></a><!-- doxytag: member="tide::Cluster::timecode" ref="a35d09d92951ab63f2d0d5a8ae91cefc5" args="(uint64_t timecode)" -->
 <div class="memitem">
 <div class="memproto">
@@ -777,31 +824,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acea6e63c9c4fa4a4c6abd141b6f88c82"></a><!-- doxytag: member="tide::Cluster::write_blocks" ref="acea6e63c9c4fa4a4c6abd141b6f88c82" args="(std::ostream &amp;output)=0" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::streamsize tide::Cluster::write_blocks </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td><code> [protected, pure virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Write the blocks in this cluster to the output stream. </p>
-<p>This function will be called during a call to the <a class="el" href="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d" title="Element writing.">write()</a> method of the cluster.</p>
-<p>This function may be implemented to do nothing if the blocks are written in some other way.</p>
-<p>For example, if the blocks are actually written by an iterator over a period of time, this function would be implemented to write the complete size of the cluster in its header.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The number of bytes actually written. </dd></dl>
-
-<p>Implemented in <a class="el" href="classtide_1_1_memory_cluster.html#a2f4d0933fcb7addcb16ba23961008a3d">tide::MemoryCluster</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ab966277e895033c374964dca9bebef47"></a><!-- doxytag: member="tide::Cluster::write_body" ref="ab966277e895033c374964dca9bebef47" args="(std::ostream &amp;output)" -->
 <div class="memitem">
 <div class="memproto">
@@ -823,6 +845,27 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a63d7ba8ce7fa46793ab9a2552de9f6f3"></a><!-- doxytag: member="tide::Cluster::write_size" ref="a63d7ba8ce7fa46793ab9a2552de9f6f3" args="(std::ostream &amp;output)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize tide::Cluster::write_size </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td><code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classtide_1_1_element.html" title="The Element interface, a basic interface to an element object.">Element</a> size writing. </p>
+
+<p>Reimplemented from <a class="el" href="classtide_1_1_element.html#af07b078687d6603b67d48dcadcba5c74">tide::Element</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a1948dc11aa87bfee1543fafd64366c1d"></a><!-- doxytag: member="tide::Cluster::position_" ref="a1948dc11aa87bfee1543fafd64366c1d" args="" -->
 <div class="memitem">
@@ -835,7 +878,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="cluster_8h_source.html#l00266">266</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00269">269</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
 
 </div>
 </div>
@@ -850,7 +893,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="cluster_8h_source.html#l00267">267</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00270">270</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
 
 </div>
 </div>
@@ -865,7 +908,24 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="cluster_8h_source.html#l00265">265</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00268">268</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a21103694d429d9d9eb3641d029d685ba"></a><!-- doxytag: member="tide::Cluster::size_" ref="a21103694d429d9d9eb3641d029d685ba" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::streamsize <a class="el" href="classtide_1_1_cluster.html#a21103694d429d9d9eb3641d029d685ba">tide::Cluster::size_</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The size of the cluster. </p>
+
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00272">272</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
 
 </div>
 </div>
@@ -880,7 +940,22 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="cluster_8h_source.html#l00264">264</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00267">267</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7589730adca3ad689ece39dfa3095dc2"></a><!-- doxytag: member="tide::Cluster::writing_" ref="a7589730adca3ad689ece39dfa3095dc2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classtide_1_1_cluster.html#a7589730adca3ad689ece39dfa3095dc2">tide::Cluster::writing_</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="cluster_8h_source.html#l00273">273</a> of file <a class="el" href="cluster_8h_source.html">cluster.h</a>.</p>
 
 </div>
 </div>
@@ -902,7 +977,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

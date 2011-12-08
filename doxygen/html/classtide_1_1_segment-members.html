@@ -19,7 +19,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Tide&#160;<span id="projectnumber">1.0.0</span></div>
+   <div id="projectname">Tide&#160;<span id="projectnumber">0.1.0</span></div>
   </td>
  </tr>
  </tbody>
@@ -74,23 +74,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 This is the complete list of members for <a class="el" href="classtide_1_1_segment.html">tide::Segment</a>, including all inherited members.<table>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#af631e107314ab22d5df77c7e99f9731b">body_size</a>() const </td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [inline, protected, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a321eabc90b92326f5a1a703b95115a1f">Element</a>(tide::ids::ID id)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a4172d37b439181d04b07bf76c2a0c009">finalise</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a69b42768bed4ead30196b59a5e2c7778">finalise</a>(std::iostream &amp;stream)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a749e97f8b57ec8c7aad701f8e156ac27">id</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#afdb6205ee28712afa92b4faf3672e106">id_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#acc4b9f465583e644734e7cf8829e131d">index</a></td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#af83935348df2f270a1b97d3379992f8f">index</a></td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a502ba2e12e8c5c2e045b146074806775">info</a></td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_master_element.html#af7606d7e6b05cf54215ce1c8e47b33fc">MasterElement</a>(uint32_t id, bool crc=false)</td><td><a class="el" href="classtide_1_1_master_element.html">tide::MasterElement</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a2d4594265bea48cf4ab3c7b63d756b38">offset</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a309f8f8babb042f6922b82fcd22a5395">offset_</a></td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a856840c6641ed2b447d8fb48e1fb139c">pad_size</a>() const </td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a260e8ccb8153afeb9682a818e941347c">pad_size</a>(std::streamsize pad_size)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a1cd43127d51308de2453270e074b61b1">pad_size_</a></td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#ad93208d53ae6c0567106c62cba71d842">read</a>(std::istream &amp;input)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a12792f92d03e87c7265ebea6968040e3">read_body</a>(std::istream &amp;input, std::streamsize size)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [protected, virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a54da4da1bef73f1d7e7760128f55ce65">read_seekhead</a>(std::istream &amp;input, std::streamsize size)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a1ab5a1fa79425526d7f92a5d26359e69">Segment</a>()</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a40be2f4bbdc5aee9c5184e181343383d">size</a>() const </td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a955805c3e3d0c75f597ce90f60890415">Segment</a>(std::streamsize pad_size=4096)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#abd031dd2200d90804e973b823fb1f0d2">size</a>() const </td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a09c0c05f1b422932b1089d8cd221a5c4">size_</a></td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a2246f54fe2cbfc06522733952f4c0d48">to_segment_offset</a>(std::streamsize stream_offset)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a581e101b1278c9c3fe5fe359616b29d3">to_stream_offset</a>(std::streamsize seg_offset)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#af3fa670bba649aa6d844ab29342fb23d">write</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a5460341a58da66ac462d459588e192fe">write_body</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [inline, protected, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a5460341a58da66ac462d459588e192fe">write_body</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [protected, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a471080b44e7ad606b0e73fe7a1132f27">write_id</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a8fb639741c7ccd4fa9147241bf708f8a">write_size</a>(std::ostream &amp;output)</td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtide_1_1_segment.html#a1e4a8547140663da467245d1300dda3d">writing_</a></td><td><a class="el" href="classtide_1_1_segment.html">tide::Segment</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_element.html#a47ecd12ddb6e4552bb6a6f0de4cf9820">~Element</a>()</td><td><a class="el" href="classtide_1_1_element.html">tide::Element</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtide_1_1_master_element.html#add62c8bd9490c14f269b2c7936e910c8">~MasterElement</a>()</td><td><a class="el" href="classtide_1_1_master_element.html">tide::MasterElement</a></td><td><code> [inline, virtual]</code></td></tr>
 </table></div>
@@ -108,7 +114,7 @@ This is the complete list of members for <a class="el" href="classtide_1_1_segme
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 17:00:17 for Tide by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 9 2011 08:19:10 for Tide by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

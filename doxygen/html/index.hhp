@@ -1,5 +1,5 @@
 [OPTIONS]
-Compiled file=Tide-1.0.chm
+Compiled file=Tide-0.1.chm
 Compatibility=1.1
 Full-text search=Yes
 Contents file=index.hhc
@@ -198,6 +198,12 @@ structtide_1_1_empty_frame.html
 structtide_1_1_max_lace_size_exceeded.html
 structtide_1_1_bad_laced_frame_size.html
 structtide_1_1_empty_block_additions_element.html
+structtide_1_1_multiple_seek_heads.html
+structtide_1_1_no_segment_info.html
+structtide_1_1_no_tracks.html
+structtide_1_1_no_clusters.html
+structtide_1_1_not_writing.html
+structtide_1_1_void_too_small.html
 classtide_1_1_float_element.html
 classtide_1_1_float_element-members.html
 classtide_1_1_int_element.html
@@ -208,8 +214,8 @@ classtide_1_1_memory_cluster.html
 classtide_1_1_memory_cluster-members.html
 classtide_1_1_memory_cluster_1_1_iterator_base.html
 classtide_1_1_memory_cluster_1_1_iterator_base-members.html
-classtide_1_1_metaseek.html
-classtide_1_1_metaseek-members.html
+classtide_1_1_seek_head.html
+classtide_1_1_seek_head-members.html
 classtide_1_1_primitive_element.html
 classtide_1_1_primitive_element-members.html
 classtide_1_1_seek_element.html

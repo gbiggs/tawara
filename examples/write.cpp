@@ -30,6 +30,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <iostream>
+#include <string>
 #include <tide/ebml_element.h>
 #include <tide/memory_cluster.h>
 #include <tide/segment.h>
@@ -131,8 +132,8 @@ int main(int argc, char** argv)
     // Here, a few blocks are added.
     for (int ii(1); ii <= 5; ++ii)
     {
-        std::stringstream frame;
-        frame << "Frame " << ii;
+        std::string frame("frame 1");
+        frame[6] = ii + '0';
         // When creating a block, the track number must be specified. In our
         // case, all blocks belong to track 1. A timecode must also be given.
         // It is an offset from the cluster's timecode measured in the
@@ -144,7 +145,7 @@ int main(int argc, char** argv)
                     b_td.total_microseconds() / 10000));
         // Here the frame data itself is added to the block
         tide::Block::FramePtr frame_ptr(
-            new tide::Block::Frame(frame.str().begin(), frame.str().end()));
+            new tide::Block::Frame(frame.begin(), frame.end()));
         block->push_back(frame_ptr);
         // And then the block is added to its cluster.
         cluster.push_back(block);

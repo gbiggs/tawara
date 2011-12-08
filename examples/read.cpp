@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 
     // Open the file and check for the EBML header. This confirms that the file
     // is an EBML file, and is a Tide document.
-    std::fstream stream(argv[1], std::ios::in);
+    std::ifstream stream(argv[1], std::ios::in);
     tide::ids::ReadResult id = tide::ids::read(stream);
     if (id.first != tide::ids::EBML)
     {
@@ -84,6 +84,12 @@ int main(int argc, char** argv)
     // and read (or build, if necessary) an index of the level 1 elements. With
     // this index, we will be able to quickly jump to important elements such
     // as the Tracks and the first Cluster.
+    id = tide::ids::read(stream);
+    if (id.first != tide::ids::Segment)
+    {
+        std::cerr << "Segment element not found\n";
+        return 1;
+    }
     tide::Segment segment;
     segment.read(stream);
     // Inspect the segment for some interesting information.
@@ -104,6 +110,90 @@ int main(int argc, char** argv)
             boost::posix_time::seconds(segment.info.date()));
     boost::posix_time::ptime start(basis + sd);
     std::cerr << "\tDate: " << start.date() << " (" << start << ")\n";
+    std::cerr << "\tTitle: " << segment.info.title() << '\n';
+    std::cerr << "\tMuxing app: " << segment.info.muxing_app() << '\n';
+    std::cerr << "\tWriting app: " << segment.info.writing_app() << "\n\n";
+
+    // The segment is now open and we can start reading its child elements. To
+    // begin with, we get the tracks element (their may be more than one, if
+    // the document was created by merging other documents) but generally only
+    // one will exist).
+    // We can guarantee that there is at least one in the index because
+    // otherwise the call to segment.read() would have thrown an error.
+    std::streampos tracks_pos(segment.index.find(tide::ids::Tracks)->second);
+    stream.seekg(segment.to_stream_offset(tracks_pos));
+    // To be sure, check it really is a Tracks element
+    id = tide::ids::read(stream);
+    if (id.first != tide::ids::Tracks)
+    {
+        std::cerr << "Tracks element not at indicated position.\n";
+        return 1;
+    }
+    // Read the tracks
+    tide::Tracks tracks;
+    tracks.read(stream);
+    // Now we can introspect the tracks available in the file.
+    if (tracks.empty())
+    {
+        std::cerr << "No tracks found.\n";
+        return 1;
+    }
+    std::cerr << "Tracks:\n";
+    BOOST_FOREACH(tide::Tracks::value_type track, tracks)
+    {
+        std::cerr << "\tNumber: " << track.second->number() << '\n';
+        std::cerr << "\tName: " << track.second->name() << '\n';
+        std::cerr << "\tUID: " << track.second->uid() << '\n';
+        std::cerr << "\tCodec: " << track.second->codec_name() << " (" <<
+            track.second->codec_id() << ")\n";
+    }
+
+    // Before we start reading the clusters, let's perform a sanity check to
+    // ensure the data is what we expect.
+    if (tracks.begin()->second->codec_id() != "string")
+    {
+        std::cerr << "Track 1 has incorrect codec\n";
+        return 1;
+    }
+
+    // Now we can start reading the clusters.
+    // The call to segment.read() will have placed the first Cluster in the
+    // file into the index, so we can jump straight to it.
+    std::streampos first_cluster(
+            segment.index.find(tide::ids::Cluster)->second);
+    stream.seekg(segment.to_stream_offset(first_cluster));
+    // To be sure, check it really is a Cluster element
+    id = tide::ids::read(stream);
+    if (id.first != tide::ids::Cluster)
+    {
+        std::cerr << "Cluster element not at indicated position.\n";
+        return 1;
+    }
+    // Read the cluster. This is using the in-memory cluster, which reads all
+    // blocks in the cluster in one go and stores them in memory. For larger
+    // quantities of data, using the in-file cluster is better.
+    tide::MemoryCluster cluster;
+    cluster.read(stream);
+    // We can now iterate over the blocks in the cluster.
+    // Coming soon: iterating over the clusters in a segment, and iterating
+    // over all blocks in a segment!
+    // Coming a little later: filtering iterators that iterate over all blocks
+    // matching given criteria (track number, time step, etc.)!
+    std::cerr << "Frames:\n";
+    for (tide::MemoryCluster::Iterator block(cluster.begin());
+            block != cluster.end(); ++block)
+    {
+        // Some blocks may actually contain multiple frames in a lace. In this
+        // case, we are reading blocks that do not use lacing, so there is only
+        // one frame per block. This is the general case; lacing is typically
+        // only used when the frame size is very small to reduce overhead.
+        tide::BlockElement::Ptr first_block(*block);
+        tide::BlockElement::FramePtr frame_data(*(first_block->begin()));
+        std::string frame(frame_data->begin(), frame_data->end());
+        std::cerr << '\t' << frame << '\n';
+        std::cerr << "\t\tTrack number: " << first_block->track_number() << '\n';
+        std::cerr << "\t\tTime code: " << first_block->timecode() << '\n';
+    }
 
     return 0;
 }

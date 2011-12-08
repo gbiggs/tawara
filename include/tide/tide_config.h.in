@@ -41,6 +41,7 @@ namespace tide
     const unsigned int TideVersionMajor(@PROJECT_VERSION_MAJOR@);
     const unsigned int TideVersionMinor(@PROJECT_VERSION_MINOR@);
     const unsigned int TideVersionRevision(@PROJECT_VERSION_REVISION@);
+    const unsigned int TideEBMLVersion(1);
 }; // namespace tide
 
 /// @}

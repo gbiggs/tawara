@@ -40,7 +40,8 @@ using namespace tide;
 
 EBMLElement::EBMLElement(std::string const& doc_type)
     : MasterElement(ids::EBML),
-    ver_(ids::EBMLVersion, 1, 1), read_ver_(ids::EBMLReadVersion, 1, 1),
+    ver_(ids::EBMLVersion, TideEBMLVersion, TideEBMLVersion),
+    read_ver_(ids::EBMLReadVersion, TideEBMLVersion, TideEBMLVersion),
     max_id_length_(ids::EBMLMaxIDLength, 4, 4),
     max_size_length_(ids::EBMLMaxSizeLength, 8, 8),
     doc_type_(ids::DocType, doc_type, TideDocType),
@@ -147,8 +148,8 @@ std::streamsize EBMLElement::read_body(std::istream& input,
 
 void EBMLElement::set_defaults_()
 {
-    ver_.value(1);
-    read_ver_.value(1);
+    ver_.value(TideEBMLVersion);
+    read_ver_.value(TideEBMLVersion);
     max_id_length_.value(4);
     max_size_length_.value(8);
     doc_type_.value(TideDocType);

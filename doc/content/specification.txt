@@ -514,7 +514,7 @@ EBMLMaxSizeLength    1     42 F3       \*          8       u The maximum length 
 DocType              1     42 82       \*          tide    s An ASCII string describing the document that follows the EBML header.
                                                              "tide" for Tide files.
 DocTypeVersion       1     42 87       \*          1       u The version of DocType intepreter used to create the file.
-DocTypeReadVersion   1     42 85       \*          1       u The minimum DocTYpe version an interpreter requires to read this file.
+DocTypeReadVersion   1     42 85       \*          1       u The minimum DocType version an interpreter requires to read this file.
 ==================== ===== =========== == == ===== ======= = ===========
 
 

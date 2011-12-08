@@ -66,15 +66,15 @@ int main(int argc, char** argv)
         std::cerr << "Specified EBML file is not a Tide document.\n";
         return 1;
     }
-    if (ebml_el.read_version() > tide::TideVersionMajor)
+    if (ebml_el.read_version() > tide::TideEBMLVersion)
     {
-        std::cerr << "Tide document requires read version " <<
+        std::cerr << "This Tide document requires read version " <<
             ebml_el.read_version() << ".\n";
         return 1;
     }
     if (ebml_el.doc_read_version() > tide::TideVersionMajor)
     {
-        std::cerr << "Tide document requires doc read version " <<
+        std::cerr << "This Tide document requires doc read version " <<
             ebml_el.read_version() << ".\n";
         return 1;
     }

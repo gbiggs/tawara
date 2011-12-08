@@ -38,7 +38,7 @@ set(SHARE_INSTALL_DIR
 if(STATIC_LIBS)
     set(Boost_USE_STATIC_LIBS ON)
 endif(STATIC_LIBS)
-find_package(Boost COMPONENTS filesystem system REQUIRED)
+find_package(Boost COMPONENTS filesystem system date_time REQUIRED)
 
 # Universal settings
 include_directories(${Boost_INCLUDE_DIRS})

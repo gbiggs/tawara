@@ -73,7 +73,7 @@ namespace tide
              * \param[in] pad_size The size of the padding to place at the
              * start of the segment when opening it for writing.
              */
-            Segment(std::streamsize pad_size=200);
+            Segment(std::streamsize pad_size=4096);
 
             /** \brief Get the padding size.
              *

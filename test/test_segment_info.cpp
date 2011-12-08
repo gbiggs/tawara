@@ -75,12 +75,20 @@ TEST(SegmentInfo, UID)
     uid.push_back(0x06);
     uid.push_back(0x07);
     uid.push_back(0x08);
+    uid.push_back(0x09);
+    uid.push_back(0x0A);
+    uid.push_back(0x0B);
+    uid.push_back(0x0C);
+    uid.push_back(0x0D);
+    uid.push_back(0x0D);
+    uid.push_back(0x0E);
+    uid.push_back(0x0F);
     EXPECT_NO_THROW(e.uid(uid));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, uid, e.uid());
     uid.clear();
     EXPECT_NO_THROW(e.uid(uid));
     EXPECT_TRUE(e.uid().empty());
-    uid.assign(8, 0x00);
+    uid.assign(16, 0x00);
     EXPECT_THROW(e.uid(uid), tide::ValueOutOfRange);
 }
 
@@ -112,6 +120,14 @@ TEST(SegmentInfo, PrevUID)
     uid.push_back(0x06);
     uid.push_back(0x07);
     uid.push_back(0x08);
+    uid.push_back(0x09);
+    uid.push_back(0x0A);
+    uid.push_back(0x0B);
+    uid.push_back(0x0C);
+    uid.push_back(0x0D);
+    uid.push_back(0x0D);
+    uid.push_back(0x0E);
+    uid.push_back(0x0F);
     EXPECT_NO_THROW(e.prev_uid(uid));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, uid, e.prev_uid());
     uid.clear();
@@ -149,12 +165,20 @@ TEST(SegmentInfo, NextUID)
     uid.push_back(0x06);
     uid.push_back(0x07);
     uid.push_back(0x08);
+    uid.push_back(0x09);
+    uid.push_back(0x0A);
+    uid.push_back(0x0B);
+    uid.push_back(0x0C);
+    uid.push_back(0x0D);
+    uid.push_back(0x0D);
+    uid.push_back(0x0E);
+    uid.push_back(0x0F);
     EXPECT_NO_THROW(e.next_uid(uid));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, uid, e.next_uid());
     uid.clear();
     EXPECT_NO_THROW(e.next_uid(uid));
     EXPECT_TRUE(e.next_uid().empty());
-    uid.assign(8, 0x00);
+    uid.assign(16, 0x00);
     EXPECT_THROW(e.next_uid(uid), tide::ValueOutOfRange);
 }
 
@@ -186,12 +210,20 @@ TEST(SegmentInfo, SegmentFamily)
     uid.push_back(0x06);
     uid.push_back(0x07);
     uid.push_back(0x08);
+    uid.push_back(0x09);
+    uid.push_back(0x0A);
+    uid.push_back(0x0B);
+    uid.push_back(0x0C);
+    uid.push_back(0x0D);
+    uid.push_back(0x0D);
+    uid.push_back(0x0E);
+    uid.push_back(0x0F);
     EXPECT_NO_THROW(e.segment_family(uid));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, uid, e.segment_family());
     uid.clear();
     EXPECT_NO_THROW(e.segment_family(uid));
     EXPECT_TRUE(e.segment_family().empty());
-    uid.assign(8, 0x00);
+    uid.assign(16, 0x00);
     EXPECT_THROW(e.segment_family(uid), tide::ValueOutOfRange);
 }
 
@@ -310,26 +342,26 @@ TEST(SegmentInfo, Size)
     std::vector<test_utils::ElPtr> all_children, used_children;
 
     all_children.push_back(test_utils::ElPtr(new
-                tide::BinaryElement(tide::ids::SegmentUID, std::vector<char>(8,
+                tide::BinaryElement(tide::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::PrevUID,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::NextUID,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::SegmentFamily,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::FloatElement(tide::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
@@ -349,7 +381,7 @@ TEST(SegmentInfo, Size)
             used_children[0]->size(), e.size());
 
     std::streamsize body_size(0);
-    e.uid(std::vector<char>(8, 0xC0));
+    e.uid(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
@@ -367,7 +399,7 @@ TEST(SegmentInfo, Size)
             tide::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
-    e.prev_uid(std::vector<char>(8, 0xC0));
+    e.prev_uid(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
@@ -385,7 +417,7 @@ TEST(SegmentInfo, Size)
             tide::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
-    e.next_uid(std::vector<char>(8, 0xC0));
+    e.next_uid(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
@@ -403,7 +435,7 @@ TEST(SegmentInfo, Size)
             tide::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
-    e.segment_family(std::vector<char>(8, 0xC0));
+    e.segment_family(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
@@ -462,26 +494,26 @@ TEST(SegmentInfo, Write)
 {
     std::vector<test_utils::ElPtr> all_children, used_children;
     all_children.push_back(test_utils::ElPtr(new
-                tide::BinaryElement(tide::ids::SegmentUID, std::vector<char>(8,
+                tide::BinaryElement(tide::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::PrevUID,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::NextUID,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::SegmentFamily,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::FloatElement(tide::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
@@ -498,7 +530,7 @@ TEST(SegmentInfo, Write)
     tide::SegmentInfo e;
     test_seg_info::DoWriteTest(used_children, e, "tc_scale");
 
-    e.uid(std::vector<char>(8, 0xC0));
+    e.uid(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     test_seg_info::DoWriteTest(used_children, e, "uid");
@@ -508,7 +540,7 @@ TEST(SegmentInfo, Write)
     all_children.erase(all_children.begin());
     test_seg_info::DoWriteTest(used_children, e, "filename");
 
-    e.prev_uid(std::vector<char>(8, 0xC0));
+    e.prev_uid(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     test_seg_info::DoWriteTest(used_children, e, "prev_uid");
@@ -518,7 +550,7 @@ TEST(SegmentInfo, Write)
     all_children.erase(all_children.begin());
     test_seg_info::DoWriteTest(used_children, e, "prev_filename");
 
-    e.next_uid(std::vector<char>(8, 0xC0));
+    e.next_uid(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     test_seg_info::DoWriteTest(used_children, e, "next_uid");
@@ -528,7 +560,7 @@ TEST(SegmentInfo, Write)
     all_children.erase(all_children.begin());
     test_seg_info::DoWriteTest(used_children, e, "next_filename");
 
-    e.segment_family(std::vector<char>(8, 0xC0));
+    e.segment_family(std::vector<char>(16, 0xC0));
     used_children.push_back(all_children[0]);
     all_children.erase(all_children.begin());
     test_seg_info::DoWriteTest(used_children, e, "segment_family");
@@ -566,26 +598,26 @@ TEST(SegmentInfo, Read)
 
     std::vector<test_utils::ElPtr> all_children, used_children;
     all_children.push_back(test_utils::ElPtr(new
-                tide::BinaryElement(tide::ids::SegmentUID, std::vector<char>(8,
+                tide::BinaryElement(tide::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::PrevUID,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::NextUID,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::StringElement(tide::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
                 tide::BinaryElement(tide::ids::SegmentFamily,
-                    std::vector<char>(8, 0xC0))));
+                    std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
                 tide::FloatElement(tide::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new

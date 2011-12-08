@@ -78,7 +78,7 @@ void SegmentInfo::uid(std::vector<char> const& uid)
             throw ValueOutOfRange() << err_id(uid_.id()) <<
                 err_par_id(id_);
         }
-        if (uid.size() != 8)
+        if (uid.size() != 16)
         {
             throw ValueSizeOutOfRange() << err_id(ids::SegmentUID) <<
                 err_par_id(id_);
@@ -120,7 +120,7 @@ void SegmentInfo::prev_uid(std::vector<char> const& uid)
             throw ValueOutOfRange() << err_id(prev_uid_.id()) <<
                 err_par_id(id_);
         }
-        if (uid.size() != 8)
+        if (uid.size() != 16)
         {
             throw ValueSizeOutOfRange() << err_id(prev_uid_.id()) <<
                 err_par_id(id_);
@@ -162,7 +162,7 @@ void SegmentInfo::next_uid(std::vector<char> const& uid)
             throw ValueOutOfRange() << err_id(next_uid_.id()) <<
                 err_par_id(id_);
         }
-        if (uid.size() != 8)
+        if (uid.size() != 16)
         {
             throw ValueSizeOutOfRange() << err_id(next_uid_.id()) <<
                 err_par_id(id_);
@@ -205,7 +205,7 @@ void SegmentInfo::segment_family(std::vector<char> const& segment_family)
             throw ValueOutOfRange() << err_id(seg_fam_.id()) <<
                 err_par_id(id_);
         }
-        if (segment_family.size() != 8)
+        if (segment_family.size() != 16)
         {
             throw ValueSizeOutOfRange() << err_id(seg_fam_.id()) <<
                 err_par_id(id_);

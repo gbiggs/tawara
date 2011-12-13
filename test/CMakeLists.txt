@@ -34,7 +34,8 @@ set(srcs test_utils.cpp
     test_block_group.cpp
     test_cluster.cpp
     test_memory_cluster.cpp
-    test_segment.cpp)
+    test_segment.cpp
+    test_attachments.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

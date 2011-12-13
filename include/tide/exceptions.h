@@ -438,6 +438,26 @@ namespace tide
      */
     struct VoidTooSmall : virtual TideError{};
 
+    /** \brief An attachments element with no attachments was read or written.
+     *
+     * An Attachments element must have at least one attachment. If an empty
+     * element is read or written, this error occurs.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct NoAttachments : virtual TideError{};
+
+    /** \brief An attached file with no data was read or written.
+     *
+     * An attached file must contain at least 1 byte of data. If one without
+     * any data is read or written, this error occurs.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct NoAttachedData : virtual TideError{};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags

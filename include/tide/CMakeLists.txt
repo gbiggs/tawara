@@ -24,14 +24,15 @@ set(hdrs ${config_h}
     tracks.h
     track_entry.h
     track_operation.h
-    segment.h
     block.h
     block_impl.h
     block_additions.h
     block_group.h
     cluster.h
     memory_cluster.h
-    simple_block.h)
+    simple_block.h
+    segment.h
+    attachments.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

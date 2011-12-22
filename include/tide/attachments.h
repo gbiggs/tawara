@@ -28,6 +28,7 @@
 #if !defined(TIDE_ATTACHMENTS_H_)
 #define TIDE_ATTACHMENTS_H_
 
+#include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
 #include <tide/binary_element.h>
 #include <tide/master_element.h>
@@ -35,7 +36,6 @@
 #include <tide/uint_element.h>
 #include <tide/win_dll.h>
 
-#include <boost/foreach.hpp>
 /// \addtogroup elements Elements
 /// @{
 

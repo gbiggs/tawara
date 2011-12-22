@@ -26,7 +26,8 @@ set(srcs tide_impl.cpp
     cluster.cpp
     memory_cluster.cpp
     segment.cpp
-    attachments.cpp)
+    attachments.cpp
+    cues.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

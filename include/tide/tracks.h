@@ -89,12 +89,6 @@ namespace tide
             typedef storage_type_::const_reverse_iterator
                 const_reverse_iterator;
 
-            /** \brief Replace the stored TrackEntries with those from another
-             * Tracks element.
-             */
-            Tracks& operator=(Tracks const& other)
-                { entries_ = other.entries_; return *this; }
-
             /** \brief Get the TrackEntry with the given track number.
              *
              * \return A reference to the specified TrackEntry.
@@ -227,15 +221,6 @@ namespace tide
             const_iterator find(key_type const& number) const
                 { return entries_.find(number); }
 
-            /** \brief Element body writing.
-             *
-             * \throw DuplicateTrackNumber if more than one TrackEntry in the
-             * element has the same track number.
-             * \throw DuplicateUID if more than one TrackEntry in the element
-             * has the same UID.
-             */
-            virtual std::streamsize write_body(std::ostream& output);
-
             /// \brief Equality operator.
             friend bool operator==(Tracks const& lhs, Tracks const& rhs);
 
@@ -248,6 +233,15 @@ namespace tide
 
             /// \brief Get the size of the body of this element.
             virtual std::streamsize body_size() const;
+
+            /** \brief Element body writing.
+             *
+             * \throw DuplicateTrackNumber if more than one TrackEntry in the
+             * element has the same track number.
+             * \throw DuplicateUID if more than one TrackEntry in the element
+             * has the same UID.
+             */
+            virtual std::streamsize write_body(std::ostream& output);
 
             /** \brief Element body loading.
              *

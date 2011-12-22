@@ -308,7 +308,6 @@ namespace tide
      */
     struct DuplicateTrackNumber : virtual TideError{};
 
-
     /** \brief A UID collision was encountered.
      *
      * In many places, the same element may occur multiple times, with each
@@ -457,6 +456,40 @@ namespace tide
      * file where the error occured.
      */
     struct NoAttachedData : virtual TideError{};
+
+    /** \brief A duplicate timecode was encountered in the cues.
+     *
+     * All cue points in the cues must have a unique timecode. When reading or
+     * creating a Cues element, if more than one cue point uses the same time
+     * code, this error occurs.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct DuplicateTimecode : virtual TideError{};
+
+    /** \brief An empty Cues element was read or written.
+     *
+     * The Cues element must have at least one CuePoint to be valid. This
+     * error occurs if a Cues element with no CuePoint children is read, or
+     * when an empty Cues element is about to be written.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct EmptyCuesElement : virtual TideError{};
+
+    /** \brief An empty CuePoint element was read or written.
+     *
+     * The CuePoint element must have at least one CueTrackPositions to be
+     * valid. This error occurs if a CuePoint element with no CueTrackPositions
+     * children is read, or when an empty CuePoint element is about to be
+     * written.
+     *
+     * The err_pos tag may be included to give the approximate position in the
+     * file where the error occured.
+     */
+    struct EmptyCuePointElement : virtual TideError{};
 
 
 ///////////////////////////////////////////////////////////////////////////////

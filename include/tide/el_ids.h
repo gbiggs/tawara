@@ -130,7 +130,7 @@ namespace tide
             const ID Cues(0x1C53BB6B);
                 const ID CuePoint(0xBB);
                     const ID CueTime(0xB3);
-                    const ID CueTrackPositions(0xB7);
+                    const ID CueTrackPosition(0xB7);
                         const ID CueTrack(0xF7);
                         const ID CueClusterPosition(0xF1);
                         const ID CueBlockNumber(0x5378);

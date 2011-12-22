@@ -274,6 +274,7 @@ TEST(CueTrackPosition, Read)
     track.write(input);
     EXPECT_THROW(p.read(input), tide::MissingChild);
     // Track is zero
+    input.str(std::string());
     track = 0;
     body_size = track.size() + cluster_pos.size();
     tide::vint::write(body_size, input);
@@ -281,6 +282,7 @@ TEST(CueTrackPosition, Read)
     cluster_pos.write(input);
     EXPECT_THROW(p.read(input), tide::ValueOutOfRange);
     // Block number is zero
+    input.str(std::string());
     track = 1;
     block_num = 0;
     body_size = track.size() + cluster_pos.size() + block_num.size();
@@ -445,17 +447,10 @@ TEST(CuePoint, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    tide::UIntElement tc(tide::ids::Timecode, 0);
+    tide::UIntElement tc(tide::ids::CueTime, 0);
 
     tide::CuePoint c;
-    std::streamsize body_size(tc.size());
-    tide::ids::write(tide::ids::CuePoint, expected);
-    tide::vint::write(body_size, expected, 8);
-    tc.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::CuePoint) + body_size,
-            c.write(output));
-    EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
-            expected.str());
+    EXPECT_THROW(c.write(output), tide::EmptyCuePointElement);
 
     expected.str(std::string());
     output.str(std::string());
@@ -463,14 +458,14 @@ TEST(CuePoint, Write)
     tide::CueTrackPosition p2(2, 4);
     c.push_back(p1);
     c.push_back(p2);
-    body_size += p1.size() + p2.size();
+    std::streamsize body_size(tc.size() + p1.size() + p2.size());
     tide::ids::write(tide::ids::CuePoint, expected);
-    tide::vint::write(body_size, expected, 8);
+    tide::vint::write(body_size, expected);
     tc.write(expected);
     p1.write(expected);
     p2.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::CuePoint) + body_size,
-            c.write(output));
+    EXPECT_EQ(tide::ids::size(tide::ids::CuePoint) +
+            tide::vint::size(body_size) + body_size, c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 }
@@ -479,7 +474,7 @@ TEST(CuePoint, Write)
 TEST(CuePoint, Read)
 {
     std::stringstream input;
-    tide::UIntElement tc(tide::ids::Timecode, 42);
+    tide::UIntElement tc(tide::ids::CueTime, 42);
     tide::CueTrackPosition p1(1, 2);
     tide::CueTrackPosition p2(2, 4);
 
@@ -550,7 +545,7 @@ TEST(Cues, At)
     tide::Cues c;
     tide::CuePoint cp(42);
     c.insert(cp);
-    EXPECT_TRUE(c[42] == c.at(0));
+    EXPECT_TRUE(c[42] == c.at(42));
     EXPECT_TRUE(c.at(42) == cp);
     EXPECT_THROW(c.at(1), std::out_of_range);
 }
@@ -729,16 +724,18 @@ TEST(Cues, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    tide::CuePoint cp(42);
+    tide::CueTrackPosition p1(1, 2);
+    tide::CueTrackPosition p2(2, 4);
     tide::Cues c;
 
     // No cue points
     EXPECT_THROW(c.write(output), tide::EmptyCuesElement);
-    EXPECT_EQ(0, output.str().size());
 
     output.str(std::string());
     tide::CuePoint cp1(42);
+    cp1.push_back(p1);
     tide::CuePoint cp2(84);
+    cp2.push_back(p2);
     c.insert(cp1);
     c.insert(cp2);
     std::streamsize body_size(cp1.size() + cp2.size());
@@ -756,8 +753,12 @@ TEST(Cues, Write)
 TEST(Cues, Read)
 {
     std::stringstream input;
+    tide::CueTrackPosition p1(1, 2);
+    tide::CueTrackPosition p2(2, 4);
     tide::CuePoint cp1(42);
+    cp1.push_back(p1);
     tide::CuePoint cp2(84);
+    cp2.push_back(p2);
     tide::Cues c;
 
     std::streamsize body_size(cp1.size() + cp2.size());

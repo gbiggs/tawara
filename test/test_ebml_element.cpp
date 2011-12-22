@@ -49,8 +49,8 @@ TEST(EBMLElement, Create)
     EXPECT_EQ(4, e.max_id_length());
     EXPECT_EQ(8, e.max_size_length());
     EXPECT_EQ("Blag", e.doc_type());
-    EXPECT_EQ(1, e.doc_version());
-    EXPECT_EQ(1, e.doc_read_version());
+    EXPECT_EQ(0, e.doc_version());
+    EXPECT_EQ(0, e.doc_read_version());
 }
 
 
@@ -84,7 +84,7 @@ TEST(EBMLElement, DocType)
 TEST(EBMLElement, DocVersion)
 {
     tide::EBMLElement e("");
-    EXPECT_EQ(1, e.doc_version());
+    EXPECT_EQ(0, e.doc_version());
     e.doc_version(2);
     EXPECT_EQ(2, e.doc_version());
 }
@@ -93,7 +93,7 @@ TEST(EBMLElement, DocVersion)
 TEST(EBMLElement, DocReadVersion)
 {
     tide::EBMLElement e("");
-    EXPECT_EQ(1, e.doc_read_version());
+    EXPECT_EQ(0, e.doc_read_version());
     e.doc_read_version(2);
     EXPECT_EQ(2, e.doc_read_version());
 }
@@ -119,9 +119,9 @@ TEST(EBMLElement, Write)
     children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
                     "tide")));
     children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
-                    1)));
+                    0)));
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::DocTypeReadVersion, 1)));
+                tide::UIntElement(tide::ids::DocTypeReadVersion, 0)));
     tide::EBMLElement e;
     std::streamsize expected_size(0);
     BOOST_FOREACH(ElPtr el, children)
@@ -238,8 +238,8 @@ TEST(EBMLElement, Read)
     EXPECT_EQ(4, e.max_id_length());
     EXPECT_EQ(8, e.max_size_length());
     EXPECT_EQ(tide::TideDocType, e.doc_type());
-    EXPECT_EQ(1, e.doc_version());
-    EXPECT_EQ(1, e.doc_read_version());
+    EXPECT_EQ(0, e.doc_version());
+    EXPECT_EQ(0, e.doc_read_version());
 
     // Body size value wrong (too small)
     input.str(std::string());
@@ -264,7 +264,7 @@ TEST(EBMLElement, Size)
     // Size with everything defaults
     tide::EBMLElement e1;
     EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
-            tide::vint::size(31) + 31, e1.size());
+            tide::vint::size(29) + 29, e1.size());
 
     // Size with non-defaults. Note that EBMLVersion and EBMLReadVersion can
     // never be anything other than the default in this test.

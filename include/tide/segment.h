@@ -30,6 +30,7 @@
 
 #include <map>
 #include <tide/master_element.h>
+#include <tide/memory_cluster.h>
 #include <tide/metaseek.h>
 #include <tide/segment_info.h>
 #include <tide/win_dll.h>
@@ -68,12 +69,210 @@ namespace tide
     class TIDE_EXPORT Segment : public MasterElement
     {
         public:
+            /// \brief Pointer to a segment.
+            typedef boost::shared_ptr<Segment> Ptr;
+
             /** \brief Create a new segment element.
              *
              * \param[in] pad_size The size of the padding to place at the
              * start of the segment when opening it for writing.
              */
             Segment(std::streamsize pad_size=4096);
+
+            //////////////////////////////////////////////////////////////////
+            // Iterator types
+            //////////////////////////////////////////////////////////////////
+
+            template <typename ClusterPtrType>
+            class TIDE_EXPORT ClusterIteratorBase
+                : public boost::iterator_facade<
+                    ClusterIteratorBase<ClusterPtrType>,
+                    ClusterPtrType, boost::forward_traversal_tag>
+            {
+                private:
+                    struct enabler {};
+
+                public:
+                    /// \brief Base constructor.
+                    ClusterIteratorBase()
+                    {
+                    }
+
+                    /** \brief Constructor.
+                     *
+                     * \param[in] segment The segment containing the clusters.
+                     * \param[in] stream The stream to read clusters from.
+                     */
+                    ClusterIteratorBase(Segment const* segment,
+                            std::istream& stream)
+                        : segment_(segment), stream_(stream)
+                    {
+                        // Read the first cluster from the stream to populate
+                        // the cluster pointer.
+                        std::streampos current_pos(stream_.tellg());
+
+                        std::streampos first_cluster(segment->index.find(
+                                    tide::ids::Cluster)->second);
+                        stream_.seekg(segment_->to_stream_offset(
+                                    first_cluster));
+
+                        open_cluster();
+
+                        // Restore the read position
+                        stream_.seekg(current_pos);
+                    }
+
+                    /** \brief Templated base constructor.
+                     *
+                     * Used to provide interoperability with compatible
+                     * iterators.
+                     */
+                    template <typename OtherType>
+                    ClusterIteratorBase(
+                            ClusterIteratorBase<OtherType> const& other)
+                        : segment_(other.segment_), stream_(other.stream_),
+                        cluster_(new ClusterPtrType(*other.cluster_))
+                    {
+                    }
+
+                protected:
+                    // Necessary for Boost::iterator implementation.
+                    friend class boost::iterator_core_access;
+
+                    // Integrate with owning container.
+                    friend class Segment;
+
+                    Segment const* segment_;
+                    std::istream& stream_;
+                    boost::shared_ptr<ClusterPtrType> cluster_;
+
+                    void open_cluster()
+                    {
+                        tide::ids::ReadResult id(tide::ids::read(stream_));
+                        if (id.first != tide::ids::Cluster)
+                        {
+                            throw InvalidChildID() << err_id(id.first) <<
+                                err_par_id(segment_->id_) <<
+                                err_pos(static_cast<std::streamsize>(
+                                        stream_.tellg()) - id.second);
+                        }
+
+                        ClusterPtrType new_cluster(new MemoryCluster());
+                        new_cluster->read(stream_);
+
+                        if (!cluster_)
+                        {
+                            cluster_.reset(new ClusterPtrType(new_cluster));
+                        }
+                        else
+                        {
+                            cluster_->swap(new_cluster);
+                        }
+                    }
+
+                    /// \brief Increment the iterator to the next cluster.
+                    void increment()
+                    {
+                        // Preserve the current read position.
+                        std::streampos current_pos(stream_.tellg());
+                        // Jump to the current cluster's position.
+                        stream_.seekg((*cluster_)->offset());
+                        // Skip the cluster
+                        stream_.seekg((*cluster_)->size(), std::ios::cur);
+                        // Search for the next cluster
+                        while(true)
+                        {
+                            // Check if the end of the segment has been passed
+                            if (stream_.tellg() >=
+                                    segment_->size_ + segment_->offset_)
+                            {
+                                // End of the clusters
+                                cluster_->reset();
+                                break;
+                            }
+                            try
+                            {
+                                // Attempt to open a cluster
+                                open_cluster();
+                            }
+                            catch (InvalidChildID())
+                            {
+                                // The next element was not a cluster; skip it
+                                skip_read(stream_, false);
+                                continue;
+                            }
+                            break;
+                        }
+                        // Restore the read position
+                        stream_.seekg(current_pos);
+                    }
+
+                    /** \brief Test for equality with another Iterator.
+                     *
+                     * \param[in] other The other iterator.
+                     */
+                    template <typename OtherType>
+                    bool equal(
+                            ClusterIteratorBase<OtherType> const& other) const
+                    {
+                        if (!(*cluster_))
+                        {
+                            if (!(*other.cluster_))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if (!(*other.cluster_))
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                //return *segment_ == *other.segment_ &&
+                                    //stream_ == other.stream_ &&
+                                    //**cluster_ == **other.cluster_;
+                                return false;
+                            }
+                        }
+                    }
+
+                    /** \brief Dereference the iterator to get a pointer to the
+                     * cluster.
+                     */
+                    ClusterPtrType& dereference() const
+                    {
+                        return *cluster_;
+                    }
+            }; // class IteratorBase
+
+            /** \brief Memory-based cluster iterator interface.
+             *
+             * This interface provides access to the clusters in the segment,
+             * sorted in ascending time order and with each cluster read
+             * entirely into memory.
+             */
+            typedef ClusterIteratorBase<MemoryCluster::Ptr> MemClusterIterator;
+
+            //////////////////////////////////////////////////////////////////
+            // Iterator access
+            //////////////////////////////////////////////////////////////////
+
+            /** \brief Access the start of the clusters.
+             *
+             * Gets an iterator pointing to the first cluster in the segment.
+             */
+            MemClusterIterator clusters_begin(std::istream& stream);
+            /** \brief Access the end of the clusters.
+             *
+             * Gets an iterator pointing to the last cluster in the segment.
+             */
+            MemClusterIterator clusters_end(std::istream& stream);
 
             /** \brief Get the padding size.
              *
@@ -137,7 +336,7 @@ namespace tide
              * This function turns an offset in the output stream into an
              * offset in this segment, which is necessary for the index.
              */
-            std::streamsize to_segment_offset(std::streamsize stream_offset);
+            std::streamsize to_segment_offset(std::streamsize stream_offset) const;
 
             /** \brief Calculate the offset in a stream of a position in the
              * segment.
@@ -145,7 +344,7 @@ namespace tide
              * This function turns an offset within the segment into an
              * absolute position in a byte stream.
              */
-            std::streamsize to_stream_offset(std::streamsize seg_offset);
+            std::streamsize to_stream_offset(std::streamsize seg_offset) const;
 
         protected:
             /// The size of the padding to place at the start of the file.

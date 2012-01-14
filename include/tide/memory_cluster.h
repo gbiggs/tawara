@@ -54,6 +54,9 @@ namespace tide
             typedef std::vector<BlockElement::Ptr> BlockStore;
 
         public:
+            /// \brief Pointer to a memory-based cluster.
+            typedef boost::shared_ptr<MemoryCluster> Ptr;
+
             /** \brief Construct a new cluster.
              *
              * \param[in] timecode The timecode of the cluster, in the units
@@ -141,13 +144,13 @@ namespace tide
                     }
             }; // class IteratorBase
 
-            /** \brief Block iterator interface
+            /** \brief Block iterator interface.
              *
              * This interface provides access to the blocks in the cluster,
              * sorted in ascending time order.
              */
             typedef IteratorBase<BlockElement::Ptr, BlockStore::iterator> Iterator;
-            /** \brief Block const iterator interface
+            /** \brief Block const iterator interface.
              *
              * This interface provides access to the blocks in the cluster,
              * sorted in ascending time order. The access is const, preventing

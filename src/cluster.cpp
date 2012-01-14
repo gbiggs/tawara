@@ -64,7 +64,7 @@ uint64_t Cluster::position() const
 std::streamsize Cluster::size() const
 {
     // The size of a cluster is always written using 8 bytes
-    return tide::ids::size(id_) + 8 + meta_size() + size_;
+    return tide::ids::size(id_) + 8 + size_;
 }
 
 

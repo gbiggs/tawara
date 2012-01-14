@@ -47,16 +47,34 @@ Segment::Segment(std::streamsize pad_size)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// Cluster access
+///////////////////////////////////////////////////////////////////////////////
+
+Segment::MemClusterIterator Segment::clusters_begin(std::istream& stream)
+{
+    return Segment::MemClusterIterator(this, stream);
+}
+
+
+Segment::MemClusterIterator Segment::clusters_end(std::istream& stream)
+{
+    Segment::MemClusterIterator result(this, stream);
+    result.cluster_->reset();
+    return result;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // Miscellaneous member functions
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize Segment::to_segment_offset(std::streamsize stream_offset)
+std::streamsize Segment::to_segment_offset(std::streamsize stream_offset) const
 {
     return stream_offset - offset_ - ids::size(ids::Segment) - 8;
 }
 
 
-std::streamsize Segment::to_stream_offset(std::streamsize seg_offset)
+std::streamsize Segment::to_stream_offset(std::streamsize seg_offset) const
 {
     return seg_offset + offset_ + ids::size(ids::Segment) + 8;
 }

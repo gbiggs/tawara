@@ -153,6 +153,37 @@ int main(int argc, char** argv)
     // Finally, now that all blocks have been added, the cluster is finalised.
     cluster.finalise(stream);
 
+    // Now we'll add another cluster.
+    tide::MemoryCluster cluster2;
+    // This cluster does not need to be added to the index, as it is easily
+    // found during reading by skipping past the first cluster.
+    // Give the cluster a timecode.
+    c_start = boost::posix_time::second_clock::local_time();
+    c_td = c_start - start;
+    cluster2.timecode(c_td.total_microseconds() / 10000);
+    // Open the cluster for writing.
+    cluster2.write(stream);
+    // Add some blocks.
+    for (int ii(0); ii < 10; ++ii)
+    {
+        std::string frame("frame a");
+        frame[6] = ii + 'a';
+        // The block's timecode
+        boost::posix_time::ptime b_start(
+                boost::posix_time::second_clock::local_time());
+        boost::posix_time::time_duration b_td = b_start - c_start;
+        tide::BlockElement::Ptr block(new tide::SimpleBlock(1,
+                    b_td.total_microseconds() / 10000));
+        // Add the frame data to the block.
+        tide::Block::FramePtr frame_ptr(
+            new tide::Block::Frame(frame.begin(), frame.end()));
+        block->push_back(frame_ptr);
+        // Add the block to the cluster.
+        cluster2.push_back(block);
+    }
+    // Finally, now that all blocks have been added, the cluster is finalised.
+    cluster2.finalise(stream);
+
     // Now that all the data has been written, the last thing to do is to
     // finalise the segment.
     segment.finalise(stream);

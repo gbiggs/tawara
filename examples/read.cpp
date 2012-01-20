@@ -168,11 +168,11 @@ int main(int argc, char** argv)
             cluster != segment.clusters_end(stream); ++cluster)
     {
         std::cerr << "Cluster " << cluster_num++ << '\n';
-        std::cerr << "\tTimecode: " << (*cluster)->timecode() << '\n';
-        std::cerr << "\tBlock count: " << (*cluster)->count() << '\n';
+        std::cerr << "\tTimecode: " << cluster->timecode() << '\n';
+        std::cerr << "\tBlock count: " << cluster->count() << '\n';
         std::cerr << "\tFrames:\n";
-        for (tide::MemoryCluster::Iterator block((*cluster)->begin());
-                block != (*cluster)->end(); ++block)
+        for (tide::MemoryCluster::Iterator block(cluster->begin());
+                block != cluster->end(); ++block)
         {
             // Some blocks may actually contain multiple frames in a lace. In
             // this case, we are reading blocks that do not use lacing, so

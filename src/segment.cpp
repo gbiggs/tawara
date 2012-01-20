@@ -59,7 +59,7 @@ Segment::MemClusterIterator Segment::clusters_begin(std::istream& stream)
 Segment::MemClusterIterator Segment::clusters_end(std::istream& stream)
 {
     Segment::MemClusterIterator result(this, stream);
-    result.cluster_->reset();
+    result.cluster_.reset();
     return result;
 }
 

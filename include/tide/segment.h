@@ -83,21 +83,16 @@ namespace tide
             // Iterator types
             //////////////////////////////////////////////////////////////////
 
-            template <typename ClusterPtrType>
+            template <typename ClusterType>
             class TIDE_EXPORT ClusterIteratorBase
                 : public boost::iterator_facade<
-                    ClusterIteratorBase<ClusterPtrType>,
-                    ClusterPtrType, boost::forward_traversal_tag>
+                    ClusterIteratorBase<ClusterType>,
+                    ClusterType, boost::forward_traversal_tag>
             {
                 private:
                     struct enabler {};
 
                 public:
-                    /// \brief Base constructor.
-                    ClusterIteratorBase()
-                    {
-                    }
-
                     /** \brief Constructor.
                      *
                      * \param[in] segment The segment containing the clusters.
@@ -111,12 +106,16 @@ namespace tide
                         // the cluster pointer.
                         std::streampos current_pos(stream_.tellg());
 
-                        std::streampos first_cluster(segment->index.find(
-                                    tide::ids::Cluster)->second);
-                        stream_.seekg(segment_->to_stream_offset(
-                                    first_cluster));
-
-                        open_cluster();
+                        SeekHead::const_iterator first_cluster(
+                                segment->index.find(ids::Cluster));
+                        if (first_cluster != segment->index.end())
+                        {
+                            stream_.seekg(segment_->to_stream_offset(
+                                        first_cluster->second));
+                            open_cluster();
+                        }
+                        // Otherwise there are no clusters so this iterator
+                        // should be left at the end (i.e. cluster_ is empty).
 
                         // Restore the read position
                         stream_.seekg(current_pos);
@@ -131,7 +130,7 @@ namespace tide
                     ClusterIteratorBase(
                             ClusterIteratorBase<OtherType> const& other)
                         : segment_(other.segment_), stream_(other.stream_),
-                        cluster_(new ClusterPtrType(*other.cluster_))
+                        cluster_(other.cluster_)
                     {
                     }
 
@@ -144,7 +143,8 @@ namespace tide
 
                     Segment const* segment_;
                     std::istream& stream_;
-                    boost::shared_ptr<ClusterPtrType> cluster_;
+                    boost::shared_ptr<ClusterType> cluster_;
+                    bool end_;
 
                     void open_cluster()
                     {
@@ -157,17 +157,10 @@ namespace tide
                                         stream_.tellg()) - id.second);
                         }
 
-                        ClusterPtrType new_cluster(new MemoryCluster());
+                        boost::shared_ptr<ClusterType> new_cluster(new ClusterType);
                         new_cluster->read(stream_);
 
-                        if (!cluster_)
-                        {
-                            cluster_.reset(new ClusterPtrType(new_cluster));
-                        }
-                        else
-                        {
-                            cluster_->swap(new_cluster);
-                        }
+                        cluster_.swap(new_cluster);
                     }
 
                     /// \brief Increment the iterator to the next cluster.
@@ -176,9 +169,9 @@ namespace tide
                         // Preserve the current read position.
                         std::streampos current_pos(stream_.tellg());
                         // Jump to the current cluster's position.
-                        stream_.seekg((*cluster_)->offset());
+                        stream_.seekg(cluster_->offset());
                         // Skip the cluster
-                        stream_.seekg((*cluster_)->size(), std::ios::cur);
+                        stream_.seekg(cluster_->size(), std::ios::cur);
                         // Search for the next cluster
                         while(true)
                         {
@@ -187,7 +180,7 @@ namespace tide
                                     segment_->size_ + segment_->offset_)
                             {
                                 // End of the clusters
-                                cluster_->reset();
+                                cluster_.reset();
                                 break;
                             }
                             try
@@ -215,37 +208,32 @@ namespace tide
                     bool equal(
                             ClusterIteratorBase<OtherType> const& other) const
                     {
-                        if (!(*cluster_))
+                        if (!cluster_ && !other.cluster_)
                         {
-                            if (!(*other.cluster_))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                            return true;
+                        }
+                        else if (!cluster_)
+                        {
+                            return false;
+                        }
+                        else if (!other.cluster_)
+                        {
+                            return false;
+                        }
+                        else if (cluster_->offset() == other.cluster_->offset())
+                        {
+                            return true;
                         }
                         else
                         {
-                            if (!(*other.cluster_))
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                //return *segment_ == *other.segment_ &&
-                                    //stream_ == other.stream_ &&
-                                    //**cluster_ == **other.cluster_;
-                                return false;
-                            }
+                            return false;
                         }
                     }
 
                     /** \brief Dereference the iterator to get a pointer to the
                      * cluster.
                      */
-                    ClusterPtrType& dereference() const
+                    ClusterType& dereference() const
                     {
                         return *cluster_;
                     }
@@ -257,7 +245,7 @@ namespace tide
              * sorted in ascending time order and with each cluster read
              * entirely into memory.
              */
-            typedef ClusterIteratorBase<MemoryCluster::Ptr> MemClusterIterator;
+            typedef ClusterIteratorBase<MemoryCluster> MemClusterIterator;
 
             //////////////////////////////////////////////////////////////////
             // Iterator access

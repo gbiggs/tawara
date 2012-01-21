@@ -93,7 +93,7 @@ std::streamsize MemoryCluster::finalise(std::ostream& output)
 
     // Go back and write the cluster's actual size in the element header
     std::streampos cluster_end(output.tellp());
-    size_ = cluster_end - offset_ - 8 - ids::size(id_);
+    std::streamsize size = cluster_end - offset_ - 8 - ids::size(id_);
     output.seekp(static_cast<std::streamsize>(offset_) +
             ids::size(ids::Cluster));
     write_size(output);
@@ -101,7 +101,7 @@ std::streamsize MemoryCluster::finalise(std::ostream& output)
     output.seekp(cluster_end);
 
     writing_ = false;
-    return ids::size(id_) + 8 + size_;
+    return ids::size(id_) + 8 + meta_size() + written;
 }
 
 

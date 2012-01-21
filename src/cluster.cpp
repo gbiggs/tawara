@@ -42,7 +42,7 @@ using namespace tide;
 Cluster::Cluster(uint64_t timecode)
     : MasterElement(ids::Cluster),
     timecode_(ids::Timecode, timecode), position_(ids::Position, 0),
-    prev_size_(ids::PrevSize, 0), size_(0), writing_(false)
+    prev_size_(ids::PrevSize, 0), writing_(false)
 {
 }
 
@@ -64,7 +64,7 @@ uint64_t Cluster::position() const
 std::streamsize Cluster::size() const
 {
     // The size of a cluster is always written using 8 bytes
-    return tide::ids::size(id_) + 8 + size_;
+    return tide::ids::size(id_) + 8 + body_size();
 }
 
 
@@ -129,7 +129,6 @@ std::streamsize Cluster::write_body(std::ostream& output)
         written += prev_size_.write(output);
     }
 
-    size_ = written;
     return written;
 }
 
@@ -139,8 +138,6 @@ std::streamsize Cluster::read_body(std::istream& input,
 {
     // Reset to defaults
     reset();
-    // Save the size
-    size_ = size;
     // Cannot write a cluster being read
     writing_ = false;
 

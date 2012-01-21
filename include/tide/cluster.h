@@ -268,8 +268,6 @@ namespace tide
             std::vector<SilentTrackNumber> silent_tracks_;
             UIntElement position_;
             UIntElement prev_size_;
-            /// The size of the cluster.
-            std::streamsize size_;
             bool writing_;
 
             /// \brief Get the size of the meta-data portion of the body of
@@ -278,7 +276,7 @@ namespace tide
 
             /// \brief Get the size of the body of this element.
             std::streamsize body_size() const
-                { return size_; }
+                { return meta_size() + blocks_size(); }
 
             /// \brief Element size writing.
             std::streamsize write_size(std::ostream& output);

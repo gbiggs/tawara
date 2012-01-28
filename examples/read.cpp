@@ -189,46 +189,19 @@ int main(int argc, char** argv)
         }
     }
 
-/*
-    // The call to segment.read() will have placed the first Cluster in the
-    // file into the index, so we can jump straight to it.
-    std::streampos first_cluster(
-            segment.index.find(tide::ids::Cluster)->second);
-    stream.seekg(segment.to_stream_offset(first_cluster));
-    // To be sure, we can check it really is a Cluster element, but this is
-    // typically not necessary.
-    id = tide::ids::read(stream);
-    if (id.first != tide::ids::Cluster)
+    // Do the same thing, using the all-blocks-in-a-segment iterator.
+    std::cerr << "All blocks in the segment:\n";
+    for (tide::Segment::MemBlockIterator block(segment.blocks_begin(stream));
+            block != segment.blocks_end(stream); ++block)
     {
-        std::cerr << "Cluster element not at indicated position.\n";
-        return 1;
-    }
-    // Read the cluster. This is using the in-memory cluster, which reads all
-    // blocks in the cluster in one go and stores them in memory. For larger
-    // quantities of data, using the in-file cluster is better.
-    tide::MemoryCluster cluster;
-    cluster.read(stream);
-    // We can now iterate over the blocks in the cluster.
-    // Coming soon: iterating over the clusters in a segment, and iterating
-    // over all blocks in a segment!
-    // Coming a little later: filtering iterators that iterate over all blocks
-    // matching given criteria (track number, time step, etc.)!
-    std::cerr << "Frames:\n";
-    for (tide::MemoryCluster::Iterator block(cluster.begin());
-            block != cluster.end(); ++block)
-    {
-        // Some blocks may actually contain multiple frames in a lace. In this
-        // case, we are reading blocks that do not use lacing, so there is only
-        // one frame per block. This is the general case; lacing is typically
-        // only used when the frame size is very small to reduce overhead.
         tide::BlockElement::Ptr first_block(*block);
         tide::BlockElement::FramePtr frame_data(*(first_block->begin()));
         std::string frame(frame_data->begin(), frame_data->end());
-        std::cerr << '\t' << frame << '\n';
-        std::cerr << "\t\tTrack number: " << first_block->track_number() << '\n';
+        std::cerr << "\t" << frame << '\n';
+        std::cerr << "\t\tTrack number: " << first_block->track_number() <<
+            '\n';
         std::cerr << "\t\tTime code: " << first_block->timecode() << '\n';
     }
-    */
 
     return 0;
 }

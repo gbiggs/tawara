@@ -83,6 +83,7 @@ namespace tide
             // Iterator types
             //////////////////////////////////////////////////////////////////
 
+            // All clusters in the segment.
             template <typename ClusterType>
             class TIDE_EXPORT ClusterIteratorBase
                 : public boost::iterator_facade<
@@ -247,6 +248,127 @@ namespace tide
              */
             typedef ClusterIteratorBase<MemoryCluster> MemClusterIterator;
 
+
+            // All blocks in the segment.
+            template <typename ClusterItrType, typename BlockItrType>
+            class TIDE_EXPORT BlockIteratorBase
+                : public boost::iterator_facade<
+                    BlockIteratorBase<ClusterItrType, BlockItrType>,
+                    typename BlockItrType::value_type,
+                    boost::forward_traversal_tag>
+            {
+                private:
+                    struct enabler {};
+
+                public:
+                    /** \brief Constructor.
+                     *
+                     * \param[in] segment The segment containing the clusters.
+                     * \param[in] stream The stream to read blocks from.
+                     */
+                    BlockIteratorBase(Segment* segment,
+                            ClusterItrType const& cluster)
+                        : segment_(segment), cluster_(cluster)
+                    {
+                        if (cluster_ != segment_->clusters_end(cluster_.stream_))
+                        {
+                            // Get the first block in the start cluster.
+                            block_ = cluster_->begin();
+                            // If the cluster doesn't have any blocks, run through
+                            // clusters until one with a block is found.
+                            while (block_ == cluster_->end() &&
+                                    cluster_ != segment_->clusters_end(cluster_.stream_))
+                            {
+                                ++cluster_;
+                                block_ = cluster_->begin();
+                            }
+                        }
+                    }
+
+                    /** \brief Templated base constructor.
+                     *
+                     * Used to provide interoperability with compatible
+                     * iterators.
+                     */
+                    template <typename OtherCIType, typename OtherBIType>
+                    BlockIteratorBase(
+                            BlockIteratorBase<OtherCIType, OtherBIType> const& other)
+                        : cluster_(other.cluster_), block_(other.block_)
+                    {
+                    }
+
+                protected:
+                    // Necessary for Boost::iterator implementation.
+                    friend class boost::iterator_core_access;
+
+                    // Integrate with owning container.
+                    friend class Segment;
+
+                    Segment* segment_;
+                    ClusterItrType cluster_;
+                    BlockItrType block_;
+
+                    /// \brief Increment the iterator to the next block.
+                    void increment()
+                    {
+                        ++block_;
+                        // If the end of the cluster has been reached, go
+                        // through the clusters to find the next with blocks.
+                        while (block_ == cluster_->end() &&
+                                cluster_ != segment_->clusters_end(cluster_.stream_))
+                        {
+                            ++cluster_;
+                            if (cluster_ == segment_->clusters_end(cluster_.stream_))
+                            {
+                                break;
+                            }
+                            block_ = cluster_->begin();
+                        }
+                    }
+
+                    /** \brief Test for equality with another Iterator.
+                     *
+                     * \param[in] other The other iterator.
+                     */
+                    template <typename OtherCIType, typename OtherBIType>
+                    bool equal(
+                        BlockIteratorBase<OtherCIType, OtherBIType> const& other) const
+                    {
+                        if (cluster_ == other.cluster_)
+                        {
+                            if (cluster_ == segment_->clusters_end(cluster_.stream_))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return block_ == other.block_;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    /** \brief Dereference the iterator to get a pointer to the
+                     * block.
+                     */
+                    typename BlockItrType::value_type& dereference() const
+                    {
+                        return *block_;
+                    }
+            };
+
+            /** \brief Memory-based block iterator interface.
+             *
+             * This interface provides access to the blocks in the segment,
+             * stored across all the clusters.
+             */
+            typedef BlockIteratorBase<MemClusterIterator,
+                    MemoryCluster::Iterator> MemBlockIterator;
+
+
             //////////////////////////////////////////////////////////////////
             // Iterator access
             //////////////////////////////////////////////////////////////////
@@ -261,6 +383,22 @@ namespace tide
              * Gets an iterator pointing to the last cluster in the segment.
              */
             MemClusterIterator clusters_end(std::istream& stream);
+
+            /** \brief Access the start of the blocks.
+             *
+             * Gets an iterator pointing to the first block in the segment.
+             */
+            MemBlockIterator blocks_begin(std::istream& stream);
+            /** \brief Access the end of the blocks.
+             *
+             * Gets an iterator pointing to the last block in the segment.
+             */
+            MemBlockIterator blocks_end(std::istream& stream);
+
+
+            //////////////////////////////////////////////////////////////////
+            // Segment interface
+            //////////////////////////////////////////////////////////////////
 
             /** \brief Get the padding size.
              *

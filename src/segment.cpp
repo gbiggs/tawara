@@ -47,7 +47,7 @@ Segment::Segment(std::streamsize pad_size)
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// Cluster access
+// Cluster and block access
 ///////////////////////////////////////////////////////////////////////////////
 
 Segment::MemClusterIterator Segment::clusters_begin(std::istream& stream)
@@ -61,6 +61,18 @@ Segment::MemClusterIterator Segment::clusters_end(std::istream& stream)
     Segment::MemClusterIterator result(this, stream);
     result.cluster_.reset();
     return result;
+}
+
+
+Segment::MemBlockIterator Segment::blocks_begin(std::istream& stream)
+{
+    return Segment::MemBlockIterator(this, Segment::clusters_begin(stream));
+}
+
+
+Segment::MemBlockIterator Segment::blocks_end(std::istream& stream)
+{
+    return Segment::MemBlockIterator(this, Segment::clusters_end(stream));
 }
 
 

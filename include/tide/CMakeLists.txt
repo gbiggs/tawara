@@ -6,11 +6,13 @@ set(hdrs ${config_h}
     tide.h
     exceptions.h
     win_dll.h
+    el_ids.h
     tide_impl.h
     vint.h
     ebml_int.h
     element.h
     prim_element.h
+    master_element.h
     int_element.h
     uint_element.h
     float_element.h
@@ -25,6 +27,7 @@ set(hdrs ${config_h}
     track_entry.h
     track_operation.h
     block.h
+    block_element.h
     block_impl.h
     block_additions.h
     block_group.h

@@ -70,7 +70,7 @@ TEST(Tide, EmptyFile)
     EXPECT_NO_THROW(tide::TideImpl t(file));
     file.close();
     // A Tide file with just the EBML header should be 36 bytes
-    EXPECT_EQ(36, boost::filesystem::file_size(path));
+    EXPECT_EQ(34, boost::filesystem::file_size(path));
     boost::filesystem::remove(path);
 }
 

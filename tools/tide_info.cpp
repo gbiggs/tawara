@@ -140,34 +140,36 @@ int main(int argc, char** argv)
             track.second->codec_id() << ")\n\n";
     }
 
-    // Now we will iterate over ever cluster in the file and print out some
+    // Now we will iterate over every cluster in the file and print out some
     // interesting statistics.
     std::cerr << "Clusters:\n";
-    // The call to segment.read() will have placed the first Cluster in the
-    // file into the index, so we can jump straight to it.
-    std::streampos first_cluster(
-            segment.index.find(tide::ids::Cluster)->second);
-    stream.seekg(segment.to_stream_offset(first_cluster));
-    // Open the cluster. This is using the in-memory cluster, which reads all
-    // blocks in the cluster in one go and stores them in memory. For larger
-    // quantities of data, using the in-file cluster is better.
-    tide::ids::read(stream); // Read and ignore the Cluster ID
-    tide::MemoryCluster cluster;
-    cluster.read(stream);
-    std::cerr << "\tTimecode: " << cluster.timecode() << '\n';
-    std::cerr << "\tBlock count: " << cluster.count() << '\n';
-    std::cerr << "\tNumber of silent tracks: " <<
-        cluster.silent_tracks().size() << '\n';
-    std::streamsize avg_frame_size(0);
-    for (tide::MemoryCluster::Iterator block(cluster.begin());
-            block != cluster.end(); ++block)
+
+    int cluster_num(0);
+    for (tide::Segment::MemClusterIterator cluster(segment.clusters_begin(stream));
+            cluster != segment.clusters_end(stream); ++cluster)
     {
-        tide::BlockElement::Ptr first_block(*block);
-        tide::BlockElement::FramePtr frame_data(*(first_block->begin()));
-        avg_frame_size += frame_data->size();
+        std::cerr << "\tCluster " << cluster_num++ << '\n';
+        std::cerr << "\t\tTimecode: " << cluster->timecode() << '\n';
+        std::cerr << "\t\tBlock count: " << cluster->count() << '\n';
+        std::streamsize avg_frame_size(0);
+        for (tide::MemoryCluster::Iterator block(cluster->begin());
+                block != cluster->end(); ++block)
+        {
+            tide::BlockElement::Ptr first_block(*block);
+            tide::BlockElement::FramePtr frame_data(*(first_block->begin()));
+            avg_frame_size += frame_data->size();
+        }
+        if (cluster->count() != 0)
+        {
+            std::cerr << "\t\tAverage block size: " <<
+                avg_frame_size / cluster->count() << '\n';
+        }
+        else
+        {
+            std::cerr <<
+                "\t\tAverage block size: 0 (probably a corrupt file)\n";
+        }
     }
-    std::cerr << "\tAverage frame size: " <<
-        avg_frame_size / cluster.count() << '\n';
 
     return 0;
 }

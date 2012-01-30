@@ -12,6 +12,6 @@ http://gbiggs.github.com/tide/
 
 This software is developed at the National Institute of Advanced
 Industrial Science and Technology. Approval number H22PRO-???? This
-software is licensed under the Lesser General Public License. See
-COPYING.LESSER for license information.
+software is licensed under the New BSD License. See LICENSE.TXT for
+license information.
 

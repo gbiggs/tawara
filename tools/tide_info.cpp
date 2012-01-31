@@ -36,6 +36,8 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
+#define BOOST_DATE_TIME_POSIX_TIME_STD_CONFIG
+
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/foreach.hpp>
@@ -49,6 +51,8 @@
 #include <tide/tide_impl.h>
 #include <tide/tracks.h>
 #include <tide/track_entry.h>
+
+namespace bpt = boost::posix_time;
 
 
 int main(int argc, char** argv)
@@ -108,17 +112,17 @@ int main(int argc, char** argv)
         std::cerr << std::hex << std::setw(2) << std::setfill('0') <<
             +(b & 0xFF);
     }
+    std::cerr << std::dec;
     std::cerr << "\n\tFile name: " << segment.info.filename() << '\n';
     // This is the segment's timecode scale. It defines the units of all
     // timecodes in the segment as a multiple of nanoseconds.
     std::cerr << "\tTimecode scale: " << segment.info.timecode_scale() << '\n';
     // The segment's date is stored as the number of seconds since the start of
     // the millenium. Boost::Date_Time is invaluable here.
-    boost::posix_time::ptime basis(boost::gregorian::date(2001, 1, 1));
-    boost::posix_time::time_duration sd(
-            boost::posix_time::seconds(segment.info.date()));
-    boost::posix_time::ptime start(basis + sd);
-    std::cerr << "\tDate: " << start.date() << " (" << start << ")\n";
+    bpt::ptime basis(boost::gregorian::date(2001, 1, 1));
+    bpt::ptime start(basis + bpt::seconds(segment.info.date() / 1e9) +
+            bpt::nanoseconds(segment.info.date() % 1000000000));
+    std::cerr << "\tDate: " << start << " (" << segment.info.date() << ")\n";
     std::cerr << "\tTitle: " << segment.info.title() << '\n';
     std::cerr << "\tMuxing app: " << segment.info.muxing_app() << '\n';
     std::cerr << "\tWriting app: " << segment.info.writing_app() << "\n\n";
@@ -160,7 +164,10 @@ int main(int argc, char** argv)
             cluster != segment.clusters_end(stream); ++cluster)
     {
         std::cerr << "\tCluster " << cluster_num++ << '\n';
-        std::cerr << "\t\tTimecode: " << cluster->timecode() << '\n';
+        bpt::ptime c_start(start + bpt::microseconds(
+                cluster->timecode() * segment.info.timecode_scale() / 1000));
+        std::cerr << "\t\tTimecode: " << c_start << " (" <<
+            cluster->timecode() << ")\n";
         std::cerr << "\t\tBlock count: " << cluster->count() << '\n';
         std::streamsize avg_frame_size(0);
         for (tide::MemoryCluster::Iterator block(cluster->begin());

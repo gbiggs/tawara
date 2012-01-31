@@ -52,6 +52,8 @@
 #include <tide/tracks.h>
 #include <tide/track_entry.h>
 
+namespace bpt = boost::posix_time;
+
 
 int main(int argc, char** argv)
 {
@@ -114,12 +116,11 @@ int main(int argc, char** argv)
     // This is the segment's timecode scale. It defines the units of all
     // timecodes in the segment as a multiple of nanoseconds.
     std::cerr << "\tTimecode scale: " << segment.info.timecode_scale() << '\n';
-    // The segment's date is stored as the number of seconds since the start of
-    // the millenium. Boost::Date_Time is invaluable here.
-    boost::posix_time::ptime basis(boost::gregorian::date(2001, 1, 1));
-    boost::posix_time::time_duration sd(
-            boost::posix_time::seconds(segment.info.date()));
-    boost::posix_time::ptime start(basis + sd);
+    // The segment's date is stored as the number of nanoseconds since the
+    // start of the millenium. Boost::Date_Time is invaluable here.
+    bpt::ptime basis(boost::gregorian::date(2001, 1, 1));
+    bpt::time_duration sd(bpt::seconds(segment.info.date()));
+    bpt::ptime start(basis + sd);
     std::cerr << "\tDate: " << start.date() << " (" << start << ")\n";
     std::cerr << "\tTitle: " << segment.info.title() << '\n';
     std::cerr << "\tMuxing app: " << segment.info.muxing_app() << '\n';

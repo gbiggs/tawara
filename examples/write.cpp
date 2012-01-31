@@ -50,6 +50,8 @@
 #include <tide/tracks.h>
 #include <tide/track_entry.h>
 
+namespace bpt = boost::posix_time;
+
 
 int main(int argc, char** argv)
 {
@@ -88,9 +90,9 @@ int main(int argc, char** argv)
     // The segment's date should be set. It is the somewhat-awkward value of
     // the number of seconds since the start of the millenium. Boost::Date_Time
     // to the rescue!
-    boost::posix_time::ptime basis(boost::gregorian::date(2001, 1, 1));
-    boost::posix_time::ptime start(boost::posix_time::second_clock::local_time());
-    boost::posix_time::time_duration td = start - basis;
+    bpt::ptime basis(boost::gregorian::date(2001, 1, 1));
+    bpt::ptime start(bpt::second_clock::local_time());
+    bpt::time_duration td = start - basis;
     segment.info.date(td.total_seconds());
     // Let's give the segment an inspirational title.
     segment.info.title("Example segment");
@@ -134,9 +136,8 @@ int main(int argc, char** argv)
                 segment.to_segment_offset(stream.tellp())));
     // The cluster's timecode determines the basis for the timecodes of all
     // blocks in that cluster.
-    boost::posix_time::ptime c_start(
-            boost::posix_time::second_clock::local_time());
-    boost::posix_time::time_duration c_td = c_start - start;
+    bpt::ptime c_start(bpt::second_clock::local_time());
+    bpt::time_duration c_td = c_start - start;
     cluster.timecode(c_td.total_microseconds() / 10000);
     // Open the cluster for writing so we can begin adding blocks.
     cluster.write(stream);
@@ -149,9 +150,8 @@ int main(int argc, char** argv)
         // case, all blocks belong to track 1. A timecode must also be given.
         // It is an offset from the cluster's timecode measured in the
         // segment's timecode scale.
-        boost::posix_time::ptime b_start(
-                boost::posix_time::second_clock::local_time());
-        boost::posix_time::time_duration b_td = b_start - c_start;
+        bpt::ptime b_start(bpt::second_clock::local_time());
+        bpt::time_duration b_td = b_start - c_start;
         tide::BlockElement::Ptr block(new tide::SimpleBlock(1,
                     b_td.total_microseconds() / 10000));
         // Here the frame data itself is added to the block
@@ -169,7 +169,7 @@ int main(int argc, char** argv)
     // This cluster does not need to be added to the index, as it is easily
     // found during reading by skipping past the first cluster.
     // Give the cluster a timecode.
-    c_start = boost::posix_time::second_clock::local_time();
+    c_start = bpt::second_clock::local_time();
     c_td = c_start - start;
     cluster2.timecode(c_td.total_microseconds() / 10000);
     // Open the cluster for writing.
@@ -180,9 +180,8 @@ int main(int argc, char** argv)
         std::string frame("frame a");
         frame[6] = ii + 'a';
         // The block's timecode
-        boost::posix_time::ptime b_start(
-                boost::posix_time::second_clock::local_time());
-        boost::posix_time::time_duration b_td = b_start - c_start;
+        bpt::ptime b_start(bpt::second_clock::local_time());
+        bpt::time_duration b_td = b_start - c_start;
         tide::BlockElement::Ptr block(new tide::SimpleBlock(1,
                     b_td.total_microseconds() / 10000));
         // Add the frame data to the block.

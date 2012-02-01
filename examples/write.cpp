@@ -118,18 +118,17 @@ int main(int argc, char** argv)
 
     // The data itself is stored in clusters. Each cluster contains a number of
     // blocks, with each block containing a single frame of data.  Different
-    // cluster implementations are (will be) available using different
-    // optimisations. Here, we use the implementation that stores all its
-    // blocks in memory before writing them all to the file at once.
-    // As with the segment, clusters must be opened for writing before blocks
-    // are added. Once the cluster is complete, it is finalised.
-    // How many blocks each cluster contains is relatively flexible: the only
-    // limitation is on the range of block timecodes that can be stored. Each
-    // timecode is a signed 16-bit integer, and usually blocks have timecodes
-    // that are positive, limiting the range to 32767. The unit of this value
-    // is the segment's timecode scale. The default timecode scale therefore
-    // gives approximately 65 seconds of total range, with 32 seconds being
-    // used.
+    // cluster implementations are available using different optimisations.
+    // Here, we use the implementation that stores all its blocks in memory
+    // before writing them all to the file at once. As with the segment,
+    // clusters must be opened for writing before blocks are added. Once the
+    // cluster is complete, it is finalised. How many blocks each cluster
+    // contains is relatively flexible: the only limitation is on the range of
+    // block timecodes that can be stored. Each timecode is a signed 16-bit
+    // integer, and usually blocks have timecodes that are positive, limiting
+    // the range to 32767. The unit of this value is the segment's timecode
+    // scale. The default timecode scale therefore gives approximately 65
+    // seconds of total range, with 32 seconds being used.
     tide::MemoryCluster cluster;
     // Again, we add the cluster to the index for faster file opening.
     segment.index.insert(std::make_pair(cluster.id(),
@@ -164,8 +163,9 @@ int main(int argc, char** argv)
     // Finally, now that all blocks have been added, the cluster is finalised.
     cluster.finalise(stream);
 
-    // Now we'll add another cluster.
-    tide::MemoryCluster cluster2;
+    // Now we'll add another cluster, this time using the in-file cluster
+    // implementation.
+    tide::FileCluster cluster2;
     // This cluster does not need to be added to the index, as it is easily
     // found during reading by skipping past the first cluster.
     // Give the cluster a timecode.

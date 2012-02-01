@@ -91,7 +91,6 @@ int main(int argc, char** argv)
             ebml_el.read_version() << ".\n";
         return 1;
     }
-    std::cerr << "Found EBML header\n";
 
     // Open the file's segment. This will read some meta-data about the segment
     // and read (or build, if necessary) an index of the level 1 elements. With

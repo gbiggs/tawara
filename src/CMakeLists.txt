@@ -25,6 +25,7 @@ set(srcs tide_impl.cpp
     block_additions.cpp
     cluster.cpp
     memory_cluster.cpp
+    file_cluster.cpp
     segment.cpp
     attachments.cpp
     cues.cpp)

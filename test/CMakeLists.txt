@@ -34,6 +34,7 @@ set(srcs test_utils.cpp
     test_block_group.cpp
     test_cluster.cpp
     test_memory_cluster.cpp
+    test_file_cluster.cpp
     test_segment.cpp
     test_attachments.cpp
     test_cues.cpp)

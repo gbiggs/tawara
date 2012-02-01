@@ -180,7 +180,10 @@ int main(int argc, char** argv)
             cluster != segment.clusters_end(stream); ++cluster)
     {
         std::cerr << "Cluster " << cluster_num++ << '\n';
-        std::cerr << "\tTimecode: " << cluster->timecode() << '\n';
+        bpt::ptime c_start(start + bpt::microseconds(
+                cluster->timecode() * segment.info.timecode_scale() / 1000));
+        std::cerr << "\tTimecode: " << c_start << " (" <<
+            cluster->timecode() << ")\n";
         std::cerr << "\tBlock count: " << cluster->count() << '\n';
         std::cerr << "\tFrames:\n";
         for (tide::MemoryCluster::Iterator block(cluster->begin());
@@ -197,7 +200,10 @@ int main(int argc, char** argv)
             std::cerr << "\t\t" << frame << '\n';
             std::cerr << "\t\t\tTrack number: " << first_block->track_number() <<
                 '\n';
-            std::cerr << "\t\t\tTime code: " << first_block->timecode() << '\n';
+            bpt::ptime blk_time(c_start + bpt::microseconds(
+                    first_block->timecode() * segment.info.timecode_scale() / 1000));
+            std::cerr << "\t\t\tTime code: " << blk_time << " (" <<
+                first_block->timecode() << ")\n";
         }
     }
 

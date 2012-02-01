@@ -157,15 +157,13 @@ namespace tide
 
             /** \brief Block iterator interface.
              *
-             * This interface provides access to the blocks in the cluster,
-             * sorted in ascending time order.
+             * This interface provides access to the blocks in the cluster.
              */
             typedef IteratorBase<BlockElement::Ptr, BlockStore::iterator> Iterator;
             /** \brief Block const iterator interface.
              *
-             * This interface provides access to the blocks in the cluster,
-             * sorted in ascending time order. The access is const, preventing
-             * modification of the blocks.
+             * This interface provides access to the blocks in the cluster.
+             * The access is const, preventing modification of the blocks.
              */
             typedef IteratorBase<Block::ConstPtr, BlockStore::const_iterator>
                 ConstIterator;

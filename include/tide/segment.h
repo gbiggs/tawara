@@ -41,6 +41,7 @@
 
 #include <map>
 #include <tide/master_element.h>
+#include <tide/file_cluster.h>
 #include <tide/memory_cluster.h>
 #include <tide/metaseek.h>
 #include <tide/segment_info.h>
@@ -156,7 +157,6 @@ namespace tide
                     Segment const* segment_;
                     std::istream& stream_;
                     boost::shared_ptr<ClusterType> cluster_;
-                    bool end_;
 
                     void open_cluster()
                     {
@@ -212,7 +212,7 @@ namespace tide
                         stream_.seekg(current_pos);
                     }
 
-                    /** \brief Test for equality with another Iterator.
+                    /** \brief Test for equality with another iterator.
                      *
                      * \param[in] other The other iterator.
                      */
@@ -254,10 +254,16 @@ namespace tide
             /** \brief Memory-based cluster iterator interface.
              *
              * This interface provides access to the clusters in the segment,
-             * sorted in ascending time order and with each cluster read
-             * entirely into memory.
+             * with each cluster read entirely into memory.
              */
             typedef ClusterIteratorBase<MemoryCluster> MemClusterIterator;
+
+            /** \brief File-based cluster iterator interface.
+             *
+             * This interface provides access to the clusters in the segment,
+             * with each cluster loading its blocks on demand.
+             */
+            typedef ClusterIteratorBase<FileCluster> FileClusterIterator;
 
 
             // All blocks in the segment.
@@ -307,6 +313,10 @@ namespace tide
                         : cluster_(other.cluster_), block_(other.block_)
                     {
                     }
+
+                    /// \brief Access to the cluster for the current block.
+                    ClusterItrType cluster() const
+                        { return cluster_; }
 
                 protected:
                     // Necessary for Boost::iterator implementation.
@@ -378,6 +388,14 @@ namespace tide
              */
             typedef BlockIteratorBase<MemClusterIterator,
                     MemoryCluster::Iterator> MemBlockIterator;
+
+            /** \brief File-based block iterator interface.
+             *
+             * This interface provides access to the blocks in the segment,
+             * stored across all the clusters.
+             */
+            typedef BlockIteratorBase<FileClusterIterator,
+                    FileCluster::Iterator> FileBlockIterator;
 
 
             //////////////////////////////////////////////////////////////////

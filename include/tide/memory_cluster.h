@@ -223,7 +223,7 @@ namespace tide
             /** \brief Add a block to this cluster.
              *
              * The cluster must be in the writable state. This means that
-             * write() has been called and finish_write() has not been called.
+             * write() has been called and finalise() has not been called.
              */
             virtual void push_back(value_type const& value)
                 { blocks_.push_back(value); }

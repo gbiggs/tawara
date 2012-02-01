@@ -140,11 +140,11 @@ namespace tide
      * \endverbatim
      *
      * The second approach described above has a \e very important limitation:
-     * no other writes to the file can occur while a cluster is open. To
-     * support this restriction, the Cluster interface requires that no writes
-     * are performed to the file while a cluster is open. This applies to any
-     * implementation, including in-memory implementations, in order to support
-     * interchangeability.
+     * the cluster implementation must manage the file write pointer carefully
+     * to ensure that blocks are placed in the correct place in the file. For
+     * example, upon receiving a block to write, the file write pointer is
+     * positioned after the previously-written block, and after writing the
+     * block is returned to the position it was originally in.
      */
     //template <typename Impl>
     class TIDE_EXPORT Cluster : public MasterElement

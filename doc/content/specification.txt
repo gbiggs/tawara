@@ -1112,11 +1112,14 @@ prior to decoding. To assist this, it is REQUIRED that reference blocks
 appear before blocks that reference them within their Cluster.
 
 Blocks could appear in any order with respect to their timecodes.
-However, this makes playback difficult, requiring considerable seeking
-in the file. It is therefore RECOMMENDED that blocks are stored in
-time-order within their Cluster, except where that conflicts with the
-above requirement for reference blocks. Additionally, Clusters are
-RECOMMENDED to be stored in time-order within their Segment.
+However, this makes efficient playback difficult, requiring considerable
+seeking in the file. It is therefore REQUIRED that blocks in the same
+track are stored in time-order within their Cluster, except where that
+conflicts with the above requirement for reference blocks. Additionally,
+Clusters are RECOMMENDED to be stored in time-order within their
+Segment, if possible (often, merging clusters from two files will create
+a segment with clusters that are not stored in time order, the clusters
+from one file placed after the clusters from another).
 
 
 Notes

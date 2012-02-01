@@ -101,7 +101,7 @@ void FileCluster::push_back(FileCluster::value_type const& value)
     assert(ostream_ != 0 && "ostream_ was not initialised");
 
     // Preserve the current write position
-    std::streampos cur_pos(ostream_->tellp());
+    //std::streampos cur_pos(ostream_->tellp());
     // Jump to the cluster's current write position
     ostream_->seekp(cur_write_pos_);
     // Write the block
@@ -109,7 +109,12 @@ void FileCluster::push_back(FileCluster::value_type const& value)
     // Update the cluster's current write position
     cur_write_pos_ = ostream_->tellp();
     // Return to the original write position
-    ostream_->seekp(cur_pos);
+    //ostream_->seekp(cur_pos);
+    // TODO: update the block size continuously so that it can be written
+    // during finalise() without needing to be calculated from the file write
+    // pointer position at that time.
+    // TODO: benchmark the impact constantly seeking back to the previous
+    // position has on performance to determine if it is worth doing or not.
 }
 
 

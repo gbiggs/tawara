@@ -33,6 +33,7 @@ set(hdrs ${config_h}
     block_group.h
     cluster.h
     memory_cluster.h
+    file_cluster.h
     simple_block.h
     segment.h
     attachments.h

@@ -182,17 +182,18 @@ namespace tide
             /// \brief Remove all blocks.
             virtual void clear() = 0;
 
-            /** \brief Erase the block at the specified iterator.
+            /* \brief Erase the block at the specified iterator.
              *
              * \param[in] position The position to erase at.
              */
             //virtual void erase(typename Impl::Iterator position) = 0;
-            /** \brief Erase a range of blocks.
+            /* \brief Erase a range of blocks.
              *
              * \param[in] first The start of the range.
              * \param[in] last The end of the range.
              */
-            //virtual void erase(typename Impl::Iterator first, typename Impl::Iterator last) = 0;
+            //virtual void erase(typename Impl::Iterator first,
+                    //typename Impl::Iterator last) = 0;
 
             /** \brief Add a block to this cluster.
              *

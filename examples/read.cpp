@@ -176,8 +176,8 @@ int main(int argc, char** argv)
     // larger quantities of data, using the in-file cluster implementation is
     // typically better.
     int cluster_num(0);
-    for (tide::Segment::MemClusterIterator cluster(segment.clusters_begin(stream));
-            cluster != segment.clusters_end(stream); ++cluster)
+    for (tide::Segment::MemClusterIterator cluster(segment.clusters_begin_mem(stream));
+            cluster != segment.clusters_end_mem(stream); ++cluster)
     {
         std::cerr << "Cluster " << cluster_num++ << '\n';
         bpt::ptime c_start(start + bpt::microseconds(
@@ -207,18 +207,18 @@ int main(int argc, char** argv)
         }
     }
 
-    // Do the same thing, using the all-blocks-in-a-segment iterator.
+    // Do the same thing, using the all-blocks-in-a-segment iterator and the
+    // in-file cluster implementation.
     std::cerr << "All blocks in the segment:\n";
-    for (tide::Segment::MemBlockIterator block(segment.blocks_begin(stream));
-            block != segment.blocks_end(stream); ++block)
+    for (tide::Segment::FileBlockIterator block(segment.blocks_begin_file(stream));
+            block != segment.blocks_end_file(stream); ++block)
     {
-        tide::BlockElement::Ptr first_block(*block);
-        tide::BlockElement::FramePtr frame_data(*(first_block->begin()));
+        tide::BlockElement::FramePtr frame_data(*block->begin());
         std::string frame(frame_data->begin(), frame_data->end());
         std::cerr << "\t" << frame << '\n';
-        std::cerr << "\t\tTrack number: " << first_block->track_number() <<
+        std::cerr << "\t\tTrack number: " << block->track_number() <<
             '\n';
-        std::cerr << "\t\tTime code: " << first_block->timecode() << '\n';
+        std::cerr << "\t\tTime code: " << block->timecode() << '\n';
     }
 
     return 0;

@@ -61,13 +61,13 @@ Segment::Segment(std::streamsize pad_size)
 // Cluster and block access
 ///////////////////////////////////////////////////////////////////////////////
 
-Segment::MemClusterIterator Segment::clusters_begin(std::istream& stream)
+Segment::MemClusterIterator Segment::clusters_begin_mem(std::istream& stream)
 {
     return Segment::MemClusterIterator(this, stream);
 }
 
 
-Segment::MemClusterIterator Segment::clusters_end(std::istream& stream)
+Segment::MemClusterIterator Segment::clusters_end_mem(std::istream& stream)
 {
     Segment::MemClusterIterator result(this, stream);
     result.cluster_.reset();
@@ -75,15 +75,45 @@ Segment::MemClusterIterator Segment::clusters_end(std::istream& stream)
 }
 
 
-Segment::MemBlockIterator Segment::blocks_begin(std::istream& stream)
+Segment::MemBlockIterator Segment::blocks_begin_mem(std::istream& stream)
 {
-    return Segment::MemBlockIterator(this, Segment::clusters_begin(stream));
+    return Segment::MemBlockIterator(this,
+            Segment::clusters_begin_mem(stream));
 }
 
 
-Segment::MemBlockIterator Segment::blocks_end(std::istream& stream)
+Segment::MemBlockIterator Segment::blocks_end_mem(std::istream& stream)
 {
-    return Segment::MemBlockIterator(this, Segment::clusters_end(stream));
+    return Segment::MemBlockIterator(this,
+            Segment::clusters_end_mem(stream));
+}
+
+
+Segment::FileClusterIterator Segment::clusters_begin_file(std::istream& stream)
+{
+    return Segment::FileClusterIterator(this, stream);
+}
+
+
+Segment::FileClusterIterator Segment::clusters_end_file(std::istream& stream)
+{
+    Segment::FileClusterIterator result(this, stream);
+    result.cluster_.reset();
+    return result;
+}
+
+
+Segment::FileBlockIterator Segment::blocks_begin_file(std::istream& stream)
+{
+    return Segment::FileBlockIterator(this,
+            Segment::clusters_begin_file(stream));
+}
+
+
+Segment::FileBlockIterator Segment::blocks_end_file(std::istream& stream)
+{
+    return Segment::FileBlockIterator(this,
+            Segment::clusters_end_file(stream));
 }
 
 

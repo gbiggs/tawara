@@ -159,8 +159,8 @@ int main(int argc, char** argv)
     std::cerr << "Clusters:\n";
 
     int cluster_num(0);
-    for (tide::Segment::MemClusterIterator cluster(segment.clusters_begin(stream));
-            cluster != segment.clusters_end(stream); ++cluster)
+    for (tide::Segment::FileClusterIterator cluster(segment.clusters_begin_file(stream));
+            cluster != segment.clusters_end_file(stream); ++cluster)
     {
         std::cerr << "\tCluster " << cluster_num++ << '\n';
         bpt::ptime c_start(start + bpt::microseconds(
@@ -169,11 +169,10 @@ int main(int argc, char** argv)
             cluster->timecode() << ")\n";
         std::cerr << "\t\tBlock count: " << cluster->count() << '\n';
         std::streamsize avg_frame_size(0);
-        for (tide::MemoryCluster::Iterator block(cluster->begin());
+        for (tide::FileCluster::Iterator block(cluster->begin());
                 block != cluster->end(); ++block)
         {
-            tide::BlockElement::Ptr first_block(*block);
-            tide::BlockElement::FramePtr frame_data(*(first_block->begin()));
+            tide::BlockElement::FramePtr frame_data(*block->begin());
             avg_frame_size += frame_data->size();
         }
         if (cluster->count() != 0)

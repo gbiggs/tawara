@@ -49,7 +49,8 @@ using namespace tide;
 ///////////////////////////////////////////////////////////////////////////////
 
 FileCluster::FileCluster(uint64_t timecode)
-    : Cluster(timecode), ostream_(0), blocks_start_pos_(0), cur_write_pos_(0)
+    : Cluster(timecode), ostream_(0), istream_(0), blocks_start_pos_(0),
+    blocks_end_pos_(0)
 {
 }
 
@@ -57,37 +58,98 @@ FileCluster::FileCluster(uint64_t timecode)
 // Accessors
 ///////////////////////////////////////////////////////////////////////////////
 
+FileCluster::Iterator FileCluster::begin()
+{
+    return Iterator(this, *istream_, blocks_start_pos_);
+}
+
+
+FileCluster::Iterator FileCluster::end()
+{
+    return Iterator(this, *istream_, blocks_end_pos_);
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // I/O (Cluster interface)
 ///////////////////////////////////////////////////////////////////////////////
 
 bool FileCluster::empty() const
 {
-    return cur_write_pos_ == blocks_start_pos_;
+    return blocks_size() == 0;
 }
 
 
 FileCluster::size_type FileCluster::count() const
 {
-    assert(false && "Not implemented");
+    assert(istream_ && "istream_ has not been initialised");
+
+    FileCluster::size_type result(0);
+    // Remember the current read position
+    std::streampos cur_read(istream_->tellg());
+    // Jump to the beginning of the blocks
+    istream_->seekg(blocks_start_pos_);
+    // Start reading through the blocks, skipping the body of each
+    std::streamsize read_bytes(0);
+    std::streamsize size(blocks_end_pos_ - blocks_start_pos_);
+    // Read elements until the body is exhausted
+    while (read_bytes < size)
+    {
+        // Read the ID
+        ids::ReadResult id_res = ids::read(*istream_);
+        ids::ID id(id_res.first);
+        read_bytes += id_res.second;
+        if (id == ids::SimpleBlock || id == ids::BlockGroup)
+        {
+            ++result;
+            // Skip the body
+            read_bytes += skip_read(*istream_, false);
+        }
+        else
+        {
+            throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
+                // The cast here makes Apple's LLVM compiler happy
+                err_pos(static_cast<std::streamsize>(istream_->tellg()) -
+                        id_res.second);
+        }
+    }
+    if (read_bytes != size)
+    {
+        // Read more than was specified by the body size value
+        throw BadBodySize() << err_id(id_) << err_el_size(size) <<
+            err_pos(offset_);
+    }
+    // Return to the original read position
+    istream_->seekg(cur_read);
+    // Return the count
+    return result;
 }
 
 
 void FileCluster::clear()
 {
     assert(false && "Not implemented");
+    // Making this function work for clusters that are read and written will
+    // require that clusters are read using an iostream, not an istream.
+    // Aspect-oriented design using type traits might make this easier.
 }
 
 
 void FileCluster::erase(FileCluster::Iterator position)
 {
     assert(false && "Not implemented");
+    // Making this function work for clusters that are read and written will
+    // require that clusters are read using an iostream, not an istream.
+    // Aspect-oriented design using type traits might make this easier.
 }
 
 
 void FileCluster::erase(FileCluster::Iterator first, FileCluster::Iterator last)
 {
     assert(false && "Not implemented");
+    // Making this function work for clusters that are read and written will
+    // require that clusters are read using an iostream, not an istream.
+    // Aspect-oriented design using type traits might make this easier.
 }
 
 
@@ -103,11 +165,11 @@ void FileCluster::push_back(FileCluster::value_type const& value)
     // Preserve the current write position
     //std::streampos cur_pos(ostream_->tellp());
     // Jump to the cluster's current write position
-    ostream_->seekp(cur_write_pos_);
+    ostream_->seekp(blocks_end_pos_);
     // Write the block
     value->write(*ostream_);
     // Update the cluster's current write position
-    cur_write_pos_ = ostream_->tellp();
+    blocks_end_pos_ = ostream_->tellp();
     // Return to the original write position
     //ostream_->seekp(cur_pos);
     // TODO: update the block size continuously so that it can be written
@@ -132,7 +194,7 @@ std::streamsize FileCluster::finalise(std::ostream& output)
     // Go back and write the cluster's actual size in the element header
     // actual size = current write position (i.e. end of the
     // cluster) - cluster's start position - ID - 8-byte size.
-    std::streamsize size(cur_write_pos_ - offset_ - ids::size(id_) - 8);
+    std::streamsize size(blocks_end_pos_ - offset_ - ids::size(id_) - 8);
     output.seekp(static_cast<std::streamsize>(offset_) +
             ids::size(ids::Cluster));
     write_size(output);
@@ -147,8 +209,7 @@ std::streamsize FileCluster::finalise(std::ostream& output)
 
 std::streamsize FileCluster::blocks_size() const
 {
-    // Return the size of the blocks written so far.
-    return cur_write_pos_ - blocks_start_pos_;
+    return blocks_end_pos_ - blocks_start_pos_;
 }
 
 
@@ -160,7 +221,7 @@ std::streamsize FileCluster::write(std::ostream& output)
     ostream_ = &output;
     std::streamsize result = Element::write(output);
     // Make a note of where to write the first block.
-    blocks_start_pos_ = cur_write_pos_ = output.tellp();
+    blocks_start_pos_ = blocks_end_pos_ = output.tellp();
     return result;
 }
 
@@ -168,5 +229,15 @@ std::streamsize FileCluster::write(std::ostream& output)
 std::streamsize FileCluster::read_blocks(std::istream& input,
         std::streamsize size)
 {
+    // Remember the stream for use in other functions
+    istream_ = &input;
+    // Record the start position of the blocks
+    blocks_start_pos_ = input.tellg();
+    // Jump to the end of the blocks
+    input.seekg(size, std::ios::cur);
+    // Record the end position of the blocks
+    blocks_end_pos_ = input.tellg();
+    // Return the total size of the block elements to pretend they've been read
+    return size;
 }
 

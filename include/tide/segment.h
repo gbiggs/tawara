@@ -281,20 +281,20 @@ namespace tide
                     /** \brief Constructor.
                      *
                      * \param[in] segment The segment containing the clusters.
-                     * \param[in] stream The stream to read blocks from.
+                     * \param[in] cluster The cluster to read blocks from.
                      */
                     BlockIteratorBase(Segment* segment,
                             ClusterItrType const& cluster)
                         : segment_(segment), cluster_(cluster)
                     {
-                        if (cluster_ != segment_->clusters_end(cluster_.stream_))
+                        if (cluster_.cluster_)
                         {
                             // Get the first block in the start cluster.
                             block_ = cluster_->begin();
                             // If the cluster doesn't have any blocks, run through
                             // clusters until one with a block is found.
                             while (block_ == cluster_->end() &&
-                                    cluster_ != segment_->clusters_end(cluster_.stream_))
+                                    cluster_.cluster_)
                             {
                                 ++cluster_;
                                 block_ = cluster_->begin();
@@ -336,10 +336,10 @@ namespace tide
                         // If the end of the cluster has been reached, go
                         // through the clusters to find the next with blocks.
                         while (block_ == cluster_->end() &&
-                                cluster_ != segment_->clusters_end(cluster_.stream_))
+                                cluster_.cluster_)
                         {
                             ++cluster_;
-                            if (cluster_ == segment_->clusters_end(cluster_.stream_))
+                            if (!cluster_.cluster_)
                             {
                                 break;
                             }
@@ -357,7 +357,7 @@ namespace tide
                     {
                         if (cluster_ == other.cluster_)
                         {
-                            if (cluster_ == segment_->clusters_end(cluster_.stream_))
+                            if (!cluster_.cluster_)
                             {
                                 return true;
                             }
@@ -404,25 +404,56 @@ namespace tide
 
             /** \brief Access the start of the clusters.
              *
-             * Gets an iterator pointing to the first cluster in the segment.
+             * Gets an iterator pointing to the first cluster in the segment,
+             * using the memory-based cluster implementation.
              */
-            MemClusterIterator clusters_begin(std::istream& stream);
+            MemClusterIterator clusters_begin_mem(std::istream& stream);
             /** \brief Access the end of the clusters.
              *
-             * Gets an iterator pointing to the last cluster in the segment.
+             * Gets an iterator pointing to the last cluster in the segment,
+             * using the memory-based cluster implementation.
              */
-            MemClusterIterator clusters_end(std::istream& stream);
+            MemClusterIterator clusters_end_mem(std::istream& stream);
 
             /** \brief Access the start of the blocks.
              *
-             * Gets an iterator pointing to the first block in the segment.
+             * Gets an iterator pointing to the first block in the segment,
+             * using the memory-based cluster implementation.
              */
-            MemBlockIterator blocks_begin(std::istream& stream);
+            MemBlockIterator blocks_begin_mem(std::istream& stream);
             /** \brief Access the end of the blocks.
              *
-             * Gets an iterator pointing to the last block in the segment.
+             * Gets an iterator pointing to the last block in the segment,
+             * using the memory-based cluster implementation.
              */
-            MemBlockIterator blocks_end(std::istream& stream);
+            MemBlockIterator blocks_end_mem(std::istream& stream);
+
+
+            /** \brief Access the start of the clusters.
+             *
+             * Gets an iterator pointing to the first cluster in the segment,
+             * using the file-based cluster implementation.
+             */
+            FileClusterIterator clusters_begin_file(std::istream& stream);
+            /** \brief Access the end of the clusters.
+             *
+             * Gets an iterator pointing to the last cluster in the segment,
+             * using the file-based cluster implementation.
+             */
+            FileClusterIterator clusters_end_file(std::istream& stream);
+
+            /** \brief Access the start of the blocks.
+             *
+             * Gets an iterator pointing to the first block in the segment,
+             * using the file-based cluster implementation.
+             */
+            FileBlockIterator blocks_begin_file(std::istream& stream);
+            /** \brief Access the end of the blocks.
+             *
+             * Gets an iterator pointing to the last block in the segment,
+             * using the file-based cluster implementation.
+             */
+            FileBlockIterator blocks_end_file(std::istream& stream);
 
 
             //////////////////////////////////////////////////////////////////

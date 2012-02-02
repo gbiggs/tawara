@@ -40,7 +40,9 @@
 #define TIDE_FILE_CLUSTER_H_
 
 #include <tide/block_element.h>
+#include <tide/block_group.h>
 #include <tide/cluster.h>
+#include <tide/simple_block.h>
 #include <tide/win_dll.h>
 
 /// \addtogroup elements Elements
@@ -86,13 +88,26 @@ namespace tide
                 public:
                     /** \brief Base constructor.
                      *
+                     * Constructs an empty iterator.
+                     */
+                    IteratorBase()
+                        : cluster_(0)
+                    {
+                    }
+
+                    /** \brief Base constructor.
+                     *
                      * \param[in] cluster The cluster containing the blocks.
                      * \param[in] stream The stream to read blocks from.
+                     * \param[in] pos The position in the file of the first
+                     * block to read.
                      */
                     IteratorBase(FileCluster const* cluster,
-                            std::istream& stream)
-                        : cluster_(cluster), stream_(stream)
+                            std::istream& stream, std::streampos pos)
+                        : cluster_(cluster), stream_(&stream)
                     {
+                        // Open the block at the provided position
+                        load_block(pos);
                     }
 
                     /** \brief Templated base constructor.
@@ -102,7 +117,8 @@ namespace tide
                      */
                     template <typename OtherType>
                     IteratorBase(IteratorBase<OtherType> const& other)
-                        : cluster_(other.cluster_), stream_(other.stream_)
+                        : cluster_(other.cluster_), stream_(other.stream_),
+                        block_(other.block_)
                     {
                     }
 
@@ -114,13 +130,62 @@ namespace tide
                     friend class FileCluster;
 
                     FileCluster const* cluster_;
-                    std::istream& stream_;
+                    std::istream* stream_;
                     boost::shared_ptr<BlockType> block_;
+
+                    void load_block(std::streampos pos)
+                    {
+                        if (pos == cluster_->blocks_end_pos_)
+                        {
+                            // End of the blocks
+                            block_.reset();
+                        }
+                        else
+                        {
+                            // Save the current read position
+                            std::streampos cur_read(stream_->tellg());
+                            // Jump to the expected block location
+                            stream_->seekg(pos);
+                            // Read the block
+                            ids::ReadResult id_res = ids::read(*stream_);
+                            if (id_res.first == ids::SimpleBlock)
+                            {
+                                BlockElement::Ptr new_block(new SimpleBlock(0, 0));
+                                new_block->read(*stream_);
+                                // TODO Ick. Needs fixing.
+                                boost::shared_ptr<BlockType> new_const_block(new_block);
+                                block_.swap(new_const_block);
+                            }
+                            else if (id_res.first == ids::BlockGroup)
+                            {
+                                BlockElement::Ptr new_block(new BlockGroup(0, 0));
+                                new_block->read(*stream_);
+                                // TODO Ick. Needs fixing.
+                                boost::shared_ptr<BlockType> new_const_block(new_block);
+                                block_.swap(new_const_block);
+                            }
+                            else
+                            {
+                                throw InvalidChildID() << err_id(id_res.first) <<
+                                    err_par_id(cluster_->id_) <<
+                                    // The cast here makes Apple's LLVM compiler happy
+                                    err_pos(static_cast<std::streamsize>(stream_->tellg()) -
+                                            id_res.second);
+                            }
+                            // Return to the original read position
+                            stream_->seekg(cur_read);
+                        }
+                    }
 
                     /// \brief Increment the iterator to the next block.
                     void increment()
                     {
-                        assert(false && "Not implemented");
+                        // Don't increment if at the end
+                        if (block_)
+                        {
+                            // Load the block after this one
+                            load_block(block_->offset() + block_->size());
+                        }
                     }
 
                     /** \brief Test for equality with another iterator.
@@ -130,8 +195,27 @@ namespace tide
                     template <typename OtherType>
                     bool equal(IteratorBase<OtherType> const& other) const
                     {
-                        assert(false && "Not implemented");
-                        return false;
+                        if (block_)
+                        {
+                            // This iterator is not at the end
+                            if (other.block_)
+                            {
+                                // Neither is the other
+                                return block_->offset() ==
+                                    other.block_->offset();
+                            }
+                            return false;
+                        }
+                        else
+                        {
+                            // This iterator is at the end
+                            if (!other.block_)
+                            {
+                                // So is the other
+                                return true;
+                            }
+                            return false;
+                        }
                     }
 
                     /** \brief Dereference the iterator to get a pointer to the
@@ -147,17 +231,23 @@ namespace tide
              *
              * This interface provides access to the blocks in the cluster.
              */
-            typedef IteratorBase<BlockElement::Ptr> Iterator;
-            /** \brief Block const iterator interface.
-             *
-             * This interface provides access to the blocks in the cluster.
-             * The access is const, preventing modification of the blocks.
-             */
-            typedef IteratorBase<Block::ConstPtr> ConstIterator;
+            typedef IteratorBase<BlockElement> Iterator;
 
             //////////////////////////////////////////////////////////////////
             // Iterator access
             //////////////////////////////////////////////////////////////////
+
+            /** \brief Access the start of the blocks.
+             *
+             * Gets an iterator pointing to the first block in the cluster.
+             */
+            Iterator begin();
+            /** \brief Access the end of the blocks.
+             *
+             * Gets an iterator pointing beyond the last block in the cluster.
+             */
+            Iterator end();
+
 
             //////////////////////////////////////////////////////////////////
             // Cluster interface
@@ -207,8 +297,9 @@ namespace tide
 
         protected:
             std::ostream* ostream_;
+            std::istream* istream_;
             std::streampos blocks_start_pos_;
-            std::streampos cur_write_pos_;
+            std::streampos blocks_end_pos_;
 
             /// \brief Get the size of the blocks in this cluster.
             std::streamsize blocks_size() const;

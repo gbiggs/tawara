@@ -39,7 +39,8 @@
 #if !defined(ELEMENT_BASE_H_)
 #define ELEMENT_BASE_H_
 
-#include <element.h>
+#include <tide/element.h>
+#include <tide/ids.h>
 #include <tide/win_dll.h>
 
 
@@ -59,7 +60,7 @@ namespace tide
      * provide the following members:
      *
      * - \code
-     *   uint32_t id_;
+     *   tide::ids::ID id_;
      *   \endcode
      *   Storage for the element's ID. This must be initialised in the
      *   constructor and must not be alterable after construction.
@@ -180,7 +181,7 @@ namespace tide
             // Element interface virtual functions implementation
 
             /// \brief Get the element's ID.
-            uint32_t id_impl() const
+            ids::ID id_impl() const
             {
                 return derived().id_;
             }
@@ -244,6 +245,7 @@ namespace tide
                 return derived().finish_body(io);
             }
     }; // class ElementBase
+}; // namespace tide
 
 /// @}
 /// group interfaces

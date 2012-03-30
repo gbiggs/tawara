@@ -39,6 +39,7 @@
 #if !defined(ELEMENT_H_)
 #define ELEMENT_H_
 
+#include <tide/ids.h>
 #include <tide/win_dll.h>
 
 

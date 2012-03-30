@@ -182,7 +182,7 @@ TREEVIEW_WIDTH         = 250
 EXT_LINKS_IN_WINDOW    = NO
 FORMULA_FONTSIZE       = 10
 FORMULA_TRANSPARENT    = YES
-SEARCHENGINE           = YES
+SEARCHENGINE           = NO
 SERVER_BASED_SEARCH    = NO
 
 #---------------------------------------------------------------------------

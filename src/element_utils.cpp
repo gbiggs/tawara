@@ -36,18 +36,49 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/element.h>
+#include <tide/element_utils.h>
+#include <tide/exceptions.h>
+#include <tide/id_utils.h>
+#include <tide/vint.h>
 
-#include <cassert>
+using namespace tide;
 
 
-std::streamsize tide::write(Element const& e, std::iostream& io)
+void tide::validate_id(ids::ID id)
 {
-    std::streamsize ss(0), fs(0);
-    ss = e.start_write(io);
-    fs = e.finish_write(io);
-    assert(fs == ss && "Write finish and write start sizes are not equal; "
-            "write() should not have been used");
-    return fs;
+    if (id == 0 ||
+            id == 0xFF ||
+            id == 0xFFFF ||
+            id == 0xFFFFFF ||
+            id == 0xFFFFFFFF)
+    {
+        throw InvalidElementID() << err_id(id);
+    }
+}
+
+
+std::streamsize tide::skip_read(std::iostream& io, bool and_id)
+{
+    std::streamsize skipped_bytes(0);
+    if (and_id)
+    {
+        skipped_bytes += ids::read(io).second;
+    }
+    vint::ReadResult size_res(vint::read(io));
+    skipped_bytes += size_res.second;
+    io.seekg(size_res.first, std::ios::cur);
+    skipped_bytes += size_res.first;
+    return skipped_bytes;
+}
+
+
+std::streamsize tide::skip_write(std::iostream& io, bool and_id)
+{
+    std::streampos cur_read(io.tellg());
+    io.seekg(io.tellp());
+    std::streamsize skipped_bytes = tide::skip_read(io, and_id);
+    io.seekp(io.tellg());
+    io.seekg(cur_read);
+    return skipped_bytes;
 }
 

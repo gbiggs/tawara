@@ -1,4 +1,8 @@
-set(srcs element.cpp)
+set(srcs
+    vint.cpp
+    id_utils.cpp
+    element.cpp
+    element_utils.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

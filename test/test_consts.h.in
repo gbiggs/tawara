@@ -36,18 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/element.h>
+#if !defined(TIDE_TEST_CONSTS_H_)
+#define TIDE_TEST_CONSTS_H
 
-#include <cassert>
+#include <boost/filesystem.hpp>
 
+const boost::filesystem::path test_source_dir("${CMAKE_CURRENT_SOURCE_DIR}");
+const boost::filesystem::path test_bin_dir("${CMAKE_CURRENT_BINARY_DIR}");
 
-std::streamsize tide::write(Element const& e, std::iostream& io)
-{
-    std::streamsize ss(0), fs(0);
-    ss = e.start_write(io);
-    fs = e.finish_write(io);
-    assert(fs == ss && "Write finish and write start sizes are not equal; "
-            "write() should not have been used");
-    return fs;
-}
+#endif // TIDE_TEST_CONSTS_H
 

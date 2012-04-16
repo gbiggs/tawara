@@ -41,8 +41,6 @@
 
 #include <tide/win_dll.h>
 
-#include <boost/type_traits/add_lvalue_reference.hpp>
-
 /// \addtogroup interfaces Interfaces
 /// @{
 

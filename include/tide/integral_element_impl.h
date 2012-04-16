@@ -129,8 +129,7 @@ namespace tide
                 }
 
                 /// \brief Assignment addition operator.
-                IntegralElementImpl& operator+=(
-                        T const rhs)
+                IntegralElementImpl& operator+=(T const rhs)
                 {
                     value_ += rhs;
                     return *this;
@@ -144,8 +143,7 @@ namespace tide
                 }
 
                 /// \brief Assignment subtraction operator.
-                IntegralElementImpl& operator-=(
-                        T const rhs)
+                IntegralElementImpl& operator-=(T const rhs)
                 {
                     value_ -= rhs;
                     return *this;
@@ -159,8 +157,7 @@ namespace tide
                 }
 
                 /// \brief Assignment multiplication operator.
-                IntegralElementImpl& operator*=(
-                        T const rhs)
+                IntegralElementImpl& operator*=(T const rhs)
                 {
                     value_ *= rhs;
                     return *this;
@@ -169,15 +166,14 @@ namespace tide
                 /// \brief Assignment division operator.
                 IntegralElementImpl& operator/=(IntegralElementImpl const& rhs)
                 {
-                    value_ *= rhs.value_;
+                    value_ /= rhs.value_;
                     return *this;
                 }
 
                 /// \brief Assignment division operator.
-                IntegralElementImpl& operator/=(
-                        T const rhs)
+                IntegralElementImpl& operator/=(T const rhs)
                 {
-                    value_ *= rhs;
+                    value_ /= rhs;
                     return *this;
                 }
 
@@ -189,8 +185,7 @@ namespace tide
                 }
 
                 /// \brief Assignment modulus operator.
-                IntegralElementImpl& operator%=(
-                        T const rhs)
+                IntegralElementImpl& operator%=(T const rhs)
                 {
                     value_ %= rhs;
                     return *this;
@@ -204,8 +199,7 @@ namespace tide
                 }
 
                 /// \brief Assignment logical-or operator.
-                IntegralElementImpl& operator|=(
-                        T const rhs)
+                IntegralElementImpl& operator|=(T const rhs)
                 {
                     value_ |= rhs;
                     return *this;
@@ -219,8 +213,7 @@ namespace tide
                 }
 
                 /// \brief Assignment logical-and operator.
-                IntegralElementImpl& operator&=(
-                        T const rhs)
+                IntegralElementImpl& operator&=(T const rhs)
                 {
                     value_ &= rhs;
                     return *this;
@@ -234,8 +227,7 @@ namespace tide
                 }
 
                 /// \brief Assignment logical-xor operator.
-                IntegralElementImpl& operator^=(
-                        T const rhs)
+                IntegralElementImpl& operator^=(T const rhs)
                 {
                     value_ ^= rhs;
                     return *this;
@@ -249,8 +241,7 @@ namespace tide
                 }
 
                 /// \brief Assignment left-shift operator.
-                IntegralElementImpl& operator<<=(
-                        T const rhs)
+                IntegralElementImpl& operator<<=(T const rhs)
                 {
                     value_ <<= rhs;
                     return *this;
@@ -264,8 +255,7 @@ namespace tide
                 }
 
                 /// \brief Assignment right-shift operator.
-                IntegralElementImpl& operator>>=(
-                        T const rhs)
+                IntegralElementImpl& operator>>=(T const rhs)
                 {
                     value_ >>= rhs;
                     return *this;
@@ -283,6 +273,11 @@ namespace tide
                 {
                     --value_;
                     return *this;
+                }
+
+                std::streamsize body_stored_size() const
+                {
+                    return ebml_int::size_s(value_);
                 }
 
             private:

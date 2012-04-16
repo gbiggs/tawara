@@ -46,6 +46,10 @@ using namespace tide;
 
 namespace test_int_els
 {
+    ///////////////////////////////////////////////////////////////////////////
+    // IntegerElement interface tests
+    ///////////////////////////////////////////////////////////////////////////
+
     TEST(IntElement, Construction)
     {
         EXPECT_EQ(ids::Null, IntElement(ids::Null, 0).id());
@@ -68,17 +72,360 @@ namespace test_int_els
         EXPECT_THROW(IntElement(0xFFFFFFFF, 1, 2), InvalidElementID);
     }
 
-    TEST(IntElement, Addition)
+    TEST(IntElement, Swap)
+    {
+        IntElement ee1(0x21, 12, 1);
+        IntElement ee2(0x42, 24, 2);
+        swap(ee1, ee2);
+        EXPECT_EQ(0x42, ee1.id());
+        EXPECT_EQ(24, ee1.value());
+        EXPECT_EQ(2, ee1.get_default());
+        EXPECT_EQ(0x21, ee2.id());
+        EXPECT_EQ(12, ee2.value());
+        EXPECT_EQ(1, ee2.get_default());
+
+        ee1.swap(ee2);
+        EXPECT_EQ(0x21, ee1.id());
+        EXPECT_EQ(12, ee1.value());
+        EXPECT_EQ(1, ee1.get_default());
+        EXPECT_EQ(0x42, ee2.id());
+        EXPECT_EQ(24, ee2.value());
+        EXPECT_EQ(2, ee2.get_default());
+    }
+
+    TEST(IntElement, LessThan)
     {
         IntElement ee1(ids::Null, 1);
         IntElement ee2(ids::Null, 2);
-        EXPECT_EQ(3, (ee1 + ee2).value());
-        EXPECT_EQ(3, (ee1 + 2).value());
-        EXPECT_EQ(3, 1 + ee2);
+        EXPECT_TRUE(ee1 < ee2);
+        EXPECT_TRUE(ee1 < 2);
+        EXPECT_TRUE(1 < ee2);
+        EXPECT_FALSE(ee2 < ee1);
+        EXPECT_FALSE(ee2 < 1);
+        EXPECT_FALSE(2 < ee1);
+    }
+
+    TEST(IntElement, LessThanEqual)
+    {
+        IntElement ee1(ids::Null, 1);
+        IntElement ee2(ids::Null, 1);
+        IntElement ee3(ids::Null, 2);
+        EXPECT_TRUE(ee1 <= ee2);
+        EXPECT_TRUE(ee1 <= ee3);
+        EXPECT_TRUE(ee1 <= 1);
+        EXPECT_TRUE(ee1 <= 2);
+        EXPECT_TRUE(1 <= ee3);
+        EXPECT_TRUE(2 <= ee3);
+        EXPECT_FALSE(ee3 <= ee2);
+        EXPECT_FALSE(ee3 <= 1);
+        EXPECT_FALSE(3 <= ee3);
+    }
+
+    TEST(IntElement, NotEqual)
+    {
+        IntElement ee1(ids::Null, 1);
+        IntElement ee2(ids::Null, 1);
+        IntElement ee3(ids::Null, 2);
+        EXPECT_FALSE(ee1 != ee2);
+        EXPECT_FALSE(ee1 != 1);
+        EXPECT_FALSE(1 != ee1);
+        EXPECT_TRUE(ee1 != ee3);
+        EXPECT_TRUE(ee1 != 2);
+        EXPECT_TRUE(2 != ee1);
+    }
+
+    TEST(IntElement, GreaterThanEqual)
+    {
+        IntElement ee1(ids::Null, 2);
+        IntElement ee2(ids::Null, 2);
+        IntElement ee3(ids::Null, 1);
+        EXPECT_TRUE(ee1 >= ee2);
+        EXPECT_TRUE(ee1 >= ee3);
+        EXPECT_TRUE(ee1 >= 1);
+        EXPECT_TRUE(ee1 >= 2);
+        EXPECT_TRUE(1 >= ee3);
+        EXPECT_TRUE(2 >= ee3);
+        EXPECT_FALSE(ee3 >= ee2);
+        EXPECT_FALSE(ee3 >= 2);
+        EXPECT_FALSE(0 >= ee3);
+    }
+
+    TEST(IntElement, GreaterThan)
+    {
+        IntElement ee1(ids::Null, 2);
+        IntElement ee2(ids::Null, 1);
+        EXPECT_TRUE(ee1 > ee2);
+        EXPECT_TRUE(ee1 > 1);
+        EXPECT_TRUE(2 > ee2);
+        EXPECT_FALSE(ee2 > ee1);
+        EXPECT_FALSE(ee2 > 2);
+        EXPECT_FALSE(1 > ee1);
+    }
+
+    TEST(IntElement, Addition)
+    {
+        IntElement ee1(ids::Null, -1);
+        IntElement ee2(ids::Null, 2);
+        EXPECT_EQ(1, (ee1 + ee2).value());
+        EXPECT_EQ(1, (ee1 + 2).value());
+        EXPECT_EQ(1, -1 + ee2);
         ee1 += ee2;
-        EXPECT_EQ(3, ee1.value());
+        EXPECT_EQ(1, ee1.value());
         ee2 += 1;
         EXPECT_EQ(3, ee2.value());
+    }
+
+    TEST(IntElement, Subtraction)
+    {
+        IntElement ee1(ids::Null, 1);
+        IntElement ee2(ids::Null, 2);
+        EXPECT_EQ(-1, (ee1 - ee2).value());
+        EXPECT_EQ(-1, (ee1 - 2).value());
+        EXPECT_EQ(-1, 1 - ee2);
+        ee1 -= ee2;
+        EXPECT_EQ(-1, ee1.value());
+        ee2 -= 1;
+        EXPECT_EQ(1, ee2.value());
+    }
+
+    TEST(IntElement, Multiplication)
+    {
+        IntElement ee1(ids::Null, 2);
+        IntElement ee2(ids::Null, -3);
+        EXPECT_EQ(-6, (ee1 * ee2).value());
+        EXPECT_EQ(-6, (ee1 * -3).value());
+        EXPECT_EQ(-6, 2 * ee2);
+        ee1 *= ee2;
+        EXPECT_EQ(-6, ee1.value());
+        ee2 *= 2;
+        EXPECT_EQ(-6, ee2.value());
+    }
+
+    TEST(IntElement, Division)
+    {
+        IntElement ee1(ids::Null, 8);
+        IntElement ee2(ids::Null, -4);
+        EXPECT_EQ(-2, (ee1 / ee2).value());
+        EXPECT_EQ(-2, (ee1 / -4).value());
+        EXPECT_EQ(-2, 8 / ee2);
+        ee1 /= ee2;
+        EXPECT_EQ(-2, ee1.value());
+        ee2 /= -2;
+        EXPECT_EQ(2, ee2.value());
+    }
+
+    TEST(IntElement, Modulus)
+    {
+        IntElement ee1(ids::Null, 4);
+        IntElement ee2(ids::Null, 2);
+        IntElement ee3(ids::Null, 3);
+        EXPECT_EQ(0, (ee1 % ee2).value());
+        EXPECT_EQ(0, (ee1 % 2).value());
+        EXPECT_EQ(0, 4 % ee2);
+        EXPECT_EQ(1, (ee1 % ee3).value());
+        EXPECT_EQ(1, (ee1 % 3).value());
+        EXPECT_EQ(1, 4 % ee3);
+        ee1 %= ee2;
+        EXPECT_EQ(0, ee1.value());
+        ee1.value(4);
+        ee1 %= ee3;
+        EXPECT_EQ(1, ee1.value());
+    }
+
+    TEST(IntElement, LogicalOr)
+    {
+        IntElement ee1(ids::Null, 0x01);
+        IntElement ee2(ids::Null, 0x10);
+        EXPECT_EQ(0x11, (ee1 | ee2).value());
+        EXPECT_EQ(0x11, (ee1 | 0x10).value());
+        EXPECT_EQ(0x11, (0x01 | ee2).value());
+        ee1 |= ee2;
+        EXPECT_EQ(0x11, ee1.value());
+        ee1 |= 0x100;
+        EXPECT_EQ(0x111, ee1.value());
+    }
+
+    TEST(IntElement, LogicalAnd)
+    {
+        IntElement ee1(ids::Null, 0x101);
+        IntElement ee2(ids::Null, 0x100);
+        EXPECT_EQ(0x100, (ee1 & ee2).value());
+        EXPECT_EQ(0x100, (ee1 & 0x100).value());
+        EXPECT_EQ(0x100, (0x101 & ee2).value());
+        ee1 &= ee2;
+        EXPECT_EQ(0x100, ee1.value());
+        ee1 &= 0x000;
+        EXPECT_EQ(0x000, ee1.value());
+    }
+
+    TEST(IntElement, LogicalXor)
+    {
+        IntElement ee1(ids::Null, 0x101);
+        IntElement ee2(ids::Null, 0x100);
+        EXPECT_EQ(0x001, (ee1 ^ ee2).value());
+        EXPECT_EQ(0x001, (ee1 ^ 0x100).value());
+        EXPECT_EQ(0x001, (0x101 ^ ee2).value());
+        ee1 ^= ee2;
+        EXPECT_EQ(0x001, ee1.value());
+        ee1 ^= 0x001;
+        EXPECT_EQ(0x000, ee1.value());
+    }
+
+    TEST(IntElement, LogicalShiftLeft)
+    {
+        IntElement ee1(ids::Null, 1);
+        IntElement ee2(ids::Null, 2);
+        EXPECT_EQ(4, (ee1 << ee2).value());
+        EXPECT_EQ(4, (ee1 << 2).value());
+        ee1 <<= ee2;
+        EXPECT_EQ(4, ee1.value());
+        ee1.value(1);
+        ee1 <<= 2;
+        EXPECT_EQ(4, ee1.value());
+    }
+
+    TEST(IntElement, LogicalShiftRight)
+    {
+        IntElement ee1(ids::Null, 4);
+        IntElement ee2(ids::Null, 2);
+        EXPECT_EQ(1, (ee1 >> ee2).value());
+        EXPECT_EQ(1, (ee1 >> 2).value());
+        ee1 >>= ee2;
+        EXPECT_EQ(1, ee1.value());
+        ee1.value(4);
+        ee1 >>= 2;
+        EXPECT_EQ(1, ee1.value());
+    }
+
+    TEST(IntElement, Increment)
+    {
+        IntElement ee1(ids::Null, 1);
+        EXPECT_EQ(2, (++ee1).value());
+        ee1++;
+        EXPECT_EQ(3, ee1.value());
+    }
+
+    TEST(IntElement, Decrement)
+    {
+        IntElement ee1(ids::Null, 2);
+        EXPECT_EQ(1, (--ee1).value());
+        ee1--;
+        EXPECT_EQ(0, ee1.value());
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // PrimitiveElement interface tests
+    ///////////////////////////////////////////////////////////////////////////
+
+    TEST(IntElement, Value)
+    {
+        EXPECT_EQ(1, IntElement(ids::Null, 1).value());
+        EXPECT_EQ(1, IntElement(ids::Null, 1, 2).value());
+
+        IntElement ee1(ids::Null, 1);
+        EXPECT_EQ(1, ee1.value());
+        ee1.value(2);
+        EXPECT_EQ(2, ee1.value());
+
+        IntElement ee2(ids::Null, 1, 2);
+        ee2.value(3);
+        EXPECT_EQ(3, ee2.value());
+    }
+
+    TEST(IntElement, Default)
+    {
+        EXPECT_FALSE(IntElement(ids::Null, 1).has_default());
+        EXPECT_TRUE(IntElement(ids::Null, 1, 1).has_default());
+
+        IntElement ee1(ids::Null, 1, 1);
+        EXPECT_EQ(1, ee1.get_default());
+        EXPECT_TRUE(ee1.has_default());
+        ee1.remove_default();
+        EXPECT_FALSE(ee1.has_default());
+        ee1.set_default(2);
+        EXPECT_TRUE(ee1.has_default());
+        EXPECT_EQ(2, ee1.get_default());
+
+        IntElement ee2(ids::Null, 1);
+        EXPECT_FALSE(ee2.has_default());
+        ee2.set_default(1);
+        EXPECT_TRUE(ee2.has_default());
+        EXPECT_EQ(1, ee2.get_default());
+        ee2.remove_default();
+        EXPECT_FALSE(ee2.has_default());
+
+        IntElement ee3(ids::Null, 1);
+        EXPECT_FALSE(ee3.is_default());
+        ee3.set_default(1);
+        EXPECT_TRUE(ee3.is_default());
+        ee3.set_default(2);
+        EXPECT_FALSE(ee3.is_default());
+        ee3.value(2);
+        EXPECT_TRUE(ee3.is_default());
+    }
+
+    TEST(IntElement, Equal)
+    {
+        IntElement ee1(ids::Null, 1);
+        IntElement ee2(ids::Null, 1);
+        IntElement ee3(ids::Null, 2);
+        EXPECT_TRUE(ee1 == ee2);
+        EXPECT_TRUE(ee1 == 1);
+        EXPECT_TRUE(1 == ee1);
+        EXPECT_FALSE(ee1 == ee3);
+        EXPECT_FALSE(ee1 == 2);
+        EXPECT_FALSE(2 == ee1);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Element interface tests
+    ///////////////////////////////////////////////////////////////////////////
+
+    TEST(IntElement, ID)
+    {
+        IntElement ee(42, 1);
+        EXPECT_EQ(42, ee.id());
+    }
+
+    TEST(IntElement, Offset)
+    {
+        IntElement ee(ids::Null, 1);
+        EXPECT_EQ(0, ee.offset());
+        EXPECT_TRUE(false);
+    }
+
+    TEST(IntElement, StoredSize)
+    {
+        IntElement ee(ids::Null, 1);
+        EXPECT_EQ(3, ee.stored_size());
+
+        ee.value(0x7FFFFF);
+        EXPECT_EQ(5, ee.stored_size());
+
+        ee.value(0xFFFFFF);
+        EXPECT_EQ(6, ee.stored_size());
+    }
+
+    TEST(IntElement, Read)
+    {
+        EXPECT_TRUE(false);
+    }
+
+    TEST(IntElement, StartWrite)
+    {
+        EXPECT_TRUE(false);
+    }
+
+    TEST(IntElement, FinishWrite)
+    {
+        EXPECT_TRUE(false);
+    }
+
+    TEST(IntElement, Write)
+    {
+        EXPECT_TRUE(false);
     }
 }; // namespace test_int_els
 

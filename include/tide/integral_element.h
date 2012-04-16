@@ -44,10 +44,7 @@
 #include <tide/primitive_element.h>
 #include <tide/win_dll.h>
 
-#include <tide/exceptions.h>
-
 #include <boost/operators.hpp>
-#include <boost/type_traits/add_lvalue_reference.hpp>
 #include <iostream>
 
 /// \addtogroup interfaces Interfaces
@@ -69,11 +66,14 @@ namespace tide
         : public ElementBase<IntegralElement<T> >,
         public PrimitiveElement<T>,
         boost::totally_ordered<IntegralElement<T> >,
+        boost::totally_ordered<IntegralElement<T>, T >,
         boost::integer_arithmetic<IntegralElement<T> >,
         boost::integer_arithmetic<IntegralElement<T>, T>,
         boost::bitwise<IntegralElement<T> >,
+        boost::bitwise<IntegralElement<T>, T >,
         boost::unit_steppable<IntegralElement<T> >,
-        boost::shiftable<IntegralElement<T> >
+        boost::shiftable<IntegralElement<T> >,
+        boost::shiftable<IntegralElement<T>, T >
     {
         friend class ElementBase<IntegralElement<T> >;
         public:
@@ -149,29 +149,10 @@ namespace tide
                 return lhs.value() < rhs;
             }
 
-            /// \brief Less-than comparison operator.
-            friend bool operator<(T const lhs, IntegralElement const& rhs)
-            {
-                return lhs < rhs.value();
-            }
-
-            /// \brief Greater-than comparison operator.
-            friend bool operator>(IntegralElement const& lhs,
-                    IntegralElement const& rhs)
-            {
-                return lhs.value() > rhs.value();
-            }
-
             /// \brief Greater-than comparison operator.
             friend bool operator>(IntegralElement const& lhs, T const rhs)
             {
                 return lhs.value() > rhs;
-            }
-
-            /// \brief Greater-than comparison operator.
-            friend bool operator>(T const lhs, IntegralElement const& rhs)
-            {
-                return lhs > rhs.value();
             }
 
             /// \brief Assignment addition operator.
@@ -196,11 +177,21 @@ namespace tide
             }
 
             /// \brief Assignment subtraction operator.
-            IntegralElement& operator-=(
-                    T const rhs)
+            IntegralElement& operator-=(T const rhs)
             {
                 impl_ -= rhs;
                 return *this;
+            }
+
+            /** \brief Subtraction operator.
+             *
+             * Note: provided manually because this class does not function
+             * with NRVO.
+             */
+            friend T operator-(T lhs, IntegralElement const& rhs)
+            {
+                lhs -= rhs.value();
+                return lhs;
             }
 
             /// \brief Assignment multiplication operator.
@@ -211,8 +202,7 @@ namespace tide
             }
 
             /// \brief Assignment multiplication operator.
-            IntegralElement& operator*=(
-                    T const rhs)
+            IntegralElement& operator*=(T const rhs)
             {
                 impl_ *= rhs;
                 return *this;
@@ -221,16 +211,26 @@ namespace tide
             /// \brief Assignment division operator.
             IntegralElement& operator/=(IntegralElement const& rhs)
             {
-                impl_ *= rhs.impl_;
+                impl_ /= rhs.impl_;
                 return *this;
             }
 
             /// \brief Assignment division operator.
-            IntegralElement& operator/=(
-                    T const rhs)
+            IntegralElement& operator/=(T const rhs)
             {
-                impl_ *= rhs;
+                impl_ /= rhs;
                 return *this;
+            }
+
+            /** \brief Division operator.
+             *
+             * Note: provided manually because this class does not function
+             * with NRVO.
+             */
+            friend T operator/(T lhs, IntegralElement const& rhs)
+            {
+                lhs /= rhs.value();
+                return lhs;
             }
 
             /// \brief Assignment modulus operator.
@@ -241,11 +241,21 @@ namespace tide
             }
 
             /// \brief Assignment modulus operator.
-            IntegralElement& operator%=(
-                    T const rhs)
+            IntegralElement& operator%=(T const rhs)
             {
                 impl_ %= rhs;
                 return *this;
+            }
+
+            /** \brief Modulus operator.
+             *
+             * Note: provided manually because this class does not function
+             * with NRVO.
+             */
+            friend T operator%(T lhs, IntegralElement const& rhs)
+            {
+                lhs %= rhs.value();
+                return lhs;
             }
 
             /// \brief Assignment logical-or operator.
@@ -256,8 +266,7 @@ namespace tide
             }
 
             /// \brief Assignment logical-or operator.
-            IntegralElement& operator|=(
-                    T const rhs)
+            IntegralElement& operator|=(T const rhs)
             {
                 impl_ |= rhs;
                 return *this;
@@ -271,8 +280,7 @@ namespace tide
             }
 
             /// \brief Assignment logical-and operator.
-            IntegralElement& operator&=(
-                    T const rhs)
+            IntegralElement& operator&=(T const rhs)
             {
                 impl_ &= rhs;
                 return *this;
@@ -286,8 +294,7 @@ namespace tide
             }
 
             /// \brief Assignment logical-xor operator.
-            IntegralElement& operator^=(
-                    T const rhs)
+            IntegralElement& operator^=(T const rhs)
             {
                 impl_ ^= rhs;
                 return *this;
@@ -301,8 +308,7 @@ namespace tide
             }
 
             /// \brief Assignment left-shift operator.
-            IntegralElement& operator<<=(
-                    T const rhs)
+            IntegralElement& operator<<=(T const rhs)
             {
                 impl_ <<= rhs;
                 return *this;
@@ -316,8 +322,7 @@ namespace tide
             }
 
             /// \brief Assignment right-shift operator.
-            IntegralElement& operator>>=(
-                    T const rhs)
+            IntegralElement& operator>>=(T const rhs)
             {
                 impl_ >>= rhs;
                 return *this;
@@ -379,12 +384,12 @@ namespace tide
 
             ///////////////////////////////////////////////////////////////////
             // ElementBase CRTP required members
-            tide::ids::ID id_;
+            ids::ID id_;
             mutable std::streampos offset_;
 
             std::streamsize body_stored_size() const
             {
-                throw NotImplemented();
+                return impl_.body_stored_size();
             }
 
             std::streamsize read_body(std::iostream& io, std::streamsize size)

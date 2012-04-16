@@ -62,9 +62,6 @@ namespace tide
     class TIDE_EXPORT Element
     {
         public:
-            /// \brief Create a new Element.
-            Element();
-
             /// \brief Destructor.
             virtual ~Element() {};
 

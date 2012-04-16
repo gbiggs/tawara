@@ -42,6 +42,21 @@
 
 using namespace tide;
 
+
+bool tide::ids::validate(ids::ID id)
+{
+    if (id == 0 ||
+            id == 0xFF ||
+            id == 0xFFFF ||
+            id == 0xFFFFFF ||
+            id == 0xFFFFFFFF)
+    {
+        return false;
+    }
+    return true;
+}
+
+
 std::streamsize tide::ids::size(ids::ID id)
 {
     if (id >= 0x80 && id <= 0xFE)

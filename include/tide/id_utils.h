@@ -59,6 +59,15 @@ namespace tide
      */
     namespace ids
     {
+        /** \brief Validate an ID.
+         *
+         * Certain ID values are forbidden by the EBML specification. This
+         * function checks an ID to confirm it is valid.
+         *
+         * \return True if the ID is valid, false otherwise.
+         */
+        bool validate(ID id);
+
         /** \brief Get the number of bytes required by an ID.
          *
          * The size required by an ID depends on its value, and will range from

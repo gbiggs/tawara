@@ -40,7 +40,10 @@
 #define ELEMENT_BASE_H_
 
 #include <tide/element.h>
+#include <tide/exceptions.h>
 #include <tide/ids.h>
+#include <tide/id_utils.h>
+#include <tide/vint.h>
 #include <tide/win_dll.h>
 
 
@@ -127,7 +130,7 @@ namespace tide
             /** \brief Curiously Recurring Template Pattern: get a constant
              * reference to this in the derived class's type.
              */
-            Derived const& derived()
+            Derived const& derived() const
             {
                 return *static_cast<Derived const*>(this);
             }
@@ -139,8 +142,19 @@ namespace tide
             typedef ElementBase<Derived> ElementBase_;
 
         public:
-            /// \brief Constructor.
-            Element() {};
+            /** \brief Constructor.
+             *
+             * \param[in] id The ID of the element. This value is validated but
+             * not stored.
+             * \exception InvalidEBMLID if the provided ID is invalid.
+             */
+            ElementBase(ids::ID id)
+            {
+                if (!ids::validate(id))
+                {
+                    throw InvalidElementID() << err_id(id);
+                }
+            }
 
             /// \brief Destructor.
             virtual ~ElementBase() {};
@@ -181,26 +195,26 @@ namespace tide
             // Element interface virtual functions implementation
 
             /// \brief Get the element's ID.
-            ids::ID id_impl() const
+            virtual ids::ID id_impl() const
             {
                 return derived().id_;
             }
 
             /// \brief Get the element's offset.
-            std::streampos offset_impl() const
+            virtual std::streampos offset_impl() const
             {
                 return derived().offset_;
             }
 
             /// \brief Get the stored size of the element.
-            std::streamsize stored_size_impl() const
+            virtual std::streamsize stored_size_impl() const
             {
                 std::streamsize b(derived().body_stored_size());
                 return ids::size(derived().id_) + vint::size(b) + b;
             }
 
             /// \brief Read the element from a byte stream.
-            std::streamsize read_impl(std::iostream& io)
+            virtual std::streamsize read_impl(std::iostream& io)
             {
                 // Fill in the offset of this element in the byte stream.  The
                 // input stream will be at the start of the size value, so:
@@ -225,7 +239,7 @@ namespace tide
              * start_body() may do nothing, or it may write some child elements
              * that are already available.
              */
-            std::streamsize start_write_impl(std::iostream& io) const
+            virtual std::streamsize start_write_impl(std::iostream& io) const
             {
                 // Fill in the offset of this element in the byte stream.
                 derived().offset_ = io.tellp();
@@ -240,7 +254,7 @@ namespace tide
              * written by a two-step writing process, then that implementation
              * is responsible for filling in the correct size of the element.
              */
-            std::streamsize finish_write_impl(std::iostream& io) const
+            virtual std::streamsize finish_write_impl(std::iostream& io) const
             {
                 return derived().finish_body(io);
             }

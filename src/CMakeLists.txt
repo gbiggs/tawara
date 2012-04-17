@@ -1,6 +1,7 @@
 set(srcs
     vint.cpp
     id_utils.cpp
+    ebml_integer.cpp
     element.cpp
     element_utils.cpp)
 

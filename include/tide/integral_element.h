@@ -39,6 +39,7 @@
 #if !defined(INTEGRAL_ELEMENT_H_)
 #define INTEGRAL_ELEMENT_H_
 
+#include <tide/ebml_integer.h>
 #include <tide/element_base.h>
 #include <tide/integral_element_impl.h>
 #include <tide/primitive_element.h>

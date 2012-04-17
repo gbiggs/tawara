@@ -8,6 +8,7 @@ set(hdrs ${config_h}
     vint.h
     ids.h
     id_utils.h
+    ebml_integer.h
     element.h
     element_base.h
     element_utils.h

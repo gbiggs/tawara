@@ -220,7 +220,10 @@ namespace tide
                 // input stream will be at the start of the size value, so:
                 //
                 //  offset = current position - size of ID
-                derived().offset_ = io.tellg() - ids::size(derived().id_);
+                //
+                // The cast here makes Apple's LLVM compiler happy
+                derived().offset_ = static_cast<std::streamsize>(io.tellg()) -
+                    ids::size(derived().id_);
                 // Get the element's body size
                 vint::ReadResult result = vint::read(io);
                 std::streamsize body_size(result.first);

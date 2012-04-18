@@ -40,8 +40,6 @@
 #include <tide/exceptions.h>
 #include <tide/integer_elements.h>
 
-#include "test_consts.h"
-
 using namespace tide;
 
 namespace test_int_els

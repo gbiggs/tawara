@@ -120,12 +120,12 @@ namespace tide
          * the ID to calculate the number of bytes required for storage.
          *
          * \param[in] id The ID to write.
-         * \param[in] io The byte stream to write to.
+         * \param[in] o The byte stream to write to.
          * \return The number of bytes written.
          * \exception InvalidEBMLID if the ID is invalid.
          * \exception WriteError if there is an error writing to the stream.
          */
-        std::streamsize write(ID id, std::iostream& io);
+        std::streamsize write(ID id, std::ostream& o);
 
         /** \brief The result of a read operation is a pair of the ID read
          * and the number of bytes read.
@@ -137,14 +137,14 @@ namespace tide
          * This function reads an ID from a byte stream, using the value of
          * the first byte to determine the length of the ID.
          *
-         * \param[in] io The byte stream to read bytes from.
+         * \param[in] i The byte stream to read bytes from.
          * \return A pair containing the ID read in the first and the number
          * of bytes read from the stream in the second.
          * \exception InvalidEBMLID if the ID is invalid.
          * \exception InvalidVarInt if the ID in the byte stream is unreadable.
          * \exception ReadError if there is an error reading the byte stream.
          */
-        ReadResult read(std::iostream& io);
+        ReadResult read(std::istream& i);
     }; // namespace ids
 }; // namespace tide
 

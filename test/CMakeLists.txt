@@ -19,7 +19,12 @@ add_executable(compilable_test compilable_test.cpp)
 target_link_libraries(compilable_test tide ${Boost_LIBRARIES})
 
 
-set(srcs test_int_element.cpp)
+set(srcs
+    test_id_utils.cpp
+    test_utilities.cpp
+    test_vint.cpp
+    test_ebml_integer.cpp
+    test_int_element.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

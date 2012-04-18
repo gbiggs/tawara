@@ -113,17 +113,17 @@ std::vector<char> tide::ids::encode(ID id)
 }
 
 
-std::streamsize tide::ids::write(ids::ID id, std::iostream& io)
+std::streamsize tide::ids::write(ids::ID id, std::ostream& o)
 {
     std::streamsize c_size(size(id));
     // Write the remaining bytes
     for (unsigned int ii(0); ii < c_size; ++ii)
     {
-        io.put((id >> (c_size - ii - 1) * 8) & 0xFF);
+        o.put((id >> (c_size - ii - 1) * 8) & 0xFF);
     }
-    if (!io)
+    if (!o)
     {
-        throw WriteError() << err_pos(io.tellp());
+        throw WriteError() << err_pos(o.tellp());
     }
 
     return c_size;
@@ -198,17 +198,17 @@ ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
 }
 
 
-ids::ReadResult tide::ids::read(std::iostream& io)
+ids::ReadResult tide::ids::read(std::istream& i)
 {
     ids::ID result(0);
     std::streamsize to_copy(0);
     uint8_t buffer[8];
 
     // Read the first byte
-    io.read(reinterpret_cast<char*>(buffer), 1);
-    if (!io)
+    i.read(reinterpret_cast<char*>(buffer), 1);
+    if (!i)
     {
-        throw ReadError() << err_pos(io.tellg());
+        throw ReadError() << err_pos(i.tellg());
     }
     result = buffer[0];
     // Check the size
@@ -252,10 +252,10 @@ ids::ReadResult tide::ids::read(std::iostream& io)
     }
 
     // Copy the remaining bytes
-    io.read(reinterpret_cast<char*>(&buffer[1]), to_copy);
-    if (io.fail())
+    i.read(reinterpret_cast<char*>(&buffer[1]), to_copy);
+    if (i.fail())
     {
-        throw ReadError() << err_pos(io.tellg());
+        throw ReadError() << err_pos(i.tellg());
     }
 
     for (std::streamsize ii(1); ii < to_copy + 1; ++ii)
@@ -272,7 +272,7 @@ ids::ReadResult tide::ids::read(std::iostream& io)
     }
     catch(boost::exception& e)
     {
-        e << err_pos(io.tellg());
+        e << err_pos(i.tellg());
         throw;
     }
     return std::make_pair(result, to_copy + 1);

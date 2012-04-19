@@ -98,6 +98,7 @@ namespace tide
                     swap(value_, other.value_);
                     swap(default_, other.default_);
                     swap(has_default_, other.has_default_);
+                    swap(body_end_, other.body_end_);
                 }
 
                 /// \brief Less-than comparison operator.
@@ -278,11 +279,13 @@ namespace tide
                     return *this;
                 }
 
+                /// \brief Get the size of the stored value.
                 std::streamsize body_stored_size() const
                 {
                     return ebml_int::size_s(value_);
                 }
 
+                /// \brief Read the stored value from a byte stream.
                 std::streamsize read_body(std::istream& i, std::streamsize size)
                 {
                     T temp;
@@ -291,6 +294,7 @@ namespace tide
                     return size;
                 }
 
+                /// \brief Begin writing the stored value to a byte stream.
                 std::streamsize start_body(std::ostream& o) const
                 {
                     std::streamsize result;
@@ -301,6 +305,7 @@ namespace tide
                     return result;
                 }
 
+                /// \brief Finish writing the stored value to a byte stream.
                 std::streamsize finish_body(std::ostream& o) const
                 {
                     // All writing was taken care of by start_body()
@@ -311,6 +316,8 @@ namespace tide
                 }
 
             private:
+                ///////////////////////////////////////////////////////////////////
+                // PrimitiveElement CRTP required members
                 T value_;
                 T default_;
                 bool has_default_;

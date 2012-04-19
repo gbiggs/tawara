@@ -36,16 +36,76 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/ids.h>
-#include <tide/integer_elements.h>
 #include <tide/float_element.h>
 
-int main(int argc, char** argv)
-{
-    tide::IntElement int_element(tide::ids::Null, -42);
-    tide::IntElement uint_element(tide::ids::Null, 42);
-    tide::FloatElement float_element(tide::ids::Null, 4.2);
+using namespace tide;
 
-    return 0;
+
+///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+FloatElement::FloatElement(ids::ID id, double value,
+        EBMLFloatPrecision precision)
+    : ElementBase<FloatElement>(id), impl_(value, precision), id_(id),
+    offset_(0), writing_(false)
+{
 }
 
+
+FloatElement::FloatElement(tide::ids::ID id, double value, double default_val,
+        EBMLFloatPrecision precision)
+    : ElementBase<FloatElement>(id), impl_(value, default_val, precision),
+    id_(id), offset_(0), writing_(false)
+{}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+void FloatElement::swap(FloatElement& other)
+{
+    using std::swap;
+
+    swap(impl_, other.impl_);
+    swap(id_, other.id_);
+    swap(offset_, other.offset_);
+    swap(writing_, other.writing_);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
+inline std::streamsize FloatElement::body_stored_size() const
+{
+    return impl_.body_stored_size();
+}
+
+std::streamsize FloatElement::read_body(std::istream& i, std::streamsize size)
+{
+    try
+    {
+        return impl_.read_body(i, size);
+    }
+    catch (boost::exception& e)
+    {
+        // Add the ID and the offset of this element in the file
+        // for easy debugging
+        e << err_id(id_) << err_pos(offset_);
+        throw;
+    }
+}
+
+std::streamsize FloatElement::start_body(std::iostream& io) const
+{
+    return impl_.start_body(io);
+}
+
+std::streamsize FloatElement::finish_body(std::iostream& io) const
+{
+    impl_.finish_body(io);
+    return this->stored_size();
+}

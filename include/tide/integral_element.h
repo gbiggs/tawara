@@ -58,6 +58,8 @@ namespace tide
      * Integer elements form one type of primitive element. This defines the
      * interface to an integer element.
      *
+     * This class implements the Element interface.
+     *
      * This class implements the PrimitiveElement interface.
      *
      * Copy-construction and assignment are provided by the compiler.
@@ -83,19 +85,7 @@ namespace tide
              * \param[in] id The ID of the element.
              * \param[in] value The value of the element.
              */
-            IntegralElement(ids::ID id,
-                    T value)
-                : ElementBase<IntegralElement>(id), impl_(value), id_(id),
-                offset_(0), writing_(false)
-            {}
-
-            /** \brief Constructor.
-             *
-             * \param[in] id The ID of the element.
-             * \param[in] value The value of the element.
-             */
-            IntegralElement(tide::ids::ID id,
-                    typename boost::add_lvalue_reference<T>::type value)
+            IntegralElement(ids::ID id, T value)
                 : ElementBase<IntegralElement>(id), impl_(value), id_(id),
                 offset_(0), writing_(false)
             {}
@@ -107,19 +97,6 @@ namespace tide
              * \param[in] default_val The default value of the element.
              */
             IntegralElement(tide::ids::ID id, T value, T default_val)
-                : ElementBase<IntegralElement>(id), impl_(value, default_val),
-                id_(id), offset_(0), writing_(false)
-            {}
-
-            /** \brief Constructor.
-             *
-             * \param[in] id The ID of the element.
-             * \param[in] value The value of the element.
-             * \param[in] default_val The default value of the element.
-             */
-            IntegralElement(tide::ids::ID id,
-                    typename boost::add_lvalue_reference<T>::type value,
-                    typename boost::add_lvalue_reference<T>::type default_val)
                 : ElementBase<IntegralElement>(id), impl_(value, default_val),
                 id_(id), offset_(0), writing_(false)
             {}
@@ -435,7 +412,7 @@ namespace tide
     {
         T temp;
         i >> temp;
-        rhs.set_value(temp);
+        rhs.value(temp);
         return i;
     }
 }; //namespace tide

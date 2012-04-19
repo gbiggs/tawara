@@ -16,7 +16,9 @@ set(hdrs ${config_h}
     primitive_element_base.h
     integral_element_impl.h
     integral_element.h
-    integer_elements.h)
+    integer_elements.h
+    float_element.h
+    float_element_impl.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

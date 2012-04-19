@@ -3,7 +3,9 @@ set(srcs
     id_utils.cpp
     ebml_integer.cpp
     element.cpp
-    element_utils.cpp)
+    element_utils.cpp
+    float_element.cpp
+    float_element_impl.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

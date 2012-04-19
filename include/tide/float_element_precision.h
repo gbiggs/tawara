@@ -36,16 +36,26 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/ids.h>
-#include <tide/integer_elements.h>
-#include <tide/float_element.h>
+#if !defined(FLOAT_ELEMENT_PRECISION_H_)
+#define FLOAT_ELEMENT_PRECISION_H_
 
-int main(int argc, char** argv)
+/// \addtogroup enumerations Enumerations
+/// @{
+
+namespace tide
 {
-    tide::IntElement int_element(tide::ids::Null, -42);
-    tide::IntElement uint_element(tide::ids::Null, 42);
-    tide::FloatElement float_element(tide::ids::Null, 4.2);
+    /// \brief Precision of float elements.
+    enum EBMLFloatPrecision
+    {
+        /// Single precision
+        EBML_FLOAT_PREC_SINGLE,
+        /// Double precision
+        EBML_FLOAT_PREC_DOUBLE
+    };
+}; // namespace tide
 
-    return 0;
-}
+/// @}
+// group enumerations
+
+#endif // !defined(FLOAT_ELEMENT_PRECISION_H_)
 

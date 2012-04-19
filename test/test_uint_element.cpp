@@ -383,8 +383,9 @@ namespace test_uint_el
     // Element interface tests
     ///////////////////////////////////////////////////////////////////////////
 
-    std::streamsize fill_buffer(std::string& b, ids::ID id, int64_t data,
-            bool write_id, bool write_size, bool write_body)
+    std::streamsize fill_buffer(std::string& b, ids::ID id,
+            unsigned long long int data, bool write_id, bool write_size,
+            bool write_body)
     {
         std::streamsize size(0), total(0);
         if (write_id)
@@ -424,7 +425,7 @@ namespace test_uint_el
 
         std::stringstream ss;
         std::string input_val;
-        int64_t value1(424242), value2(42);
+        unsigned long long int value1(424242), value2(42);
 
         // Set when read test
         UIntElement ee1(ids::Null, value1), ee2(ids::Null, 0);
@@ -457,7 +458,7 @@ namespace test_uint_el
     {
         std::istringstream input;
         std::string input_val;
-        int64_t value(5);
+        unsigned long long int value(5);
         std::streamsize val_size(ebml_int::size_s(value));
 
         UIntElement ee(ids::Null, 0);
@@ -496,7 +497,7 @@ namespace test_uint_el
     {
         std::stringstream output;
         std::string expected;
-        int64_t value(2);
+        unsigned long long int value(2);
         std::streamsize val_size(ebml_int::size_s(value));
 
         UIntElement ee(ids::Null, value);
@@ -506,6 +507,9 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, ee.start_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, output.tellp());
 
         value = -0x839F18AAl;
         val_size = ebml_int::size_s(value);
@@ -516,13 +520,16 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, ee.start_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, output.tellp());
     }
 
     TEST(UIntElement, FinishWrite)
     {
         std::stringstream output;
         std::string expected;
-        int64_t value(2);
+        unsigned long long int value(2);
         std::streamsize val_size(ebml_int::size_s(value));
         UIntElement ee(ids::Null, value);
 
@@ -540,6 +547,9 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, ee.finish_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, output.tellp());
 
         value = -0x839F18AAl;
         val_size = ebml_int::size_s(value);
@@ -551,6 +561,9 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, ee.finish_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, output.tellp());
 
         // Test for double-finish raising an exception
         EXPECT_THROW(ee.finish_write(output), NotWriting);
@@ -560,7 +573,7 @@ namespace test_uint_el
     {
         std::stringstream output;
         std::string expected;
-        int64_t value(2);
+        unsigned long long int value(2);
         std::streamsize val_size(ebml_int::size_s(value));
 
         UIntElement ee(ids::Null, value);
@@ -570,6 +583,9 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, write(ee, output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, output.tellp());
 
         value = -0x839F18AAl;
         val_size = ebml_int::size_s(value);
@@ -580,6 +596,9 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, write(ee, output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, output.tellp());
     }
 }; // namespace test_uint_el
 

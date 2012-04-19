@@ -40,7 +40,7 @@
 #include <tide/exceptions.h>
 
 
-std::streamsize tide::ebml_int::size_u(uint64_t integer)
+std::streamsize tide::ebml_int::size_u(unsigned long long int integer)
 {
     if (integer == 0)
     {
@@ -81,7 +81,7 @@ std::streamsize tide::ebml_int::size_u(uint64_t integer)
 }
 
 
-std::streamsize tide::ebml_int::size_s(int64_t integer)
+std::streamsize tide::ebml_int::size_s(long long int integer)
 {
     if (integer == 0)
     {
@@ -122,7 +122,7 @@ std::streamsize tide::ebml_int::size_s(int64_t integer)
 }
 
 
-std::vector<char> tide::ebml_int::encode_u(uint64_t integer)
+std::vector<char> tide::ebml_int::encode_u(unsigned long long int integer)
 {
     std::vector<char> buffer;
     if (integer == 0)
@@ -142,7 +142,7 @@ std::vector<char> tide::ebml_int::encode_u(uint64_t integer)
 }
 
 
-std::vector<char> tide::ebml_int::encode_s(int64_t integer)
+std::vector<char> tide::ebml_int::encode_s(long long int integer)
 {
     std::vector<char> buffer;
     if (integer == 0)
@@ -162,38 +162,39 @@ std::vector<char> tide::ebml_int::encode_s(int64_t integer)
 }
 
 
-std::streamsize tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
+std::streamsize tide::ebml_int::write_u(unsigned long long int integer,
+        std::ostream& o)
 {
     std::vector<char> buffer(encode_u(integer));
 
     if (buffer.size() != 0)
     {
-        output.write(&buffer[0], buffer.size());
-        if (!output)
+        o.write(&buffer[0], buffer.size());
+        if (!o)
         {
-            throw tide::WriteError() << tide::err_pos(output.tellp());
+            throw tide::WriteError() << tide::err_pos(o.tellp());
         }
     }
     return buffer.size();
 }
 
 
-std::streamsize tide::ebml_int::write_s(int64_t integer, std::ostream& output)
+std::streamsize tide::ebml_int::write_s(long long int integer, std::ostream& o)
 {
     std::vector<char> buffer(encode_s(integer));
     if (buffer.size() != 0)
     {
-        output.write(&buffer[0], buffer.size());
-        if (!output)
+        o.write(&buffer[0], buffer.size());
+        if (!o)
         {
-            throw tide::WriteError() << tide::err_pos(output.tellp());
+            throw tide::WriteError() << tide::err_pos(o.tellp());
         }
     }
     return buffer.size();
 }
 
 
-uint64_t tide::ebml_int::decode_u(std::vector<char> const& buffer)
+unsigned long long int tide::ebml_int::decode_u(std::vector<char> const& buffer)
 {
     assert(buffer.size() <= 8);
 
@@ -203,7 +204,7 @@ uint64_t tide::ebml_int::decode_u(std::vector<char> const& buffer)
         return 0;
     }
 
-    uint64_t result(0);
+    unsigned long long int result(0);
     for (unsigned int ii(0); ii < buffer.size(); ++ii)
     {
         result <<= 8;
@@ -213,7 +214,7 @@ uint64_t tide::ebml_int::decode_u(std::vector<char> const& buffer)
 }
 
 
-int64_t tide::ebml_int::decode_s(std::vector<char> const& buffer)
+long long int tide::ebml_int::decode_s(std::vector<char> const& buffer)
 {
     assert(buffer.size() <= 8);
 
@@ -223,7 +224,7 @@ int64_t tide::ebml_int::decode_s(std::vector<char> const& buffer)
         return 0;
     }
 
-    int64_t result(0);
+    long long int result(0);
     if (buffer[0] & 0x80)
     {
         // Negative value
@@ -238,29 +239,30 @@ int64_t tide::ebml_int::decode_s(std::vector<char> const& buffer)
 }
 
 
-uint64_t tide::ebml_int::read_u(std::istream& input, std::streamsize n)
+unsigned long long int tide::ebml_int::read_u(std::istream& i,
+        std::streamsize n)
 {
     assert(n <= 8);
 
     std::vector<char> tmp(n, 0);
-    input.read(&tmp[0], n);
-    if (!input)
+    i.read(&tmp[0], n);
+    if (!i)
     {
-        throw tide::ReadError() << tide::err_pos(input.tellg());
+        throw tide::ReadError() << tide::err_pos(i.tellg());
     }
     return tide::ebml_int::decode_u(tmp);
 }
 
 
-int64_t tide::ebml_int::read_s(std::istream& input, std::streamsize n)
+long long int tide::ebml_int::read_s(std::istream& i, std::streamsize n)
 {
     assert(n <= 8);
 
     std::vector<char> tmp(n, 0);
-    input.read(&tmp[0], n);
-    if (!input)
+    i.read(&tmp[0], n);
+    if (!i)
     {
-        throw tide::ReadError() << tide::err_pos(input.tellg());
+        throw tide::ReadError() << tide::err_pos(i.tellg());
     }
     return tide::ebml_int::decode_s(tmp);
 }

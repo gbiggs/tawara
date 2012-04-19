@@ -76,7 +76,7 @@ namespace tide
          * \return The size, in bytes, that the integer will require when
          * coded.
          */
-        std::streamsize size_u(uint64_t integer);
+        std::streamsize size_u(unsigned long long int integer);
 
         /** \brief Get the size of a signed integer after encoding.
          *
@@ -87,7 +87,7 @@ namespace tide
          * \return The size, in bytes, that the integer will require when
          * coded.
          */
-        std::streamsize size_s(int64_t integer);
+        std::streamsize size_s(long long int integer);
 
         /** \brief Encode an unsigned integer into a buffer.
          *
@@ -97,7 +97,7 @@ namespace tide
          * \param[in] integer The integer to encode.
          * \return A vector containing the encoded data.
          */
-        std::vector<char> encode_u(uint64_t integer);
+        std::vector<char> encode_u(unsigned long long int integer);
 
         /** \brief Encode a signed integer into a buffer.
          *
@@ -107,7 +107,7 @@ namespace tide
          * \param[in] integer The integer to encode.
          * \return A vector containing the encoded data.
          */
-        std::vector<char> encode_s(int64_t integer);
+        std::vector<char> encode_s(long long int integer);
 
         /** \brief Encode and write an unsigned integer into a byte stream.
          *
@@ -116,11 +116,13 @@ namespace tide
          * std::ostream object.
          *
          * \param[in] integer The integer to encode.
-         * \param[in] output The std::ostream object to write to.
+         * \param[in] o The std::ostream object to write to.
          * \return The number of bytes written.
-         * \exception WriteError if there is an error writing the output stream.
+         * \exception WriteError if there is an error writing the output
+         * stream.
          */
-        std::streamsize write_u(uint64_t integer, std::ostream& output);
+        std::streamsize write_u(unsigned long long int integer,
+                std::ostream& o);
 
         /** \brief Encode and write a signed integer into a byte stream.
          *
@@ -129,11 +131,12 @@ namespace tide
          * std::ostream object.
          *
          * \param[in] integer The integer to encode.
-         * \param[in] output The std::ostream object to write to.
+         * \param[in] o The std::ostream object to write to.
          * \return The number of bytes written.
-         * \exception WriteError if there is an error writing the output stream.
+         * \exception WriteError if there is an error writing the output
+         * stream.
          */
-        std::streamsize write_s(int64_t integer, std::ostream& output);
+        std::streamsize write_s(long long int integer, std::ostream& o);
 
         /** \brief Decode an unsigned integer from a buffer.
          *
@@ -145,7 +148,7 @@ namespace tide
          * be 8 or less.
          * \return The decoded unsigned integer.
          */
-        uint64_t decode_u(std::vector<char> const& buffer);
+        unsigned long long int decode_u(std::vector<char> const& buffer);
 
         /** \brief Decode a signed integer from a buffer.
          *
@@ -157,7 +160,7 @@ namespace tide
          * be 8 or less.
          * \return The decoded unsigned integer.
          */
-        int64_t decode_s(std::vector<char> const& buffer);
+        long long int decode_s(std::vector<char> const& buffer);
 
         /** \brief Read and decode an unsigned integer from a byte stream.
          *
@@ -165,12 +168,12 @@ namespace tide
          * but instead of reading from a basic buffer, it reads from a
          * std::istream object.
          *
-         * \param[in] input The std::istream object to read from.
+         * \param[in] i The std::istream object to read from.
          * \param[in] n The number of bytes from the buffer to read.
          * \return The decoded unsigned integer.
          * \exception ReadError if there is an error reading the input stream.
          */
-        uint64_t read_u(std::istream& input, std::streamsize n);
+        unsigned long long int read_u(std::istream& i, std::streamsize n);
 
         /** \brief Read and decode a signed integer from a byte stream.
          *
@@ -178,12 +181,12 @@ namespace tide
          * but instead of reading from a basic buffer, it reads from a
          * std::istream object.
          *
-         * \param[in] input The std::istream object to read from.
+         * \param[in] i The std::istream object to read from.
          * \param[in] n The number of bytes from the buffer to read.
          * \return The decoded signed integer.
          * \exception ReadError if there is an error reading the input stream.
          */
-        int64_t read_s(std::istream& input, std::streamsize n);
+        long long int read_s(std::istream& i, std::streamsize n);
     }; // namespace ebml_int
 }; // namespace tide
 

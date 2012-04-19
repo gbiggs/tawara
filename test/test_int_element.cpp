@@ -40,9 +40,11 @@
 #include <tide/exceptions.h>
 #include <tide/integer_elements.h>
 
+#include "test_utilities.h"
+
 using namespace tide;
 
-namespace test_int_els
+namespace test_int_el
 {
     ///////////////////////////////////////////////////////////////////////////
     // IntegerElement interface tests
@@ -381,6 +383,34 @@ namespace test_int_els
     // Element interface tests
     ///////////////////////////////////////////////////////////////////////////
 
+    std::streamsize fill_buffer(std::string& b, ids::ID id, int64_t data,
+            bool write_id, bool write_size, bool write_body)
+    {
+        std::streamsize size(0), total(0);
+        if (write_id)
+        {
+            // Cheating on the IDs a bit - there is no protection here against
+            // invalid IDs
+            std::vector<char> tmp(ebml_int::encode_u(id));
+            b.append(&tmp[0], 0, tmp.size());
+            total += tmp.size();
+        }
+        if (write_size)
+        {
+            size = ebml_int::size_s(data);
+            std::vector<char> tmp(vint::encode(size));
+            b.append(&tmp[0], 0, tmp.size());
+            total += tmp.size();
+        }
+        if (write_body)
+        {
+            std::vector<char> tmp(ebml_int::encode_s(data));
+            b.append(&tmp[0], 0, tmp.size());
+            total += tmp.size();
+        }
+        return total;
+    }
+
     TEST(IntElement, ID)
     {
         IntElement ee(42, 1);
@@ -391,7 +421,24 @@ namespace test_int_els
     {
         IntElement ee(ids::Null, 1);
         EXPECT_EQ(0, ee.offset());
-        EXPECT_TRUE(false);
+
+        std::stringstream ss;
+        std::string input_val;
+        int64_t value1(424242), value2(42);
+
+        // Set when read test
+        IntElement ee1(ids::Null, value1), ee2(ids::Null, 0);
+        write(ee1, ss);
+        ids::write(ids::Null, ss);
+        fill_buffer(input_val, ids::Null, value2, false, true, true);
+        ss << input_val;
+        ss.seekg(ee1.stored_size() + ids::size(ids::Null));
+        ee2.read(ss);
+        EXPECT_EQ(ee1.stored_size(), ee2.offset());
+
+        // Set when written test
+        write(ee2, ss);
+        EXPECT_EQ(ee1.stored_size() + ee2.stored_size(), ee2.offset());
     }
 
     TEST(IntElement, StoredSize)
@@ -408,22 +455,131 @@ namespace test_int_els
 
     TEST(IntElement, Read)
     {
-        EXPECT_TRUE(false);
+        std::istringstream input;
+        std::string input_val;
+        int64_t value(5);
+        std::streamsize val_size(ebml_int::size_s(value));
+
+        IntElement ee(ids::Null, 0);
+        fill_buffer(input_val, ids::Null, value, false, true, true);
+        input.str(input_val);
+        EXPECT_EQ(vint::size(val_size) + val_size, ee.read(input));
+        EXPECT_EQ(ids::Null, ee.id());
+        EXPECT_EQ(value, ee.value());
+
+        value = 0x3A958BCD99l;
+        val_size = ebml_int::size_s(value);
+        ee.value(0);
+        ee.set_default(0);
+        EXPECT_TRUE(ee.has_default());
+        EXPECT_TRUE(ee.is_default());
+        std::string().swap(input_val);
+        fill_buffer(input_val, ids::Null, value, false, true, true);
+        input.str(input_val);
+        EXPECT_EQ(vint::size(val_size) + val_size, ee.read(input));
+        EXPECT_EQ(value, ee.value());
+        EXPECT_EQ(0, ee.get_default());
+        EXPECT_FALSE(ee.is_default());
+
+        // Test for ReadError exception
+        std::string().swap(input_val);
+        fill_buffer(input_val, ids::Null, value, false, true, true);
+        input.str(input_val.substr(0, 4));
+        EXPECT_THROW(ee.read(input), ReadError);
+        // Test for ReadWhileWriting exception
+        std::stringstream output;
+        ee.start_write(output);
+        EXPECT_THROW(ee.read(output), ReadWhileWriting);
     }
 
     TEST(IntElement, StartWrite)
     {
-        EXPECT_TRUE(false);
+        std::stringstream output;
+        std::string expected;
+        int64_t value(2);
+        std::streamsize val_size(ebml_int::size_s(value));
+
+        IntElement ee(ids::Null, value);
+        output.str(std::string());
+        std::string().swap(expected);
+        fill_buffer(expected, ids::Null, value, true, true, true);
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, ee.start_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+        value = -0x839F18AAl;
+        val_size = ebml_int::size_s(value);
+        ee.value(value);
+        output.str(std::string());
+        std::string().swap(expected);
+        fill_buffer(expected, ids::Null, value, true, true, true);
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, ee.start_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
     }
 
     TEST(IntElement, FinishWrite)
     {
-        EXPECT_TRUE(false);
+        std::stringstream output;
+        std::string expected;
+        int64_t value(2);
+        std::streamsize val_size(ebml_int::size_s(value));
+        IntElement ee(ids::Null, value);
+
+        // Test for exception and no change to output when finishing without
+        // starting
+        output.str(std::string());
+        std::string().swap(expected);
+        EXPECT_THROW(ee.finish_write(output), NotWriting);
+        EXPECT_EQ(0, output.tellp());
+
+        output.str(std::string());
+        std::string().swap(expected);
+        fill_buffer(expected, ids::Null, value, true, true, true);
+        ee.start_write(output);
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, ee.finish_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+        value = -0x839F18AAl;
+        val_size = ebml_int::size_s(value);
+        ee.value(value);
+        output.str(std::string());
+        std::string().swap(expected);
+        fill_buffer(expected, ids::Null, value, true, true, true);
+        ee.start_write(output);
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, ee.finish_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+        // Test for double-finish raising an exception
+        EXPECT_THROW(ee.finish_write(output), NotWriting);
     }
 
     TEST(IntElement, Write)
     {
-        EXPECT_TRUE(false);
+        std::stringstream output;
+        std::string expected;
+        int64_t value(2);
+        std::streamsize val_size(ebml_int::size_s(value));
+
+        IntElement ee(ids::Null, value);
+        output.str(std::string());
+        std::string().swap(expected);
+        fill_buffer(expected, ids::Null, value, true, true, true);
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, write(ee, output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+
+        value = -0x839F18AAl;
+        val_size = ebml_int::size_s(value);
+        ee.value(value);
+        output.str(std::string());
+        std::string().swap(expected);
+        fill_buffer(expected, ids::Null, value, true, true, true);
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
+                val_size, write(ee, output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
     }
-}; // namespace test_int_els
+}; // namespace test_int_el
 

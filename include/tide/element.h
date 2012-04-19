@@ -128,7 +128,7 @@ namespace tide
              * \invariant If reading fails, the contents of the element stored
              * in memory will remain unchanged.
              *
-             * \param[in] io The source byte stream to read from.
+             * \param[in] i The source byte stream to read from.
              * \return The number of bytes read.
              * \exception ReadError if an error occurs reading data.
              * \exception BadBodySize if the size read from the element's
@@ -143,7 +143,7 @@ namespace tide
              * \exception ValueSizeOutOfRange if a child element is read with a
              * size that is not in the allowable range of sizes.
              */
-            std::streamsize read(std::iostream& io) { return read_impl(io); }
+            std::streamsize read(std::istream& i) { return read_impl(i); }
 
             /** \brief Open the element for writing.
              *
@@ -259,7 +259,7 @@ namespace tide
              * If an error occurs during element reading, the element's value
              * must remain unchanged.
              */
-            virtual std::streamsize read_impl(std::iostream& io) = 0;
+            virtual std::streamsize read_impl(std::istream& i) = 0;
 
             /** \brief Implementation of the start_write() method.
              *

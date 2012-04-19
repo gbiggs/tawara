@@ -432,11 +432,18 @@ namespace tide
      */
     struct NoClusters : virtual TideError{};
 
-    /** \brief A segment or cluster was finalised before being started.
+    /** \brief An element was read while being written.
      *
-     * Segments and clusters must be finalised to complete their writing, but
-     * this must occur after a call to write. If a segment or cluster is
-     * finalised before writing is begun, this error occurs.
+     * Elements cannot be read while they are being written, as the data in the
+     * file may be incomplete.
+     */
+    struct ReadWhileWriting : virtual TideError{};
+
+    /** \brief An element was finalised before being started.
+     *
+     * Elements must be finalised to complete their writing, but this must
+     * occur after a call to start_write(). If an element is finalised before
+     * writing is begun, this error occurs.
      */
     struct NotWriting : virtual TideError{};
 

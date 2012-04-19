@@ -39,6 +39,7 @@
 #if !defined(INTEGER_ELEMENT_IMPL_H_)
 #define INTEGER_ELEMENT_IMPL_H_
 
+#include <tide/ebml_integer.h>
 #include <tide/primitive_element_base.h>
 #include <tide/win_dll.h>
 
@@ -68,9 +69,10 @@ namespace tide
                  *
                  * \param[in] value The value of the element.
                  */
-                IntegralElementImpl(
+                explicit IntegralElementImpl(
                         typename boost::add_lvalue_reference<T>::type value)
-                    : value_(value), default_(0), has_default_(false)
+                    : value_(value), default_(0), has_default_(false),
+                    body_end_(0)
                 {}
 
                 /** \brief Constructor.
@@ -81,7 +83,8 @@ namespace tide
                 IntegralElementImpl(
                         typename boost::add_lvalue_reference<T>::type value,
                         typename boost::add_lvalue_reference<T>::type default_val)
-                    : value_(value), default_(default_val), has_default_(true)
+                    : value_(value), default_(default_val), has_default_(true),
+                    body_end_(0)
                 {}
 
                 /** \brief Swap this integral element's value with another's.
@@ -280,10 +283,39 @@ namespace tide
                     return ebml_int::size_s(value_);
                 }
 
+                std::streamsize read_body(std::istream& i, std::streamsize size)
+                {
+                    T temp;
+                    temp = ebml_int::read_s(i, size);
+                    std::swap(value_, temp);
+                    return size;
+                }
+
+                std::streamsize start_body(std::ostream& o) const
+                {
+                    std::streamsize result;
+                    result = ebml_int::write_s(value_, o);
+                    // Record the position after this element's body for use in
+                    // finish_body().
+                    body_end_ = o.tellp();
+                    return result;
+                }
+
+                std::streamsize finish_body(std::ostream& o) const
+                {
+                    // All writing was taken care of by start_body()
+                    // Ensure the post-condition that the write pointer is
+                    // placed after the element's body.
+                    o.seekp(body_end_);
+                    return body_stored_size();
+                }
+
             private:
                 T value_;
                 T default_;
                 bool has_default_;
+                // Must be mutable to be updated in start_body()
+                mutable std::streampos body_end_;
         }; // class IntegralElementImpl
     }; // namespace impl
 

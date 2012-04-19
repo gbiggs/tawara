@@ -74,6 +74,12 @@ namespace tide
      *   initialised to std::numeric_limits<std::streampos>::max() and must not
      *   be alterable from outside the class. It must be mutable.
      * - \code
+     *   mutable bool writing_
+     *   \endcode
+     *   A flag to track if the element is being written or not. This must be
+     *   initialised to false and must not be alterable from outside the class.
+     *   It must be mutable.
+     * - \code
      *   std::streamsize body_stored_size() const;
      *   \endcode
      *   Provides the size of the element's body when stored in a byte stream.
@@ -214,22 +220,26 @@ namespace tide
             }
 
             /// \brief Read the element from a byte stream.
-            virtual std::streamsize read_impl(std::iostream& io)
+            virtual std::streamsize read_impl(std::istream& i)
             {
+                if (derived().writing_)
+                {
+                    throw ReadWhileWriting();
+                }
                 // Fill in the offset of this element in the byte stream.  The
                 // input stream will be at the start of the size value, so:
                 //
                 //  offset = current position - size of ID
                 //
                 // The cast here makes Apple's LLVM compiler happy
-                derived().offset_ = static_cast<std::streamsize>(io.tellg()) -
+                derived().offset_ = static_cast<std::streamsize>(i.tellg()) -
                     ids::size(derived().id_);
                 // Get the element's body size
-                vint::ReadResult result = vint::read(io);
+                vint::ReadResult result = vint::read(i);
                 std::streamsize body_size(result.first);
                 std::streamsize read_bytes(result.second);
                 // The rest of the read is implemented in the derived class
-                return read_bytes + derived().read_body(io, body_size);
+                return read_bytes + derived().read_body(i, body_size);
             }
 
             /** \brief Begin writing the element to a byte stream.
@@ -246,6 +256,8 @@ namespace tide
             {
                 // Fill in the offset of this element in the byte stream.
                 derived().offset_ = io.tellp();
+                // Make a note that this element is being written
+                derived().writing_ = true;
 
                 return write_id(io) + write_size(io) + derived().start_body(io);
             }
@@ -259,7 +271,14 @@ namespace tide
              */
             virtual std::streamsize finish_write_impl(std::iostream& io) const
             {
-                return derived().finish_body(io);
+                if (!derived().writing_)
+                {
+                    throw NotWriting();
+                }
+                std::streamsize result = derived().finish_body(io);
+                // Note that writing has finished
+                derived().writing_ = false;
+                return result;
             }
     }; // class ElementBase
 }; // namespace tide

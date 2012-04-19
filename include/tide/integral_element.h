@@ -86,7 +86,7 @@ namespace tide
             IntegralElement(ids::ID id,
                     T value)
                 : ElementBase<IntegralElement>(id), impl_(value), id_(id),
-                offset_(0)
+                offset_(0), writing_(false)
             {}
 
             /** \brief Constructor.
@@ -97,7 +97,7 @@ namespace tide
             IntegralElement(tide::ids::ID id,
                     typename boost::add_lvalue_reference<T>::type value)
                 : ElementBase<IntegralElement>(id), impl_(value), id_(id),
-                offset_(0)
+                offset_(0), writing_(false)
             {}
 
             /** \brief Constructor.
@@ -108,7 +108,7 @@ namespace tide
              */
             IntegralElement(tide::ids::ID id, T value, T default_val)
                 : ElementBase<IntegralElement>(id), impl_(value, default_val),
-                id_(id), offset_(0)
+                id_(id), offset_(0), writing_(false)
             {}
 
             /** \brief Constructor.
@@ -121,7 +121,7 @@ namespace tide
                     typename boost::add_lvalue_reference<T>::type value,
                     typename boost::add_lvalue_reference<T>::type default_val)
                 : ElementBase<IntegralElement>(id), impl_(value, default_val),
-                id_(id), offset_(0)
+                id_(id), offset_(0), writing_(false)
             {}
 
             /** \brief Swap this element's value with another's.
@@ -135,6 +135,7 @@ namespace tide
                 swap(impl_, other.impl_);
                 swap(id_, other.id_);
                 swap(offset_, other.offset_);
+                swap(writing_, other.writing_);
             }
 
             /// \brief Less-than comparison operator.
@@ -387,25 +388,27 @@ namespace tide
             // ElementBase CRTP required members
             ids::ID id_;
             mutable std::streampos offset_;
+            mutable bool writing_;
 
             std::streamsize body_stored_size() const
             {
                 return impl_.body_stored_size();
             }
 
-            std::streamsize read_body(std::iostream& io, std::streamsize size)
+            std::streamsize read_body(std::istream& i, std::streamsize size)
             {
-                throw NotImplemented();
+                return impl_.read_body(i, size);
             }
 
             std::streamsize start_body(std::iostream& io) const
             {
-                throw NotImplemented();
+                return impl_.start_body(io);
             }
 
             std::streamsize finish_body(std::iostream& io) const
             {
-                throw NotImplemented();
+                impl_.finish_body(io);
+                return this->stored_size();
             }
     }; // class IntegralElement
 

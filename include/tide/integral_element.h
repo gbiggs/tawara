@@ -64,21 +64,21 @@ namespace tide
      *
      * Copy-construction and assignment are provided by the compiler.
      */
-    template<typename T>
+    template<typename T, class RWSPolicy>
     class TIDE_EXPORT IntegralElement
-        : public ElementBase<IntegralElement<T> >,
+        : public ElementBase<IntegralElement<T, RWSPolicy> >,
         public PrimitiveElement<T>,
-        boost::totally_ordered<IntegralElement<T> >,
-        boost::totally_ordered<IntegralElement<T>, T >,
-        boost::integer_arithmetic<IntegralElement<T> >,
-        boost::integer_arithmetic<IntegralElement<T>, T>,
-        boost::bitwise<IntegralElement<T> >,
-        boost::bitwise<IntegralElement<T>, T >,
-        boost::unit_steppable<IntegralElement<T> >,
-        boost::shiftable<IntegralElement<T> >,
-        boost::shiftable<IntegralElement<T>, T >
+        boost::totally_ordered<IntegralElement<T, RWSPolicy> >,
+        boost::totally_ordered<IntegralElement<T, RWSPolicy>, T >,
+        boost::integer_arithmetic<IntegralElement<T, RWSPolicy> >,
+        boost::integer_arithmetic<IntegralElement<T, RWSPolicy>, T>,
+        boost::bitwise<IntegralElement<T, RWSPolicy> >,
+        boost::bitwise<IntegralElement<T, RWSPolicy>, T >,
+        boost::unit_steppable<IntegralElement<T, RWSPolicy> >,
+        boost::shiftable<IntegralElement<T, RWSPolicy> >,
+        boost::shiftable<IntegralElement<T, RWSPolicy>, T >
     {
-        friend class ElementBase<IntegralElement<T> >;
+        friend class ElementBase<IntegralElement<T, RWSPolicy> >;
         public:
             /** \brief Constructor.
              *
@@ -324,7 +324,7 @@ namespace tide
         private:
             ///////////////////////////////////////////////////////////////////
             // PrimitiveBase interface implementation
-            impl::IntegralElementImpl<T> impl_;
+            impl::IntegralElementImpl<T, RWSPolicy> impl_;
 
             virtual T value_impl() const
             {
@@ -391,24 +391,27 @@ namespace tide
 
 
     /// \brief Swap integral element values.
-    template<typename T>
-    void swap(IntegralElement<T>& a, IntegralElement<T>& b)
+    template<typename T, class RWSPolicy>
+    void swap(IntegralElement<T, RWSPolicy>& a,
+            IntegralElement<T, RWSPolicy>& b)
     {
         a.swap(b);
     }
 
 
     /// \brief Stream output operator.
-    template<typename T>
-    std::ostream& operator<<(std::ostream& o, IntegralElement<T> const& rhs)
+    template<typename T, class RWSPolicy>
+    std::ostream& operator<<(std::ostream& o,
+            IntegralElement<T, RWSPolicy> const& rhs)
     {
         return o << rhs.value();
     }
 
 
     /// \brief Stream input operator.
-    template<typename T>
-    std::istream& operator>>(std::istream& i, IntegralElement<T>& rhs)
+    template<typename T, class RWSPolicy>
+    std::istream& operator>>(std::istream& i,
+            IntegralElement<T, RWSPolicy>& rhs)
     {
         T temp;
         i >> temp;

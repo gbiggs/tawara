@@ -58,11 +58,14 @@ namespace tide
          *
          * This class implements the PrimitivElementBase CRTP requirements.
          */
-        template<typename T>
+        template<typename T, class RWSPolicy>
         class TIDE_EXPORT IntegralElementImpl
-            : public PrimitiveElementBase<IntegralElementImpl<T>, T>
+            : public PrimitiveElementBase<IntegralElementImpl<T,
+                RWSPolicy>, T>,
+            public RWSPolicy
         {
-            friend class PrimitiveElementBase<IntegralElementImpl<T>, T>;
+            friend class PrimitiveElementBase<IntegralElementImpl<T,
+                RWSPolicy>, T>;
 
             public:
                 /** \brief Constructor.
@@ -282,14 +285,14 @@ namespace tide
                 /// \brief Get the size of the stored value.
                 std::streamsize body_stored_size() const
                 {
-                    return ebml_int::size_s(value_);
+                    return RWSPolicy::size(value_);
                 }
 
                 /// \brief Read the stored value from a byte stream.
                 std::streamsize read_body(std::istream& i, std::streamsize size)
                 {
                     T temp;
-                    temp = ebml_int::read_s(i, size);
+                    temp = RWSPolicy::read(i, size);
                     std::swap(value_, temp);
                     return size;
                 }
@@ -298,7 +301,7 @@ namespace tide
                 std::streamsize start_body(std::ostream& o) const
                 {
                     std::streamsize result;
-                    result = ebml_int::write_s(value_, o);
+                    result = RWSPolicy::write(value_, o);
                     // Record the position after this element's body for use in
                     // finish_body().
                     body_end_ = o.tellp();
@@ -328,8 +331,9 @@ namespace tide
 
 
     /// \brief Swap integral element implementation objects.
-    template<typename T>
-    void swap(impl::IntegralElementImpl<T>& a, impl::IntegralElementImpl<T>& b)
+    template<typename T, class RWSPolicy>
+    void swap(impl::IntegralElementImpl<T, RWSPolicy>& a,
+            impl::IntegralElementImpl<T, RWSPolicy>& b)
     {
         a.swap(b);
     }

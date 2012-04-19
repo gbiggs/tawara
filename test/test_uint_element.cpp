@@ -398,14 +398,14 @@ namespace test_uint_el
         }
         if (write_size)
         {
-            size = ebml_int::size_s(data);
+            size = ebml_int::size_u(data);
             std::vector<char> tmp(vint::encode(size));
             b.append(&tmp[0], 0, tmp.size());
             total += tmp.size();
         }
         if (write_body)
         {
-            std::vector<char> tmp(ebml_int::encode_s(data));
+            std::vector<char> tmp(ebml_int::encode_u(data));
             b.append(&tmp[0], 0, tmp.size());
             total += tmp.size();
         }
@@ -451,7 +451,7 @@ namespace test_uint_el
         EXPECT_EQ(5, ee.stored_size());
 
         ee.value(0xFFFFFF);
-        EXPECT_EQ(6, ee.stored_size());
+        EXPECT_EQ(5, ee.stored_size());
     }
 
     TEST(UIntElement, Read)
@@ -498,7 +498,7 @@ namespace test_uint_el
         std::stringstream output;
         std::string expected;
         unsigned long long int value(2);
-        std::streamsize val_size(ebml_int::size_s(value));
+        std::streamsize val_size(ebml_int::size_u(value));
 
         UIntElement ee(ids::Null, value);
         output.str(std::string());
@@ -512,7 +512,7 @@ namespace test_uint_el
                 val_size, output.tellp());
 
         value = -0x839F18AAl;
-        val_size = ebml_int::size_s(value);
+        val_size = ebml_int::size_u(value);
         ee.value(value);
         output.str(std::string());
         std::string().swap(expected);
@@ -530,7 +530,7 @@ namespace test_uint_el
         std::stringstream output;
         std::string expected;
         unsigned long long int value(2);
-        std::streamsize val_size(ebml_int::size_s(value));
+        std::streamsize val_size(ebml_int::size_u(value));
         UIntElement ee(ids::Null, value);
 
         // Test for exception and no change to output when finishing without
@@ -551,8 +551,8 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, output.tellp());
 
-        value = -0x839F18AAl;
-        val_size = ebml_int::size_s(value);
+        value = 0x839F18AAl;
+        val_size = ebml_int::size_u(value);
         ee.value(value);
         output.str(std::string());
         std::string().swap(expected);
@@ -574,7 +574,7 @@ namespace test_uint_el
         std::stringstream output;
         std::string expected;
         unsigned long long int value(2);
-        std::streamsize val_size(ebml_int::size_s(value));
+        std::streamsize val_size(ebml_int::size_u(value));
 
         UIntElement ee(ids::Null, value);
         output.str(std::string());
@@ -587,8 +587,8 @@ namespace test_uint_el
         EXPECT_EQ(ids::size(ids::Null) + vint::size(val_size) +
                 val_size, output.tellp());
 
-        value = -0x839F18AAl;
-        val_size = ebml_int::size_s(value);
+        value = 0x839F18AAl;
+        val_size = ebml_int::size_u(value);
         ee.value(value);
         output.str(std::string());
         std::string().swap(expected);

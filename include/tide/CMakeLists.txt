@@ -14,6 +14,7 @@ set(hdrs ${config_h}
     element_utils.h
     primitive_element.h
     primitive_element_base.h
+    integral_policies.h
     integral_element_impl.h
     integral_element.h
     integer_elements.h

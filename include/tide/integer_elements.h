@@ -40,6 +40,7 @@
 #define INTEGER_ELEMENTS_H_
 
 #include <tide/integral_element.h>
+#include <tide/integral_policies.h>
 
 namespace tide
 {
@@ -48,13 +49,15 @@ namespace tide
      * The maximum size of the stored value is -2^32 to 2^32 - 1 (i.e. 64
      * bits).
      */
-    typedef IntegralElement<long long int> IntElement;
+    typedef IntegralElement<long long int,
+            policies::RWSSigned> IntElement;
 
     /** \brief An unsigned integer element.
      *
      * The maximum size of the stored value is 2^64 (i.e. 64 bits).
      */
-    typedef IntegralElement<unsigned long long int> UIntElement;
+    typedef IntegralElement<unsigned long long int,
+            policies::RWSUnsigned> UIntElement;
 }; // namespace tide
 
 #endif // !defined(INTEGER_ELEMENTS_H_)

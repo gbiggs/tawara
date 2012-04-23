@@ -41,7 +41,6 @@
 
 #include <tide/float_element_precision.h>
 #include <tide/primitive_element_base.h>
-#include <tide/win_dll.h>
 
 #include <boost/type_traits/add_lvalue_reference.hpp>
 #include <ios>
@@ -60,7 +59,7 @@ namespace tide
          *
          * This class implements the PrimitivElementBase CRTP requirements.
          */
-        class TIDE_EXPORT FloatElementImpl
+        class FloatElementImpl
             : public PrimitiveElementBase<FloatElementImpl, double>
         {
             friend class PrimitiveElementBase<FloatElementImpl, double>;
@@ -103,12 +102,6 @@ namespace tide
                 bool operator<(double const rhs)
                 {
                     return value_ < rhs;
-                }
-
-                /// \brief Greater-than comparison operator.
-                bool operator>(FloatElementImpl const& rhs)
-                {
-                    return value_ > rhs.value_;
                 }
 
                 /// \brief Greater-than comparison operator.

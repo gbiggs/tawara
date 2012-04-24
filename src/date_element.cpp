@@ -37,20 +37,77 @@
  */
 
 #include <tide/date_element.h>
-#include <tide/ids.h>
-#include <tide/integer_elements.h>
-#include <tide/float_element.h>
 
-#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace tide;
+namespace bpt = boost::posix_time;
+namespace bgr = boost::gregorian;
 
-int main(int argc, char** argv)
+
+///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+DateElement::DateElement(ids::ID id, bpt::ptime const& value)
+    : ElementBase<DateElement>(id), impl_(value), id_(id), offset_(0),
+    writing_(false)
 {
-    tide::IntElement int_element(tide::ids::Null, -42);
-    tide::IntElement uint_element(tide::ids::Null, 42);
-    tide::FloatElement float_element(tide::ids::Null, 4.2);
-    tide::DateElement date_element(tide::ids::Null,
-            boost::posix_time::ptime(boost::posix_time::max_date_time));
+}
 
-    return 0;
+
+DateElement::DateElement(tide::ids::ID id, bpt::ptime const& value,
+        bpt::ptime const& default_val)
+    : ElementBase<DateElement>(id), impl_(value, default_val), id_(id),
+    offset_(0), writing_(false)
+{}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+void DateElement::swap(DateElement& other)
+{
+    using std::swap;
+
+    swap(impl_, other.impl_);
+    swap(id_, other.id_);
+    swap(offset_, other.offset_);
+    swap(writing_, other.writing_);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
+inline std::streamsize DateElement::body_stored_size() const
+{
+    return impl_.body_stored_size();
+}
+
+std::streamsize DateElement::read_body(std::istream& i, std::streamsize size)
+{
+    try
+    {
+        return impl_.read_body(i, size);
+    }
+    catch (boost::exception& e)
+    {
+        // Add the ID and the offset of this element in the file
+        // for easy debugging
+        e << err_id(id_) << err_pos(offset_);
+        throw;
+    }
+}
+
+std::streamsize DateElement::start_body(std::iostream& io) const
+{
+    return impl_.start_body(io);
+}
+
+std::streamsize DateElement::finish_body(std::iostream& io) const
+{
+    impl_.finish_body(io);
+    return this->stored_size();
 }
 

@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(FLOAT_ELEMENT_IMPL_H_)
-#define FLOAT_ELEMENT_IMPL_H_
+#if !defined(DATE_ELEMENT_IMPL_H_)
+#define DATE_ELEMENT_IMPL_H_
 
-#include <tide/float_element_precision.h>
 #include <tide/primitive_element_base.h>
 
-#include <boost/type_traits/add_lvalue_reference.hpp>
-#include <ios>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/operators.hpp>
+#include <iostream>
 
 /// \addtogroup implementations Internal implementations
 /// @{
@@ -52,147 +52,126 @@ namespace tide
 {
     namespace impl
     {
-        /** \brief Internal implementation of a floating point primitive
-         * element.
+        /** \brief Internal implementation of a date element.
          *
-         * This class provides the implementation of a floating point element.
+         * This class provides the implementation of a date element.
          *
-         * This class implements the PrimitivElementBase CRTP requirements.
+         * This class implements the PrimitiveElementBase CRTP requirements.
          */
-        class FloatElementImpl
-            : public PrimitiveElementBase<FloatElementImpl, double>
+        class DateElementImpl
+            : public PrimitiveElementBase<DateElementImpl,
+                boost::posix_time::ptime>
         {
-            friend class PrimitiveElementBase<FloatElementImpl, double>;
+            friend class PrimitiveElementBase<DateElementImpl,
+                boost::posix_time::ptime>;
 
             public:
                 /** \brief Constructor.
                  *
                  * \param[in] value The value of the element.
-                 * \param[in] precision The element's precision, single or
-                 * double.  This only has an effect when writing the float to a
-                 * file.
                  */
-                FloatElementImpl(double value, EBMLFloatPrecision precision);
+                DateElementImpl(boost::posix_time::ptime const& value);
 
                 /** \brief Constructor.
                  *
                  * \param[in] value The value of the element.
                  * \param[in] default_val The default value of the element.
-                 * \param[in] precision The element's precision, single or
-                 * double.  This only has an effect when writing the float to a
-                 * file.
                  */
-                FloatElementImpl(double value, double default_val,
-                        EBMLFloatPrecision precision);
+                DateElementImpl(boost::posix_time::ptime const& value,
+                        boost::posix_time::ptime const& default_val);
 
                 /** \brief Swap this element's value with another's.
                  *
-                 * \param[in] other The other floating point element to swap
-                 * with.
+                 * \param[in] other The other element to swap with.
                  */
-                void swap(FloatElementImpl& other);
+                void swap(DateElementImpl& other);
 
                 /// \brief Less-than comparison operator.
-                bool operator<(FloatElementImpl const& rhs)
+                bool operator<(DateElementImpl const& rhs)
                 {
                     return value_ < rhs.value_;
                 }
 
                 /// \brief Less-than comparison operator.
-                bool operator<(double const rhs)
+                bool operator<(boost::posix_time::ptime const& rhs)
                 {
                     return value_ < rhs;
                 }
 
                 /// \brief Greater-than comparison operator.
-                bool operator>(double const rhs)
+                bool operator>(boost::posix_time::ptime const& rhs)
                 {
                     return value_ > rhs;
                 }
 
-                /// \brief Assignment addition operator.
-                FloatElementImpl& operator+=(FloatElementImpl const& rhs)
-                {
-                    value_ += rhs.value_;
-                    return *this;
-                }
-
-                /// \brief Assignment addition operator.
-                FloatElementImpl& operator+=(double const rhs)
+                /// \brief Assignment addition operator (days).
+                DateElementImpl& operator+=(boost::gregorian::days const& rhs)
                 {
                     value_ += rhs;
                     return *this;
                 }
 
-                /// \brief Assignment subtraction operator.
-                FloatElementImpl& operator-=(FloatElementImpl const& rhs)
-                {
-                    value_ -= rhs.value_;
-                    return *this;
-                }
-
-                /// \brief Assignment subtraction operator.
-                FloatElementImpl& operator-=(double const rhs)
+                /// \brief Assignment subtraction operator (days).
+                DateElementImpl& operator-=(boost::gregorian::days const& rhs)
                 {
                     value_ -= rhs;
                     return *this;
                 }
 
-                /// \brief Assignment multiplication operator.
-                FloatElementImpl& operator*=(FloatElementImpl const& rhs)
+                /// \brief Assignment addition operator (time durations).
+                DateElementImpl& operator+=(boost::posix_time::time_duration const& rhs)
                 {
-                    value_ *= rhs.value_;
+                    value_ += rhs;
                     return *this;
                 }
 
-                /// \brief Assignment multiplication operator.
-                FloatElementImpl& operator*=(double const rhs)
+                /// \brief Assignment subtraction operator (time durations).
+                DateElementImpl& operator-=(boost::posix_time::time_duration const& rhs)
                 {
-                    value_ *= rhs;
+                    value_ -= rhs;
                     return *this;
                 }
 
-                /// \brief Assignment division operator.
-                FloatElementImpl& operator/=(FloatElementImpl const& rhs)
+                /// \brief Get the date part of the time.
+                boost::gregorian::date date() const
                 {
-                    value_ /= rhs.value_;
-                    return *this;
+                    return value_.date();
                 }
 
-                /// \brief Assignment division operator.
-                FloatElementImpl& operator/=(double const rhs)
+                /// \brief Get the time offset in the day.
+                boost::posix_time::time_duration time_of_day() const
                 {
-                    value_ /= rhs;
-                    return *this;
+                    return value_.time_of_day();
                 }
 
-                /// \brief Pre-increment operator.
-                FloatElementImpl& operator++()
+                /// \brief Check if the time is infinity.
+                bool is_infinity() const
                 {
-                    ++value_;
-                    return *this;
+                    return value_.is_infinity();
                 }
 
-                /// \brief Pre-decrement operator.
-                FloatElementImpl& operator--()
+                /// \brief Check if the time is negative infinity.
+                bool is_neg_infinity() const
                 {
-                    --value_;
-                    return *this;
+                    return value_.is_neg_infinity();
                 }
 
-                /// \brief Get the precision setting.
-                EBMLFloatPrecision precision() const { return precision_; }
-                /** \brief Set the precision setting
-                 *
-                 * This value determines if the float is single or double
-                 * precision. The precision value has no effect until the float is
-                 * written to a file, at which point single-precision floats are
-                 * written using 4 bytes while double-precision floats are written
-                 * using 8 bytes.
-                 */
-                void precision(EBMLFloatPrecision precision)
+                /// \brief Check if the time is positive infinity.
+                bool is_pos_infinity() const
                 {
-                    precision_ = precision;
+                    return value_.is_pos_infinity();
+                }
+
+                /// \brief Check if the time is valid.
+                bool is_not_a_date_time() const
+                {
+                    return value_.is_not_a_date_time();
+                }
+
+                /// \brief Check if the time is a special value.
+                bool is_special() const
+                {
+                    return value_.is_special();
                 }
 
                 /// \brief Get the size of the stored value.
@@ -210,25 +189,21 @@ namespace tide
             private:
                 ///////////////////////////////////////////////////////////////////
                 // PrimitiveElement CRTP required members
-                double value_;
-                double default_;
+                boost::posix_time::ptime value_;
+                boost::posix_time::ptime default_;
                 bool has_default_;
                 // Must be mutable to be updated in start_body()
                 mutable std::streampos body_end_;
-
-                ///////////////////////////////////////////////////////////////////
-                // Other float element members
-                EBMLFloatPrecision precision_;
-        }; // class FloatElementImpl
+        }; // class DateElementImpl
 
 
         /// \brief Swap date element implementation objects.
-        void swap(FloatElementImpl& a, FloatElementImpl& b);
+        void swap(DateElementImpl& a, DateElementImpl& b);
     }; // namespace impl
-}; //namespace tide
+}; // namespace tide
 
 /// @}
-/// group implementations
+// group implementations
 
-#endif // !defined(FLOAT_ELEMENT_IMPL_H_)
+#endif // !defined(DATE_ELEMENT_IMPL_H_
 

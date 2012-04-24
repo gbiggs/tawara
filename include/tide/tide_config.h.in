@@ -58,5 +58,10 @@ namespace tide
 /// @}
 // group constants
 
+// Enable/disable the use of nanoseconds in Boost.date_time. This depends on a
+// boost compiler flag also being enabled, which is done when
+// TIDE_USE_NANOSECONDS is true.
+#cmakedefine TIDE_USE_NANOSECONDS
+
 #endif // TIDE_TIDE_CONFIG_H_
 

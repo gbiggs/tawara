@@ -10,6 +10,15 @@ set(PROJECT_AUTHOR "Geoffrey Biggs")
 set(PROJECT_VENDOR "AIST")
 set(PROJECT_YEAR "2011")
 
+# Compilation options
+option(TIDE_USE_NANOSECONDS
+    "Enable nanosecond-level resolution in timestamps"
+    ON)
+if(TIDE_USE_NANOSECONDS)
+    set(TIDE_DEFINITIONS "-DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG")
+    add_definitions(-DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG)
+endif(TIDE_USE_NANOSECONDS)
+
 # Add an "uninstall" target
 CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/cmake/uninstall_target.cmake.in"
     "${PROJECT_BINARY_DIR}/uninstall_target.cmake" IMMEDIATE @ONLY)

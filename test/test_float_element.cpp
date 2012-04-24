@@ -381,15 +381,15 @@ namespace test_float_el
     TEST(FloatElement, StoredSize)
     {
         FloatElement ee(ids::Null, 1.0, EBML_FLOAT_PREC_SINGLE);
-        EXPECT_EQ(6, ee.stored_size());
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(4) + 4, ee.stored_size());
         ee.precision(EBML_FLOAT_PREC_DOUBLE);
-        EXPECT_EQ(10, ee.stored_size());
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(8) + 8, ee.stored_size());
 
         ee.precision(EBML_FLOAT_PREC_SINGLE);
         ee.value(3.15149);
-        EXPECT_EQ(6, ee.stored_size());
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(4) + 4, ee.stored_size());
         ee.precision(EBML_FLOAT_PREC_DOUBLE);
-        EXPECT_EQ(10, ee.stored_size());
+        EXPECT_EQ(ids::size(ids::Null) + vint::size(8) + 8, ee.stored_size());
     }
 
     TEST(FloatElement, Read)

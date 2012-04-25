@@ -114,12 +114,17 @@ std::streamsize DateElementImpl::read_body(std::istream& i, std::streamsize size
     }
     bpt::ptime basis(bgr::date(2001, 1, 1));
 #if defined(TIDE_USE_NANOSECONDS)
-    bpt::time_duration d(bpt::nanoseconds(temp));
-    value_ = basis + d;
+    // time_durations don't like being built from a 64-bit value
+    bpt::seconds secs(temp / 1000000000);
+    bpt::nanoseconds nsecs(temp % 1000000000);
+    bpt::time_duration d(secs + nsecs);
 #else
-    bpt::time_duration d(bpt::microseconds(temp / 1000));
-    value_ = basis + d;
+    // time_durations don't like being built from a 64-bit value
+    bpt::seconds secs(temp / 1000000000);
+    bpt::microseconds usecs((temp / 1000) % 1000000);
+    bpt::time_duration d(secs + usecs);
 #endif // defined(TIDE_USE_NANOSECONDS)
+    value_ = basis + d;
 
     return 8;
 }

@@ -78,9 +78,9 @@ namespace test_date_el
         EXPECT_EQ(mindt,
                 DateElement(ids::Null, bpt::max_date_time,
                     bpt::min_date_time).get_default());
-        EXPECT_EQ(false, DateElement(ids::Null,
+        EXPECT_FALSE(DateElement(ids::Null,
                     bpt::max_date_time).has_default());
-        EXPECT_EQ(true, DateElement(ids::Null, bpt::max_date_time,
+        EXPECT_TRUE(DateElement(ids::Null, bpt::max_date_time,
                     bpt::min_date_time).has_default());
 
         EXPECT_THROW(DateElement(0x00, bpt::pos_infin), InvalidElementID);

@@ -56,8 +56,8 @@ namespace test_int_el
         EXPECT_EQ(42, IntElement(ids::Null, 42).value());
         EXPECT_EQ(42, IntElement(ids::Null, 42, 0).value());
         EXPECT_EQ(0, IntElement(ids::Null, 42, 0).get_default());
-        EXPECT_EQ(false, IntElement(ids::Null, 42).has_default());
-        EXPECT_EQ(true, IntElement(ids::Null, 42, 0).has_default());
+        EXPECT_FALSE(IntElement(ids::Null, 42).has_default());
+        EXPECT_TRUE(IntElement(ids::Null, 42, 0).has_default());
 
         EXPECT_THROW(IntElement(0x00, 1), InvalidElementID);
         EXPECT_THROW(IntElement(0xFF, 1), InvalidElementID);

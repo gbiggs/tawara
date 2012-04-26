@@ -57,8 +57,8 @@ namespace test_float_el
         EXPECT_DOUBLE_EQ(4.2, FloatElement(ids::Null, 4.2).value());
         EXPECT_DOUBLE_EQ(4.2, FloatElement(ids::Null, 4.2, 0).value());
         EXPECT_DOUBLE_EQ(0, FloatElement(ids::Null, 4.2, 0).get_default());
-        EXPECT_EQ(false, FloatElement(ids::Null, 4.2).has_default());
-        EXPECT_EQ(true, FloatElement(ids::Null, 4.2, 0).has_default());
+        EXPECT_FALSE(FloatElement(ids::Null, 4.2).has_default());
+        EXPECT_TRUE(FloatElement(ids::Null, 4.2, 0).has_default());
 
         EXPECT_THROW(FloatElement(0x00, 1), InvalidElementID);
         EXPECT_THROW(FloatElement(0xFF, 1), InvalidElementID);

@@ -95,11 +95,21 @@ namespace tide
             DateElement(tide::ids::ID id, boost::posix_time::ptime const& value,
                     boost::posix_time::ptime const& default_val);
 
-            /** \brief Swap this element's value with another's.
+            /** \brief Swap this element with another.
              *
              * \param[in] other The other element to swap with.
              */
             void swap(DateElement& other);
+
+            /** \brief Swap this element's value with another instance of the
+             * value type.
+             *
+             * Only the value is swapped. The ID and default value are left
+             * unchanged.
+             *
+             * \param[in] other The other element to swap values with.
+             */
+            void swap(boost::posix_time::ptime& other);
 
             /// \brief Less-than comparison operator.
             friend bool operator<(DateElement const& lhs,
@@ -254,10 +264,16 @@ namespace tide
 
 
     /// \brief Swap floating point element values.
-    void swap(DateElement& a, DateElement& b)
-    {
-        a.swap(b);
-    }
+    void swap(DateElement& a, DateElement& b);
+
+
+    /** \brief Swap this element's value with another instance of the
+     * value type.
+     *
+     * Only the value is swapped. The ID and default value are left
+     * unchanged.
+     */
+    void swap(DateElement& a, boost::posix_time::ptime& b);
 
 
     /// \brief Subtraction operator.

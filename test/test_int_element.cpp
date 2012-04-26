@@ -91,6 +91,13 @@ namespace test_int_el
         EXPECT_EQ(0x42, ee2.id());
         EXPECT_EQ(24, ee2.value());
         EXPECT_EQ(2, ee2.get_default());
+
+        long long int temp(5);
+        swap(ee1, temp);
+        EXPECT_EQ(0x21, ee1.id());
+        EXPECT_EQ(5, ee1.value());
+        EXPECT_EQ(12, temp);
+        EXPECT_EQ(1, ee1.get_default());
     }
 
     TEST(IntElement, LessThan)

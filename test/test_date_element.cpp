@@ -121,6 +121,13 @@ namespace test_date_el
         EXPECT_EQ(0x42, ee2.id());
         EXPECT_EQ(maxdt, ee2.value());
         EXPECT_EQ(pinf, ee2.get_default());
+
+        bpt::ptime maxdt_copy(maxdt);
+        swap(ee1, maxdt_copy);
+        EXPECT_EQ(0x21, ee1.id());
+        EXPECT_EQ(maxdt, ee1.value());
+        EXPECT_EQ(mindt, maxdt_copy);
+        EXPECT_EQ(ninf, ee1.get_default());
     }
 
     TEST(DateElement, LessThan)

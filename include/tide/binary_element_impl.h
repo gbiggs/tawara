@@ -92,10 +92,9 @@ namespace tide
                 BinaryElementImpl(std::vector<char> const& value,
                         std::vector<char> const& default_val);
 
-                /** \brief Swap this element's value with another's.
+                /** \brief Swap this element with another.
                  *
-                 * \param[in] other The other floating point element to swap
-                 * with.
+                 * \param[in] other The other element to swap with.
                  */
                 void swap(BinaryElementImpl& other);
 
@@ -104,6 +103,8 @@ namespace tide
                  *
                  * Only the value is swapped. The ID and default value are left
                  * unchanged.
+                 *
+                 * \param[in] other The other value to swap with.
                  */
                 void swap(std::vector<char>& other);
 

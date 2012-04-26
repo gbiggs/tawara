@@ -90,7 +90,7 @@ namespace tide
                     body_end_(0)
                 {}
 
-                /** \brief Swap this integral element's value with another's.
+                /** \brief Swap this integral element with another.
                  *
                  * \param[in] other The other integral element to swap with.
                  */
@@ -102,6 +102,20 @@ namespace tide
                     swap(default_, other.default_);
                     swap(has_default_, other.has_default_);
                     swap(body_end_, other.body_end_);
+                }
+
+                /** \brief Swap this element's value with another instance of
+                 * the value type.
+                 *
+                 * Only the value is swapped. The ID and default value are left
+                 * unchanged.
+                 *
+                 * \param[in] other The other value to swap with.
+                 */
+                void swap(T& other)
+                {
+                    using std::swap;
+                    swap(value_, other);
                 }
 
                 /// \brief Less-than comparison operator.
@@ -334,6 +348,19 @@ namespace tide
     template<typename T, class RWSPolicy>
     void swap(impl::IntegralElementImpl<T, RWSPolicy>& a,
             impl::IntegralElementImpl<T, RWSPolicy>& b)
+    {
+        a.swap(b);
+    }
+
+
+    /** \brief Swap this element's value with another instance of the
+     * value type.
+     *
+     * Only the value is swapped. The ID and default value are left
+     * unchanged.
+     */
+    template<typename T, class RWSPolicy>
+    void swap(impl::IntegralElementImpl<T, RWSPolicy>& a, T& b)
     {
         a.swap(b);
     }

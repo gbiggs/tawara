@@ -120,6 +120,8 @@ namespace tide
              *
              * Only the value is swapped. The ID and default value are left
              * unchanged.
+             *
+             * \param[in] other The other value to swap with.
              */
             void swap(std::vector<char>& other);
 

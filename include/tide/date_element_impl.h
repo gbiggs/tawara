@@ -86,6 +86,16 @@ namespace tide
                  */
                 void swap(DateElementImpl& other);
 
+                /** \brief Swap this element's value with another instance of
+                 * the value type.
+                 *
+                 * Only the value is swapped. The ID and default value are left
+                 * unchanged.
+                 *
+                 * \param[in] other The other value to swap with.
+                 */
+                void swap(boost::posix_time::ptime& other);
+
                 /// \brief Less-than comparison operator.
                 bool operator<(DateElementImpl const& rhs)
                 {
@@ -199,6 +209,15 @@ namespace tide
 
         /// \brief Swap date element implementation objects.
         void swap(DateElementImpl& a, DateElementImpl& b);
+
+
+        /** \brief Swap this element's value with another instance of the
+         * value type.
+         *
+         * Only the value is swapped. The ID and default value are left
+         * unchanged.
+         */
+        void swap(DateElementImpl& a, boost::posix_time::ptime& b);
     }; // namespace impl
 }; // namespace tide
 

@@ -85,6 +85,19 @@ void tide::impl::swap(DateElementImpl& a, DateElementImpl& b)
 }
 
 
+void DateElementImpl::swap(bpt::ptime& other)
+{
+    using std::swap;
+    swap(value_, other);
+}
+
+
+void tide::impl::swap(DateElementImpl& a, bpt::ptime& b)
+{
+    a.swap(b);
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////

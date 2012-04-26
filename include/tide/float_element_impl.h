@@ -83,12 +83,22 @@ namespace tide
                 FloatElementImpl(double value, double default_val,
                         EBMLFloatPrecision precision);
 
-                /** \brief Swap this element's value with another's.
+                /** \brief Swap this element with another.
                  *
                  * \param[in] other The other floating point element to swap
                  * with.
                  */
                 void swap(FloatElementImpl& other);
+
+                /** \brief Swap this element's value with another instance of
+                 * the value type.
+                 *
+                 * Only the value is swapped. The ID and default value are left
+                 * unchanged.
+                 *
+                 * \param[in] other The other value to swap with.
+                 */
+                void swap(double& other);
 
                 /// \brief Less-than comparison operator.
                 bool operator<(FloatElementImpl const& rhs)
@@ -222,6 +232,15 @@ namespace tide
 
         /// \brief Swap date element implementation objects.
         void swap(FloatElementImpl& a, FloatElementImpl& b);
+
+
+        /** \brief Swap this element's value with another instance of the
+         * value type.
+         *
+         * Only the value is swapped. The ID and default value are left
+         * unchanged.
+         */
+        void swap(FloatElementImpl& a, double& b);
     }; // namespace impl
 }; //namespace tide
 

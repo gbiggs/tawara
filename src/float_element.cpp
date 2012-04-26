@@ -75,6 +75,25 @@ void FloatElement::swap(FloatElement& other)
 }
 
 
+void tide::swap(FloatElement& a, FloatElement& b)
+{
+    a.swap(b);
+}
+
+
+void FloatElement::swap(double& other)
+{
+    using std::swap;
+    swap(impl_, other);
+}
+
+
+void tide::swap(FloatElement& a, double& b)
+{
+    a.swap(b);
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////

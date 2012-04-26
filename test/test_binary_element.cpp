@@ -124,7 +124,7 @@ namespace test_binary_el
         EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b4, ee2.get_default());
 
         std::vector<char> b2_copy(b2);
-        ee1.swap(b2_copy);
+        swap(ee1, b2_copy);
         EXPECT_EQ(0x21, ee1.id());
         EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, ee1.value());
         EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2_copy, b1);

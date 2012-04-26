@@ -92,6 +92,13 @@ namespace test_float_el
         EXPECT_EQ(0x42, ee2.id());
         EXPECT_DOUBLE_EQ(2.4, ee2.value());
         EXPECT_DOUBLE_EQ(2, ee2.get_default());
+
+        double temp(3.14159);
+        swap(ee1, temp);
+        EXPECT_EQ(0x21, ee1.id());
+        EXPECT_DOUBLE_EQ(3.14159, ee1.value());
+        EXPECT_EQ(1.2, temp);
+        EXPECT_DOUBLE_EQ(1, ee1.get_default());
     }
 
     TEST(FloatElement, LessThan)

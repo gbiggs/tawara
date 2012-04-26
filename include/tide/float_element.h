@@ -101,11 +101,21 @@ namespace tide
             FloatElement(tide::ids::ID id, double value, double default_val,
                     EBMLFloatPrecision precision=EBML_FLOAT_PREC_DOUBLE);
 
-            /** \brief Swap this element's value with another's.
+            /** \brief Swap this element with another.
              *
              * \param[in] other The other element to swap with.
              */
             void swap(FloatElement& other);
+
+            /** \brief Swap this element's value with another instance of the
+             * value type.
+             *
+             * Only the value is swapped. The ID and default value are left
+             * unchanged.
+             *
+             * \param[in] other The other value to swap with.
+             */
+            void swap(double& other);
 
             /// \brief Less-than comparison operator.
             friend bool operator<(FloatElement const& lhs,
@@ -287,10 +297,16 @@ namespace tide
     }; // class FloatElement
 
     /// \brief Swap floating point element values.
-    void swap(FloatElement& a, FloatElement& b)
-    {
-        a.swap(b);
-    }
+    void swap(FloatElement& a, FloatElement& b);
+
+
+    /** \brief Swap this element's value with another instance of the
+     * value type.
+     *
+     * Only the value is swapped. The ID and default value are left
+     * unchanged.
+     */
+    void swap(FloatElement& a, double& b);
 
 
     /// \brief Stream output operator.

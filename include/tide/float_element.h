@@ -55,12 +55,14 @@ namespace tide
 {
     /** \brief Interface to a floating point primitive element.
      *
-     * Floating point elements form one type of primitive element. This defines
-     * the interface to a floating point element.
+     * The floating point element forms one type of primitive element. This
+     * defines the interface to a floating point element.
      *
      * This class implements the Element interface.
      *
      * This class implements the PrimitiveElement interface.
+     *
+     * This class implements the boost::posix_time::ptime interface.
      *
      * Copy-construction and assignment are provided by the compiler.
      */
@@ -76,6 +78,7 @@ namespace tide
         boost::unit_steppable<FloatElement>
     {
         friend class ElementBase<FloatElement>;
+
         public:
             /** \brief Constructor.
              *
@@ -112,13 +115,13 @@ namespace tide
             }
 
             /// \brief Less-than comparison operator.
-            friend bool operator<(FloatElement const& lhs, double const rhs)
+            friend bool operator<(FloatElement const& lhs, double rhs)
             {
                 return lhs.value() < rhs;
             }
 
             /// \brief Greater-than comparison operator.
-            friend bool operator>(FloatElement const& lhs, double const rhs)
+            friend bool operator>(FloatElement const& lhs, double rhs)
             {
                 return lhs.value() > rhs;
             }
@@ -131,7 +134,7 @@ namespace tide
             }
 
             /// \brief Assignment addition operator.
-            FloatElement& operator+=(double const rhs)
+            FloatElement& operator+=(double rhs)
             {
                 impl_ += rhs;
                 return *this;
@@ -145,7 +148,7 @@ namespace tide
             }
 
             /// \brief Assignment subtraction operator.
-            FloatElement& operator-=(double const rhs)
+            FloatElement& operator-=(double rhs)
             {
                 impl_ -= rhs;
                 return *this;
@@ -170,7 +173,7 @@ namespace tide
             }
 
             /// \brief Assignment multiplication operator.
-            FloatElement& operator*=(double const rhs)
+            FloatElement& operator*=(double rhs)
             {
                 impl_ *= rhs;
                 return *this;
@@ -184,7 +187,7 @@ namespace tide
             }
 
             /// \brief Assignment division operator.
-            FloatElement& operator/=(double const rhs)
+            FloatElement& operator/=(double rhs)
             {
                 impl_ /= rhs;
                 return *this;

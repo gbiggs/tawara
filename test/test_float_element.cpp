@@ -366,8 +366,7 @@ namespace test_float_el
         // Set when read test
         FloatElement ee1(ids::Null, value1), ee2(ids::Null, 0);
         write(ee1, ss);
-        ids::write(ids::Null, ss);
-        fill_buffer(input_val, ids::Null, value2, false, true, true, true);
+        fill_buffer(input_val, ids::Null, value2, true, true, true, true);
         ss << input_val;
         ss.seekg(ee1.stored_size() + ids::size(ids::Null));
         ee2.read(ss);

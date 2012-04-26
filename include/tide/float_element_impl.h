@@ -55,8 +55,6 @@ namespace tide
         /** \brief Internal implementation of a floating point primitive
          * element.
          *
-         * This class provides the implementation of a floating point element.
-         *
          * This class implements the PrimitivElementBase CRTP requirements.
          */
         class FloatElementImpl
@@ -99,13 +97,13 @@ namespace tide
                 }
 
                 /// \brief Less-than comparison operator.
-                bool operator<(double const rhs)
+                bool operator<(double rhs)
                 {
                     return value_ < rhs;
                 }
 
                 /// \brief Greater-than comparison operator.
-                bool operator>(double const rhs)
+                bool operator>(double rhs)
                 {
                     return value_ > rhs;
                 }
@@ -118,7 +116,7 @@ namespace tide
                 }
 
                 /// \brief Assignment addition operator.
-                FloatElementImpl& operator+=(double const rhs)
+                FloatElementImpl& operator+=(double rhs)
                 {
                     value_ += rhs;
                     return *this;
@@ -132,7 +130,7 @@ namespace tide
                 }
 
                 /// \brief Assignment subtraction operator.
-                FloatElementImpl& operator-=(double const rhs)
+                FloatElementImpl& operator-=(double rhs)
                 {
                     value_ -= rhs;
                     return *this;
@@ -146,7 +144,7 @@ namespace tide
                 }
 
                 /// \brief Assignment multiplication operator.
-                FloatElementImpl& operator*=(double const rhs)
+                FloatElementImpl& operator*=(double rhs)
                 {
                     value_ *= rhs;
                     return *this;
@@ -160,7 +158,7 @@ namespace tide
                 }
 
                 /// \brief Assignment division operator.
-                FloatElementImpl& operator/=(double const rhs)
+                FloatElementImpl& operator/=(double rhs)
                 {
                     value_ /= rhs;
                     return *this;

@@ -7,7 +7,9 @@ set(srcs
     float_element.cpp
     float_element_impl.cpp
     date_element.cpp
-    date_element_impl.cpp)
+    date_element_impl.cpp
+    binary_element.cpp
+    binary_element_impl.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

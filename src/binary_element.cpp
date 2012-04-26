@@ -37,22 +37,75 @@
  */
 
 #include <tide/binary_element.h>
-#include <tide/date_element.h>
-#include <tide/ids.h>
-#include <tide/integer_elements.h>
-#include <tide/float_element.h>
+#include <tide/exceptions.h>
 
-#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace tide;
 
-int main(int argc, char** argv)
+///////////////////////////////////////////////////////////////////////////////
+// Constructors and destructors
+///////////////////////////////////////////////////////////////////////////////
+
+BinaryElement::BinaryElement(ids::ID id, std::vector<char> const& value)
+    : ElementBase<BinaryElement>(id), impl_(value), id_(id),
+    offset_(0), writing_(false)
 {
-    tide::IntElement int_element(tide::ids::Null, -42);
-    tide::IntElement uint_element(tide::ids::Null, 42);
-    tide::FloatElement float_element(tide::ids::Null, 4.2);
-    tide::DateElement date_element(tide::ids::Null,
-            boost::posix_time::ptime(boost::posix_time::max_date_time));
-    tide::BinaryElement binary_element(tide::ids::Null, std::vector<char>());
+}
 
-    return 0;
+
+BinaryElement::BinaryElement(tide::ids::ID id, std::vector<char> const& value,
+        std::vector<char> const& default_val)
+    : ElementBase<BinaryElement>(id), impl_(value, default_val), id_(id),
+    offset_(0), writing_(false)
+{}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+///////////////////////////////////////////////////////////////////////////////
+
+void BinaryElement::swap(BinaryElement& other)
+{
+    using std::swap;
+
+    swap(impl_, other.impl_);
+    swap(id_, other.id_);
+    swap(offset_, other.offset_);
+    swap(writing_, other.writing_);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Element interface
+///////////////////////////////////////////////////////////////////////////////
+
+inline std::streamsize BinaryElement::body_stored_size() const
+{
+    return impl_.body_stored_size();
+}
+
+std::streamsize BinaryElement::read_body(std::istream& i, std::streamsize size)
+{
+    try
+    {
+        return impl_.read_body(i, size);
+    }
+    catch (boost::exception& e)
+    {
+        // Add the ID and the offset of this element in the file
+        // for easy debugging
+        e << err_id(id_) << err_pos(offset_);
+        throw;
+    }
+}
+
+std::streamsize BinaryElement::start_body(std::iostream& io) const
+{
+    return impl_.start_body(io);
+}
+
+std::streamsize BinaryElement::finish_body(std::iostream& io) const
+{
+    impl_.finish_body(io);
+    return this->stored_size();
 }
 

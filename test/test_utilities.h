@@ -50,9 +50,9 @@ namespace test_utils
             char const* b2_expr, std::string const& b1, std::string const& b2);
 
     // Tests if two std::vector<char> buffers are equal.
-    ::testing::AssertionResult std_vectors_eq(char const* b1_expr,
-            char const* b2_expr, std::vector<char> const& b1,
-            std::vector<char> const& b2);
+    ::testing::AssertionResult std_vectors_eq(char const* v1_expr,
+            char const* v2_expr, std::vector<char> const& v1,
+            std::vector<char> const& v2);
 }; // test_utils
 
 #endif // !defined(TEST_UTILITIES_H_)

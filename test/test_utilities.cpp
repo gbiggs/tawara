@@ -88,35 +88,35 @@
 }
 
 
-::testing::AssertionResult test_utils::std_vectors_eq(char const* b1_expr,
-        char const* b2_expr, std::vector<char> const& b1,
-        std::vector<char> const& b2)
+::testing::AssertionResult test_utils::std_vectors_eq(char const* v1_expr,
+        char const* v2_expr, std::vector<char> const& v1,
+        std::vector<char> const& v2)
 {
-    if (b1.size() != b2.size())
+    if (v1.size() != v2.size())
     {
-        return ::testing::AssertionFailure() << b1_expr << " length (" <<
-            b1.size() << ") != " << b2_expr << " length (" << b2.size() << ')';
+        return ::testing::AssertionFailure() << v1_expr << " length (" <<
+            v1.size() << ") != " << v2_expr << " length (" << v2.size() << ')';
     }
-    if (b1 == b2)
+    if (v1 == v2)
     {
         return ::testing::AssertionSuccess();
     }
     else
     {
-        std::stringstream b1_str;
-        for (unsigned int ii(0); ii < b1.size(); ++ii)
+        std::stringstream v1_str;
+        for (unsigned int ii(0); ii < v1.size(); ++ii)
         {
-            b1_str << std::hex << std::setw(2) << std::setfill('0') <<
-                +(b1[ii] & 0xFF);
+            v1_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(v1[ii] & 0xFF);
         }
-        std::stringstream b2_str;
-        for (unsigned int ii(0); ii < b2.size(); ++ii)
+        std::stringstream v2_str;
+        for (unsigned int ii(0); ii < v2.size(); ++ii)
         {
-            b2_str << std::hex << std::setw(2) << std::setfill('0') <<
-                +(b2[ii] & 0xFF);
+            v2_str << std::hex << std::setw(2) << std::setfill('0') <<
+                +(v2[ii] & 0xFF);
         }
-        return ::testing::AssertionFailure() << b1_expr << ": 0x" <<
-            b1_str.str() << '\t' << b2_expr << ": 0x" << b2_str.str();
+        return ::testing::AssertionFailure() << v1_expr << ": 0x" <<
+            v1_str.str() << '\t' << v2_expr << ": 0x" << v2_str.str();
     }
 }
 

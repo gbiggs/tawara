@@ -77,6 +77,7 @@ namespace tide
         boost::additive<DateElement, boost::posix_time::time_duration>
     {
         friend class ElementBase<DateElement>;
+
         public:
             /** \brief Constructor.
              *

@@ -79,6 +79,7 @@ namespace tide
         boost::shiftable<IntegralElement<T, RWSPolicy>, T >
     {
         friend class ElementBase<IntegralElement<T, RWSPolicy> >;
+
         public:
             /** \brief Constructor.
              *

@@ -351,6 +351,23 @@ namespace test_uint_el
         EXPECT_EQ(0, ee1.value());
     }
 
+    TEST(UIntElement, StreamOut)
+    {
+        std::stringstream ss;
+        UIntElement ee1(ids::Null, 2);
+        ss << ee1;
+        EXPECT_EQ("2", ss.str());
+    }
+
+    TEST(UIntElement, StreamIn)
+    {
+        std::stringstream ss;
+        UIntElement ee1(ids::Null, 0);
+        ss << 2;
+        ss >> ee1;
+        EXPECT_EQ(2, ee1.value());
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // PrimitiveElement interface tests

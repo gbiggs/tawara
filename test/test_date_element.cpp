@@ -271,6 +271,23 @@ namespace test_date_el
         EXPECT_EQ(early, ee1 - bpt::time_duration(1, 0, 0));
     }
 
+    TEST(DateElement, StreamOut)
+    {
+        std::stringstream ss;
+        DateElement ee1(ids::Null, early);
+        ss << ee1;
+        EXPECT_EQ("2010-Jan-01 00:00:00", ss.str());
+    }
+
+    TEST(DateElement, StreamIn)
+    {
+        std::stringstream ss;
+        DateElement ee1(ids::Null, bpt::not_a_date_time);
+        ss << late;
+        ss >> ee1;
+        EXPECT_EQ(late, ee1.value());
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // PrimitiveElement interface tests

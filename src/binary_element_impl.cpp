@@ -101,8 +101,12 @@ std::ostream& tide::impl::operator<<(std::ostream& o,
 {
     for (unsigned int ii(0); ii < rhs.value_.size(); ++ii)
     {
-        o << std::hex << std::setw(2) << std::setfill('0') <<
+        o << "0x" << std::hex << std::setw(2) << std::setfill('0') <<
             +(rhs.value_[ii] & 0xFF);
+        if (ii < rhs.value_.size() - 1)
+        {
+            o << ' ';
+        }
     }
     return o;
 }

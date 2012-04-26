@@ -269,6 +269,23 @@ namespace test_float_el
         EXPECT_DOUBLE_EQ(2.2, ee1.value());
     }
 
+    TEST(FloatElement, StreamOut)
+    {
+        std::stringstream ss;
+        FloatElement ee1(ids::Null, 2.4);
+        ss << ee1;
+        EXPECT_EQ("2.4", ss.str());
+    }
+
+    TEST(FloatElement, StreamIn)
+    {
+        std::stringstream ss;
+        FloatElement ee1(ids::Null, 0);
+        ss << 2.4;
+        ss >> ee1;
+        EXPECT_EQ(2.4, ee1.value());
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // PrimitiveElement interface tests

@@ -231,6 +231,14 @@ namespace test_binary_el
         EXPECT_FALSE(b1 > ee1);
     }
 
+    TEST_F(BinaryElementTest, StreamOut)
+    {
+        std::stringstream ss;
+        BinaryElement ee1(ids::Null, b1);
+        ss << ee1;
+        EXPECT_EQ("0x61 0x62 0x63 0x64 0x65 0x66 0x67 0x68", ss.str());
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Vector interface tests

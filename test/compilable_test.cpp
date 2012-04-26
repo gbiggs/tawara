@@ -38,9 +38,10 @@
 
 #include <tide/binary_element.h>
 #include <tide/date_element.h>
+#include <tide/float_element.h>
 #include <tide/ids.h>
 #include <tide/integer_elements.h>
-#include <tide/float_element.h>
+#include <tide/string_element.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
@@ -52,6 +53,7 @@ int main(int argc, char** argv)
     tide::DateElement date_element(tide::ids::Null,
             boost::posix_time::ptime(boost::posix_time::max_date_time));
     tide::BinaryElement binary_element(tide::ids::Null, std::vector<char>());
+    tide::StringElement string_element(tide::ids::Null, std::string());
 
     return 0;
 }

@@ -40,6 +40,13 @@
 
 #include <gtest/gtest.h>
 
+::testing::AssertionResult test_utils::std_strings_eq(char const* b1_expr,
+        char const* b2_expr, std::string const& b1, std::string const& b2)
+{
+    return test_utils::std_buffers_eq(b1_expr, b2_expr, b1, b2);
+}
+
+
 ::testing::AssertionResult test_utils::std_buffers_eq(char const* b1_expr,
         char const* b2_expr, std::string const& b1, std::string const& b2)
 {

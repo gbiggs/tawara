@@ -45,6 +45,10 @@
 
 namespace test_utils
 {
+    // Tests if two std::strings are equal.
+    ::testing::AssertionResult std_strings_eq(char const* b1_expr,
+            char const* b2_expr, std::string const& b1, std::string const& b2);
+
     // Tests if two std::string buffers are equal.
     ::testing::AssertionResult std_buffers_eq(char const* b1_expr,
             char const* b2_expr, std::string const& b1, std::string const& b2);

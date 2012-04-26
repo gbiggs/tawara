@@ -23,7 +23,9 @@ set(hdrs ${config_h}
     date_element.h
     date_element_impl.h
     binary_element.h
-    binary_element_impl.h)
+    binary_element_impl.h
+    string_element.h
+    string_element_impl.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

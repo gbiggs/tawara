@@ -36,8 +36,8 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/binary_element_impl.h>
 #include <tide/exceptions.h>
+#include <tide/string_element_impl.h>
 
 #include <iostream>
 
@@ -49,15 +49,16 @@ using namespace tide::impl;
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-BinaryElementImpl::BinaryElementImpl(std::vector<char> const& value)
-    : value_(value), has_default_(false), body_end_(0)
+StringElementImpl::StringElementImpl(std::string const& value)
+    : value_(value), has_default_(false), padding_(0), body_end_(0)
 {
 }
 
 
-BinaryElementImpl::BinaryElementImpl(std::vector<char> const& value,
-        std::vector<char> const& default_val)
-    : value_(value), default_(default_val), has_default_(true), body_end_(0)
+StringElementImpl::StringElementImpl(std::string const& value,
+        std::string const& default_val)
+    : value_(value), default_(default_val), has_default_(true), padding_(0),
+    body_end_(0)
 {
 }
 
@@ -66,7 +67,7 @@ BinaryElementImpl::BinaryElementImpl(std::vector<char> const& value,
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-void BinaryElementImpl::swap(BinaryElementImpl& other)
+void StringElementImpl::swap(StringElementImpl& other)
 {
     using std::swap;
 
@@ -77,37 +78,29 @@ void BinaryElementImpl::swap(BinaryElementImpl& other)
 }
 
 
-void BinaryElementImpl::swap(std::vector<char>& other)
+void StringElementImpl::swap(std::string& other)
 {
     using std::swap;
     swap(value_, other);
 }
 
 
-void tide::impl::swap(BinaryElementImpl& a, BinaryElementImpl& b)
+void tide::impl::swap(StringElementImpl& a, StringElementImpl& b)
 {
     a.swap(b);
 }
 
 
-void tide::impl::swap(BinaryElementImpl& a, std::vector<char>& b)
+void tide::impl::swap(StringElementImpl& a, std::string& b)
 {
     a.swap(b);
 }
 
 
 std::ostream& tide::impl::operator<<(std::ostream& o,
-        BinaryElementImpl const& rhs)
+        StringElementImpl const& rhs)
 {
-    for (unsigned int ii(0); ii < rhs.value_.size(); ++ii)
-    {
-        o << "0x" << std::hex << std::setw(2) << std::setfill('0') <<
-            +(rhs.value_[ii] & 0xFF);
-        if (ii < rhs.value_.size() - 1)
-        {
-            o << ' ';
-        }
-    }
+    o << '"' << rhs.value_ << '"';
     return o;
 }
 
@@ -116,37 +109,47 @@ std::ostream& tide::impl::operator<<(std::ostream& o,
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize BinaryElementImpl::body_stored_size() const
+std::streamsize StringElementImpl::body_stored_size() const
 {
-    return value_.size();
+    return value_.size() + padding_;
 }
 
-std::streamsize BinaryElementImpl::read_body(std::istream& i, std::streamsize size)
+std::streamsize StringElementImpl::read_body(std::istream& i,
+        std::streamsize size)
 {
     std::vector<char> temp(size);
     i.read(&temp[0], size);
     if (!i)
     {
-        throw ReadError() << err_pos(i.tellg());
+        throw ReadError() << err_pos(i.tellg()) << err_reqsize(size);
     }
-    temp.swap(value_);
-    return value_.size();
+    std::string temp2(temp.begin(), temp.end());
+    temp2 = temp2.substr(0, temp2.find('\0'));
+    temp2.swap(value_);
+    padding_ = size - value_.size();
+    return value_.size() + padding_;
 }
 
-std::streamsize BinaryElementImpl::start_body(std::ostream& o) const
+std::streamsize StringElementImpl::start_body(std::ostream& o) const
 {
-    o.write(&value_[0], value_.size());
+    o.write(value_.c_str(), value_.size());
+    std::streamsize result = value_.size();
     if (!o)
     {
         throw WriteError() << err_pos(o.tellp());
     }
+    for (unsigned int ii(0); ii < padding_; ++ii)
+    {
+        o.put(0x00);
+        ++result;
+    }
     // Record the position after this element's body for use in
     // finish_body().
     body_end_ = o.tellp();
-    return value_.size();
+    return result;
 }
 
-std::streamsize BinaryElementImpl::finish_body(std::ostream& o) const
+std::streamsize StringElementImpl::finish_body(std::ostream& o) const
 {
     // All writing was taken care of by start_body()
     // Ensure the post-condition that the write pointer is
@@ -154,4 +157,5 @@ std::streamsize BinaryElementImpl::finish_body(std::ostream& o) const
     o.seekp(body_end_);
     return body_stored_size();
 }
+
 

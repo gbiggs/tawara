@@ -9,7 +9,9 @@ set(srcs
     date_element.cpp
     date_element_impl.cpp
     binary_element.cpp
-    binary_element_impl.cpp)
+    binary_element_impl.cpp
+    string_element.cpp
+    string_element_impl.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

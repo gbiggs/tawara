@@ -76,7 +76,8 @@ namespace tide
                 typedef std::vector<char>::iterator iterator;
                 typedef std::vector<char>::const_iterator const_iterator;
                 typedef std::vector<char>::reverse_iterator reverse_iterator;
-                typedef std::vector<char>::const_reverse_iterator const_reverse_iterator;
+                typedef std::vector<char>::const_reverse_iterator
+                    const_reverse_iterator;
 
                 /** \brief Constructor.
                  *

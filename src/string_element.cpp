@@ -36,122 +36,95 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/binary_element_impl.h>
+#include <tide/string_element.h>
 #include <tide/exceptions.h>
 
-#include <iostream>
-
 using namespace tide;
-using namespace tide::impl;
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-BinaryElementImpl::BinaryElementImpl(std::vector<char> const& value)
-    : value_(value), has_default_(false), body_end_(0)
+StringElement::StringElement(ids::ID id, std::string const& value)
+    : ElementBase<StringElement>(id), impl_(value), id_(id),
+    offset_(0), writing_(false)
 {
 }
 
 
-BinaryElementImpl::BinaryElementImpl(std::vector<char> const& value,
-        std::vector<char> const& default_val)
-    : value_(value), default_(default_val), has_default_(true), body_end_(0)
-{
-}
+StringElement::StringElement(tide::ids::ID id, std::string const& value,
+        std::string const& default_val)
+    : ElementBase<StringElement>(id), impl_(value, default_val), id_(id),
+    offset_(0), writing_(false)
+{}
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-void BinaryElementImpl::swap(BinaryElementImpl& other)
+void StringElement::swap(StringElement& other)
 {
     using std::swap;
 
-    swap(value_, other.value_);
-    swap(default_, other.default_);
-    swap(has_default_, other.has_default_);
-    swap(body_end_, other.body_end_);
+    swap(impl_, other.impl_);
+    swap(id_, other.id_);
+    swap(offset_, other.offset_);
+    swap(writing_, other.writing_);
 }
 
 
-void BinaryElementImpl::swap(std::vector<char>& other)
+void StringElement::swap(std::string& other)
 {
     using std::swap;
-    swap(value_, other);
+    swap(impl_, other);
 }
 
 
-void tide::impl::swap(BinaryElementImpl& a, BinaryElementImpl& b)
+void tide::swap(StringElement& a, StringElement& b)
 {
     a.swap(b);
 }
 
 
-void tide::impl::swap(BinaryElementImpl& a, std::vector<char>& b)
+void tide::swap(StringElement& a, std::string& b)
 {
     a.swap(b);
 }
-
-
-std::ostream& tide::impl::operator<<(std::ostream& o,
-        BinaryElementImpl const& rhs)
-{
-    for (unsigned int ii(0); ii < rhs.value_.size(); ++ii)
-    {
-        o << "0x" << std::hex << std::setw(2) << std::setfill('0') <<
-            +(rhs.value_[ii] & 0xFF);
-        if (ii < rhs.value_.size() - 1)
-        {
-            o << ' ';
-        }
-    }
-    return o;
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize BinaryElementImpl::body_stored_size() const
+inline std::streamsize StringElement::body_stored_size() const
 {
-    return value_.size();
+    return impl_.body_stored_size();
 }
 
-std::streamsize BinaryElementImpl::read_body(std::istream& i, std::streamsize size)
+std::streamsize StringElement::read_body(std::istream& i, std::streamsize size)
 {
-    std::vector<char> temp(size);
-    i.read(&temp[0], size);
-    if (!i)
+    try
     {
-        throw ReadError() << err_pos(i.tellg());
+        return impl_.read_body(i, size);
     }
-    temp.swap(value_);
-    return value_.size();
-}
-
-std::streamsize BinaryElementImpl::start_body(std::ostream& o) const
-{
-    o.write(&value_[0], value_.size());
-    if (!o)
+    catch (boost::exception& e)
     {
-        throw WriteError() << err_pos(o.tellp());
+        // Add the ID and the offset of this element in the file
+        // for easy debugging
+        e << err_id(id_) << err_pos(offset_);
+        throw;
     }
-    // Record the position after this element's body for use in
-    // finish_body().
-    body_end_ = o.tellp();
-    return value_.size();
 }
 
-std::streamsize BinaryElementImpl::finish_body(std::ostream& o) const
+std::streamsize StringElement::start_body(std::iostream& io) const
 {
-    // All writing was taken care of by start_body()
-    // Ensure the post-condition that the write pointer is
-    // placed after the element's body.
-    o.seekp(body_end_);
-    return body_stored_size();
+    return impl_.start_body(io);
 }
+
+std::streamsize StringElement::finish_body(std::iostream& io) const
+{
+    impl_.finish_body(io);
+    return this->stored_size();
+}
+
 

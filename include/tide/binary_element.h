@@ -57,7 +57,7 @@ namespace tide
     /** \brief Interface to a binary primitive element.
      *
      * The binary element is the primitive element used to store arbitrary
-     * data. This defines the interface to a binary element.
+     * data.
      *
      * This class implements the Element interface.
      *
@@ -157,7 +157,7 @@ namespace tide
                 return lhs.value() > rhs;
             }
 
-            /// \brief Streaming output oeprator.
+            /// \brief Streaming output operator.
             friend std::ostream& operator<<(std::ostream& o,
                     BinaryElement const& rhs);
 

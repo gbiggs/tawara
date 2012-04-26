@@ -96,8 +96,11 @@ namespace test_int_el
         EXPECT_EQ(ee2, ee1);
 
         IntElement ee3(ids::Null, 2, 3), ee4(0x81, 0);
-        ee3 = ee4;
+        ee4 = ee3;
         EXPECT_EQ(ee4, ee3);
+
+        ee4 = 4;
+        EXPECT_EQ(4, ee4.value());
     }
 
     TEST(IntElement, Swap)

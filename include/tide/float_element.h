@@ -117,6 +117,17 @@ namespace tide
              */
             void swap(double& other);
 
+            /** \brief Assignment-to-value operator.
+             *
+             * This operator assigns just the value of the element. The ID and
+             * default value are left unchanged.
+             */
+            FloatElement& operator=(double rhs)
+            {
+                value(rhs);
+                return *this;
+            }
+
             /// \brief Less-than comparison operator.
             friend bool operator<(FloatElement const& lhs,
                     FloatElement const& rhs)

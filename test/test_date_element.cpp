@@ -126,8 +126,11 @@ namespace test_date_el
         EXPECT_EQ(ee2, ee1);
 
         DateElement ee3(ids::Null, maxdt, ninf), ee4(0x81, bpt::not_a_date_time);
-        ee3 = ee4;
+        ee4 = ee3;
         EXPECT_EQ(ee4, ee3);
+
+        ee4 = early;
+        EXPECT_EQ(early, ee4.value());
     }
 
     TEST(DateElement, Swap)

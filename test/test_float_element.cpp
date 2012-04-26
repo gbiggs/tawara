@@ -97,8 +97,11 @@ namespace test_float_el
         EXPECT_EQ(ee2, ee1);
 
         FloatElement ee3(ids::Null, 2.4, 8.4), ee4(0x81, 0);
-        ee3 = ee4;
+        ee4 = ee3;
         EXPECT_EQ(ee4, ee3);
+
+        ee4 = 16.8;
+        EXPECT_EQ(16.8, ee4.value());
     }
 
     TEST(FloatElement, Swap)

@@ -125,6 +125,17 @@ namespace tide
              */
             void swap(std::vector<char>& other);
 
+            /** \brief Assignment-to-value operator.
+             *
+             * This operator assigns just the value of the element. The ID and
+             * default value are left unchanged.
+             */
+            BinaryElement& operator=(std::vector<char> const& rhs)
+            {
+                value(rhs);
+                return *this;
+            }
+
             /// \brief Less-than comparison operator.
             friend bool operator<(BinaryElement const& lhs,
                     BinaryElement const& rhs)

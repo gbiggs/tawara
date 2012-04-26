@@ -130,6 +130,17 @@ namespace tide
                 swap(impl_, other);
             }
 
+            /** \brief Assignment-to-value operator.
+             *
+             * This operator assigns just the value of the element. The ID and
+             * default value are left unchanged.
+             */
+            IntegralElement& operator=(T rhs)
+            {
+                value(rhs);
+                return *this;
+            }
+
             /// \brief Less-than comparison operator.
             friend bool operator<(IntegralElement const& lhs,
                     IntegralElement const& rhs)
@@ -138,13 +149,13 @@ namespace tide
             }
 
             /// \brief Less-than comparison operator.
-            friend bool operator<(IntegralElement const& lhs, T const rhs)
+            friend bool operator<(IntegralElement const& lhs, T rhs)
             {
                 return lhs.value() < rhs;
             }
 
             /// \brief Greater-than comparison operator.
-            friend bool operator>(IntegralElement const& lhs, T const rhs)
+            friend bool operator>(IntegralElement const& lhs, T rhs)
             {
                 return lhs.value() > rhs;
             }
@@ -157,7 +168,7 @@ namespace tide
             }
 
             /// \brief Assignment addition operator.
-            IntegralElement& operator+=(T const rhs)
+            IntegralElement& operator+=(T rhs)
             {
                 impl_ += rhs;
                 return *this;
@@ -171,7 +182,7 @@ namespace tide
             }
 
             /// \brief Assignment subtraction operator.
-            IntegralElement& operator-=(T const rhs)
+            IntegralElement& operator-=(T rhs)
             {
                 impl_ -= rhs;
                 return *this;
@@ -196,7 +207,7 @@ namespace tide
             }
 
             /// \brief Assignment multiplication operator.
-            IntegralElement& operator*=(T const rhs)
+            IntegralElement& operator*=(T rhs)
             {
                 impl_ *= rhs;
                 return *this;
@@ -210,7 +221,7 @@ namespace tide
             }
 
             /// \brief Assignment division operator.
-            IntegralElement& operator/=(T const rhs)
+            IntegralElement& operator/=(T rhs)
             {
                 impl_ /= rhs;
                 return *this;
@@ -235,7 +246,7 @@ namespace tide
             }
 
             /// \brief Assignment modulus operator.
-            IntegralElement& operator%=(T const rhs)
+            IntegralElement& operator%=(T rhs)
             {
                 impl_ %= rhs;
                 return *this;
@@ -260,7 +271,7 @@ namespace tide
             }
 
             /// \brief Assignment logical-or operator.
-            IntegralElement& operator|=(T const rhs)
+            IntegralElement& operator|=(T rhs)
             {
                 impl_ |= rhs;
                 return *this;
@@ -274,7 +285,7 @@ namespace tide
             }
 
             /// \brief Assignment logical-and operator.
-            IntegralElement& operator&=(T const rhs)
+            IntegralElement& operator&=(T rhs)
             {
                 impl_ &= rhs;
                 return *this;
@@ -288,7 +299,7 @@ namespace tide
             }
 
             /// \brief Assignment logical-xor operator.
-            IntegralElement& operator^=(T const rhs)
+            IntegralElement& operator^=(T rhs)
             {
                 impl_ ^= rhs;
                 return *this;
@@ -302,7 +313,7 @@ namespace tide
             }
 
             /// \brief Assignment left-shift operator.
-            IntegralElement& operator<<=(T const rhs)
+            IntegralElement& operator<<=(T rhs)
             {
                 impl_ <<= rhs;
                 return *this;
@@ -316,7 +327,7 @@ namespace tide
             }
 
             /// \brief Assignment right-shift operator.
-            IntegralElement& operator>>=(T const rhs)
+            IntegralElement& operator>>=(T rhs)
             {
                 impl_ >>= rhs;
                 return *this;

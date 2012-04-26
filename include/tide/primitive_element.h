@@ -117,7 +117,7 @@ namespace tide
             }
 
             /// \brief Equality operator.
-            friend bool operator==(PrimitiveElement const& lhs, T const rhs)
+            friend bool operator==(PrimitiveElement const& lhs, T rhs)
             {
                 return lhs.value() == rhs;
             }

@@ -127,8 +127,11 @@ namespace test_binary_el
         EXPECT_EQ(ee2, ee1);
 
         BinaryElement ee3(ids::Null, b2, b3), ee4(0x81, std::vector<char>());
-        ee3 = ee4;
+        ee4 = ee3;
         EXPECT_EQ(ee4, ee3);
+
+        ee4 = b4;
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b4, ee4.value());
     }
 
     TEST_F(BinaryElementTest, Swap)

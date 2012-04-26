@@ -42,6 +42,7 @@
 #include <tide/binary_element_impl.h>
 #include <tide/element_base.h>
 #include <tide/primitive_element.h>
+#include <tide/tide_config.h>
 #include <tide/win_dll.h>
 
 #include <boost/operators.hpp>
@@ -78,18 +79,19 @@ namespace tide
 
         public:
             // Export the underlying type's typedefs
-            typedef std::vector<char>::value_type value_type;
-            typedef std::vector<char>::allocator_type allocator_type;
-            typedef std::vector<char>::size_type size_type;
-            typedef std::vector<char>::difference_type difference_type;
-            typedef std::vector<char>::reference reference;
-            typedef std::vector<char>::const_reference const_reference;
-            typedef std::vector<char>::pointer pointer;
-            typedef std::vector<char>::const_pointer const_pointer;
-            typedef std::vector<char>::iterator iterator;
-            typedef std::vector<char>::const_iterator const iterator;
-            typedef std::vector<char>::reverse_iterator reverse_iterator;
-            typedef std::vector<char>::const_reverse_iterator const_reverse_iterator;
+            typedef impl::BinaryElementImpl::value_type value_type;
+            typedef impl::BinaryElementImpl::allocator_type allocator_type;
+            typedef impl::BinaryElementImpl::size_type size_type;
+            typedef impl::BinaryElementImpl::difference_type difference_type;
+            typedef impl::BinaryElementImpl::reference reference;
+            typedef impl::BinaryElementImpl::const_reference const_reference;
+            typedef impl::BinaryElementImpl::pointer pointer;
+            typedef impl::BinaryElementImpl::const_pointer const_pointer;
+            typedef impl::BinaryElementImpl::iterator iterator;
+            typedef impl::BinaryElementImpl::const_iterator const_iterator;
+            typedef impl::BinaryElementImpl::reverse_iterator reverse_iterator;
+            typedef impl::BinaryElementImpl::const_reverse_iterator
+                const_reverse_iterator;
 
             /** \brief Constructor.
              *
@@ -107,11 +109,19 @@ namespace tide
             BinaryElement(tide::ids::ID id, std::vector<char> const& value,
                     std::vector<char> const& default_val);
 
-            /** \brief Swap this element's value with another's.
+            /** \brief Swap this element with another.
              *
              * \param[in] other The other element to swap with.
              */
             void swap(BinaryElement& other);
+
+            /** \brief Swap this element's value with another instance of the
+             * value type.
+             *
+             * Only the value is swapped. The ID and default value are left
+             * unchanged.
+             */
+            void swap(std::vector<char>& other);
 
             /// \brief Less-than comparison operator.
             friend bool operator<(BinaryElement const& lhs,
@@ -238,11 +248,16 @@ namespace tide
             {
                 return impl_.begin();
             }
-            /// \brief Get an iterator to the first element of the container.
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+            /** \brief Get an iterator to the first element of the container.
+             *
+             * Requires C++11 support.
+             */
             const_iterator cbegin() const
             {
                 return impl_.cbegin();
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /** \brief Get an iterator to the element following the last
              * element of the container.
@@ -258,13 +273,17 @@ namespace tide
             {
                 return impl_.end();
             }
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Get an iterator to the element following the last
              * element of the container.
+             *
+             * Requires C++11 support.
              */
             const_iterator cend() const
             {
-                return impl_.end();
+                return impl_.cend();
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /** \brief Get a reverse iterator to the first element of the
              * reversed container.
@@ -280,13 +299,17 @@ namespace tide
             {
                 return impl_.rbegin();
             }
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Get a reverse iterator to the first element of the
              * reversed container.
+             *
+             * Requires C++11 support.
              */
             const_reverse_iterator crbegin() const
             {
-                return impl_.rbegin();
+                return impl_.crbegin();
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /** \brief Get a reverse iterator to the element following the
              * last element of the reversed container.
@@ -302,13 +325,17 @@ namespace tide
             {
                 return impl_.rend();
             }
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Get a reverse iterator to the element following the
              * last element of the reversed container.
+             *
+             * Requires C++11 support.
              */
             const_reverse_iterator crend() const
             {
-                return impl_.rend();
+                return impl_.crend();
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /// \brief Check if the container is empty.
             bool empty() const
@@ -346,15 +373,19 @@ namespace tide
                 return impl_.capacity();
             }
 
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Request the removal of unused capacity.
              *
              * This is non-binding: the request is not guaranteed to be
              * fulfilled.
+             *
+             * Requires C++11 support.
              */
             void shrink_to_fit()
             {
                 impl_.shrink_to_fit();
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /** \brief Remove all elements from the container.
              *
@@ -365,11 +396,14 @@ namespace tide
                 impl_.clear();
             }
 
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
             /// \brief Insert value before the element pointed to by pos.
             iterator insert(iterator pos, char const& value)
             {
                 return impl_.insert(pos, value);
             }
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Insert value before the element pointed to by pos.
              *
              * Requires C++11 support.
@@ -378,6 +412,8 @@ namespace tide
             {
                 return impl_.insert(pos, value);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Insert value before the element pointed to by pos.
              *
              * Requires C++11 support.
@@ -386,6 +422,8 @@ namespace tide
             {
                 return impl_.insert(pos, value);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Insert count copies of the value before the element
              * pointed to by pos.
              */
@@ -393,6 +431,8 @@ namespace tide
             {
                 impl_.insert(pos, count, value);
             }
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Insert count copies of the value before the element
              * pointed to by pos.
              *
@@ -402,6 +442,8 @@ namespace tide
             {
                 return impl_.insert(pos, count, value);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Insert elements from the range [first, last) before the
              * element pointed to by pos.
              */
@@ -410,6 +452,8 @@ namespace tide
             {
                 impl_.insert(pos, first, last);
             }
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Insert elements from the range [first, last) before the
              * element pointed to by pos.
              *
@@ -421,13 +465,20 @@ namespace tide
             {
                 return impl_.insert(pos, first, last);
             }
-            /// \brief Insert elements from the initialiser list ilist.
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+            /** \brief Insert elements from the initialiser list ilist.
+             *
+             * Requires C++11 support.
+             */
             iterator insert(const_iterator pos,
                     std::initializer_list<char> ilist)
             {
                 return impl_.insert(pos, ilist);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Insert a new element at the specified position in the
              * container.
              *
@@ -443,12 +494,14 @@ namespace tide
             {
                 return impl_.emplace(pos, args);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /// \brief Removes the element at pos.
             iterator erase(iterator pos)
             {
                 return impl_.erase(pos);
             }
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Removes the element at pos.
              *
              * Requires C++11 support.
@@ -457,11 +510,13 @@ namespace tide
             {
                 return impl_.erase(pos);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
             /// \brief Removes the elements in the range [first, last).
             iterator erase(iterator first, iterator last)
             {
                 return impl_.erase(first, last);
             }
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Removes the elements in the range [first, last).
              *
              * Requires C++11 support.
@@ -470,6 +525,7 @@ namespace tide
             {
                 return impl_.erase(first, last);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /** \brief Appends the given element to the end of the container.
              *
@@ -481,6 +537,7 @@ namespace tide
             {
                 return impl_.push_back(value);
             }
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Appends the given element to the end of the container.
              *
              * If size() is not larger than capacity(), no iterators or
@@ -493,7 +550,9 @@ namespace tide
             {
                 impl_.push_back(value);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Appends a new element to the end of the container.
              *
              * The element is constructed in place, and called with the same
@@ -510,6 +569,7 @@ namespace tide
             {
                 impl_.emplace_back(args);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
             /** \brief Removes the last element of the container.
              *
@@ -532,6 +592,7 @@ namespace tide
             {
                 impl_.resize(count, value);
             }
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Resizes the container to contain count elements.
              *
              * If the current size is less than count, additional elements are
@@ -546,6 +607,8 @@ namespace tide
             {
                 impl_.resize(count);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Resizes the container to contain count elements.
              *
              * If the current size is less than count, additional elements are
@@ -560,6 +623,7 @@ namespace tide
             {
                 impl_.resize(count, value);
             }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
         private:
             ///////////////////////////////////////////////////////////////////
@@ -627,11 +691,17 @@ namespace tide
     }; // class BinaryElement
 
 
-    /// \brief Swap floating point element values.
-    void swap(BinaryElement& a, BinaryElement& b)
-    {
-        a.swap(b);
-    }
+    /// \brief Swap two binary elements.
+    void swap(BinaryElement& a, BinaryElement& b);
+
+
+    /** \brief Swap this element's value with another instance of the
+     * value type.
+     *
+     * Only the value is swapped. The ID and default value are left
+     * unchanged.
+     */
+    void swap(BinaryElement& a, std::vector<char>& b);
 
 
     /// \brief Stream output operator.

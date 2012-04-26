@@ -77,7 +77,20 @@ void BinaryElementImpl::swap(BinaryElementImpl& other)
 }
 
 
+void BinaryElementImpl::swap(std::vector<char>& other)
+{
+    using std::swap;
+    swap(value_, other);
+}
+
+
 void tide::impl::swap(BinaryElementImpl& a, BinaryElementImpl& b)
+{
+    a.swap(b);
+}
+
+
+void tide::impl::swap(BinaryElementImpl& a, std::vector<char>& b)
 {
     a.swap(b);
 }

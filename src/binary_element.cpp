@@ -74,6 +74,24 @@ void BinaryElement::swap(BinaryElement& other)
 }
 
 
+void BinaryElement::swap(std::vector<char>& other)
+{
+    using std::swap;
+    swap(impl_, other);
+}
+
+
+void tide::swap(BinaryElement& a, BinaryElement& b)
+{
+    a.swap(b);
+}
+
+
+void tide::swap(BinaryElement& a, std::vector<char>& b)
+{
+    a.swap(b);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////

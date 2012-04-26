@@ -40,6 +40,9 @@
 #include <tide/binary_element.h>
 #include <tide/ebml_integer.h>
 #include <tide/exceptions.h>
+#include <tide/tide_config.h>
+
+#include <limits>
 
 #include "test_utilities.h"
 
@@ -119,6 +122,13 @@ namespace test_binary_el
         EXPECT_EQ(0x42, ee2.id());
         EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, ee2.value());
         EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b4, ee2.get_default());
+
+        std::vector<char> b2_copy(b2);
+        ee1.swap(b2_copy);
+        EXPECT_EQ(0x21, ee1.id());
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, ee1.value());
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2_copy, b1);
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, ee1.get_default());
     }
 
     TEST_F(BinaryElementTest, LessThan)
@@ -189,6 +199,295 @@ namespace test_binary_el
         EXPECT_FALSE(ee2 > b2);
         EXPECT_FALSE(b1 > ee1);
     }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Vector interface tests
+    ///////////////////////////////////////////////////////////////////////////
+
+    TEST_F(BinaryElementTest, Assign)
+    {
+        // Copies-of-a-value assign
+        BinaryElement ee(ids::Null, b1);
+        std::vector<char> aaa(10, 'a');
+        ee.assign(10, 'a');
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, aaa,
+                ee.value());
+
+        // Iterator range assign
+        std::vector<char> bbb(10, 'b');
+        ee.assign(bbb.begin() + 5, bbb.end());
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq,
+                std::vector<char>(5, 'b'), ee.value());
+    }
+
+
+    TEST_F(BinaryElementTest, GetAllocator)
+    {
+        // TODO: How can this be tested?
+    }
+
+
+    TEST_F(BinaryElementTest, At)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('a', ee.at(0));
+        EXPECT_THROW(ee.at(20), std::out_of_range);
+
+        BinaryElement const ee_const(ids::Null, b1);
+        EXPECT_EQ('e', ee_const.at(4));
+        EXPECT_THROW(ee_const.at(20), std::out_of_range);
+    }
+
+
+    TEST_F(BinaryElementTest, IndexOperator)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('a', ee[0]);
+        EXPECT_NO_THROW(ee[20]);
+
+        BinaryElement const ee_const(ids::Null, b1);
+        EXPECT_EQ('e', ee_const[4]);
+        EXPECT_NO_THROW(ee_const[20]);
+    }
+
+
+    TEST_F(BinaryElementTest, Front)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('a', ee.front());
+        BinaryElement const ee_const(ids::Null, b1);
+        EXPECT_EQ('a', ee_const.front());
+    }
+
+
+    TEST_F(BinaryElementTest, Back)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('h', ee.back());
+        BinaryElement const ee_const(ids::Null, b1);
+        EXPECT_EQ('h', ee_const.back());
+    }
+
+
+    TEST_F(BinaryElementTest, Data)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('a', *ee.data());
+        BinaryElement const ee_const(ids::Null, b1);
+        EXPECT_EQ('a', *ee_const.data());
+    }
+
+
+    TEST_F(BinaryElementTest, Begin)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('a', *(ee.begin()));
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        EXPECT_EQ('a', *(ee.cbegin()));
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+        BinaryElement ee_const(ids::Null, b1);
+        EXPECT_EQ('a', *(ee_const.begin()));
+    }
+
+
+    TEST_F(BinaryElementTest, End)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('h', *(ee.end() - 1));
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        EXPECT_EQ('h', *(ee.cend() - 1));
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+        BinaryElement ee_const(ids::Null, b1);
+        EXPECT_EQ('h', *(ee_const.end() - 1));
+    }
+
+
+    TEST_F(BinaryElementTest, RBegin)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('h', *(ee.rbegin()));
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        EXPECT_EQ('h', *(ee.crbegin()));
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+        BinaryElement ee_const(ids::Null, b1);
+        EXPECT_EQ('h', *(ee_const.rbegin()));
+    }
+
+
+    TEST_F(BinaryElementTest, REnd)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ('a', *(ee.rend() - 1));
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        EXPECT_EQ('a', *(ee.crend() - 1));
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+        BinaryElement ee_const(ids::Null, b1);
+        EXPECT_EQ('a', *(ee_const.rend() - 1));
+    }
+
+
+    TEST_F(BinaryElementTest, Empty)
+    {
+        BinaryElement ee(ids::Null, std::vector<char>());
+        EXPECT_TRUE(ee.empty());
+        ee.value(b1);
+        EXPECT_FALSE(ee.empty());
+    }
+
+
+    TEST_F(BinaryElementTest, Size)
+    {
+        BinaryElement ee(ids::Null, std::vector<char>());
+        EXPECT_EQ(0, ee.size());
+        ee.value(b1);
+        EXPECT_EQ(8, ee.size());
+    }
+
+
+    TEST_F(BinaryElementTest, MaxSize)
+    {
+        // This value differs based on platform and standard library
+        // implementation, so the best that can be done is test that the
+        // underlying vector's value is being passed correctly.
+        BinaryElement ee(ids::Null, std::vector<char>());
+        EXPECT_EQ(std::vector<char>().max_size(), ee.max_size());
+    }
+
+
+    TEST_F(BinaryElementTest, Reserve)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ(8, ee.capacity());
+        ee.reserve(32);
+        EXPECT_EQ(32, ee.capacity());
+    }
+
+
+    TEST_F(BinaryElementTest, Capacity)
+    {
+        BinaryElement ee(ids::Null, b1);
+        EXPECT_EQ(8, ee.capacity());
+    }
+
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+    TEST_F(BinaryElementTest, ShrinkToFit)
+    {
+        BinaryElement ee(ids::Null, b1);
+        ee.capacity(32);
+        EXPECT_EQ(32, ee.capacity());
+        ee.shrink_to_fit();
+        EXPECT_EQ(8, ee.capacity());
+    }
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+
+    TEST_F(BinaryElementTest, Clear)
+    {
+        BinaryElement ee(ids::Null, b1);
+        ee.clear();
+        EXPECT_EQ(8, ee.capacity());
+        // Because the vector does not contain constructed values, the stored
+        // contents will not change.
+    }
+
+
+    TEST_F(BinaryElementTest, Insert)
+    {
+        BinaryElement ee(ids::Null, b1);
+        char z('z');
+        ee.insert(ee.begin(), z);
+        EXPECT_EQ('z', ee[0]);
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        ee.insert(ee.cbegin(), 'y');
+        EXPECT_EQ('y', ee[0]);
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+        ee.insert(ee.begin(), 3, 'x');
+        EXPECT_EQ('x', ee[0]);
+        EXPECT_EQ('x', ee[1]);
+        EXPECT_EQ('x', ee[2]);
+
+        ee.insert(ee.begin(), b3.begin(), b3.begin() + 2);
+        EXPECT_EQ('n', ee[0]);
+        EXPECT_EQ('o', ee[1]);
+        EXPECT_EQ('x', ee[2]); // Only two elements should have been inserted
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        ee.insert(ee.begin(), {'1', '2', '3'});
+        EXPECT_EQ('1', ee[0]);
+        EXPECT_EQ('2', ee[1]);
+        EXPECT_EQ('3', ee[2]);
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+    }
+
+
+    TEST_F(BinaryElementTest, Emplace)
+    {
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        BinaryElement ee(ids::Null, b1);
+        ee.emplace(ee.begin(), 'm');
+        EXPECT_EQ('m', ee[0]);
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+    }
+
+
+    TEST_F(BinaryElementTest, Erase)
+    {
+        BinaryElement ee(ids::Null, b1);
+        ee.erase(ee.begin());
+        EXPECT_EQ('b', ee[0]);
+        EXPECT_EQ(7, ee.size());
+        ee.erase(ee.begin(), ee.begin() + 2);
+        EXPECT_EQ('d', ee[0]);
+        EXPECT_EQ(5, ee.size());
+    }
+
+
+    TEST_F(BinaryElementTest, PushBack)
+    {
+        BinaryElement ee(ids::Null, b1);
+        ee.push_back('i');
+        EXPECT_EQ('i', ee[8]);
+        EXPECT_EQ(9, ee.size());
+    }
+
+
+    TEST_F(BinaryElementTest, EmplaceBack)
+    {
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        BinaryElement ee(ids::Null, b1);
+        ee.emplace_back('i');
+        EXPECT_EQ('i', ee[8]);
+        EXPECT_EQ(9, ee.size());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+    }
+
+
+    TEST_F(BinaryElementTest, PopBack)
+    {
+        BinaryElement ee(ids::Null, b1);
+        ee.pop_back();
+        EXPECT_EQ(7, ee.size());
+        EXPECT_EQ('g', ee.back());
+    }
+
+
+    TEST_F(BinaryElementTest, Resize)
+    {
+        BinaryElement ee(ids::Null, b1);
+        ee.resize(10, 'z');
+        EXPECT_EQ('z', ee[8]);
+        EXPECT_EQ('z', ee[9]);
+        EXPECT_EQ(10, ee.size());
+
+        ee.resize(3);
+        EXPECT_EQ('c', ee.back());
+        EXPECT_EQ(3, ee.size());
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // PrimitiveElement interface tests

@@ -63,5 +63,11 @@ namespace tide
 // TIDE_USE_NANOSECONDS is true.
 #cmakedefine TIDE_USE_NANOSECONDS
 
+// This value will be defined if the compiler's C++ version is C++11 or
+// greater.
+#if __cplusplus >= 201103L
+#define TIDE_CPLUSPLUS11_SUPPORT
+#endif // __cplusplus >= 201103L
+
 #endif // TIDE_TIDE_CONFIG_H_
 

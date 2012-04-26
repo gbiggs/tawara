@@ -77,6 +77,20 @@ namespace tide
         friend class ElementBase<BinaryElement>;
 
         public:
+            // Export the underlying type's typedefs
+            typedef std::vector<char>::value_type value_type;
+            typedef std::vector<char>::allocator_type allocator_type;
+            typedef std::vector<char>::size_type size_type;
+            typedef std::vector<char>::difference_type difference_type;
+            typedef std::vector<char>::reference reference;
+            typedef std::vector<char>::const_reference const_reference;
+            typedef std::vector<char>::pointer pointer;
+            typedef std::vector<char>::const_pointer const_pointer;
+            typedef std::vector<char>::iterator iterator;
+            typedef std::vector<char>::const_iterator const iterator;
+            typedef std::vector<char>::reverse_iterator reverse_iterator;
+            typedef std::vector<char>::const_reverse_iterator const_reverse_iterator;
+
             /** \brief Constructor.
              *
              * \param[in] id The ID of the element.
@@ -123,6 +137,429 @@ namespace tide
             /// \brief Streaming output oeprator.
             friend std::ostream& operator<<(std::ostream& o,
                     BinaryElement const& rhs);
+
+            ///////////////////////////////////////////////////////////////////
+            // Vector interface member functions
+
+            /// \brief Replace the contents of the container.
+            void assign(size_type count, char value)
+            {
+                return impl_.assign(count, value);
+            }
+            /// \brief Replace the contents of the container.
+            template<class InputIterator>
+            void assign(InputIterator first, InputIterator last)
+            {
+                return impl_.assign(first, last);
+            }
+
+            /// \brief Get the allocator associated with the container.
+            allocator_type get_allocator() const
+            {
+                return impl_.get_allocator();
+            }
+
+            /** \brief Get a reference to the element at the specified
+             * location.
+             */
+            reference at(size_type pos)
+            {
+                return impl_.at(pos);
+            }
+            /** \brief Get a reference to the element at the specified
+             * location.
+             *
+             * \exception std::out_of_range if the location is invalid.
+             */
+            const_reference at(size_type pos) const
+            {
+                return impl_.at(pos);
+            }
+
+            /** \brief Get a reference to the element at the specified
+             * location.
+             *
+             * No bounds checking is performed.
+             */
+            reference operator[](size_type pos)
+            {
+                return impl_[pos];
+            }
+            /** \brief Get a reference to the element at the specified
+             * location.
+             *
+             * No bounds checking is performed.
+             */
+            const_reference operator[](size_type pos) const
+            {
+                return impl_[pos];
+            }
+
+            /// \brief Get a reference to the first element.
+            reference front()
+            {
+                return impl_.front();
+            }
+            /// \brief Get a reference to the first element.
+            const_reference front() const
+            {
+                return impl_.front();
+            }
+
+            /// \brief Get a reference to the last element.
+            reference back()
+            {
+                return impl_.back();
+            }
+            /// \brief Get a reference to the last element.
+            const_reference back() const
+            {
+                return impl_.back();
+            }
+
+            /// \brief Get a pointer to the underlying array.
+            char* data()
+            {
+                return impl_.data();
+            }
+            /// \brief Get a pointer to the underlying array.
+            char const* data() const
+            {
+                return impl_.data();
+            }
+
+            /// \brief Get an iterator to the first element of the container.
+            iterator begin()
+            {
+                return impl_.begin();
+            }
+            /// \brief Get an iterator to the first element of the container.
+            const_iterator begin() const
+            {
+                return impl_.begin();
+            }
+            /// \brief Get an iterator to the first element of the container.
+            const_iterator cbegin() const
+            {
+                return impl_.cbegin();
+            }
+
+            /** \brief Get an iterator to the element following the last
+             * element of the container.
+             */
+            iterator end()
+            {
+                return impl_.end();
+            }
+            /** \brief Get an iterator to the element following the last
+             * element of the container.
+             */
+            const_iterator end() const
+            {
+                return impl_.end();
+            }
+            /** \brief Get an iterator to the element following the last
+             * element of the container.
+             */
+            const_iterator cend() const
+            {
+                return impl_.end();
+            }
+
+            /** \brief Get a reverse iterator to the first element of the
+             * reversed container.
+             */
+            reverse_iterator rbegin()
+            {
+                return impl_.rbegin();
+            }
+            /** \brief Get a reverse iterator to the first element of the
+             * reversed container.
+             */
+            const_reverse_iterator rbegin() const
+            {
+                return impl_.rbegin();
+            }
+            /** \brief Get a reverse iterator to the first element of the
+             * reversed container.
+             */
+            const_reverse_iterator crbegin() const
+            {
+                return impl_.rbegin();
+            }
+
+            /** \brief Get a reverse iterator to the element following the
+             * last element of the reversed container.
+             */
+            reverse_iterator rend()
+            {
+                return impl_.rend();
+            }
+            /** \brief Get a reverse iterator to the element following the
+             * last element of the reversed container.
+             */
+            const_reverse_iterator rend() const
+            {
+                return impl_.rend();
+            }
+            /** \brief Get a reverse iterator to the element following the
+             * last element of the reversed container.
+             */
+            const_reverse_iterator crend() const
+            {
+                return impl_.rend();
+            }
+
+            /// \brief Check if the container is empty.
+            bool empty() const
+            {
+                return impl_.empty();
+            }
+
+            /// \brief Get the size of the container.
+            size_type size() const
+            {
+                return impl_.size();
+            }
+
+            /** \brief Get the maximum number of elements the container can
+             * hold.
+             */
+            size_type max_size() const
+            {
+                return impl_.max_size();
+            }
+
+            /** \brief Set the capacity of the container to at least size,
+             * allocating new storage if necessary.
+             */
+            void reserve(size_type size)
+            {
+                impl_.reserve(size);
+            }
+
+            /** \brief Get the number of elements that the container has
+             * currently allocated space for.
+             */
+            size_type capacity() const
+            {
+                return impl_.capacity();
+            }
+
+            /** \brief Request the removal of unused capacity.
+             *
+             * This is non-binding: the request is not guaranteed to be
+             * fulfilled.
+             */
+            void shrink_to_fit()
+            {
+                impl_.shrink_to_fit();
+            }
+
+            /** \brief Remove all elements from the container.
+             *
+             * The allocated memory will not be released.
+             */
+            void clear()
+            {
+                impl_.clear();
+            }
+
+            /// \brief Insert value before the element pointed to by pos.
+            iterator insert(iterator pos, char const& value)
+            {
+                return impl_.insert(pos, value);
+            }
+            /** \brief Insert value before the element pointed to by pos.
+             *
+             * Requires C++11 support.
+             */
+            iterator insert(const_iterator pos, char const& value)
+            {
+                return impl_.insert(pos, value);
+            }
+            /** \brief Insert value before the element pointed to by pos.
+             *
+             * Requires C++11 support.
+             */
+            iterator insert(const_iterator pos, char&& value)
+            {
+                return impl_.insert(pos, value);
+            }
+            /** \brief Insert count copies of the value before the element
+             * pointed to by pos.
+             */
+            void insert(iterator pos, size_type count, char const& value)
+            {
+                impl_.insert(pos, count, value);
+            }
+            /** \brief Insert count copies of the value before the element
+             * pointed to by pos.
+             *
+             * Requires C++11 support.
+             */
+            iterator insert(const_iterator pos, size_type count, char const& value)
+            {
+                return impl_.insert(pos, count, value);
+            }
+            /** \brief Insert elements from the range [first, last) before the
+             * element pointed to by pos.
+             */
+            template<class InputIterator>
+            void insert(iterator pos, InputIterator first, InputIterator last)
+            {
+                impl_.insert(pos, first, last);
+            }
+            /** \brief Insert elements from the range [first, last) before the
+             * element pointed to by pos.
+             *
+             * Requires C++11 support.
+             */
+            template<class InputIterator>
+            iterator insert(const_iterator pos, InputIterator first,
+                    InputIterator last)
+            {
+                return impl_.insert(pos, first, last);
+            }
+            /// \brief Insert elements from the initialiser list ilist.
+            iterator insert(const_iterator pos,
+                    std::initializer_list<char> ilist)
+            {
+                return impl_.insert(pos, ilist);
+            }
+
+            /** \brief Insert a new element at the specified position in the
+             * container.
+             *
+             * The element is constructed in-place and called with the same
+             * arguments as those supplied to this function. Iterators and
+             * references to the elements between pos and the end of the
+             * container are invalidated. 
+             *
+             * Requires C++11 support.
+             */
+            template<class... Args>
+            iterator emplace(const_iterator pos, Args&&... args)
+            {
+                return impl_.emplace(pos, args);
+            }
+
+            /// \brief Removes the element at pos.
+            iterator erase(iterator pos)
+            {
+                return impl_.erase(pos);
+            }
+            /** \brief Removes the element at pos.
+             *
+             * Requires C++11 support.
+             */
+            iterator erase(const_iterator pos)
+            {
+                return impl_.erase(pos);
+            }
+            /// \brief Removes the elements in the range [first, last).
+            iterator erase(iterator first, iterator last)
+            {
+                return impl_.erase(first, last);
+            }
+            /** \brief Removes the elements in the range [first, last).
+             *
+             * Requires C++11 support.
+             */
+            iterator erase(const_iterator first, const_iterator last)
+            {
+                return impl_.erase(first, last);
+            }
+
+            /** \brief Appends the given element to the end of the container.
+             *
+             * If size() is not larger than capacity(), no iterators or
+             * references are invalidated. Otherwise all iterators and
+             * references are invalidated.
+             */
+            void push_back(char value)
+            {
+                return impl_.push_back(value);
+            }
+            /** \brief Appends the given element to the end of the container.
+             *
+             * If size() is not larger than capacity(), no iterators or
+             * references are invalidated. Otherwise all iterators and
+             * references are invalidated.
+             *
+             * Requires C++11 support.
+             */
+            void push_back(char&& value)
+            {
+                impl_.push_back(value);
+            }
+
+            /** \brief Appends a new element to the end of the container.
+             *
+             * The element is constructed in place, and called with the same
+             * arguments as supplied to this function.
+             *
+             * If new size() is not larger than capacity(), no iterators or
+             * references are invalidated. Otherwise all iterators and
+             * references are invalidated.
+             *
+             * Requires C++11 support.
+             */
+            template<class... Args>
+            void emplace_back(Args&&... args)
+            {
+                impl_.emplace_back(args);
+            }
+
+            /** \brief Removes the last element of the container.
+             *
+             * No iterators or references are invalidated.
+             */
+            void pop_back()
+            {
+                impl_.pop_back();
+            }
+
+            /** \brief Resizes the container to contain count elements.
+             *
+             * If the current size is less than count, additional elements are
+             * appended and initialized with value.
+             *
+             * If the current size is greater than count, the container is
+             * reduced to its first count elements.
+             */
+            void resize(size_type count, char value = '\0')
+            {
+                impl_.resize(count, value);
+            }
+            /** \brief Resizes the container to contain count elements.
+             *
+             * If the current size is less than count, additional elements are
+             * appended and initialized with value.
+             *
+             * If the current size is greater than count, the container is
+             * reduced to its first count elements.
+             *
+             * Requires C++11 support.
+             */
+            void resize(size_type count)
+            {
+                impl_.resize(count);
+            }
+            /** \brief Resizes the container to contain count elements.
+             *
+             * If the current size is less than count, additional elements are
+             * appended and initialized with value.
+             *
+             * If the current size is greater than count, the container is
+             * reduced to its first count elements.
+             *
+             * Requires C++11 support.
+             */
+            void resize(size_type count, value_type const& value)
+            {
+                impl_.resize(count, value);
+            }
 
         private:
             ///////////////////////////////////////////////////////////////////

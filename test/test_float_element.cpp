@@ -73,6 +73,34 @@ namespace test_float_el
         EXPECT_THROW(FloatElement(0xFFFFFFFF, 1, 2), InvalidElementID);
     }
 
+    TEST(FloatElement, CopyConstruction)
+    {
+        FloatElement ee1(ids::Null, 4.2);
+
+        FloatElement ee2(ee1);
+        EXPECT_EQ(ids::Null, ee2.id());
+        EXPECT_EQ(4.2, ee2.value());
+        EXPECT_FALSE(ee2.has_default());
+
+        FloatElement ee3(ids::Null, 2.4, 8.4);
+        FloatElement ee4(ee3);
+        EXPECT_EQ(ids::Null, ee4.id());
+        EXPECT_EQ(2.4, ee4.value());
+        EXPECT_TRUE(ee4.has_default());
+        EXPECT_EQ(8.4, ee4.get_default());
+    }
+
+    TEST(FloatElement, Assignment)
+    {
+        FloatElement ee1(ids::Null, 4.2), ee2(0x81, 0);
+        ee2 = ee1;
+        EXPECT_EQ(ee2, ee1);
+
+        FloatElement ee3(ids::Null, 2.4, 8.4), ee4(0x81, 0);
+        ee3 = ee4;
+        EXPECT_EQ(ee4, ee3);
+    }
+
     TEST(FloatElement, Swap)
     {
         FloatElement ee1(0x21, 1.2, 1);

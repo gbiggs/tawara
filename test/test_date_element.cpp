@@ -102,6 +102,34 @@ namespace test_date_el
                 InvalidElementID);
     }
 
+    TEST(DateElement, CopyConstruction)
+    {
+        DateElement ee1(ids::Null, mindt);
+
+        DateElement ee2(ee1);
+        EXPECT_EQ(ids::Null, ee2.id());
+        EXPECT_EQ(mindt, ee2.value());
+        EXPECT_FALSE(ee2.has_default());
+
+        DateElement ee3(ids::Null, maxdt, ninf);
+        DateElement ee4(ee3);
+        EXPECT_EQ(ids::Null, ee4.id());
+        EXPECT_EQ(maxdt, ee4.value());
+        EXPECT_TRUE(ee4.has_default());
+        EXPECT_EQ(ninf, ee4.get_default());
+    }
+
+    TEST(DateElement, Assignment)
+    {
+        DateElement ee1(ids::Null, mindt), ee2(0x81, bpt::not_a_date_time);
+        ee2 = ee1;
+        EXPECT_EQ(ee2, ee1);
+
+        DateElement ee3(ids::Null, maxdt, ninf), ee4(0x81, bpt::not_a_date_time);
+        ee3 = ee4;
+        EXPECT_EQ(ee4, ee3);
+    }
+
     TEST(DateElement, Swap)
     {
         DateElement ee1(0x21, bpt::min_date_time, bpt::neg_infin);

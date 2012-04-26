@@ -72,6 +72,34 @@ namespace test_uint_el
         EXPECT_THROW(UIntElement(0xFFFFFFFF, 1, 2), InvalidElementID);
     }
 
+    TEST(UIntElement, CopyConstruction)
+    {
+        IntElement ee1(ids::Null, 1);
+
+        IntElement ee2(ee1);
+        EXPECT_EQ(ids::Null, ee2.id());
+        EXPECT_EQ(1, ee2.value());
+        EXPECT_FALSE(ee2.has_default());
+
+        IntElement ee3(ids::Null, 2, 3);
+        IntElement ee4(ee3);
+        EXPECT_EQ(ids::Null, ee4.id());
+        EXPECT_EQ(2, ee4.value());
+        EXPECT_TRUE(ee4.has_default());
+        EXPECT_EQ(3, ee4.get_default());
+    }
+
+    TEST(UIntElement, Assignment)
+    {
+        IntElement ee1(ids::Null, 1), ee2(0x81, 0);
+        ee2 = ee1;
+        EXPECT_EQ(ee2, ee1);
+
+        IntElement ee3(ids::Null, 2, 3), ee4(0x81, 0);
+        ee3 = ee4;
+        EXPECT_EQ(ee4, ee3);
+    }
+
     TEST(UIntElement, Swap)
     {
         UIntElement ee1(0x21, 12, 1);

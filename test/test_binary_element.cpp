@@ -103,6 +103,34 @@ namespace test_binary_el
         EXPECT_THROW(BinaryElement(0xFFFFFFFF, b1, b2), InvalidElementID);
     }
 
+    TEST_F(BinaryElementTest, CopyConstruction)
+    {
+        BinaryElement ee1(ids::Null, b1);
+
+        BinaryElement ee2(ee1);
+        EXPECT_EQ(ids::Null, ee2.id());
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, ee2.value());
+        EXPECT_FALSE(ee2.has_default());
+
+        BinaryElement ee3(ids::Null, b2, b3);
+        BinaryElement ee4(ee3);
+        EXPECT_EQ(ids::Null, ee4.id());
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, ee4.value());
+        EXPECT_TRUE(ee4.has_default());
+        EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, ee4.get_default());
+    }
+
+    TEST_F(BinaryElementTest, Assignment)
+    {
+        BinaryElement ee1(ids::Null, b1), ee2(0x81, std::vector<char>());
+        ee2 = ee1;
+        EXPECT_EQ(ee2, ee1);
+
+        BinaryElement ee3(ids::Null, b2, b3), ee4(0x81, std::vector<char>());
+        ee3 = ee4;
+        EXPECT_EQ(ee4, ee3);
+    }
+
     TEST_F(BinaryElementTest, Swap)
     {
         BinaryElement ee1(0x21, b1, b2);

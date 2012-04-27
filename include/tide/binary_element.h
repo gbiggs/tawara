@@ -509,11 +509,13 @@ namespace tide
             }
 #endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
             /// \brief Removes the element at pos.
             iterator erase(iterator pos)
             {
                 return impl_.erase(pos);
             }
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
 #if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Removes the element at pos.
              *
@@ -524,11 +526,13 @@ namespace tide
                 return impl_.erase(pos);
             }
 #endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
             /// \brief Removes the elements in the range [first, last).
             iterator erase(iterator first, iterator last)
             {
                 return impl_.erase(first, last);
             }
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
 #if defined(TIDE_CPLUSPLUS11_SUPPORT)
             /** \brief Removes the elements in the range [first, last).
              *

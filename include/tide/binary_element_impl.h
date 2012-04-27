@@ -491,11 +491,13 @@ namespace tide
                 }
 #endif // __cplusplus > 199711L
 
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
                 /// \brief Removes the element at pos.
                 iterator erase(iterator pos)
                 {
                     return value_.erase(pos);
                 }
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
 #if __cplusplus > 199711L
                 /** \brief Removes the element at pos.
                  *
@@ -506,11 +508,13 @@ namespace tide
                     return value_.erase(pos);
                 }
 #endif // __cplusplus > 199711L
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
                 /// \brief Removes the elements in the range [first, last).
                 iterator erase(iterator first, iterator last)
                 {
                     return value_.erase(first, last);
                 }
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
 #if __cplusplus > 199711L
                 /** \brief Removes the elements in the range [first, last).
                  *

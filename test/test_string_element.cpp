@@ -236,7 +236,7 @@ namespace test_string_el
         std::stringstream ss;
         StringElement ee1(ids::Null, s1);
         ss << ee1;
-        EXPECT_EQ("\"abcdefgh\"", ss.str());
+        EXPECT_EQ("abcdefgh", ss.str());
     }
 
 
@@ -257,28 +257,72 @@ namespace test_string_el
     // Vector interface tests
     ///////////////////////////////////////////////////////////////////////////
 
-    /*TEST_F(StringElementTest, Assign)
+    TEST_F(StringElementTest, Assign)
     {
         // Copies-of-a-value assign
         StringElement ee(ids::Null, s1);
-        std::string aaa(10, 'a');
-        ee.assign(10, 'a');
-        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, aaa,
+        std::string value(10, 'a');
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, value,
+                ee.assign(10, 'a').value()); // Tests the return value
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, value,
+                ee.value()); // Tests the variable itself
+
+        // Whole-string assign
+        value = "12345";
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, value,
+                ee.assign(value).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, value,
+                ee.value());
+
+        // Substring assign
+        value = "abcde";
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, value.substr(1, 2),
+                ee.assign(value, 1, 2).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, value.substr(1, 2),
+                ee.value());
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        // Move assign
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "xyz",
+                ee.assign("xyz").value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "xyz",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+        // C substring assign
+        char const* const c_str = "c_string";
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "c_s",
+                ee.assign(c_str, 3).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "c_s",
+                ee.value());
+
+        // C string assign
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "c_string",
+                ee.assign(c_str).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "c_string",
                 ee.value());
 
         // Iterator range assign
-        std::string bbb(10, 'b');
-        ee.assign(bbb.begin() + 5, bbb.end());
+        std::string(10, 'b').swap(value);
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq,
+                std::string(5, 'b'),
+                ee.assign(value.begin() + 5, value.end()).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq,
                 std::string(5, 'b'), ee.value());
-    }
 
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        // Initialiser list assign
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "12345",
+                ee.assign({'1', '2', '3', '4', '5'}).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "12345",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+    }
 
     TEST_F(StringElementTest, GetAllocator)
     {
         // TODO: How can this be tested?
     }
-
 
     TEST_F(StringElementTest, At)
     {
@@ -291,7 +335,6 @@ namespace test_string_el
         EXPECT_THROW(ee_const.at(20), std::out_of_range);
     }
 
-
     TEST_F(StringElementTest, IndexOperator)
     {
         StringElement ee(ids::Null, s1);
@@ -303,24 +346,25 @@ namespace test_string_el
         EXPECT_NO_THROW(ee_const[20]);
     }
 
-
     TEST_F(StringElementTest, Front)
     {
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('a', ee.front());
         StringElement const ee_const(ids::Null, s1);
         EXPECT_EQ('a', ee_const.front());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
     }
-
 
     TEST_F(StringElementTest, Back)
     {
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('h', ee.back());
         StringElement const ee_const(ids::Null, s1);
         EXPECT_EQ('h', ee_const.back());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
     }
-
 
     TEST_F(StringElementTest, Data)
     {
@@ -330,6 +374,13 @@ namespace test_string_el
         EXPECT_EQ('a', *ee_const.data());
     }
 
+    TEST_F(StringElementTest, CStr)
+    {
+        StringElement ee(ids::Null, s1);
+        EXPECT_EQ('a', *ee.c_str());
+        StringElement const ee_const(ids::Null, s1);
+        EXPECT_EQ('a', *ee_const.c_str());
+    }
 
     TEST_F(StringElementTest, Begin)
     {
@@ -342,7 +393,6 @@ namespace test_string_el
         EXPECT_EQ('a', *(ee_const.begin()));
     }
 
-
     TEST_F(StringElementTest, End)
     {
         StringElement ee(ids::Null, s1);
@@ -353,7 +403,6 @@ namespace test_string_el
         StringElement ee_const(ids::Null, s1);
         EXPECT_EQ('h', *(ee_const.end() - 1));
     }
-
 
     TEST_F(StringElementTest, RBegin)
     {
@@ -366,7 +415,6 @@ namespace test_string_el
         EXPECT_EQ('h', *(ee_const.rbegin()));
     }
 
-
     TEST_F(StringElementTest, REnd)
     {
         StringElement ee(ids::Null, s1);
@@ -378,7 +426,6 @@ namespace test_string_el
         EXPECT_EQ('a', *(ee_const.rend() - 1));
     }
 
-
     TEST_F(StringElementTest, Empty)
     {
         StringElement ee(ids::Null, std::string());
@@ -386,7 +433,6 @@ namespace test_string_el
         ee.value(s1);
         EXPECT_FALSE(ee.empty());
     }
-
 
     TEST_F(StringElementTest, Size)
     {
@@ -396,16 +442,22 @@ namespace test_string_el
         EXPECT_EQ(8, ee.size());
     }
 
+    TEST_F(StringElementTest, Length)
+    {
+        StringElement ee(ids::Null, std::string());
+        EXPECT_EQ(0, ee.length());
+        ee.value(s1);
+        EXPECT_EQ(8, ee.length());
+    }
 
     TEST_F(StringElementTest, MaxSize)
     {
         // This value differs based on platform and standard library
         // implementation, so the best that can be done is test that the
-        // underlying vector's value is being passed correctly.
+        // underlying string type's value is being passed correctly.
         StringElement ee(ids::Null, std::string());
         EXPECT_EQ(std::string().max_size(), ee.max_size());
     }
-
 
     TEST_F(StringElementTest, Reserve)
     {
@@ -415,13 +467,11 @@ namespace test_string_el
         EXPECT_EQ(32, ee.capacity());
     }
 
-
     TEST_F(StringElementTest, Capacity)
     {
         StringElement ee(ids::Null, s1);
         EXPECT_EQ(8, ee.capacity());
     }
-
 
 #if defined(TIDE_CPLUSPLUS11_SUPPORT)
     TEST_F(StringElementTest, ShrinkToFit)
@@ -434,38 +484,70 @@ namespace test_string_el
     }
 #endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
-
     TEST_F(StringElementTest, Clear)
     {
         StringElement ee(ids::Null, s1);
         ee.clear();
-        EXPECT_EQ(8, ee.capacity());
-        // Because the vector does not contain constructed values, the stored
-        // contents will not change.
+        EXPECT_EQ(0, ee.size());
     }
-
 
     TEST_F(StringElementTest, Insert)
     {
+        // Insert single character
         StringElement ee(ids::Null, s1);
+#if !defined(TIDE_CPLUSPLUS11_SUPPORT)
         char z('z');
-        ee.insert(ee.begin(), z);
-        EXPECT_EQ('z', ee[0]);
-
+        StringElement::iterator itr(ee.insert(ee.begin() + 1, z));
+        EXPECT_EQ('z', ee[1]);
+        EXPECT_TRUE((ee.begin() + 1) == itr);
+#endif // !defined(TIDE_CPLUSPLUS11_SUPPORT)
 #if defined(TIDE_CPLUSPLUS11_SUPPORT)
-        ee.insert(ee.cbegin(), 'y');
+        ee::iterator itr(ee.insert(ee.cbegin(), 'y'));
         EXPECT_EQ('y', ee[0]);
+        EXPECT_TRUE((ee.begin() + 1) == itr);
 #endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
 
+        // Insert character at iterator
         ee.insert(ee.begin(), 3, 'x');
         EXPECT_EQ('x', ee[0]);
         EXPECT_EQ('x', ee[1]);
         EXPECT_EQ('x', ee[2]);
 
+        // Insert character at index
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "xxx123",
+                ee.insert(0, 3, 'x').value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "xxx123", ee.value());
+
+        // Insert C string at index
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc23",
+                ee.insert(1, "abc").value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc23", ee.value());
+
+        // Insert C substring at index
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc23",
+                ee.insert(1, "abcdef", 3).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc23", ee.value());
+
+        // Insert std::string at index
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc23",
+                ee.insert(1, std::string("abc")).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc23", ee.value());
+
+        // Insert std::string substring at index
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1cde23",
+                ee.insert(1, std::string("abcdef", 2, 3)).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1cde23", ee.value());
+
+        ee.value("123");
         ee.insert(ee.begin(), s3.begin(), s3.begin() + 2);
         EXPECT_EQ('n', ee[0]);
         EXPECT_EQ('o', ee[1]);
-        EXPECT_EQ('x', ee[2]); // Only two elements should have been inserted
+        EXPECT_EQ('1', ee[2]); // Only two elements should have been inserted
 
 #if defined(TIDE_CPLUSPLUS11_SUPPORT)
         ee.insert(ee.begin(), {'1', '2', '3'});
@@ -475,28 +557,22 @@ namespace test_string_el
 #endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
     }
 
-
-    TEST_F(StringElementTest, Emplace)
-    {
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
-        StringElement ee(ids::Null, s1);
-        ee.emplace(ee.begin(), 'm');
-        EXPECT_EQ('m', ee[0]);
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
-    }
-
-
     TEST_F(StringElementTest, Erase)
     {
         StringElement ee(ids::Null, s1);
+        ee.erase(1, 2);
+        EXPECT_EQ('a', ee[0]);
+        EXPECT_EQ('d', ee[1]);
+        EXPECT_EQ(6, ee.size());
+
         ee.erase(ee.begin());
-        EXPECT_EQ('b', ee[0]);
-        EXPECT_EQ(7, ee.size());
-        ee.erase(ee.begin(), ee.begin() + 2);
         EXPECT_EQ('d', ee[0]);
         EXPECT_EQ(5, ee.size());
-    }
 
+        ee.erase(ee.begin(), ee.begin() + 2);
+        EXPECT_EQ('f', ee[0]);
+        EXPECT_EQ(3, ee.size());
+    }
 
     TEST_F(StringElementTest, PushBack)
     {
@@ -506,39 +582,453 @@ namespace test_string_el
         EXPECT_EQ(9, ee.size());
     }
 
-
-    TEST_F(StringElementTest, EmplaceBack)
-    {
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
-        StringElement ee(ids::Null, s1);
-        ee.emplace_back('i');
-        EXPECT_EQ('i', ee[8]);
-        EXPECT_EQ(9, ee.size());
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
-    }
-
-
     TEST_F(StringElementTest, PopBack)
     {
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
         StringElement ee(ids::Null, s1);
         ee.pop_back();
         EXPECT_EQ(7, ee.size());
         EXPECT_EQ('g', ee.back());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
     }
 
+    TEST_F(StringElementTest, Append)
+    {
+        StringElement ee(ids::Null, "123");
+
+        // Append copies of a character
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.append(3, 'a').value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.value());
+
+        // Append a string
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.append(std::string("aaa")).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.value());
+
+        // Append a substring
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aab",
+                ee.append(std::string("aaabbb"), 1, 3).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aab",
+                ee.value());
+
+        // Append a C substring
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.append("aaabbb", 3).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.value());
+
+        // Append a C string
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.append("aaa").value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.value());
+
+        // Append a range
+        ee.value("123");
+        std::string value("aaabbb");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.append(value.begin(), value.begin() + 3).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.value());
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        // Append an initialiser list
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.append({'a', 'a', 'a'}).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+    }
+
+    TEST_F(StringElementTest, AppendOperator)
+    {
+        StringElement ee(ids::Null, "123");
+
+        // Append a string
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                (ee += std::string("aaa")).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
+                ee.value());
+
+        // Append a character
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123a",
+                (ee += 'a').value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123a",
+                ee.value());
+
+        // Append a C string
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123abc",
+                (ee += "abc").value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123abc",
+                ee.value());
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        // Append an initialiser list
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123abc",
+                (ee += {'a', 'b', 'c'}).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123abc",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+    }
+
+    TEST_F(StringElementTest, AdditionOperator)
+    {
+        StringElement ee(ids::Null, "123");
+        StringElement expected(ids::Null, "123abc");
+
+        // Add a string element
+        StringElement ee2(ids::Null, "abc");
+        EXPECT_EQ(expected, ee + ee2);
+
+        // Add a string
+        std::string letters("abc");
+        EXPECT_EQ(expected, ee + letters);
+        expected.value("abc123");
+        EXPECT_EQ(expected, letters + ee);
+        expected.value("123abc");
+
+        // Add a C string
+        char const* const c_str = "abc";
+        EXPECT_EQ(expected, ee + c_str);
+        expected.value("abc123");
+        EXPECT_EQ(expected, c_str + ee);
+        expected.value("123abc");
+
+        // Add a character
+        char c = 'a';
+        expected.value("123a");
+        EXPECT_EQ(expected, ee + c);
+        expected.value("a123");
+        EXPECT_EQ(expected, c + ee);
+        expected.value("123abc");
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        // Move versions (maybe?)
+
+        // Add a string element
+        EXPECT_EQ(expected, ee + StringElement(ids::Null, "abc"));
+
+        // Add a string
+        EXPECT_EQ(expected, ee + std::string("abc"));
+        expected.value("abc123");
+        EXPECT_EQ(expected, std::string("abc") + ee);
+        expected.value("123abc");
+
+        // Add a C string
+        EXPECT_EQ(expected, ee + "abc");
+        expected.value("abc123");
+        EXPECT_EQ(expected, "abc" + ee);
+        expected.value("123abc");
+
+        // Add a character
+        expected.value("123a");
+        EXPECT_EQ(expected, ee + 'a');
+        expected.value("a123");
+        EXPECT_EQ(expected, 'a' + ee);
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+        // The original element should still be unchanged
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123", ee.value());
+    }
+
+    TEST_F(StringElementTest, Compare)
+    {
+        StringElement ee(ids::Null, s2);
+
+        // Compare with std::string
+        EXPECT_TRUE(ee.compare(s1) > 0);
+        EXPECT_TRUE(ee.compare(s2) == 0);
+        EXPECT_TRUE(ee.compare(s3) < 0);
+
+        // Compare substring with std::string
+        std::string substr("mlk");
+        EXPECT_TRUE(ee.compare(0, 3, s1) > 0);
+        EXPECT_TRUE(ee.compare(0, 3, substr) == 0);
+        EXPECT_TRUE(ee.compare(0, 3, s3) < 0);
+
+        // Compare substring with std::string substring
+        EXPECT_TRUE(ee.compare(0, 3, s1, 0, 3) > 0);
+        EXPECT_TRUE(ee.compare(0, 3, s2, 0, 3) == 0);
+        EXPECT_TRUE(ee.compare(0, 3, s3, 0, 3) < 0);
+
+        // Compare with C string
+        EXPECT_TRUE(ee.compare(s1.c_str()) > 0);
+        EXPECT_TRUE(ee.compare(s2.c_str()) == 0);
+        EXPECT_TRUE(ee.compare(s3.c_str()) < 0);
+
+        // Compare substring with C string
+        EXPECT_TRUE(ee.compare(0, 3, s1.c_str()) > 0);
+        EXPECT_TRUE(ee.compare(0, 3, substr.c_str()) == 0);
+        EXPECT_TRUE(ee.compare(0, 3, s3.c_str()) < 0);
+
+        // Compare substring with std::string substring
+        EXPECT_TRUE(ee.compare(0, 3, s1.c_str(), 3) > 0);
+        EXPECT_TRUE(ee.compare(0, 3, s2.c_str(), 3) == 0);
+        EXPECT_TRUE(ee.compare(0, 3, s3.c_str(), 3) < 0);
+    }
+
+    TEST_F(StringElementTest, Replace)
+    {
+        StringElement ee(ids::Null, "123");
+        std::string value("aaa");
+
+        // Replace with std::string
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.replace(1, 1, value).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.value());
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.replace(ee.begin() + 1, ee.begin() + 2, value).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+        // Replace with std::string substring
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.replace(1, 1, value, 1, 1).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.value());
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.replace(ee.begin() + 1, ee.begin() + 2, value.begin(),
+                    value.begin() + 1).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+        // Replace with C substring
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.replace(1, 1, "aaa", 1).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.value());
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.replace(ee.begin() + 1, ee.begin() + 2, "aaa", 1).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+        // Replace with C string
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.replace(1, 1, "aaa").value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.value());
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.replace(ee.begin() + 1, ee.begin() + 2, "aaa").value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+        // Replace with character
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.replace(1, 1, 3, 'a').value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.value());
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.replace(ee.begin() + 1, ee.begin() + 2, 3, 'a').value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+
+#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+        // Replace with initialiser list
+        ee.value("123");
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc3",
+                ee.replace(ee.begin() + 1, ee.begin() + 2,
+                    {'a', 'b', 'c'}).value());
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc3",
+                ee.value());
+#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+    }
+
+    TEST_F(StringElementTest, Substring)
+    {
+        StringElement ee(ids::Null, s1);
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "bcd",
+                ee.substr(1, 3));
+    }
+
+    TEST_F(StringElementTest, Copy)
+    {
+        StringElement ee(ids::Null, s1);
+        char dest[4];
+        dest[3] = '\0';
+        EXPECT_EQ(3, ee.copy(dest, 3, 1));
+        EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "bcd", dest);
+    }
 
     TEST_F(StringElementTest, Resize)
     {
         StringElement ee(ids::Null, s1);
-        ee.resize(10, 'z');
-        EXPECT_EQ('z', ee[8]);
-        EXPECT_EQ('z', ee[9]);
-        EXPECT_EQ(10, ee.size());
-
         ee.resize(3);
-        EXPECT_EQ('c', ee.back());
+        EXPECT_EQ('c', *(ee.end() - 1));
         EXPECT_EQ(3, ee.size());
-    }*/
+
+        ee.resize(5, 'z');
+        EXPECT_EQ('z', ee[3]);
+        EXPECT_EQ('z', ee[4]);
+        EXPECT_EQ(5, ee.size());
+    }
+
+    TEST_F(StringElementTest, Find)
+    {
+        StringElement ee(ids::Null, "abcde");
+
+        // Find std::string
+        EXPECT_EQ(2, ee.find(std::string("cde")));
+        EXPECT_EQ(std::string::npos, ee.find(std::string("xyz")));
+        EXPECT_EQ(std::string::npos, ee.find(std::string("cde"), 3));
+        // Find C string substring
+        EXPECT_EQ(2, ee.find("cdexyz", 0, 3));
+        EXPECT_EQ(std::string::npos, ee.find("mnocde", 0, 3));
+        EXPECT_EQ(std::string::npos, ee.find("cde", 3, 3));
+        // Find C string
+        EXPECT_EQ(2, ee.find("cde"));
+        EXPECT_EQ(std::string::npos, ee.find("xyz"));
+        EXPECT_EQ(std::string::npos, ee.find("cde", 3));
+        // Find character
+        EXPECT_EQ(2, ee.find('c'));
+        EXPECT_EQ(std::string::npos, ee.find('x'));
+        EXPECT_EQ(std::string::npos, ee.find('c', 3));
+    }
+
+    TEST_F(StringElementTest, RFind)
+    {
+        StringElement ee(ids::Null, "abcdeabcde");
+
+        // Find std::string
+        EXPECT_EQ(7, ee.rfind(std::string("cde")));
+        EXPECT_EQ(std::string::npos, ee.rfind(std::string("xyz")));
+        EXPECT_EQ(std::string::npos, ee.rfind(std::string("cde"), 1));
+        // Find C string substring
+        EXPECT_EQ(7, ee.rfind("cdexyz", std::string::npos, 3));
+        EXPECT_EQ(std::string::npos, ee.rfind("xyz", std::string::npos, 3));
+        EXPECT_EQ(std::string::npos, ee.rfind("cdexyz", 1, 3));
+        // Find C string
+        EXPECT_EQ(7, ee.rfind("cde"));
+        EXPECT_EQ(std::string::npos, ee.rfind("xyz"));
+        EXPECT_EQ(std::string::npos, ee.rfind("cde", 1));
+        // Find character
+        EXPECT_EQ(7, ee.rfind('c'));
+        EXPECT_EQ(std::string::npos, ee.rfind('x'));
+        EXPECT_EQ(std::string::npos, ee.rfind('c', 1));
+    }
+
+    TEST_F(StringElementTest, FindFirstOf)
+    {
+        StringElement ee(ids::Null, "abcde");
+
+        // Find std::string
+        EXPECT_EQ(2, ee.find_first_of(std::string("xcz")));
+        EXPECT_EQ(std::string::npos, ee.find_first_of(std::string("xyz")));
+        EXPECT_EQ(std::string::npos, ee.find_first_of(std::string("xcz"), 3));
+        // Find C string substring
+        EXPECT_EQ(2, ee.find_first_of("xczmno", 0, 3));
+        EXPECT_EQ(std::string::npos, ee.find_first_of("xyz", 0, 3));
+        EXPECT_EQ(std::string::npos, ee.find_first_of("xcz", 3, 3));
+        // Find C string
+        EXPECT_EQ(2, ee.find_first_of("xcz"));
+        EXPECT_EQ(std::string::npos, ee.find_first_of("xyz"));
+        EXPECT_EQ(std::string::npos, ee.find_first_of("xcz", 3));
+        // Find character
+        EXPECT_EQ(2, ee.find_first_of('c'));
+        EXPECT_EQ(std::string::npos, ee.find_first_of('y'));
+        EXPECT_EQ(std::string::npos, ee.find_first_of('c', 3));
+    }
+
+    TEST_F(StringElementTest, FindFirstNotOf)
+    {
+        StringElement ee(ids::Null, "abcde");
+
+        // Find std::string
+        EXPECT_EQ(2, ee.find_first_not_of(std::string("abde")));
+        EXPECT_EQ(std::string::npos,
+                ee.find_first_not_of(std::string("abcde")));
+        EXPECT_EQ(std::string::npos, ee.find_first_not_of(std::string("abde"),
+                    3));
+        // Find C string substring
+        EXPECT_EQ(2, ee.find_first_not_of("abde", 0, 4));
+        EXPECT_EQ(std::string::npos, ee.find_first_not_of("abcde", 0, 5));
+        EXPECT_EQ(std::string::npos, ee.find_first_not_of("abde", 3, 4));
+        // Find C string
+        EXPECT_EQ(2, ee.find_first_not_of("abde"));
+        EXPECT_EQ(std::string::npos, ee.find_first_not_of("abcde"));
+        EXPECT_EQ(std::string::npos, ee.find_first_not_of("abde", 3));
+        // Find character
+        EXPECT_EQ(0, ee.find_first_not_of('b'));
+        ee.value("aaaa");
+        EXPECT_EQ(std::string::npos, ee.find_first_not_of('a'));
+    }
+
+    TEST_F(StringElementTest, FindLastOf)
+    {
+        StringElement ee(ids::Null, "abcdeabcde");
+
+        // Find std::string
+        EXPECT_EQ(7, ee.find_last_of(std::string("xcz")));
+        EXPECT_EQ(std::string::npos, ee.find_last_of(std::string("xyz")));
+        EXPECT_EQ(std::string::npos, ee.find_last_of(std::string("xcz"), 1));
+        // Find C string substring
+        EXPECT_EQ(7, ee.find_last_of("xczmno", std::string::npos, 3));
+        EXPECT_EQ(std::string::npos, ee.find_last_of("xyz", std::string::npos,
+                    3));
+        EXPECT_EQ(std::string::npos, ee.find_last_of("xcz", 1, 3));
+        // Find C string
+        EXPECT_EQ(7, ee.find_last_of("xcz"));
+        EXPECT_EQ(std::string::npos, ee.find_last_of("xyz"));
+        EXPECT_EQ(std::string::npos, ee.find_last_of("xcz", 1));
+        // Find character
+        EXPECT_EQ(7, ee.find_last_of('c'));
+        EXPECT_EQ(std::string::npos, ee.find_last_of('y'));
+        EXPECT_EQ(std::string::npos, ee.find_last_of('c', 1));
+    }
+
+    TEST_F(StringElementTest, FindLastNotOf)
+    {
+        StringElement ee(ids::Null, "abcdeabcde");
+
+        // Find std::string
+        EXPECT_EQ(7, ee.find_last_not_of(std::string("abde")));
+        EXPECT_EQ(std::string::npos,ee.find_last_not_of(std::string("abcde")));
+        EXPECT_EQ(std::string::npos, ee.find_last_not_of(std::string("abde"),
+                    1));
+        // Find C string substring
+        EXPECT_EQ(7, ee.find_last_not_of("abde", std::string::npos, 4));
+        EXPECT_EQ(std::string::npos, ee.find_last_not_of("abcde",
+                    std::string::npos, 5));
+        EXPECT_EQ(std::string::npos, ee.find_last_not_of("abde", 1, 4));
+        // Find C string
+        EXPECT_EQ(7, ee.find_last_not_of("abde"));
+        EXPECT_EQ(std::string::npos, ee.find_last_not_of("abcde"));
+        EXPECT_EQ(std::string::npos, ee.find_last_not_of("abde", 1));
+        // Find character
+        EXPECT_EQ(9, ee.find_last_not_of('b'));
+        ee.value("aaaa");
+        EXPECT_EQ(std::string::npos, ee.find_last_not_of('a'));
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////

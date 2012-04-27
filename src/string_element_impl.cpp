@@ -100,8 +100,16 @@ void tide::impl::swap(StringElementImpl& a, std::string& b)
 std::ostream& tide::impl::operator<<(std::ostream& o,
         StringElementImpl const& rhs)
 {
-    o << '"' << rhs.value_ << '"';
-    return o;
+    return o << rhs.value();
+}
+
+
+std::istream& tide::impl::operator>>(std::istream& i, StringElementImpl& rhs)
+{
+    std::string temp;
+    i >> temp;
+    rhs.value(temp);
+    return i;
 }
 
 

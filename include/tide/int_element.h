@@ -36,25 +36,25 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_INT_ELEMENT_H_)
-#define TIDE_INT_ELEMENT_H_
+#if !defined(CELDUIN_INT_ELEMENT_H_)
+#define CELDUIN_INT_ELEMENT_H_
 
-#include <tide/prim_element.h>
-#include <tide/win_dll.h>
+#include <celduin/prim_element.h>
+#include <celduin/win_dll.h>
 
 #include <stdint.h>
 
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** Signed integer primitive element.
      *
      * This element stores an signed integer. The maximum size of the value
      * is -2^32 to 2^32 - 1 (i.e. 64 bits).
      */
-    class TIDE_EXPORT IntElement : public PrimitiveElement<int64_t>
+    class CELDUIN_EXPORT IntElement : public PrimitiveElement<int64_t>
     {
         public:
             /** \brief Create a new signed integer element with no default.
@@ -88,10 +88,10 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class IntElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_INT_ELEMENT_H_
+#endif // CELDUIN_INT_ELEMENT_H_
 

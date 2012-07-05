@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/binary_element.h>
+#include <celduin/binary_element.h>
 
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////

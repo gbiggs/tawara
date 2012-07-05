@@ -36,27 +36,27 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_BLOCK_H_)
-#define TIDE_BLOCK_H_
+#if !defined(CELDUIN_BLOCK_H_)
+#define CELDUIN_BLOCK_H_
 
 #include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
 #include <stdint.h>
-#include <tide/win_dll.h>
+#include <celduin/win_dll.h>
 #include <vector>
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief Block interface.
      *
-     * The Block interface defines the functionality of a Tide block. A block
+     * The Block interface defines the functionality of a Celduin block. A block
      * is the storage for one (or sometimes more than one, if lacing is used)
      * frame of data.
      */
-    class TIDE_EXPORT Block :
+    class CELDUIN_EXPORT Block :
         public boost::equality_comparable<Block>
     {
         public:
@@ -272,10 +272,10 @@ namespace tide
              */
             virtual void swap(Block& other) {}
     }; // class Block
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group interfaces
 
-#endif // TIDE_BLOCK_H_
+#endif // CELDUIN_BLOCK_H_
 

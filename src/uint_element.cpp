@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/uint_element.h>
+#include <celduin/uint_element.h>
 
-#include <tide/ebml_int.h>
-#include <tide/vint.h>
+#include <celduin/ebml_int.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,20 +81,20 @@ UIntElement& UIntElement::operator=(uint64_t const& rhs)
 
 std::streamsize UIntElement::body_size() const
 {
-    return tide::ebml_int::size_u(value_);
+    return celduin::ebml_int::size_u(value_);
 }
 
 
 std::streamsize UIntElement::write_body(std::ostream& output)
 {
-    return tide::ebml_int::write_u(value_, output);
+    return celduin::ebml_int::write_u(value_, output);
 }
 
 
 std::streamsize UIntElement::read_body(std::istream& input,
         std::streamsize size)
 {
-    value_ = tide::ebml_int::read_u(input, size);
+    value_ = celduin::ebml_int::read_u(input, size);
     return size;
 }
 

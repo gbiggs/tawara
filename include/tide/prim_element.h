@@ -36,21 +36,21 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_PRIM_ELEMENT_H_)
-#define TIDE_PRIM_ELEMENT_H_
+#if !defined(CELDUIN_PRIM_ELEMENT_H_)
+#define CELDUIN_PRIM_ELEMENT_H_
 
 
 #include <boost/operators.hpp>
 #include <stdint.h>
 #include <string>
-#include <tide/element.h>
-#include <tide/exceptions.h>
-#include <tide/win_dll.h>
+#include <celduin/element.h>
+#include <celduin/exceptions.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The primitive data element interface.
      *
@@ -73,7 +73,7 @@ namespace tide
      * clean-up in its destructor. POD types qualify for this.
      */
     template<typename T>
-    class TIDE_EXPORT PrimitiveElement : public Element,
+    class CELDUIN_EXPORT PrimitiveElement : public Element,
         public boost::equality_comparable<PrimitiveElement<T> >
     {
         public:
@@ -181,10 +181,10 @@ namespace tide
                 return value_ == rhs.value_;
             }
     }; // class Element
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 /// group interfaces
 
-#endif // TIDE_PRIM_ELEMENT_H_
+#endif // CELDUIN_PRIM_ELEMENT_H_
 

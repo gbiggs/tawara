@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/ebml_element.h>
+#include <celduin/ebml_element.h>
 
-#include <tide/exceptions.h>
-#include <tide/tide_config.h>
-#include <tide/vint.h>
+#include <celduin/exceptions.h>
+#include <celduin/celduin_config.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,14 +51,14 @@ using namespace tide;
 
 EBMLElement::EBMLElement(std::string const& doc_type)
     : MasterElement(ids::EBML),
-    ver_(ids::EBMLVersion, TideEBMLVersion, TideEBMLVersion),
-    read_ver_(ids::EBMLReadVersion, TideEBMLVersion, TideEBMLVersion),
+    ver_(ids::EBMLVersion, CelduinEBMLVersion, CelduinEBMLVersion),
+    read_ver_(ids::EBMLReadVersion, CelduinEBMLVersion, CelduinEBMLVersion),
     max_id_length_(ids::EBMLMaxIDLength, 4, 4),
     max_size_length_(ids::EBMLMaxSizeLength, 8, 8),
-    doc_type_(ids::DocType, doc_type, TideDocType),
-    doc_type_ver_(ids::DocTypeVersion, TideVersionMajor, TideVersionMajor),
-    doc_type_read_ver_(ids::DocTypeReadVersion, TideVersionMajor,
-            TideVersionMajor)
+    doc_type_(ids::DocType, doc_type, CelduinDocType),
+    doc_type_ver_(ids::DocTypeVersion, CelduinVersionMajor, CelduinVersionMajor),
+    doc_type_read_ver_(ids::DocTypeReadVersion, CelduinVersionMajor,
+            CelduinVersionMajor)
 {
 }
 
@@ -159,12 +159,12 @@ std::streamsize EBMLElement::read_body(std::istream& input,
 
 void EBMLElement::set_defaults_()
 {
-    ver_.value(TideEBMLVersion);
-    read_ver_.value(TideEBMLVersion);
+    ver_.value(CelduinEBMLVersion);
+    read_ver_.value(CelduinEBMLVersion);
     max_id_length_.value(4);
     max_size_length_.value(8);
-    doc_type_.value(TideDocType);
-    doc_type_ver_.value(TideVersionMajor);
-    doc_type_read_ver_.value(TideVersionMajor);
+    doc_type_.value(CelduinDocType);
+    doc_type_ver_.value(CelduinVersionMajor);
+    doc_type_read_ver_.value(CelduinVersionMajor);
 }
 

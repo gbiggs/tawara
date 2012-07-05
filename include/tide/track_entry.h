@@ -36,24 +36,24 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_TRACK_ENTRY_H_)
-#define TIDE_TRACK_ENTRY_H_
+#if !defined(CELDUIN_TRACK_ENTRY_H_)
+#define CELDUIN_TRACK_ENTRY_H_
 
 #include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
 #include <string>
-#include <tide/binary_element.h>
-#include <tide/float_element.h>
-#include <tide/master_element.h>
-#include <tide/string_element.h>
-#include <tide/track_operation.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/binary_element.h>
+#include <celduin/float_element.h>
+#include <celduin/master_element.h>
+#include <celduin/string_element.h>
+#include <celduin/track_operation.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief A track entry provides the meta-data for a single track.
      *
@@ -66,7 +66,7 @@ namespace tide
      * their own. Instead, they use data from other tracks, combined using one
      * or more specified operations.
      */
-    class TIDE_EXPORT TrackEntry : public MasterElement,
+    class CELDUIN_EXPORT TrackEntry : public MasterElement,
             public boost::equality_comparable<TrackEntry>
     {
         public:
@@ -148,7 +148,7 @@ namespace tide
              * If the track can use lacing, it means that it may store multiple
              * frames of data in a single block. This is used to reduce
              * overhead when the size of an individual frame is small relative
-             * to the size of Tide data around it.
+             * to the size of Celduin data around it.
              *
              * A value of true does not imply that the track must use lacing,
              * only that it may.
@@ -367,10 +367,10 @@ namespace tide
     }; // class TrackEntry
 
     bool operator==(TrackEntry const& lhs, TrackEntry const& rhs);
-}; // namespace tide;
+}; // namespace celduin;
 
 /// @}
 // group elements
 
-#endif // TIDE_TRACK_ENTRY_H_
+#endif // CELDUIN_TRACK_ENTRY_H_
 

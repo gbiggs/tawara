@@ -36,22 +36,22 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_EBML_ELEMENT_H_)
-#define TIDE_EBML_ELEMENT_H_
+#if !defined(CELDUIN_EBML_ELEMENT_H_)
+#define CELDUIN_EBML_ELEMENT_H_
 
-#include <tide/el_ids.h>
-#include <tide/master_element.h>
-#include <tide/tide_config.h>
-#include <tide/string_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/el_ids.h>
+#include <celduin/master_element.h>
+#include <celduin/celduin_config.h>
+#include <celduin/string_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 
 #include <string>
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The EBML Header element.
      *
@@ -60,7 +60,7 @@ namespace tide
      *
      * The header defines various meta-data about the EBML document to follow.
      */
-    class TIDE_EXPORT EBMLElement : public MasterElement
+    class CELDUIN_EXPORT EBMLElement : public MasterElement
     {
         public:
             /** \brief Create a new Element.
@@ -71,7 +71,7 @@ namespace tide
              * value specified here and IncorrectDocType will be thrown if they
              * do not match.
              */
-            EBMLElement(std::string const& doc_type="tide");
+            EBMLElement(std::string const& doc_type="celduin");
 
             /// \brief Destructor.
             virtual ~EBMLElement() {};
@@ -79,14 +79,14 @@ namespace tide
             /** \brief Get the EBML version.
              *
              * The EBML version is the version of the parser used to create the
-             * file. It is set internally by the Tide EBML parser, and read
+             * file. It is set internally by the Celduin EBML parser, and read
              * from the file.
              */
             unsigned int version() const { return ver_.value(); }
             /** \brief Get the EBML read version.
              *
              * This property gives the minimum EBML parser version necessary to
-             * read the file. It is set internally by the Tide EBML parser, and
+             * read the file. It is set internally by the Celduin EBML parser, and
              * read from the file.
              */
             unsigned int read_version() const { return read_ver_.value(); }
@@ -129,7 +129,7 @@ namespace tide
             /** \brief Get the minimum document type version to read.
              *
              * This is the minimum document type version that must be readable
-             * for a Tide parser to read this file.
+             * for a Celduin parser to read this file.
              */
             unsigned int doc_read_version() const
                 { return doc_type_read_ver_.value(); }
@@ -166,10 +166,10 @@ namespace tide
             /// \brief Sets all child elements to their default values.
             void set_defaults_();
     }; // class Element
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 /// group interfaces
 
-#endif // TIDE_EBML_ELEMENT_H_
+#endif // CELDUIN_EBML_ELEMENT_H_
 

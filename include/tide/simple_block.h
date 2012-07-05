@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_SIMPLE_BLOCK_H_)
-#define TIDE_SIMPLE_BLOCK_H_
+#if !defined(CELDUIN_SIMPLE_BLOCK_H_)
+#define CELDUIN_SIMPLE_BLOCK_H_
 
-#include <tide/block_element.h>
-#include <tide/block_impl.h>
-#include <tide/win_dll.h>
+#include <celduin/block_element.h>
+#include <celduin/block_impl.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The SimpleBlock element, a simplified version of Blocks.
      *
@@ -56,7 +56,7 @@ namespace tide
      * binary data specified by the Simple Block format, which this element
      * implementation interprets.
      */
-    class TIDE_EXPORT SimpleBlock : public BlockElement,
+    class CELDUIN_EXPORT SimpleBlock : public BlockElement,
         public boost::equality_comparable<SimpleBlock>
     {
         public:
@@ -305,10 +305,10 @@ namespace tide
 
     /// \brief Equality operator for SimpleBlock elements.
     bool operator==(SimpleBlock const& lhs, SimpleBlock const& rhs);
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_SIMPLE_BLOCK_H_
+#endif // CELDUIN_SIMPLE_BLOCK_H_
 

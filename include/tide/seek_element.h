@@ -36,20 +36,20 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_SEEK_ELEMENT_H_)
-#define TIDE_SEEK_ELEMENT_H_
+#if !defined(CELDUIN_SEEK_ELEMENT_H_)
+#define CELDUIN_SEEK_ELEMENT_H_
 
 #include <ios>
-#include <tide/binary_element.h>
-#include <tide/el_ids.h>
-#include <tide/master_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/binary_element.h>
+#include <celduin/el_ids.h>
+#include <celduin/master_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The Seek element, which contains a single index point in the
      * SeekHead element.
@@ -59,7 +59,7 @@ namespace tide
      * element is a single index entry in the Metaseek. It stores the element
      * ID and the byte offset of the element.
      */
-    class TIDE_EXPORT SeekElement : public MasterElement
+    class CELDUIN_EXPORT SeekElement : public MasterElement
     {
         public:
             /** Create a new Seek element.
@@ -98,9 +98,9 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class SeekElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 
-#endif // TIDE_SEEK_ELEMENT_H_
+#endif // CELDUIN_SEEK_ELEMENT_H_
 

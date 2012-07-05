@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/float_element.h>
+#include <celduin/float_element.h>
 
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 #include <vector>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////

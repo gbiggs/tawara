@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/track_entry.h>
+#include <celduin/track_entry.h>
 
 #include <boost/foreach.hpp>
-#include <tide/el_ids.h>
-#include <tide/element.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/element.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -161,7 +161,7 @@ void TrackEntry::overlays(std::vector<uint64_t> const& uids)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
+bool celduin::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
 {
     return lhs.number_ == rhs.number_ &&
         lhs.uid_ == rhs.uid_ &&
@@ -254,8 +254,8 @@ std::streamsize TrackEntry::body_size() const
     }
     if (operation_)
     {
-        size += tide::ids::size(ids::TrackOperation) +
-            tide::vint::size(operation_->size()) +
+        size += celduin::ids::size(ids::TrackOperation) +
+            celduin::vint::size(operation_->size()) +
             operation_->size();
     }
     return size;
@@ -336,8 +336,8 @@ std::streamsize TrackEntry::write_body(std::ostream& output)
     }
     if (operation_)
     {
-        written += tide::ids::write(ids::TrackOperation, output);
-        written += tide::vint::write(operation_->size(), output);
+        written += celduin::ids::write(ids::TrackOperation, output);
+        written += celduin::vint::write(operation_->size(), output);
         written += operation_->write(output);
     }
     return written;

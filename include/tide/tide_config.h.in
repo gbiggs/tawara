@@ -36,27 +36,27 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_TIDE_CONFIG_H_)
-#define TIDE_TIDE_CONFIG_H_
+#if !defined(CELDUIN_CELDUIN_CONFIG_H_)
+#define CELDUIN_CELDUIN_CONFIG_H_
 
 #include <string>
 
 /// \addtogroup constants Constants
 /// @{
 
-namespace tide
+namespace celduin
 {
-    const std::string TideDocType("tide");
-    const std::string TideLibName("@PROJECT_NAME_LOWER@");
-    const std::string TideVersion("@PROJECT_VERSION@");
-    const unsigned int TideVersionMajor(@PROJECT_VERSION_MAJOR@);
-    const unsigned int TideVersionMinor(@PROJECT_VERSION_MINOR@);
-    const unsigned int TideVersionRevision(@PROJECT_VERSION_REVISION@);
-    const unsigned int TideEBMLVersion(1);
-}; // namespace tide
+    const std::string CelduinDocType("celduin");
+    const std::string CelduinLibName("@PROJECT_NAME_LOWER@");
+    const std::string CelduinVersion("@PROJECT_VERSION@");
+    const unsigned int CelduinVersionMajor(@PROJECT_VERSION_MAJOR@);
+    const unsigned int CelduinVersionMinor(@PROJECT_VERSION_MINOR@);
+    const unsigned int CelduinVersionRevision(@PROJECT_VERSION_REVISION@);
+    const unsigned int CelduinEBMLVersion(1);
+}; // namespace celduin
 
 /// @}
 // group constants
 
-#endif // TIDE_TIDE_CONFIG_H_
+#endif // CELDUIN_CELDUIN_CONFIG_H_
 

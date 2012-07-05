@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/track_operation.h>
+#include <celduin/track_operation.h>
 
 #include <boost/foreach.hpp>
-#include <tide/vint.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ std::streamsize TrackJoinBlocks::read_body(std::istream& input,
     while (read_bytes < size)
     {
         // Read the ID
-        ids::ReadResult id_res = tide::ids::read(input);
+        ids::ReadResult id_res = celduin::ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
         if (id != ids::TrackJoinUID)

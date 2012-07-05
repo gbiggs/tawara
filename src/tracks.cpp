@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/tracks.h>
+#include <celduin/tracks.h>
 
 #include <algorithm>
 #include <boost/foreach.hpp>
 #include <functional>
 #include <stdexcept>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -112,7 +112,7 @@ void Tracks::insert(const_iterator first, const_iterator last)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(Tracks const& lhs, Tracks const& rhs)
+bool celduin::operator==(Tracks const& lhs, Tracks const& rhs)
 {
     return lhs.entries_ == rhs.entries_;
 }

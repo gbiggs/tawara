@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/segment.h>
+#include <celduin/segment.h>
 
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/seek_element.h>
-#include <tide/vint.h>
-#include <tide/void_element.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/seek_element.h>
+#include <celduin/vint.h>
+#include <celduin/void_element.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -140,7 +140,7 @@ std::streamsize Segment::to_stream_offset(std::streamsize seg_offset) const
 std::streamsize Segment::size() const
 {
     // The size of a segment is always written using 8 bytes
-    return tide::ids::size(id_) + 8 + body_size();
+    return celduin::ids::size(id_) + 8 + body_size();
 }
 
 

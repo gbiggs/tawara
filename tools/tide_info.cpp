@@ -42,15 +42,15 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
-#include <tide/tide_config.h>
-#include <tide/ebml_element.h>
-#include <tide/el_ids.h>
-#include <tide/memory_cluster.h>
-#include <tide/segment.h>
-#include <tide/simple_block.h>
-#include <tide/tide_impl.h>
-#include <tide/tracks.h>
-#include <tide/track_entry.h>
+#include <celduin/celduin_config.h>
+#include <celduin/ebml_element.h>
+#include <celduin/el_ids.h>
+#include <celduin/memory_cluster.h>
+#include <celduin/segment.h>
+#include <celduin/simple_block.h>
+#include <celduin/celduin_impl.h>
+#include <celduin/tracks.h>
+#include <celduin/track_entry.h>
 
 namespace bpt = boost::posix_time;
 
@@ -64,30 +64,30 @@ int main(int argc, char** argv)
     }
 
     // Open the file and check for the EBML header. This confirms that the file
-    // is an EBML file, and is a Tide document.
+    // is an EBML file, and is a Celduin document.
     std::ifstream stream(argv[1], std::ios::in);
-    tide::ids::ReadResult id = tide::ids::read(stream);
-    if (id.first != tide::ids::EBML)
+    celduin::ids::ReadResult id = celduin::ids::read(stream);
+    if (id.first != celduin::ids::EBML)
     {
         std::cerr << "File does not begin with an EBML header.\n";
         return 1;
     }
-    tide::EBMLElement ebml_el;
+    celduin::EBMLElement ebml_el;
     ebml_el.read(stream);
-    if (ebml_el.doc_type() != tide::TideDocType)
+    if (ebml_el.doc_type() != celduin::CelduinDocType)
     {
-        std::cerr << "Specified EBML file is not a Tide document.\n";
+        std::cerr << "Specified EBML file is not a Celduin document.\n";
         return 1;
     }
-    if (ebml_el.read_version() > tide::TideEBMLVersion)
+    if (ebml_el.read_version() > celduin::CelduinEBMLVersion)
     {
-        std::cerr << "This Tide document requires read version " <<
+        std::cerr << "This Celduin document requires read version " <<
             ebml_el.read_version() << ".\n";
         return 1;
     }
-    if (ebml_el.doc_read_version() > tide::TideVersionMajor)
+    if (ebml_el.doc_read_version() > celduin::CelduinVersionMajor)
     {
-        std::cerr << "This Tide document requires doc read version " <<
+        std::cerr << "This Celduin document requires doc read version " <<
             ebml_el.read_version() << ".\n";
         return 1;
     }
@@ -96,13 +96,13 @@ int main(int argc, char** argv)
     // and read (or build, if necessary) an index of the level 1 elements. With
     // this index, we will be able to quickly jump to important elements such
     // as the Tracks and the first Cluster.
-    id = tide::ids::read(stream);
-    if (id.first != tide::ids::Segment)
+    id = celduin::ids::read(stream);
+    if (id.first != celduin::ids::Segment)
     {
         std::cerr << "Segment element not found\n";
         return 1;
     }
-    tide::Segment segment;
+    celduin::Segment segment;
     segment.read(stream);
     // Inspect the segment for some interesting information.
     std::cerr << "Segment information:\n\tUUID: ";
@@ -132,11 +132,11 @@ int main(int argc, char** argv)
     // one will exist).
     // We can guarantee that there is at least one in the index because
     // otherwise the call to segment.read() would have thrown an error.
-    std::streampos tracks_pos(segment.index.find(tide::ids::Tracks)->second);
+    std::streampos tracks_pos(segment.index.find(celduin::ids::Tracks)->second);
     stream.seekg(segment.to_stream_offset(tracks_pos));
     // Read the tracks
-    tide::ids::read(stream); // Read and ignore the Tracks ID
-    tide::Tracks tracks;
+    celduin::ids::read(stream); // Read and ignore the Tracks ID
+    celduin::Tracks tracks;
     tracks.read(stream);
     // Now we can introspect the tracks available in the file.
     if (tracks.empty())
@@ -145,7 +145,7 @@ int main(int argc, char** argv)
         return 0;
     }
     std::cerr << "Tracks:\n";
-    BOOST_FOREACH(tide::Tracks::value_type track, tracks)
+    BOOST_FOREACH(celduin::Tracks::value_type track, tracks)
     {
         std::cerr << "\tNumber: " << track.second->number() << '\n';
         std::cerr << "\tName: " << track.second->name() << '\n';
@@ -159,7 +159,7 @@ int main(int argc, char** argv)
     std::cerr << "Clusters:\n";
 
     int cluster_num(0);
-    for (tide::Segment::FileClusterIterator cluster(segment.clusters_begin_file(stream));
+    for (celduin::Segment::FileClusterIterator cluster(segment.clusters_begin_file(stream));
             cluster != segment.clusters_end_file(stream); ++cluster)
     {
         std::cerr << "\tCluster " << cluster_num++ << '\n';
@@ -169,10 +169,10 @@ int main(int argc, char** argv)
             cluster->timecode() << ")\n";
         std::cerr << "\t\tBlock count: " << cluster->count() << '\n';
         std::streamsize avg_frame_size(0);
-        for (tide::FileCluster::Iterator block(cluster->begin());
+        for (celduin::FileCluster::Iterator block(cluster->begin());
                 block != cluster->end(); ++block)
         {
-            tide::BlockElement::FramePtr frame_data(*block->begin());
+            celduin::BlockElement::FramePtr frame_data(*block->begin());
             avg_frame_size += frame_data->size();
         }
         if (cluster->count() != 0)

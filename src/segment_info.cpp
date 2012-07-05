@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/segment_info.h>
+#include <celduin/segment_info.h>
 
 #include <algorithm>
 #include <functional>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////

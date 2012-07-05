@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_BINARY_ELEMENT_H_)
-#define TIDE_BINARY_ELEMENT_H_
+#if !defined(CELDUIN_BINARY_ELEMENT_H_)
+#define CELDUIN_BINARY_ELEMENT_H_
 
-#include <tide/prim_element.h>
-#include <tide/win_dll.h>
+#include <celduin/prim_element.h>
+#include <celduin/win_dll.h>
 
 #include <stdint.h>
 #include <vector>
@@ -48,13 +48,13 @@
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** Binary primitive element.
      *
      * This element stores a block of opaque binary data.
      */
-    class TIDE_EXPORT BinaryElement : public PrimitiveElement<std::vector<char> >
+    class CELDUIN_EXPORT BinaryElement : public PrimitiveElement<std::vector<char> >
     {
         public:
             /** \brief Create a new binary element with no default.
@@ -89,10 +89,10 @@ namespace tide
             /// \brief Element body writing.
             virtual std::streamsize write_body(std::ostream& output);
     }; // class BinaryElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_BINARY_ELEMENT_H_
+#endif // CELDUIN_BINARY_ELEMENT_H_
 

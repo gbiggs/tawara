@@ -36,35 +36,35 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_METASEEK_H_)
-#define TIDE_METASEEK_H_
+#if !defined(CELDUIN_METASEEK_H_)
+#define CELDUIN_METASEEK_H_
 
 #include <boost/operators.hpp>
 #include <map>
-#include <tide/el_ids.h>
-#include <tide/master_element.h>
-#include <tide/seek_element.h>
-#include <tide/win_dll.h>
+#include <celduin/el_ids.h>
+#include <celduin/master_element.h>
+#include <celduin/seek_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
-    /** \brief The SeekHead element, used as an index for a Tide file.
+    /** \brief The SeekHead element, used as an index for a Celduin file.
      *
-     * Generally, any Tide segment should contain one, and only one, instance
+     * Generally, any Celduin segment should contain one, and only one, instance
      * of a SeekHead element. This element should provide the byte offsets in
      * the data stream of the other Level 1 elements (SegmentInfo, Tracks,
      * etc.) in the segment. This function also means that the SeekHead element
      * should be placed first in its segment, so that it can be found quickly
      * to speed up file loading.
      *
-     * When writing Tide files, it is advisable to reserve some space at the
+     * When writing Celduin files, it is advisable to reserve some space at the
      * start of the segment for the SeekHead element to be written in once the
      * file is complete.
      */
-    class TIDE_EXPORT SeekHead : public MasterElement,
+    class CELDUIN_EXPORT SeekHead : public MasterElement,
             public boost::equality_comparable<SeekHead>
     {
         public:
@@ -225,10 +225,10 @@ namespace tide
 
     /// \brief Equality operator.
     bool operator==(SeekHead const& lhs, SeekHead const& rhs);
-}; // namespace Tide
+}; // namespace Celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_METASEEK_H_
+#endif // CELDUIN_METASEEK_H_
 

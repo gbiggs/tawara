@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_ELEMENT_H_)
-#define TIDE_ELEMENT_H_
+#if !defined(CELDUIN_ELEMENT_H_)
+#define CELDUIN_ELEMENT_H_
 
-#include <tide/el_ids.h>
-#include <tide/win_dll.h>
+#include <celduin/el_ids.h>
+#include <celduin/win_dll.h>
 
 #include <ios>
 #include <iostream>
@@ -50,11 +50,11 @@
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The Element interface, a basic interface to an element object.
      *
-     * Tide objects store their data in elements. Like in XML, the elements
+     * Celduin objects store their data in elements. Like in XML, the elements
      * form a tree of information. Each element contains a single value and
      * zero or more sub-elements. Each element has a unique ID within the
      * format.
@@ -63,7 +63,7 @@ namespace tide
      * the element's ID and an abstract interface to read and write elements to
      * a byte stream.
      */
-    class TIDE_EXPORT Element
+    class CELDUIN_EXPORT Element
     {
         public:
             /** \brief Create a new Element.
@@ -72,7 +72,7 @@ namespace tide
              * bits.
              * \exception InvalidEBMLID if the provided ID is invalid.
              */
-            Element(tide::ids::ID id);
+            Element(celduin::ids::ID id);
 
             /// \brief Destructor.
             virtual ~Element() {};
@@ -163,7 +163,7 @@ namespace tide
             virtual std::streamsize read(std::istream& input);
 
         protected:
-            tide::ids::ID id_;
+            celduin::ids::ID id_;
             std::streampos offset_;
 
             /** \brief Get the size of the body of this element.
@@ -269,10 +269,10 @@ namespace tide
      * \return The number of bytes skipped.
      */
     std::streamsize skip_write(std::iostream& stream, bool and_id);
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 /// group interfaces
 
-#endif // TIDE_ELEMENT_H_
+#endif // CELDUIN_ELEMENT_H_
 

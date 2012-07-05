@@ -36,25 +36,25 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_BLOCK_IMPL_H_)
-#define TIDE_BLOCK_IMPL_H_
+#if !defined(CELDUIN_BLOCK_IMPL_H_)
+#define CELDUIN_BLOCK_IMPL_H_
 
 #include <stdint.h>
-#include <tide/block.h>
-#include <tide/win_dll.h>
+#include <celduin/block.h>
+#include <celduin/win_dll.h>
 #include <utility>
 
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief Common block functionality implementation.
      *
      * This class provides an implementation of the Block interface
      * functionality.
      */
-    class TIDE_EXPORT BlockImpl : public Block,
+    class CELDUIN_EXPORT BlockImpl : public Block,
         public boost::equality_comparable<BlockImpl>
     {
         public:
@@ -255,10 +255,10 @@ namespace tide
 
     /// \brief Equality operator for BlockImpl objects.
     bool operator==(BlockImpl const& lhs, BlockImpl const& rhs);
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_BLOCK_IMPL_H_
+#endif // CELDUIN_BLOCK_IMPL_H_
 

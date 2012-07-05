@@ -36,20 +36,20 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_BLOCK_ADDITIONS_H_)
-#define TIDE_BLOCK_ADDITIONS_H_
+#if !defined(CELDUIN_BLOCK_ADDITIONS_H_)
+#define CELDUIN_BLOCK_ADDITIONS_H_
 
 #include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
 #include <stdint.h>
-#include <tide/master_element.h>
+#include <celduin/master_element.h>
 #include <vector>
-#include <tide/win_dll.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief This element is used to specify reference blocks.
      *
@@ -57,7 +57,7 @@ namespace tide
      * listed using this element. It also contains private codec data that can
      * be used in combination with the other blocks and the owning block.
      */
-    class TIDE_EXPORT BlockAdditions : public MasterElement,
+    class CELDUIN_EXPORT BlockAdditions : public MasterElement,
         public boost::equality_comparable<BlockAdditions>
     {
         public:
@@ -182,10 +182,10 @@ namespace tide
 
     /// \brief Equality operator for BlockAdditions elements.
     bool operator==(BlockAdditions const& lhs, BlockAdditions const& rhs);
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_BLOCK_ADDITIONS_H_
+#endif // CELDUIN_BLOCK_ADDITIONS_H_
 

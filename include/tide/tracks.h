@@ -36,20 +36,20 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_TRACKS_H_)
-#define TIDE_TRACKS_H_
+#if !defined(CELDUIN_TRACKS_H_)
+#define CELDUIN_TRACKS_H_
 
 #include <boost/operators.hpp>
 #include <map>
-#include <tide/master_element.h>
-#include <tide/track_entry.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/master_element.h>
+#include <celduin/track_entry.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The Tracks element, listing all tracks in the segment.
      *
@@ -58,7 +58,7 @@ namespace tide
      * a number and a UID. The numbers and UIDs must be unique within the
      * segment, and UIDs should be as unique as possible.
      */
-    class TIDE_EXPORT Tracks : public MasterElement,
+    class CELDUIN_EXPORT Tracks : public MasterElement,
             public boost::equality_comparable<Tracks>
     {
         public:
@@ -291,10 +291,10 @@ namespace tide
     }; // class Tracks
 
     bool operator==(Tracks const& lhs, Tracks const& rhs);
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_TRACKS_H_
+#endif // CELDUIN_TRACKS_H_
 

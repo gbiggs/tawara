@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/date_element.h>
+#include <celduin/date_element.h>
 
 #include <gtest/gtest.h>
-#include <tide/el_ids.h>
-#include <tide/ebml_int.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/ebml_int.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -51,7 +51,7 @@
 namespace test_datel
 {
 
-std::streamsize fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
+std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, int64_t data,
         bool write_id, bool write_size, bool write_body)
 {
     std::streamsize total(0);
@@ -59,13 +59,13 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(tide::ebml_int::encode_u(id));
+        std::vector<char> tmp(celduin::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_size)
     {
-        std::vector<char> tmp(tide::vint::encode(8));
+        std::vector<char> tmp(celduin::vint::encode(8));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -85,68 +85,68 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, int64_t data,
 
 TEST(DateElement, Construction)
 {
-    EXPECT_EQ(tide::ids::Null, tide::DateElement(tide::ids::Null, 1).id());
-    EXPECT_THROW(tide::DateElement(0x00, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(0xFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(0xFFFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(0xFFFFFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(0xFFFFFFFF, 1), tide::InvalidElementID);
+    EXPECT_EQ(celduin::ids::Null, celduin::DateElement(celduin::ids::Null, 1).id());
+    EXPECT_THROW(celduin::DateElement(0x00, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(0xFF, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(0xFFFF, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(0xFFFFFF, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(0xFFFFFFFF, 1), celduin::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(tide::DateElement(0x00, 1, 1), tide::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(0x00, 1, 1), celduin::InvalidElementID);
 }
 
 
 TEST(DateElement, CopyConstruction)
 {
-    EXPECT_EQ(tide::ids::Null, tide::DateElement(tide::DateElement(tide::ids::Null, 1)).id());
-    EXPECT_EQ(tide::ids::Null, tide::DateElement(tide::DateElement(tide::ids::Null, 1, 2)).id());
-    EXPECT_EQ(1, tide::DateElement(tide::DateElement(tide::ids::Null, 1, 2)).value());
-    EXPECT_EQ(2, tide::DateElement(tide::DateElement(tide::ids::Null, 1, 2)).get_default());
+    EXPECT_EQ(celduin::ids::Null, celduin::DateElement(celduin::DateElement(celduin::ids::Null, 1)).id());
+    EXPECT_EQ(celduin::ids::Null, celduin::DateElement(celduin::DateElement(celduin::ids::Null, 1, 2)).id());
+    EXPECT_EQ(1, celduin::DateElement(celduin::DateElement(celduin::ids::Null, 1, 2)).value());
+    EXPECT_EQ(2, celduin::DateElement(celduin::DateElement(celduin::ids::Null, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(tide::DateElement(tide::DateElement(0x00, 1)),
-            tide::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(celduin::DateElement(0x00, 1)),
+            celduin::InvalidElementID);
 }
 
 
 TEST(DateElement, SetID)
 {
-    tide::DateElement e(tide::ids::Null, 1);
+    celduin::DateElement e(celduin::ids::Null, 1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(tide::DateElement(1, 1).id(0x00), tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(1, 1).id(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(1, 1).id(0xFFFF),
-            tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(1, 1).id(0xFFFFFF),
-            tide::InvalidElementID);
-    EXPECT_THROW(tide::DateElement(1, 1).id(0xFFFFFFFF),
-            tide::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(1, 1).id(0x00), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(1, 1).id(0xFF), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(1, 1).id(0xFFFF),
+            celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(1, 1).id(0xFFFFFF),
+            celduin::InvalidElementID);
+    EXPECT_THROW(celduin::DateElement(1, 1).id(0xFFFFFFFF),
+            celduin::InvalidElementID);
 }
 
 
 TEST(DateElement, Assignment)
 {
-    tide::DateElement e1(1, 1), e2(2, 2);
+    celduin::DateElement e1(1, 1), e2(2, 2);
     e2 = e1;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    tide::DateElement e3(1, 1, 1), e4(2, 2, 2);
+    celduin::DateElement e3(1, 1, 1), e4(2, 2, 2);
     e4 = e3;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_EQ(e3.get_default(), e4.get_default());
 
-    tide::DateElement e5(1, 1, 1), e6(2, 2);
+    celduin::DateElement e5(1, 1, 1), e6(2, 2);
     e6 = e5;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_EQ(e5.get_default(), e6.get_default());
 
-    tide::DateElement e7(1, 1), e8(2, 2, 2);
+    celduin::DateElement e7(1, 1), e8(2, 2, 2);
     e8 = e7;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -163,10 +163,10 @@ TEST(DateElement, Assignment)
 
 TEST(DateElement, Default)
 {
-    EXPECT_FALSE(tide::DateElement(tide::ids::Null, 1).has_default());
-    EXPECT_TRUE(tide::DateElement(tide::ids::Null, 1, 1).has_default());
+    EXPECT_FALSE(celduin::DateElement(celduin::ids::Null, 1).has_default());
+    EXPECT_TRUE(celduin::DateElement(celduin::ids::Null, 1, 1).has_default());
 
-    tide::DateElement e1(tide::ids::Null, 1, 1);
+    celduin::DateElement e1(celduin::ids::Null, 1, 1);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -175,7 +175,7 @@ TEST(DateElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    tide::DateElement e2(tide::ids::Null, 1);
+    celduin::DateElement e2(celduin::ids::Null, 1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -183,7 +183,7 @@ TEST(DateElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::DateElement e3(tide::ids::Null, 1);
+    celduin::DateElement e3(celduin::ids::Null, 1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -196,17 +196,17 @@ TEST(DateElement, Default)
 
 TEST(DateElement, Value)
 {
-    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1).value());
-    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1));
-    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1, 2).value());
-    EXPECT_EQ(1, tide::DateElement(tide::ids::Null, 1, 2));
+    EXPECT_EQ(1, celduin::DateElement(celduin::ids::Null, 1).value());
+    EXPECT_EQ(1, celduin::DateElement(celduin::ids::Null, 1));
+    EXPECT_EQ(1, celduin::DateElement(celduin::ids::Null, 1, 2).value());
+    EXPECT_EQ(1, celduin::DateElement(celduin::ids::Null, 1, 2));
 
-    tide::DateElement e1(tide::ids::Null, 1);
+    celduin::DateElement e1(celduin::ids::Null, 1);
     EXPECT_EQ(1, e1.value());
     e1.value(2);
     EXPECT_EQ(2, e1.value());
 
-    tide::DateElement e2(tide::ids::Null, 1, 2);
+    celduin::DateElement e2(celduin::ids::Null, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
 }
@@ -214,8 +214,8 @@ TEST(DateElement, Value)
 
 TEST(DateElement, Equality)
 {
-    tide::DateElement e1(tide::ids::Null, 1);
-    tide::DateElement e2(tide::ids::Null, 1);
+    celduin::DateElement e1(celduin::ids::Null, 1);
+    celduin::DateElement e2(celduin::ids::Null, 1);
 
     EXPECT_TRUE(e1 == e2);
     e2.value(2);
@@ -229,10 +229,10 @@ TEST(DateElement, Write)
     std::string expected;
     int64_t value(2);
 
-    tide::DateElement e1(0x80, value);
+    celduin::DateElement e1(0x80, value);
 
     test_datel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(tide::ids::size(0x80) + 1 + 8, e1.write(output));
+    EXPECT_EQ(celduin::ids::size(0x80) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = -0x839F18AAl;
@@ -240,7 +240,7 @@ TEST(DateElement, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(tide::ids::size(0x80) + 1 + 8, e1.write(output));
+    EXPECT_EQ(celduin::ids::size(0x80) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -251,7 +251,7 @@ TEST(DateElement, Read)
     std::string input_val;
     int64_t value(5);
 
-    tide::DateElement e(0x80, 0);
+    celduin::DateElement e(0x80, 0);
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + 8, e.read(input));
@@ -276,18 +276,18 @@ TEST(DateElement, Read)
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input_val[0] = 0x05;
     input.str(input_val);
-    EXPECT_THROW(e.read(input), tide::BadElementLength);
+    EXPECT_THROW(e.read(input), celduin::BadElementLength);
     // Test for ReadError exception
     std::string().swap(input_val);
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), celduin::ReadError);
 }
 
 
 TEST(DateElement, Size)
 {
-    tide::DateElement e(0x80, 1);
+    celduin::DateElement e(0x80, 1);
     EXPECT_EQ(10, e.size());
 
     e.value(0x7FFFFF);

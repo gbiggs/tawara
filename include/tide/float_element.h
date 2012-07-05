@@ -36,16 +36,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_FLOAT_ELEMENT_H_)
-#define TIDE_FLOAT_ELEMENT_H_
+#if !defined(CELDUIN_FLOAT_ELEMENT_H_)
+#define CELDUIN_FLOAT_ELEMENT_H_
 
-#include <tide/prim_element.h>
-#include <tide/win_dll.h>
+#include <celduin/prim_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /// \brief Precision of float elements.
     enum EBMLFloatPrec
@@ -61,7 +61,7 @@ namespace tide
      * This element stores an IEEE floating-point number. 4-byte and 8-byte
      * floats are allowed.
      */
-    class TIDE_EXPORT FloatElement : public PrimitiveElement<double>
+    class CELDUIN_EXPORT FloatElement : public PrimitiveElement<double>
     {
         public:
             /** \brief Create a new float element with no default.
@@ -120,10 +120,10 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class FloatElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_FLOAT_ELEMENT_H_
+#endif // CELDUIN_FLOAT_ELEMENT_H_
 

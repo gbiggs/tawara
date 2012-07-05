@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/block_group.h>
+#include <celduin/block_group.h>
 
 #include <boost/foreach.hpp>
-#include <tide/el_ids.h>
-#include <tide/ebml_int.h>
-#include <tide/int_element.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/ebml_int.h>
+#include <celduin/int_element.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ using namespace tide;
 
 BlockGroup::BlockGroup(uint64_t track_number, int16_t timecode,
         LacingType lacing, uint64_t duration, uint64_t ref_priority)
-    : BlockElement(tide::ids::BlockGroup, track_number, timecode, lacing),
+    : BlockElement(celduin::ids::BlockGroup, track_number, timecode, lacing),
     duration_(ids::BlockDuration, duration),
     ref_priority_(ids::ReferencePriority, ref_priority, 0),
     codec_state_(ids::CodecState, std::vector<char>()),
@@ -81,7 +81,7 @@ void BlockGroup::swap(BlockGroup& other)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(BlockGroup const& lhs, BlockGroup const& rhs)
+bool celduin::operator==(BlockGroup const& lhs, BlockGroup const& rhs)
 {
     return lhs.additions_ == rhs.additions_ &&
         lhs.duration_ == rhs.duration_ &&

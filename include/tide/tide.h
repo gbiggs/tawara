@@ -36,10 +36,10 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_TIDE_H_)
-#define TIDE_TIDE_H_
+#if !defined(CELDUIN_CELDUIN_H_)
+#define CELDUIN_CELDUIN_H_
 
-#include <tide/win_dll.h>
+#include <celduin/win_dll.h>
 
 #include <boost/utility.hpp>
 #include <iostream>
@@ -48,33 +48,33 @@
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
-    /** \brief The Tide interface, the interface provided by all Tide objects.
+    /** \brief The Celduin interface, the interface provided by all Celduin objects.
      *
-     * This class defines the Tide interface. All implementations must implement
-     * these methods.  A Tide implementation may use whatever it desires to
+     * This class defines the Celduin interface. All implementations must implement
+     * these methods.  A Celduin implementation may use whatever it desires to
      * provide the functionality. Two commonly-used implementations are a file
      * store and a memory store.
      */
-    class TIDE_EXPORT Tide : private boost::noncopyable
+    class CELDUIN_EXPORT Celduin : private boost::noncopyable
     {
         public:
-            /** \brief Create a new Tide object.
+            /** \brief Create a new Celduin object.
              *
-             * This constructor makes a new Tide object around an input/output
+             * This constructor makes a new Celduin object around an input/output
              * stream.
              *
              * The stream will be checked for its current contents. If it is
              * empty (i.e. the size of its contents is zero), then it will be
              * initialised as a new EBML file. Otherwise, it will be treated as
              * an existing EBML file and read. In this case, if an EBML header
-             * cannot be found or the DocType is incorrect, NotTide will be
+             * cannot be found or the DocType is incorrect, NotCelduin will be
              * raised.
              *
              * EBML supports placing text before the EBML header. Anything up
              * to the first 0x1A byte is ignored. This means you can place data
-             * into the stream before passing it to Tide::Tide(). Tide will
+             * into the stream before passing it to Celduin::Celduin(). Celduin will
              * treat the current position in the stream when this constructor
              * is called as the beginning of the stream.
              *
@@ -82,26 +82,26 @@ namespace tide
              * read from and write to.
              * \exception NotEBML if the stream is not empty and does not
              * contain an EBML header.
-             * \exception NotTide if the stream is not empty and does not
-             * contain valid EBML with the "tide" DocType.
+             * \exception NotCelduin if the stream is not empty and does not
+             * contain valid EBML with the "celduin" DocType.
              */
-            Tide(std::iostream& stream) {}
+            Celduin(std::iostream& stream) {}
 
-            /** \brief Destroy the Tide object.
+            /** \brief Destroy the Celduin object.
              *
              * All resources used by the object will be cleaned up when its
              * destructor is called. Any other objects, such as Element
-             * objects, referencing this Tide object will become invalid and
+             * objects, referencing this Celduin object will become invalid and
              * should not be used. Behaviour if they are used is undefined.
              *
              * The stream passed to the constructor is \e not closed.
              */
-            virtual ~Tide() {};
-    }; // class Tide
-}; // namespace tide
+            virtual ~Celduin() {};
+    }; // class Celduin
+}; // namespace celduin
 
 /// @}
 // group interfaces
 
-#endif // TIDE_TIDE_H_
+#endif // CELDUIN_CELDUIN_H_
 

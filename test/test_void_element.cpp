@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/void_element.h>
+#include <celduin/void_element.h>
 
 #include <gtest/gtest.h>
-#include <tide/binary_element.h>
-#include <tide/el_ids.h>
-#include <tide/ebml_int.h>
-#include <tide/exceptions.h>
-#include <tide/string_element.h>
-#include <tide/vint.h>
+#include <celduin/binary_element.h>
+#include <celduin/el_ids.h>
+#include <celduin/ebml_int.h>
+#include <celduin/exceptions.h>
+#include <celduin/string_element.h>
+#include <celduin/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -61,7 +61,7 @@ std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::stre
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(tide::ebml_int::encode_u(tide::ids::Void));
+        std::vector<char> tmp(celduin::ebml_int::encode_u(celduin::ids::Void));
         b.append(&tmp[0], 0, tmp.size());
         written += tmp.size();
     }
@@ -72,7 +72,7 @@ std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::stre
     }
     if (write_body)
     {
-        std::vector<char> tmp(tide::vint::encode(void_size - written - 1));
+        std::vector<char> tmp(celduin::vint::encode(void_size - written - 1));
         b.append(&tmp[0], 0, tmp.size());
         written += tmp.size();
         int remaining(total_size - written);
@@ -102,18 +102,18 @@ std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::stre
 
 TEST(VoidElement, Construction)
 {
-    tide::VoidElement ve1(8);
-    EXPECT_EQ(tide::ids::Void, ve1.id());
+    celduin::VoidElement ve1(8);
+    EXPECT_EQ(celduin::ids::Void, ve1.id());
     EXPECT_EQ(8, ve1.size());
     EXPECT_FALSE(ve1.fill());
 
-    tide::VoidElement ve2(8, true);
-    EXPECT_EQ(tide::ids::Void, ve2.id());
+    celduin::VoidElement ve2(8, true);
+    EXPECT_EQ(celduin::ids::Void, ve2.id());
     EXPECT_EQ(8, ve2.size());
     EXPECT_TRUE(ve2.fill());
 
-    tide::VoidElement ve3(8, false);
-    EXPECT_EQ(tide::ids::Void, ve3.id());
+    celduin::VoidElement ve3(8, false);
+    EXPECT_EQ(celduin::ids::Void, ve3.id());
     EXPECT_EQ(8, ve3.size());
     EXPECT_FALSE(ve3.fill());
 }
@@ -121,33 +121,33 @@ TEST(VoidElement, Construction)
 
 TEST(VoidElement, CopyConstruction)
 {
-    tide::VoidElement ve1(8);
-    EXPECT_EQ(tide::ids::Void, tide::VoidElement(ve1).id());
-    EXPECT_EQ(8, tide::VoidElement(ve1).size());
-    EXPECT_FALSE(tide::VoidElement(ve1).fill());
+    celduin::VoidElement ve1(8);
+    EXPECT_EQ(celduin::ids::Void, celduin::VoidElement(ve1).id());
+    EXPECT_EQ(8, celduin::VoidElement(ve1).size());
+    EXPECT_FALSE(celduin::VoidElement(ve1).fill());
 
-    tide::VoidElement ve2(8, true);
-    EXPECT_EQ(tide::ids::Void, tide::VoidElement(ve2).id());
-    EXPECT_EQ(8, tide::VoidElement(ve2).size());
-    EXPECT_TRUE(tide::VoidElement(ve2).fill());
+    celduin::VoidElement ve2(8, true);
+    EXPECT_EQ(celduin::ids::Void, celduin::VoidElement(ve2).id());
+    EXPECT_EQ(8, celduin::VoidElement(ve2).size());
+    EXPECT_TRUE(celduin::VoidElement(ve2).fill());
 
-    tide::VoidElement ve3(8, false);
-    EXPECT_EQ(tide::ids::Void, tide::VoidElement(ve3).id());
-    EXPECT_EQ(8, tide::VoidElement(ve3).size());
-    EXPECT_FALSE(tide::VoidElement(ve3).fill());
+    celduin::VoidElement ve3(8, false);
+    EXPECT_EQ(celduin::ids::Void, celduin::VoidElement(ve3).id());
+    EXPECT_EQ(8, celduin::VoidElement(ve3).size());
+    EXPECT_FALSE(celduin::VoidElement(ve3).fill());
 }
 
 
 TEST(VoidElement, CopyElement)
 {
-    tide::StringElement se(0x80, "12345");
+    celduin::StringElement se(0x80, "12345");
 
     std::streamsize se_size(se.size());
-    tide::VoidElement ve1(se);
+    celduin::VoidElement ve1(se);
     EXPECT_EQ(se_size, ve1.size());
     EXPECT_FALSE(ve1.fill());
 
-    tide::VoidElement ve2(se, true);
+    celduin::VoidElement ve2(se, true);
     EXPECT_EQ(se_size, ve2.size());
     EXPECT_TRUE(ve2.fill());
 
@@ -155,8 +155,8 @@ TEST(VoidElement, CopyElement)
     // the body size
     for (int ii(0); ii < 10; ++ii)
     {
-        tide::BinaryElement be(0x81, std::vector<char>(0x3FFB + ii, 0xC0));
-        tide::VoidElement ve3(be);
+        celduin::BinaryElement be(0x81, std::vector<char>(0x3FFB + ii, 0xC0));
+        celduin::VoidElement ve3(be);
         EXPECT_EQ(be.size(), ve3.size());
     }
 }
@@ -164,19 +164,19 @@ TEST(VoidElement, CopyElement)
 
 TEST(VoidElement, Assignment)
 {
-    tide::VoidElement e1(8), e2(16);
+    celduin::VoidElement e1(8), e2(16);
     e2 = e1;
     EXPECT_EQ(e1.id(), e2.id());
     EXPECT_EQ(e1.size(), e2.size());
     EXPECT_EQ(e1.fill(), e2.fill());
 
-    tide::VoidElement e3(8, true), e4(16, false);
+    celduin::VoidElement e3(8, true), e4(16, false);
     e3 = e4;
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.size(), e4.size());
     EXPECT_EQ(e3.fill(), e4.fill());
 
-    tide::VoidElement e5(8, false), e6(16, true);
+    celduin::VoidElement e5(8, false), e6(16, true);
     e5 = e6;
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.size(), e6.size());
@@ -186,7 +186,7 @@ TEST(VoidElement, Assignment)
 
 TEST(VoidElement, Size)
 {
-    tide::VoidElement e1(8);
+    celduin::VoidElement e1(8);
     EXPECT_EQ(8, e1.size());
     e1.set_size(16000);
     EXPECT_EQ(16000, e1.size());
@@ -197,19 +197,19 @@ TEST(VoidElement, Size)
 
 TEST(VoidElement, Fill)
 {
-    tide::VoidElement e1(8);
+    celduin::VoidElement e1(8);
     EXPECT_FALSE(e1.fill());
     e1.fill(true);
     EXPECT_TRUE(e1.fill());
     e1.fill(false);
     EXPECT_FALSE(e1.fill());
 
-    tide::VoidElement e2(8, true);
+    celduin::VoidElement e2(8, true);
     EXPECT_TRUE(e2.fill());
     e2.fill(false);
     EXPECT_FALSE(e2.fill());
 
-    tide::VoidElement e3(8, false);
+    celduin::VoidElement e3(8, false);
     EXPECT_FALSE(e3.fill());
     e3.fill(true);
     EXPECT_TRUE(e3.fill());
@@ -229,7 +229,7 @@ TEST(VoidElement, Write)
         c0.push_back(0xC0);
     }
 
-    tide::VoidElement v(size);
+    celduin::VoidElement v(size);
     output.str(c0);
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, f_size, fill, true, true);
@@ -266,30 +266,30 @@ TEST(VoidElement, Read)
     std::streamsize size(5), f_size(20);
     bool fill(false);
 
-    tide::VoidElement v(2);
+    celduin::VoidElement v(2);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
-    EXPECT_EQ(size - tide::ids::size(tide::ids::Void), v.read(input));
-    EXPECT_EQ(tide::ids::Void, v.id());
+    EXPECT_EQ(size - celduin::ids::size(celduin::ids::Void), v.read(input));
+    EXPECT_EQ(celduin::ids::Void, v.id());
     EXPECT_EQ(size, v.size());
     // Subtract the ID size because it wasn't written to input
-    EXPECT_EQ(v.size() - tide::ids::size(tide::ids::Void),
+    EXPECT_EQ(v.size() - celduin::ids::size(celduin::ids::Void),
             input.tellg());
 
     fill = true;
     std::string().swap(input_val);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
-    EXPECT_EQ(size - tide::ids::size(tide::ids::Void), v.read(input));
-    EXPECT_EQ(tide::ids::Void, v.id());
+    EXPECT_EQ(size - celduin::ids::size(celduin::ids::Void), v.read(input));
+    EXPECT_EQ(celduin::ids::Void, v.id());
     EXPECT_EQ(size, v.size());
     // Subtract the ID size because it wasn't written to input
-    EXPECT_EQ(v.size() - tide::ids::size(tide::ids::Void),
+    EXPECT_EQ(v.size() - celduin::ids::size(celduin::ids::Void),
             input.tellg());
 
     // Offset test
     input_val = "ab";
-    input_val.push_back(tide::ids::Void);
+    input_val.push_back(celduin::ids::Void);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
     input.seekg(3);
@@ -300,6 +300,6 @@ TEST(VoidElement, Read)
     std::string().swap(input_val);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val.substr(0, 3));
-    EXPECT_THROW(v.read(input), tide::ReadError);
+    EXPECT_THROW(v.read(input), celduin::ReadError);
 }
 

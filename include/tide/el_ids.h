@@ -36,8 +36,8 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_EL_IDS_H_)
-#define TIDE_EL_IDS_H_
+#if !defined(CELDUIN_EL_IDS_H_)
+#define CELDUIN_EL_IDS_H_
 
 #include <ios>
 #include <stdint.h>
@@ -46,12 +46,12 @@
 /// \addtogroup ebml EBML
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief This namespace contains constants and functions for managing
      * EBML class IDs.
      *
-     * The EBML class IDs used for the elements in a Tide document and
+     * The EBML class IDs used for the elements in a Celduin document and
      * functions for reading/writing them to byte streams are contained in this
      * namespace.
      */
@@ -269,9 +269,9 @@ namespace tide
          */
         ReadResult read(std::istream& input);
     }; // namespace ids
-}; // namespace tide
+}; // namespace celduin
 
 /// @} // group ebml
 
-#endif // TIDE_EL_IDS_H_
+#endif // CELDUIN_EL_IDS_H_
 

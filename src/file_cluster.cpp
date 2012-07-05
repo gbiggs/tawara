@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/file_cluster.h>
+#include <celduin/file_cluster.h>
 
-#include <tide/block_group.h>
-#include <tide/exceptions.h>
-#include <tide/simple_block.h>
+#include <celduin/block_group.h>
+#include <celduin/exceptions.h>
+#include <celduin/simple_block.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

@@ -37,20 +37,20 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/cluster.h>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/cluster.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
 #include "test_utils.h"
 
 
 // Fake Cluster implementation
-class FakeCluster : public tide::Cluster
+class FakeCluster : public celduin::Cluster
 {
     public:
         FakeCluster(uint64_t tc=0)
-            : tide::Cluster(tc)
+            : celduin::Cluster(tc)
         {
         }
 
@@ -59,7 +59,7 @@ class FakeCluster : public tide::Cluster
             return true;
         }
 
-        tide::Cluster::size_type count() const
+        celduin::Cluster::size_type count() const
         {
             return 0;
         }
@@ -68,7 +68,7 @@ class FakeCluster : public tide::Cluster
         {
         }
 
-        void push_back(tide::Cluster::value_type const&)
+        void push_back(celduin::Cluster::value_type const&)
         {
         }
 
@@ -111,7 +111,7 @@ TEST(BaseCluster, SilentTracks)
 {
     FakeCluster e;
     EXPECT_TRUE(e.silent_tracks().empty());
-    e.silent_tracks().push_back(tide::SilentTrackNumber(15));
+    e.silent_tracks().push_back(celduin::SilentTrackNumber(15));
     EXPECT_FALSE(e.silent_tracks().empty());
     EXPECT_EQ(e.silent_tracks()[0], 15);
 }
@@ -120,7 +120,7 @@ TEST(BaseCluster, SilentTracks)
 TEST(BaseCluster, Position)
 {
     FakeCluster e;
-    EXPECT_THROW(e.position(), tide::NotImplemented);
+    EXPECT_THROW(e.position(), celduin::NotImplemented);
 }
 
 
@@ -136,23 +136,23 @@ TEST(BaseCluster, PreviousSize)
 TEST(BaseCluster, Size)
 {
     FakeCluster e;
-    tide::UIntElement tc(tide::ids::Timecode, 0);
+    celduin::UIntElement tc(celduin::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + body_size, e.size());
+    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + body_size, e.size());
 
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    body_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
+    celduin::UIntElement st1(celduin::ids::SilentTrackNumber, 1);
+    celduin::UIntElement st2(celduin::ids::SilentTrackNumber, 2);
+    body_size += celduin::ids::size(celduin::ids::SilentTracks) +
+        celduin::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size();
-    e.silent_tracks().push_back(tide::SilentTrackNumber(1));
-    e.silent_tracks().push_back(tide::SilentTrackNumber(2));
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + body_size, e.size());
+    e.silent_tracks().push_back(celduin::SilentTrackNumber(1));
+    e.silent_tracks().push_back(celduin::SilentTrackNumber(2));
+    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + body_size, e.size());
 
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
+    celduin::UIntElement ps(celduin::ids::PrevSize, 0x1234);
     body_size += ps.size();
     e.previous_size(0x1234);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + body_size, e.size());
+    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + body_size, e.size());
 }
 
 
@@ -160,38 +160,38 @@ TEST(BaseCluster, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    tide::UIntElement tc(tide::ids::Timecode, 0);
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
+    celduin::UIntElement tc(celduin::ids::Timecode, 0);
+    celduin::UIntElement st1(celduin::ids::SilentTrackNumber, 1);
+    celduin::UIntElement st2(celduin::ids::SilentTrackNumber, 2);
+    celduin::UIntElement ps(celduin::ids::PrevSize, 0x1234);
 
     FakeCluster e;
     std::streamsize expected_size(tc.size());
-    tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected, 8);
+    celduin::ids::write(celduin::ids::Cluster, expected);
+    celduin::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
-    expected_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
+    expected_size += celduin::ids::size(celduin::ids::SilentTracks) +
+        celduin::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
-    e.silent_tracks().push_back(tide::SilentTrackNumber(1));
-    e.silent_tracks().push_back(tide::SilentTrackNumber(2));
+    e.silent_tracks().push_back(celduin::SilentTrackNumber(1));
+    e.silent_tracks().push_back(celduin::SilentTrackNumber(2));
     e.previous_size(0x1234);
     output.str(std::string());
     expected.str(std::string());
-    tide::ids::write(tide::ids::Cluster, expected);
-    tide::vint::write(expected_size, expected, 8);
+    celduin::ids::write(celduin::ids::Cluster, expected);
+    celduin::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    tide::ids::write(tide::ids::SilentTracks, expected);
-    tide::vint::write(st1.size() + st2.size(), expected);
+    celduin::ids::write(celduin::ids::SilentTracks, expected);
+    celduin::vint::write(st1.size() + st2.size(), expected);
     st1.write(expected);
     st2.write(expected);
     ps.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -201,32 +201,32 @@ TEST(BaseCluster, Write)
 TEST(BaseCluster, Read)
 {
     std::stringstream input;
-    tide::UIntElement tc(tide::ids::Timecode, 42);
-    tide::UIntElement st1(tide::ids::SilentTrackNumber, 1);
-    tide::UIntElement st2(tide::ids::SilentTrackNumber, 2);
-    tide::UIntElement ps(tide::ids::PrevSize, 0x1234);
+    celduin::UIntElement tc(celduin::ids::Timecode, 42);
+    celduin::UIntElement st1(celduin::ids::SilentTrackNumber, 1);
+    celduin::UIntElement st2(celduin::ids::SilentTrackNumber, 2);
+    celduin::UIntElement ps(celduin::ids::PrevSize, 0x1234);
 
     FakeCluster e;
     std::streamsize body_size(tc.size());
-    tide::vint::write(body_size, input);
+    celduin::vint::write(body_size, input);
     tc.write(input);
-    EXPECT_EQ(tide::vint::size(body_size) + body_size,
+    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_TRUE(e.silent_tracks().empty());
     EXPECT_EQ(0, e.previous_size());
 
-    body_size += tide::ids::size(tide::ids::SilentTracks) +
-        tide::vint::size(st1.size() + st2.size()) +
+    body_size += celduin::ids::size(celduin::ids::SilentTracks) +
+        celduin::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
-    tide::vint::write(body_size, input);
+    celduin::vint::write(body_size, input);
     tc.write(input);
-    tide::ids::write(tide::ids::SilentTracks, input);
-    tide::vint::write(st1.size() + st2.size(), input);
+    celduin::ids::write(celduin::ids::SilentTracks, input);
+    celduin::vint::write(st1.size() + st2.size(), input);
     st1.write(input);
     st2.write(input);
     ps.write(input);
-    EXPECT_EQ(tide::vint::size(body_size) + body_size,
+    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_FALSE(e.silent_tracks().empty());
@@ -234,20 +234,20 @@ TEST(BaseCluster, Read)
 
     // Body size value wrong (too small)
     input.str(std::string());
-    tide::vint::write(2, input);
+    celduin::vint::write(2, input);
     tc.write(input);
     ps.write(input);
-    EXPECT_THROW(e.read(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), celduin::BadBodySize);
     // Invalid child
     input.str(std::string());
-    tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.size(), input);
+    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
+    celduin::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
     // Missing timecode
     input.str(std::string());
-    tide::vint::write(ps.size(), input);
+    celduin::vint::write(ps.size(), input);
     ps.write(input);
-    EXPECT_THROW(e.read(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), celduin::MissingChild);
 }
 

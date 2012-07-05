@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_EXCEPTIONS_H_)
-#define TIDE_EXCEPTIONS_H_
+#if !defined(CELDUIN_EXCEPTIONS_H_)
+#define CELDUIN_EXCEPTIONS_H_
 
-#include <tide/el_ids.h>
-#include <tide/win_dll.h>
+#include <celduin/el_ids.h>
+#include <celduin/win_dll.h>
 
 #include <boost/exception/all.hpp>
 #include <exception>
@@ -50,32 +50,32 @@
 /// \addtogroup exceptions Exceptions
 /// @{
 
-namespace tide
+namespace celduin
 {
     /// \brief Base error type.
-    struct TideError : virtual std::exception, virtual boost::exception {};
+    struct CelduinError : virtual std::exception, virtual boost::exception {};
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error types
 ///////////////////////////////////////////////////////////////////////////////
 
     /// \brief Something is not supported.
-    struct NotImplemented : virtual TideError {};
+    struct NotImplemented : virtual CelduinError {};
 
     /** \brief File is not an EBML file.
      *
-     * Tide uses EBML for its file format. If an opened file is not an EBML
+     * Celduin uses EBML for its file format. If an opened file is not an EBML
      * file, this error will occur.
      */
-    struct NotEBML : virtual TideError {};
+    struct NotEBML : virtual CelduinError {};
 
-    /** \brief File is not a Tide file.
+    /** \brief File is not a Celduin file.
      *
      * Usually encountered when trying to open an existing name (either for
-     * reading or appending) that is not a Tide object (e.g. a file that is not
-     * a Tide file).
+     * reading or appending) that is not a Celduin object (e.g. a file that is not
+     * a Celduin file).
      */
-    struct NotTide : virtual TideError {};
+    struct NotCelduin : virtual CelduinError {};
 
     /** \brief The required EBML read version is too high.
      *
@@ -84,16 +84,16 @@ namespace tide
      *
      * The version from the file may be attached as an err_ver tag.
      */
-    struct BadReadVersion : virtual TideError {};
+    struct BadReadVersion : virtual CelduinError {};
 
-    /** \brief The required Tide read version is too high.
+    /** \brief The required Celduin read version is too high.
      *
-     * The EBML header specifies the minimum Tide parser version necessary to
-     * be able to read the Tide file. If it is too high, this error occurs.
+     * The EBML header specifies the minimum Celduin parser version necessary to
+     * be able to read the Celduin file. If it is too high, this error occurs.
      *
      * The version from the file may be attached as an err_ver tag.
      */
-    struct BadDocReadVersion : virtual TideError {};
+    struct BadDocReadVersion : virtual CelduinError {};
 
     /** \brief An invalid EBML class ID was found.
      *
@@ -107,7 +107,7 @@ namespace tide
      * An err_pos tag may be included, indicating where the bad ID was
      * encountered.
      */
-    struct InvalidEBMLID : virtual TideError {};
+    struct InvalidEBMLID : virtual CelduinError {};
 
     /** \brief An invalid variable-length integer was found.
      *
@@ -118,12 +118,12 @@ namespace tide
      * An err_pos tag will often be included indicating where the bad
      * variable-length integer was encountered.
      */
-    struct InvalidVarInt : virtual TideError {};
+    struct InvalidVarInt : virtual CelduinError {};
 
     /** \brief A variable-length integer is too large to be encoded.
      *
      * Encountered when encoding an integer as a variable-length integer for
-     * writing to a Tide object. The maximum allowable size of a
+     * writing to a Celduin object. The maximum allowable size of a
      * variable-length integer is given in the EBML specification.
      *
      * The err_varint tag will often be included, indicating the value that
@@ -132,7 +132,7 @@ namespace tide
      * The err_bufsize tag may be included to indicate the size of a buffer
      * that the variable-length integer was to be written to.
      */
-    struct VarIntTooBig : virtual TideError {};
+    struct VarIntTooBig : virtual CelduinError {};
 
     /** \brief A specified size for a variable-length integer is too small.
      *
@@ -150,7 +150,7 @@ namespace tide
      * The err_specsize tag may be included, giving the size that was
      * requested.
      */
-    struct SpecSizeTooSmall : virtual TideError {};
+    struct SpecSizeTooSmall : virtual CelduinError {};
 
     /** \brief A buffer was too small for the data.
      *
@@ -162,7 +162,7 @@ namespace tide
      *
      * The err_reqsize tag may be included to indicate the required size.
      */
-    struct BufferTooSmall : virtual TideError {};
+    struct BufferTooSmall : virtual CelduinError {};
 
     /** \brief A read error was encountered during a read.
      *
@@ -178,7 +178,7 @@ namespace tide
      * The err_reqsize tag may be included to indicate the size of the read
      * that was attempted.
      */
-    struct ReadError : virtual TideError {};
+    struct ReadError : virtual CelduinError {};
 
     /** \brief A write error was encountered during a write.
      *
@@ -191,7 +191,7 @@ namespace tide
      * The err_pos tag may be included to indicate where in the file the error
      * occured.
      */
-    struct WriteError : virtual TideError {};
+    struct WriteError : virtual CelduinError {};
 
     /** \brief An invalid Element ID was provided.
      *
@@ -200,7 +200,7 @@ namespace tide
      *
      * The err_id tag may be provided, indicating the invalid ID.
      */
-    struct InvalidElementID : virtual TideError {};
+    struct InvalidElementID : virtual CelduinError {};
 
     /** \brief A fixed-length element is truncated or lengthened in the file.
      *
@@ -221,7 +221,7 @@ namespace tide
      *
      * The err_valid_sizes tag may be provided, giving the valid sizes.
      */
-    struct BadElementLength : virtual TideError {};
+    struct BadElementLength : virtual CelduinError {};
 
     /** \brief A read body size does not match the actual body size in the
      * file.
@@ -231,7 +231,7 @@ namespace tide
      *
      * The err_el_size tag may be provided, giving the size found.
      */
-    struct BadBodySize : virtual TideError {};
+    struct BadBodySize : virtual CelduinError {};
 
     /** \brief A child element was found where it doesn't belong.
      *
@@ -246,7 +246,7 @@ namespace tide
      * The err_pos tag may be included to indicate where in the file the error
      * occured.
      */
-    struct InvalidChildID : virtual TideError {};
+    struct InvalidChildID : virtual CelduinError {};
 
     /** \brief A necessary child element was missing.
      *
@@ -261,13 +261,13 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct MissingChild : virtual TideError{};
+    struct MissingChild : virtual CelduinError{};
 
     /** \brief A child element's value was set outside the allowable range.
      *
      * Often, child elements will have an allowable range of values, such as
      * not zero or positive integers. This error occurs when a child element's
-     * value is set outside its allowable range. See the Tide format
+     * value is set outside its allowable range. See the Celduin format
      * specification for the allowable range of each element.
      *
      * The err_id tag may be included to give the ID of the bad child
@@ -278,7 +278,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct ValueOutOfRange : virtual TideError{};
+    struct ValueOutOfRange : virtual CelduinError{};
 
     /** \brief A child element's size is below or above the required size.
      *
@@ -292,7 +292,7 @@ namespace tide
      *
      * The err_par_id tag may be included to give the ID of the parent element.
      */
-    struct ValueSizeOutOfRange : virtual TideError{};
+    struct ValueSizeOutOfRange : virtual CelduinError{};
 
     /** \brief An empty Tracks element was read or written.
      *
@@ -303,7 +303,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct EmptyTracksElement : virtual TideError{};
+    struct EmptyTracksElement : virtual CelduinError{};
 
     /** \brief A duplicate track number was encountered.
      *
@@ -317,7 +317,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct DuplicateTrackNumber : virtual TideError{};
+    struct DuplicateTrackNumber : virtual CelduinError{};
 
     /** \brief A UID collision was encountered.
      *
@@ -330,14 +330,14 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct DuplicateUID : virtual TideError{};
+    struct DuplicateUID : virtual CelduinError{};
 
     /** \brief An empty block was encountered.
      *
      * A block must contain frame data. An empty block is an error, either when
      * reading or writing.
      */
-    struct EmptyBlock : virtual TideError{};
+    struct EmptyBlock : virtual CelduinError{};
 
     /** \brief An empty frame was encountered.
      *
@@ -347,13 +347,13 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured, if it occured while reading a file.
      */
-    struct EmptyFrame : virtual TideError{};
+    struct EmptyFrame : virtual CelduinError{};
 
     /** \brief The maximum lace size for a block was exceeded.
      *
      * Different forms of lacing may have different limits on the number of
      * frames that can be stored other than infinity. In the case of
-     * tide::BlockBase::LACING_NONE, this limit is 0. This error occurs when
+     * celduin::BlockBase::LACING_NONE, this limit is 0. This error occurs when
      * more frames than the block can hold, based on its lacing policy, are
      * added.
      *
@@ -363,7 +363,7 @@ namespace tide
      * The err_req_lace tag may be included to give the requested number of
      * frames in the lace.
      */
-    struct MaxLaceSizeExceeded : virtual TideError{};
+    struct MaxLaceSizeExceeded : virtual CelduinError{};
 
     /** \brief A frame with a bad size was added to a block.
      *
@@ -378,7 +378,7 @@ namespace tide
      * The err_frame_size tag may be included to indicate the size of the bad
      * frame.
      */
-    struct BadLacedFrameSize : virtual TideError{};
+    struct BadLacedFrameSize : virtual CelduinError{};
 
     /** \brief An empty BlockAdditions element was read or written.
      *
@@ -389,7 +389,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct EmptyBlockAdditionsElement : virtual TideError{};
+    struct EmptyBlockAdditionsElement : virtual CelduinError{};
 
     /** \brief A segment was found with multiple meta-seeks.
      *
@@ -399,7 +399,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct MultipleSeekHeads : virtual TideError{};
+    struct MultipleSeekHeads : virtual CelduinError{};
 
     /** \brief A segment was found without a segment info element.
      *
@@ -409,7 +409,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct NoSegmentInfo : virtual TideError{};
+    struct NoSegmentInfo : virtual CelduinError{};
 
     /** \brief A segment was found without a tracks information element.
      *
@@ -419,7 +419,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct NoTracks : virtual TideError{};
+    struct NoTracks : virtual CelduinError{};
 
     /** \brief A segment was found without at least one cluster.
      *
@@ -429,7 +429,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct NoClusters : virtual TideError{};
+    struct NoClusters : virtual CelduinError{};
 
     /** \brief A segment or cluster was finalised before being started.
      *
@@ -437,7 +437,7 @@ namespace tide
      * this must occur after a call to write. If a segment or cluster is
      * finalised before writing is begun, this error occurs.
      */
-    struct NotWriting : virtual TideError{};
+    struct NotWriting : virtual CelduinError{};
 
     /** \brief The requested size of a void element is too small.
      *
@@ -446,7 +446,7 @@ namespace tide
      *
      * The err_reqsize tag may be included to give the requested size.
      */
-    struct VoidTooSmall : virtual TideError{};
+    struct VoidTooSmall : virtual CelduinError{};
 
     /** \brief An attachments element with no attachments was read or written.
      *
@@ -456,7 +456,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct NoAttachments : virtual TideError{};
+    struct NoAttachments : virtual CelduinError{};
 
     /** \brief An attached file with no data was read or written.
      *
@@ -466,7 +466,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct NoAttachedData : virtual TideError{};
+    struct NoAttachedData : virtual CelduinError{};
 
     /** \brief A duplicate timecode was encountered in the cues.
      *
@@ -477,7 +477,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct DuplicateTimecode : virtual TideError{};
+    struct DuplicateTimecode : virtual CelduinError{};
 
     /** \brief An empty Cues element was read or written.
      *
@@ -488,7 +488,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct EmptyCuesElement : virtual TideError{};
+    struct EmptyCuesElement : virtual CelduinError{};
 
     /** \brief An empty CuePoint element was read or written.
      *
@@ -500,7 +500,7 @@ namespace tide
      * The err_pos tag may be included to give the approximate position in the
      * file where the error occured.
      */
-    struct EmptyCuePointElement : virtual TideError{};
+    struct EmptyCuePointElement : virtual CelduinError{};
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -510,7 +510,7 @@ namespace tide
     /// \brief A version.
     typedef boost::error_info<struct tag_ver, std::streamsize> err_ver;
 
-    /// \brief Position in a Tide file.
+    /// \brief Position in a Celduin file.
     typedef boost::error_info<struct tag_pos, std::streamsize> err_pos;
 
     /// \brief Value of a variable-length integer.
@@ -554,10 +554,10 @@ namespace tide
     /// \brief The size of a frame.
     typedef boost::error_info<struct tag_frame_size, std::streamsize>
         err_frame_size;
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group exceptions
 
-#endif // TIDE_EXCEPTIONS_H_
+#endif // CELDUIN_EXCEPTIONS_H_
 

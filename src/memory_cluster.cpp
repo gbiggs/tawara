@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/memory_cluster.h>
+#include <celduin/memory_cluster.h>
 
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <tide/block_group.h>
-#include <tide/exceptions.h>
-#include <tide/simple_block.h>
+#include <celduin/block_group.h>
+#include <celduin/exceptions.h>
+#include <celduin/simple_block.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

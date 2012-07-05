@@ -36,22 +36,22 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/tide_impl.h>
+#include <celduin/celduin_impl.h>
 
-#include <tide/ebml_element.h>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/ebml_element.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-TideImpl::TideImpl(std::iostream& stream)
-    : Tide(stream),
+CelduinImpl::CelduinImpl(std::iostream& stream)
+    : Celduin(stream),
     stream_(stream)
 {
     prepare_stream();
@@ -62,7 +62,7 @@ TideImpl::TideImpl(std::iostream& stream)
 // Private methods
 ///////////////////////////////////////////////////////////////////////////////
 
-void TideImpl::prepare_stream()
+void CelduinImpl::prepare_stream()
 {
     // Preserve the current read position
     std::streamsize cur(stream_.tellg());
@@ -106,15 +106,15 @@ void TideImpl::prepare_stream()
         // Read the header and check the DocType
         EBMLElement e;
         e.read(stream_);
-        if (e.doc_type() != TideDocType)
+        if (e.doc_type() != CelduinDocType)
         {
-            throw NotTide();
+            throw NotCelduin();
         }
-        if (e.read_version() > TideVersionMajor)
+        if (e.read_version() > CelduinVersionMajor)
         {
             throw BadReadVersion();
         }
-        if (e.doc_read_version() > TideVersionMajor)
+        if (e.doc_read_version() > CelduinVersionMajor)
         {
             throw BadDocReadVersion();
         }

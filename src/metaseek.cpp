@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/metaseek.h>
+#include <celduin/metaseek.h>
 
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <tide/seek_element.h>
-#include <tide/vint.h>
+#include <celduin/seek_element.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ SeekHead::SeekHead()
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(SeekHead const& lhs, SeekHead const& rhs)
+bool celduin::operator==(SeekHead const& lhs, SeekHead const& rhs)
 {
     return lhs.index_ == rhs.index_;
 }
@@ -74,7 +74,7 @@ bool tide::operator==(SeekHead const& lhs, SeekHead const& rhs)
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize add_size(std::streamsize x, tide::SeekHead::value_type v)
+std::streamsize add_size(std::streamsize x, celduin::SeekHead::value_type v)
 {
     SeekElement se(v.first, v.second);
     return x + se.size();
@@ -109,7 +109,7 @@ std::streamsize SeekHead::read_body(std::istream& input,
     while (read_bytes < size)
     {
         // Read the ID
-        ids::ReadResult id_res = tide::ids::read(input);
+        ids::ReadResult id_res = celduin::ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
         if (id != ids::Seek)

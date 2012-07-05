@@ -36,16 +36,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/ebml_element.h>
+#include <celduin/ebml_element.h>
 
 #include <boost/foreach.hpp>
 #include <boost/shared_ptr.hpp>
 #include <gtest/gtest.h>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/tide_config.h>
-#include <tide/uint_element.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/celduin_config.h>
+#include <celduin/uint_element.h>
+#include <celduin/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -53,8 +53,8 @@
 
 TEST(EBMLElement, Create)
 {
-    tide::EBMLElement e("Blag");
-    EXPECT_EQ(tide::ids::EBML, e.id());
+    celduin::EBMLElement e("Blag");
+    EXPECT_EQ(celduin::ids::EBML, e.id());
     EXPECT_EQ(1, e.version());
     EXPECT_EQ(1, e.read_version());
     EXPECT_EQ(4, e.max_id_length());
@@ -67,7 +67,7 @@ TEST(EBMLElement, Create)
 
 TEST(EBMLElement, MaxIDLength)
 {
-    tide::EBMLElement e("");
+    celduin::EBMLElement e("");
     EXPECT_EQ(4, e.max_id_length());
     e.max_id_length(8);
     EXPECT_EQ(8, e.max_id_length());
@@ -76,7 +76,7 @@ TEST(EBMLElement, MaxIDLength)
 
 TEST(EBMLElement, MaxSizeLength)
 {
-    tide::EBMLElement e("");
+    celduin::EBMLElement e("");
     EXPECT_EQ(8, e.max_size_length());
     e.max_size_length(4);
     EXPECT_EQ(4, e.max_size_length());
@@ -85,16 +85,16 @@ TEST(EBMLElement, MaxSizeLength)
 
 TEST(EBMLElement, DocType)
 {
-    tide::EBMLElement e("");
+    celduin::EBMLElement e("");
     EXPECT_EQ("", e.doc_type());
-    e.doc_type("Tide");
-    EXPECT_EQ("Tide", e.doc_type());
+    e.doc_type("Celduin");
+    EXPECT_EQ("Celduin", e.doc_type());
 }
 
 
 TEST(EBMLElement, DocVersion)
 {
-    tide::EBMLElement e("");
+    celduin::EBMLElement e("");
     EXPECT_EQ(0, e.doc_version());
     e.doc_version(2);
     EXPECT_EQ(2, e.doc_version());
@@ -103,7 +103,7 @@ TEST(EBMLElement, DocVersion)
 
 TEST(EBMLElement, DocReadVersion)
 {
-    tide::EBMLElement e("");
+    celduin::EBMLElement e("");
     EXPECT_EQ(0, e.doc_read_version());
     e.doc_read_version(2);
     EXPECT_EQ(2, e.doc_read_version());
@@ -114,40 +114,40 @@ TEST(EBMLElement, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    typedef boost::shared_ptr<tide::Element> ElPtr;
+    typedef boost::shared_ptr<celduin::Element> ElPtr;
     std::vector<ElPtr> children;
 
     // Writing with everything defaults should give a full-length body for the
     // EBML header because values get written even if they are default
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLVersion,
                     1)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLReadVersion,
                     1)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLMaxIDLength,
                     4)));
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::EBMLMaxSizeLength, 8)));
-    children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
-                    "tide")));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
+                celduin::UIntElement(celduin::ids::EBMLMaxSizeLength, 8)));
+    children.push_back(ElPtr(new celduin::StringElement(celduin::ids::DocType,
+                    "celduin")));
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::DocTypeVersion,
                     0)));
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::DocTypeReadVersion, 0)));
-    tide::EBMLElement e;
+                celduin::UIntElement(celduin::ids::DocTypeReadVersion, 0)));
+    celduin::EBMLElement e;
     std::streamsize expected_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
         expected_size += el->size();
     }
-    tide::ids::write(tide::ids::EBML, expected);
-    tide::vint::write(expected_size, expected);
+    celduin::ids::write(celduin::ids::EBML, expected);
+    celduin::vint::write(expected_size, expected);
     BOOST_FOREACH(ElPtr el, children)
     {
         el->write(expected);
     }
 
-    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
-            tide::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(celduin::ids::size(celduin::ids::EBML) +
+            celduin::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -157,24 +157,24 @@ TEST(EBMLElement, Write)
     output.str(std::string());
     expected.str(std::string());
     children.clear();
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLVersion,
                     1)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLReadVersion,
                     1)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLMaxIDLength,
                     5)));
     e.max_id_length(5);
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::EBMLMaxSizeLength, 7)));
+                celduin::UIntElement(celduin::ids::EBMLMaxSizeLength, 7)));
     e.max_size_length(7);
-    children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
+    children.push_back(ElPtr(new celduin::StringElement(celduin::ids::DocType,
                     "blag")));
     e.doc_type("blag");
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::DocTypeVersion,
                     2)));
     e.doc_version(2);
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::DocTypeReadVersion, 2)));
+                celduin::UIntElement(celduin::ids::DocTypeReadVersion, 2)));
     e.doc_read_version(2);
 
     expected_size = 0;
@@ -182,14 +182,14 @@ TEST(EBMLElement, Write)
     {
         expected_size += el->size();
     }
-    tide::ids::write(tide::ids::EBML, expected);
-    tide::vint::write(expected_size, expected);
+    celduin::ids::write(celduin::ids::EBML, expected);
+    celduin::vint::write(expected_size, expected);
     BOOST_FOREACH(ElPtr el, children)
     {
         el->write(expected);
     }
-    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
-            tide::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(celduin::ids::size(celduin::ids::EBML) +
+            celduin::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -199,38 +199,38 @@ TEST(EBMLElement, Write)
 TEST(EBMLElement, Read)
 {
     std::stringstream input;
-    typedef boost::shared_ptr<tide::Element> ElPtr;
+    typedef boost::shared_ptr<celduin::Element> ElPtr;
     std::vector<ElPtr> children;
 
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLVersion,
                     2)));
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::DocTypeReadVersion, 2)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
+                celduin::UIntElement(celduin::ids::DocTypeReadVersion, 2)));
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLMaxIDLength,
                     5)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLReadVersion,
                     2)));
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::EBMLMaxSizeLength, 7)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
+                celduin::UIntElement(celduin::ids::EBMLMaxSizeLength, 7)));
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::DocTypeVersion,
                     2)));
-    children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
+    children.push_back(ElPtr(new celduin::StringElement(celduin::ids::DocType,
                     "blag")));
 
-    tide::EBMLElement e("");
+    celduin::EBMLElement e("");
 
     std::streamsize body_size(0);
     BOOST_FOREACH(ElPtr el, children)
     {
         body_size += el->size();
     }
-    tide::vint::write(body_size, input);
+    celduin::vint::write(body_size, input);
     BOOST_FOREACH(ElPtr el, children)
     {
         el->write(input);
     }
 
-    EXPECT_EQ(tide::vint::size(body_size) + body_size,
+    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(2, e.version());
     EXPECT_EQ(2, e.read_version());
@@ -242,57 +242,57 @@ TEST(EBMLElement, Read)
 
     // Zero-length body (all values should become defaults)
     input.str(std::string());
-    tide::vint::write(0, input);
+    celduin::vint::write(0, input);
     EXPECT_EQ(1, e.read(input));
     EXPECT_EQ(1, e.version());
     EXPECT_EQ(1, e.read_version());
     EXPECT_EQ(4, e.max_id_length());
     EXPECT_EQ(8, e.max_size_length());
-    EXPECT_EQ(tide::TideDocType, e.doc_type());
+    EXPECT_EQ(celduin::CelduinDocType, e.doc_type());
     EXPECT_EQ(0, e.doc_version());
     EXPECT_EQ(0, e.doc_read_version());
 
     // Body size value wrong (too small)
     input.str(std::string());
-    tide::vint::write(2, input);
+    celduin::vint::write(2, input);
     children[0]->write(input);
     children[3]->write(input);
-    EXPECT_THROW(e.read(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), celduin::BadBodySize);
     // Invalid child
     input.str(std::string());
-    tide::UIntElement ue(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue.size(), input);
+    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
+    celduin::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
 }
 
 
 TEST(EBMLElement, Size)
 {
-    typedef boost::shared_ptr<tide::Element> ElPtr;
+    typedef boost::shared_ptr<celduin::Element> ElPtr;
     std::vector<ElPtr> children;
 
     // Size with everything defaults
-    tide::EBMLElement e1;
-    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
-            tide::vint::size(29) + 29, e1.size());
+    celduin::EBMLElement e1;
+    EXPECT_EQ(celduin::ids::size(celduin::ids::EBML) +
+            celduin::vint::size(29) + 29, e1.size());
 
     // Size with non-defaults. Note that EBMLVersion and EBMLReadVersion can
     // never be anything other than the default in this test.
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLVersion,
                     1)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLReadVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLReadVersion,
                     1)));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::EBMLMaxIDLength,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::EBMLMaxIDLength,
                     5)));
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::EBMLMaxSizeLength, 7)));
-    children.push_back(ElPtr(new tide::StringElement(tide::ids::DocType,
+                celduin::UIntElement(celduin::ids::EBMLMaxSizeLength, 7)));
+    children.push_back(ElPtr(new celduin::StringElement(celduin::ids::DocType,
                     "blag")));
-    children.push_back(ElPtr(new tide::UIntElement(tide::ids::DocTypeVersion,
+    children.push_back(ElPtr(new celduin::UIntElement(celduin::ids::DocTypeVersion,
                     2)));
     children.push_back(ElPtr(new
-                tide::UIntElement(tide::ids::DocTypeReadVersion, 2)));
+                celduin::UIntElement(celduin::ids::DocTypeReadVersion, 2)));
 
     std::streamsize body_size(0);
     BOOST_FOREACH(ElPtr el, children)
@@ -300,12 +300,12 @@ TEST(EBMLElement, Size)
         body_size += el->size();
     }
 
-    tide::EBMLElement e2("blag");
+    celduin::EBMLElement e2("blag");
     e2.max_id_length(5);
     e2.max_size_length(7);
     e2.doc_version(2);
     e2.doc_read_version(2);
-    EXPECT_EQ(tide::ids::size(tide::ids::EBML) +
-            tide::vint::size(body_size) + body_size, e2.size());
+    EXPECT_EQ(celduin::ids::size(celduin::ids::EBML) +
+            celduin::vint::size(body_size) + body_size, e2.size());
 }
 

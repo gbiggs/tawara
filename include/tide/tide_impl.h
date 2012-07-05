@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_TIDE_IMPL_H_)
-#define TIDE_TIDE_IMPL_H_
+#if !defined(CELDUIN_CELDUIN_IMPL_H_)
+#define CELDUIN_CELDUIN_IMPL_H_
 
-#include <tide/tide.h>
-#include <tide/win_dll.h>
+#include <celduin/celduin.h>
+#include <celduin/win_dll.h>
 
 #include <fstream>
 #include <iostream>
@@ -49,20 +49,20 @@
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
-    /** \brief Implementation of the Tide interface.
+    /** \brief Implementation of the Celduin interface.
      *
-     * See tide::Tide for method documentation.
+     * See celduin::Celduin for method documentation.
      */
-    class TIDE_EXPORT TideImpl : public Tide
+    class CELDUIN_EXPORT CelduinImpl : public Celduin
     {
         public:
-            /// \brief Create a new Tide implementation object.
-            TideImpl(std::iostream& stream);
+            /// \brief Create a new Celduin implementation object.
+            CelduinImpl(std::iostream& stream);
 
-            /// \brief Destructor for the Tide implementation object.
-            virtual ~TideImpl() {};
+            /// \brief Destructor for the Celduin implementation object.
+            virtual ~CelduinImpl() {};
 
         protected:
             /// The stream being operated on.
@@ -71,11 +71,11 @@ namespace tide
             /// Prepares the stream for use by checking for EBML content, and
             /// adding a header if the stream is empty.
             void prepare_stream();
-    }; // class TideFile
-}; // namespace tide
+    }; // class CelduinFile
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_TIDE_IMPL_H_
+#endif // CELDUIN_CELDUIN_IMPL_H_
 

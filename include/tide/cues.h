@@ -36,20 +36,20 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_CUES_H_)
-#define TIDE_CUES_H_
+#if !defined(CELDUIN_CUES_H_)
+#define CELDUIN_CUES_H_
 
 #include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
-#include <tide/master_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/master_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 #include <vector>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The position in the segment of the data for a single track.
      *
@@ -57,7 +57,7 @@ namespace tide
      * for the data for a single track. It is used by a CuePoint to hold the
      * track positions for a timecode.
      */
-    class TIDE_EXPORT CueTrackPosition : public MasterElement,
+    class CELDUIN_EXPORT CueTrackPosition : public MasterElement,
             public boost::equality_comparable<CueTrackPosition>
     {
         public:
@@ -163,7 +163,7 @@ namespace tide
      * A CuePoint must contain at least one track position before it can be
      * written to a segment.
      */
-    class TIDE_EXPORT CuePoint : public MasterElement,
+    class CELDUIN_EXPORT CuePoint : public MasterElement,
             public boost::equality_comparable<CuePoint>
     {
         protected:
@@ -261,7 +261,7 @@ namespace tide
 
             /** \brief Check if there are no cue positions.
              *
-             * An empty CuePoint element may not occur in a Tide file. If this
+             * An empty CuePoint element may not occur in a Celduin file. If this
              * returns true, an error will occur when write() is called.
              */
             virtual bool empty() const { return positions_.empty(); }
@@ -340,7 +340,7 @@ namespace tide
      * and the positions of clusters and/or blocks that correspond to that
      * timecode (typically one for each track active at that timecode). The
      * resolution of cues (i.e. how far apart they are in time) is left up to
-     * the writer of the Tide file. Generally, at a minimum, one cue point
+     * the writer of the Celduin file. Generally, at a minimum, one cue point
      * should exist for the start of each cluster in the segment. Another
      * approach is one cue point per set time interval.
      *
@@ -350,7 +350,7 @@ namespace tide
      * The Cues must contain at least one CuePoint before it can be written to
      * a segment.
      */
-    class TIDE_EXPORT Cues : public MasterElement,
+    class CELDUIN_EXPORT Cues : public MasterElement,
             public boost::equality_comparable<Cues>
     {
         public:
@@ -533,10 +533,10 @@ namespace tide
 
     /// \brief Equality operator for the Cues element.
     bool operator==(Cues const& lhs, Cues const& rhs);
-}; // namespace tide;
+}; // namespace celduin;
 
 /// @}
 // group elements
 
-#endif // TIDE_CUES_H_
+#endif // CELDUIN_CUES_H_
 

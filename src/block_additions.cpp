@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/block_additions.h>
+#include <celduin/block_additions.h>
 
 #include <boost/foreach.hpp>
-#include <tide/binary_element.h>
-#include <tide/el_ids.h>
-#include <tide/ebml_int.h>
-#include <tide/exceptions.h>
-#include <tide/uint_element.h>
-#include <tide/vint.h>
+#include <celduin/binary_element.h>
+#include <celduin/el_ids.h>
+#include <celduin/ebml_int.h>
+#include <celduin/exceptions.h>
+#include <celduin/uint_element.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ void BlockAdditions::push_back(value_type const& value)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(BlockAdditions const& lhs, BlockAdditions const& rhs)
+bool celduin::operator==(BlockAdditions const& lhs, BlockAdditions const& rhs)
 {
     return lhs.additions_ == rhs.additions_;
 }

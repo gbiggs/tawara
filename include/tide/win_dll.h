@@ -36,20 +36,20 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_WIN_DLL_H_)
-#define TIDE_WIN_DLL_H_
+#if !defined(CELDUIN_WIN_DLL_H_)
+#define CELDUIN_WIN_DLL_H_
 
 #if defined(WIN32)
-    #if defined(TIDE_STATIC)
-        #define TIDE_EXPORT
-    #elif defined(tide_EXPORTS)
-        #define TIDE_EXPORT __declspec(dllexport)
+    #if defined(CELDUIN_STATIC)
+        #define CELDUIN_EXPORT
+    #elif defined(celduin_EXPORTS)
+        #define CELDUIN_EXPORT __declspec(dllexport)
     #else
-        #define TIDE_EXPORT __declspec(dllimport)
+        #define CELDUIN_EXPORT __declspec(dllimport)
     #endif
 #else
-    #define TIDE_EXPORT
+    #define CELDUIN_EXPORT
 #endif
 
-#endif // TIDE_WIN_DLL_H_
+#endif // CELDUIN_WIN_DLL_H_
 

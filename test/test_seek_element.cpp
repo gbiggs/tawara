@@ -37,19 +37,19 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/seek_element.h>
-#include <tide/uint_element.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/seek_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(Seek, Create)
 {
-    tide::SeekElement e(0x80, 2);
-    EXPECT_EQ(tide::ids::Seek, e.id());
+    celduin::SeekElement e(0x80, 2);
+    EXPECT_EQ(celduin::ids::Seek, e.id());
     EXPECT_EQ(0x80, e.indexed_id());
     EXPECT_EQ(2, e.offset());
 }
@@ -57,18 +57,18 @@ TEST(Seek, Create)
 
 TEST(Seek, ID)
 {
-    tide::SeekElement e(0x80, 0);
+    celduin::SeekElement e(0x80, 0);
     EXPECT_EQ(0x80, e.indexed_id());
     e.indexed_id(0x9F);
     EXPECT_EQ(0x9F, e.indexed_id());
     EXPECT_EQ(0, e.offset());
-    EXPECT_EQ(tide::ids::Seek, e.id());
+    EXPECT_EQ(celduin::ids::Seek, e.id());
 }
 
 
 TEST(Seek, Offset)
 {
-    tide::SeekElement e(0x80, 0);
+    celduin::SeekElement e(0x80, 0);
     EXPECT_EQ(0, e.offset());
     e.offset(12345);
     EXPECT_EQ(12345, e.offset());
@@ -78,15 +78,15 @@ TEST(Seek, Offset)
 
 TEST(Seek, Size)
 {
-    tide::BinaryElement be(tide::ids::SeekID,
+    celduin::BinaryElement be(celduin::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            tide::ids::encode(tide::ids::SeekHead));
-    tide::UIntElement ue(tide::ids::SeekPosition, 0x1010);
+            celduin::ids::encode(celduin::ids::SeekHead));
+    celduin::UIntElement ue(celduin::ids::SeekPosition, 0x1010);
     std::streamsize body_size(be.size() + ue.size());
 
-    tide::SeekElement se(tide::ids::SeekHead, 0x1010);
-    EXPECT_EQ(tide::ids::size(tide::ids::Seek) +
-            tide::vint::size(body_size) + body_size,
+    celduin::SeekElement se(celduin::ids::SeekHead, 0x1010);
+    EXPECT_EQ(celduin::ids::size(celduin::ids::Seek) +
+            celduin::vint::size(body_size) + body_size,
             se.size());
 }
 
@@ -96,18 +96,18 @@ TEST(Seek, Write)
     std::ostringstream output;
     std::stringstream expected;
 
-    tide::BinaryElement be(tide::ids::SeekID,
+    celduin::BinaryElement be(celduin::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            tide::ids::encode(tide::ids::SeekHead));
-    tide::UIntElement ue(tide::ids::SeekPosition, 12345);
+            celduin::ids::encode(celduin::ids::SeekHead));
+    celduin::UIntElement ue(celduin::ids::SeekPosition, 12345);
     std::streamsize expected_size(be.size() + ue.size());
-    tide::SeekElement se(tide::ids::SeekHead, 12345);
-    tide::ids::write(tide::ids::Seek, expected);
-    tide::vint::write(expected_size, expected);
+    celduin::SeekElement se(celduin::ids::SeekHead, 12345);
+    celduin::ids::write(celduin::ids::Seek, expected);
+    celduin::vint::write(expected_size, expected);
     be.write(expected);
     ue.write(expected);
-    EXPECT_EQ(tide::ids::size(tide::ids::Seek) +
-            tide::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(celduin::ids::size(celduin::ids::Seek) +
+            celduin::vint::size(expected_size) + expected_size,
             se.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -117,66 +117,66 @@ TEST(Seek, Read)
 {
     std::stringstream input;
 
-    tide::BinaryElement be(tide::ids::SeekID,
+    celduin::BinaryElement be(celduin::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            tide::ids::encode(tide::ids::SeekHead));
-    tide::UIntElement ue(tide::ids::SeekPosition, 12345);
+            celduin::ids::encode(celduin::ids::SeekHead));
+    celduin::UIntElement ue(celduin::ids::SeekPosition, 12345);
     std::streamsize body_size(be.size() + ue.size());
 
-    tide::vint::write(body_size, input);
+    celduin::vint::write(body_size, input);
     be.write(input);
     ue.write(input);
 
-    tide::SeekElement e(0x80, 0);
-    EXPECT_EQ(tide::vint::size(body_size) + body_size,
+    celduin::SeekElement e(0x80, 0);
+    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
         e.read(input));
-    EXPECT_EQ(tide::ids::SeekHead, e.indexed_id());
+    EXPECT_EQ(celduin::ids::SeekHead, e.indexed_id());
     EXPECT_EQ(12345, e.offset());
 
     input.str(std::string());
-    be.value(tide::ids::encode(tide::ids::EBML));
+    be.value(celduin::ids::encode(celduin::ids::EBML));
     ue.value(54321);
-    tide::vint::write(body_size, input);
+    celduin::vint::write(body_size, input);
     // Note the reversed order this time
     ue.write(input);
     be.write(input);
 
-    EXPECT_EQ(tide::vint::size(body_size) + body_size,
+    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
         e.read(input));
-    EXPECT_EQ(tide::ids::EBML, e.indexed_id());
+    EXPECT_EQ(celduin::ids::EBML, e.indexed_id());
     EXPECT_EQ(54321, e.offset());
 
     // No SeekID child
     input.str(std::string());
-    tide::vint::write(ue.size(), input);
+    celduin::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), celduin::MissingChild);
     // No SeekPosition child
     input.str(std::string());
-    tide::vint::write(be.size(), input);
+    celduin::vint::write(be.size(), input);
     be.write(input);
-    EXPECT_THROW(e.read(input), tide::MissingChild);
+    EXPECT_THROW(e.read(input), celduin::MissingChild);
     // No children at all
     input.str(std::string());
-    tide::vint::write(0, input);
-    EXPECT_THROW(e.read(input), tide::MissingChild);
+    celduin::vint::write(0, input);
+    EXPECT_THROW(e.read(input), celduin::MissingChild);
     // Body size value wrong (too big)
     input.str(std::string());
-    tide::vint::write(ue.size() + be.size() + 5, input);
+    celduin::vint::write(ue.size() + be.size() + 5, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), celduin::BadBodySize);
     // Body size value wrong (too small)
     input.str(std::string());
-    tide::vint::write(2, input);
+    celduin::vint::write(2, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read(input), tide::BadBodySize);
+    EXPECT_THROW(e.read(input), celduin::BadBodySize);
     // Invalid child
     input.str(std::string());
-    tide::UIntElement ue2(tide::ids::EBML, 0xFFFF);
-    tide::vint::write(ue2.size(), input);
+    celduin::UIntElement ue2(celduin::ids::EBML, 0xFFFF);
+    celduin::vint::write(ue2.size(), input);
     ue2.write(input);
-    EXPECT_THROW(e.read(input), tide::InvalidChildID);
+    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
 }
 

@@ -36,20 +36,20 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_MEMORY_CLUSTER_H_)
-#define TIDE_MEMORY_CLUSTER_H_
+#if !defined(CELDUIN_MEMORY_CLUSTER_H_)
+#define CELDUIN_MEMORY_CLUSTER_H_
 
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <tide/block_element.h>
-#include <tide/cluster.h>
-#include <tide/win_dll.h>
+#include <celduin/block_element.h>
+#include <celduin/cluster.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The in-memory Cluster implementation.
      *
@@ -58,7 +58,7 @@ namespace tide
      * access to the blocks at the expense of a larger memory footprint and
      * longer loading time when opening the cluster.
      */
-    class TIDE_EXPORT MemoryCluster : public Cluster
+    class CELDUIN_EXPORT MemoryCluster : public Cluster
     {
         protected:
             /// Block storage type
@@ -80,7 +80,7 @@ namespace tide
             //////////////////////////////////////////////////////////////////
 
             template <typename BlockType, typename IterType>
-            class TIDE_EXPORT IteratorBase
+            class CELDUIN_EXPORT IteratorBase
                 : public boost::iterator_facade<
                     IteratorBase<BlockType, IterType>,
                     BlockType, boost::bidirectional_traversal_tag>
@@ -241,10 +241,10 @@ namespace tide
             std::streamsize read_blocks(std::istream& input,
                     std::streamsize size);
     }; // class MemoryCluster
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_MEMORY_CLUSTER_H_
+#endif // CELDUIN_MEMORY_CLUSTER_H_
 

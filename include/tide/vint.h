@@ -36,8 +36,8 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_VINT_H_)
-#define TIDE_VINT_H_
+#if !defined(CELDUIN_VINT_H_)
+#define CELDUIN_VINT_H_
 
 #include <cstddef>
 #include <istream>
@@ -49,7 +49,7 @@
 /// \addtogroup utilities Utilities
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief Functions for managing variable-length integers.
      *
@@ -163,7 +163,7 @@ namespace tide
 
         /** \brief Encode an unsigned integer and write it to an output stream.
          *
-         * This function performs the same task as tide::vint::encode(), but it
+         * This function performs the same task as celduin::vint::encode(), but it
          * writes the result to a std::ostream instead of a
          * simple buffer.
          *
@@ -190,7 +190,7 @@ namespace tide
 
         /** \brief Decode an unsigned integer from an input stream.
          *
-         * This function performs the same task as tide::vint::decode(), but it
+         * This function performs the same task as celduin::vint::decode(), but it
          * reads the bytes from the input stream rather than a simple buffer.
          *
          * \param[in] input The std::istream object to read
@@ -203,10 +203,10 @@ namespace tide
          */
         ReadResult read(std::istream& input);
     }; // namespace vint
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group utilities
 
-#endif // TIDE_VINT_H_
+#endif // CELDUIN_VINT_H_
 

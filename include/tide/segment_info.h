@@ -36,28 +36,28 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_SEGMENT_INFO_H_)
-#define TIDE_SEGMENT_INFO_H_
+#if !defined(CELDUIN_SEGMENT_INFO_H_)
+#define CELDUIN_SEGMENT_INFO_H_
 
-#include <tide/binary_element.h>
-#include <tide/date_element.h>
-#include <tide/el_ids.h>
-#include <tide/float_element.h>
-#include <tide/master_element.h>
-#include <tide/string_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/binary_element.h>
+#include <celduin/date_element.h>
+#include <celduin/el_ids.h>
+#include <celduin/float_element.h>
+#include <celduin/master_element.h>
+#include <celduin/string_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 #include <vector>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The SegmentInfo element, containing the meta-data for a segment.
      *
      * The SegmentInfo element provides the important meta-data about a segment
-     * in a Tide document, such as the title, date, timecode scale and links to
+     * in a Celduin document, such as the title, date, timecode scale and links to
      * other segments.
      *
      * Some values in the SegmentInfo cannot be written until after the
@@ -75,10 +75,10 @@ namespace tide
      * as a binary blob for use in other segments.
      *
      * Most values in the SegmentInfo element are not required. For a list of
-     * which values will not be written to the file unless set, see the Tide
+     * which values will not be written to the file unless set, see the Celduin
      * format specification.
      */
-    class TIDE_EXPORT SegmentInfo : public MasterElement
+    class CELDUIN_EXPORT SegmentInfo : public MasterElement
     {
         public:
             /// \brief Create a new segment info element.
@@ -284,9 +284,9 @@ namespace tide
             /// \brief Resets all child elements to clean values.
             void reset();
     }; // class SegmentInfo
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 
-#endif // TIDE_SEGMENT_INFO_H_
+#endif // CELDUIN_SEGMENT_INFO_H_
 

@@ -36,25 +36,25 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_UINT_ELEMENT_H_)
-#define TIDE_UINT_ELEMENT_H_
+#if !defined(CELDUIN_UINT_ELEMENT_H_)
+#define CELDUIN_UINT_ELEMENT_H_
 
-#include <tide/prim_element.h>
-#include <tide/win_dll.h>
+#include <celduin/prim_element.h>
+#include <celduin/win_dll.h>
 
 #include <stdint.h>
 
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** Unsigned integer primitive element.
      *
      * This element stores an unsigned integer. The maximum size of the value
      * is 2^64.
      */
-    class TIDE_EXPORT UIntElement : public PrimitiveElement<uint64_t>
+    class CELDUIN_EXPORT UIntElement : public PrimitiveElement<uint64_t>
     {
         public:
             /** \brief Create a new unsigned integer element with no default.
@@ -88,10 +88,10 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class UIntElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_UINT_ELEMENT_H_
+#endif // CELDUIN_UINT_ELEMENT_H_
 

@@ -36,25 +36,25 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_STRING_ELEMENT_H_)
-#define TIDE_STRING_ELEMENT_H_
+#if !defined(CELDUIN_STRING_ELEMENT_H_)
+#define CELDUIN_STRING_ELEMENT_H_
 
-#include <tide/prim_element.h>
-#include <tide/win_dll.h>
+#include <celduin/prim_element.h>
+#include <celduin/win_dll.h>
 
 #include <string>
 
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** String primitive element.
      *
      * This element stores a UTF-8 string. Upon writing to a store, the string
      * may or may not be padded with null bytes.
      */
-    class TIDE_EXPORT StringElement : public PrimitiveElement<std::string>
+    class CELDUIN_EXPORT StringElement : public PrimitiveElement<std::string>
     {
         public:
             /** \brief Create a new string element with no default.
@@ -105,10 +105,10 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class StringElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_STRING_ELEMENT_H_
+#endif // CELDUIN_STRING_ELEMENT_H_
 

@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
 
 
-std::streamsize tide::ids::size(tide::ids::ID id)
+std::streamsize celduin::ids::size(celduin::ids::ID id)
 {
     if (id >= 0x80 && id <= 0xFE)
     {
@@ -77,12 +77,12 @@ std::streamsize tide::ids::size(tide::ids::ID id)
     }*/
     else
     {
-        throw tide::InvalidEBMLID() << tide::err_varint(id);
+        throw celduin::InvalidEBMLID() << celduin::err_varint(id);
     }
 }
 
 
-std::vector<char> tide::ids::encode(ID id)
+std::vector<char> celduin::ids::encode(ID id)
 {
     std::streamsize c_size(size(id));
     std::vector<char> buffer(c_size, 0);
@@ -96,7 +96,7 @@ std::vector<char> tide::ids::encode(ID id)
 }
 
 
-std::streamsize tide::ids::write(tide::ids::ID id, std::ostream& output)
+std::streamsize celduin::ids::write(celduin::ids::ID id, std::ostream& output)
 {
     std::streamsize c_size(size(id));
     // Write the remaining bytes
@@ -106,19 +106,19 @@ std::streamsize tide::ids::write(tide::ids::ID id, std::ostream& output)
     }
     if (!output)
     {
-        throw tide::WriteError() << tide::err_pos(output.tellp());
+        throw celduin::WriteError() << celduin::err_pos(output.tellp());
     }
 
     return c_size;
 }
 
 
-tide::ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
+celduin::ids::DecodeResult celduin::ids::decode(std::vector<char> const& buffer)
 {
     assert(buffer.size() > 0);
 
     unsigned int to_copy(0);
-    tide::ids::ID result(0);
+    celduin::ids::ID result(0);
 
     reinterpret_cast<char*>(&result)[0] = buffer[0];
     // Check the size
@@ -158,13 +158,13 @@ tide::ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
     else
     {
         // All bits zero is invalid
-        throw tide::InvalidVarInt();
+        throw celduin::InvalidVarInt();
     }
 
     if (buffer.size() < to_copy + 1)
     {
-        throw tide::BufferTooSmall() << tide::err_bufsize(buffer.size()) <<
-            tide::err_reqsize(to_copy + 1);
+        throw celduin::BufferTooSmall() << celduin::err_bufsize(buffer.size()) <<
+            celduin::err_reqsize(to_copy + 1);
     }
 
     // Copy the remaining bytes
@@ -181,9 +181,9 @@ tide::ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
 }
 
 
-tide::ids::ReadResult tide::ids::read(std::istream& input)
+celduin::ids::ReadResult celduin::ids::read(std::istream& input)
 {
-    tide::ids::ID result(0);
+    celduin::ids::ID result(0);
     std::streamsize to_copy(0);
     uint8_t buffer[8];
 
@@ -191,7 +191,7 @@ tide::ids::ReadResult tide::ids::read(std::istream& input)
     input.read(reinterpret_cast<char*>(buffer), 1);
     if (!input)
     {
-        throw tide::ReadError() << tide::err_pos(input.tellg());
+        throw celduin::ReadError() << celduin::err_pos(input.tellg());
     }
     result = buffer[0];
     // Check the size
@@ -231,14 +231,14 @@ tide::ids::ReadResult tide::ids::read(std::istream& input)
     else
     {
         // All bits zero is invalid
-        throw tide::InvalidVarInt();
+        throw celduin::InvalidVarInt();
     }
 
     // Copy the remaining bytes
     input.read(reinterpret_cast<char*>(&buffer[1]), to_copy);
     if (input.fail())
     {
-        throw tide::ReadError() << tide::err_pos(input.tellg());
+        throw celduin::ReadError() << celduin::err_pos(input.tellg());
     }
 
     for (std::streamsize ii(1); ii < to_copy + 1; ++ii)
@@ -255,7 +255,7 @@ tide::ids::ReadResult tide::ids::read(std::istream& input)
     }
     catch(boost::exception& e)
     {
-        e << tide::err_pos(input.tellg());
+        e << celduin::err_pos(input.tellg());
         throw;
     }
     return std::make_pair(result, to_copy + 1);

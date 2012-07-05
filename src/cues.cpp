@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/cues.h>
+#include <celduin/cues.h>
 
 #include <boost/foreach.hpp>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // CueTrackPosition Constructors and destructors
@@ -101,7 +101,7 @@ void CueTrackPosition::block_num(uint64_t block_num)
 // CueTrackPosition operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(CueTrackPosition const& lhs, CueTrackPosition const& rhs)
+bool celduin::operator==(CueTrackPosition const& lhs, CueTrackPosition const& rhs)
 {
     return lhs.track_ == rhs.track_ &&
         lhs.cluster_pos_ == rhs.cluster_pos_ &&
@@ -284,7 +284,7 @@ CuePoint::CuePoint(uint64_t timecode)
 // CuePoint operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(CuePoint const& lhs, CuePoint const& rhs)
+bool celduin::operator==(CuePoint const& lhs, CuePoint const& rhs)
 {
     return lhs.timecode_ == rhs.timecode_ &&
         lhs.positions_ == rhs.positions_;
@@ -390,7 +390,7 @@ Cues::Cues()
 // Cues Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(Cues const& lhs, Cues const& rhs)
+bool celduin::operator==(Cues const& lhs, Cues const& rhs)
 {
     return lhs.cues_ == rhs.cues_;
 }

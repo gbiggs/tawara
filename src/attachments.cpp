@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/attachments.h>
+#include <celduin/attachments.h>
 
 #include <boost/foreach.hpp>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // AttachedFile constructors and destructors
@@ -99,7 +99,7 @@ void AttachedFile::data(FileData::Ptr& data)
 // AttachedFile operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(AttachedFile const& lhs, AttachedFile const& rhs)
+bool celduin::operator==(AttachedFile const& lhs, AttachedFile const& rhs)
 {
     bool data_eq(false);
     if (lhs.data_ && rhs.data_)
@@ -267,7 +267,7 @@ Attachments::Attachments()
 // Attachments operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool tide::operator==(Attachments const& lhs, Attachments const& rhs)
+bool celduin::operator==(Attachments const& lhs, Attachments const& rhs)
 {
     return lhs.files_ == rhs.files_;
 }

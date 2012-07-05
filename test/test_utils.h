@@ -36,23 +36,23 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_TEST_UTILS_H_)
-#define TIDE_TEST_UTILS_H_
+#if !defined(CELDUIN_TEST_UTILS_H_)
+#define CELDUIN_TEST_UTILS_H_
 
 #include <boost/shared_ptr.hpp>
 #include <functional>
 #include <gtest/gtest.h>
 #include <stdint.h>
 #include <string>
-#include <tide/element.h>
-#include <tide/prim_element.h>
+#include <celduin/element.h>
+#include <celduin/prim_element.h>
 #include <vector>
 
 
 namespace test_utils
 {
 
-typedef boost::shared_ptr<tide::Element> ElPtr;
+typedef boost::shared_ptr<celduin::Element> ElPtr;
 
 // Adds the total size of an element to a value
 struct TotalSizeOp
@@ -102,5 +102,5 @@ boost::shared_ptr<std::vector<char> > make_blob(size_t size);
 
 }; // test_utils
 
-#endif // TIDE_TEST_UTILS_H_
+#endif // CELDUIN_TEST_UTILS_H_
 

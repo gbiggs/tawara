@@ -36,16 +36,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_MASTER_ELEMENT_H_)
-#define TIDE_MASTER_ELEMENT_H_
+#if !defined(CELDUIN_MASTER_ELEMENT_H_)
+#define CELDUIN_MASTER_ELEMENT_H_
 
-#include <tide/element.h>
-#include <tide/win_dll.h>
+#include <celduin/element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The MasterElement interface.
      *
@@ -60,7 +60,7 @@ namespace tide
      * In such cases, a new class should be created that inherits from and
      * implements this interface.
      */
-    class TIDE_EXPORT MasterElement : public Element
+    class CELDUIN_EXPORT MasterElement : public Element
     {
         public:
             /** \brief Create a new MasterElement.
@@ -78,10 +78,10 @@ namespace tide
         private:
             bool crc_;
     }; // class MasterElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group interfaces
 
-#endif // TIDE_MASTER_ELEMENT_H_
+#endif // CELDUIN_MASTER_ELEMENT_H_
 

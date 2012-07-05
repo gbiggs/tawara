@@ -36,19 +36,19 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_FILE_CLUSTER_H_)
-#define TIDE_FILE_CLUSTER_H_
+#if !defined(CELDUIN_FILE_CLUSTER_H_)
+#define CELDUIN_FILE_CLUSTER_H_
 
-#include <tide/block_element.h>
-#include <tide/block_group.h>
-#include <tide/cluster.h>
-#include <tide/simple_block.h>
-#include <tide/win_dll.h>
+#include <celduin/block_element.h>
+#include <celduin/block_group.h>
+#include <celduin/cluster.h>
+#include <celduin/simple_block.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The in-file Cluster implementation.
      *
@@ -59,7 +59,7 @@ namespace tide
      * MemoryCluster implementation, at the expense of slower block retrieval
      * and addition.
      */
-    class TIDE_EXPORT FileCluster : public Cluster
+    class CELDUIN_EXPORT FileCluster : public Cluster
     {
         public:
             /// \brief Pointer to a file-based cluster.
@@ -77,7 +77,7 @@ namespace tide
             //////////////////////////////////////////////////////////////////
 
             template <typename BlockType>
-            class TIDE_EXPORT IteratorBase
+            class CELDUIN_EXPORT IteratorBase
                 : public boost::iterator_facade<
                     IteratorBase<BlockType>, BlockType,
                     boost::forward_traversal_tag>
@@ -308,10 +308,10 @@ namespace tide
             std::streamsize read_blocks(std::istream& input,
                     std::streamsize size);
     }; // class FileCluster
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_FILE_CLUSTER_H_
+#endif // CELDUIN_FILE_CLUSTER_H_
 

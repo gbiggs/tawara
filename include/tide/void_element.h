@@ -36,19 +36,19 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_INT_ELEMENT_H_)
-#define TIDE_INT_ELEMENT_H_
+#if !defined(CELDUIN_INT_ELEMENT_H_)
+#define CELDUIN_INT_ELEMENT_H_
 
-#include <tide/el_ids.h>
-#include <tide/prim_element.h>
-#include <tide/win_dll.h>
+#include <celduin/el_ids.h>
+#include <celduin/prim_element.h>
+#include <celduin/win_dll.h>
 
 #include <stdint.h>
 
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** Void primitive element.
      *
@@ -57,7 +57,7 @@ namespace tide
      * in a byte stream for later writing, or to blank out an element that is
      * no longer used without re-writing the entire file.
      */
-    class TIDE_EXPORT VoidElement : public Element
+    class CELDUIN_EXPORT VoidElement : public Element
     {
         public:
             /** \brief Create a new void element.
@@ -159,10 +159,10 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class VoidElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_INT_ELEMENT_H_
+#endif // CELDUIN_INT_ELEMENT_H_
 

@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/ebml_int.h>
-#include <tide/exceptions.h>
+#include <celduin/ebml_int.h>
+#include <celduin/exceptions.h>
 
 
-std::streamsize tide::ebml_int::size_u(uint64_t integer)
+std::streamsize celduin::ebml_int::size_u(uint64_t integer)
 {
     if (integer == 0)
     {
@@ -81,7 +81,7 @@ std::streamsize tide::ebml_int::size_u(uint64_t integer)
 }
 
 
-std::streamsize tide::ebml_int::size_s(int64_t integer)
+std::streamsize celduin::ebml_int::size_s(int64_t integer)
 {
     if (integer == 0)
     {
@@ -122,7 +122,7 @@ std::streamsize tide::ebml_int::size_s(int64_t integer)
 }
 
 
-std::vector<char> tide::ebml_int::encode_u(uint64_t integer)
+std::vector<char> celduin::ebml_int::encode_u(uint64_t integer)
 {
     std::vector<char> buffer;
     if (integer == 0)
@@ -142,7 +142,7 @@ std::vector<char> tide::ebml_int::encode_u(uint64_t integer)
 }
 
 
-std::vector<char> tide::ebml_int::encode_s(int64_t integer)
+std::vector<char> celduin::ebml_int::encode_s(int64_t integer)
 {
     std::vector<char> buffer;
     if (integer == 0)
@@ -162,7 +162,7 @@ std::vector<char> tide::ebml_int::encode_s(int64_t integer)
 }
 
 
-std::streamsize tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
+std::streamsize celduin::ebml_int::write_u(uint64_t integer, std::ostream& output)
 {
     std::vector<char> buffer(encode_u(integer));
 
@@ -171,14 +171,14 @@ std::streamsize tide::ebml_int::write_u(uint64_t integer, std::ostream& output)
         output.write(&buffer[0], buffer.size());
         if (!output)
         {
-            throw tide::WriteError() << tide::err_pos(output.tellp());
+            throw celduin::WriteError() << celduin::err_pos(output.tellp());
         }
     }
     return buffer.size();
 }
 
 
-std::streamsize tide::ebml_int::write_s(int64_t integer, std::ostream& output)
+std::streamsize celduin::ebml_int::write_s(int64_t integer, std::ostream& output)
 {
     std::vector<char> buffer(encode_s(integer));
     if (buffer.size() != 0)
@@ -186,14 +186,14 @@ std::streamsize tide::ebml_int::write_s(int64_t integer, std::ostream& output)
         output.write(&buffer[0], buffer.size());
         if (!output)
         {
-            throw tide::WriteError() << tide::err_pos(output.tellp());
+            throw celduin::WriteError() << celduin::err_pos(output.tellp());
         }
     }
     return buffer.size();
 }
 
 
-uint64_t tide::ebml_int::decode_u(std::vector<char> const& buffer)
+uint64_t celduin::ebml_int::decode_u(std::vector<char> const& buffer)
 {
     assert(buffer.size() <= 8);
 
@@ -213,7 +213,7 @@ uint64_t tide::ebml_int::decode_u(std::vector<char> const& buffer)
 }
 
 
-int64_t tide::ebml_int::decode_s(std::vector<char> const& buffer)
+int64_t celduin::ebml_int::decode_s(std::vector<char> const& buffer)
 {
     assert(buffer.size() <= 8);
 
@@ -238,7 +238,7 @@ int64_t tide::ebml_int::decode_s(std::vector<char> const& buffer)
 }
 
 
-uint64_t tide::ebml_int::read_u(std::istream& input, std::streamsize n)
+uint64_t celduin::ebml_int::read_u(std::istream& input, std::streamsize n)
 {
     assert(n <= 8);
 
@@ -246,13 +246,13 @@ uint64_t tide::ebml_int::read_u(std::istream& input, std::streamsize n)
     input.read(&tmp[0], n);
     if (!input)
     {
-        throw tide::ReadError() << tide::err_pos(input.tellg());
+        throw celduin::ReadError() << celduin::err_pos(input.tellg());
     }
-    return tide::ebml_int::decode_u(tmp);
+    return celduin::ebml_int::decode_u(tmp);
 }
 
 
-int64_t tide::ebml_int::read_s(std::istream& input, std::streamsize n)
+int64_t celduin::ebml_int::read_s(std::istream& input, std::streamsize n)
 {
     assert(n <= 8);
 
@@ -260,8 +260,8 @@ int64_t tide::ebml_int::read_s(std::istream& input, std::streamsize n)
     input.read(&tmp[0], n);
     if (!input)
     {
-        throw tide::ReadError() << tide::err_pos(input.tellg());
+        throw celduin::ReadError() << celduin::err_pos(input.tellg());
     }
-    return tide::ebml_int::decode_s(tmp);
+    return celduin::ebml_int::decode_s(tmp);
 }
 

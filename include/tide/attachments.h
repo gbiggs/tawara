@@ -36,28 +36,28 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_ATTACHMENTS_H_)
-#define TIDE_ATTACHMENTS_H_
+#if !defined(CELDUIN_ATTACHMENTS_H_)
+#define CELDUIN_ATTACHMENTS_H_
 
 #include <boost/operators.hpp>
 #include <boost/shared_ptr.hpp>
-#include <tide/binary_element.h>
-#include <tide/master_element.h>
-#include <tide/string_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/binary_element.h>
+#include <celduin/master_element.h>
+#include <celduin/string_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The data of an attached file.
      *
      * The data in a single attachment is stored as a binary blob, using an
      * EBML binary element.
      */
-    class TIDE_EXPORT FileData : public BinaryElement
+    class CELDUIN_EXPORT FileData : public BinaryElement
     {
         public:
             /// \brief Constructor.
@@ -77,7 +77,7 @@ namespace tide
      * This object contains a single attachment. Instances are stored in the
      * Attachments class.
      */
-    class TIDE_EXPORT AttachedFile : public MasterElement,
+    class CELDUIN_EXPORT AttachedFile : public MasterElement,
             public boost::equality_comparable<AttachedFile>
     {
         public:
@@ -182,7 +182,7 @@ namespace tide
      * data type stored in the track, or a binary library containing a decoder
      * for the track's codec.
      */
-    class TIDE_EXPORT Attachments : public MasterElement,
+    class CELDUIN_EXPORT Attachments : public MasterElement,
             public boost::equality_comparable<Attachments>
     {
         public:
@@ -265,7 +265,7 @@ namespace tide
 
             /** \brief Check if there are no attachments.
              *
-             * An empty Attachments element may not occur in a Tide file. If
+             * An empty Attachments element may not occur in a Celduin file. If
              * this returns true, an error will occur when write() is called.
              */
             virtual bool empty() const { return files_.empty(); }
@@ -328,10 +328,10 @@ namespace tide
 
     /// \brief Equality operator for the Attachemnts object.
     bool operator==(Attachments const& lhs, Attachments const& rhs);
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_ATTACHMENTS_H_
+#endif // CELDUIN_ATTACHMENTS_H_
 

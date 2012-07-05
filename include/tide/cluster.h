@@ -36,18 +36,18 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_CLUSTER_H_)
-#define TIDE_CLUSTER_H_
+#if !defined(CELDUIN_CLUSTER_H_)
+#define CELDUIN_CLUSTER_H_
 
-#include <tide/block_element.h>
-#include <tide/master_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/block_element.h>
+#include <celduin/master_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The track number of a silent track.
      *
@@ -147,7 +147,7 @@ namespace tide
      * block is returned to the position it was originally in.
      */
     //template <typename Impl>
-    class TIDE_EXPORT Cluster : public MasterElement
+    class CELDUIN_EXPORT Cluster : public MasterElement
     {
         public:
             /// \brief Pointer to a cluster.
@@ -336,10 +336,10 @@ namespace tide
             /// \brief Reset the cluster's members to default values.
             virtual void reset();
     }; // class Cluster
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group interfaces
 
-#endif // TIDE_CLUSTER_H_
+#endif // CELDUIN_CLUSTER_H_
 

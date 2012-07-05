@@ -36,22 +36,22 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_BLOCK_GROUP_H_)
-#define TIDE_BLOCK_GROUP_H_
+#if !defined(CELDUIN_BLOCK_GROUP_H_)
+#define CELDUIN_BLOCK_GROUP_H_
 
 #include <boost/operators.hpp>
-#include <tide/binary_element.h>
-#include <tide/block_element.h>
-#include <tide/block_additions.h>
-#include <tide/block_impl.h>
-#include <tide/master_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/binary_element.h>
+#include <celduin/block_element.h>
+#include <celduin/block_additions.h>
+#include <celduin/block_impl.h>
+#include <celduin/master_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The BlockGroup is the standard block.
      *
@@ -340,10 +340,10 @@ namespace tide
 
     /// \brief Equality operator for BlockGroup elements.
     bool operator==(BlockGroup const& lhs, BlockGroup const& rhs);
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_BLOCK_GROUP_H_
+#endif // CELDUIN_BLOCK_GROUP_H_
 

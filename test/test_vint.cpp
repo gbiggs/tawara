@@ -37,8 +37,8 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -50,41 +50,41 @@ TEST(VInt, Encode)
     // 1xxxxxxx
     expected[0] = 0x80;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x00));
+            celduin::vint::encode(0x00));
     expected[0] = 0x81;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x01));
+            celduin::vint::encode(0x01));
     expected[0] = 0x97;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x17));
+            celduin::vint::encode(0x17));
     expected[0] = 0xC0;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x40));
+            celduin::vint::encode(0x40));
     expected[0] = 0xFF;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x7F));
+            celduin::vint::encode(0x7F));
     // 01xxxxxx xxxxxxxx
     expected.assign(2, 0);
     expected[0] = 0x4B; expected[1] = 0x35;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x0B35));
+            celduin::vint::encode(0x0B35));
     expected[0] = 0x60; expected[1] = 0x00;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x2000));
+            celduin::vint::encode(0x2000));
     expected[0] = 0x7F; expected[1] = 0xFF;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x3FFF));
+            celduin::vint::encode(0x3FFF));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     expected.assign(8, 0xFF);
     expected[0] = 0x01;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0xFFFFFFFFFFFFFF));
+            celduin::vint::encode(0xFFFFFFFFFFFFFF));
     // EBML tag
     expected.assign(4, 0);
     expected[0] = 0x1A; expected[1] = 0x45; expected[2] = 0xDF;
     expected[3] = 0xA3;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x0A45DFA3));
+            celduin::vint::encode(0x0A45DFA3));
     // The remainder are done in the EncodeDecode test for simplicity
 }
 
@@ -97,97 +97,97 @@ TEST(VInt, EncodeWithSize)
     expected.assign(2, 0);
     expected[0] = 0x40; expected[1] = 0x09;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x09, 2));
-    EXPECT_EQ(2, tide::vint::encode(0x09, 2).size());
+            celduin::vint::encode(0x09, 2));
+    EXPECT_EQ(2, celduin::vint::encode(0x09, 2).size());
     // 1-byte integer in 8 bytes
     expected.assign(8, 0);
     expected[0] = 0x01; expected[1] = 0x00; expected[7] = 0x09;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x09, 8));
-    EXPECT_EQ(8, tide::vint::encode(0x09, 8).size());
+            celduin::vint::encode(0x09, 8));
+    EXPECT_EQ(8, celduin::vint::encode(0x09, 8).size());
     // 3-byte integer in 5 bytes
     expected.assign(5, 0x01);
     expected[0] = 0x08; expected[1] = 0x00;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x010101, 5));
-    EXPECT_EQ(5, tide::vint::encode(0x010101, 5).size());
+            celduin::vint::encode(0x010101, 5));
+    EXPECT_EQ(5, celduin::vint::encode(0x010101, 5).size());
     // 7-byte integer in 8 bytes
     expected.assign(8, 0x02);
     expected[0] = 0x01;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, expected,
-            tide::vint::encode(0x02020202020202, 8));
-    EXPECT_EQ(8, tide::vint::encode(0x02020202020202, 8).size());
+            celduin::vint::encode(0x02020202020202, 8));
+    EXPECT_EQ(8, celduin::vint::encode(0x02020202020202, 8).size());
 
     // Test throwing
-    EXPECT_THROW(tide::vint::encode(0x0101, 1), tide::SpecSizeTooSmall);
+    EXPECT_THROW(celduin::vint::encode(0x0101, 1), celduin::SpecSizeTooSmall);
 }
 
 
 TEST(VInt, Decode)
 {
     std::vector<char> buffer(2);
-    tide::vint::DecodeResult r;
+    celduin::vint::DecodeResult r;
     // 1xxxxxxx
     buffer[0] = 0x80;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x00);
     EXPECT_TRUE(r.second == buffer.begin() + 1) << "Iterator not after data";
     buffer[0] = 0x81;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x01);
     EXPECT_TRUE(r.second == buffer.begin() + 1) << "Iterator not after data";
     buffer[0] = 0x97;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x17);
     EXPECT_TRUE(r.second == buffer.begin() + 1) << "Iterator not after data";
     buffer[0] = 0xC0;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x40);
     EXPECT_TRUE(r.second == buffer.begin() + 1) << "Iterator not after data";
     buffer[0] = 0xFF;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x7F);
     EXPECT_TRUE(r.second == buffer.begin() + 1) << "Iterator not after data";
     // 01xxxxxx xxxxxxxx
     buffer[0] = 0x40; buffer[1] = 0x00;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x0000);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     buffer[0] = 0x40; buffer[1] = 0x01;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x0001);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     buffer[0] = 0x4B; buffer[1] = 0x35;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x0B35);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     buffer[0] = 0x60; buffer[1] = 0x00;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x2000);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     buffer[0] = 0x7F; buffer[1] = 0xFF;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x3FFF);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.assign(8, 0);
     buffer[0] = 0x01;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x00);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     buffer[7] = 0x01;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x01);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     buffer.assign(8, 0xFF);
     buffer[0] = 0x01;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0xFFFFFFFFFFFFFF);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // EBML tag
     buffer.assign(4, 0);
     buffer[0] = 0x1A; buffer[1] = 0x45; buffer[2] = 0xDF; buffer[3] = 0xA3;
-    r = tide::vint::decode(buffer);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x0A45DFA3);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // The remainder are done in the EncodeDecode test for simplicity
@@ -197,102 +197,102 @@ TEST(VInt, Decode)
 TEST(VInt, EncodeDecode)
 {
     std::vector<char> buffer;
-    tide::vint::DecodeResult r;
+    celduin::vint::DecodeResult r;
     // 1xxxxxxx
-    buffer = tide::vint::encode(0x00);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x00);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x00);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x01);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x01);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x01);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x7F);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x7F);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x7F);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 01xxxxxx xxxxxxxx
-    buffer = tide::vint::encode(0x80);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x80);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x80);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x81);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x81);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x81);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x3FFF);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x3FFF);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x3FFF);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 001xxxxx xxxxxxxx xxxxxxxx
-    buffer = tide::vint::encode(0x4000);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x4000);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x4000);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x60000);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x60000);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x60000);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x1FFFFF);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x1FFFFF);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x1FFFFF);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    buffer = tide::vint::encode(0x200000);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x200000);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x200000);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0xFFFFFFF);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0xFFFFFFF);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0xFFFFFFF);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    buffer = tide::vint::encode(0x10000000);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x10000000);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x10000000);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x7FFFFFFFFl);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x7FFFFFFFFl);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x7FFFFFFFFl);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    buffer = tide::vint::encode(0x800000000l);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x800000000l);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x800000000l);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0X3FFFFFFFFFFl);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0X3FFFFFFFFFFl);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0X3FFFFFFFFFFl);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    buffer = tide::vint::encode(0x40000000000l);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x40000000000l);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x40000000000l);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0X1FFFFFFFFFFFFl);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0X1FFFFFFFFFFFFl);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0X1FFFFFFFFFFFFl);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    buffer = tide::vint::encode(0x2000000000000l);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x2000000000000l);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x2000000000000l);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0X0FFFFFFFFFFFFFFl);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0X0FFFFFFFFFFFFFFl);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0X0FFFFFFFFFFFFFFl);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
     // Integers written with extra bytes
-    buffer = tide::vint::encode(0x01, 4);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x01, 4);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x01);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0x200000, 5);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0x200000, 5);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0x200000);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
-    buffer = tide::vint::encode(0X1FFFFFFFFFFFFl, 8);
-    r = tide::vint::decode(buffer);
+    buffer = celduin::vint::encode(0X1FFFFFFFFFFFFl, 8);
+    r = celduin::vint::decode(buffer);
     EXPECT_EQ(r.first, 0X1FFFFFFFFFFFFl);
     EXPECT_TRUE(r.second == buffer.end()) << "Iterator not after data";
 }
@@ -303,28 +303,28 @@ TEST(VInt, NoTail)
     std::vector<char> buffer(1);
     // 1xxxxxxx - No tail necessary
     buffer[0] = 0x80;
-    EXPECT_NO_THROW(tide::vint::decode(buffer));
+    EXPECT_NO_THROW(celduin::vint::decode(buffer));
     // 01xxxxxx xxxxxxxx
     buffer[0] = 0x40;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 001xxxxx xxxxxxxx xxxxxxxx
     buffer[0] = 0x20;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer[0] = 0x10;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer[0] = 0x08;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer[0] = 0x04;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer[0] = 0x02;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer[0] = 0x01;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
 }
 
 
@@ -333,34 +333,34 @@ TEST(VInt, TailTooShort)
     std::vector<char> buffer(1);
     // 1xxxxxxx - No tail necessary
     buffer[0] = 0x80;
-    EXPECT_NO_THROW(tide::vint::decode(buffer));
+    EXPECT_NO_THROW(celduin::vint::decode(buffer));
     // 01xxxxxx xxxxxxxx
     buffer[0] = 0x40;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 001xxxxx xxxxxxxx xxxxxxxx
     buffer.assign(2, 0);
     buffer[0] = 0x20;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.assign(3, 0);
     buffer[0] = 0x10;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.assign(4, 0);
     buffer[0] = 0x08;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.assign(5, 0);
     buffer[0] = 0x04;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.assign(6, 0);
     buffer[0] = 0x02;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.assign(7, 0);
     buffer[0] = 0x01;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::BufferTooSmall);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::BufferTooSmall);
 }
 
 
@@ -369,177 +369,177 @@ TEST(VInt, NoMarker)
     std::vector<char> buffer(1);
     // 1xxxxxxx - Success
     buffer[0] = 0x80;
-    EXPECT_NO_THROW(tide::vint::decode(buffer));
+    EXPECT_NO_THROW(celduin::vint::decode(buffer));
     // 00000000 xxxxxxxx xxxxxxxx
     buffer[0] = 0x00;
-    EXPECT_THROW(tide::vint::decode(buffer), tide::InvalidVarInt);
+    EXPECT_THROW(celduin::vint::decode(buffer), celduin::InvalidVarInt);
 }
 
 
 TEST(VInt, TooBig)
 {
-    EXPECT_THROW(tide::vint::encode(0x100000000000001),
-            tide::VarIntTooBig);
-    EXPECT_THROW(tide::vint::encode(0xFFFFFFFFFFFFFFFF),
-            tide::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::encode(0x100000000000001),
+            celduin::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::encode(0xFFFFFFFFFFFFFFFF),
+            celduin::VarIntTooBig);
 }
 
 
 TEST(VInt, Size)
 {
-    EXPECT_EQ(1, tide::vint::size(0x00));
-    EXPECT_EQ(1, tide::vint::size(0x01));
-    EXPECT_EQ(1, tide::vint::size(0x7F));
+    EXPECT_EQ(1, celduin::vint::size(0x00));
+    EXPECT_EQ(1, celduin::vint::size(0x01));
+    EXPECT_EQ(1, celduin::vint::size(0x7F));
     // 01xxxxxx xxxxxxxx
-    EXPECT_EQ(2, tide::vint::size(0x80));
-    EXPECT_EQ(2, tide::vint::size(0x81));
-    EXPECT_EQ(2, tide::vint::size(0x3FFF));
+    EXPECT_EQ(2, celduin::vint::size(0x80));
+    EXPECT_EQ(2, celduin::vint::size(0x81));
+    EXPECT_EQ(2, celduin::vint::size(0x3FFF));
     // 001xxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(3, tide::vint::size(0x4000));
-    EXPECT_EQ(3, tide::vint::size(0x60000));
-    EXPECT_EQ(3, tide::vint::size(0x1FFFFF));
+    EXPECT_EQ(3, celduin::vint::size(0x4000));
+    EXPECT_EQ(3, celduin::vint::size(0x60000));
+    EXPECT_EQ(3, celduin::vint::size(0x1FFFFF));
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(4, tide::vint::size(0x200000));
-    EXPECT_EQ(4, tide::vint::size(0xFFFFFFF));
+    EXPECT_EQ(4, celduin::vint::size(0x200000));
+    EXPECT_EQ(4, celduin::vint::size(0xFFFFFFF));
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(5, tide::vint::size(0x10000000));
-    EXPECT_EQ(5, tide::vint::size(0x7FFFFFFFF));
+    EXPECT_EQ(5, celduin::vint::size(0x10000000));
+    EXPECT_EQ(5, celduin::vint::size(0x7FFFFFFFF));
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(6, tide::vint::size(0x800000000));
-    EXPECT_EQ(6, tide::vint::size(0X3FFFFFFFFFF));
+    EXPECT_EQ(6, celduin::vint::size(0x800000000));
+    EXPECT_EQ(6, celduin::vint::size(0X3FFFFFFFFFF));
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(7, tide::vint::size(0x40000000000));
-    EXPECT_EQ(7, tide::vint::size(0X1FFFFFFFFFFFF));
+    EXPECT_EQ(7, celduin::vint::size(0x40000000000));
+    EXPECT_EQ(7, celduin::vint::size(0X1FFFFFFFFFFFF));
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(8, tide::vint::size(0x2000000000000));
-    EXPECT_EQ(8, tide::vint::size(0X0FFFFFFFFFFFFFF));
+    EXPECT_EQ(8, celduin::vint::size(0x2000000000000));
+    EXPECT_EQ(8, celduin::vint::size(0X0FFFFFFFFFFFFFF));
     // Oversize
-    EXPECT_THROW(tide::vint::size(0x100000000000000), tide::VarIntTooBig);
-    EXPECT_THROW(tide::vint::size(0xFFFFFFFFFFFFFFFF), tide::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::size(0x100000000000000), celduin::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::size(0xFFFFFFFFFFFFFFFF), celduin::VarIntTooBig);
 }
 
 
 TEST(VInt, StoU)
 {
-    tide::vint::OffsetInt res;
+    celduin::vint::OffsetInt res;
     // 1 byte
-    res = tide::vint::s_to_u(0x00);
+    res = celduin::vint::s_to_u(0x00);
     EXPECT_EQ(0x3F, res.first);
     EXPECT_EQ(1, res.second);
-    res = tide::vint::s_to_u(-0x3F);
+    res = celduin::vint::s_to_u(-0x3F);
     EXPECT_EQ(0, res.first);
     EXPECT_EQ(1, res.second);
-    res = tide::vint::s_to_u(0x3F);
+    res = celduin::vint::s_to_u(0x3F);
     EXPECT_EQ(0x7E, res.first);
     EXPECT_EQ(1, res.second);
     // 2 bytes
-    res = tide::vint::s_to_u(0x40);
+    res = celduin::vint::s_to_u(0x40);
     EXPECT_EQ(0x203F, res.first);
     EXPECT_EQ(2, res.second);
-    res = tide::vint::s_to_u(-0x1FFF);
+    res = celduin::vint::s_to_u(-0x1FFF);
     EXPECT_EQ(0, res.first);
     EXPECT_EQ(2, res.second);
-    res = tide::vint::s_to_u(0x1FFF);
+    res = celduin::vint::s_to_u(0x1FFF);
     EXPECT_EQ(0x3FFE, res.first);
     EXPECT_EQ(2, res.second);
     // 3 bytes
-    res = tide::vint::s_to_u(0x4000);
+    res = celduin::vint::s_to_u(0x4000);
     EXPECT_EQ(0x103FFF, res.first);
     EXPECT_EQ(3, res.second);
-    res = tide::vint::s_to_u(-0x0FFFFF);
+    res = celduin::vint::s_to_u(-0x0FFFFF);
     EXPECT_EQ(0, res.first);
     EXPECT_EQ(3, res.second);
-    res = tide::vint::s_to_u(0x0FFFFF);
+    res = celduin::vint::s_to_u(0x0FFFFF);
     EXPECT_EQ(0x1FFFFE, res.first);
     EXPECT_EQ(3, res.second);
     // 4 bytes
-    res = tide::vint::s_to_u(0x200000);
+    res = celduin::vint::s_to_u(0x200000);
     EXPECT_EQ(0x081FFFFF, res.first);
     EXPECT_EQ(4, res.second);
-    res = tide::vint::s_to_u(-0x07FFFFFF);
+    res = celduin::vint::s_to_u(-0x07FFFFFF);
     EXPECT_EQ(0, res.first);
     EXPECT_EQ(4, res.second);
-    res = tide::vint::s_to_u(0x07FFFFFF);
+    res = celduin::vint::s_to_u(0x07FFFFFF);
     EXPECT_EQ(0x0FFFFFFE, res.first);
     EXPECT_EQ(4, res.second);
     // 5 bytes
-    res = tide::vint::s_to_u(0x08000000);
+    res = celduin::vint::s_to_u(0x08000000);
     EXPECT_EQ(0x407FFFFFF, res.first);
     EXPECT_EQ(5, res.second);
-    res = tide::vint::s_to_u(-0x03FFFFFFFF);
+    res = celduin::vint::s_to_u(-0x03FFFFFFFF);
     EXPECT_EQ(0, res.first);
     EXPECT_EQ(5, res.second);
-    res = tide::vint::s_to_u(0x03FFFFFFFF);
+    res = celduin::vint::s_to_u(0x03FFFFFFFF);
     EXPECT_EQ(0x07FFFFFFFE, res.first);
     EXPECT_EQ(5, res.second);
     // 6 bytes
-    res = tide::vint::s_to_u(0x0400000000);
+    res = celduin::vint::s_to_u(0x0400000000);
     EXPECT_EQ(0x203FFFFFFFF, res.first);
     EXPECT_EQ(6, res.second);
-    res = tide::vint::s_to_u(-0x01FFFFFFFFFF);
+    res = celduin::vint::s_to_u(-0x01FFFFFFFFFF);
     EXPECT_EQ(0, res.first);
     EXPECT_EQ(6, res.second);
-    res = tide::vint::s_to_u(0x01FFFFFFFFFF);
+    res = celduin::vint::s_to_u(0x01FFFFFFFFFF);
     EXPECT_EQ(0x03FFFFFFFFFE, res.first);
     EXPECT_EQ(6, res.second);
     // 7 bytes
-    res = tide::vint::s_to_u(0x020000000000);
+    res = celduin::vint::s_to_u(0x020000000000);
     EXPECT_EQ(0x0101FFFFFFFFFF, res.first);
     EXPECT_EQ(7, res.second);
-    res = tide::vint::s_to_u(-0xFFFFFFFFFFFF);
+    res = celduin::vint::s_to_u(-0xFFFFFFFFFFFF);
     EXPECT_EQ(0, res.first);
     EXPECT_EQ(7, res.second);
-    res = tide::vint::s_to_u(0xFFFFFFFFFFFF);
+    res = celduin::vint::s_to_u(0xFFFFFFFFFFFF);
     EXPECT_EQ(0x01FFFFFFFFFFFE, res.first);
     EXPECT_EQ(7, res.second);
     // Oversize
-    EXPECT_THROW(tide::vint::s_to_u(0x01000000000000), tide::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::s_to_u(0x01000000000000), celduin::VarIntTooBig);
 }
 
 
 TEST(VInt, UtoS)
 {
-    EXPECT_EQ(-0x3F, tide::vint::u_to_s(std::make_pair(0, 1)));
-    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x3F, 1)));
-    EXPECT_EQ(0x3F, tide::vint::u_to_s(std::make_pair(0x7E, 1)));
+    EXPECT_EQ(-0x3F, celduin::vint::u_to_s(std::make_pair(0, 1)));
+    EXPECT_EQ(0, celduin::vint::u_to_s(std::make_pair(0x3F, 1)));
+    EXPECT_EQ(0x3F, celduin::vint::u_to_s(std::make_pair(0x7E, 1)));
     // 01xxxxxx xxxxxxxx
-    EXPECT_EQ(0x40, tide::vint::u_to_s(std::make_pair(0x203F, 2)));
-    EXPECT_EQ(-0x1FFF, tide::vint::u_to_s(std::make_pair(0, 2)));
-    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x1FFF, 2)));
-    EXPECT_EQ(0x1FFF, tide::vint::u_to_s(std::make_pair(0x3FFE, 2)));
+    EXPECT_EQ(0x40, celduin::vint::u_to_s(std::make_pair(0x203F, 2)));
+    EXPECT_EQ(-0x1FFF, celduin::vint::u_to_s(std::make_pair(0, 2)));
+    EXPECT_EQ(0, celduin::vint::u_to_s(std::make_pair(0x1FFF, 2)));
+    EXPECT_EQ(0x1FFF, celduin::vint::u_to_s(std::make_pair(0x3FFE, 2)));
     // 001xxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(0x4000, tide::vint::u_to_s(std::make_pair(0x103FFF, 3)));
-    EXPECT_EQ(-0x0FFFFF, tide::vint::u_to_s(std::make_pair(0, 3)));
-    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x0FFFFF, 3)));
-    EXPECT_EQ(0x0FFFFF, tide::vint::u_to_s(std::make_pair(0x1FFFFE, 3)));
+    EXPECT_EQ(0x4000, celduin::vint::u_to_s(std::make_pair(0x103FFF, 3)));
+    EXPECT_EQ(-0x0FFFFF, celduin::vint::u_to_s(std::make_pair(0, 3)));
+    EXPECT_EQ(0, celduin::vint::u_to_s(std::make_pair(0x0FFFFF, 3)));
+    EXPECT_EQ(0x0FFFFF, celduin::vint::u_to_s(std::make_pair(0x1FFFFE, 3)));
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(0x200000, tide::vint::u_to_s(std::make_pair(0x081FFFFF, 4)));
-    EXPECT_EQ(-0x07FFFFFF, tide::vint::u_to_s(std::make_pair(0, 4)));
-    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x07FFFFFF, 4)));
-    EXPECT_EQ(0x07FFFFFF, tide::vint::u_to_s(std::make_pair(0x0FFFFFFE, 4)));
+    EXPECT_EQ(0x200000, celduin::vint::u_to_s(std::make_pair(0x081FFFFF, 4)));
+    EXPECT_EQ(-0x07FFFFFF, celduin::vint::u_to_s(std::make_pair(0, 4)));
+    EXPECT_EQ(0, celduin::vint::u_to_s(std::make_pair(0x07FFFFFF, 4)));
+    EXPECT_EQ(0x07FFFFFF, celduin::vint::u_to_s(std::make_pair(0x0FFFFFFE, 4)));
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(0x08000000, tide::vint::u_to_s(std::make_pair(0x407FFFFFF, 5)));
-    EXPECT_EQ(-0x03FFFFFFFF, tide::vint::u_to_s(std::make_pair(0, 5)));
-    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x03FFFFFFFF, 5)));
+    EXPECT_EQ(0x08000000, celduin::vint::u_to_s(std::make_pair(0x407FFFFFF, 5)));
+    EXPECT_EQ(-0x03FFFFFFFF, celduin::vint::u_to_s(std::make_pair(0, 5)));
+    EXPECT_EQ(0, celduin::vint::u_to_s(std::make_pair(0x03FFFFFFFF, 5)));
     EXPECT_EQ(0x03FFFFFFFF,
-            tide::vint::u_to_s(std::make_pair(0x07FFFFFFFE, 5)));
+            celduin::vint::u_to_s(std::make_pair(0x07FFFFFFFE, 5)));
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(0x0400000000,
-            tide::vint::u_to_s(std::make_pair(0x203FFFFFFFF, 6)));
-    EXPECT_EQ(-0x01FFFFFFFFFF, tide::vint::u_to_s(std::make_pair(0, 6)));
-    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0x01FFFFFFFFFF, 6)));
+            celduin::vint::u_to_s(std::make_pair(0x203FFFFFFFF, 6)));
+    EXPECT_EQ(-0x01FFFFFFFFFF, celduin::vint::u_to_s(std::make_pair(0, 6)));
+    EXPECT_EQ(0, celduin::vint::u_to_s(std::make_pair(0x01FFFFFFFFFF, 6)));
     EXPECT_EQ(0x01FFFFFFFFFF,
-            tide::vint::u_to_s(std::make_pair(0x03FFFFFFFFFE, 6)));
+            celduin::vint::u_to_s(std::make_pair(0x03FFFFFFFFFE, 6)));
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     EXPECT_EQ(0x020000000000,
-            tide::vint::u_to_s(std::make_pair(0x0101FFFFFFFFFF, 7)));
-    EXPECT_EQ(-0xFFFFFFFFFFFF, tide::vint::u_to_s(std::make_pair(0, 7)));
-    EXPECT_EQ(0, tide::vint::u_to_s(std::make_pair(0xFFFFFFFFFFFF, 7)));
+            celduin::vint::u_to_s(std::make_pair(0x0101FFFFFFFFFF, 7)));
+    EXPECT_EQ(-0xFFFFFFFFFFFF, celduin::vint::u_to_s(std::make_pair(0, 7)));
+    EXPECT_EQ(0, celduin::vint::u_to_s(std::make_pair(0xFFFFFFFFFFFF, 7)));
     EXPECT_EQ(0xFFFFFFFFFFFF,
-            tide::vint::u_to_s(std::make_pair(0x01FFFFFFFFFFFE, 7)));
+            celduin::vint::u_to_s(std::make_pair(0x01FFFFFFFFFFFE, 7)));
     // Oversize
-    EXPECT_THROW(tide::vint::u_to_s(std::make_pair(0x01000000000000, 8)),
-            tide::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::u_to_s(std::make_pair(0x01000000000000, 8)),
+            celduin::VarIntTooBig);
 }
 
 
@@ -549,53 +549,53 @@ TEST(VIntStream, Write)
     std::ostringstream expected;
     // 1xxxxxxx
     expected.put(0x80);
-    EXPECT_EQ(1, tide::vint::write(0x00, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x00, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x81);
-    EXPECT_EQ(1, tide::vint::write(0x01, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x01, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x97);
-    EXPECT_EQ(1, tide::vint::write(0x17, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x17, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0xC0);
-    EXPECT_EQ(1, tide::vint::write(0x40, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x40, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0xFF);
-    EXPECT_EQ(1, tide::vint::write(0x7F, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x7F, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     // 01xxxxxx xxxxxxxx
     expected.put(0x80);
-    EXPECT_EQ(1, tide::vint::write(0x0000, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x0000, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x81);
-    EXPECT_EQ(1, tide::vint::write(0x0001, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x0001, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x4B); expected.put(0x35);
-    EXPECT_EQ(2, tide::vint::write(0x0B35, buffer));
+    EXPECT_EQ(2, celduin::vint::write(0x0B35, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x60); expected.put(0x00);
-    EXPECT_EQ(2, tide::vint::write(0x2000, buffer));
+    EXPECT_EQ(2, celduin::vint::write(0x2000, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x7F); expected.put(0xFF);
-    EXPECT_EQ(2, tide::vint::write(0x3FFF, buffer));
+    EXPECT_EQ(2, celduin::vint::write(0x3FFF, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     expected.put(0x80);
-    EXPECT_EQ(1, tide::vint::write(0x0000000000000000, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x0000000000000000, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x81);
-    EXPECT_EQ(1, tide::vint::write(0x0000000000000001, buffer));
+    EXPECT_EQ(1, celduin::vint::write(0x0000000000000001, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     expected.put(0x01);
@@ -603,13 +603,13 @@ TEST(VIntStream, Write)
     {
         expected.put(0xFF);
     }
-    EXPECT_EQ(8, tide::vint::write(0xFFFFFFFFFFFFFF, buffer));
+    EXPECT_EQ(8, celduin::vint::write(0xFFFFFFFFFFFFFF, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     // EBML tag
     expected.put(0x1A); expected.put(0x45); expected.put(0xDF);
     expected.put(0xA3);
-    EXPECT_EQ(4, tide::vint::write(0x0A45DFA3, buffer));
+    EXPECT_EQ(4, celduin::vint::write(0x0A45DFA3, buffer));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     // The remainder are done in the EncodeDecode test for simplicity
@@ -623,78 +623,78 @@ TEST(VInt, WriteWithSize)
 
     // 1-byte integer in 2 bytes
     expected.put(0x40); expected.put(0x09);
-    EXPECT_EQ(2, tide::vint::write(0x09, buffer, 2));
+    EXPECT_EQ(2, celduin::vint::write(0x09, buffer, 2));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     // 1-byte integer in 8 bytes
     expected.put(0x01);
     for(int ii(0); ii < 6; ++ii) { expected.put(0x00); }
     expected.put(0x09);
-    EXPECT_EQ(8, tide::vint::write(0x09, buffer, 8));
+    EXPECT_EQ(8, celduin::vint::write(0x09, buffer, 8));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     // 3-byte integer in 5 bytes
     expected.put(0x08); expected.put(0x00);
     expected.put(0x01); expected.put(0x01); expected.put(0x01);
-    EXPECT_EQ(5, tide::vint::write(0x010101, buffer, 5));
+    EXPECT_EQ(5, celduin::vint::write(0x010101, buffer, 5));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
     // 7-byte integer in 8 bytes
     expected.put(0x01);
     for(int ii(0); ii < 7; ++ii) { expected.put(0x02); }
-    EXPECT_EQ(8, tide::vint::write(0x02020202020202, buffer, 8));
+    EXPECT_EQ(8, celduin::vint::write(0x02020202020202, buffer, 8));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             buffer.str());
 
     // Test throwing
-    EXPECT_THROW(tide::vint::write(0x0101, buffer, 1), tide::SpecSizeTooSmall);
+    EXPECT_THROW(celduin::vint::write(0x0101, buffer, 1), celduin::SpecSizeTooSmall);
 }
 
 
 TEST(VIntStream, Read)
 {
     std::stringstream buffer;
-    tide::vint::ReadResult r;
+    celduin::vint::ReadResult r;
     // 1xxxxxxx
     buffer.put(0x80);
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x00);
     EXPECT_EQ(r.second, 1);
     buffer.put(0x81);
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x01);
     EXPECT_EQ(r.second, 1);
     buffer.put(0x97);
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x17);
     EXPECT_EQ(r.second, 1);
     buffer.put(0xC0);
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x40);
     EXPECT_EQ(r.second, 1);
     buffer.put(0xFF);
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x7F);
     EXPECT_EQ(r.second, 1);
     // 01xxxxxx xxxxxxxx
     buffer.put(0x40); buffer.put(0x00);;
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x0000);
     EXPECT_EQ(r.second, 2);
     buffer.put(0x40); buffer.put(0x01);;
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x0001);
     EXPECT_EQ(r.second, 2);
     buffer.put(0x4B); buffer.put(0x35);;
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x0B35);
     EXPECT_EQ(r.second, 2);
     buffer.put(0x60); buffer.put(0x00);;
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x2000);
     EXPECT_EQ(r.second, 2);
     buffer.put(0x7F); buffer.put(0xFF);;
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x3FFF);
     EXPECT_EQ(r.second, 2);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
@@ -703,7 +703,7 @@ TEST(VIntStream, Read)
     {
         buffer.put(0x00);
     }
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x00000000);
     EXPECT_EQ(r.second, 8);
     buffer.put(0x01);
@@ -712,7 +712,7 @@ TEST(VIntStream, Read)
         buffer.put(0x00);
     }
     buffer.put(0x01);
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x00000001);
     EXPECT_EQ(r.second, 8);
     buffer.put(0x01);
@@ -720,12 +720,12 @@ TEST(VIntStream, Read)
     {
         buffer.put(0xFF);
     }
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0xFFFFFFFFFFFFFF);
     EXPECT_EQ(r.second, 8);
     // EBML tag
     buffer.put(0x1A); buffer.put(0x45); buffer.put(0xDF); buffer.put(0xA3);
-    r = tide::vint::read(buffer);
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x0A45DFA3);
     EXPECT_EQ(r.second, 4);
     // The remainder are done in the EncodeDecode test for simplicity
@@ -735,102 +735,102 @@ TEST(VIntStream, Read)
 TEST(VIntStream, WriteRead)
 {
     std::stringstream buffer;
-    tide::vint::ReadResult r;
+    celduin::vint::ReadResult r;
     // 1xxxxxxx
-    EXPECT_EQ(1, tide::vint::write(0x00, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(1, celduin::vint::write(0x00, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x00);
     EXPECT_EQ(r.second, 1);
-    EXPECT_EQ(1, tide::vint::write(0x01, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(1, celduin::vint::write(0x01, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x01);
     EXPECT_EQ(r.second, 1);
-    EXPECT_EQ(1, tide::vint::write(0x7F, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(1, celduin::vint::write(0x7F, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x7F);
     EXPECT_EQ(r.second, 1);
     // 01xxxxxx xxxxxxxx
-    EXPECT_EQ(2, tide::vint::write(0x80, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(2, celduin::vint::write(0x80, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x80);
     EXPECT_EQ(r.second, 2);
-    EXPECT_EQ(2, tide::vint::write(0x81, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(2, celduin::vint::write(0x81, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x81);
     EXPECT_EQ(r.second, 2);
-    EXPECT_EQ(2, tide::vint::write(0x3FFF, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(2, celduin::vint::write(0x3FFF, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x3FFF);
     EXPECT_EQ(r.second, 2);
     // 001xxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(3, tide::vint::write(0x4000, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(3, celduin::vint::write(0x4000, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x4000);
     EXPECT_EQ(r.second, 3);
-    EXPECT_EQ(3, tide::vint::write(0x60000, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(3, celduin::vint::write(0x60000, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x60000);
     EXPECT_EQ(r.second, 3);
-    EXPECT_EQ(3, tide::vint::write(0x1FFFFF, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(3, celduin::vint::write(0x1FFFFF, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x1FFFFF);
     EXPECT_EQ(r.second, 3);
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(4, tide::vint::write(0x200000, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(4, celduin::vint::write(0x200000, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x200000);
     EXPECT_EQ(r.second, 4);
-    EXPECT_EQ(4, tide::vint::write(0xFFFFFFF, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(4, celduin::vint::write(0xFFFFFFF, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0xFFFFFFF);
     EXPECT_EQ(r.second, 4);
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(5, tide::vint::write(0x10000000, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(5, celduin::vint::write(0x10000000, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x10000000);
     EXPECT_EQ(r.second, 5);
-    EXPECT_EQ(5, tide::vint::write(0x7FFFFFFFFl, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(5, celduin::vint::write(0x7FFFFFFFFl, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x7FFFFFFFFl);
     EXPECT_EQ(r.second, 5);
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(6, tide::vint::write(0x800000000l, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(6, celduin::vint::write(0x800000000l, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x800000000l);
     EXPECT_EQ(r.second, 6);
-    EXPECT_EQ(6, tide::vint::write(0X3FFFFFFFFFFl, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(6, celduin::vint::write(0X3FFFFFFFFFFl, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0X3FFFFFFFFFFl);
     EXPECT_EQ(r.second, 6);
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(7, tide::vint::write(0x40000000000l, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(7, celduin::vint::write(0x40000000000l, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x40000000000l);
     EXPECT_EQ(r.second, 7);
-    EXPECT_EQ(7, tide::vint::write(0X1FFFFFFFFFFFFl, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(7, celduin::vint::write(0X1FFFFFFFFFFFFl, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0X1FFFFFFFFFFFFl);
     EXPECT_EQ(r.second, 7);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
-    EXPECT_EQ(8, tide::vint::write(0x2000000000000l, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(8, celduin::vint::write(0x2000000000000l, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x2000000000000l);
     EXPECT_EQ(r.second, 8);
-    EXPECT_EQ(8, tide::vint::write(0X0FFFFFFFFFFFFFFl, buffer));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(8, celduin::vint::write(0X0FFFFFFFFFFFFFFl, buffer));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0X0FFFFFFFFFFFFFFl);
     EXPECT_EQ(r.second, 8);
     // Integers written with extra bytes
-    EXPECT_EQ(4, tide::vint::write(0x01, buffer, 4));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(4, celduin::vint::write(0x01, buffer, 4));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x01);
     EXPECT_EQ(r.second, 4);
-    EXPECT_EQ(7, tide::vint::write(0x10000000, buffer, 7));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(7, celduin::vint::write(0x10000000, buffer, 7));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x10000000);
     EXPECT_EQ(r.second, 7);
-    EXPECT_EQ(8, tide::vint::write(0x40000000000l, buffer, 8));
-    r = tide::vint::read(buffer);
+    EXPECT_EQ(8, celduin::vint::write(0x40000000000l, buffer, 8));
+    r = celduin::vint::read(buffer);
     EXPECT_EQ(r.first, 0x40000000000l);
     EXPECT_EQ(r.second, 8);
 }
@@ -841,28 +841,28 @@ TEST(VIntStream, NoTail)
     std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
     buffer.put(0x80);
-    EXPECT_NO_THROW(tide::vint::read(buffer));
+    EXPECT_NO_THROW(celduin::vint::read(buffer));
     // 01xxxxxx xxxxxxxx
     buffer.put(0x40);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 001xxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x20);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x10);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x08);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x04);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x02);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x01);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
 }
 
 
@@ -871,31 +871,31 @@ TEST(VIntStream, TailTooShort)
     std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
     buffer.put(0x80);
-    EXPECT_NO_THROW(tide::vint::read(buffer));
+    EXPECT_NO_THROW(celduin::vint::read(buffer));
     // 01xxxxxx xxxxxxxx
     buffer.put(0x40);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 001xxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x20); buffer.put(0x00);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 0001xxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x10); buffer.put(0x00); buffer.put(0x00);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 00001xxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x08); buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 000001xx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x04); buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
     buffer.put(0x00);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 0000001x xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x02); buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
     buffer.put(0x00); buffer.put(0x00);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
     // 00000001 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
     buffer.put(0x01); buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
     buffer.put(0x00); buffer.put(0x00); buffer.put(0x00);
-    EXPECT_THROW(tide::vint::read(buffer), tide::ReadError);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::ReadError);
 }
 
 
@@ -904,21 +904,21 @@ TEST(VIntStream, NoMarker)
     std::stringstream buffer;
     // 1xxxxxxx - No tail necessary
     buffer.put(0x80);
-    EXPECT_NO_THROW(tide::vint::read(buffer));
+    EXPECT_NO_THROW(celduin::vint::read(buffer));
     // 00000000 xxxxxxxx xxxxxxxx
     buffer.put(0x00);
-    EXPECT_THROW(tide::vint::read(buffer), tide::InvalidVarInt);
+    EXPECT_THROW(celduin::vint::read(buffer), celduin::InvalidVarInt);
 }
 
 
 TEST(VIntStream, TooBig)
 {
     std::stringstream buffer;
-    EXPECT_THROW(tide::vint::write(0x100000000000001, buffer),
-            tide::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::write(0x100000000000001, buffer),
+            celduin::VarIntTooBig);
     EXPECT_EQ(0, buffer.str().size());
-    EXPECT_THROW(tide::vint::write(0xFFFFFFFFFFFFFFFF, buffer),
-            tide::VarIntTooBig);
+    EXPECT_THROW(celduin::vint::write(0xFFFFFFFFFFFFFFFF, buffer),
+            celduin::VarIntTooBig);
     EXPECT_EQ(0, buffer.str().size());
 }
 

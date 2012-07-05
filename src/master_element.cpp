@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/master_element.h>
+#include <celduin/master_element.h>
 
-#include <tide/exceptions.h>
+#include <celduin/exceptions.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

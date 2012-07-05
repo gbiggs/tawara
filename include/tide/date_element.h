@@ -36,25 +36,25 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_DATE_ELEMENT_H_)
-#define TIDE_DATE_ELEMENT_H_
+#if !defined(CELDUIN_DATE_ELEMENT_H_)
+#define CELDUIN_DATE_ELEMENT_H_
 
-#include <tide/prim_element.h>
-#include <tide/win_dll.h>
+#include <celduin/prim_element.h>
+#include <celduin/win_dll.h>
 
 #include <stdint.h>
 
 /// \addtogroup implementations Implementations
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** Date primitive element.
      *
      * This element stores a date. A date is represented as a signed, 64-bit
      * integer giving the number of nanoseconds since 2001-01-01 00:00:00.
      */
-    class TIDE_EXPORT DateElement : public PrimitiveElement<int64_t>
+    class CELDUIN_EXPORT DateElement : public PrimitiveElement<int64_t>
     {
         public:
             /** \brief Create a new date element with no default.
@@ -92,10 +92,10 @@ namespace tide
             virtual std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class DateElement
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group implementations
 
-#endif // TIDE_DATE_ELEMENT_H_
+#endif // CELDUIN_DATE_ELEMENT_H_
 

@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/date_element.h>
+#include <celduin/date_element.h>
 
-#include <tide/ebml_int.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/ebml_int.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////

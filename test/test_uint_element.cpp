@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/uint_element.h>
+#include <celduin/uint_element.h>
 
 #include <gtest/gtest.h>
-#include <tide/ebml_int.h>
-#include <tide/el_ids.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/ebml_int.h>
+#include <celduin/el_ids.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -51,7 +51,7 @@
 namespace test_uintel
 {
 
-std::streamsize fill_buffer(std::string& b, tide::ids::ID id, uint64_t data,
+std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, uint64_t data,
         bool write_id, bool write_size, bool write_body)
 {
     std::streamsize size(0), total(0);
@@ -59,20 +59,20 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, uint64_t data,
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(tide::ebml_int::encode_u(id));
+        std::vector<char> tmp(celduin::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_size)
     {
-        size = tide::ebml_int::size_u(data);
-        std::vector<char> tmp(tide::vint::encode(size));
+        size = celduin::ebml_int::size_u(data);
+        std::vector<char> tmp(celduin::vint::encode(size));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_body)
     {
-        std::vector<char> tmp(tide::ebml_int::encode_u(data));
+        std::vector<char> tmp(celduin::ebml_int::encode_u(data));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -84,68 +84,68 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, uint64_t data,
 
 TEST(UIntElement, Construction)
 {
-    EXPECT_EQ(tide::ids::Null, tide::UIntElement(tide::ids::Null, 1).id());
-    EXPECT_THROW(tide::UIntElement(0x00, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFFFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFFFFFF, 1), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(0xFFFFFFFF, 1), tide::InvalidElementID);
+    EXPECT_EQ(celduin::ids::Null, celduin::UIntElement(celduin::ids::Null, 1).id());
+    EXPECT_THROW(celduin::UIntElement(0x00, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(0xFF, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(0xFFFF, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(0xFFFFFF, 1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(0xFFFFFFFF, 1), celduin::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(tide::UIntElement(0x00, 1, 1), tide::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(0x00, 1, 1), celduin::InvalidElementID);
 }
 
 
 TEST(UIntElement, CopyConstruction)
 {
-    EXPECT_EQ(tide::ids::Null, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1)).id());
-    EXPECT_EQ(tide::ids::Null, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1, 1)).id());
-    EXPECT_EQ(1, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1, 2)).value());
-    EXPECT_EQ(2, tide::UIntElement(tide::UIntElement(tide::ids::Null, 1, 2)).get_default());
+    EXPECT_EQ(celduin::ids::Null, celduin::UIntElement(celduin::UIntElement(celduin::ids::Null, 1)).id());
+    EXPECT_EQ(celduin::ids::Null, celduin::UIntElement(celduin::UIntElement(celduin::ids::Null, 1, 1)).id());
+    EXPECT_EQ(1, celduin::UIntElement(celduin::UIntElement(celduin::ids::Null, 1, 2)).value());
+    EXPECT_EQ(2, celduin::UIntElement(celduin::UIntElement(celduin::ids::Null, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(tide::UIntElement(tide::UIntElement(0x00, 1)),
-            tide::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(celduin::UIntElement(0x00, 1)),
+            celduin::InvalidElementID);
 }
 
 
 TEST(UIntElement, SetID)
 {
-    tide::UIntElement e(tide::ids::Null, 1);
+    celduin::UIntElement e(celduin::ids::Null, 1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0x00), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFFFF),
-            tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFFFFFF),
-            tide::InvalidElementID);
-    EXPECT_THROW(tide::UIntElement(1, 1).id(0xFFFFFFFF),
-            tide::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(1, 1).id(0x00), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(1, 1).id(0xFF), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(1, 1).id(0xFFFF),
+            celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(1, 1).id(0xFFFFFF),
+            celduin::InvalidElementID);
+    EXPECT_THROW(celduin::UIntElement(1, 1).id(0xFFFFFFFF),
+            celduin::InvalidElementID);
 }
 
 
 TEST(UIntElement, Assignment)
 {
-    tide::UIntElement e1(1, 1), e2(2, 2);
+    celduin::UIntElement e1(1, 1), e2(2, 2);
     e2 = e1;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    tide::UIntElement e3(1, 1, 1), e4(2, 2, 2);
+    celduin::UIntElement e3(1, 1, 1), e4(2, 2, 2);
     e4 = e3;
     EXPECT_EQ(e3.value(), e4.value());
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_EQ(e3.get_default(), e4.get_default());
 
-    tide::UIntElement e5(1, 1, 1), e6(2, 2);
+    celduin::UIntElement e5(1, 1, 1), e6(2, 2);
     e6 = e5;
     EXPECT_EQ(e5.value(), e6.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_EQ(e5.get_default(), e6.get_default());
 
-    tide::UIntElement e7(1, 1), e8(2, 2, 2);
+    celduin::UIntElement e7(1, 1), e8(2, 2, 2);
     e8 = e7;
     EXPECT_EQ(e7.value(), e8.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -162,10 +162,10 @@ TEST(UIntElement, Assignment)
 
 TEST(UIntElement, Default)
 {
-    EXPECT_FALSE(tide::UIntElement(tide::ids::Null, 1).has_default());
-    EXPECT_TRUE(tide::UIntElement(tide::ids::Null, 1, 1).has_default());
+    EXPECT_FALSE(celduin::UIntElement(celduin::ids::Null, 1).has_default());
+    EXPECT_TRUE(celduin::UIntElement(celduin::ids::Null, 1, 1).has_default());
 
-    tide::UIntElement e1(tide::ids::Null, 1, 1);
+    celduin::UIntElement e1(celduin::ids::Null, 1, 1);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -174,7 +174,7 @@ TEST(UIntElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    tide::UIntElement e2(tide::ids::Null, 1);
+    celduin::UIntElement e2(celduin::ids::Null, 1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -182,7 +182,7 @@ TEST(UIntElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::UIntElement e3(tide::ids::Null, 1);
+    celduin::UIntElement e3(celduin::ids::Null, 1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -195,17 +195,17 @@ TEST(UIntElement, Default)
 
 TEST(UIntElement, Value)
 {
-    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1).value());
-    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1));
-    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1, 2).value());
-    EXPECT_EQ(1, tide::UIntElement(tide::ids::Null, 1, 2));
+    EXPECT_EQ(1, celduin::UIntElement(celduin::ids::Null, 1).value());
+    EXPECT_EQ(1, celduin::UIntElement(celduin::ids::Null, 1));
+    EXPECT_EQ(1, celduin::UIntElement(celduin::ids::Null, 1, 2).value());
+    EXPECT_EQ(1, celduin::UIntElement(celduin::ids::Null, 1, 2));
 
-    tide::UIntElement e1(tide::ids::Null, 1);
+    celduin::UIntElement e1(celduin::ids::Null, 1);
     EXPECT_EQ(1, e1.value());
     e1.value(2);
     EXPECT_EQ(2, e1.value());
 
-    tide::UIntElement e2(tide::ids::Null, 1, 2);
+    celduin::UIntElement e2(celduin::ids::Null, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
 }
@@ -213,8 +213,8 @@ TEST(UIntElement, Value)
 
 TEST(UIntElement, Equality)
 {
-    tide::UIntElement e1(tide::ids::Null, 1);
-    tide::UIntElement e2(tide::ids::Null, 1);
+    celduin::UIntElement e1(celduin::ids::Null, 1);
+    celduin::UIntElement e2(celduin::ids::Null, 1);
 
     EXPECT_TRUE(e1 == e2);
     e2.value(2);
@@ -227,21 +227,21 @@ TEST(UIntElement, Write)
     std::ostringstream output;
     std::string expected;
     int64_t value(2);
-    std::streamsize val_size(tide::ebml_int::size_u(value));
+    std::streamsize val_size(celduin::ebml_int::size_u(value));
 
-    tide::UIntElement e1(0x80, value);
+    celduin::UIntElement e1(0x80, value);
     test_uintel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(tide::ids::size(0x80) + tide::vint::size(val_size) +
+    EXPECT_EQ(celduin::ids::size(0x80) + celduin::vint::size(val_size) +
             val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = 0x839F18AAl;
-    val_size = tide::ebml_int::size_u(value);
+    val_size = celduin::ebml_int::size_u(value);
     e1.value(value);
     output.str(std::string());
     std::string().swap(expected);
     test_uintel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(tide::ids::size(0x80) + tide::vint::size(val_size) +
+    EXPECT_EQ(celduin::ids::size(0x80) + celduin::vint::size(val_size) +
             val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
@@ -252,43 +252,43 @@ TEST(UIntElement, Read)
     std::istringstream input;
     std::string input_val;
     int64_t value(5);
-    std::streamsize val_size(tide::ebml_int::size_u(value));
+    std::streamsize val_size(celduin::ebml_int::size_u(value));
 
-    tide::UIntElement e(tide::ids::Null, 0);
-    test_uintel::fill_buffer(input_val, tide::ids::Null, value, false, true,
+    celduin::UIntElement e(celduin::ids::Null, 0);
+    test_uintel::fill_buffer(input_val, celduin::ids::Null, value, false, true,
             true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::size(val_size) + val_size, e.read(input));
-    EXPECT_EQ(tide::ids::Null, e.id());
+    EXPECT_EQ(celduin::vint::size(val_size) + val_size, e.read(input));
+    EXPECT_EQ(celduin::ids::Null, e.id());
     EXPECT_EQ(value, e.value());
 
     value = 0x3A958BCD99l;
-    val_size = tide::ebml_int::size_u(value);
+    val_size = celduin::ebml_int::size_u(value);
     e.value(0);
     e.set_default(0);
     EXPECT_TRUE(e.has_default());
     EXPECT_TRUE(e.is_default());
     std::string().swap(input_val);
-    test_uintel::fill_buffer(input_val, tide::ids::Null, value, false, true,
+    test_uintel::fill_buffer(input_val, celduin::ids::Null, value, false, true,
             true);
     input.str(input_val);
-    EXPECT_EQ(tide::vint::size(val_size) + val_size, e.read(input));
+    EXPECT_EQ(celduin::vint::size(val_size) + val_size, e.read(input));
     EXPECT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());
 
     // Test for ReadError exception
     std::string().swap(input_val);
-    test_uintel::fill_buffer(input_val, tide::ids::Null, value, false, true,
+    test_uintel::fill_buffer(input_val, celduin::ids::Null, value, false, true,
             true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), celduin::ReadError);
 }
 
 
 TEST(UIntElement, Size)
 {
-    tide::UIntElement e(tide::ids::Null, 1);
+    celduin::UIntElement e(celduin::ids::Null, 1);
     EXPECT_EQ(3, e.size());
 
     e.value(0x7FFFFF);

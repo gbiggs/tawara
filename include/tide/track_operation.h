@@ -36,27 +36,27 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_TRACK_OPERATION_H_)
-#define TIDE_TRACK_OPERATION_H_
+#if !defined(CELDUIN_TRACK_OPERATION_H_)
+#define CELDUIN_TRACK_OPERATION_H_
 
 #include <boost/operators.hpp>
 #include <boost/smart_ptr.hpp>
-#include <tide/el_ids.h>
-#include <tide/master_element.h>
-#include <tide/uint_element.h>
-#include <tide/win_dll.h>
+#include <celduin/el_ids.h>
+#include <celduin/master_element.h>
+#include <celduin/uint_element.h>
+#include <celduin/win_dll.h>
 #include <vector>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief Abstract base class for individual track operations.
      *
      * All track operations must inherit from this base class.
      */
-    class TIDE_EXPORT TrackOperationBase : public MasterElement
+    class CELDUIN_EXPORT TrackOperationBase : public MasterElement
     {
         public:
             /// \brief Constructor - this must be called to set the Class ID.
@@ -86,7 +86,7 @@ namespace tide
      * interleaved blocks of data at best and undefined results at worst, and
      * should be avoided.
      */
-    class TIDE_EXPORT TrackJoinBlocks : public TrackOperationBase,
+    class CELDUIN_EXPORT TrackJoinBlocks : public TrackOperationBase,
             public boost::equality_comparable<TrackJoinBlocks>
     {
         public:
@@ -155,10 +155,10 @@ namespace tide
     {
         return lhs.uids_ == rhs.uids_;
     }
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 // group elements
 
-#endif // TIDE_TRACK_OPERATION_H_
+#endif // CELDUIN_TRACK_OPERATION_H_
 

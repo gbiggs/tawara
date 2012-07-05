@@ -38,13 +38,13 @@
 
 #include <boost/filesystem.hpp>
 #include <gtest/gtest.h>
-#include <tide/exceptions.h>
-#include <tide/tide_impl.h>
+#include <celduin/exceptions.h>
+#include <celduin/celduin_impl.h>
 
 #include "test_consts.h"
 
 
-namespace test_tide
+namespace test_celduin
 {
     void prepare_file(std::string name, std::fstream& file)
     {
@@ -66,91 +66,91 @@ namespace test_tide
         boost::filesystem::path path(test_bin_dir / name);
         boost::filesystem::remove(path);
     }
-}; // namespace test_tide
+}; // namespace test_celduin
 
 
-TEST(Tide, EmptyFile)
+TEST(Celduin, EmptyFile)
 {
-    boost::filesystem::path path(test_bin_dir / "empty_file.tide");
+    boost::filesystem::path path(test_bin_dir / "empty_file.celduin");
     if (boost::filesystem::exists(path))
     {
         boost::filesystem::remove(path);
     }
     std::fstream file(path.string().c_str(),
             std::ios::in|std::ios::out|std::ios::app);
-    EXPECT_NO_THROW(tide::TideImpl t(file));
+    EXPECT_NO_THROW(celduin::CelduinImpl t(file));
     file.close();
-    // A Tide file with just the EBML header should be 36 bytes
+    // A Celduin file with just the EBML header should be 36 bytes
     EXPECT_EQ(34, boost::filesystem::file_size(path));
     boost::filesystem::remove(path);
 }
 
 
-TEST(Tide, ExistingFile)
+TEST(Celduin, ExistingFile)
 {
     std::fstream file;
-    test_tide::prepare_file("tide.tide", file);
+    test_celduin::prepare_file("celduin.celduin", file);
     file.seekp(0, std::ios::end);
     std::streamsize file_size(file.tellp());
     file.seekp(0, std::ios::beg);
-    EXPECT_NO_THROW(tide::TideImpl t(file));
+    EXPECT_NO_THROW(celduin::CelduinImpl t(file));
     file.seekp(0, std::ios::end);
     // The file should not be modified just by opening it
     EXPECT_EQ(file_size, file.tellp());
-    test_tide::cleanup_file("tide.tide", file);
+    test_celduin::cleanup_file("celduin.celduin", file);
 }
 
 
-TEST(Tide, NotEBMLFile)
+TEST(Celduin, NotEBMLFile)
 {
     std::fstream file;
-    test_tide::prepare_file("not_ebml.tide", file);
-    EXPECT_THROW(tide::TideImpl t(file), tide::NotEBML);
-    test_tide::cleanup_file("not_ebml.tide", file);
+    test_celduin::prepare_file("not_ebml.celduin", file);
+    EXPECT_THROW(celduin::CelduinImpl t(file), celduin::NotEBML);
+    test_celduin::cleanup_file("not_ebml.celduin", file);
 }
 
 
-TEST(Tide, NotTideFile)
+TEST(Celduin, NotCelduinFile)
 {
     std::fstream file;
-    test_tide::prepare_file("not_tide.tide", file);
-    EXPECT_THROW(tide::TideImpl t(file), tide::NotTide);
-    test_tide::cleanup_file("not_tide.tide", file);
+    test_celduin::prepare_file("not_celduin.celduin", file);
+    EXPECT_THROW(celduin::CelduinImpl t(file), celduin::NotCelduin);
+    test_celduin::cleanup_file("not_celduin.celduin", file);
 }
 
 
-TEST(Tide, TruncatedTideFile)
+TEST(Celduin, TruncatedCelduinFile)
 {
     std::fstream file;
-    test_tide::prepare_file("truncated.tide", file);
-    EXPECT_THROW(tide::TideImpl t(file), tide::ReadError);
-    test_tide::cleanup_file("truncated.tide", file);
+    test_celduin::prepare_file("truncated.celduin", file);
+    EXPECT_THROW(celduin::CelduinImpl t(file), celduin::ReadError);
+    test_celduin::cleanup_file("truncated.celduin", file);
 }
 
 
-TEST(Tide, TextBeforeHeader)
+TEST(Celduin, TextBeforeHeader)
 {
     std::fstream file;
-    test_tide::prepare_file("with_text.tide", file);
-    EXPECT_NO_THROW(tide::TideImpl t(file));
-    test_tide::cleanup_file("with_text.tide", file);
+    test_celduin::prepare_file("with_text.celduin", file);
+    EXPECT_NO_THROW(celduin::CelduinImpl t(file));
+    test_celduin::cleanup_file("with_text.celduin", file);
 }
 
 
-TEST(Tide, BadReadVersion)
+TEST(Celduin, BadReadVersion)
 {
     std::fstream file;
-    test_tide::prepare_file("badreadversion.tide", file);
-    EXPECT_THROW(tide::TideImpl t(file), tide::BadReadVersion);
-    test_tide::cleanup_file("badreadversion.tide", file);
+    test_celduin::prepare_file("badreadversion.celduin", file);
+    EXPECT_THROW(celduin::CelduinImpl t(file), celduin::BadReadVersion);
+    test_celduin::cleanup_file("badreadversion.celduin", file);
 }
 
 
-TEST(Tide, BadDocReadVersion)
+TEST(Celduin, BadDocReadVersion)
 {
     std::fstream file;
-    test_tide::prepare_file("baddocreadversion.tide", file);
-    EXPECT_THROW(tide::TideImpl t(file), tide::BadDocReadVersion);
-    test_tide::cleanup_file("baddocreadversion.tide", file);
+    test_celduin::prepare_file("baddocreadversion.celduin", file);
+    EXPECT_THROW(celduin::CelduinImpl t(file), celduin::BadDocReadVersion);
+    test_celduin::cleanup_file("baddocreadversion.celduin", file);
 }
 

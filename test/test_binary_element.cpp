@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/binary_element.h>
+#include <celduin/binary_element.h>
 
 #include <gtest/gtest.h>
 #include <string>
-#include <tide/el_ids.h>
-#include <tide/ebml_int.h>
-#include <tide/exceptions.h>
-#include <tide/vint.h>
+#include <celduin/el_ids.h>
+#include <celduin/ebml_int.h>
+#include <celduin/exceptions.h>
+#include <celduin/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -52,7 +52,7 @@
 namespace test_binel
 {
 
-std::streamsize fill_buffer(std::string& b, tide::ids::ID id, std::vector<char> data,
+std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, std::vector<char> data,
         bool write_id, bool write_size, bool write_body)
 {
     std::streamsize total(0);
@@ -60,13 +60,13 @@ std::streamsize fill_buffer(std::string& b, tide::ids::ID id, std::vector<char> 
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(tide::ebml_int::encode_u(id));
+        std::vector<char> tmp(celduin::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_size)
     {
-        std::vector<char> tmp(tide::vint::encode(data.size()));
+        std::vector<char> tmp(celduin::vint::encode(data.size()));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -110,70 +110,70 @@ class BinaryElementTest : public ::testing::Test
 
 TEST_F(BinaryElementTest, Construction)
 {
-    EXPECT_EQ(tide::ids::Null, tide::BinaryElement(tide::ids::Null, b1).id());
-    EXPECT_THROW(tide::BinaryElement(0x00, b1), tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(0xFF, b1), tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(0xFFFF, b1), tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(0xFFFFFF, b1), tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(0xFFFFFFFF, b1), tide::InvalidElementID);
+    EXPECT_EQ(celduin::ids::Null, celduin::BinaryElement(celduin::ids::Null, b1).id());
+    EXPECT_THROW(celduin::BinaryElement(0x00, b1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(0xFF, b1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(0xFFFF, b1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(0xFFFFFF, b1), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(0xFFFFFFFF, b1), celduin::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(tide::BinaryElement(0x00, b1, b1), tide::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(0x00, b1, b1), celduin::InvalidElementID);
 }
 
 
 TEST_F(BinaryElementTest, CopyConstruction)
 {
-    EXPECT_EQ(tide::ids::Null, tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1)).id());
-    EXPECT_EQ(tide::ids::Null, tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1, b2)).id());
+    EXPECT_EQ(celduin::ids::Null, celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1)).id());
+    EXPECT_EQ(celduin::ids::Null, celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1, b2)).id());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1, b2)).value());
+            celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1, b2)).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2,
-            tide::BinaryElement(tide::BinaryElement(tide::ids::Null, b1, b2)).get_default());
+            celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1, b2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(tide::BinaryElement(tide::BinaryElement(0x00, b1)),
-            tide::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(celduin::BinaryElement(0x00, b1)),
+            celduin::InvalidElementID);
 }
 
 
 TEST_F(BinaryElementTest, SetID)
 {
-    tide::BinaryElement e(tide::ids::Null, b1);
+    celduin::BinaryElement e(celduin::ids::Null, b1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(tide::BinaryElement(1, b1).id(0x00), tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(1, b1).id(0xFF), tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(1, b1).id(0xFFFF),
-            tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(1, b1).id(0xFFFFFF),
-            tide::InvalidElementID);
-    EXPECT_THROW(tide::BinaryElement(1, b1).id(0xFFFFFFFF),
-            tide::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0x00), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFF), celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFFFF),
+            celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFFFFFF),
+            celduin::InvalidElementID);
+    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFFFFFFFF),
+            celduin::InvalidElementID);
 }
 
 
 TEST_F(BinaryElementTest, Assignment)
 {
-    tide::BinaryElement e1(1, b1), e2(2, b2);
+    celduin::BinaryElement e1(1, b1), e2(2, b2);
     e2 = e1;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    tide::BinaryElement e3(1, b1, b1), e4(2, b2, b2);
+    celduin::BinaryElement e3(1, b1, b1), e4(2, b2, b2);
     e4 = e3;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e3.get_default(), e4.get_default());
 
-    tide::BinaryElement e5(1, b1, b1), e6(2, b2);
+    celduin::BinaryElement e5(1, b1, b1), e6(2, b2);
     e6 = e5;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e5.get_default(), e6.get_default());
 
-    tide::BinaryElement e7(1, b1), e8(2, b2, b2);
+    celduin::BinaryElement e7(1, b1), e8(2, b2, b2);
     e8 = e7;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -187,10 +187,10 @@ TEST_F(BinaryElementTest, Assignment)
 
 TEST_F(BinaryElementTest, Default)
 {
-    EXPECT_FALSE(tide::BinaryElement(tide::ids::Null, b1).has_default());
-    EXPECT_TRUE(tide::BinaryElement(tide::ids::Null, b1, b1).has_default());
+    EXPECT_FALSE(celduin::BinaryElement(celduin::ids::Null, b1).has_default());
+    EXPECT_TRUE(celduin::BinaryElement(celduin::ids::Null, b1, b1).has_default());
 
-    tide::BinaryElement e1(tide::ids::Null, b1, b1);
+    celduin::BinaryElement e1(celduin::ids::Null, b1, b1);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -199,7 +199,7 @@ TEST_F(BinaryElementTest, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1.get_default());
 
-    tide::BinaryElement e2(tide::ids::Null, b1);
+    celduin::BinaryElement e2(celduin::ids::Null, b1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(b1);
     EXPECT_TRUE(e2.has_default());
@@ -207,7 +207,7 @@ TEST_F(BinaryElementTest, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    tide::BinaryElement e3(tide::ids::Null, b1);
+    celduin::BinaryElement e3(celduin::ids::Null, b1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(b1);
     EXPECT_TRUE(e3.is_default());
@@ -221,21 +221,21 @@ TEST_F(BinaryElementTest, Default)
 TEST_F(BinaryElementTest, Value)
 {
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(tide::ids::Null, b1).value());
+            celduin::BinaryElement(celduin::ids::Null, b1).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(tide::ids::Null, b1));
+            celduin::BinaryElement(celduin::ids::Null, b1));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(tide::ids::Null, b1, b2).value());
+            celduin::BinaryElement(celduin::ids::Null, b1, b2).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            tide::BinaryElement(tide::ids::Null, b1, b2));
+            celduin::BinaryElement(celduin::ids::Null, b1, b2));
 
-    tide::BinaryElement e1(tide::ids::Null, b1);
+    celduin::BinaryElement e1(celduin::ids::Null, b1);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e1.value());
     e1.value(b2);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1);
 
-    tide::BinaryElement e2(tide::ids::Null, b1, b2);
+    celduin::BinaryElement e2(celduin::ids::Null, b1, b2);
     e2.value(b3);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2);
@@ -244,8 +244,8 @@ TEST_F(BinaryElementTest, Value)
 
 TEST_F(BinaryElementTest, Equality)
 {
-    tide::BinaryElement e1(tide::ids::Null, b1);
-    tide::BinaryElement e2(tide::ids::Null, b1);
+    celduin::BinaryElement e1(celduin::ids::Null, b1);
+    celduin::BinaryElement e2(celduin::ids::Null, b1);
 
     EXPECT_TRUE(e1 == e2);
     e2.value(b2);
@@ -258,12 +258,12 @@ TEST_F(BinaryElementTest, Write)
     std::ostringstream output;
     std::string expected;
 
-    tide::BinaryElement e1(0x80, b1);
+    celduin::BinaryElement e1(0x80, b1);
 
     output.str(std::string());
     std::string().swap(expected);
     test_binel::fill_buffer(expected, 0x80, b1, true, true, true);
-    EXPECT_EQ(tide::ids::size(0x80) + 1 + b1.size(),
+    EXPECT_EQ(celduin::ids::size(0x80) + 1 + b1.size(),
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -271,7 +271,7 @@ TEST_F(BinaryElementTest, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_binel::fill_buffer(expected, 0x80, b3, true, true, true);
-    EXPECT_EQ(tide::ids::size(0x80) + 1 + b3.size(),
+    EXPECT_EQ(celduin::ids::size(0x80) + 1 + b3.size(),
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -281,7 +281,7 @@ TEST_F(BinaryElementTest, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_binel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(tide::ids::size(0x80) + 1 + value.size(), e1.write(output));
+    EXPECT_EQ(celduin::ids::size(0x80) + 1 + value.size(), e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -291,7 +291,7 @@ TEST_F(BinaryElementTest, Read)
     std::istringstream input;
     std::string input_val;
 
-    tide::BinaryElement e(0x80, std::vector<char>());
+    celduin::BinaryElement e(0x80, std::vector<char>());
     test_binel::fill_buffer(input_val, 0x80, b1, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + b1.size(), e.read(input));
@@ -328,13 +328,13 @@ TEST_F(BinaryElementTest, Read)
     std::string().swap(input_val);
     test_binel::fill_buffer(input_val, 0x80, b4, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), tide::ReadError);
+    EXPECT_THROW(e.read(input), celduin::ReadError);
 }
 
 
 TEST_F(BinaryElementTest, Size)
 {
-    tide::BinaryElement e(0x80, b1);
+    celduin::BinaryElement e(0x80, b1);
     EXPECT_EQ(2 + b1.size(), e.size());
 
     e.value(b3);

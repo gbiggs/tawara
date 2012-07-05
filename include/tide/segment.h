@@ -36,27 +36,27 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_SEGMENT_H_)
-#define TIDE_SEGMENT_H_
+#if !defined(CELDUIN_SEGMENT_H_)
+#define CELDUIN_SEGMENT_H_
 
 #include <map>
-#include <tide/master_element.h>
-#include <tide/file_cluster.h>
-#include <tide/memory_cluster.h>
-#include <tide/metaseek.h>
-#include <tide/segment_info.h>
-#include <tide/win_dll.h>
+#include <celduin/master_element.h>
+#include <celduin/file_cluster.h>
+#include <celduin/memory_cluster.h>
+#include <celduin/metaseek.h>
+#include <celduin/segment_info.h>
+#include <celduin/win_dll.h>
 
 /// \addtogroup elements Elements
 /// @{
 
-namespace tide
+namespace celduin
 {
     /** \brief The Segment element.
      *
-     * A segment makes up the body of a Tide document. It is the only top-level
-     * element, excluding the EBMLHeader. All other Tide elements are contained
-     * within it. Usually, a Tide document contains a single segment.
+     * A segment makes up the body of a Celduin document. It is the only top-level
+     * element, excluding the EBMLHeader. All other Celduin elements are contained
+     * within it. Usually, a Celduin document contains a single segment.
      *
      * The segment contains all the document's blocks (stored in clusters), and
      * all relevant meta-data, such as document information, tags, attachments
@@ -78,7 +78,7 @@ namespace tide
      * elements are then read directly from the file as needed. The segment
      * does not need to be closed once reading is complete.
      */
-    class TIDE_EXPORT Segment : public MasterElement
+    class CELDUIN_EXPORT Segment : public MasterElement
     {
         public:
             /// \brief Pointer to a segment.
@@ -97,7 +97,7 @@ namespace tide
 
             // All clusters in the segment.
             template <typename ClusterType>
-            class TIDE_EXPORT ClusterIteratorBase
+            class CELDUIN_EXPORT ClusterIteratorBase
                 : public boost::iterator_facade<
                     ClusterIteratorBase<ClusterType>,
                     ClusterType, boost::forward_traversal_tag>
@@ -160,8 +160,8 @@ namespace tide
 
                     void open_cluster()
                     {
-                        tide::ids::ReadResult id(tide::ids::read(stream_));
-                        if (id.first != tide::ids::Cluster)
+                        celduin::ids::ReadResult id(celduin::ids::read(stream_));
+                        if (id.first != celduin::ids::Cluster)
                         {
                             throw InvalidChildID() << err_id(id.first) <<
                                 err_par_id(segment_->id_) <<
@@ -268,7 +268,7 @@ namespace tide
 
             // All blocks in the segment.
             template <typename ClusterItrType, typename BlockItrType>
-            class TIDE_EXPORT BlockIteratorBase
+            class CELDUIN_EXPORT BlockIteratorBase
                 : public boost::iterator_facade<
                     BlockIteratorBase<ClusterItrType, BlockItrType>,
                     typename BlockItrType::value_type,
@@ -543,8 +543,8 @@ namespace tide
             /** \brief Get the size of the body of this element.
              *
              * This function will not return the actual size of the segment
-             * until either the segment is read from a Tide document or it is
-             * finalised in a Tide document.
+             * until either the segment is read from a Celduin document or it is
+             * finalised in a Celduin document.
              */
             std::streamsize body_size() const
                 { return size_; }
@@ -596,9 +596,9 @@ namespace tide
             std::streamsize read_body(std::istream& input,
                     std::streamsize size);
     }; // class Segment
-}; // namespace tide
+}; // namespace celduin
 
 /// @}
 
-#endif // TIDE_SEGMENT_H_
+#endif // CELDUIN_SEGMENT_H_
 

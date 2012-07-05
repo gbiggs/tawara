@@ -1,4 +1,4 @@
-# Check the Tide version provided.
+# Check the @PROJECT_NAME@ version provided.
 
 set(PACKAGE_VERSION @PROJECT_VERSION@)
 if(PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION)

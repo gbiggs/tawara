@@ -36,19 +36,19 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_BLOCK_ELEMENT_H_)
-#define TIDE_BLOCK_ELEMENT_H_
+#if !defined(CELDUIN_BLOCK_ELEMENT_H_)
+#define CELDUIN_BLOCK_ELEMENT_H_
 
 #include <boost/shared_ptr.hpp>
-#include <tide/block.h>
-#include <tide/element.h>
+#include <celduin/block.h>
+#include <celduin/element.h>
 
-namespace tide
+namespace celduin
 {
-    class TIDE_EXPORT BlockElement : public Element, public Block
+    class CELDUIN_EXPORT BlockElement : public Element, public Block
     {
         public:
-            BlockElement(tide::ids::ID id, uint64_t track_number,
+            BlockElement(celduin::ids::ID id, uint64_t track_number,
                     int16_t timecode, LacingType lacing=LACING_NONE)
                 : Element(id), Block(track_number, timecode, lacing)
             {
@@ -56,7 +56,7 @@ namespace tide
 
             typedef boost::shared_ptr<BlockElement> Ptr;
     }; // class BlockElement
-}; // namespace tide
+}; // namespace celduin
 
-#endif // TIDE_BLOCK_ELEMENT_H_
+#endif // CELDUIN_BLOCK_ELEMENT_H_
 

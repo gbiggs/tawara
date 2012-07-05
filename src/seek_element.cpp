@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/seek_element.h>
+#include <celduin/seek_element.h>
 
-#include <tide/vint.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ using namespace tide;
 
 SeekElement::SeekElement(ids::ID id, std::streampos offset)
     : MasterElement(ids::Seek),
-    indexed_id_(ids::SeekID, tide::ids::encode(id)),
+    indexed_id_(ids::SeekID, celduin::ids::encode(id)),
     offset_(ids::SeekPosition, offset)
 {
     assert(offset >= 0);

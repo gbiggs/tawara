@@ -1,13 +1,13 @@
-set(config_h ${CMAKE_CURRENT_BINARY_DIR}/tide_config.h)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/tide_config.h.in
+set(config_h ${CMAKE_CURRENT_BINARY_DIR}/celduin_config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/celduin_config.h.in
     ${config_h})
 
 set(hdrs ${config_h}
-    tide.h
+    celduin.h
     exceptions.h
     win_dll.h
     el_ids.h
-    tide_impl.h
+    celduin_impl.h
     vint.h
     ebml_int.h
     element.h

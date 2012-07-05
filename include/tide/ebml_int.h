@@ -36,8 +36,8 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(TIDE_EBML_INT_H_)
-#define TIDE_EBML_INT_H_
+#if !defined(CELDUIN_EBML_INT_H_)
+#define CELDUIN_EBML_INT_H_
 
 #include <cstddef>
 #include <istream>
@@ -45,7 +45,7 @@
 #include <stdint.h>
 #include <vector>
 
-namespace tide
+namespace celduin
 {
     /** \brief Functions for managing integers coded for EBML.
      *
@@ -108,7 +108,7 @@ namespace tide
 
         /** \brief Encode and write an unsigned integer into a byte stream.
          *
-         * This function performs the same task as tide::ebml_int::encode_u(),
+         * This function performs the same task as celduin::ebml_int::encode_u(),
          * but instead of writing to a basic buffer, it writes to a
          * std::ostream object.
          *
@@ -121,7 +121,7 @@ namespace tide
 
         /** \brief Encode and write a signed integer into a byte stream.
          *
-         * This function performs the same task as tide::ebml_int::encode_s(),
+         * This function performs the same task as celduin::ebml_int::encode_s(),
          * but instead of writing to a basic buffer, it writes to a
          * std::ostream object.
          *
@@ -158,7 +158,7 @@ namespace tide
 
         /** \brief Read and decode an unsigned integer from a byte stream.
          *
-         * This function performs the same task as tide::ebml_int::decode_u(),
+         * This function performs the same task as celduin::ebml_int::decode_u(),
          * but instead of reading from a basic buffer, it reads from a
          * std::istream object.
          *
@@ -171,7 +171,7 @@ namespace tide
 
         /** \brief Read and decode a signed integer from a byte stream.
          *
-         * This function performs the same task as tide::ebml_int::decode_s(),
+         * This function performs the same task as celduin::ebml_int::decode_s(),
          * but instead of reading from a basic buffer, it reads from a
          * std::istream object.
          *
@@ -182,8 +182,8 @@ namespace tide
          */
         int64_t read_s(std::istream& input, std::streamsize n);
     }; // namespace ebml_int
-}; // namespace tide
+}; // namespace celduin
 
-#endif // TIDE_EBML_INT_H_
+#endif // CELDUIN_EBML_INT_H_
 
 

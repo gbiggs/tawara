@@ -1,5 +1,5 @@
-Tide - English
-==============
+Celduin - English
+=================
 
 .. toctree::
    :hidden:
@@ -10,7 +10,7 @@ Tide - English
 Introduction
 ============
 
-Tide (Time-Indexed Data Entries) is a library for recording and playing
+Celduin (Time-Indexed Data Entries) is a library for recording and playing
 back data indexed along a single axis, typically time. It is not
 described as "for storing and retrieving;" the library is optimised for
 data streams, not data tables. It is particularly suited to applications
@@ -23,13 +23,13 @@ software.
 Requirements
 ============
 
-Tide uses the `CMake build system`_. You will need at least version
+Celduin uses the `CMake build system`_. You will need at least version
 2.8 to be able to build the component.
 
 .. _`CMake build system`:
    http://www.cmake.org/
 
-Tide runs on Linux, Mac OS X and Windows.
+Celduin runs on Linux, Mac OS X and Windows.
 
 Installation
 ============
@@ -42,16 +42,16 @@ No binary installers are currently available.
 From source
 -----------
 
-Follow these steps to install Tide from source in any operating system:
+Follow these steps to install Celduin from source in any operating system:
 
 - Download the source, either from the repository or a source archive,
   and extract it somewhere::
 
-    tar -xvzf tide-1.0.0.tar.gz
+    tar -xvzf celduin-1.0.0.tar.gz
 
 - Change to the directory containing the extracted source::
 
-    cd tide-1.0.0
+    cd celduin-1.0.0
 
 - Create a directory called ``build``::
 
@@ -82,10 +82,10 @@ Follow these steps to install Tide from source in any operating system:
 The library is now ready to use. You can use it in your own CMake projects with
 the following line::
 
-  find_package(tide)
+  find_package(celduin)
 
-If you are not using CMake, a pkg-config file is available, ``tide.pc``.
-Be sure to add the pkg-config location below the Tide install prefix to
+If you are not using CMake, a pkg-config file is available, ``celduin.pc``.
+Be sure to add the pkg-config location below the Celduin install prefix to
 the ``PKG_CONFIG_PATH`` environment variable. If you installed into
 ``/usr/local``, this will be::
 
@@ -99,19 +99,19 @@ or::
 APIs
 ====
 
-Tide features two APIs for the programmer:
+Celduin features two APIs for the programmer:
 
-  Tide
+  celduin
     This is the element-level API. It requires working with the EBML elements
-    used in the Tide format directly. It allows significant flexibility in how
-    a Tide document is written to disc or read from disc.  A reasonable
-    knowledge of the Tide format specification (:doc:`available here
+    used in the Celduin format directly. It allows significant flexibility in how
+    a Celduin document is written to disc or read from disc.  A reasonable
+    knowledge of the Celduin format specification (:doc:`available here
     <specification>`) is necessary to use this interface effectively.
 
-  HighTide
-    This is the high-level API, providing an abstract interface into Tide
+  Highcelduin
+    This is the high-level API, providing an abstract interface into Celduin
     documents. For example, channels are abstracted into streams of data that
-    can be individually iterated through. No knowledge of the Tide format
+    can be individually iterated through. No knowledge of the Celduin format
     specification is necessary to use this API.
 
 
@@ -131,7 +131,7 @@ Click here_ to access the API documentation.
 The documentation is also `available online`_.
 
 .. _`available online`:
-   http://gbiggs.github.com/tide/
+   http://gbiggs.github.com/celduin/
 
 
 Examples
@@ -139,20 +139,20 @@ Examples
 
 Simple usage examples are provided in the ``examples/`` directory of the
 source. For more complex examples, see the sourcecode of the tools
-included with Tide.
+included with Celduin.
 
 
 Tools
 =====
 
-Tide includes several useful tools. These tools are designed to
-introspect and manipulate Tide objects.
+Celduin includes several useful tools. These tools are designed to
+introspect and manipulate Celduin objects.
 
 
 Format specification
 ====================
 
-The Tide format specification is :doc:`available online <specification>`.
+The Celduin format specification is :doc:`available online <specification>`.
 
 
 Changelog

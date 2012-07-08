@@ -36,9 +36,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/float_element.h>
+#include <celduin/float_element.h>
 
-using namespace tide;
+using namespace celduin;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ FloatElement::FloatElement(ids::ID id, double value,
 }
 
 
-FloatElement::FloatElement(tide::ids::ID id, double value, double default_val,
+FloatElement::FloatElement(celduin::ids::ID id, double value, double default_val,
         EBMLFloatPrecision precision)
     : ElementBase<FloatElement>(id), impl_(value, default_val, precision),
     id_(id), offset_(0), writing_(false)
@@ -75,7 +75,7 @@ void FloatElement::swap(FloatElement& other)
 }
 
 
-void tide::swap(FloatElement& a, FloatElement& b)
+void celduin::swap(FloatElement& a, FloatElement& b)
 {
     a.swap(b);
 }
@@ -88,7 +88,7 @@ void FloatElement::swap(double& other)
 }
 
 
-void tide::swap(FloatElement& a, double& b)
+void celduin::swap(FloatElement& a, double& b)
 {
     a.swap(b);
 }

@@ -37,16 +37,16 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/binary_element.h>
-#include <tide/ebml_integer.h>
-#include <tide/exceptions.h>
-#include <tide/tide_config.h>
+#include <celduin/binary_element.h>
+#include <celduin/ebml_integer.h>
+#include <celduin/exceptions.h>
+#include <celduin/celduin_config.h>
 
 #include <limits>
 
 #include "test_utilities.h"
 
-using namespace tide;
+using namespace celduin;
 
 namespace test_binary_el
 {
@@ -322,9 +322,9 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('a', *(ee.begin()));
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('a', *(ee.cbegin()));
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         BinaryElement ee_const(ids::Null, b1);
         EXPECT_EQ('a', *(ee_const.begin()));
     }
@@ -334,9 +334,9 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('h', *(ee.end() - 1));
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('h', *(ee.cend() - 1));
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         BinaryElement ee_const(ids::Null, b1);
         EXPECT_EQ('h', *(ee_const.end() - 1));
     }
@@ -346,9 +346,9 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('h', *(ee.rbegin()));
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('h', *(ee.crbegin()));
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         BinaryElement ee_const(ids::Null, b1);
         EXPECT_EQ('h', *(ee_const.rbegin()));
     }
@@ -358,9 +358,9 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('a', *(ee.rend() - 1));
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('a', *(ee.crend() - 1));
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         BinaryElement ee_const(ids::Null, b1);
         EXPECT_EQ('a', *(ee_const.rend() - 1));
     }
@@ -410,7 +410,7 @@ namespace test_binary_el
     }
 
 
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
     TEST_F(BinaryElementTest, ShrinkToFit)
     {
         BinaryElement ee(ids::Null, b1);
@@ -419,7 +419,7 @@ namespace test_binary_el
         ee.shrink_to_fit();
         EXPECT_EQ(8, ee.capacity());
     }
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
 
 
     TEST_F(BinaryElementTest, Clear)
@@ -439,10 +439,10 @@ namespace test_binary_el
         ee.insert(ee.begin(), z);
         EXPECT_EQ('z', ee[0]);
 
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         ee.insert(ee.cbegin(), 'y');
         EXPECT_EQ('y', ee[0]);
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
 
         ee.insert(ee.begin(), 3, 'x');
         EXPECT_EQ('x', ee[0]);
@@ -454,22 +454,22 @@ namespace test_binary_el
         EXPECT_EQ('o', ee[1]);
         EXPECT_EQ('x', ee[2]); // Only two elements should have been inserted
 
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         ee.insert(ee.begin(), {'1', '2', '3'});
         EXPECT_EQ('1', ee[0]);
         EXPECT_EQ('2', ee[1]);
         EXPECT_EQ('3', ee[2]);
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
     }
 
 
     TEST_F(BinaryElementTest, Emplace)
     {
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         BinaryElement ee(ids::Null, b1);
         ee.emplace(ee.begin(), 'm');
         EXPECT_EQ('m', ee[0]);
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
     }
 
 
@@ -496,12 +496,12 @@ namespace test_binary_el
 
     TEST_F(BinaryElementTest, EmplaceBack)
     {
-#if defined(TIDE_CPLUSPLUS11_SUPPORT)
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
         BinaryElement ee(ids::Null, b1);
         ee.emplace_back('i');
         EXPECT_EQ('i', ee[8]);
         EXPECT_EQ(9, ee.size());
-#endif // defined(TIDE_CPLUSPLUS11_SUPPORT)
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
     }
 
 
@@ -713,7 +713,7 @@ namespace test_binary_el
     {
         std::stringstream output;
         std::string expected;
-        tide::BinaryElement ee(ids::Null, b1);
+        celduin::BinaryElement ee(ids::Null, b1);
 
         output.str(std::string());
         std::string().swap(expected);
@@ -727,7 +727,7 @@ namespace test_binary_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, b3, true, true, true);
-        EXPECT_EQ(tide::ids::size(ids::Null) + 1 + b3.size(),
+        EXPECT_EQ(celduin::ids::size(ids::Null) + 1 + b3.size(),
                 ee.start_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -738,7 +738,7 @@ namespace test_binary_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, empty, true, true, true);
-        EXPECT_EQ(tide::ids::size(ids::Null) + vint::size(empty.size()) +
+        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(empty.size()) +
                 empty.size(), ee.start_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -774,7 +774,7 @@ namespace test_binary_el
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, b3, true, true, true);
         ee.start_write(output);
-        EXPECT_EQ(tide::ids::size(ids::Null) + 1 + b3.size(),
+        EXPECT_EQ(celduin::ids::size(ids::Null) + 1 + b3.size(),
                 ee.finish_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -789,7 +789,7 @@ namespace test_binary_el
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, empty, true, true, true);
         ee.start_write(output);
-        EXPECT_EQ(tide::ids::size(ids::Null) + vint::size(empty.size()) +
+        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(empty.size()) +
                 empty.size(), ee.finish_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -826,7 +826,7 @@ namespace test_binary_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, b3, true, true, true);
-        EXPECT_EQ(tide::ids::size(ids::Null) + 1 + b3.size(),
+        EXPECT_EQ(celduin::ids::size(ids::Null) + 1 + b3.size(),
                 write(ee, output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -840,7 +840,7 @@ namespace test_binary_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, empty, true, true, true);
-        EXPECT_EQ(tide::ids::size(ids::Null) + vint::size(empty.size()) +
+        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(empty.size()) +
                 empty.size(), write(ee, output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);

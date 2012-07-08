@@ -36,9 +36,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/date_element.h>
+#include <celduin/date_element.h>
 
-using namespace tide;
+using namespace celduin;
 namespace bpt = boost::posix_time;
 namespace bgr = boost::gregorian;
 
@@ -54,7 +54,7 @@ DateElement::DateElement(ids::ID id, bpt::ptime const& value)
 }
 
 
-DateElement::DateElement(tide::ids::ID id, bpt::ptime const& value,
+DateElement::DateElement(celduin::ids::ID id, bpt::ptime const& value,
         bpt::ptime const& default_val)
     : ElementBase<DateElement>(id), impl_(value, default_val), id_(id),
     offset_(0), writing_(false)
@@ -76,7 +76,7 @@ void DateElement::swap(DateElement& other)
 }
 
 
-void tide::swap(DateElement& a, DateElement& b)
+void celduin::swap(DateElement& a, DateElement& b)
 {
     a.swap(b);
 }
@@ -89,7 +89,7 @@ void DateElement::swap(bpt::ptime& other)
 }
 
 
-void tide::swap(DateElement& a, bpt::ptime& b)
+void celduin::swap(DateElement& a, bpt::ptime& b)
 {
     a.swap(b);
 }

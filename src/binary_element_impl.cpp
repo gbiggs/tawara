@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/binary_element_impl.h>
-#include <tide/exceptions.h>
+#include <celduin/binary_element_impl.h>
+#include <celduin/exceptions.h>
 
 #include <iostream>
 
-using namespace tide;
-using namespace tide::impl;
+using namespace celduin;
+using namespace celduin::impl;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -84,19 +84,19 @@ void BinaryElementImpl::swap(std::vector<char>& other)
 }
 
 
-void tide::impl::swap(BinaryElementImpl& a, BinaryElementImpl& b)
+void celduin::impl::swap(BinaryElementImpl& a, BinaryElementImpl& b)
 {
     a.swap(b);
 }
 
 
-void tide::impl::swap(BinaryElementImpl& a, std::vector<char>& b)
+void celduin::impl::swap(BinaryElementImpl& a, std::vector<char>& b)
 {
     a.swap(b);
 }
 
 
-std::ostream& tide::impl::operator<<(std::ostream& o,
+std::ostream& celduin::impl::operator<<(std::ostream& o,
         BinaryElementImpl const& rhs)
 {
     for (unsigned int ii(0); ii < rhs.value_.size(); ++ii)

@@ -37,16 +37,16 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/date_element.h>
-#include <tide/ebml_integer.h>
-#include <tide/exceptions.h>
-#include <tide/tide_config.h>
+#include <celduin/date_element.h>
+#include <celduin/ebml_integer.h>
+#include <celduin/exceptions.h>
+#include <celduin/celduin_config.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "test_utilities.h"
 
-using namespace tide;
+using namespace celduin;
 namespace bpt = boost::posix_time;
 namespace bgr = boost::gregorian;
 
@@ -369,13 +369,13 @@ namespace test_date_el
         {
             // Cheating on the IDs a bit - there is no protection here against
             // invalid IDs
-            std::vector<char> tmp(tide::ebml_int::encode_u(id));
+            std::vector<char> tmp(celduin::ebml_int::encode_u(id));
             b.append(&tmp[0], 0, tmp.size());
             total += tmp.size();
         }
         if (write_size)
         {
-            std::vector<char> tmp(tide::vint::encode(8));
+            std::vector<char> tmp(celduin::vint::encode(8));
             b.append(&tmp[0], 0, tmp.size());
             total += tmp.size();
         }
@@ -383,11 +383,11 @@ namespace test_date_el
         {
             bpt::ptime basis(bgr::date(2001, 1, 1));
             bpt::time_duration d(date - basis);
-#if defined(TIDE_USE_NANOSECONDS)
+#if defined(CELDUIN_USE_NANOSECONDS)
             long long int temp = d.total_nanoseconds();
 #else
             long long int temp = d.total_microseconds() * 1000;
-#endif // defined(TIDE_USE_NANOSECONDS)
+#endif // defined(CELDUIN_USE_NANOSECONDS)
             for (std::streamsize ii(0); ii < 8; ++ii)
             {
                 b.push_back(reinterpret_cast<uint8_t*>(&temp)[ii]);

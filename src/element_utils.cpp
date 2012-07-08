@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/element_utils.h>
-#include <tide/exceptions.h>
-#include <tide/id_utils.h>
-#include <tide/vint.h>
+#include <celduin/element_utils.h>
+#include <celduin/exceptions.h>
+#include <celduin/id_utils.h>
+#include <celduin/vint.h>
 
-using namespace tide;
+using namespace celduin;
 
 
-void tide::validate_id(ids::ID id)
+void celduin::validate_id(ids::ID id)
 {
     if (id == 0 ||
             id == 0xFF ||
@@ -57,7 +57,7 @@ void tide::validate_id(ids::ID id)
 }
 
 
-std::streamsize tide::skip_read(std::iostream& io, bool and_id)
+std::streamsize celduin::skip_read(std::iostream& io, bool and_id)
 {
     std::streamsize skipped_bytes(0);
     if (and_id)
@@ -72,11 +72,11 @@ std::streamsize tide::skip_read(std::iostream& io, bool and_id)
 }
 
 
-std::streamsize tide::skip_write(std::iostream& io, bool and_id)
+std::streamsize celduin::skip_write(std::iostream& io, bool and_id)
 {
     std::streampos cur_read(io.tellg());
     io.seekg(io.tellp());
-    std::streamsize skipped_bytes = tide::skip_read(io, and_id);
+    std::streamsize skipped_bytes = celduin::skip_read(io, and_id);
     io.seekp(io.tellg());
     io.seekg(cur_read);
     return skipped_bytes;

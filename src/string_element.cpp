@@ -36,10 +36,10 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/string_element.h>
-#include <tide/exceptions.h>
+#include <celduin/string_element.h>
+#include <celduin/exceptions.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -52,7 +52,7 @@ StringElement::StringElement(ids::ID id, std::string const& value)
 }
 
 
-StringElement::StringElement(tide::ids::ID id, std::string const& value,
+StringElement::StringElement(celduin::ids::ID id, std::string const& value,
         std::string const& default_val)
     : ElementBase<StringElement>(id), impl_(value, default_val), id_(id),
     offset_(0), writing_(false)
@@ -81,13 +81,13 @@ void StringElement::swap(std::string& other)
 }
 
 
-void tide::swap(StringElement& a, StringElement& b)
+void celduin::swap(StringElement& a, StringElement& b)
 {
     a.swap(b);
 }
 
 
-void tide::swap(StringElement& a, std::string& b)
+void celduin::swap(StringElement& a, std::string& b)
 {
     a.swap(b);
 }

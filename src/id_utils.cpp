@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/id_utils.h>
+#include <celduin/id_utils.h>
 
-#include <tide/exceptions.h>
+#include <celduin/exceptions.h>
 
-using namespace tide;
+using namespace celduin;
 
 
-bool tide::ids::validate(ids::ID id)
+bool celduin::ids::validate(ids::ID id)
 {
     if (id == 0 ||
             id == 0xFF ||
@@ -57,7 +57,7 @@ bool tide::ids::validate(ids::ID id)
 }
 
 
-std::streamsize tide::ids::size(ids::ID id)
+std::streamsize celduin::ids::size(ids::ID id)
 {
     if (id >= 0x80 && id <= 0xFE)
     {
@@ -99,7 +99,7 @@ std::streamsize tide::ids::size(ids::ID id)
 }
 
 
-std::vector<char> tide::ids::encode(ID id)
+std::vector<char> celduin::ids::encode(ID id)
 {
     std::streamsize c_size(size(id));
     std::vector<char> buffer(c_size, 0);
@@ -113,7 +113,7 @@ std::vector<char> tide::ids::encode(ID id)
 }
 
 
-std::streamsize tide::ids::write(ids::ID id, std::ostream& o)
+std::streamsize celduin::ids::write(ids::ID id, std::ostream& o)
 {
     std::streamsize c_size(size(id));
     // Write the remaining bytes
@@ -130,7 +130,7 @@ std::streamsize tide::ids::write(ids::ID id, std::ostream& o)
 }
 
 
-ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
+ids::DecodeResult celduin::ids::decode(std::vector<char> const& buffer)
 {
     assert(buffer.size() > 0);
 
@@ -198,7 +198,7 @@ ids::DecodeResult tide::ids::decode(std::vector<char> const& buffer)
 }
 
 
-ids::ReadResult tide::ids::read(std::istream& i)
+ids::ReadResult celduin::ids::read(std::istream& i)
 {
     ids::ID result(0);
     std::streamsize to_copy(0);

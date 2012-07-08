@@ -42,13 +42,13 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <iostream>
 #include <string>
-#include <tide/ebml_element.h>
-#include <tide/memory_cluster.h>
-#include <tide/segment.h>
-#include <tide/simple_block.h>
-#include <tide/tide_impl.h>
-#include <tide/tracks.h>
-#include <tide/track_entry.h>
+#include <celduin/ebml_element.h>
+#include <celduin/memory_cluster.h>
+#include <celduin/segment.h>
+#include <celduin/simple_block.h>
+#include <celduin/celduin_impl.h>
+#include <celduin/tracks.h>
+#include <celduin/track_entry.h>
 
 namespace bpt = boost::posix_time;
 
@@ -62,15 +62,15 @@ int main(int argc, char** argv)
     }
 
     // Open a new file and write the EBML Header. This specifies that the file
-    // is an EBML file, and is a Tide document.
+    // is an EBML file, and is a Celduin document.
     std::fstream stream(argv[1], std::ios::in|std::ios::out|std::ios::trunc);
-    tide::EBMLElement ebml_el;
+    celduin::EBMLElement ebml_el;
     ebml_el.write(stream);
 
     // Open a new segment in the file. This will write some initial meta-data
     // and place some padding at the start of the file for final meta-data to
     // be written after tracks, clusters, etc. have been written.
-    tide::Segment segment;
+    celduin::Segment segment;
     segment.write(stream);
     // Set up the segment information so it can be used while writing tracks
     // and clusters.
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
     segment.info.filename(argv[1]);
     // The segment's timecode scale is possibly the most important value in the
     // segment meta-data data. Without it, timely playback of frames is not
-    // possible. It has a sensible default (defined in the Tide specification),
+    // possible. It has a sensible default (defined in the Celduin specification),
     // but here we set it to ten milliseconds for demonstrative purposes.
     segment.info.timecode_scale(10000000);
     // The segment's date should be set. It is the somewhat-awkward value of
@@ -96,16 +96,16 @@ int main(int argc, char** argv)
     segment.info.date(td.total_seconds());
     // Let's give the segment an inspirational title.
     segment.info.title("Example segment");
-    // It sometimes helps to know what created a Tide file.
-    segment.info.muxing_app("libtide-0.1");
-    segment.info.writing_app("tide_eg_write");
+    // It sometimes helps to know what created a Celduin file.
+    segment.info.muxing_app("libcelduin-0.1");
+    segment.info.writing_app("celduin_eg_write");
 
     // Set up the tracks meta-data and write it to the file.
-    tide::Tracks tracks;
+    celduin::Tracks tracks;
     // Each track is represented in the Tracks information by a TrackEntry.
     // This specifies such things as the track number, the track's UID and the
     // codec used.
-    tide::TrackEntry::Ptr track(new tide::TrackEntry(1, 1, "string"));
+    celduin::TrackEntry::Ptr track(new celduin::TrackEntry(1, 1, "string"));
     track->name("Example frames");
     track->codec_name("ASCII string");
     // Adding each level 1 element (only the first occurance, in the case of
@@ -129,7 +129,7 @@ int main(int argc, char** argv)
     // the range to 32767. The unit of this value is the segment's timecode
     // scale. The default timecode scale therefore gives approximately 65
     // seconds of total range, with 32 seconds being used.
-    tide::MemoryCluster cluster;
+    celduin::MemoryCluster cluster;
     // Again, we add the cluster to the index for faster file opening.
     segment.index.insert(std::make_pair(cluster.id(),
                 segment.to_segment_offset(stream.tellp())));
@@ -151,11 +151,11 @@ int main(int argc, char** argv)
         // segment's timecode scale.
         bpt::ptime b_start(bpt::second_clock::local_time());
         bpt::time_duration b_td = b_start - c_start;
-        tide::BlockElement::Ptr block(new tide::SimpleBlock(1,
+        celduin::BlockElement::Ptr block(new celduin::SimpleBlock(1,
                     b_td.total_microseconds() / 10000));
         // Here the frame data itself is added to the block
-        tide::Block::FramePtr frame_ptr(
-            new tide::Block::Frame(frame.begin(), frame.end()));
+        celduin::Block::FramePtr frame_ptr(
+            new celduin::Block::Frame(frame.begin(), frame.end()));
         block->push_back(frame_ptr);
         // And then the block is added to its cluster.
         cluster.push_back(block);
@@ -165,7 +165,7 @@ int main(int argc, char** argv)
 
     // Now we'll add another cluster, this time using the in-file cluster
     // implementation.
-    tide::FileCluster cluster2;
+    celduin::FileCluster cluster2;
     // This cluster does not need to be added to the index, as it is easily
     // found during reading by skipping past the first cluster.
     // Give the cluster a timecode.
@@ -182,11 +182,11 @@ int main(int argc, char** argv)
         // The block's timecode
         bpt::ptime b_start(bpt::second_clock::local_time());
         bpt::time_duration b_td = b_start - c_start;
-        tide::BlockElement::Ptr block(new tide::SimpleBlock(1,
+        celduin::BlockElement::Ptr block(new celduin::SimpleBlock(1,
                     b_td.total_microseconds() / 10000));
         // Add the frame data to the block.
-        tide::Block::FramePtr frame_ptr(
-            new tide::Block::Frame(frame.begin(), frame.end()));
+        celduin::Block::FramePtr frame_ptr(
+            new celduin::Block::Frame(frame.begin(), frame.end()));
         block->push_back(frame_ptr);
         // Add the block to the cluster.
         cluster2.push_back(block);

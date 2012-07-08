@@ -37,13 +37,13 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/ebml_integer.h>
-#include <tide/exceptions.h>
-#include <tide/float_element.h>
+#include <celduin/ebml_integer.h>
+#include <celduin/exceptions.h>
+#include <celduin/float_element.h>
 
 #include "test_utilities.h"
 
-using namespace tide;
+using namespace celduin;
 
 namespace test_float_el
 {

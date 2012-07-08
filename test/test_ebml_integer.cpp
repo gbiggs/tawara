@@ -37,12 +37,12 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/ebml_integer.h>
-#include <tide/exceptions.h>
+#include <celduin/ebml_integer.h>
+#include <celduin/exceptions.h>
 
 #include "test_utilities.h"
 
-using namespace tide;
+using namespace celduin;
 
 namespace test_ebml_integer
 {

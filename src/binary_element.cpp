@@ -36,10 +36,10 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/binary_element.h>
-#include <tide/exceptions.h>
+#include <celduin/binary_element.h>
+#include <celduin/exceptions.h>
 
-using namespace tide;
+using namespace celduin;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -52,7 +52,7 @@ BinaryElement::BinaryElement(ids::ID id, std::vector<char> const& value)
 }
 
 
-BinaryElement::BinaryElement(tide::ids::ID id, std::vector<char> const& value,
+BinaryElement::BinaryElement(celduin::ids::ID id, std::vector<char> const& value,
         std::vector<char> const& default_val)
     : ElementBase<BinaryElement>(id), impl_(value, default_val), id_(id),
     offset_(0), writing_(false)
@@ -81,13 +81,13 @@ void BinaryElement::swap(std::vector<char>& other)
 }
 
 
-void tide::swap(BinaryElement& a, BinaryElement& b)
+void celduin::swap(BinaryElement& a, BinaryElement& b)
 {
     a.swap(b);
 }
 
 
-void tide::swap(BinaryElement& a, std::vector<char>& b)
+void celduin::swap(BinaryElement& a, std::vector<char>& b)
 {
     a.swap(b);
 }

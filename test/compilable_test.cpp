@@ -36,24 +36,24 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/binary_element.h>
-#include <tide/date_element.h>
-#include <tide/float_element.h>
-#include <tide/ids.h>
-#include <tide/integer_elements.h>
-#include <tide/string_element.h>
+#include <celduin/binary_element.h>
+#include <celduin/date_element.h>
+#include <celduin/float_element.h>
+#include <celduin/ids.h>
+#include <celduin/integer_elements.h>
+#include <celduin/string_element.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 int main(int argc, char** argv)
 {
-    tide::IntElement int_element(tide::ids::Null, -42);
-    tide::IntElement uint_element(tide::ids::Null, 42);
-    tide::FloatElement float_element(tide::ids::Null, 4.2);
-    tide::DateElement date_element(tide::ids::Null,
+    celduin::IntElement int_element(celduin::ids::Null, -42);
+    celduin::IntElement uint_element(celduin::ids::Null, 42);
+    celduin::FloatElement float_element(celduin::ids::Null, 4.2);
+    celduin::DateElement date_element(celduin::ids::Null,
             boost::posix_time::ptime(boost::posix_time::max_date_time));
-    tide::BinaryElement binary_element(tide::ids::Null, std::vector<char>());
-    tide::StringElement string_element(tide::ids::Null, std::string());
+    celduin::BinaryElement binary_element(celduin::ids::Null, std::vector<char>());
+    celduin::StringElement string_element(celduin::ids::Null, std::string());
 
     return 0;
 }

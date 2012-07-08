@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/exceptions.h>
-#include <tide/string_element_impl.h>
+#include <celduin/exceptions.h>
+#include <celduin/string_element_impl.h>
 
 #include <iostream>
 
-using namespace tide;
-using namespace tide::impl;
+using namespace celduin;
+using namespace celduin::impl;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,26 +85,26 @@ void StringElementImpl::swap(std::string& other)
 }
 
 
-void tide::impl::swap(StringElementImpl& a, StringElementImpl& b)
+void celduin::impl::swap(StringElementImpl& a, StringElementImpl& b)
 {
     a.swap(b);
 }
 
 
-void tide::impl::swap(StringElementImpl& a, std::string& b)
+void celduin::impl::swap(StringElementImpl& a, std::string& b)
 {
     a.swap(b);
 }
 
 
-std::ostream& tide::impl::operator<<(std::ostream& o,
+std::ostream& celduin::impl::operator<<(std::ostream& o,
         StringElementImpl const& rhs)
 {
     return o << rhs.value();
 }
 
 
-std::istream& tide::impl::operator>>(std::istream& i, StringElementImpl& rhs)
+std::istream& celduin::impl::operator>>(std::istream& i, StringElementImpl& rhs)
 {
     std::string temp;
     i >> temp;

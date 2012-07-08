@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/exceptions.h>
-#include <tide/float_element_impl.h>
+#include <celduin/exceptions.h>
+#include <celduin/float_element_impl.h>
 
 #include <iostream>
 
-using namespace tide;
-using namespace tide::impl;
+using namespace celduin;
+using namespace celduin::impl;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ void FloatElementImpl::swap(FloatElementImpl& other)
 }
 
 
-void tide::impl::swap(FloatElementImpl& a, FloatElementImpl& b)
+void celduin::impl::swap(FloatElementImpl& a, FloatElementImpl& b)
 {
     a.swap(b);
 }
@@ -92,7 +92,7 @@ void FloatElementImpl::swap(double& other)
 }
 
 
-void tide::impl::swap(FloatElementImpl& a, double& b)
+void celduin::impl::swap(FloatElementImpl& a, double& b)
 {
     a.swap(b);
 }

@@ -37,13 +37,13 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/exceptions.h>
-#include <tide/ids.h>
-#include <tide/id_utils.h>
+#include <celduin/exceptions.h>
+#include <celduin/ids.h>
+#include <celduin/id_utils.h>
 
 #include "test_utilities.h"
 
-using namespace tide;
+using namespace celduin;
 
 namespace test_id_utils
 {

@@ -37,12 +37,12 @@
  */
 
 #include <gtest/gtest.h>
-#include <tide/exceptions.h>
-#include <tide/integer_elements.h>
+#include <celduin/exceptions.h>
+#include <celduin/integer_elements.h>
 
 #include "test_utilities.h"
 
-using namespace tide;
+using namespace celduin;
 
 namespace test_int_el
 {

@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tide/element.h>
+#include <celduin/element.h>
 
 #include <cassert>
 
 
-std::streamsize tide::write(Element const& e, std::iostream& io)
+std::streamsize celduin::write(Element const& e, std::iostream& io)
 {
     std::streamsize ss(0), fs(0);
     ss = e.start_write(io);

@@ -119,6 +119,9 @@ namespace celduin
      *   Writes the element's body's size to the given byte stream as a
      *   variable-width integer. Returns the number of bytes written.
      *
+     * Additionally, the implementing class must declare this class as a
+     * friend.
+     *
      * \tparam Derived The derived class implementing this template interface.
      */
     template<class Derived>

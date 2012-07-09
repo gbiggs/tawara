@@ -36,48 +36,41 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(PRIMITIVE_ELEMENT_BASE_H_)
-#define PRIMITIVE_ELEMENT_BASE_H_
+#if !defined(MASTER_ELEMENT_BASE_H_)
+#define MASTER_ELEMENT_BASE_H_
 
-#include <celduin/primitive_element.h>
+#include <celduin/master_element.h>
 #include <celduin/win_dll.h>
+
 
 /// \addtogroup interfaces Interfaces
 /// @{
 
 namespace celduin
 {
-    /** \brief Standard implementations of the PrimitiveElement interface
-     * methods.
+    /** \brief Standard implementations of the MasterElement interface methods.
      *
      * This template interface provides the common implementations of the
-     * PrimitiveElement interface methods used by most primitive elements.
+     * MasterElement interface methods used by most master elements.
      *
-     * This interface provides default implementations of many of the
-     * PrimitiveElement interface's methods, accessible using CRTP. An
-     * implementing class that does not override all virtual methods must
+     * As a template interface, this class places requirements on classes that
+     * implement it. An implementing class should inherit from this class,
+     * passing itself as the template parameter. The implementing class must
      * provide the following members:
      *
      * - \code
-     *   T value_;
+     *   bool use_crc_;
      *   \endcode
-     *   Storage for the element's value.
-     * - \code
-     *   T default_;
-     *   \endcode
-     *   Storage for the element's default value.
-     * - \code
-     *   bool has_default_;
-     *   \endcode
-     *   Storage for a boolean tracking if the default value has been set or
-     *   not.
+     *   A flag to track if the master element will write a CRC value when its
+     *   body is written. This must be initialised to false.
      *
      * Additionally, the implementing class must declare this class as a
      * friend.
+     *
+     * \tparam Derived The derived class implementing this template interface.
      */
-    template<class Derived, typename T>
-    class CELDUIN_EXPORT PrimitiveElementBase
-        : public PrimitiveElement<T>
+    template<class Derived>
+    class CELDUIN_EXPORT MasterElementBase : public MasterElement
     {
         private:
             /** \brief Curiously Recurring Template Pattern: get a reference to
@@ -100,46 +93,34 @@ namespace celduin
             /** \brief Used by derived classes when they need to know the exact
              * base type.
              */
-            typedef PrimitiveElementBase<Derived, T> PrimitiveElementBase_;
-
-        public:
-            /// \brief Destructor.
-            virtual ~PrimitiveElementBase() {};
+            typedef MasterElementBase<Derived> MasterElementBase_;
 
         private:
-            /// \brief Implementation of the value() method.
-            virtual T value_impl() const { return derived().value_; }
-            /// \brief Implementation of the value(T) method.
-            virtual void value_impl(T value) { derived().value_ = value; }
+            ///////////////////////////////////////////////////////////////////
+            // MasterElement interface virtual functions implementation
 
-            /// \brief Implementation of the has_default() method.
-            virtual bool has_default_impl() const
-                { return derived().has_default_; }
-            /// \brief Implementation of the get_default() method.
-            virtual T get_default_impl() const { return derived().default_; }
-            /// \brief Implementation of the set_default(T) method.
-            virtual void set_default_impl(T default_value)
+            /// \brief Enable the CRC value.
+            virtual void enable_crc_impl()
             {
-                derived().default_ = default_value;
-                derived().has_default_ = true;
+                derived().use_crc_ = true;
             }
-            /// \brief Implementation of the remove_default() method.
-            virtual T remove_default_impl()
+
+            /// \brief Disable the CRC value.
+            virtual void disable_crc_impl()
             {
-                derived().has_default_ = false;
-                return derived().default_;
+                derived().use_crc_ = false;
             }
-            /// \brief Implementation of the is_default() method.
-            virtual bool is_default_impl() const
+
+            /// \brief Check if the CRC value is enabled.
+            virtual bool use_crc_impl() const
             {
-                return derived().has_default_ &&
-                    derived().value_ == derived().default_;
+                return derived().use_crc_;
             }
-    }; // class PrimitiveElement
+    }; // class MasterElementBase
 }; // namespace celduin
 
 /// @}
 /// group interfaces
 
-#endif // !defined(PRIMITIVE_ELEMENT_BASE_H_)
+#endif // !defined(MASTER_ELEMENT_BASE_H_)
 

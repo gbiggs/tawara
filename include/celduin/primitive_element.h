@@ -147,7 +147,6 @@ namespace celduin
     }; // class PrimitiveElement
 }; // namespace celduin
 
-
 /// @}
 /// group interfaces
 

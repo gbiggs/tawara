@@ -1268,82 +1268,45 @@ namespace celduin
      * Cannot be provided by boost::addable due to being non-commutative.
      */
     StringElement operator+(StringElement lhs,
-            StringElement const& rhs)
-    {
-        lhs += rhs;
-        return lhs;
-    }
+            StringElement const& rhs);
     /** \brief Addition operator.
      *
      * Cannot be provided by boost::addable due to being non-commutative.
      */
-    StringElement operator+(StringElement lhs, std::string const& rhs)
-    {
-        lhs += rhs;
-        return lhs;
-    }
+    StringElement operator+(StringElement lhs, std::string const& rhs);
     /** \brief Addition operator.
      *
      * Cannot be provided by boost::addable due to being non-commutative.
      */
-    StringElement operator+(std::string const& lhs, StringElement rhs)
-    {
-        rhs.insert(0, lhs);
-        return rhs;
-    }
+    StringElement operator+(std::string const& lhs, StringElement rhs);
     /** \brief Addition operator.
      *
      * Cannot be provided by boost::addable due to being non-commutative.
      */
-    StringElement operator+(StringElement lhs, char const* const rhs)
-    {
-        lhs += rhs;
-        return lhs;
-    }
+    StringElement operator+(StringElement lhs, char const* const rhs);
     /** \brief Addition operator.
      *
      * Cannot be provided by boost::addable due to being non-commutative.
      */
-    StringElement operator+(char const* const lhs, StringElement rhs)
-    {
-        rhs.insert(0, lhs);
-        return rhs;
-    }
+    StringElement operator+(char const* const lhs, StringElement rhs);
     /** \brief Addition operator.
      *
      * Cannot be provided by boost::addable due to being non-commutative.
      */
-    StringElement operator+(StringElement lhs, char rhs)
-    {
-        lhs += rhs;
-        return lhs;
-    }
+    StringElement operator+(StringElement lhs, char rhs);
     /** \brief Addition operator.
      *
      * Cannot be provided by boost::addable due to being non-commutative.
      */
-    StringElement operator+(char lhs, StringElement rhs)
-    {
-        rhs.insert(0, 1, lhs);
-        return rhs;
-    }
+    StringElement operator+(char lhs, StringElement rhs);
 
 
     /// \brief Stream output operator.
-    std::ostream& operator<<(std::ostream& o, StringElement const& rhs)
-    {
-        return o << rhs.impl_;
-    }
+    std::ostream& operator<<(std::ostream& o, StringElement const& rhs);
 
 
     /// \brief Stream input operator.
-    std::istream& operator>>(std::istream& i, StringElement& rhs)
-    {
-        std::string temp;
-        i >> temp;
-        rhs.value(temp);
-        return i;
-    }
+    std::istream& operator>>(std::istream& i, StringElement& rhs);
 }; // namespace celduin
 
 /// @}

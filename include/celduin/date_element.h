@@ -307,27 +307,15 @@ namespace celduin
 
     /// \brief Subtraction operator.
     boost::posix_time::time_duration operator-(DateElement const& lhs,
-            DateElement const& rhs)
-    {
-        return lhs.value() - rhs.value();
-    }
+            DateElement const& rhs);
 
 
     /// \brief Stream output operator.
-    std::ostream& operator<<(std::ostream& o, DateElement const& rhs)
-    {
-        return o << rhs.value();
-    }
+    std::ostream& operator<<(std::ostream& o, DateElement const& rhs);
 
 
     /// \brief Stream input operator.
-    std::istream& operator>>(std::istream& i, DateElement& rhs)
-    {
-        boost::posix_time::ptime temp;
-        i >> temp;
-        rhs.value(temp);
-        return i;
-    }
+    std::istream& operator>>(std::istream& i, DateElement& rhs);
 }; // namespace celduin
 
 /// @}

@@ -722,10 +722,7 @@ namespace celduin
 
 
     /// \brief Stream output operator.
-    std::ostream& operator<<(std::ostream& o, BinaryElement const& rhs)
-    {
-        return o << rhs.impl_;
-    }
+    std::ostream& operator<<(std::ostream& o, BinaryElement const& rhs);
 }; // namespace celduin
 
 /// @}

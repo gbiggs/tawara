@@ -25,7 +25,11 @@ set(hdrs ${config_h}
     binary_element.h
     binary_element_impl.h
     string_element.h
-    string_element_impl.h)
+    string_element_impl.h
+    master_element.h
+    master_element_base.h
+    master_element_impl.h
+    ebml_header.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

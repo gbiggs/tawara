@@ -314,6 +314,39 @@ namespace celduin
             virtual std::streamsize finish_write_impl(std::iostream& io) const = 0;
     }; // class Element
 
+    /** \brief Element reading.
+     *
+     * Reads the element from a byte stream providing a std::iostream
+     * interface.
+     *
+     * This method assumes that the Element ID has already been read
+     * (and thus used to construct the Element instance doing the
+     * reading), which means that the file's read pointer should be
+     * positioned at the first byte of the element's size.
+     *
+     * \post If the read fails, the element will be in the state it was
+     * in before reading began.
+     * \invariant If reading fails, the contents of the element stored
+     * in memory will remain unchanged.
+     *
+     * \param[in] i The source byte stream to read from.
+     * \return The number of bytes read.
+     * \exception ReadError if an error occurs reading data.
+     * \exception BadBodySize if the size read from the element's
+     * header doesn't match its actual size. Only occurs with master
+     * elements.
+     * \exception InvalidChildID if a child element is found in the
+     * body of a master element to which it doesn't belong.
+     * \exception MissingChild if a child element that must be present
+     * in a master element is not found.
+     * \exception ValueOutOfRange if a child element is read with a
+     * value that is out of range.
+     * \exception ValueSizeOutOfRange if a child element is read with a
+     * size that is not in the allowable range of sizes.
+     */
+    std::streamsize read(Element& e, std::istream& i);
+
+
     /** \brief Write an element.
      *
      * \relates Element

@@ -321,20 +321,11 @@ namespace celduin
 
 
     /// \brief Stream output operator.
-    std::ostream& operator<<(std::ostream& o, FloatElement const& rhs)
-    {
-        return o << rhs.value();
-    }
+    std::ostream& operator<<(std::ostream& o, FloatElement const& rhs);
 
 
     /// \brief Stream input operator.
-    std::istream& operator>>(std::istream& i, FloatElement& rhs)
-    {
-        double temp;
-        i >> temp;
-        rhs.value(temp);
-        return i;
-    }
+    std::istream& operator>>(std::istream& i, FloatElement& rhs);
 }; // namespace celduin
 
 /// @}

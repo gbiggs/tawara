@@ -94,6 +94,21 @@ void celduin::swap(FloatElement& a, double& b)
 }
 
 
+std::ostream& celduin::operator<<(std::ostream& o, FloatElement const& rhs)
+{
+    return o << rhs.value();
+}
+
+
+std::istream& celduin::operator>>(std::istream& i, FloatElement& rhs)
+{
+    double temp;
+    i >> temp;
+    rhs.value(temp);
+    return i;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
@@ -102,6 +117,7 @@ inline std::streamsize FloatElement::body_stored_size() const
 {
     return impl_.body_stored_size();
 }
+
 
 std::streamsize FloatElement::read_body(std::istream& i, std::streamsize size)
 {
@@ -118,10 +134,12 @@ std::streamsize FloatElement::read_body(std::istream& i, std::streamsize size)
     }
 }
 
+
 std::streamsize FloatElement::start_body(std::iostream& io) const
 {
     return impl_.start_body(io);
 }
+
 
 std::streamsize FloatElement::finish_body(std::iostream& io) const
 {

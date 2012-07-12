@@ -40,6 +40,11 @@
 
 #include <cassert>
 
+std::streamsize celduin::read(Element& e, std::istream& i)
+{
+    return e.read(i);
+}
+
 
 std::streamsize celduin::write(Element const& e, std::iostream& io)
 {

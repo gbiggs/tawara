@@ -63,6 +63,22 @@ namespace celduin
     /// \brief Something is not supported.
     struct NotImplemented : virtual CelduinError {};
 
+    /** \brief A CRC value from the file did not match the reading element's
+     * calculated CRC.
+     *
+     * An err_id tag may be included, giving the ID of the corrupt element.
+     *
+     * An err_pos tag may be included, giving the position of the element in
+     * the file.
+     *
+     * An err_expected_crc tag may be included, giving the CRC value from the
+     * file.
+     *
+     * An err_calc_crc tag may be included, giving the CRC value calculated for
+     * the element.
+     */
+    struct BadCRC : virtual CelduinError {};
+
     /** \brief File is not an EBML file.
      *
      * Celduin uses EBML for its file format. If an opened file is not an EBML
@@ -514,6 +530,14 @@ namespace celduin
 ///////////////////////////////////////////////////////////////////////////////
 // Error information tags
 ///////////////////////////////////////////////////////////////////////////////
+
+    /// \brief An expected CRC value.
+    typedef boost::error_info<struct tag_expected_crc, long int>
+        err_expected_crc;
+
+    /// \brief A calculated CRC value.
+    typedef boost::error_info<struct tag_calc_crc, std::streamsize>
+        err_calc_crc;
 
     /// \brief A version.
     typedef boost::error_info<struct tag_ver, std::streamsize> err_ver;

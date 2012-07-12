@@ -92,6 +92,72 @@ void celduin::swap(StringElement& a, std::string& b)
     a.swap(b);
 }
 
+
+StringElement celduin::operator+(StringElement lhs,
+        StringElement const& rhs)
+{
+    lhs += rhs;
+    return lhs;
+}
+
+
+StringElement celduin::operator+(StringElement lhs, std::string const& rhs)
+{
+    lhs += rhs;
+    return lhs;
+}
+
+
+StringElement celduin::operator+(std::string const& lhs, StringElement rhs)
+{
+    rhs.insert(0, lhs);
+    return rhs;
+}
+
+
+StringElement celduin::operator+(StringElement lhs, char const* const rhs)
+{
+    lhs += rhs;
+    return lhs;
+}
+
+
+StringElement celduin::operator+(char const* const lhs, StringElement rhs)
+{
+    rhs.insert(0, lhs);
+    return rhs;
+}
+
+
+StringElement celduin::operator+(StringElement lhs, char rhs)
+{
+    lhs += rhs;
+    return lhs;
+}
+
+
+StringElement celduin::operator+(char lhs, StringElement rhs)
+{
+    rhs.insert(0, 1, lhs);
+    return rhs;
+}
+
+
+std::ostream& celduin::operator<<(std::ostream& o, StringElement const& rhs)
+{
+    return o << rhs.impl_;
+}
+
+
+std::istream& celduin::operator>>(std::istream& i, StringElement& rhs)
+{
+    std::string temp;
+    i >> temp;
+    rhs.value(temp);
+    return i;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////

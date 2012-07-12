@@ -36,102 +36,77 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <celduin/master_element_impl.h>
+
 #include <celduin/binary_element.h>
 #include <celduin/exceptions.h>
+#include <celduin/id_utils.h>
+#include <celduin/vint.h>
 
 using namespace celduin;
+using namespace celduin::impl;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
 ///////////////////////////////////////////////////////////////////////////////
 
-BinaryElement::BinaryElement(ids::ID id, std::vector<char> const& value)
-    : ElementBase<BinaryElement>(id), impl_(value), id_(id),
-    offset_(0), writing_(false)
+MasterElementImpl::MasterElementImpl(bool use_crc)
+    : use_crc_(use_crc)
 {
 }
 
 
-BinaryElement::BinaryElement(celduin::ids::ID id, std::vector<char> const& value,
-        std::vector<char> const& default_val)
-    : ElementBase<BinaryElement>(id), impl_(value, default_val), id_(id),
-    offset_(0), writing_(false)
-{}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// Operators
-///////////////////////////////////////////////////////////////////////////////
-
-void BinaryElement::swap(BinaryElement& other)
+void MasterElementImpl::swap(MasterElementImpl& other)
 {
     using std::swap;
 
-    swap(impl_, other.impl_);
-    swap(id_, other.id_);
-    swap(offset_, other.offset_);
-    swap(writing_, other.writing_);
+    swap(use_crc_, other.use_crc_);
 }
 
 
-void BinaryElement::swap(std::vector<char>& other)
+std::streamsize MasterElementImpl::crc_size() const
 {
-    using std::swap;
-    swap(impl_, other);
-}
-
-
-void celduin::swap(BinaryElement& a, BinaryElement& b)
-{
-    a.swap(b);
-}
-
-
-void celduin::swap(BinaryElement& a, std::vector<char>& b)
-{
-    a.swap(b);
-}
-
-
-/// \brief Stream output operator.
-std::ostream& celduin::operator<<(std::ostream& o, BinaryElement const& rhs)
-{
-    return o << rhs.impl_;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// Element interface
-///////////////////////////////////////////////////////////////////////////////
-
-inline std::streamsize BinaryElement::body_stored_size() const
-{
-    return impl_.body_stored_size();
-}
-
-std::streamsize BinaryElement::read_body(std::istream& i, std::streamsize size)
-{
-    try
+    if (use_crc_)
     {
-        return impl_.read_body(i, size);
+        return ids::size(ids::CRC32) +
+            vint::size(4) + // Binary element size bytes
+            4; // Binary element body size (CRC32 = 4 bytes)
     }
-    catch (boost::exception& e)
+    else
     {
-        // Add the ID and the offset of this element in the file
-        // for easy debugging
-        e << err_id(id_) << err_pos(offset_);
-        throw;
+        return 0;
     }
 }
 
-std::streamsize BinaryElement::start_body(std::iostream& io) const
+
+std::streamsize MasterElementImpl::read_crc(std::istream& i)
 {
-    return impl_.start_body(io);
+    BinaryElement crc_bin(ids::Null, std::vector<char>());
+    std::streamsize result;
+
+    result = crc_bin.read(i);
+    long int crc;
+    memcpy(&crc, crc_bin.data(), 4);
+
+    if (false)//(crc != calculated crc)
+    {
+        throw BadCRC() << err_expected_crc(crc) <<
+            err_calc_crc(0); // TODO
+    }
+
+    return result;
 }
 
-std::streamsize BinaryElement::finish_body(std::iostream& io) const
-{
-    impl_.finish_body(io);
-    return this->stored_size();
-}
 
+std::streamsize MasterElementImpl::write_crc(std::ostream& o)
+{
+    if (use_crc_)
+    {
+        // TODO
+        throw NotImplemented();
+    }
+    else
+    {
+        return 0;
+    }
+}

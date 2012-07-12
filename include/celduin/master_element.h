@@ -71,7 +71,7 @@ namespace celduin
             void disable_crc() { disable_crc_impl(); }
 
             /// \brief Check if using the CRC is enabled.
-            bool use_crc() const { return use_crc_impl(); }
+            bool crc_enabled() const { return crc_enabled_impl(); }
 
         private:
             /** \brief Implementation of the enable_crc() method.
@@ -93,7 +93,7 @@ namespace celduin
              * Implementing classes must implement this to return whether the
              * CRC value will be written.
              */
-            virtual bool use_crc() const = 0;
+            virtual bool crc_enabled_impl() const = 0;
     }; // class MasterElement
 }; // namespace celduin
 

@@ -62,7 +62,8 @@ namespace celduin
      *   bool use_crc_;
      *   \endcode
      *   A flag to track if the master element will write a CRC value when its
-     *   body is written. This must be initialised to false.
+     *   body is written. This should be initialised appropriately for the
+     *   element.
      *
      * Additionally, the implementing class must declare this class as a
      * friend.
@@ -112,7 +113,7 @@ namespace celduin
             }
 
             /// \brief Check if the CRC value is enabled.
-            virtual bool use_crc_impl() const
+            virtual bool crc_enabled_impl() const
             {
                 return derived().use_crc_;
             }

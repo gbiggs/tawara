@@ -95,6 +95,28 @@ void celduin::swap(DateElement& a, bpt::ptime& b)
 }
 
 
+boost::posix_time::time_duration celduin::operator-(DateElement const& lhs,
+        DateElement const& rhs)
+{
+    return lhs.value() - rhs.value();
+}
+
+
+std::ostream& celduin::operator<<(std::ostream& o, DateElement const& rhs)
+{
+    return o << rhs.value();
+}
+
+
+std::istream& celduin::operator>>(std::istream& i, DateElement& rhs)
+{
+    boost::posix_time::ptime temp;
+    i >> temp;
+    rhs.value(temp);
+    return i;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////

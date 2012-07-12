@@ -11,7 +11,9 @@ set(srcs
     binary_element.cpp
     binary_element_impl.cpp
     string_element.cpp
-    string_element_impl.cpp)
+    string_element_impl.cpp
+    master_element_impl.cpp
+    ebml_header.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

@@ -177,6 +177,65 @@ namespace test_ebml_header
     }
 
 
+    TEST(EBMLHeader, Version)
+    {
+        EBMLHeader ee;
+        EXPECT_EQ(CelduinEBMLVersion, ee.version());
+    }
+
+
+    TEST(EBMLHeader, ReadVersion)
+    {
+        EBMLHeader ee;
+        EXPECT_EQ(CelduinEBMLVersion, ee.read_version());
+    }
+
+
+    TEST(EBMLHeader, MaxIDLength)
+    {
+        EBMLHeader ee;
+        EXPECT_EQ(4, ee.max_id_length());
+        ee.max_id_length(8);
+        EXPECT_EQ(8, ee.max_id_length());
+    }
+
+
+    TEST(EBMLHeader, MaxSizeLength)
+    {
+        EBMLHeader ee;
+        EXPECT_EQ(8, ee.max_size_length());
+        ee.max_size_length(4);
+        EXPECT_EQ(4, ee.max_size_length());
+    }
+
+
+    TEST(EBMLHeader, DocType)
+    {
+        EBMLHeader ee;
+        EXPECT_EQ("celduin", ee.doc_type());
+        ee.doc_type("tide");
+        EXPECT_EQ("tide", ee.doc_type());
+    }
+
+
+    TEST(EBMLHeader, DocVersion)
+    {
+        EBMLHeader ee;
+        EXPECT_EQ(0, ee.doc_version());
+        ee.doc_version(2);
+        EXPECT_EQ(2, ee.doc_version());
+    }
+
+
+    TEST(EBMLHeader, DocReadVersion)
+    {
+        EBMLHeader ee;
+        EXPECT_EQ(0, ee.doc_read_version());
+        ee.doc_read_version(2);
+        EXPECT_EQ(2, ee.doc_read_version());
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////
     // MasterElement interface tests
     ///////////////////////////////////////////////////////////////////////////
@@ -196,6 +255,66 @@ namespace test_ebml_header
     // Element interface tests
     ///////////////////////////////////////////////////////////////////////////
 
+    typedef boost::shared_ptr<Element> ElPtr;
+
+
+    std::streamsize children_size(std::vector<ElPtr> const& children)
+    {
+        std::streamsize body_size(0);
+        BOOST_FOREACH(ElPtr el, children)
+        {
+            body_size += el->stored_size();
+        }
+        return body_size;
+    }
+
+    std::streamsize fill_buffer(std::string& b,
+            std::vector<ElPtr> const& children, bool write_id, bool write_size,
+            bool write_body)
+    {
+        char temp[8];
+        std::streamsize total(0);
+        if (write_id)
+        {
+            // Cheating on the IDs a bit - there is no protection here against
+            // invalid IDs
+            std::vector<char> tmp(ebml_int::encode_u(ids::EBML));
+            b.append(&tmp[0], 0, tmp.size());
+            total += tmp.size();
+        }
+        if (write_size)
+        {
+            std::vector<char> tmp(vint::encode(children_size(children)));
+            b.append(&tmp[0], 0, tmp.size());
+            total += tmp.size();
+        }
+        if (write_body)
+        {
+            std::stringstream ss;
+            BOOST_FOREACH(ElPtr el, children)
+            {
+                total += write(*el, ss);
+            }
+            b += ss.str();
+        }
+        return total;
+    }
+
+    std::streamsize write_except(std::stringstream& ss,
+            std::vector<ElPtr> const& children, int except)
+    {
+        std::streamsize body_size(0);
+        for (int ii(0); ii < children.size(); ++ii)
+        {
+            if (ii == except)
+            {
+                continue;
+            }
+            body_size += write(*children[ii], ss);
+        }
+        return body_size;
+    }
+
     TEST(EBMLHeader, ID)
     {
         EBMLHeader ee;
@@ -204,13 +323,43 @@ namespace test_ebml_header
 
     TEST(EBMLHeader, Offset)
     {
+        EBMLHeader ee;
+        EXPECT_EQ(0, ee.offset());
+
+        std::stringstream ss;
+        std::string input_val;
+
+        // Set when read test
+        IntElement ie(ids::Null, 42);
+        write(ie, ss);
+        std::vector<ElPtr> children;
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        5)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        7)));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "blag")));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion, 2)));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        2)));
+        fill_buffer(input_val, children, true, true, true);
+        ss << input_val;
+        ss.seekg(ie.stored_size() + ids::size(ids::EBML));
+        ee.read(ss);
+        EXPECT_EQ(ie.stored_size(), ee.offset());
+
+        // Set when written test
+        write(ee, ss);
+        EXPECT_EQ(ie.stored_size() + ee.stored_size(), ee.offset());
     }
 
     TEST(EBMLHeader, StoredSize)
     {
         EBMLHeader ee("doctype");
 
-        typedef boost::shared_ptr<Element> ElPtr;
         std::vector<ElPtr> children;
 
         // Size with everything defaults
@@ -246,7 +395,6 @@ namespace test_ebml_header
     TEST(EBMLHeader, Read)
     {
         std::stringstream input;
-        typedef boost::shared_ptr<Element> ElPtr;
         std::vector<ElPtr> children;
 
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion, 2)));
@@ -297,18 +445,224 @@ namespace test_ebml_header
         vint::write(ue.stored_size(), input);
         write(ue, input);
         EXPECT_THROW(ee.read(input), InvalidChildID);
+        // Missing child
+        for (int ii(0); ii < children.size(); ++ii)
+        {
+            input.str(std::string());
+            body_size = write_except(input, children, ii);
+            input.str(std::string());
+            vint::write(body_size, input);
+            write_except(input, children, ii);
+            EXPECT_THROW(ee.read(input), MissingChild);
+        }
     }
 
     TEST(EBMLHeader, StartWrite)
     {
+        std::stringstream output;
+        std::string expected;
+        EBMLHeader ee;
+
+        // Writing with defaults should give a full-length body for the EBML
+        // header because values get written even if they are the default.
+        std::vector<ElPtr> children;
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        4)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        8)));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
+                        CelduinVersionMajor)));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        CelduinVersionMajor)));
+        fill_buffer(expected, children, true, true, true);
+
+        std::streamsize body_size(children_size(children));
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                ee.start_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                output.tellp());
+
+        // Writing without defaults (note that EBMLVersion and EBMLReadVersion
+        // are set by the library and so will *always* be default in this
+        // test).
+        output.str(std::string());
+        std::string().swap(expected);
+        children.clear();
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        5)));
+        ee.max_id_length(5);
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        7)));
+        ee.max_size_length(7);
+        children.push_back(ElPtr(new StringElement(ids::DocType, "blag")));
+        ee.doc_type("blag");
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion, 2)));
+        ee.doc_version(2);
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        2)));
+        ee.doc_read_version(2);
+        fill_buffer(expected, children, true, true, true);
+
+        body_size = children_size(children);
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                ee.start_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                output.tellp());
     }
 
     TEST(EBMLHeader, FinishWrite)
     {
+        std::stringstream output;
+        std::string expected;
+        EBMLHeader ee;
+
+        // Test for exception and no change to output when finishing without
+        // starting
+        EXPECT_THROW(ee.finish_write(output), NotWriting);
+        EXPECT_EQ(0, output.tellp());
+
+        // Writing with defaults should give a full-length body for the EBML
+        // header because values get written even if they are the default.
+        std::vector<ElPtr> children;
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        4)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        8)));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
+                        CelduinVersionMajor)));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        CelduinVersionMajor)));
+        fill_buffer(expected, children, true, true, true);
+
+        std::streamsize body_size(children_size(children));
+        ee.start_write(output);
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                ee.finish_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                output.tellp());
+
+        // Writing without defaults (note that EBMLVersion and EBMLReadVersion
+        // are set by the library and so will *always* be default in this
+        // test).
+        output.str(std::string());
+        std::string().swap(expected);
+        children.clear();
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        5)));
+        ee.max_id_length(5);
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        7)));
+        ee.max_size_length(7);
+        children.push_back(ElPtr(new StringElement(ids::DocType, "blag")));
+        ee.doc_type("blag");
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion, 2)));
+        ee.doc_version(2);
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        2)));
+        ee.doc_read_version(2);
+        fill_buffer(expected, children, true, true, true);
+
+        body_size = children_size(children);
+        ee.start_write(output);
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                ee.finish_write(output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                output.tellp());
+
+        // Test for double-finish raising an exception
+        EXPECT_THROW(ee.finish_write(output), NotWriting);
     }
 
     TEST(EBMLHeader, Write)
     {
+        std::stringstream output;
+        std::string expected;
+        EBMLHeader ee;
+
+        // Writing with defaults should give a full-length body for the EBML
+        // header because values get written even if they are the default.
+        std::vector<ElPtr> children;
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        4)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        8)));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
+                        CelduinVersionMajor)));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        CelduinVersionMajor)));
+        fill_buffer(expected, children, true, true, true);
+
+        std::streamsize body_size(children_size(children));
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                write(ee, output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                output.tellp());
+
+        // Writing without defaults (note that EBMLVersion and EBMLReadVersion
+        // are set by the library and so will *always* be default in this
+        // test).
+        output.str(std::string());
+        std::string().swap(expected);
+        children.clear();
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        5)));
+        ee.max_id_length(5);
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        7)));
+        ee.max_size_length(7);
+        children.push_back(ElPtr(new StringElement(ids::DocType, "blag")));
+        ee.doc_type("blag");
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion, 2)));
+        ee.doc_version(2);
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        2)));
+        ee.doc_read_version(2);
+        fill_buffer(expected, children, true, true, true);
+
+        body_size = children_size(children);
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                write(ee, output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                output.tellp());
     }
 }; // namespace test_ebml_header
 

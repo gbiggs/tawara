@@ -525,7 +525,7 @@ Element name         Level EBML ID     Ma Mu Rng   Default T Description
 ==================== ===== =========== == == ===== ======= = ===========
 Void                 g     EC                              b Used to void damaged data. The content of the element is discarded. Can also be used to reserve space in a sub-element for later use.
 CRC-32               g     BF                              b A CRC value computed on all the data of the master element it is in,
-                                                             excluding the CRC-32 element itself. This element SHOULD appear first
+                                                             excluding the CRC-32 element itself. This element MUST appear first
                                                              in its parent element for easier reading. All level 1 elements are
                                                              RECOMMENDED to include a CRC-32 element. The CRC MUST be calculated
                                                              using the IEEE CRC32 Little Endian CRC.

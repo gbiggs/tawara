@@ -43,6 +43,8 @@
 #include <celduin/id_utils.h>
 #include <celduin/vint.h>
 
+#include <boost/crc.hpp>
+
 using namespace celduin;
 using namespace celduin::impl;
 
@@ -79,7 +81,8 @@ std::streamsize MasterElementImpl::crc_size() const
 }
 
 
-std::streamsize MasterElementImpl::read_crc(std::istream& i)
+std::streamsize MasterElementImpl::read_crc(std::istream& i,
+        std::streamsize size)
 {
     BinaryElement crc_bin(ids::Null, std::vector<char>());
     std::streamsize result;
@@ -87,6 +90,9 @@ std::streamsize MasterElementImpl::read_crc(std::istream& i)
     result = crc_bin.read(i);
     long int crc;
     memcpy(&crc, crc_bin.data(), 4);
+    size -= crc_bin.stored_size();
+
+    // Read the remaining body and calculate its CRC-32 value.
 
     if (false)//(crc != calculated crc)
     {
@@ -98,15 +104,47 @@ std::streamsize MasterElementImpl::read_crc(std::istream& i)
 }
 
 
-std::streamsize MasterElementImpl::write_crc(std::ostream& o)
+std::streamsize MasterElementImpl::read_crc(std::string& body, std::istream& i,
+        std::streamsize size)
 {
+}
+
+
+std::streamsize MasterElementImpl::write_crc(std::string const& body,
+        std::iostream& io)
+{
+    std::streamsize result(0);
     if (use_crc_)
     {
-        // TODO
-        throw NotImplemented();
+        boost::crc_32_type crc;
+        crc.process_bytes(body.c_str(), body.length());
+        BinaryElement crc_el(ids::CRC32, std::vector<char>());
+        crc_el.push_back((crc.checksum() & 0x000000FF));
+        crc_el.push_back((crc.checksum() & 0x0000FF00) >> 8);
+        crc_el.push_back((crc.checksum() & 0x00FF0000) >> 16);
+        crc_el.push_back((crc.checksum() & 0xFF000000) >> 24);
+        result = write(crc_el, io);
     }
-    else
+    return result;
+}
+
+
+std::streamsize MasterElementImpl::write_with_crc(std::string const& body,
+        std::iostream& io)
+{
+    std::streamsize result(0);
+    if (use_crc_)
     {
-        return 0;
+        boost::crc_32_type crc;
+        crc.process_bytes(body.c_str(), body.length());
+        BinaryElement crc_el(ids::CRC32, std::vector<char>());
+        crc_el.push_back((crc.checksum() & 0x000000FF));
+        crc_el.push_back((crc.checksum() & 0x0000FF00) >> 8);
+        crc_el.push_back((crc.checksum() & 0x00FF0000) >> 16);
+        crc_el.push_back((crc.checksum() & 0xFF000000) >> 24);
+        result = write(crc_el, io);
     }
+    io.write(&body[0], body.length());
+    result += body.length();
+    return result;
 }

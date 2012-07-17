@@ -37,6 +37,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <celduin/binary_element.h>
 #include <celduin/celduin_config.h>
 #include <celduin/ebml_header.h>
 #include <celduin/element.h>
@@ -47,6 +48,7 @@
 #include <celduin/vint.h>
 
 #include "test_utilities.h"
+#include <boost/crc.hpp>
 #include <boost/foreach.hpp>
 #include <boost/shared_ptr.hpp>
 
@@ -270,7 +272,7 @@ namespace test_ebml_header
 
     std::streamsize fill_buffer(std::string& b,
             std::vector<ElPtr> const& children, bool write_id, bool write_size,
-            bool write_body)
+            bool write_body, bool use_crc=false)
     {
         char temp[8];
         std::streamsize total(0);
@@ -284,7 +286,13 @@ namespace test_ebml_header
         }
         if (write_size)
         {
-            std::vector<char> tmp(vint::encode(children_size(children)));
+            int crc_size(0);
+            if (use_crc)
+            {
+                crc_size = 6;
+            }
+            std::vector<char> tmp(vint::encode(children_size(children) +
+                        crc_size));
             b.append(&tmp[0], 0, tmp.size());
             total += tmp.size();
         }
@@ -294,6 +302,19 @@ namespace test_ebml_header
             BOOST_FOREACH(ElPtr el, children)
             {
                 total += write(*el, ss);
+            }
+            if (use_crc)
+            {
+                boost::crc_32_type crc;
+                crc.process_bytes(ss.str().c_str(), ss.str().length());
+                BinaryElement crc_el(ids::CRC32, std::vector<char>());
+                crc_el.push_back((crc.checksum() & 0x000000FF));
+                crc_el.push_back((crc.checksum() & 0x0000FF00) >> 8);
+                crc_el.push_back((crc.checksum() & 0x00FF0000) >> 16);
+                crc_el.push_back((crc.checksum() & 0xFF000000) >> 24);
+                std::stringstream crc_ss;
+                total += write(crc_el, crc_ss);
+                b += crc_ss.str();
             }
             b += ss.str();
         }
@@ -695,6 +716,41 @@ namespace test_ebml_header
         // Post-condition test
         EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
                 output.tellp());
+    }
+
+    TEST(EBMLHeader, WriteWithCRC)
+    {
+        std::stringstream output;
+        std::string expected;
+        EBMLHeader ee;
+
+        // Writing with defaults should give a full-length body for the EBML
+        // header because values get written even if they are the default.
+        std::vector<ElPtr> children;
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
+                        CelduinEBMLVersion)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
+                        4)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
+                        8)));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
+                        CelduinVersionMajor)));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
+                        CelduinVersionMajor)));
+        fill_buffer(expected, children, true, true, true, true);
+
+        ee.enable_crc();
+        std::streamsize body_size(children_size(children) + 6);
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                write(ee, output));
+        EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
+        // Post-condition test
+        EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
+                output.tellp());
+
     }
 }; // namespace test_ebml_header
 

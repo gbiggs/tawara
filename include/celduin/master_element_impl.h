@@ -91,22 +91,90 @@ namespace celduin
                  * that, should the element be written to a file again, the CRC
                  * will be maintained.
                  *
+                 * Note that checking the CRC is correct requires reading the
+                 * element's body, which must then be read again by the calling
+                 * element if it wants that body. If reading twice impacts
+                 * performance more than the memory required to store the
+                 * entire element body, then read_with_crc() should be used
+                 * instead.
+                 *
+                 * \param[out] body A stringstream to place the body data in
+                 * after checking its CRC32 value.
+                 * \param[in] i The input stream to read data from.
+                 * \param[in] size The size of the entire element's body,
+                 * including any CRC-32 value if present.
                  * \exception BadCRCError if the CRC value does not match the
                  * calling element.
+                 * \pre The read pointer of i will be at the first byte of the
+                 * element's body, which may or may not be a CRC-32 element.
+                 * \post The read pointer of i will be at the first byte of
+                 * the element's remaining body, whether or not a CRC-32 value
+                 * was present.
                  */
-                std::streamsize read_crc(std::istream& o);
+                std::streamsize read_crc(std::istream& i,
+                        std::streamsize size);
+
+                /** \brief Read and check the CRC value and read the element
+                 * body.
+                 *
+                 * This function will read a CRC value from the file and check
+                 * that it is correct for the calling element. It will
+                 * read the remainder of the element body as well, storing it
+                 * in a string passed to this function.
+                 *
+                 * This function will also set the CRC enable flag to on so
+                 * that, should the element be written to a file again, the CRC
+                 * will be maintained.
+                 *
+                 * \param[out] body A stringstream to place the body data in
+                 * after checking its CRC32 value.
+                 * \param[in] i The input stream to read data from.
+                 * \exception BadCRCError if the CRC value does not match the
+                 * calling element.
+                 * \param[in] size The size of the entire element's body,
+                 * including any CRC-32 value if present.
+                 * \pre The read pointer of i will be at the first byte of the
+                 * element's body, which may or may not be a CRC-32 element.
+                 * \post The read pointer of i will be at the first byte after
+                 * the element's body.
+                 */
+                std::streamsize read_crc(std::string& body, std::istream& i,
+                        std::streamsize size);
 
                 /** \brief Calculate and write the CRC value.
                  *
                  * This function will calculate the CRC value for the calling
-                 * element, then write it to the file.
-                 * This function will only do anything when using the CRC is
-                 * enabled. Otherwise, it is a no-op.
+                 * element, then write it to the file. It \emph will \emph not
+                 * write the body data. This function will only do anything
+                 * when using the CRC is enabled. Otherwise, it is a no-op.
                  *
+                 * \param[in] body The data of the element as it will appear in
+                 * the file. The CRC-32 value will be calculated from this.
+                 * \param[in] io The destination stream to write to.
                  * \return The number of bytes written.
+                 * \post The write pointer of io will be placed after the
+                 * CRC-32 element's body, such that the element's body can be
+                 * written.
                  */
-                std::streamsize write_crc(std::ostream& o);
+                std::streamsize write_crc(std::string const& body,
+                        std::iostream& io);
 
+                /** \brief Calculate and write the CRC value and element body.
+                 *
+                 * This function will calculate the CRC value for the calling
+                 * element, then write it to the file. It \emph will write the
+                 * body data. This function will only write the body when using
+                 * the CRC is disabled.
+                 *
+                 * \param[in] body The data of the element as it will appear in
+                 * the file. The CRC-32 value will be calculated from this.
+                 * \param[in] io The destination stream to write to.
+                 * \return The number of bytes written.
+                 * \post The write pointer of io will be placed after the end
+                 * of the element's body.
+                 */
+                std::streamsize write_with_crc(std::string const& body,
+                        std::iostream& io);
             private:
                 ///////////////////////////////////////////////////////////////////
                 // MasterElementBase CRTP required members

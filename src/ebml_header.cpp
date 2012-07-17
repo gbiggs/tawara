@@ -280,7 +280,7 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
             case ids::CRC32:
                 try
                 {
-                    read_bytes += new_pimpl->master_impl_.read_crc(i);
+                    //read_bytes += new_pimpl->master_impl_.read_crc(i);
                 }
                 catch (BadCRC& e)
                 {
@@ -346,17 +346,20 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
 std::streamsize EBMLHeader::start_body(std::iostream& io) const
 {
     std::streamsize result(0);
+    // Write the body data to a stringstream first. This can be used to
+    // calculate the CRC32 value if necessary.
+    std::stringstream body;
     // The EBML header element always writes every value, regardless of if it
     // is the default or not. If it did not, other implementations may use
     // different defaults and things would go very wrong, very quickly.
-    result += pimpl_->master_impl_.write_crc(io);
-    result += write(pimpl_->ver_, io);
-    result += write(pimpl_->read_ver_, io);
-    result += write(pimpl_->max_id_length_, io);
-    result += write(pimpl_->max_size_length_, io);
-    result += write(pimpl_->doc_type_, io);
-    result += write(pimpl_->doc_type_ver_, io);
-    result += write(pimpl_->doc_type_read_ver_, io);
+    write(pimpl_->ver_, body);
+    write(pimpl_->read_ver_, body);
+    write(pimpl_->max_id_length_, body);
+    write(pimpl_->max_size_length_, body);
+    write(pimpl_->doc_type_, body);
+    write(pimpl_->doc_type_ver_, body);
+    write(pimpl_->doc_type_read_ver_, body);
+    result = pimpl_->master_impl_.write_with_crc(body.str(), io);
     // Record the position after this element's body for use in
     // finish_body().
     body_end_ = io.tellp();

@@ -36,10 +36,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <celduin/celduin_config.h>
 #include <celduin/exceptions.h>
 #include <celduin/float_element_impl.h>
 
 #include <iostream>
+#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+    #include <utility> // For std::swap
+#else // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+    #include <algorithm> // For std::swap
+#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
 
 using namespace celduin;
 using namespace celduin::impl;
@@ -135,7 +141,7 @@ std::streamsize FloatElementImpl::read_body(std::istream& i, std::streamsize siz
         {
             throw ReadError() << err_pos(i.tellg());
         }
-        value_ = temp;
+        std::swap(value_, temp);
         precision_ = EBML_FLOAT_PREC_DOUBLE;
         return 8;
     }

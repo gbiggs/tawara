@@ -39,9 +39,10 @@
 #if !defined(STRING_ELEMENT_H_)
 #define STRING_ELEMENT_H_
 
-#include <celduin/string_element_impl.h>
+#include <celduin/celduin_config.h>
 #include <celduin/element_base.h>
 #include <celduin/primitive_element.h>
+#include <celduin/string_element_impl.h>
 #include <celduin/win_dll.h>
 
 #include <boost/operators.hpp>

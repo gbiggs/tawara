@@ -432,6 +432,14 @@ namespace test_ebml_header
         input.str(std::string());
         vint::write(0, input);
         EXPECT_THROW(read(ee, input), MissingChild);
+        // Post-condition test: error should leave element as before
+        EXPECT_EQ(2, ee.version());
+        EXPECT_EQ(2, ee.read_version());
+        EXPECT_EQ(5, ee.max_id_length());
+        EXPECT_EQ(7, ee.max_size_length());
+        EXPECT_EQ("blag", ee.doc_type());
+        EXPECT_EQ(2, ee.doc_version());
+        EXPECT_EQ(2, ee.doc_read_version());
 
         // Body size value wrong (too small)
         input.str(std::string());
@@ -439,12 +447,28 @@ namespace test_ebml_header
         write(*children[0], input);
         write(*children[3], input);
         EXPECT_THROW(ee.read(input), BadBodySize);
+        // Post-condition test: error should leave element as before
+        EXPECT_EQ(2, ee.version());
+        EXPECT_EQ(2, ee.read_version());
+        EXPECT_EQ(5, ee.max_id_length());
+        EXPECT_EQ(7, ee.max_size_length());
+        EXPECT_EQ("blag", ee.doc_type());
+        EXPECT_EQ(2, ee.doc_version());
+        EXPECT_EQ(2, ee.doc_read_version());
         // Invalid child
         input.str(std::string());
         UIntElement ue(ids::EBML, 0xFFFF);
         vint::write(ue.stored_size(), input);
         write(ue, input);
         EXPECT_THROW(ee.read(input), InvalidChildID);
+        // Post-condition test: error should leave element as before
+        EXPECT_EQ(2, ee.version());
+        EXPECT_EQ(2, ee.read_version());
+        EXPECT_EQ(5, ee.max_id_length());
+        EXPECT_EQ(7, ee.max_size_length());
+        EXPECT_EQ("blag", ee.doc_type());
+        EXPECT_EQ(2, ee.doc_version());
+        EXPECT_EQ(2, ee.doc_read_version());
         // Missing child
         for (int ii(0); ii < children.size(); ++ii)
         {
@@ -454,6 +478,14 @@ namespace test_ebml_header
             vint::write(body_size, input);
             write_except(input, children, ii);
             EXPECT_THROW(ee.read(input), MissingChild);
+            // Post-condition test: error should leave element as before
+            EXPECT_EQ(2, ee.version());
+            EXPECT_EQ(2, ee.read_version());
+            EXPECT_EQ(5, ee.max_id_length());
+            EXPECT_EQ(7, ee.max_size_length());
+            EXPECT_EQ("blag", ee.doc_type());
+            EXPECT_EQ(2, ee.doc_version());
+            EXPECT_EQ(2, ee.doc_read_version());
         }
     }
 

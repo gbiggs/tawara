@@ -259,6 +259,9 @@ inline std::streamsize EBMLHeader::body_stored_size() const
 std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
 {
     std::streamsize read_bytes(0);
+
+    boost::scoped_ptr<Impl> new_pimpl(new Impl(*pimpl_));
+
     bool no_ver(true);
     bool no_read_ver(true);
     bool no_max_id_len(true);
@@ -277,7 +280,7 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
             case ids::CRC32:
                 try
                 {
-                    read_bytes += pimpl_->master_impl_.read_crc(i);
+                    read_bytes += new_pimpl->master_impl_.read_crc(i);
                 }
                 catch (BadCRC& e)
                 {
@@ -288,31 +291,31 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
                 }
                 break;
             case ids::EBMLVersion:
-                read_bytes += pimpl_->ver_.read(i);
+                read_bytes += new_pimpl->ver_.read(i);
                 no_ver = false;
                 break;
             case ids::EBMLReadVersion:
-                read_bytes += pimpl_->read_ver_.read(i);
+                read_bytes += new_pimpl->read_ver_.read(i);
                 no_read_ver = false;
                 break;
             case ids::EBMLMaxIDLength:
-                read_bytes += pimpl_->max_id_length_.read(i);
+                read_bytes += new_pimpl->max_id_length_.read(i);
                 no_max_id_len = false;
                 break;
             case ids::EBMLMaxSizeLength:
-                read_bytes += pimpl_->max_size_length_.read(i);
+                read_bytes += new_pimpl->max_size_length_.read(i);
                 no_max_size_len = false;
                 break;
             case ids::DocType:
-                read_bytes += pimpl_->doc_type_.read(i);
+                read_bytes += new_pimpl->doc_type_.read(i);
                 no_doc_type = false;
                 break;
             case ids::DocTypeVersion:
-                read_bytes += pimpl_->doc_type_ver_.read(i);
+                read_bytes += new_pimpl->doc_type_ver_.read(i);
                 no_doc_type_ver = false;
                 break;
             case ids::DocTypeReadVersion:
-                read_bytes += pimpl_->doc_type_read_ver_.read(i);
+                read_bytes += new_pimpl->doc_type_read_ver_.read(i);
                 no_doc_type_read_ver = false;
                 break;
             default:
@@ -335,6 +338,7 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
         throw MissingChild() << err_par_id(id_) << err_pos(offset_);
     }
 
+    pimpl_.swap(new_pimpl);
     return read_bytes;
 }
 

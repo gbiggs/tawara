@@ -71,11 +71,11 @@ namespace celduin
      * An err_pos tag may be included, giving the position of the element in
      * the file.
      *
-     * An err_expected_crc tag may be included, giving the CRC value from the
-     * file.
+     * An err_expected_crc tag may be included, giving the caclulated CRC
+     * value.
      *
-     * An err_calc_crc tag may be included, giving the CRC value calculated for
-     * the element.
+     * An err_stored_crc tag may be included, giving the CRC value from the
+     * file.
      */
     struct BadCRC : virtual CelduinError {};
 
@@ -536,8 +536,8 @@ namespace celduin
         err_expected_crc;
 
     /// \brief A calculated CRC value.
-    typedef boost::error_info<struct tag_calc_crc, std::streamsize>
-        err_calc_crc;
+    typedef boost::error_info<struct tag_stored_crc, std::streamsize>
+        err_stored_crc;
 
     /// \brief A version.
     typedef boost::error_info<struct tag_ver, std::streamsize> err_ver;

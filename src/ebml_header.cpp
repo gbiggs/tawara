@@ -269,53 +269,50 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
     bool no_doc_type(true);
     bool no_doc_type_ver(true);
     bool no_doc_type_read_ver(true);
+
+    // Get the body via a CRC check
+    std::vector<char> body;
+    read_bytes += new_pimpl->master_impl_.read_with_crc(body, i, size);
+    // TODO: This is a lot of copying around just to get things in the right
+    // data type.
+    std::string temp_str(body.begin(), body.end());
+    std::stringstream body_ss(temp_str);
+
     // Read IDs until the body is exhausted
-    while (read_bytes < size)
+    std::streamsize body_read(0);
+    while (body_read < body.size())
     {
         ids::ReadResult id_res = ids::read(i);
         ids::ID id(id_res.first);
-        read_bytes += id_res.second;
+        body_read += id_res.second;
         switch(id)
         {
-            case ids::CRC32:
-                try
-                {
-                    //read_bytes += new_pimpl->master_impl_.read_crc(i);
-                }
-                catch (BadCRC& e)
-                {
-                    // Add the ID and the offset of this element in the file
-                    // for easy debugging
-                    e << err_id(id_) << err_pos(offset_);
-                    throw;
-                }
-                break;
             case ids::EBMLVersion:
-                read_bytes += new_pimpl->ver_.read(i);
+                body_read += new_pimpl->ver_.read(body_ss);
                 no_ver = false;
                 break;
             case ids::EBMLReadVersion:
-                read_bytes += new_pimpl->read_ver_.read(i);
+                body_read += new_pimpl->read_ver_.read(body_ss);
                 no_read_ver = false;
                 break;
             case ids::EBMLMaxIDLength:
-                read_bytes += new_pimpl->max_id_length_.read(i);
+                body_read += new_pimpl->max_id_length_.read(body_ss);
                 no_max_id_len = false;
                 break;
             case ids::EBMLMaxSizeLength:
-                read_bytes += new_pimpl->max_size_length_.read(i);
+                body_read += new_pimpl->max_size_length_.read(body_ss);
                 no_max_size_len = false;
                 break;
             case ids::DocType:
-                read_bytes += new_pimpl->doc_type_.read(i);
+                body_read += new_pimpl->doc_type_.read(body_ss);
                 no_doc_type = false;
                 break;
             case ids::DocTypeVersion:
-                read_bytes += new_pimpl->doc_type_ver_.read(i);
+                body_read += new_pimpl->doc_type_ver_.read(body_ss);
                 no_doc_type_ver = false;
                 break;
             case ids::DocTypeReadVersion:
-                read_bytes += new_pimpl->doc_type_read_ver_.read(i);
+                body_read += new_pimpl->doc_type_read_ver_.read(body_ss);
                 no_doc_type_read_ver = false;
                 break;
             default:
@@ -348,18 +345,21 @@ std::streamsize EBMLHeader::start_body(std::iostream& io) const
     std::streamsize result(0);
     // Write the body data to a stringstream first. This can be used to
     // calculate the CRC32 value if necessary.
-    std::stringstream body;
+    std::stringstream body_ss;
     // The EBML header element always writes every value, regardless of if it
     // is the default or not. If it did not, other implementations may use
     // different defaults and things would go very wrong, very quickly.
-    write(pimpl_->ver_, body);
-    write(pimpl_->read_ver_, body);
-    write(pimpl_->max_id_length_, body);
-    write(pimpl_->max_size_length_, body);
-    write(pimpl_->doc_type_, body);
-    write(pimpl_->doc_type_ver_, body);
-    write(pimpl_->doc_type_read_ver_, body);
-    result = pimpl_->master_impl_.write_with_crc(body.str(), io);
+    write(pimpl_->ver_, body_ss);
+    write(pimpl_->read_ver_, body_ss);
+    write(pimpl_->max_id_length_, body_ss);
+    write(pimpl_->max_size_length_, body_ss);
+    write(pimpl_->doc_type_, body_ss);
+    write(pimpl_->doc_type_ver_, body_ss);
+    write(pimpl_->doc_type_read_ver_, body_ss);
+    std::vector<char> body(body_ss.str().begin(), body_ss.str().end());
+    // TODO: This is a lot of copying around just to get things in the right
+    // data type.
+    result = pimpl_->master_impl_.write_with_crc(body, io);
     // Record the position after this element's body for use in
     // finish_body().
     body_end_ = io.tellp();

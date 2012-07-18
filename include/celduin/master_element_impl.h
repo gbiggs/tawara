@@ -43,6 +43,7 @@
 #include <celduin/win_dll.h>
 
 #include <ios>
+#include <vector>
 
 /// \addtogroup implementations Internal implementations
 /// @{
@@ -66,7 +67,7 @@ namespace celduin
                  * \param[in] use_crc The initial value of the flag to
                  * enable/disable using the CRC.
                  */
-                MasterElementImpl(bool use_crc);
+                explicit MasterElementImpl(bool use_crc);
 
                 /** \brief Swap this object with another instance.
                  *
@@ -103,13 +104,14 @@ namespace celduin
                  * \param[in] i The input stream to read data from.
                  * \param[in] size The size of the entire element's body,
                  * including any CRC-32 value if present.
-                 * \exception BadCRCError if the CRC value does not match the
+                 * \exception BadCRC if the CRC value does not match the
                  * calling element.
                  * \pre The read pointer of i will be at the first byte of the
                  * element's body, which may or may not be a CRC-32 element.
                  * \post The read pointer of i will be at the first byte of
                  * the element's remaining body, whether or not a CRC-32 value
                  * was present.
+                 * \post crc_enabled() will return true.
                  */
                 std::streamsize read_crc(std::istream& i,
                         std::streamsize size);
@@ -129,7 +131,7 @@ namespace celduin
                  * \param[out] body A stringstream to place the body data in
                  * after checking its CRC32 value.
                  * \param[in] i The input stream to read data from.
-                 * \exception BadCRCError if the CRC value does not match the
+                 * \exception BadCRC if the CRC value does not match the
                  * calling element.
                  * \param[in] size The size of the entire element's body,
                  * including any CRC-32 value if present.
@@ -137,9 +139,12 @@ namespace celduin
                  * element's body, which may or may not be a CRC-32 element.
                  * \post The read pointer of i will be at the first byte after
                  * the element's body.
+                 * \post crc_enabled() will return true.
+                 * \post The body of the element, excluding the CRC32 element,
+                 * will be stored in the vector referenced by body.
                  */
-                std::streamsize read_crc(std::string& body, std::istream& i,
-                        std::streamsize size);
+                std::streamsize read_with_crc(std::vector<char>& body,
+                        std::istream& i, std::streamsize size);
 
                 /** \brief Calculate and write the CRC value.
                  *
@@ -152,11 +157,12 @@ namespace celduin
                  * the file. The CRC-32 value will be calculated from this.
                  * \param[in] io The destination stream to write to.
                  * \return The number of bytes written.
+                 * \pre body is an empty vector.
                  * \post The write pointer of io will be placed after the
                  * CRC-32 element's body, such that the element's body can be
                  * written.
                  */
-                std::streamsize write_crc(std::string const& body,
+                std::streamsize write_crc(std::vector<char> const& body,
                         std::iostream& io);
 
                 /** \brief Calculate and write the CRC value and element body.
@@ -173,7 +179,7 @@ namespace celduin
                  * \post The write pointer of io will be placed after the end
                  * of the element's body.
                  */
-                std::streamsize write_with_crc(std::string const& body,
+                std::streamsize write_with_crc(std::vector<char> const& body,
                         std::iostream& io);
             private:
                 ///////////////////////////////////////////////////////////////////

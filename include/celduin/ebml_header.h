@@ -73,7 +73,7 @@ namespace celduin
              * reading, it will be populated from the file, overwriting the
              * stored value.
              */
-            EBMLHeader(std::string const& doc_type="celduin");
+            explicit EBMLHeader(std::string const& doc_type="celduin");
 
             /// \brief Copy constructor.
             EBMLHeader(EBMLHeader const& rhs);

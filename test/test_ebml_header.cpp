@@ -510,6 +510,52 @@ namespace test_ebml_header
         }
     }
 
+    TEST(EBMLHeader, ReadWithCRC)
+    {
+        std::vector<ElPtr> children;
+        children.push_back(ElPtr(new UIntElement(ids::EBMLVersion, 2)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion, 2)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength, 5)));
+        children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength, 7)));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "blag")));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion, 2)));
+        children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion, 2)));
+
+        std::string buffer;
+        std::streamsize read_size(0);
+        read_size = fill_buffer(buffer, children, false, true, true, true);
+
+        EBMLHeader ee("");
+        ee.disable_crc();
+        std::stringstream input(buffer);
+        EXPECT_EQ(read_size, read(ee, input));
+
+        // Bad CRC
+        std::string().swap(buffer);
+        read_size += fill_buffer(buffer, children, false, true, true, true);
+        // Corrupt the CRC
+        buffer[2] = 0x00;
+        buffer[3] = 0x00;
+        buffer[4] = 0x00;
+        buffer[5] = 0x00;
+        // Attempt to read
+        input.str(buffer);
+        EXPECT_THROW(read(ee, input), BadCRC);
+
+        // Test automatic enabling/disabling of CRC
+        ee.disable_crc();
+        std::string().swap(buffer);
+        fill_buffer(buffer, children, false, true, true, true);
+        input.str(buffer);
+        read(ee, input);
+        EXPECT_TRUE(ee.crc_enabled());
+        std::string().swap(buffer);
+        fill_buffer(buffer, children, false, true, true, false);
+        input.str(buffer);
+        read(ee, input);
+        EXPECT_FALSE(ee.crc_enabled());
+    }
+
     TEST(EBMLHeader, StartWrite)
     {
         std::stringstream output;

@@ -84,40 +84,67 @@ std::streamsize MasterElementImpl::crc_size() const
 std::streamsize MasterElementImpl::read_crc(std::istream& i,
         std::streamsize size)
 {
-    BinaryElement crc_bin(ids::Null, std::vector<char>());
-    std::streamsize result;
-
-    result = crc_bin.read(i);
-    long int crc;
-    memcpy(&crc, crc_bin.data(), 4);
-    size -= crc_bin.stored_size();
-
-    // Read the remaining body and calculate its CRC-32 value.
-
-    if (false)//(crc != calculated crc)
-    {
-        throw BadCRC() << err_expected_crc(crc) <<
-            err_calc_crc(0); // TODO
-    }
-
-    return result;
+    std::streamsize read_bytes(0);
+    // Read the entire body and check the CRC
+    std::vector<char> body;
+    read_bytes = read_with_crc(body, i, size);
+    // Rewind to the first element after the CRC
+    i.seekg(-body.size(), std::ios::cur);
+    // The number of bytes read is the size of the CRC element, or zero if
+    // there wasn't one.
+    return read_bytes - body.size();
 }
 
 
-std::streamsize MasterElementImpl::read_crc(std::string& body, std::istream& i,
-        std::streamsize size)
+std::streamsize MasterElementImpl::read_with_crc(std::vector<char>& body,
+        std::istream& i, std::streamsize size)
 {
+    std::streamsize read_bytes(0);
+    // Read an ID and check if it is a CRC32 element
+    ids::ReadResult id_res = ids::read(i);
+    read_bytes = id_res.second;
+    if (id_res.first == ids::CRC32)
+    {
+        use_crc_ = true;
+        // Have a CRC value, so read it
+        BinaryElement stored_crc_el(ids::CRC32, std::vector<char>());
+        read_bytes += stored_crc_el.read(i);
+        long int stored_crc;
+        memcpy(&stored_crc, stored_crc_el.data(), 4);
+        size -= read_bytes;
+        // Read the rest of the body
+        body.reserve(size);
+        i.read(&body[0], size);
+        read_bytes += size;
+        boost::crc_32_type calc_crc;
+        calc_crc.process_bytes(&body[0], body.size());
+        if (stored_crc != calc_crc.checksum())
+        {
+            throw BadCRC() << err_expected_crc(calc_crc.checksum()) <<
+                err_stored_crc(stored_crc);
+        }
+    }
+    else
+    {
+        use_crc_ = false;
+        // No CRC, so rewind and read the entire body
+        i.seekg(-id_res.second, std::ios::cur);
+        body.reserve(size);
+        i.read(&body[0], size);
+        read_bytes = size;
+    }
+    return read_bytes;
 }
 
 
-std::streamsize MasterElementImpl::write_crc(std::string const& body,
+std::streamsize MasterElementImpl::write_crc(std::vector<char> const& body,
         std::iostream& io)
 {
     std::streamsize result(0);
     if (use_crc_)
     {
         boost::crc_32_type crc;
-        crc.process_bytes(body.c_str(), body.length());
+        crc.process_bytes(&body[0], body.size());
         BinaryElement crc_el(ids::CRC32, std::vector<char>());
         crc_el.push_back((crc.checksum() & 0x000000FF));
         crc_el.push_back((crc.checksum() & 0x0000FF00) >> 8);
@@ -129,22 +156,12 @@ std::streamsize MasterElementImpl::write_crc(std::string const& body,
 }
 
 
-std::streamsize MasterElementImpl::write_with_crc(std::string const& body,
-        std::iostream& io)
+std::streamsize MasterElementImpl::write_with_crc(
+        std::vector<char> const& body, std::iostream& io)
 {
     std::streamsize result(0);
-    if (use_crc_)
-    {
-        boost::crc_32_type crc;
-        crc.process_bytes(body.c_str(), body.length());
-        BinaryElement crc_el(ids::CRC32, std::vector<char>());
-        crc_el.push_back((crc.checksum() & 0x000000FF));
-        crc_el.push_back((crc.checksum() & 0x0000FF00) >> 8);
-        crc_el.push_back((crc.checksum() & 0x00FF0000) >> 16);
-        crc_el.push_back((crc.checksum() & 0xFF000000) >> 24);
-        result = write(crc_el, io);
-    }
-    io.write(&body[0], body.length());
-    result += body.length();
+    result = write_crc(body, io);
+    io.write(&body[0], body.size());
+    result += body.size();
     return result;
 }

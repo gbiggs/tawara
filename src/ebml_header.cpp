@@ -282,7 +282,7 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
     std::streamsize body_read(0);
     while (body_read < body.size())
     {
-        ids::ReadResult id_res = ids::read(i);
+        ids::ReadResult id_res = ids::read(body_ss);
         ids::ID id(id_res.first);
         body_read += id_res.second;
         switch(id)
@@ -319,7 +319,7 @@ std::streamsize EBMLHeader::read_body(std::istream& i, std::streamsize size)
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
                     // The cast here makes Apple's LLVM compiler happy
                     err_pos(static_cast<std::streamsize>(i.tellg()) -
-                            id_res.second);
+                            id_res.second - (body.size() - body_read));
         }
     }
     if (read_bytes != size)
@@ -356,9 +356,10 @@ std::streamsize EBMLHeader::start_body(std::iostream& io) const
     write(pimpl_->doc_type_, body_ss);
     write(pimpl_->doc_type_ver_, body_ss);
     write(pimpl_->doc_type_read_ver_, body_ss);
-    std::vector<char> body(body_ss.str().begin(), body_ss.str().end());
     // TODO: This is a lot of copying around just to get things in the right
     // data type.
+    std::string body_str(body_ss.str());
+    std::vector<char> body(body_str.begin(), body_str.end());
     result = pimpl_->master_impl_.write_with_crc(body, io);
     // Record the position after this element's body for use in
     // finish_body().

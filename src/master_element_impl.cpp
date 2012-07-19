@@ -99,6 +99,11 @@ std::streamsize MasterElementImpl::read_crc(std::istream& i,
 std::streamsize MasterElementImpl::read_with_crc(std::vector<char>& body,
         std::istream& i, std::streamsize size)
 {
+    if (size == 0)
+    {
+        // Nothing to do for an empty element
+        return 0;
+    }
     std::streamsize read_bytes(0);
     // Read an ID and check if it is a CRC32 element
     ids::ReadResult id_res = ids::read(i);
@@ -113,8 +118,12 @@ std::streamsize MasterElementImpl::read_with_crc(std::vector<char>& body,
         memcpy(&stored_crc, stored_crc_el.data(), 4);
         size -= read_bytes;
         // Read the rest of the body
-        body.reserve(size);
+        body.resize(size, 0);
         i.read(&body[0], size);
+        if (!i)
+        {
+            throw ReadError() << err_pos(i.tellg());
+        }
         read_bytes += size;
         boost::crc_32_type calc_crc;
         calc_crc.process_bytes(&body[0], body.size());
@@ -129,8 +138,12 @@ std::streamsize MasterElementImpl::read_with_crc(std::vector<char>& body,
         use_crc_ = false;
         // No CRC, so rewind and read the entire body
         i.seekg(-id_res.second, std::ios::cur);
-        body.reserve(size);
+        body.resize(size, 0);
         i.read(&body[0], size);
+        if (!i)
+        {
+            throw ReadError() << err_pos(i.tellg());
+        }
         read_bytes = size;
     }
     return read_bytes;

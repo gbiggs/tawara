@@ -439,6 +439,9 @@ namespace test_ebml_header
             write(*el, input);
         }
 
+        std::string temp(input.str());
+        std::vector<char> temp2(temp.begin(), temp.end());
+
         EXPECT_EQ(vint::size(body_size) + body_size,
                 ee.read(input));
         EXPECT_EQ(2, ee.version());

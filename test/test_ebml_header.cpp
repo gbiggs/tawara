@@ -74,7 +74,7 @@ namespace test_ebml_header
         EXPECT_EQ("celduin", ee.doc_type());
         EXPECT_EQ(CelduinVersionMajor, ee.doc_version());
         EXPECT_EQ(CelduinVersionMajor, ee.doc_read_version());
-        EXPECT_FALSE(ee.crc_enabled());
+        EXPECT_TRUE(ee.crc_enabled());
     }
 
 
@@ -133,6 +133,7 @@ namespace test_ebml_header
         ee1.enable_crc();
 
         EBMLHeader ee2;
+        ee2.disable_crc();
         swap(ee1, ee2);
 
         EXPECT_EQ(CelduinEBMLVersion, ee1.version());
@@ -245,11 +246,11 @@ namespace test_ebml_header
     TEST(EBMLHeader, EnableCRC)
     {
         EBMLHeader ee;
-        EXPECT_FALSE(ee.crc_enabled());
-        ee.enable_crc();
         EXPECT_TRUE(ee.crc_enabled());
         ee.disable_crc();
         EXPECT_FALSE(ee.crc_enabled());
+        ee.enable_crc();
+        EXPECT_TRUE(ee.crc_enabled());
     }
 
 
@@ -380,6 +381,7 @@ namespace test_ebml_header
     TEST(EBMLHeader, StoredSize)
     {
         EBMLHeader ee("doctype");
+        ee.disable_crc();
 
         std::vector<ElPtr> children;
 
@@ -387,6 +389,13 @@ namespace test_ebml_header
         std::streamsize body_size(4+4+4+4+10+3+3);
         EXPECT_EQ(ids::size(ids::EBML) +
                 vint::size(body_size) + body_size, ee.stored_size());
+
+        // Size with CRC enabled
+        ee.enable_crc();
+        body_size = 4+4+4+4+10+3+3 +6;
+        EXPECT_EQ(ids::size(ids::EBML) +
+                vint::size(body_size) + body_size, ee.stored_size());
+        ee.disable_crc();
 
         // Size with non-defaults. Note that EBMLVersion and EBMLReadVersion can
         // never be anything other than the default in this test.
@@ -405,6 +414,7 @@ namespace test_ebml_header
         }
 
         EBMLHeader ee2("blag");
+        ee2.disable_crc();
         ee2.max_id_length(5);
         ee2.max_size_length(7);
         ee2.doc_version(2);
@@ -439,9 +449,6 @@ namespace test_ebml_header
             write(*el, input);
         }
 
-        std::string temp(input.str());
-        std::vector<char> temp2(temp.begin(), temp.end());
-
         EXPECT_EQ(vint::size(body_size) + body_size,
                 ee.read(input));
         EXPECT_EQ(2, ee.version());
@@ -470,7 +477,7 @@ namespace test_ebml_header
         vint::write(2, input);
         write(*children[0], input);
         write(*children[3], input);
-        EXPECT_THROW(ee.read(input), BadBodySize);
+        EXPECT_THROW(ee.read(input), ReadError);
         // Post-condition test: error should leave element as before
         EXPECT_EQ(2, ee.version());
         EXPECT_EQ(2, ee.read_version());
@@ -479,6 +486,7 @@ namespace test_ebml_header
         EXPECT_EQ("blag", ee.doc_type());
         EXPECT_EQ(2, ee.doc_version());
         EXPECT_EQ(2, ee.doc_read_version());
+
         // Invalid child
         input.str(std::string());
         UIntElement ue(ids::EBML, 0xFFFF);
@@ -493,6 +501,7 @@ namespace test_ebml_header
         EXPECT_EQ("blag", ee.doc_type());
         EXPECT_EQ(2, ee.doc_version());
         EXPECT_EQ(2, ee.doc_read_version());
+
         // Missing child
         for (int ii(0); ii < children.size(); ++ii)
         {
@@ -537,10 +546,8 @@ namespace test_ebml_header
         std::string().swap(buffer);
         read_size += fill_buffer(buffer, children, false, true, true, true);
         // Corrupt the CRC
-        buffer[2] = 0x00;
         buffer[3] = 0x00;
         buffer[4] = 0x00;
-        buffer[5] = 0x00;
         // Attempt to read
         input.str(buffer);
         EXPECT_THROW(read(ee, input), BadCRC);
@@ -564,6 +571,7 @@ namespace test_ebml_header
         std::stringstream output;
         std::string expected;
         EBMLHeader ee;
+        ee.disable_crc();
 
         // Writing with defaults should give a full-length body for the EBML
         // header because values get written even if they are the default.
@@ -630,6 +638,7 @@ namespace test_ebml_header
         std::stringstream output;
         std::string expected;
         EBMLHeader ee;
+        ee.disable_crc();
 
         // Test for exception and no change to output when finishing without
         // starting
@@ -706,6 +715,7 @@ namespace test_ebml_header
         std::stringstream output;
         std::string expected;
         EBMLHeader ee;
+        ee.disable_crc();
 
         // Writing with defaults should give a full-length body for the EBML
         // header because values get written even if they are the default.
@@ -799,7 +809,33 @@ namespace test_ebml_header
         // Post-condition test
         EXPECT_EQ(ids::size(ids::EBML) + vint::size(body_size) + body_size,
                 output.tellp());
+    }
 
+    TEST(EBMLHeader, RoundTrip)
+    {
+        std::stringstream io;
+        EBMLHeader ee1;
+        ee1.max_id_length(5);
+        ee1.max_size_length(7);
+        ee1.doc_type("stuff");
+        ee1.doc_version(3);
+        ee1.doc_read_version(4);
+
+        std::streamsize written_bytes = write(ee1, io);
+        // Skip the ID
+        io.seekg(4, std::ios::beg);
+        EBMLHeader ee2;
+        std::streamsize read_bytes = read(ee2, io);
+
+        EXPECT_EQ(written_bytes - 4, read_bytes);
+        EXPECT_EQ(CelduinEBMLVersion, ee2.version());
+        EXPECT_EQ(CelduinEBMLVersion, ee2.read_version());
+        EXPECT_EQ(5, ee2.max_id_length());
+        EXPECT_EQ(7, ee2.max_size_length());
+        EXPECT_EQ("stuff", ee2.doc_type());
+        EXPECT_EQ(3, ee2.doc_version());
+        EXPECT_EQ(4, ee2.doc_read_version());
+        EXPECT_TRUE(ee2.crc_enabled());
     }
 }; // namespace test_ebml_header
 

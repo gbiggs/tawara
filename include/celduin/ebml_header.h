@@ -58,6 +58,8 @@ namespace celduin
      * \b required to be the first element in an EBML document.
      *
      * The header defines various meta-data about the EBML document to follow.
+     *
+     * The EBML header element uses a CRC32 value by default.
      */
     class CELDUIN_EXPORT EBMLHeader
         : public ElementBase<EBMLHeader>,

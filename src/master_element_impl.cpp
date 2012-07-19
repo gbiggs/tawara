@@ -114,7 +114,7 @@ std::streamsize MasterElementImpl::read_with_crc(std::vector<char>& body,
         // Have a CRC value, so read it
         BinaryElement stored_crc_el(ids::CRC32, std::vector<char>());
         read_bytes += stored_crc_el.read(i);
-        long int stored_crc;
+        long int stored_crc(0);
         memcpy(&stored_crc, stored_crc_el.data(), 4);
         size -= read_bytes;
         // Read the rest of the body

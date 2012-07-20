@@ -232,7 +232,7 @@ Note that, as before, the ordering of most elements is optional.
   |       +-----------------------------------------------------------------------+
   |       |DocTypeReadVersion                                                     |
   +-------+------------------+---------------+------------------------------------+
-  |Segment|SeekHead          |Seek           |SeekID                              |
+  |Segment|MetaSeek          |Seek           |SeekID                              |
   |       |                  |               +------------------------------------+
   |       |                  |               |SeekPosition                        |
   |       |                  +---------------+------------------------------------+
@@ -546,7 +546,7 @@ Metaseek Information
 ------------------------------------------------------------------------
 Element name         Level EBML ID     Ma Mu Rng   Default T Description
 ==================== ===== =========== == == ===== ======= = ===========
-SeekHead             1     11 4D 9B 74                     m Contains the position of other level 1 elements.
+MetaSeek             1     11 4D 9B 74                     m Contains the position of other level 1 elements.
 Seek                 2     4D BB       \* \*               m Contains a single seek entry to an EBML element.
 SeekID               3     53 AB       \*                  b The binary ID of the target element.
 SeekPosition         3     53 AC       \*                  u The position of the element in the segment in bytes. 0 for the first

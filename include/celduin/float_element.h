@@ -62,8 +62,6 @@ namespace celduin
      *
      * This class implements the PrimitiveElement interface.
      *
-     * This class implements the boost::posix_time::ptime interface.
-     *
      * Copy-construction and assignment are provided by the compiler.
      */
     class CELDUIN_EXPORT FloatElement

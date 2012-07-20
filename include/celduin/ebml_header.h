@@ -47,7 +47,7 @@
 #include <boost/scoped_ptr.hpp>
 #include <string>
 
-/// \addtogroup interfaces Interfaces
+/// \addtogroup elements Elements
 /// @{
 
 namespace celduin
@@ -60,6 +60,10 @@ namespace celduin
      * The header defines various meta-data about the EBML document to follow.
      *
      * The EBML header element uses a CRC32 value by default.
+     *
+     * This class implements the Element interface.
+     *
+     * This class implements the MasterElement interface.
      */
     class CELDUIN_EXPORT EBMLHeader
         : public ElementBase<EBMLHeader>,
@@ -179,6 +183,7 @@ namespace celduin
             bool crc_enabled_impl() const;
     }; // class EBMLHeader
 
+
     /// \brief Swap EBML header elements
     void swap(EBMLHeader& a, EBMLHeader& b);
 
@@ -188,7 +193,7 @@ namespace celduin
 }; // namespace celduin
 
 /// @}
-// group interfaces
+// group elements
 
 #endif // !defined(EBML_HEADER_H_)
 

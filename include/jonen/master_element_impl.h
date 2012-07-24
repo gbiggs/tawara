@@ -99,8 +99,6 @@ namespace jonen
                  * entire element body, then read_with_crc() should be used
                  * instead.
                  *
-                 * \param[out] body A stringstream to place the body data in
-                 * after checking its CRC32 value.
                  * \param[in] i The input stream to read data from.
                  * \param[in] size The size of the entire element's body,
                  * including any CRC-32 value if present.
@@ -149,9 +147,9 @@ namespace jonen
                 /** \brief Calculate and write the CRC value.
                  *
                  * This function will calculate the CRC value for the calling
-                 * element, then write it to the file. It \emph will \emph not
-                 * write the body data. This function will only do anything
-                 * when using the CRC is enabled. Otherwise, it is a no-op.
+                 * element, then write it to the file. It \e will \e not write
+                 * the body data. This function will only do anything when
+                 * using the CRC is enabled. Otherwise, it is a no-op.
                  *
                  * \param[in] body The data of the element as it will appear in
                  * the file. The CRC-32 value will be calculated from this.
@@ -168,7 +166,7 @@ namespace jonen
                 /** \brief Calculate and write the CRC value and element body.
                  *
                  * This function will calculate the CRC value for the calling
-                 * element, then write it to the file. It \emph will write the
+                 * element, then write it to the file. It \e will write the
                  * body data. This function will only write the body when using
                  * the CRC is disabled.
                  *

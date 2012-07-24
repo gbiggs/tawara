@@ -4,7 +4,6 @@ Jonen - Japanese
 .. toctree::
    :hidden:
 
-   index
    specification
 
 Introduction

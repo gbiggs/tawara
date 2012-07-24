@@ -329,6 +329,7 @@ namespace jonen
      * \invariant If reading fails, the contents of the element stored
      * in memory will remain unchanged.
      *
+     * \param[in] e The element instance to read into.
      * \param[in] i The source byte stream to read from.
      * \return The number of bytes read.
      * \exception ReadError if an error occurs reading data.

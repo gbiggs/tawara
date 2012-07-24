@@ -62,7 +62,7 @@ class EBMLHeader::Impl
             doc_type_(ids::DocType, doc_type, JonenDocType),
             doc_type_ver_(ids::DocTypeVersion, JonenVersionMajor, 1),
             doc_type_read_ver_(ids::DocTypeReadVersion, JonenVersionMajor, 1),
-            master_impl_(false)
+            master_impl_(true)
         {
         }
 

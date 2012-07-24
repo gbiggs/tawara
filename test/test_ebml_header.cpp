@@ -74,7 +74,7 @@ namespace test_ebml_header
         EXPECT_EQ("jonen", ee.doc_type());
         EXPECT_EQ(JonenVersionMajor, ee.doc_version());
         EXPECT_EQ(JonenVersionMajor, ee.doc_read_version());
-        EXPECT_FALSE(ee.crc_enabled());
+        EXPECT_TRUE(ee.crc_enabled());
     }
 
 
@@ -828,8 +828,8 @@ namespace test_ebml_header
         std::streamsize read_bytes = read(ee2, io);
 
         EXPECT_EQ(written_bytes - 4, read_bytes);
-        EXPECT_EQ(CelduinEBMLVersion, ee2.version());
-        EXPECT_EQ(CelduinEBMLVersion, ee2.read_version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.read_version());
         EXPECT_EQ(5, ee2.max_id_length());
         EXPECT_EQ(7, ee2.max_size_length());
         EXPECT_EQ("stuff", ee2.doc_type());

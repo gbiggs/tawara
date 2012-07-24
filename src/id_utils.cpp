@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/id_utils.h>
+#include <jonen/id_utils.h>
 
-#include <celduin/exceptions.h>
+#include <jonen/exceptions.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
-bool celduin::ids::validate(ids::ID id)
+bool jonen::ids::validate(ids::ID id)
 {
     if (id == 0 ||
             id == 0xFF ||
@@ -57,7 +57,7 @@ bool celduin::ids::validate(ids::ID id)
 }
 
 
-std::streamsize celduin::ids::size(ids::ID id)
+std::streamsize jonen::ids::size(ids::ID id)
 {
     if (id >= 0x80 && id <= 0xFE)
     {
@@ -99,7 +99,7 @@ std::streamsize celduin::ids::size(ids::ID id)
 }
 
 
-std::vector<char> celduin::ids::encode(ID id)
+std::vector<char> jonen::ids::encode(ID id)
 {
     std::streamsize c_size(size(id));
     std::vector<char> buffer(c_size, 0);
@@ -113,7 +113,7 @@ std::vector<char> celduin::ids::encode(ID id)
 }
 
 
-std::streamsize celduin::ids::write(ids::ID id, std::ostream& o)
+std::streamsize jonen::ids::write(ids::ID id, std::ostream& o)
 {
     std::streamsize c_size(size(id));
     // Write the remaining bytes
@@ -130,7 +130,7 @@ std::streamsize celduin::ids::write(ids::ID id, std::ostream& o)
 }
 
 
-ids::DecodeResult celduin::ids::decode(std::vector<char> const& buffer)
+ids::DecodeResult jonen::ids::decode(std::vector<char> const& buffer)
 {
     assert(buffer.size() > 0);
 
@@ -198,7 +198,7 @@ ids::DecodeResult celduin::ids::decode(std::vector<char> const& buffer)
 }
 
 
-ids::ReadResult celduin::ids::read(std::istream& i)
+ids::ReadResult jonen::ids::read(std::istream& i)
 {
     ids::ID result(0);
     std::streamsize to_copy(0);

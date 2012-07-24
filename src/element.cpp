@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/element.h>
+#include <jonen/element.h>
 
 #include <cassert>
 
-std::streamsize celduin::read(Element& e, std::istream& i)
+std::streamsize jonen::read(Element& e, std::istream& i)
 {
     return e.read(i);
 }
 
 
-std::streamsize celduin::write(Element const& e, std::iostream& io)
+std::streamsize jonen::write(Element const& e, std::iostream& io)
 {
     std::streamsize ss(0), fs(0);
     ss = e.start_write(io);

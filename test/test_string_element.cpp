@@ -37,16 +37,16 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/ebml_integer.h>
-#include <celduin/exceptions.h>
-#include <celduin/string_element.h>
-#include <celduin/celduin_config.h>
+#include <jonen/ebml_integer.h>
+#include <jonen/exceptions.h>
+#include <jonen/string_element.h>
+#include <jonen/jonen_config.h>
 
 #include <limits>
 
 #include "test_utilities.h"
 
-using namespace celduin;
+using namespace jonen;
 
 namespace test_string_el
 {
@@ -281,13 +281,13 @@ namespace test_string_el
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, value.substr(1, 2),
                 ee.value());
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         // Move assign
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "xyz",
                 ee.assign("xyz").value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "xyz",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
         // C substring assign
         char const* const c_str = "c_string";
@@ -310,13 +310,13 @@ namespace test_string_el
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq,
                 std::string(5, 'b'), ee.value());
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         // Initialiser list assign
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "12345",
                 ee.assign({'1', '2', '3', '4', '5'}).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "12345",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, GetAllocator)
@@ -348,22 +348,22 @@ namespace test_string_el
 
     TEST_F(StringElementTest, Front)
     {
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('a', ee.front());
         StringElement const ee_const(ids::Null, s1);
         EXPECT_EQ('a', ee_const.front());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, Back)
     {
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('h', ee.back());
         StringElement const ee_const(ids::Null, s1);
         EXPECT_EQ('h', ee_const.back());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, Data)
@@ -386,9 +386,9 @@ namespace test_string_el
     {
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('a', *(ee.begin()));
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('a', *(ee.cbegin()));
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
         StringElement ee_const(ids::Null, s1);
         EXPECT_EQ('a', *(ee_const.begin()));
     }
@@ -397,9 +397,9 @@ namespace test_string_el
     {
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('h', *(ee.end() - 1));
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('h', *(ee.cend() - 1));
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
         StringElement ee_const(ids::Null, s1);
         EXPECT_EQ('h', *(ee_const.end() - 1));
     }
@@ -408,9 +408,9 @@ namespace test_string_el
     {
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('h', *(ee.rbegin()));
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('h', *(ee.crbegin()));
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
         StringElement ee_const(ids::Null, s1);
         EXPECT_EQ('h', *(ee_const.rbegin()));
     }
@@ -419,9 +419,9 @@ namespace test_string_el
     {
         StringElement ee(ids::Null, s1);
         EXPECT_EQ('a', *(ee.rend() - 1));
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('a', *(ee.crend() - 1));
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
         StringElement ee_const(ids::Null, s1);
         EXPECT_EQ('a', *(ee_const.rend() - 1));
     }
@@ -473,7 +473,7 @@ namespace test_string_el
         EXPECT_EQ(8, ee.capacity());
     }
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
     TEST_F(StringElementTest, ShrinkToFit)
     {
         StringElement ee(ids::Null, s1);
@@ -482,7 +482,7 @@ namespace test_string_el
         ee.shrink_to_fit();
         EXPECT_EQ(8, ee.capacity());
     }
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
     TEST_F(StringElementTest, Clear)
     {
@@ -495,17 +495,17 @@ namespace test_string_el
     {
         // Insert single character
         StringElement ee(ids::Null, s1);
-#if !defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if !defined(JONEN_CPLUSPLUS11_SUPPORT)
         char z('z');
         StringElement::iterator itr(ee.insert(ee.begin() + 1, z));
         EXPECT_EQ('z', ee[1]);
         EXPECT_TRUE((ee.begin() + 1) == itr);
-#endif // !defined(CELDUIN_CPLUSPLUS11_SUPPORT)
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // !defined(JONEN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee::iterator itr(ee.insert(ee.cbegin(), 'y'));
         EXPECT_EQ('y', ee[0]);
         EXPECT_TRUE((ee.begin() + 1) == itr);
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
         // Insert character at iterator
         ee.insert(ee.begin(), 3, 'x');
@@ -549,12 +549,12 @@ namespace test_string_el
         EXPECT_EQ('o', ee[1]);
         EXPECT_EQ('1', ee[2]); // Only two elements should have been inserted
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee.insert(ee.begin(), {'1', '2', '3'});
         EXPECT_EQ('1', ee[0]);
         EXPECT_EQ('2', ee[1]);
         EXPECT_EQ('3', ee[2]);
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, Erase)
@@ -584,12 +584,12 @@ namespace test_string_el
 
     TEST_F(StringElementTest, PopBack)
     {
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         StringElement ee(ids::Null, s1);
         ee.pop_back();
         EXPECT_EQ(7, ee.size());
         EXPECT_EQ('g', ee.back());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, Append)
@@ -638,14 +638,14 @@ namespace test_string_el
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
                 ee.value());
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         // Append an initialiser list
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
                 ee.append({'a', 'a', 'a'}).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123aaa",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, AppendOperator)
@@ -672,14 +672,14 @@ namespace test_string_el
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123abc",
                 ee.value());
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         // Append an initialiser list
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123abc",
                 (ee += {'a', 'b', 'c'}).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123abc",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, AdditionOperator)
@@ -713,7 +713,7 @@ namespace test_string_el
         EXPECT_EQ(expected, c + ee);
         expected.value("123abc");
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         // Move versions (maybe?)
 
         // Add a string element
@@ -736,7 +736,7 @@ namespace test_string_el
         EXPECT_EQ(expected, ee + 'a');
         expected.value("a123");
         EXPECT_EQ(expected, 'a' + ee);
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
         // The original element should still be unchanged
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "123", ee.value());
@@ -788,13 +788,13 @@ namespace test_string_el
                 ee.replace(1, 1, value).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.value());
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.replace(ee.begin() + 1, ee.begin() + 2, value).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
         // Replace with std::string substring
         ee.value("123");
@@ -802,14 +802,14 @@ namespace test_string_el
                 ee.replace(1, 1, value, 1, 1).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
                 ee.value());
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
                 ee.replace(ee.begin() + 1, ee.begin() + 2, value.begin(),
                     value.begin() + 1).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
         // Replace with C substring
         ee.value("123");
@@ -817,13 +817,13 @@ namespace test_string_el
                 ee.replace(1, 1, "aaa", 1).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
                 ee.value());
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
                 ee.replace(ee.begin() + 1, ee.begin() + 2, "aaa", 1).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1a3",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
         // Replace with C string
         ee.value("123");
@@ -831,13 +831,13 @@ namespace test_string_el
                 ee.replace(1, 1, "aaa").value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.value());
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.replace(ee.begin() + 1, ee.begin() + 2, "aaa").value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
         // Replace with character
         ee.value("123");
@@ -845,15 +845,15 @@ namespace test_string_el
                 ee.replace(1, 1, 3, 'a').value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.value());
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.replace(ee.begin() + 1, ee.begin() + 2, 3, 'a').value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1aaa3",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         // Replace with initialiser list
         ee.value("123");
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc3",
@@ -861,7 +861,7 @@ namespace test_string_el
                     {'a', 'b', 'c'}).value());
         EXPECT_PRED_FORMAT2(test_utils::std_strings_eq, "1abc3",
                 ee.value());
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
     TEST_F(StringElementTest, Substring)
@@ -1262,7 +1262,7 @@ namespace test_string_el
     {
         std::stringstream output;
         std::string expected;
-        celduin::StringElement ee(ids::Null, s1);
+        jonen::StringElement ee(ids::Null, s1);
         unsigned int padding(0);
 
         output.str(std::string());
@@ -1279,7 +1279,7 @@ namespace test_string_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, s3, true, true, true, padding);
-        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(s3.size() + padding)
+        EXPECT_EQ(jonen::ids::size(ids::Null) + vint::size(s3.size() + padding)
                 + s3.size() + padding, ee.start_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -1292,7 +1292,7 @@ namespace test_string_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, empty, true, true, true);
-        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(empty.size()) +
+        EXPECT_EQ(jonen::ids::size(ids::Null) + vint::size(empty.size()) +
                 empty.size(), ee.start_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -1342,7 +1342,7 @@ namespace test_string_el
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, s3, true, true, true, padding);
         ee.start_write(output);
-        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(s3.size() + padding)
+        EXPECT_EQ(jonen::ids::size(ids::Null) + vint::size(s3.size() + padding)
                 + s3.size() + padding, ee.finish_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -1359,7 +1359,7 @@ namespace test_string_el
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, empty, true, true, true);
         ee.start_write(output);
-        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(empty.size()) +
+        EXPECT_EQ(jonen::ids::size(ids::Null) + vint::size(empty.size()) +
                 empty.size(), ee.finish_write(output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -1412,7 +1412,7 @@ namespace test_string_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, s3, true, true, true, padding);
-        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(s3.size() + padding)
+        EXPECT_EQ(jonen::ids::size(ids::Null) + vint::size(s3.size() + padding)
                 + s3.size() + padding, write(ee, output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);
@@ -1428,7 +1428,7 @@ namespace test_string_el
         output.str(std::string());
         std::string().swap(expected);
         fill_buffer(expected, ids::Null, empty, true, true, true);
-        EXPECT_EQ(celduin::ids::size(ids::Null) + vint::size(empty.size()) +
+        EXPECT_EQ(jonen::ids::size(ids::Null) + vint::size(empty.size()) +
                 empty.size(), write(ee, output));
         EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
                 expected);

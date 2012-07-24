@@ -37,22 +37,22 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/binary_element.h>
-#include <celduin/celduin_config.h>
-#include <celduin/ebml_header.h>
-#include <celduin/element.h>
-#include <celduin/exceptions.h>
-#include <celduin/ids.h>
-#include <celduin/integer_elements.h>
-#include <celduin/string_element.h>
-#include <celduin/vint.h>
+#include <jonen/binary_element.h>
+#include <jonen/jonen_config.h>
+#include <jonen/ebml_header.h>
+#include <jonen/element.h>
+#include <jonen/exceptions.h>
+#include <jonen/ids.h>
+#include <jonen/integer_elements.h>
+#include <jonen/string_element.h>
+#include <jonen/vint.h>
 
 #include "test_utilities.h"
 #include <boost/crc.hpp>
 #include <boost/foreach.hpp>
 #include <boost/shared_ptr.hpp>
 
-using namespace celduin;
+using namespace jonen;
 
 namespace test_ebml_header
 {
@@ -63,17 +63,17 @@ namespace test_ebml_header
     TEST(EBMLHeader, Construction)
     {
         EXPECT_EQ(ids::EBML, EBMLHeader().id());
-        EXPECT_EQ("celduin", EBMLHeader().doc_type());
+        EXPECT_EQ("jonen", EBMLHeader().doc_type());
         EXPECT_EQ("doctype", EBMLHeader("doctype").doc_type());
 
         EBMLHeader ee;
-        EXPECT_EQ(CelduinEBMLVersion, ee.version());
-        EXPECT_EQ(CelduinEBMLVersion, ee.read_version());
+        EXPECT_EQ(JonenEBMLVersion, ee.version());
+        EXPECT_EQ(JonenEBMLVersion, ee.read_version());
         EXPECT_EQ(4, ee.max_id_length());
         EXPECT_EQ(8, ee.max_size_length());
-        EXPECT_EQ("celduin", ee.doc_type());
-        EXPECT_EQ(CelduinVersionMajor, ee.doc_version());
-        EXPECT_EQ(CelduinVersionMajor, ee.doc_read_version());
+        EXPECT_EQ("jonen", ee.doc_type());
+        EXPECT_EQ(JonenVersionMajor, ee.doc_version());
+        EXPECT_EQ(JonenVersionMajor, ee.doc_read_version());
         EXPECT_FALSE(ee.crc_enabled());
     }
 
@@ -89,8 +89,8 @@ namespace test_ebml_header
 
         EBMLHeader ee2(ee1);
         EXPECT_TRUE(ee1 == ee2);
-        EXPECT_EQ(CelduinEBMLVersion, ee2.version());
-        EXPECT_EQ(CelduinEBMLVersion, ee2.read_version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.read_version());
         EXPECT_EQ(6, ee2.max_id_length());
         EXPECT_EQ(10, ee2.max_size_length());
         EXPECT_EQ("doctype", ee2.doc_type());
@@ -112,8 +112,8 @@ namespace test_ebml_header
         EBMLHeader ee2;
         ee2 = ee1;
         EXPECT_TRUE(ee1 == ee2);
-        EXPECT_EQ(CelduinEBMLVersion, ee2.version());
-        EXPECT_EQ(CelduinEBMLVersion, ee2.read_version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.read_version());
         EXPECT_EQ(6, ee2.max_id_length());
         EXPECT_EQ(10, ee2.max_size_length());
         EXPECT_EQ("doctype", ee2.doc_type());
@@ -135,17 +135,17 @@ namespace test_ebml_header
         EBMLHeader ee2;
         swap(ee1, ee2);
 
-        EXPECT_EQ(CelduinEBMLVersion, ee1.version());
-        EXPECT_EQ(CelduinEBMLVersion, ee1.read_version());
+        EXPECT_EQ(JonenEBMLVersion, ee1.version());
+        EXPECT_EQ(JonenEBMLVersion, ee1.read_version());
         EXPECT_EQ(4, ee1.max_id_length());
         EXPECT_EQ(8, ee1.max_size_length());
-        EXPECT_EQ("celduin", ee1.doc_type());
-        EXPECT_EQ(CelduinVersionMajor, ee1.doc_version());
-        EXPECT_EQ(CelduinVersionMajor, ee1.doc_read_version());
+        EXPECT_EQ("jonen", ee1.doc_type());
+        EXPECT_EQ(JonenVersionMajor, ee1.doc_version());
+        EXPECT_EQ(JonenVersionMajor, ee1.doc_read_version());
         EXPECT_FALSE(ee1.crc_enabled());
 
-        EXPECT_EQ(CelduinEBMLVersion, ee2.version());
-        EXPECT_EQ(CelduinEBMLVersion, ee2.read_version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.version());
+        EXPECT_EQ(JonenEBMLVersion, ee2.read_version());
         EXPECT_EQ(6, ee2.max_id_length());
         EXPECT_EQ(10, ee2.max_size_length());
         EXPECT_EQ("doctype", ee2.doc_type());
@@ -182,14 +182,14 @@ namespace test_ebml_header
     TEST(EBMLHeader, Version)
     {
         EBMLHeader ee;
-        EXPECT_EQ(CelduinEBMLVersion, ee.version());
+        EXPECT_EQ(JonenEBMLVersion, ee.version());
     }
 
 
     TEST(EBMLHeader, ReadVersion)
     {
         EBMLHeader ee;
-        EXPECT_EQ(CelduinEBMLVersion, ee.read_version());
+        EXPECT_EQ(JonenEBMLVersion, ee.read_version());
     }
 
 
@@ -214,7 +214,7 @@ namespace test_ebml_header
     TEST(EBMLHeader, DocType)
     {
         EBMLHeader ee;
-        EXPECT_EQ("celduin", ee.doc_type());
+        EXPECT_EQ("jonen", ee.doc_type());
         ee.doc_type("tide");
         EXPECT_EQ("tide", ee.doc_type());
     }
@@ -355,9 +355,9 @@ namespace test_ebml_header
         write(ie, ss);
         std::vector<ElPtr> children;
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         5)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
@@ -569,18 +569,18 @@ namespace test_ebml_header
         // header because values get written even if they are the default.
         std::vector<ElPtr> children;
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         4)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
                         8)));
-        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "jonen")));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         fill_buffer(expected, children, true, true, true);
 
         std::streamsize body_size(children_size(children));
@@ -598,9 +598,9 @@ namespace test_ebml_header
         std::string().swap(expected);
         children.clear();
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         5)));
         ee.max_id_length(5);
@@ -640,18 +640,18 @@ namespace test_ebml_header
         // header because values get written even if they are the default.
         std::vector<ElPtr> children;
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         4)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
                         8)));
-        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "jonen")));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         fill_buffer(expected, children, true, true, true);
 
         std::streamsize body_size(children_size(children));
@@ -670,9 +670,9 @@ namespace test_ebml_header
         std::string().swap(expected);
         children.clear();
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         5)));
         ee.max_id_length(5);
@@ -711,18 +711,18 @@ namespace test_ebml_header
         // header because values get written even if they are the default.
         std::vector<ElPtr> children;
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         4)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
                         8)));
-        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "jonen")));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         fill_buffer(expected, children, true, true, true);
 
         std::streamsize body_size(children_size(children));
@@ -740,9 +740,9 @@ namespace test_ebml_header
         std::string().swap(expected);
         children.clear();
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         5)));
         ee.max_id_length(5);
@@ -777,18 +777,18 @@ namespace test_ebml_header
         // header because values get written even if they are the default.
         std::vector<ElPtr> children;
         children.push_back(ElPtr(new UIntElement(ids::EBMLVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLReadVersion,
-                        CelduinEBMLVersion)));
+                        JonenEBMLVersion)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxIDLength,
                         4)));
         children.push_back(ElPtr(new UIntElement(ids::EBMLMaxSizeLength,
                         8)));
-        children.push_back(ElPtr(new StringElement(ids::DocType, "celduin")));
+        children.push_back(ElPtr(new StringElement(ids::DocType, "jonen")));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         children.push_back(ElPtr(new UIntElement(ids::DocTypeReadVersion,
-                        CelduinVersionMajor)));
+                        JonenVersionMajor)));
         fill_buffer(expected, children, true, true, true, true);
 
         ee.enable_crc();

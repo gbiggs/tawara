@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include
 # a compiler error if they can't compile. Tests of if the methods compile
 # require using the methods, and so are left to the full test suite.
 add_executable(compilable_test compilable_test.cpp)
-target_link_libraries(compilable_test celduin ${Boost_LIBRARIES})
+target_link_libraries(compilable_test jonen ${Boost_LIBRARIES})
 
 
 set(srcs
@@ -37,7 +37,7 @@ configure_file("test_consts.h.in" ${test_consts})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(all_tests ${srcs} ${test_consts})
-target_link_libraries(all_tests celduin ${Boost_LIBRARIES} ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(all_tests jonen ${Boost_LIBRARIES} ${GTEST_BOTH_LIBRARIES})
 if(CMAKE_VERSION VERSION_LESS 2.8.4)
     add_test(AllTests all_tests)
 else(CMAKE_VERSION VERSION_LESS 2.8.4)

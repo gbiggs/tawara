@@ -36,9 +36,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/date_element.h>
+#include <jonen/date_element.h>
 
-using namespace celduin;
+using namespace jonen;
 namespace bpt = boost::posix_time;
 namespace bgr = boost::gregorian;
 
@@ -54,7 +54,7 @@ DateElement::DateElement(ids::ID id, bpt::ptime const& value)
 }
 
 
-DateElement::DateElement(celduin::ids::ID id, bpt::ptime const& value,
+DateElement::DateElement(jonen::ids::ID id, bpt::ptime const& value,
         bpt::ptime const& default_val)
     : ElementBase<DateElement>(id), impl_(value, default_val), id_(id),
     offset_(0), writing_(false)
@@ -76,7 +76,7 @@ void DateElement::swap(DateElement& other)
 }
 
 
-void celduin::swap(DateElement& a, DateElement& b)
+void jonen::swap(DateElement& a, DateElement& b)
 {
     a.swap(b);
 }
@@ -89,26 +89,26 @@ void DateElement::swap(bpt::ptime& other)
 }
 
 
-void celduin::swap(DateElement& a, bpt::ptime& b)
+void jonen::swap(DateElement& a, bpt::ptime& b)
 {
     a.swap(b);
 }
 
 
-boost::posix_time::time_duration celduin::operator-(DateElement const& lhs,
+boost::posix_time::time_duration jonen::operator-(DateElement const& lhs,
         DateElement const& rhs)
 {
     return lhs.value() - rhs.value();
 }
 
 
-std::ostream& celduin::operator<<(std::ostream& o, DateElement const& rhs)
+std::ostream& jonen::operator<<(std::ostream& o, DateElement const& rhs)
 {
     return o << rhs.value();
 }
 
 
-std::istream& celduin::operator>>(std::istream& i, DateElement& rhs)
+std::istream& jonen::operator>>(std::istream& i, DateElement& rhs)
 {
     boost::posix_time::ptime temp;
     i >> temp;

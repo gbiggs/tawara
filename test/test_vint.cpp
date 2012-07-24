@@ -37,12 +37,12 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
 #include "test_utilities.h"
 
-using namespace celduin;
+using namespace jonen;
 
 namespace test_vint
 {

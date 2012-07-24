@@ -1,2 +1,2 @@
-add_subdirectory(celduin)
+add_subdirectory(jonen)
 

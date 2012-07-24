@@ -36,10 +36,10 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/binary_element.h>
-#include <celduin/exceptions.h>
+#include <jonen/binary_element.h>
+#include <jonen/exceptions.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -52,7 +52,7 @@ BinaryElement::BinaryElement(ids::ID id, std::vector<char> const& value)
 }
 
 
-BinaryElement::BinaryElement(celduin::ids::ID id, std::vector<char> const& value,
+BinaryElement::BinaryElement(jonen::ids::ID id, std::vector<char> const& value,
         std::vector<char> const& default_val)
     : ElementBase<BinaryElement>(id), impl_(value, default_val), id_(id),
     offset_(0), writing_(false)
@@ -81,20 +81,20 @@ void BinaryElement::swap(std::vector<char>& other)
 }
 
 
-void celduin::swap(BinaryElement& a, BinaryElement& b)
+void jonen::swap(BinaryElement& a, BinaryElement& b)
 {
     a.swap(b);
 }
 
 
-void celduin::swap(BinaryElement& a, std::vector<char>& b)
+void jonen::swap(BinaryElement& a, std::vector<char>& b)
 {
     a.swap(b);
 }
 
 
 /// \brief Stream output operator.
-std::ostream& celduin::operator<<(std::ostream& o, BinaryElement const& rhs)
+std::ostream& jonen::operator<<(std::ostream& o, BinaryElement const& rhs)
 {
     return o << rhs.impl_;
 }

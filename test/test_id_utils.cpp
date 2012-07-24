@@ -37,13 +37,13 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/exceptions.h>
-#include <celduin/ids.h>
-#include <celduin/id_utils.h>
+#include <jonen/exceptions.h>
+#include <jonen/ids.h>
+#include <jonen/id_utils.h>
 
 #include "test_utilities.h"
 
-using namespace celduin;
+using namespace jonen;
 
 namespace test_id_utils
 {

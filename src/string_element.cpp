@@ -36,10 +36,10 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/string_element.h>
-#include <celduin/exceptions.h>
+#include <jonen/string_element.h>
+#include <jonen/exceptions.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -52,7 +52,7 @@ StringElement::StringElement(ids::ID id, std::string const& value)
 }
 
 
-StringElement::StringElement(celduin::ids::ID id, std::string const& value,
+StringElement::StringElement(jonen::ids::ID id, std::string const& value,
         std::string const& default_val)
     : ElementBase<StringElement>(id), impl_(value, default_val), id_(id),
     offset_(0), writing_(false)
@@ -81,19 +81,19 @@ void StringElement::swap(std::string& other)
 }
 
 
-void celduin::swap(StringElement& a, StringElement& b)
+void jonen::swap(StringElement& a, StringElement& b)
 {
     a.swap(b);
 }
 
 
-void celduin::swap(StringElement& a, std::string& b)
+void jonen::swap(StringElement& a, std::string& b)
 {
     a.swap(b);
 }
 
 
-StringElement celduin::operator+(StringElement lhs,
+StringElement jonen::operator+(StringElement lhs,
         StringElement const& rhs)
 {
     lhs += rhs;
@@ -101,55 +101,55 @@ StringElement celduin::operator+(StringElement lhs,
 }
 
 
-StringElement celduin::operator+(StringElement lhs, std::string const& rhs)
+StringElement jonen::operator+(StringElement lhs, std::string const& rhs)
 {
     lhs += rhs;
     return lhs;
 }
 
 
-StringElement celduin::operator+(std::string const& lhs, StringElement rhs)
+StringElement jonen::operator+(std::string const& lhs, StringElement rhs)
 {
     rhs.insert(0, lhs);
     return rhs;
 }
 
 
-StringElement celduin::operator+(StringElement lhs, char const* const rhs)
+StringElement jonen::operator+(StringElement lhs, char const* const rhs)
 {
     lhs += rhs;
     return lhs;
 }
 
 
-StringElement celduin::operator+(char const* const lhs, StringElement rhs)
+StringElement jonen::operator+(char const* const lhs, StringElement rhs)
 {
     rhs.insert(0, lhs);
     return rhs;
 }
 
 
-StringElement celduin::operator+(StringElement lhs, char rhs)
+StringElement jonen::operator+(StringElement lhs, char rhs)
 {
     lhs += rhs;
     return lhs;
 }
 
 
-StringElement celduin::operator+(char lhs, StringElement rhs)
+StringElement jonen::operator+(char lhs, StringElement rhs)
 {
     rhs.insert(0, 1, lhs);
     return rhs;
 }
 
 
-std::ostream& celduin::operator<<(std::ostream& o, StringElement const& rhs)
+std::ostream& jonen::operator<<(std::ostream& o, StringElement const& rhs)
 {
     return o << rhs.impl_;
 }
 
 
-std::istream& celduin::operator>>(std::istream& i, StringElement& rhs)
+std::istream& jonen::operator>>(std::istream& i, StringElement& rhs)
 {
     std::string temp;
     i >> temp;

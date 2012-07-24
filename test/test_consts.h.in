@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(CELDUIN_TEST_CONSTS_H_)
-#define CELDUIN_TEST_CONSTS_H
+#if !defined(JONEN_TEST_CONSTS_H_)
+#define JONEN_TEST_CONSTS_H
 
 #include <boost/filesystem.hpp>
 
 const boost::filesystem::path test_source_dir("${CMAKE_CURRENT_SOURCE_DIR}");
 const boost::filesystem::path test_bin_dir("${CMAKE_CURRENT_BINARY_DIR}");
 
-#endif // CELDUIN_TEST_CONSTS_H
+#endif // JONEN_TEST_CONSTS_H
 

@@ -36,19 +36,19 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/celduin_config.h>
-#include <celduin/exceptions.h>
-#include <celduin/float_element_impl.h>
+#include <jonen/jonen_config.h>
+#include <jonen/exceptions.h>
+#include <jonen/float_element_impl.h>
 
 #include <iostream>
-#if defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
     #include <utility> // For std::swap
-#else // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
     #include <algorithm> // For std::swap
-#endif // defined(CELDUIN_CPLUSPLUS11_SUPPORT)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
-using namespace celduin;
-using namespace celduin::impl;
+using namespace jonen;
+using namespace jonen::impl;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ void FloatElementImpl::swap(FloatElementImpl& other)
 }
 
 
-void celduin::impl::swap(FloatElementImpl& a, FloatElementImpl& b)
+void jonen::impl::swap(FloatElementImpl& a, FloatElementImpl& b)
 {
     a.swap(b);
 }
@@ -98,7 +98,7 @@ void FloatElementImpl::swap(double& other)
 }
 
 
-void celduin::impl::swap(FloatElementImpl& a, double& b)
+void jonen::impl::swap(FloatElementImpl& a, double& b)
 {
     a.swap(b);
 }

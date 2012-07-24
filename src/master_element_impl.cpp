@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/master_element_impl.h>
+#include <jonen/master_element_impl.h>
 
-#include <celduin/binary_element.h>
-#include <celduin/exceptions.h>
-#include <celduin/id_utils.h>
-#include <celduin/vint.h>
+#include <jonen/binary_element.h>
+#include <jonen/exceptions.h>
+#include <jonen/id_utils.h>
+#include <jonen/vint.h>
 
 #include <boost/crc.hpp>
 
-using namespace celduin;
-using namespace celduin::impl;
+using namespace jonen;
+using namespace jonen::impl;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

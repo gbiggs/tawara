@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/vint.h>
-#include <celduin/exceptions.h>
+#include <jonen/vint.h>
+#include <jonen/exceptions.h>
 
 
-std::streamsize celduin::vint::size(uint64_t integer)
+std::streamsize jonen::vint::size(uint64_t integer)
 {
     if (integer < 0x80)
     {
@@ -76,12 +76,12 @@ std::streamsize celduin::vint::size(uint64_t integer)
     }
     else
     {
-        throw celduin::VarIntTooBig() << celduin::err_varint(integer);
+        throw jonen::VarIntTooBig() << jonen::err_varint(integer);
     }
 }
 
 
-celduin::vint::OffsetInt celduin::vint::s_to_u(int64_t integer)
+jonen::vint::OffsetInt jonen::vint::s_to_u(int64_t integer)
 {
     if (integer >= -0x3F && integer <= 0x3F)
     {
@@ -113,12 +113,12 @@ celduin::vint::OffsetInt celduin::vint::s_to_u(int64_t integer)
     }
     else
     {
-        throw celduin::VarIntTooBig() << celduin::err_varint(integer);
+        throw jonen::VarIntTooBig() << jonen::err_varint(integer);
     }
 }
 
 
-int64_t celduin::vint::u_to_s(celduin::vint::OffsetInt integer)
+int64_t jonen::vint::u_to_s(jonen::vint::OffsetInt integer)
 {
     switch (integer.second)
     {
@@ -137,12 +137,12 @@ int64_t celduin::vint::u_to_s(celduin::vint::OffsetInt integer)
         case 7:
             return integer.first - 0xFFFFFFFFFFFF;
         default:
-            throw celduin::VarIntTooBig() << celduin::err_varint(integer.first);
+            throw jonen::VarIntTooBig() << jonen::err_varint(integer.first);
     }
 }
 
 
-std::vector<char> celduin::vint::encode(uint64_t integer, std::streamsize req_size)
+std::vector<char> jonen::vint::encode(uint64_t integer, std::streamsize req_size)
 {
     assert(req_size <= 8);
 
@@ -155,8 +155,8 @@ std::vector<char> celduin::vint::encode(uint64_t integer, std::streamsize req_si
     {
         if (req_size < c_size)
         {
-            throw celduin::SpecSizeTooSmall() << celduin::err_varint(integer) <<
-                celduin::err_reqsize(req_size);
+            throw jonen::SpecSizeTooSmall() << jonen::err_varint(integer) <<
+                jonen::err_reqsize(req_size);
         }
         c_size = req_size;
     }
@@ -207,7 +207,7 @@ std::vector<char> celduin::vint::encode(uint64_t integer, std::streamsize req_si
 }
 
 
-celduin::vint::DecodeResult celduin::vint::decode(std::vector<char> const& buffer)
+jonen::vint::DecodeResult jonen::vint::decode(std::vector<char> const& buffer)
 {
     assert(buffer.size() > 0);
 
@@ -256,13 +256,13 @@ celduin::vint::DecodeResult celduin::vint::decode(std::vector<char> const& buffe
     else
     {
         // All bits zero is invalid
-        throw celduin::InvalidVarInt();
+        throw jonen::InvalidVarInt();
     }
 
     if (buffer.size() < to_copy + 1)
     {
-        throw celduin::BufferTooSmall() << celduin::err_bufsize(buffer.size()) <<
-            celduin::err_reqsize(to_copy);
+        throw jonen::BufferTooSmall() << jonen::err_bufsize(buffer.size()) <<
+            jonen::err_reqsize(to_copy);
     }
 
     // Copy the remaining bytes
@@ -275,7 +275,7 @@ celduin::vint::DecodeResult celduin::vint::decode(std::vector<char> const& buffe
 }
 
 
-std::streamsize celduin::vint::write(uint64_t integer, std::ostream& output,
+std::streamsize jonen::vint::write(uint64_t integer, std::ostream& output,
         std::streamsize req_size)
 {
     assert(req_size <= 8);
@@ -288,8 +288,8 @@ std::streamsize celduin::vint::write(uint64_t integer, std::ostream& output,
     {
         if (req_size < c_size)
         {
-        throw celduin::SpecSizeTooSmall() << celduin::err_varint(integer) <<
-            celduin::err_reqsize(req_size);
+        throw jonen::SpecSizeTooSmall() << jonen::err_varint(integer) <<
+            jonen::err_reqsize(req_size);
         }
         c_size = req_size;
     }
@@ -300,7 +300,7 @@ std::streamsize celduin::vint::write(uint64_t integer, std::ostream& output,
             output.put(integer | 0x80);
             if (!output)
             {
-                throw celduin::WriteError() << celduin::err_pos(output.tellp());
+                throw jonen::WriteError() << jonen::err_pos(output.tellp());
             }
             return 1;
             break;
@@ -343,14 +343,14 @@ std::streamsize celduin::vint::write(uint64_t integer, std::ostream& output,
     }
     if (!output)
     {
-        throw celduin::WriteError() << celduin::err_pos(output.tellp());
+        throw jonen::WriteError() << jonen::err_pos(output.tellp());
     }
 
     return c_size;
 }
 
 
-celduin::vint::ReadResult celduin::vint::read(std::istream& input)
+jonen::vint::ReadResult jonen::vint::read(std::istream& input)
 {
     uint64_t result(0);
     std::streamsize to_copy(0);
@@ -360,7 +360,7 @@ celduin::vint::ReadResult celduin::vint::read(std::istream& input)
     input.read(reinterpret_cast<char*>(buffer), 1);
     if (input.fail())
     {
-        throw celduin::ReadError() << celduin::err_pos(input.tellg());
+        throw jonen::ReadError() << jonen::err_pos(input.tellg());
     }
     // Check the size
     if (buffer[0] >= 0x80) // 1 byte
@@ -405,14 +405,14 @@ celduin::vint::ReadResult celduin::vint::read(std::istream& input)
     else
     {
         // All bits zero is invalid
-        throw celduin::InvalidVarInt();
+        throw jonen::InvalidVarInt();
     }
 
     // Copy the remaining bytes
     input.read(reinterpret_cast<char*>(&buffer[1]), to_copy);
     if (input.fail())
     {
-        throw celduin::ReadError() << celduin::err_pos(input.tellg());
+        throw jonen::ReadError() << jonen::err_pos(input.tellg());
     }
 
     for (std::streamsize ii(1); ii < to_copy + 1; ++ii)

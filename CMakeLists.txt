@@ -1,23 +1,23 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project(Celduin)
+project(Jonen)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 include(${PROJECT_SOURCE_DIR}/cmake/utils.cmake)
-set(PROJECT_VERSION 0.1.0 CACHE STRING "Celduin version")
+set(PROJECT_VERSION 0.1.0 CACHE STRING "${PROJECT_NAME} version")
 DISSECT_VERSION()
-set(PROJECT_DESCRIPTION "Celduin file format implementation")
+set(PROJECT_DESCRIPTION "${PROJECT_NAME} file format implementation")
 set(PROJECT_AUTHOR "Geoffrey Biggs")
 set(PROJECT_VENDOR "AIST")
 set(PROJECT_YEAR "2011")
 
 # Compilation options
-option(CELDUIN_USE_NANOSECONDS
+option(JONEN_USE_NANOSECONDS
     "Enable nanosecond-level resolution in timestamps"
     ON)
-if(CELDUIN_USE_NANOSECONDS)
-    set(CELDUIN_DEFINITIONS "-DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG")
+if(JONEN_USE_NANOSECONDS)
+    set(JONEN_DEFINITIONS "-DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG")
     add_definitions(-DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG)
-endif(CELDUIN_USE_NANOSECONDS)
+endif(JONEN_USE_NANOSECONDS)
 
 # Add an "uninstall" target
 CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/cmake/uninstall_target.cmake.in"

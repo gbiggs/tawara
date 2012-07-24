@@ -36,9 +36,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/float_element.h>
+#include <jonen/float_element.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ FloatElement::FloatElement(ids::ID id, double value,
 }
 
 
-FloatElement::FloatElement(celduin::ids::ID id, double value, double default_val,
+FloatElement::FloatElement(jonen::ids::ID id, double value, double default_val,
         EBMLFloatPrecision precision)
     : ElementBase<FloatElement>(id), impl_(value, default_val, precision),
     id_(id), offset_(0), writing_(false)
@@ -75,7 +75,7 @@ void FloatElement::swap(FloatElement& other)
 }
 
 
-void celduin::swap(FloatElement& a, FloatElement& b)
+void jonen::swap(FloatElement& a, FloatElement& b)
 {
     a.swap(b);
 }
@@ -88,19 +88,19 @@ void FloatElement::swap(double& other)
 }
 
 
-void celduin::swap(FloatElement& a, double& b)
+void jonen::swap(FloatElement& a, double& b)
 {
     a.swap(b);
 }
 
 
-std::ostream& celduin::operator<<(std::ostream& o, FloatElement const& rhs)
+std::ostream& jonen::operator<<(std::ostream& o, FloatElement const& rhs)
 {
     return o << rhs.value();
 }
 
 
-std::istream& celduin::operator>>(std::istream& i, FloatElement& rhs)
+std::istream& jonen::operator>>(std::istream& i, FloatElement& rhs)
 {
     double temp;
     i >> temp;

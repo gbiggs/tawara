@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/exceptions.h>
-#include <celduin/string_element_impl.h>
+#include <jonen/exceptions.h>
+#include <jonen/string_element_impl.h>
 
 #include <iostream>
 
-using namespace celduin;
-using namespace celduin::impl;
+using namespace jonen;
+using namespace jonen::impl;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,26 +85,26 @@ void StringElementImpl::swap(std::string& other)
 }
 
 
-void celduin::impl::swap(StringElementImpl& a, StringElementImpl& b)
+void jonen::impl::swap(StringElementImpl& a, StringElementImpl& b)
 {
     a.swap(b);
 }
 
 
-void celduin::impl::swap(StringElementImpl& a, std::string& b)
+void jonen::impl::swap(StringElementImpl& a, std::string& b)
 {
     a.swap(b);
 }
 
 
-std::ostream& celduin::impl::operator<<(std::ostream& o,
+std::ostream& jonen::impl::operator<<(std::ostream& o,
         StringElementImpl const& rhs)
 {
     return o << rhs.value();
 }
 
 
-std::istream& celduin::impl::operator>>(std::istream& i, StringElementImpl& rhs)
+std::istream& jonen::impl::operator>>(std::istream& i, StringElementImpl& rhs)
 {
     std::string temp;
     i >> temp;

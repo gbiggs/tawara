@@ -37,13 +37,13 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/ebml_integer.h>
-#include <celduin/exceptions.h>
-#include <celduin/float_element.h>
+#include <jonen/ebml_integer.h>
+#include <jonen/exceptions.h>
+#include <jonen/float_element.h>
 
 #include "test_utilities.h"
 
-using namespace celduin;
+using namespace jonen;
 
 namespace test_float_el
 {

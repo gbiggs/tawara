@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/binary_element_impl.h>
-#include <celduin/exceptions.h>
+#include <jonen/binary_element_impl.h>
+#include <jonen/exceptions.h>
 
 #include <iostream>
 
-using namespace celduin;
-using namespace celduin::impl;
+using namespace jonen;
+using namespace jonen::impl;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -84,19 +84,19 @@ void BinaryElementImpl::swap(std::vector<char>& other)
 }
 
 
-void celduin::impl::swap(BinaryElementImpl& a, BinaryElementImpl& b)
+void jonen::impl::swap(BinaryElementImpl& a, BinaryElementImpl& b)
 {
     a.swap(b);
 }
 
 
-void celduin::impl::swap(BinaryElementImpl& a, std::vector<char>& b)
+void jonen::impl::swap(BinaryElementImpl& a, std::vector<char>& b)
 {
     a.swap(b);
 }
 
 
-std::ostream& celduin::impl::operator<<(std::ostream& o,
+std::ostream& jonen::impl::operator<<(std::ostream& o,
         BinaryElementImpl const& rhs)
 {
     for (unsigned int ii(0); ii < rhs.value_.size(); ++ii)

@@ -36,16 +36,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/ebml_header.h>
+#include <jonen/ebml_header.h>
 
-#include <celduin/celduin_config.h>
-#include <celduin/ids.h>
-#include <celduin/id_utils.h>
-#include <celduin/integer_elements.h>
-#include <celduin/master_element_impl.h>
-#include <celduin/string_element.h>
+#include <jonen/jonen_config.h>
+#include <jonen/ids.h>
+#include <jonen/id_utils.h>
+#include <jonen/integer_elements.h>
+#include <jonen/master_element_impl.h>
+#include <jonen/string_element.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Pimpl implementation
@@ -55,14 +55,14 @@ class EBMLHeader::Impl
 {
     public:
         Impl(std::string const& doc_type)
-            : ver_(ids::EBMLVersion, CelduinEBMLVersion, 1),
-            read_ver_(ids::EBMLReadVersion, CelduinEBMLVersion, 1),
+            : ver_(ids::EBMLVersion, JonenEBMLVersion, 1),
+            read_ver_(ids::EBMLReadVersion, JonenEBMLVersion, 1),
             max_id_length_(ids::EBMLMaxIDLength, 4, 4),
             max_size_length_(ids::EBMLMaxSizeLength, 8, 8),
-            doc_type_(ids::DocType, doc_type, CelduinDocType),
-            doc_type_ver_(ids::DocTypeVersion, CelduinVersionMajor, 1),
-            doc_type_read_ver_(ids::DocTypeReadVersion, CelduinVersionMajor, 1),
-            master_impl_(true)
+            doc_type_(ids::DocType, doc_type, JonenDocType),
+            doc_type_ver_(ids::DocTypeVersion, JonenVersionMajor, 1),
+            doc_type_read_ver_(ids::DocTypeReadVersion, JonenVersionMajor, 1),
+            master_impl_(false)
         {
         }
 
@@ -152,7 +152,7 @@ void EBMLHeader::swap(EBMLHeader& other)
 }
 
 
-void celduin::swap(EBMLHeader& a, EBMLHeader& b)
+void jonen::swap(EBMLHeader& a, EBMLHeader& b)
 {
     a.swap(b);
 }
@@ -164,7 +164,7 @@ bool EBMLHeader::operator==(EBMLHeader const& rhs)
 }
 
 
-std::ostream& celduin::operator<<(std::ostream& o, EBMLHeader const& rhs)
+std::ostream& jonen::operator<<(std::ostream& o, EBMLHeader const& rhs)
 {
     return o << "EBML Header for document type '" << rhs.doc_type() << "' (" <<
         rhs.stored_size() << " bytes)";

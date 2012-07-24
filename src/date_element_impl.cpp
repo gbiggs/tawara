@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/exceptions.h>
-#include <celduin/celduin_config.h>
-#include <celduin/date_element_impl.h>
+#include <jonen/exceptions.h>
+#include <jonen/jonen_config.h>
+#include <jonen/date_element_impl.h>
 
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <iostream>
 
-using namespace celduin;
-using namespace celduin::impl;
+using namespace jonen;
+using namespace jonen::impl;
 namespace bpt = boost::posix_time;
 namespace bgr = boost::gregorian;
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ void DateElementImpl::swap(DateElementImpl& other)
 }
 
 
-void celduin::impl::swap(DateElementImpl& a, DateElementImpl& b)
+void jonen::impl::swap(DateElementImpl& a, DateElementImpl& b)
 {
     a.swap(b);
 }
@@ -92,7 +92,7 @@ void DateElementImpl::swap(bpt::ptime& other)
 }
 
 
-void celduin::impl::swap(DateElementImpl& a, bpt::ptime& b)
+void jonen::impl::swap(DateElementImpl& a, bpt::ptime& b)
 {
     a.swap(b);
 }
@@ -126,7 +126,7 @@ std::streamsize DateElementImpl::read_body(std::istream& i, std::streamsize size
         throw ReadError() << err_pos(i.tellg());
     }
     bpt::ptime basis(bgr::date(2001, 1, 1));
-#if defined(CELDUIN_USE_NANOSECONDS)
+#if defined(JONEN_USE_NANOSECONDS)
     // time_durations don't like being built from a 64-bit value
     bpt::seconds secs(temp / 1000000000);
     bpt::nanoseconds nsecs(temp % 1000000000);
@@ -136,7 +136,7 @@ std::streamsize DateElementImpl::read_body(std::istream& i, std::streamsize size
     bpt::seconds secs(temp / 1000000000);
     bpt::microseconds usecs((temp / 1000) % 1000000);
     bpt::time_duration d(secs + usecs);
-#endif // defined(CELDUIN_USE_NANOSECONDS)
+#endif // defined(JONEN_USE_NANOSECONDS)
     value_ = basis + d;
 
     return 8;
@@ -146,11 +146,11 @@ std::streamsize DateElementImpl::start_body(std::ostream& o) const
 {
     bpt::ptime basis(bgr::date(2001, 1, 1));
     bpt::time_duration d(value_ - basis);
-#if defined(CELDUIN_USE_NANOSECONDS)
+#if defined(JONEN_USE_NANOSECONDS)
     long long int temp = d.total_nanoseconds();
 #else
     long long int temp = d.total_microseconds() * 1000;
-#endif // defined(CELDUIN_USE_NANOSECONDS)
+#endif // defined(JONEN_USE_NANOSECONDS)
     o.write(reinterpret_cast<char*>(&temp), 8);
     if (!o)
     {

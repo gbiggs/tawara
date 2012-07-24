@@ -75,7 +75,7 @@ namespace jonen
 
         const ID Segment(0x18538067);
 
-            const ID SeekHead(0x114D9B74);
+            const ID Metaseek(0x114D9B74);
                 const ID Seek(0x4DBB);
                     const ID SeekID(0x53AB);
                     const ID SeekPosition(0x53AC);

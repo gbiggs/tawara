@@ -13,7 +13,8 @@ set(srcs
     string_element.cpp
     string_element_impl.cpp
     master_element_impl.cpp
-    ebml_header.cpp)
+    ebml_header.cpp
+    metaseek.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

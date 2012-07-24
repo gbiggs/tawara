@@ -29,7 +29,8 @@ set(hdrs ${config_h}
     master_element.h
     master_element_base.h
     master_element_impl.h
-    ebml_header.h)
+    ebml_header.h
+    metaseek.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

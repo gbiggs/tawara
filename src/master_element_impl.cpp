@@ -102,6 +102,7 @@ std::streamsize MasterElementImpl::read_with_crc(std::vector<char>& body,
     if (size == 0)
     {
         // Nothing to do for an empty element
+        use_crc_ = false;
         return 0;
     }
     std::streamsize read_bytes(0);

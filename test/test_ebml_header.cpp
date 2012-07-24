@@ -107,7 +107,7 @@ namespace test_ebml_header
         ee1.max_size_length(10);
         ee1.doc_version(2);
         ee1.doc_read_version(3);
-        ee1.enable_crc();
+        ee1.disable_crc();
 
         EBMLHeader ee2;
         ee2 = ee1;
@@ -119,7 +119,7 @@ namespace test_ebml_header
         EXPECT_EQ("doctype", ee2.doc_type());
         EXPECT_EQ(2, ee2.doc_version());
         EXPECT_EQ(3, ee2.doc_read_version());
-        EXPECT_TRUE(ee2.crc_enabled());
+        EXPECT_FALSE(ee2.crc_enabled());
     }
 
 

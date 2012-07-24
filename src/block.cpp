@@ -36,9 +36,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/block.h>
+#include <jonen/block.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////

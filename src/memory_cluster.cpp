@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/memory_cluster.h>
+#include <jonen/memory_cluster.h>
 
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <celduin/block_group.h>
-#include <celduin/exceptions.h>
-#include <celduin/simple_block.h>
+#include <jonen/block_group.h>
+#include <jonen/exceptions.h>
+#include <jonen/simple_block.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

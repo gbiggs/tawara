@@ -1,4 +1,4 @@
-Celduin - English
+Jonen - English
 =================
 
 .. toctree::
@@ -10,7 +10,7 @@ Celduin - English
 Introduction
 ============
 
-Celduin is a library for recording and playing back data indexed along a
+Jonen is a library for recording and playing back data indexed along a
 single axis, typically time. It is not described as "for storing and
 retrieving;" the library is optimised for data streams, not data tables.
 It is particularly suited to applications that must record one or more
@@ -22,13 +22,13 @@ those streams back in real-time later on for testing software.
 Requirements
 ============
 
-Celduin uses the `CMake build system`_. You will need at least version
+Jonen uses the `CMake build system`_. You will need at least version
 2.8 to be able to build the component.
 
 .. _`CMake build system`:
    http://www.cmake.org/
 
-Celduin runs on Linux, Mac OS X and Windows.
+Jonen runs on Linux, Mac OS X and Windows.
 
 Installation
 ============
@@ -41,17 +41,17 @@ No binary installers are currently available.
 From source
 -----------
 
-Follow these steps to install Celduin from source in any operating
+Follow these steps to install Jonen from source in any operating
 system:
 
 - Download the source, either from the repository or a source archive,
   and extract it somewhere::
 
-    tar -xvzf celduin-1.0.0.tar.gz
+    tar -xvzf jonen-1.0.0.tar.gz
 
 - Change to the directory containing the extracted source::
 
-    cd celduin-1.0.0
+    cd jonen-1.0.0
 
 - Create a directory called ``build``::
 
@@ -82,11 +82,11 @@ system:
 The library is now ready to use. You can use it in your own CMake projects with
 the following line::
 
-  find_package(celduin)
+  find_package(jonen)
 
 If you are not using CMake, a pkg-config file is available,
-``celduin.pc``.  Be sure to add the pkg-config location below the
-Celduin install prefix to the ``PKG_CONFIG_PATH`` environment variable.
+``jonen.pc``.  Be sure to add the pkg-config location below the
+Jonen install prefix to the ``PKG_CONFIG_PATH`` environment variable.
 If you installed into ``/usr/local``, this will be::
 
   /usr/local/lib/pkgconfig
@@ -99,21 +99,21 @@ or::
 APIs
 ====
 
-Celduin features two APIs for the programmer:
+Jonen features two APIs for the programmer:
 
   Tide
     This is the element-level API. It requires working with the EBML
-    elements used in the Celduin format directly. It allows significant
-    flexibility in how a Celduin document is written to disc or read
-    from disc.  A reasonable knowledge of the Celduin format
+    elements used in the Jonen format directly. It allows significant
+    flexibility in how a Jonen document is written to disc or read
+    from disc.  A reasonable knowledge of the Jonen format
     specification (:doc:`available here <specification>`) is necessary
     to use this interface effectively.
 
   HighTide
     This is the high-level API, providing an abstract interface into
-    Celduin documents. For example, channels are abstracted into streams
+    Jonen documents. For example, channels are abstracted into streams
     of data that can be individually iterated through. No knowledge of
-    the Celduin format specification is necessary to use this API.
+    the Jonen format specification is necessary to use this API.
 
 
 Documentation
@@ -132,7 +132,7 @@ Click here_ to access the API documentation.
 The documentation is also `available online`_.
 
 .. _`available online`:
-   http://gbiggs.github.com/celduin/
+   http://gbiggs.github.com/jonen/
 
 
 Examples
@@ -140,20 +140,20 @@ Examples
 
 Simple usage examples are provided in the ``examples/`` directory of the
 source. For more complex examples, see the sourcecode of the tools
-included with Celduin.
+included with Jonen.
 
 
 Tools
 =====
 
-Celduin includes several useful tools. These tools are designed to
-introspect and manipulate Celduin objects.
+Jonen includes several useful tools. These tools are designed to
+introspect and manipulate Jonen objects.
 
 
 Format specification
 ====================
 
-The Celduin format specification is :doc:`available online
+The Jonen format specification is :doc:`available online
 <specification>`.
 
 

@@ -1,4 +1,4 @@
-Celduin format specification
+Jonen format specification
 =========================
 
 Copyright 2011 Geoffrey Biggs geoffrey.biggs@aist.go.jp
@@ -23,12 +23,12 @@ Logging of data in robotics is useful for applications including
 reproduction of experiments, visualisation of sensor data and offline
 system analysis.
 
-The major features of the Celduin format are:
+The major features of the Jonen format are:
 
  - Ability to store data type definitions, for long-term compatibility.
 
  - Flexibility of data format. There are minimal restrictions on the
-   serialised data that can be stored in a Celduin file.
+   serialised data that can be stored in a Jonen file.
 
  - Space to store source information, such as the properties of the
    device or connection that provided the data.
@@ -40,7 +40,7 @@ The major features of the Celduin format are:
  - Ability to compress data records, allowing a smaller file size while
    maintaining random-access capability.
 
-Celduin is designed to be a container format for serialised data.
+Jonen is designed to be a container format for serialised data.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -50,11 +50,11 @@ document are to be interpreted as described in RFC 1 [1]_.
 Relationship to Matroska
 ========================
 
-Celduin is closely based on the Matroska media container format. The
+Jonen is closely based on the Matroska media container format. The
 following changes were made:
 
  - The Video (0x) and Audio (0x) master elements (children of the Track
-   element) are not supported. Celduin does not directly support
+   element) are not supported. Jonen does not directly support
    media-specific elements; instead, it treats them as it does any other
    codec or serialisation method. These elements are not mandatory in
    Matroska.
@@ -121,10 +121,10 @@ following changes were made:
 Format
 ======
 
-A Celduin file is stored in EBML format [2]_. EBML is a binary mark-up format
+A Jonen file is stored in EBML format [2]_. EBML is a binary mark-up format
 similar to XML in purpose. It uses binary tags (known as "IDs") and sizes to
 provide a flexible, hierarchical document structure.  Refer to the EBML RFC
-draft for more details on EMBL. Celduin implementors not using an existing EBML
+draft for more details on EMBL. Jonen implementors not using an existing EBML
 implementation should in particular pay attention to the encoding of IDs and
 size values, which are encoded using a UTF-8-like system, and the fact that
 EBML uses network byte order (big endian) with byte-alignment.
@@ -132,7 +132,7 @@ EBML uses network byte order (big endian) with byte-alignment.
 File structure
 --------------
 
-The diagram below outlines the structure of a Celduin file (not to scale):
+The diagram below outlines the structure of a Jonen file (not to scale):
 
   +-------------------------+
   | Header*                 |
@@ -212,7 +212,7 @@ The cueing data is used to store indices for track data in the clusters.
 This information is useful for speeding up seeking by reducing the
 quantity of data that must be read to find a particular time index.
 
-The diagram below gives a more detailed example of a Celduin file layout.
+The diagram below gives a more detailed example of a Jonen file layout.
 Note that, as before, the ordering of most elements is optional.
 
   +-------+------------------+---------------+-----------------+------------------+
@@ -418,7 +418,7 @@ Note that, as before, the ordering of most elements is optional.
 Specification
 -------------
 
-A Celduin file, as an EBML file, is made up of a large number of elements
+A Jonen file, as an EBML file, is made up of a large number of elements
 of varying level. Level 0 elements are at the top of the document
 structure. They contain within them the level 1 elements, which contain
 level 2 elements, and so on. Some elements can appear at any level, but
@@ -427,10 +427,10 @@ most are restricted to a particular level.
 The Header element defines the file as an EBML file, and in particular
 defines the version of EBML in use, so that the EBML implementation can
 determine if the file is readable. It also contains a DocType value that
-identifies the document type as a Celduin document. If the DocType value is
-different, Celduin parsers should not attempt to read the file.
+identifies the document type as a Jonen document. If the DocType value is
+different, Jonen parsers should not attempt to read the file.
 
-All the Celduin-specific elements are contained within the Segment level 0
+All the Jonen-specific elements are contained within the Segment level 0
 element.
 
 The Metaseek element provides an index into the file for the other
@@ -470,7 +470,7 @@ and an exact position in the file for each block at that timecode. What
 is indexed by the Cues is flexible.  You can index every Block, or you
 can only index Blocks spaced a number of seconds apart. A suitable
 balance between index size and seeking efficiency must be chosen when
-writing Celduin files.
+writing Jonen files.
 
 The Attachments element simply contains named chunks of binary data,
 and optionally includes a MIME-type to go with that data for
@@ -496,7 +496,7 @@ the EBML Header element.
 Elements
 ''''''''
 
-The table below formally defines the elements in a Celduin document.
+The table below formally defines the elements in a Jonen document.
 
 ==================== ===== =========== == == ===== ======= = ===========
 EBML Header
@@ -506,13 +506,13 @@ Element name         Level EBML ID     Ma Mu Rng   Default T Description
 EBML                 0     1A 45 DF A3 \* \*               m Set the EBML characteristics of the data to follow. Each EBML document MUST start with this.
 EBMLVersion          1     42 86       \*          1       u EBML parser version used to create the file.
 EBMLReadVersion      1     42 F7       \*          1       u The minimum EBML parser version required to read this file.
-EBMLMaxIDLength      1     42 F2       \*          4       u Maximum length of the IDs found in this file (4 or less in Celduin).
-EBMLMaxSizeLength    1     42 F3       \*          8       u The maximum length of sizes found in this file (8 or less in Celduin).
+EBMLMaxIDLength      1     42 F2       \*          4       u Maximum length of the IDs found in this file (4 or less in Jonen).
+EBMLMaxSizeLength    1     42 F3       \*          8       u The maximum length of sizes found in this file (8 or less in Jonen).
                                                              This does not override the element size indicated at the beginning of
                                                              an element. Elements that have an indicated size which is larger than
                                                              the value allowed by this are invalid.
-DocType              1     42 82       \*          celduin s An ASCII string describing the document that follows the EBML header.
-                                                             "celduin" for Celduin files.
+DocType              1     42 82       \*          jonen s An ASCII string describing the document that follows the EBML header.
+                                                             "jonen" for Jonen files.
 DocTypeVersion       1     42 87       \*          1       u The version of DocType intepreter used to create the file.
 DocTypeReadVersion   1     42 85       \*          1       u The minimum DocType version an interpreter requires to read this file.
 ==================== ===== =========== == == ===== ======= = ===========
@@ -537,7 +537,7 @@ Segment
 ------------------------------------------------------------------------
 Element name         Level EBML ID     Ma Mu Rng   Default T Description
 ==================== ===== =========== == == ===== ======= = ===========
-Segment              0     18 53 80 67 \* \*               m This element contains all other top-level (level 1) Celduin elements. Typically, a Celduin file has one Segment.
+Segment              0     18 53 80 67 \* \*               m This element contains all other top-level (level 1) Jonen elements. Typically, a Jonen file has one Segment.
 ==================== ===== =========== == == ===== ======= = ===========
 
 
@@ -572,7 +572,7 @@ Duration             2     44 89             >0            f Duration of this se
 DateUTC              2     44 61                           d Date of the origin of the segment (the basis for the first cluster
                                                              timecode). i.e. the production date.
 Title                2     7B A9                           s Name of the segment.
-MuxingApp            2     4D 80                           s Muxing application or library (e.g. "libcelduin-1.0").
+MuxingApp            2     4D 80                           s Muxing application or library (e.g. "libjonen-1.0").
 WritingApp           2     57 41                           s Writing application (e.g. "pclrecord").
 ==================== ===== =========== == == ===== ======= = ===========
 
@@ -928,7 +928,7 @@ is useful is audio data, which often has small sample sizes. However,
 there is a trade-off: the longer a lace, the more difficult it is to
 seek within the track. Generally, laces should be kept short.
 
-Two types of lacing are supported by Celduin: EBML-based lacing and
+Two types of lacing are supported by Jonen: EBML-based lacing and
 fixed-size lacing.
 
 EBML lacing
@@ -990,13 +990,13 @@ orderings exist for efficient playback, seeking, editing and writing.
 This section gives some guidelines on the order of level 1 elements.
 
 Only the SegmentInfo, Tracks and Cluster level 1 elements are necessary
-for a Celduin file to be usable. The Segment Info and Track Info must be
+for a Jonen file to be usable. The Segment Info and Track Info must be
 read before the clusters can be used. The Cues element greatly improves
 seeking. The Metaseek element improves file opening times by removing
 the need to scan the entire file for level 1 elements (a process that
 can take some time if there are a large number of clusters).
 
-A Celduin file may be edited after it has been recorded. For example, tags
+A Jonen file may be edited after it has been recorded. For example, tags
 could be set, attachments added, or even new tracks added. When the file
 is edited, typically the Metaseek element must be updated and other
 elements may need to be voided or grown. It is a good idea to add some
@@ -1043,9 +1043,9 @@ recording is complete. Two possible methods are:
     into a single cue tag and re-order the file to place cues before or
     after the clusters.
 
-The first option is preferable because Celduin only allows one cue element
+The first option is preferable because Jonen only allows one cue element
 per segment. If recording terminates early because of an error, the file
-will not be a valid Celduin file without a repair operation to remove the
+will not be a valid Jonen file without a repair operation to remove the
 multiple cue elements.
 
 Attachments placement
@@ -1128,7 +1128,7 @@ Notes
 CuePoints
 ---------
 
-The Celduin format only defines the format of cueing data. It does not
+The Jonen format only defines the format of cueing data. It does not
 specify whether a single CueTime must contain a reference to every track
 or only those tracks with data at that point in time. Referring to the
 next Block in every track at or after the CueTime simplifies seeking,
@@ -1252,7 +1252,7 @@ list of tags. Future versions of the specification may do so.
 Timecodes
 ---------
 
-Timecodes in a Celduin document are hierarchical. The timecode in a Block
+Timecodes in a Jonen document are hierarchical. The timecode in a Block
 is relative to the timecode of its parent Cluster, the result of which
 is then multiplied by the TimecodeScale to get the Raw Timecode in
 nanoseconds. The Cluster's timecode is relative to the timecode of its
@@ -1305,7 +1305,7 @@ MUST be treated as if they were for a single track.
 Chapters
 ========
 
-The Chapters in the Celduin format are essentially an index. They provide
+The Chapters in the Jonen format are essentially an index. They provide
 index points into the data that can be grouped together into Editions.
 An Edition is essentially a particular way of replaying a file, giving
 the data from a specified collection of tracks for specified time
@@ -1321,7 +1321,7 @@ a long run with several distinct environments:
  - 20min - 25min: Carpark
 
 (Timecodes in minutes are for example only; chapters can reference any
-timecode available in the Celduin file.)
+timecode available in the Jonen file.)
 
 This would require the following Chapters elements:
 

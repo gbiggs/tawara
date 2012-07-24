@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/file_cluster.h>
+#include <jonen/file_cluster.h>
 
-#include <celduin/block_group.h>
-#include <celduin/exceptions.h>
-#include <celduin/simple_block.h>
+#include <jonen/block_group.h>
+#include <jonen/exceptions.h>
+#include <jonen/simple_block.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

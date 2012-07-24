@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/master_element.h>
+#include <jonen/master_element.h>
 
-#include <celduin/exceptions.h>
+#include <jonen/exceptions.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

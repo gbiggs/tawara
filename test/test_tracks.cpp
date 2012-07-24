@@ -37,18 +37,18 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/track_entry.h>
-#include <celduin/tracks.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/track_entry.h>
+#include <jonen/tracks.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(Tracks, Create)
 {
-    celduin::Tracks e;
+    jonen::Tracks e;
     EXPECT_TRUE(e.empty());
     EXPECT_TRUE(e.begin() == e.end());
 }
@@ -56,9 +56,9 @@ TEST(Tracks, Create)
 
 TEST(Tracks, Assignment)
 {
-    celduin::Tracks e1;
-    celduin::Tracks e2;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e1;
+    jonen::Tracks e2;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e1.insert(entry);
 
     EXPECT_TRUE(e2.empty());
@@ -70,8 +70,8 @@ TEST(Tracks, Assignment)
 
 TEST(Tracks, At)
 {
-    celduin::Tracks e;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e.insert(entry);
     EXPECT_EQ(e[1], e.at(1));
     EXPECT_EQ(e.at(1)->codec_id(), "MDCC");
@@ -81,14 +81,14 @@ TEST(Tracks, At)
 
 TEST(Tracks, SubscriptOperator)
 {
-    celduin::Tracks e;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e.insert(entry);
     EXPECT_EQ(e[1], e.at(1));
     EXPECT_EQ(e[1]->codec_id(), "MDCC");
     EXPECT_THROW(e[2], std::out_of_range);
 
-    celduin::TrackEntry::Ptr entry2(new celduin::TrackEntry(1, 2, "Codec"));
+    jonen::TrackEntry::Ptr entry2(new jonen::TrackEntry(1, 2, "Codec"));
     e[1] = entry2;
     EXPECT_EQ(e[1], entry2);
     EXPECT_EQ(e[1]->codec_id(), "Codec");
@@ -97,8 +97,8 @@ TEST(Tracks, SubscriptOperator)
 
 TEST(Tracks, BeginEnd)
 {
-    celduin::Tracks e;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
 
     EXPECT_TRUE(e.begin() == e.end());
     EXPECT_TRUE(e.rbegin() == e.rend());
@@ -110,8 +110,8 @@ TEST(Tracks, BeginEnd)
 
 TEST(Tracks, Counts)
 {
-    celduin::Tracks e;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
 
     EXPECT_TRUE(e.empty());
     e.insert(entry);
@@ -122,8 +122,8 @@ TEST(Tracks, Counts)
 
 TEST(Tracks, Clear)
 {
-    celduin::Tracks e;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e.insert(entry);
     EXPECT_FALSE(e.empty());
     e.clear();
@@ -133,13 +133,13 @@ TEST(Tracks, Clear)
 
 TEST(Tracks, Insert)
 {
-    celduin::Tracks e1;
-    celduin::TrackEntry::Ptr entry1(new celduin::TrackEntry(1, 2, "MDCC"));
-    celduin::TrackEntry::Ptr entry2(new celduin::TrackEntry(42, 14, "Codec"));
+    jonen::Tracks e1;
+    jonen::TrackEntry::Ptr entry1(new jonen::TrackEntry(1, 2, "MDCC"));
+    jonen::TrackEntry::Ptr entry2(new jonen::TrackEntry(42, 14, "Codec"));
 
     // Single insert
     EXPECT_TRUE(e1.empty());
-    std::pair<celduin::Tracks::iterator, bool> res;
+    std::pair<jonen::Tracks::iterator, bool> res;
     res = e1.insert(entry1);
     EXPECT_TRUE(res.first == e1.begin());
     EXPECT_TRUE(res.second);
@@ -154,33 +154,33 @@ TEST(Tracks, Insert)
     EXPECT_EQ(e1[42]->number(), 42);
     EXPECT_EQ(e1[42]->codec_id(), "Codec");
     // Key collision
-    celduin::TrackEntry::Ptr entry3(new celduin::TrackEntry(1, 3, "Codec"));
-    EXPECT_THROW(e1.insert(entry3), celduin::DuplicateTrackNumber);
+    jonen::TrackEntry::Ptr entry3(new jonen::TrackEntry(1, 3, "Codec"));
+    EXPECT_THROW(e1.insert(entry3), jonen::DuplicateTrackNumber);
     // UID collision
-    celduin::TrackEntry::Ptr entry4(new celduin::TrackEntry(6, 2, "Codec"));
-    EXPECT_THROW(e1.insert(entry4), celduin::DuplicateUID);
+    jonen::TrackEntry::Ptr entry4(new jonen::TrackEntry(6, 2, "Codec"));
+    EXPECT_THROW(e1.insert(entry4), jonen::DuplicateUID);
 
     // Range insert
-    celduin::Tracks e2;
+    jonen::Tracks e2;
     EXPECT_TRUE(e2.empty());
     e2.insert(e1.begin(), e1.end());
     EXPECT_FALSE(e2.empty());
     EXPECT_EQ(2, e2.count());
     EXPECT_EQ(e2[1]->codec_id(), "MDCC");
     // Key collision
-    EXPECT_THROW(e2.insert(e1.begin(), e1.end()), celduin::DuplicateTrackNumber);
+    EXPECT_THROW(e2.insert(e1.begin(), e1.end()), jonen::DuplicateTrackNumber);
     // UID collision
-    celduin::Tracks e3;
-    celduin::TrackEntry::Ptr entry5(new celduin::TrackEntry(5, 14, "Codec"));
+    jonen::Tracks e3;
+    jonen::TrackEntry::Ptr entry5(new jonen::TrackEntry(5, 14, "Codec"));
     e3.insert(entry5);
-    EXPECT_THROW(e2.insert(e3.begin(), e3.end()), celduin::DuplicateUID);
+    EXPECT_THROW(e2.insert(e3.begin(), e3.end()), jonen::DuplicateUID);
 }
 
 
 TEST(Tracks, Erase)
 {
-    celduin::Tracks e;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e.insert(entry);
 
     EXPECT_FALSE(e.empty());
@@ -202,8 +202,8 @@ TEST(Tracks, Erase)
 
 TEST(Tracks, Swap)
 {
-    celduin::Tracks e1, e2;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e1, e2;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e1.insert(entry);
 
     EXPECT_FALSE(e1.empty());
@@ -217,8 +217,8 @@ TEST(Tracks, Swap)
 
 TEST(Tracks, Find)
 {
-    celduin::Tracks e;
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::Tracks e;
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e.insert(entry);
 
     EXPECT_TRUE(e.find(1) == e.begin());
@@ -228,12 +228,12 @@ TEST(Tracks, Find)
 
 TEST(Tracks, Equality)
 {
-    celduin::Tracks e1;
-    celduin::Tracks e2;
+    jonen::Tracks e1;
+    jonen::Tracks e2;
     EXPECT_TRUE(e1 == e2);
     EXPECT_FALSE(e1 != e2);
 
-    celduin::TrackEntry::Ptr entry(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::TrackEntry::Ptr entry(new jonen::TrackEntry(1, 2, "MDCC"));
     e2.insert(entry);
     EXPECT_FALSE(e1 == e2);
     EXPECT_TRUE(e1 != e2);
@@ -242,22 +242,22 @@ TEST(Tracks, Equality)
 
 TEST(Tracks, Size)
 {
-    celduin::Tracks e;
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Tracks) +
-            celduin::vint::size(0),
+    jonen::Tracks e;
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Tracks) +
+            jonen::vint::size(0),
             e.size());
 
-    celduin::TrackEntry::Ptr entry1(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::TrackEntry::Ptr entry1(new jonen::TrackEntry(1, 2, "MDCC"));
     e.insert(entry1);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Tracks) +
-            celduin::vint::size(entry1->size()) +
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Tracks) +
+            jonen::vint::size(entry1->size()) +
             entry1->size(),
             e.size());
 
-    celduin::TrackEntry::Ptr entry2(new celduin::TrackEntry(2, 3, "MDCC"));
+    jonen::TrackEntry::Ptr entry2(new jonen::TrackEntry(2, 3, "MDCC"));
     e.insert(entry2);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Tracks) +
-            celduin::vint::size(entry1->size() +
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Tracks) +
+            jonen::vint::size(entry1->size() +
             entry2->size()) + entry1->size() +
             entry2->size(), e.size());
 }
@@ -267,80 +267,80 @@ TEST(Tracks, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    celduin::Tracks e;
+    jonen::Tracks e;
 
     // No track entries
-    EXPECT_THROW(e.write(output), celduin::EmptyTracksElement);
+    EXPECT_THROW(e.write(output), jonen::EmptyTracksElement);
 
     output.str(std::string());
-    celduin::TrackEntry::Ptr entry1(new celduin::TrackEntry(1, 2, "MDCC"));
+    jonen::TrackEntry::Ptr entry1(new jonen::TrackEntry(1, 2, "MDCC"));
     e.insert(entry1);
-    celduin::TrackEntry::Ptr entry2(new celduin::TrackEntry(2, 3, "MDCC"));
+    jonen::TrackEntry::Ptr entry2(new jonen::TrackEntry(2, 3, "MDCC"));
     e.insert(entry2);
     std::streamsize body_size(entry1->size() + entry2->size());
-    celduin::ids::write(celduin::ids::Tracks, expected);
-    celduin::vint::write(body_size, expected);
+    jonen::ids::write(jonen::ids::Tracks, expected);
+    jonen::vint::write(body_size, expected);
     entry1->write(expected);
     entry2->write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Tracks) +
-            celduin::vint::size(body_size) + entry1->size() +
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Tracks) +
+            jonen::vint::size(body_size) + entry1->size() +
             entry2->size(), e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
     // Key collision
     entry2->number(1);
-    EXPECT_THROW(e.write(output), celduin::DuplicateTrackNumber);
+    EXPECT_THROW(e.write(output), jonen::DuplicateTrackNumber);
     // UID collision
     entry2->number(2);
     entry2->uid(2);
-    EXPECT_THROW(e.write(output), celduin::DuplicateUID);
+    EXPECT_THROW(e.write(output), jonen::DuplicateUID);
 }
 
 
 TEST(Tracks, Read)
 {
     std::stringstream input;
-    celduin::Tracks e;
-    celduin::TrackEntry entry1(1, 2, "Codec1");
-    celduin::TrackEntry entry2(2, 3, "Codec2");
+    jonen::Tracks e;
+    jonen::TrackEntry entry1(1, 2, "Codec1");
+    jonen::TrackEntry entry2(2, 3, "Codec2");
 
     input.str(std::string());
     std::streamsize body_size(entry1.size() + entry2.size());
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     entry1.write(input);
     entry2.write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(e[1]->codec_id(), "Codec1");
     EXPECT_EQ(e[2]->codec_id(), "Codec2");
 
     // No track entries
-    celduin::vint::write(0, input);
-    EXPECT_THROW(e.read(input), celduin::EmptyTracksElement);
+    jonen::vint::write(0, input);
+    EXPECT_THROW(e.read(input), jonen::EmptyTracksElement);
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     entry1.write(input);
-    EXPECT_THROW(e.read(input), celduin::BadBodySize);
+    EXPECT_THROW(e.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
     // Key collision
     input.str(std::string());
-    celduin::vint::write(2 * entry1.size(), input);
+    jonen::vint::write(2 * entry1.size(), input);
     entry1.write(input);
     entry1.write(input);
-    EXPECT_THROW(e.read(input), celduin::DuplicateTrackNumber);
+    EXPECT_THROW(e.read(input), jonen::DuplicateTrackNumber);
     // UID collision
     entry2.uid(2);
     input.str(std::string());
-    celduin::vint::write(entry1.size() + entry2.size(), input);
+    jonen::vint::write(entry1.size() + entry2.size(), input);
     entry1.write(input);
     entry2.write(input);
-    EXPECT_THROW(e.read(input), celduin::DuplicateUID);
+    EXPECT_THROW(e.read(input), jonen::DuplicateUID);
 }
 

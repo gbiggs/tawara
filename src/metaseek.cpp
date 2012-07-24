@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/metaseek.h>
+#include <jonen/metaseek.h>
 
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <celduin/seek_element.h>
-#include <celduin/vint.h>
+#include <jonen/seek_element.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ SeekHead::SeekHead()
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(SeekHead const& lhs, SeekHead const& rhs)
+bool jonen::operator==(SeekHead const& lhs, SeekHead const& rhs)
 {
     return lhs.index_ == rhs.index_;
 }
@@ -74,7 +74,7 @@ bool celduin::operator==(SeekHead const& lhs, SeekHead const& rhs)
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize add_size(std::streamsize x, celduin::SeekHead::value_type v)
+std::streamsize add_size(std::streamsize x, jonen::SeekHead::value_type v)
 {
     SeekElement se(v.first, v.second);
     return x + se.size();
@@ -109,7 +109,7 @@ std::streamsize SeekHead::read_body(std::istream& input,
     while (read_bytes < size)
     {
         // Read the ID
-        ids::ReadResult id_res = celduin::ids::read(input);
+        ids::ReadResult id_res = jonen::ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
         if (id != ids::Seek)

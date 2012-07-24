@@ -40,22 +40,22 @@
 #include <boost/foreach.hpp>
 #include <gtest/gtest.h>
 #include <numeric>
-#include <celduin/binary_element.h>
-#include <celduin/date_element.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/float_element.h>
-#include <celduin/segment_info.h>
-#include <celduin/uint_element.h>
-#include <celduin/vint.h>
+#include <jonen/binary_element.h>
+#include <jonen/date_element.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/float_element.h>
+#include <jonen/segment_info.h>
+#include <jonen/uint_element.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(SegmentInfo, Create)
 {
-    celduin::SegmentInfo e;
-    EXPECT_EQ(celduin::ids::Info, e.id());
+    jonen::SegmentInfo e;
+    EXPECT_EQ(jonen::ids::Info, e.id());
     EXPECT_TRUE(e.uid().empty());
     EXPECT_TRUE(e.filename().empty());
     EXPECT_TRUE(e.prev_uid().empty());
@@ -74,14 +74,14 @@ TEST(SegmentInfo, Create)
 
 TEST(SegmentInfo, UID)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.uid().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.uid(uid), celduin::ValueSizeOutOfRange);
+    EXPECT_THROW(e.uid(uid), jonen::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -100,15 +100,15 @@ TEST(SegmentInfo, UID)
     EXPECT_NO_THROW(e.uid(uid));
     EXPECT_TRUE(e.uid().empty());
     uid.assign(16, 0x00);
-    EXPECT_THROW(e.uid(uid), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.uid(uid), jonen::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, SegmentFileName)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_TRUE(e.filename().empty());
-    std::string fn("a_file.celduin");
+    std::string fn("a_file.jonen");
     EXPECT_NO_THROW(e.filename(fn));
     EXPECT_EQ(fn, e.filename());
     fn.clear();
@@ -119,14 +119,14 @@ TEST(SegmentInfo, SegmentFileName)
 
 TEST(SegmentInfo, PrevUID)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.prev_uid().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.prev_uid(uid), celduin::ValueSizeOutOfRange);
+    EXPECT_THROW(e.prev_uid(uid), jonen::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -145,15 +145,15 @@ TEST(SegmentInfo, PrevUID)
     EXPECT_NO_THROW(e.prev_uid(uid));
     EXPECT_TRUE(e.prev_uid().empty());
     uid.assign(8, 0x00);
-    EXPECT_THROW(e.prev_uid(uid), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.prev_uid(uid), jonen::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, PrevFileName)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_TRUE(e.prev_filename().empty());
-    std::string fn("a_file.celduin");
+    std::string fn("a_file.jonen");
     EXPECT_NO_THROW(e.prev_filename(fn));
     EXPECT_EQ(fn, e.prev_filename());
     fn.clear();
@@ -164,14 +164,14 @@ TEST(SegmentInfo, PrevFileName)
 
 TEST(SegmentInfo, NextUID)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.next_uid().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.next_uid(uid), celduin::ValueSizeOutOfRange);
+    EXPECT_THROW(e.next_uid(uid), jonen::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -190,15 +190,15 @@ TEST(SegmentInfo, NextUID)
     EXPECT_NO_THROW(e.next_uid(uid));
     EXPECT_TRUE(e.next_uid().empty());
     uid.assign(16, 0x00);
-    EXPECT_THROW(e.next_uid(uid), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.next_uid(uid), jonen::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, NextFileName)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_TRUE(e.next_filename().empty());
-    std::string fn("a_file.celduin");
+    std::string fn("a_file.jonen");
     EXPECT_NO_THROW(e.next_filename(fn));
     EXPECT_EQ(fn, e.next_filename());
     fn.clear();
@@ -209,14 +209,14 @@ TEST(SegmentInfo, NextFileName)
 
 TEST(SegmentInfo, SegmentFamily)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.segment_family().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.segment_family(uid), celduin::ValueSizeOutOfRange);
+    EXPECT_THROW(e.segment_family(uid), jonen::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -235,13 +235,13 @@ TEST(SegmentInfo, SegmentFamily)
     EXPECT_NO_THROW(e.segment_family(uid));
     EXPECT_TRUE(e.segment_family().empty());
     uid.assign(16, 0x00);
-    EXPECT_THROW(e.segment_family(uid), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.segment_family(uid), jonen::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, TimecodeScale)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_EQ(1000000, e.timecode_scale());
     EXPECT_NO_THROW(e.timecode_scale(314159));
     EXPECT_EQ(314159, e.timecode_scale());
@@ -252,12 +252,12 @@ TEST(SegmentInfo, TimecodeScale)
 
 TEST(SegmentInfo, Duration)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_TRUE(e.duration() > 0);
     EXPECT_NO_THROW(e.duration(314159));
     EXPECT_EQ(314159, e.duration());
-    EXPECT_THROW(e.duration(-314159), celduin::ValueOutOfRange);
-    EXPECT_THROW(e.duration(0), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.duration(-314159), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.duration(0), jonen::ValueOutOfRange);
     // Test 64-bit values to confirm range
     EXPECT_NO_THROW(e.duration(0xFFFFFFFFFFFFFFFF));
     EXPECT_EQ(0xFFFFFFFFFFFFFFFF, e.duration());
@@ -266,7 +266,7 @@ TEST(SegmentInfo, Duration)
 
 TEST(SegmentInfo, Date)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_EQ(e.date(), 0);
     EXPECT_NO_THROW(e.date(-314159));
     EXPECT_EQ(-314159, e.date());
@@ -284,9 +284,9 @@ TEST(SegmentInfo, Date)
 
 TEST(SegmentInfo, Title)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_TRUE(e.title().empty());
-    std::string fn("a_file.celduin");
+    std::string fn("a_file.jonen");
     EXPECT_NO_THROW(e.title(fn));
     EXPECT_EQ(fn, e.title());
     fn.clear();
@@ -297,9 +297,9 @@ TEST(SegmentInfo, Title)
 
 TEST(SegmentInfo, MuxingApp)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_TRUE(e.muxing_app().empty());
-    std::string fn("a_file.celduin");
+    std::string fn("a_file.jonen");
     EXPECT_NO_THROW(e.muxing_app(fn));
     EXPECT_EQ(fn, e.muxing_app());
     fn.clear();
@@ -310,9 +310,9 @@ TEST(SegmentInfo, MuxingApp)
 
 TEST(SegmentInfo, WritingApp)
 {
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     EXPECT_TRUE(e.writing_app().empty());
-    std::string fn("a_file.celduin");
+    std::string fn("a_file.jonen");
     EXPECT_NO_THROW(e.writing_app(fn));
     EXPECT_EQ(fn, e.writing_app());
     fn.clear();
@@ -325,21 +325,21 @@ namespace test_seg_info
 {
 
 void DoWriteTest(std::vector<test_utils::ElPtr> const& els,
-        celduin::SegmentInfo& e, std::string msg)
+        jonen::SegmentInfo& e, std::string msg)
 {
     std::ostringstream output;
     std::stringstream expected;
 
     std::streamsize expected_size(std::accumulate(els.begin(), els.end(), 0,
                 test_utils::TotalSizeOp()));
-    celduin::ids::write(celduin::ids::Info, expected);
-    celduin::vint::write(expected_size, expected);
+    jonen::ids::write(jonen::ids::Info, expected);
+    jonen::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, els)
     {
         el->write(expected);
     }
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(expected_size) + expected_size,
             e.write(output)) << msg;
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str()) << msg;
@@ -353,42 +353,42 @@ TEST(SegmentInfo, Size)
     std::vector<test_utils::ElPtr> all_children, used_children;
 
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::SegmentUID, std::vector<char>(16,
+                jonen::BinaryElement(jonen::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::SegmentFileName,
+                jonen::StringElement(jonen::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::PrevUID,
+                jonen::BinaryElement(jonen::ids::PrevUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::PrevFileName,
+                jonen::StringElement(jonen::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::NextUID,
+                jonen::BinaryElement(jonen::ids::NextUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::NextFileName,
+                jonen::StringElement(jonen::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::SegmentFamily,
+                jonen::BinaryElement(jonen::ids::SegmentFamily,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::FloatElement(celduin::ids::Duration, 12345)));
+                jonen::FloatElement(jonen::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::DateElement(celduin::ids::DateUTC, 0xFFFFFFFFFF)));
+                jonen::DateElement(jonen::ids::DateUTC, 0xFFFFFFFFFF)));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::Title, "Title")));
+                jonen::StringElement(jonen::ids::Title, "Title")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::MuxingApp, "Muxer")));
+                jonen::StringElement(jonen::ids::MuxingApp, "Muxer")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::WritingApp, "Writer")));
+                jonen::StringElement(jonen::ids::WritingApp, "Writer")));
     used_children.push_back(test_utils::ElPtr(new
-                celduin::UIntElement(celduin::ids::TimecodeScale, 1000000)));
+                jonen::UIntElement(jonen::ids::TimecodeScale, 1000000)));
 
-    celduin::SegmentInfo e;
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(used_children[0]->size()) +
+    jonen::SegmentInfo e;
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(used_children[0]->size()) +
             used_children[0]->size(), e.size());
 
     std::streamsize body_size(0);
@@ -397,8 +397,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.filename("Segment filename");
@@ -406,8 +406,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.prev_uid(std::vector<char>(16, 0xC0));
@@ -415,8 +415,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.prev_filename("Previous filename");
@@ -424,8 +424,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.next_uid(std::vector<char>(16, 0xC0));
@@ -433,8 +433,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.next_filename("Next filename");
@@ -442,8 +442,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.segment_family(std::vector<char>(16, 0xC0));
@@ -451,8 +451,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.duration(12345);
@@ -460,8 +460,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.date(0xFFFFFFFFFF);
@@ -469,8 +469,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.title("Title");
@@ -478,8 +478,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.muxing_app("Muxer");
@@ -487,8 +487,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.writing_app("Writer");
@@ -496,8 +496,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Info) +
-            celduin::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
+            jonen::vint::size(body_size) + body_size, e.size());
 }
 
 
@@ -505,40 +505,40 @@ TEST(SegmentInfo, Write)
 {
     std::vector<test_utils::ElPtr> all_children, used_children;
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::SegmentUID, std::vector<char>(16,
+                jonen::BinaryElement(jonen::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::SegmentFileName,
+                jonen::StringElement(jonen::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::PrevUID,
+                jonen::BinaryElement(jonen::ids::PrevUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::PrevFileName,
+                jonen::StringElement(jonen::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::NextUID,
+                jonen::BinaryElement(jonen::ids::NextUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::NextFileName,
+                jonen::StringElement(jonen::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::SegmentFamily,
+                jonen::BinaryElement(jonen::ids::SegmentFamily,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::FloatElement(celduin::ids::Duration, 12345)));
+                jonen::FloatElement(jonen::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::DateElement(celduin::ids::DateUTC, 0xFFFFFFFFFF)));
+                jonen::DateElement(jonen::ids::DateUTC, 0xFFFFFFFFFF)));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::Title, "Title")));
+                jonen::StringElement(jonen::ids::Title, "Title")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::MuxingApp, "Muxer")));
+                jonen::StringElement(jonen::ids::MuxingApp, "Muxer")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::WritingApp, "Writer")));
+                jonen::StringElement(jonen::ids::WritingApp, "Writer")));
     used_children.push_back(test_utils::ElPtr(new
-                celduin::UIntElement(celduin::ids::TimecodeScale, 1000000)));
+                jonen::UIntElement(jonen::ids::TimecodeScale, 1000000)));
 
-    celduin::SegmentInfo e;
+    jonen::SegmentInfo e;
     test_seg_info::DoWriteTest(used_children, e, "tc_scale");
 
     e.uid(std::vector<char>(16, 0xC0));
@@ -609,49 +609,49 @@ TEST(SegmentInfo, Read)
 
     std::vector<test_utils::ElPtr> all_children, used_children;
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::SegmentUID, std::vector<char>(16,
+                jonen::BinaryElement(jonen::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::SegmentFileName,
+                jonen::StringElement(jonen::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::PrevUID,
+                jonen::BinaryElement(jonen::ids::PrevUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::PrevFileName,
+                jonen::StringElement(jonen::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::NextUID,
+                jonen::BinaryElement(jonen::ids::NextUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::NextFileName,
+                jonen::StringElement(jonen::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::BinaryElement(celduin::ids::SegmentFamily,
+                jonen::BinaryElement(jonen::ids::SegmentFamily,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::FloatElement(celduin::ids::Duration, 12345)));
+                jonen::FloatElement(jonen::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::DateElement(celduin::ids::DateUTC, 0xFFFFFFFFFF)));
+                jonen::DateElement(jonen::ids::DateUTC, 0xFFFFFFFFFF)));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::Title, "Title")));
+                jonen::StringElement(jonen::ids::Title, "Title")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::MuxingApp, "Muxer")));
+                jonen::StringElement(jonen::ids::MuxingApp, "Muxer")));
     all_children.push_back(test_utils::ElPtr(new
-                celduin::StringElement(celduin::ids::WritingApp, "Writer")));
+                jonen::StringElement(jonen::ids::WritingApp, "Writer")));
     used_children.push_back(test_utils::ElPtr(new
-                celduin::UIntElement(celduin::ids::TimecodeScale, 200000)));
+                jonen::UIntElement(jonen::ids::TimecodeScale, 200000)));
 
-    celduin::SegmentInfo e;
-    celduin::vint::write(0, input);
-    EXPECT_EQ(celduin::vint::size(0), e.read(input));
+    jonen::SegmentInfo e;
+    jonen::vint::write(0, input);
+    EXPECT_EQ(jonen::vint::size(0), e.read(input));
     EXPECT_EQ(1000000, e.timecode_scale());
 
     input.str(std::string());
     std::streamsize body_size(used_children[0]->size());
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     used_children[0]->write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_TRUE(e.uid().empty());
     EXPECT_TRUE(e.filename().empty());
@@ -672,26 +672,26 @@ TEST(SegmentInfo, Read)
         used_children.push_back(el);
         body_size = std::accumulate(used_children.begin(), used_children.end(),
                 0, test_utils::TotalSizeOp());
-        celduin::vint::write(body_size, input);
+        jonen::vint::write(body_size, input);
         BOOST_FOREACH(test_utils::ElPtr uel, used_children)
         {
             uel->write(input);
         }
-        EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+        EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     }
 
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     used_children[0]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), celduin::BadBodySize);
+    EXPECT_THROW(e.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
 }
 

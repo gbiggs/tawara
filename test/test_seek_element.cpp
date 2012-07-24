@@ -37,19 +37,19 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/seek_element.h>
-#include <celduin/uint_element.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/seek_element.h>
+#include <jonen/uint_element.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(Seek, Create)
 {
-    celduin::SeekElement e(0x80, 2);
-    EXPECT_EQ(celduin::ids::Seek, e.id());
+    jonen::SeekElement e(0x80, 2);
+    EXPECT_EQ(jonen::ids::Seek, e.id());
     EXPECT_EQ(0x80, e.indexed_id());
     EXPECT_EQ(2, e.offset());
 }
@@ -57,18 +57,18 @@ TEST(Seek, Create)
 
 TEST(Seek, ID)
 {
-    celduin::SeekElement e(0x80, 0);
+    jonen::SeekElement e(0x80, 0);
     EXPECT_EQ(0x80, e.indexed_id());
     e.indexed_id(0x9F);
     EXPECT_EQ(0x9F, e.indexed_id());
     EXPECT_EQ(0, e.offset());
-    EXPECT_EQ(celduin::ids::Seek, e.id());
+    EXPECT_EQ(jonen::ids::Seek, e.id());
 }
 
 
 TEST(Seek, Offset)
 {
-    celduin::SeekElement e(0x80, 0);
+    jonen::SeekElement e(0x80, 0);
     EXPECT_EQ(0, e.offset());
     e.offset(12345);
     EXPECT_EQ(12345, e.offset());
@@ -78,15 +78,15 @@ TEST(Seek, Offset)
 
 TEST(Seek, Size)
 {
-    celduin::BinaryElement be(celduin::ids::SeekID,
+    jonen::BinaryElement be(jonen::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            celduin::ids::encode(celduin::ids::SeekHead));
-    celduin::UIntElement ue(celduin::ids::SeekPosition, 0x1010);
+            jonen::ids::encode(jonen::ids::SeekHead));
+    jonen::UIntElement ue(jonen::ids::SeekPosition, 0x1010);
     std::streamsize body_size(be.size() + ue.size());
 
-    celduin::SeekElement se(celduin::ids::SeekHead, 0x1010);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Seek) +
-            celduin::vint::size(body_size) + body_size,
+    jonen::SeekElement se(jonen::ids::SeekHead, 0x1010);
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Seek) +
+            jonen::vint::size(body_size) + body_size,
             se.size());
 }
 
@@ -96,18 +96,18 @@ TEST(Seek, Write)
     std::ostringstream output;
     std::stringstream expected;
 
-    celduin::BinaryElement be(celduin::ids::SeekID,
+    jonen::BinaryElement be(jonen::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            celduin::ids::encode(celduin::ids::SeekHead));
-    celduin::UIntElement ue(celduin::ids::SeekPosition, 12345);
+            jonen::ids::encode(jonen::ids::SeekHead));
+    jonen::UIntElement ue(jonen::ids::SeekPosition, 12345);
     std::streamsize expected_size(be.size() + ue.size());
-    celduin::SeekElement se(celduin::ids::SeekHead, 12345);
-    celduin::ids::write(celduin::ids::Seek, expected);
-    celduin::vint::write(expected_size, expected);
+    jonen::SeekElement se(jonen::ids::SeekHead, 12345);
+    jonen::ids::write(jonen::ids::Seek, expected);
+    jonen::vint::write(expected_size, expected);
     be.write(expected);
     ue.write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Seek) +
-            celduin::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Seek) +
+            jonen::vint::size(expected_size) + expected_size,
             se.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -117,66 +117,66 @@ TEST(Seek, Read)
 {
     std::stringstream input;
 
-    celduin::BinaryElement be(celduin::ids::SeekID,
+    jonen::BinaryElement be(jonen::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            celduin::ids::encode(celduin::ids::SeekHead));
-    celduin::UIntElement ue(celduin::ids::SeekPosition, 12345);
+            jonen::ids::encode(jonen::ids::SeekHead));
+    jonen::UIntElement ue(jonen::ids::SeekPosition, 12345);
     std::streamsize body_size(be.size() + ue.size());
 
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     be.write(input);
     ue.write(input);
 
-    celduin::SeekElement e(0x80, 0);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    jonen::SeekElement e(0x80, 0);
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
         e.read(input));
-    EXPECT_EQ(celduin::ids::SeekHead, e.indexed_id());
+    EXPECT_EQ(jonen::ids::SeekHead, e.indexed_id());
     EXPECT_EQ(12345, e.offset());
 
     input.str(std::string());
-    be.value(celduin::ids::encode(celduin::ids::EBML));
+    be.value(jonen::ids::encode(jonen::ids::EBML));
     ue.value(54321);
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     // Note the reversed order this time
     ue.write(input);
     be.write(input);
 
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
         e.read(input));
-    EXPECT_EQ(celduin::ids::EBML, e.indexed_id());
+    EXPECT_EQ(jonen::ids::EBML, e.indexed_id());
     EXPECT_EQ(54321, e.offset());
 
     // No SeekID child
     input.str(std::string());
-    celduin::vint::write(ue.size(), input);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
     // No SeekPosition child
     input.str(std::string());
-    celduin::vint::write(be.size(), input);
+    jonen::vint::write(be.size(), input);
     be.write(input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
     // No children at all
     input.str(std::string());
-    celduin::vint::write(0, input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    jonen::vint::write(0, input);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
     // Body size value wrong (too big)
     input.str(std::string());
-    celduin::vint::write(ue.size() + be.size() + 5, input);
+    jonen::vint::write(ue.size() + be.size() + 5, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read(input), celduin::BadBodySize);
+    EXPECT_THROW(e.read(input), jonen::BadBodySize);
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read(input), celduin::BadBodySize);
+    EXPECT_THROW(e.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue2(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue2.size(), input);
+    jonen::UIntElement ue2(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue2.size(), input);
     ue2.write(input);
-    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
 }
 

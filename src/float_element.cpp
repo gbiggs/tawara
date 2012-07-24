@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/float_element.h>
+#include <jonen/float_element.h>
 
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 #include <vector>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////

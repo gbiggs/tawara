@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/simple_block.h>
+#include <jonen/simple_block.h>
 
-#include <celduin/el_ids.h>
+#include <jonen/el_ids.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ using namespace celduin;
 
 SimpleBlock::SimpleBlock(uint64_t track_number, int16_t timecode,
         LacingType lacing)
-    : BlockElement(celduin::ids::SimpleBlock, track_number, timecode, lacing),
+    : BlockElement(jonen::ids::SimpleBlock, track_number, timecode, lacing),
     keyframe_(false), discardable_(false),
     block_(track_number, timecode, lacing)
 {
@@ -72,7 +72,7 @@ void SimpleBlock::swap(SimpleBlock& other)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(SimpleBlock const& lhs, SimpleBlock const& rhs)
+bool jonen::operator==(SimpleBlock const& lhs, SimpleBlock const& rhs)
 {
     return lhs.keyframe_ == rhs.keyframe_ &&
         lhs.discardable_ == rhs.discardable_ &&

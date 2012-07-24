@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/cluster.h>
+#include <jonen/cluster.h>
 
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -75,7 +75,7 @@ uint64_t Cluster::position() const
 std::streamsize Cluster::size() const
 {
     // The size of a cluster is always written using 8 bytes
-    return celduin::ids::size(id_) + 8 + body_size();
+    return jonen::ids::size(id_) + 8 + body_size();
 }
 
 
@@ -125,7 +125,7 @@ std::streamsize Cluster::write_body(std::ostream& output)
         written += ids::write(ids::SilentTracks, output);
         std::streamsize st_size(std::accumulate(silent_tracks_.begin(),
                     silent_tracks_.end(), 0, std::ptr_fun(add_size)));
-        written += celduin::vint::write(st_size, output);
+        written += jonen::vint::write(st_size, output);
         BOOST_FOREACH(SilentTrackNumber& stn, silent_tracks_)
         {
             written += stn.write(output);
@@ -215,7 +215,7 @@ std::streamsize Cluster::read_silent_tracks(std::istream& input)
 {
     std::streampos el_start(input.tellg());
     // Get the element's body size
-    vint::ReadResult result = celduin::vint::read(input);
+    vint::ReadResult result = jonen::vint::read(input);
     std::streamsize body_size(result.first);
     std::streamsize size_size(result.second);
     std::streamsize read_bytes(result.second);

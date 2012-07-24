@@ -37,20 +37,20 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/cluster.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/cluster.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
 
 // Fake Cluster implementation
-class FakeCluster : public celduin::Cluster
+class FakeCluster : public jonen::Cluster
 {
     public:
         FakeCluster(uint64_t tc=0)
-            : celduin::Cluster(tc)
+            : jonen::Cluster(tc)
         {
         }
 
@@ -59,7 +59,7 @@ class FakeCluster : public celduin::Cluster
             return true;
         }
 
-        celduin::Cluster::size_type count() const
+        jonen::Cluster::size_type count() const
         {
             return 0;
         }
@@ -68,7 +68,7 @@ class FakeCluster : public celduin::Cluster
         {
         }
 
-        void push_back(celduin::Cluster::value_type const&)
+        void push_back(jonen::Cluster::value_type const&)
         {
         }
 
@@ -111,7 +111,7 @@ TEST(BaseCluster, SilentTracks)
 {
     FakeCluster e;
     EXPECT_TRUE(e.silent_tracks().empty());
-    e.silent_tracks().push_back(celduin::SilentTrackNumber(15));
+    e.silent_tracks().push_back(jonen::SilentTrackNumber(15));
     EXPECT_FALSE(e.silent_tracks().empty());
     EXPECT_EQ(e.silent_tracks()[0], 15);
 }
@@ -120,7 +120,7 @@ TEST(BaseCluster, SilentTracks)
 TEST(BaseCluster, Position)
 {
     FakeCluster e;
-    EXPECT_THROW(e.position(), celduin::NotImplemented);
+    EXPECT_THROW(e.position(), jonen::NotImplemented);
 }
 
 
@@ -136,23 +136,23 @@ TEST(BaseCluster, PreviousSize)
 TEST(BaseCluster, Size)
 {
     FakeCluster e;
-    celduin::UIntElement tc(celduin::ids::Timecode, 0);
+    jonen::UIntElement tc(jonen::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + body_size, e.size());
 
-    celduin::UIntElement st1(celduin::ids::SilentTrackNumber, 1);
-    celduin::UIntElement st2(celduin::ids::SilentTrackNumber, 2);
-    body_size += celduin::ids::size(celduin::ids::SilentTracks) +
-        celduin::vint::size(st1.size() + st2.size()) +
+    jonen::UIntElement st1(jonen::ids::SilentTrackNumber, 1);
+    jonen::UIntElement st2(jonen::ids::SilentTrackNumber, 2);
+    body_size += jonen::ids::size(jonen::ids::SilentTracks) +
+        jonen::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size();
-    e.silent_tracks().push_back(celduin::SilentTrackNumber(1));
-    e.silent_tracks().push_back(celduin::SilentTrackNumber(2));
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + body_size, e.size());
+    e.silent_tracks().push_back(jonen::SilentTrackNumber(1));
+    e.silent_tracks().push_back(jonen::SilentTrackNumber(2));
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + body_size, e.size());
 
-    celduin::UIntElement ps(celduin::ids::PrevSize, 0x1234);
+    jonen::UIntElement ps(jonen::ids::PrevSize, 0x1234);
     body_size += ps.size();
     e.previous_size(0x1234);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + body_size, e.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + body_size, e.size());
 }
 
 
@@ -160,38 +160,38 @@ TEST(BaseCluster, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    celduin::UIntElement tc(celduin::ids::Timecode, 0);
-    celduin::UIntElement st1(celduin::ids::SilentTrackNumber, 1);
-    celduin::UIntElement st2(celduin::ids::SilentTrackNumber, 2);
-    celduin::UIntElement ps(celduin::ids::PrevSize, 0x1234);
+    jonen::UIntElement tc(jonen::ids::Timecode, 0);
+    jonen::UIntElement st1(jonen::ids::SilentTrackNumber, 1);
+    jonen::UIntElement st2(jonen::ids::SilentTrackNumber, 2);
+    jonen::UIntElement ps(jonen::ids::PrevSize, 0x1234);
 
     FakeCluster e;
     std::streamsize expected_size(tc.size());
-    celduin::ids::write(celduin::ids::Cluster, expected);
-    celduin::vint::write(expected_size, expected, 8);
+    jonen::ids::write(jonen::ids::Cluster, expected);
+    jonen::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
-    expected_size += celduin::ids::size(celduin::ids::SilentTracks) +
-        celduin::vint::size(st1.size() + st2.size()) +
+    expected_size += jonen::ids::size(jonen::ids::SilentTracks) +
+        jonen::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
-    e.silent_tracks().push_back(celduin::SilentTrackNumber(1));
-    e.silent_tracks().push_back(celduin::SilentTrackNumber(2));
+    e.silent_tracks().push_back(jonen::SilentTrackNumber(1));
+    e.silent_tracks().push_back(jonen::SilentTrackNumber(2));
     e.previous_size(0x1234);
     output.str(std::string());
     expected.str(std::string());
-    celduin::ids::write(celduin::ids::Cluster, expected);
-    celduin::vint::write(expected_size, expected, 8);
+    jonen::ids::write(jonen::ids::Cluster, expected);
+    jonen::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    celduin::ids::write(celduin::ids::SilentTracks, expected);
-    celduin::vint::write(st1.size() + st2.size(), expected);
+    jonen::ids::write(jonen::ids::SilentTracks, expected);
+    jonen::vint::write(st1.size() + st2.size(), expected);
     st1.write(expected);
     st2.write(expected);
     ps.write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -201,32 +201,32 @@ TEST(BaseCluster, Write)
 TEST(BaseCluster, Read)
 {
     std::stringstream input;
-    celduin::UIntElement tc(celduin::ids::Timecode, 42);
-    celduin::UIntElement st1(celduin::ids::SilentTrackNumber, 1);
-    celduin::UIntElement st2(celduin::ids::SilentTrackNumber, 2);
-    celduin::UIntElement ps(celduin::ids::PrevSize, 0x1234);
+    jonen::UIntElement tc(jonen::ids::Timecode, 42);
+    jonen::UIntElement st1(jonen::ids::SilentTrackNumber, 1);
+    jonen::UIntElement st2(jonen::ids::SilentTrackNumber, 2);
+    jonen::UIntElement ps(jonen::ids::PrevSize, 0x1234);
 
     FakeCluster e;
     std::streamsize body_size(tc.size());
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     tc.write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_TRUE(e.silent_tracks().empty());
     EXPECT_EQ(0, e.previous_size());
 
-    body_size += celduin::ids::size(celduin::ids::SilentTracks) +
-        celduin::vint::size(st1.size() + st2.size()) +
+    body_size += jonen::ids::size(jonen::ids::SilentTracks) +
+        jonen::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     tc.write(input);
-    celduin::ids::write(celduin::ids::SilentTracks, input);
-    celduin::vint::write(st1.size() + st2.size(), input);
+    jonen::ids::write(jonen::ids::SilentTracks, input);
+    jonen::vint::write(st1.size() + st2.size(), input);
     st1.write(input);
     st2.write(input);
     ps.write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_FALSE(e.silent_tracks().empty());
@@ -234,20 +234,20 @@ TEST(BaseCluster, Read)
 
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     tc.write(input);
     ps.write(input);
-    EXPECT_THROW(e.read(input), celduin::BadBodySize);
+    EXPECT_THROW(e.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
     // Missing timecode
     input.str(std::string());
-    celduin::vint::write(ps.size(), input);
+    jonen::vint::write(ps.size(), input);
     ps.write(input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
 }
 

@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/tracks.h>
+#include <jonen/tracks.h>
 
 #include <algorithm>
 #include <boost/foreach.hpp>
 #include <functional>
 #include <stdexcept>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -112,7 +112,7 @@ void Tracks::insert(const_iterator first, const_iterator last)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(Tracks const& lhs, Tracks const& rhs)
+bool jonen::operator==(Tracks const& lhs, Tracks const& rhs)
 {
     return lhs.entries_ == rhs.entries_;
 }

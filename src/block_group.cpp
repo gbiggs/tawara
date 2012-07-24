@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/block_group.h>
+#include <jonen/block_group.h>
 
 #include <boost/foreach.hpp>
-#include <celduin/el_ids.h>
-#include <celduin/ebml_int.h>
-#include <celduin/int_element.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/ebml_int.h>
+#include <jonen/int_element.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ using namespace celduin;
 
 BlockGroup::BlockGroup(uint64_t track_number, int16_t timecode,
         LacingType lacing, uint64_t duration, uint64_t ref_priority)
-    : BlockElement(celduin::ids::BlockGroup, track_number, timecode, lacing),
+    : BlockElement(jonen::ids::BlockGroup, track_number, timecode, lacing),
     duration_(ids::BlockDuration, duration),
     ref_priority_(ids::ReferencePriority, ref_priority, 0),
     codec_state_(ids::CodecState, std::vector<char>()),
@@ -81,7 +81,7 @@ void BlockGroup::swap(BlockGroup& other)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(BlockGroup const& lhs, BlockGroup const& rhs)
+bool jonen::operator==(BlockGroup const& lhs, BlockGroup const& rhs)
 {
     return lhs.additions_ == rhs.additions_ &&
         lhs.duration_ == rhs.duration_ &&

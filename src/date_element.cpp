@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/date_element.h>
+#include <jonen/date_element.h>
 
-#include <celduin/ebml_int.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/ebml_int.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////

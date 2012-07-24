@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/binary_element.h>
+#include <jonen/binary_element.h>
 
 #include <gtest/gtest.h>
 #include <string>
-#include <celduin/el_ids.h>
-#include <celduin/ebml_int.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/ebml_int.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -52,7 +52,7 @@
 namespace test_binel
 {
 
-std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, std::vector<char> data,
+std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, std::vector<char> data,
         bool write_id, bool write_size, bool write_body)
 {
     std::streamsize total(0);
@@ -60,13 +60,13 @@ std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, std::vector<cha
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(celduin::ebml_int::encode_u(id));
+        std::vector<char> tmp(jonen::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_size)
     {
-        std::vector<char> tmp(celduin::vint::encode(data.size()));
+        std::vector<char> tmp(jonen::vint::encode(data.size()));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -110,70 +110,70 @@ class BinaryElementTest : public ::testing::Test
 
 TEST_F(BinaryElementTest, Construction)
 {
-    EXPECT_EQ(celduin::ids::Null, celduin::BinaryElement(celduin::ids::Null, b1).id());
-    EXPECT_THROW(celduin::BinaryElement(0x00, b1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(0xFF, b1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(0xFFFF, b1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(0xFFFFFF, b1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(0xFFFFFFFF, b1), celduin::InvalidElementID);
+    EXPECT_EQ(jonen::ids::Null, jonen::BinaryElement(jonen::ids::Null, b1).id());
+    EXPECT_THROW(jonen::BinaryElement(0x00, b1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(0xFF, b1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(0xFFFF, b1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(0xFFFFFF, b1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(0xFFFFFFFF, b1), jonen::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(celduin::BinaryElement(0x00, b1, b1), celduin::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(0x00, b1, b1), jonen::InvalidElementID);
 }
 
 
 TEST_F(BinaryElementTest, CopyConstruction)
 {
-    EXPECT_EQ(celduin::ids::Null, celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1)).id());
-    EXPECT_EQ(celduin::ids::Null, celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1, b2)).id());
+    EXPECT_EQ(jonen::ids::Null, jonen::BinaryElement(jonen::BinaryElement(jonen::ids::Null, b1)).id());
+    EXPECT_EQ(jonen::ids::Null, jonen::BinaryElement(jonen::BinaryElement(jonen::ids::Null, b1, b2)).id());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1, b2)).value());
+            jonen::BinaryElement(jonen::BinaryElement(jonen::ids::Null, b1, b2)).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2,
-            celduin::BinaryElement(celduin::BinaryElement(celduin::ids::Null, b1, b2)).get_default());
+            jonen::BinaryElement(jonen::BinaryElement(jonen::ids::Null, b1, b2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(celduin::BinaryElement(celduin::BinaryElement(0x00, b1)),
-            celduin::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(jonen::BinaryElement(0x00, b1)),
+            jonen::InvalidElementID);
 }
 
 
 TEST_F(BinaryElementTest, SetID)
 {
-    celduin::BinaryElement e(celduin::ids::Null, b1);
+    jonen::BinaryElement e(jonen::ids::Null, b1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0x00), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFF), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFFFF),
-            celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFFFFFF),
-            celduin::InvalidElementID);
-    EXPECT_THROW(celduin::BinaryElement(1, b1).id(0xFFFFFFFF),
-            celduin::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(1, b1).id(0x00), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(1, b1).id(0xFF), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(1, b1).id(0xFFFF),
+            jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(1, b1).id(0xFFFFFF),
+            jonen::InvalidElementID);
+    EXPECT_THROW(jonen::BinaryElement(1, b1).id(0xFFFFFFFF),
+            jonen::InvalidElementID);
 }
 
 
 TEST_F(BinaryElementTest, Assignment)
 {
-    celduin::BinaryElement e1(1, b1), e2(2, b2);
+    jonen::BinaryElement e1(1, b1), e2(2, b2);
     e2 = e1;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    celduin::BinaryElement e3(1, b1, b1), e4(2, b2, b2);
+    jonen::BinaryElement e3(1, b1, b1), e4(2, b2, b2);
     e4 = e3;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e3.get_default(), e4.get_default());
 
-    celduin::BinaryElement e5(1, b1, b1), e6(2, b2);
+    jonen::BinaryElement e5(1, b1, b1), e6(2, b2);
     e6 = e5;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e5.get_default(), e6.get_default());
 
-    celduin::BinaryElement e7(1, b1), e8(2, b2, b2);
+    jonen::BinaryElement e7(1, b1), e8(2, b2, b2);
     e8 = e7;
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, e1.value(), e2.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -187,10 +187,10 @@ TEST_F(BinaryElementTest, Assignment)
 
 TEST_F(BinaryElementTest, Default)
 {
-    EXPECT_FALSE(celduin::BinaryElement(celduin::ids::Null, b1).has_default());
-    EXPECT_TRUE(celduin::BinaryElement(celduin::ids::Null, b1, b1).has_default());
+    EXPECT_FALSE(jonen::BinaryElement(jonen::ids::Null, b1).has_default());
+    EXPECT_TRUE(jonen::BinaryElement(jonen::ids::Null, b1, b1).has_default());
 
-    celduin::BinaryElement e1(celduin::ids::Null, b1, b1);
+    jonen::BinaryElement e1(jonen::ids::Null, b1, b1);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -199,7 +199,7 @@ TEST_F(BinaryElementTest, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1.get_default());
 
-    celduin::BinaryElement e2(celduin::ids::Null, b1);
+    jonen::BinaryElement e2(jonen::ids::Null, b1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(b1);
     EXPECT_TRUE(e2.has_default());
@@ -207,7 +207,7 @@ TEST_F(BinaryElementTest, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    celduin::BinaryElement e3(celduin::ids::Null, b1);
+    jonen::BinaryElement e3(jonen::ids::Null, b1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(b1);
     EXPECT_TRUE(e3.is_default());
@@ -221,21 +221,21 @@ TEST_F(BinaryElementTest, Default)
 TEST_F(BinaryElementTest, Value)
 {
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            celduin::BinaryElement(celduin::ids::Null, b1).value());
+            jonen::BinaryElement(jonen::ids::Null, b1).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            celduin::BinaryElement(celduin::ids::Null, b1));
+            jonen::BinaryElement(jonen::ids::Null, b1));
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            celduin::BinaryElement(celduin::ids::Null, b1, b2).value());
+            jonen::BinaryElement(jonen::ids::Null, b1, b2).value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1,
-            celduin::BinaryElement(celduin::ids::Null, b1, b2));
+            jonen::BinaryElement(jonen::ids::Null, b1, b2));
 
-    celduin::BinaryElement e1(celduin::ids::Null, b1);
+    jonen::BinaryElement e1(jonen::ids::Null, b1);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b1, e1.value());
     e1.value(b2);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b2, e1);
 
-    celduin::BinaryElement e2(celduin::ids::Null, b1, b2);
+    jonen::BinaryElement e2(jonen::ids::Null, b1, b2);
     e2.value(b3);
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2.value());
     EXPECT_PRED_FORMAT2(test_utils::std_vectors_eq, b3, e2);
@@ -244,8 +244,8 @@ TEST_F(BinaryElementTest, Value)
 
 TEST_F(BinaryElementTest, Equality)
 {
-    celduin::BinaryElement e1(celduin::ids::Null, b1);
-    celduin::BinaryElement e2(celduin::ids::Null, b1);
+    jonen::BinaryElement e1(jonen::ids::Null, b1);
+    jonen::BinaryElement e2(jonen::ids::Null, b1);
 
     EXPECT_TRUE(e1 == e2);
     e2.value(b2);
@@ -258,12 +258,12 @@ TEST_F(BinaryElementTest, Write)
     std::ostringstream output;
     std::string expected;
 
-    celduin::BinaryElement e1(0x80, b1);
+    jonen::BinaryElement e1(0x80, b1);
 
     output.str(std::string());
     std::string().swap(expected);
     test_binel::fill_buffer(expected, 0x80, b1, true, true, true);
-    EXPECT_EQ(celduin::ids::size(0x80) + 1 + b1.size(),
+    EXPECT_EQ(jonen::ids::size(0x80) + 1 + b1.size(),
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -271,7 +271,7 @@ TEST_F(BinaryElementTest, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_binel::fill_buffer(expected, 0x80, b3, true, true, true);
-    EXPECT_EQ(celduin::ids::size(0x80) + 1 + b3.size(),
+    EXPECT_EQ(jonen::ids::size(0x80) + 1 + b3.size(),
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -281,7 +281,7 @@ TEST_F(BinaryElementTest, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_binel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(celduin::ids::size(0x80) + 1 + value.size(), e1.write(output));
+    EXPECT_EQ(jonen::ids::size(0x80) + 1 + value.size(), e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -291,7 +291,7 @@ TEST_F(BinaryElementTest, Read)
     std::istringstream input;
     std::string input_val;
 
-    celduin::BinaryElement e(0x80, std::vector<char>());
+    jonen::BinaryElement e(0x80, std::vector<char>());
     test_binel::fill_buffer(input_val, 0x80, b1, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + b1.size(), e.read(input));
@@ -328,13 +328,13 @@ TEST_F(BinaryElementTest, Read)
     std::string().swap(input_val);
     test_binel::fill_buffer(input_val, 0x80, b4, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), celduin::ReadError);
+    EXPECT_THROW(e.read(input), jonen::ReadError);
 }
 
 
 TEST_F(BinaryElementTest, Size)
 {
-    celduin::BinaryElement e(0x80, b1);
+    jonen::BinaryElement e(0x80, b1);
     EXPECT_EQ(2 + b1.size(), e.size());
 
     e.value(b3);

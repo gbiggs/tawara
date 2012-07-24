@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/track_entry.h>
+#include <jonen/track_entry.h>
 
 #include <boost/foreach.hpp>
-#include <celduin/el_ids.h>
-#include <celduin/element.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/element.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -161,7 +161,7 @@ void TrackEntry::overlays(std::vector<uint64_t> const& uids)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
+bool jonen::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
 {
     return lhs.number_ == rhs.number_ &&
         lhs.uid_ == rhs.uid_ &&
@@ -254,8 +254,8 @@ std::streamsize TrackEntry::body_size() const
     }
     if (operation_)
     {
-        size += celduin::ids::size(ids::TrackOperation) +
-            celduin::vint::size(operation_->size()) +
+        size += jonen::ids::size(ids::TrackOperation) +
+            jonen::vint::size(operation_->size()) +
             operation_->size();
     }
     return size;
@@ -336,8 +336,8 @@ std::streamsize TrackEntry::write_body(std::ostream& output)
     }
     if (operation_)
     {
-        written += celduin::ids::write(ids::TrackOperation, output);
-        written += celduin::vint::write(operation_->size(), output);
+        written += jonen::ids::write(ids::TrackOperation, output);
+        written += jonen::vint::write(operation_->size(), output);
         written += operation_->write(output);
     }
     return written;

@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
 
 
-std::streamsize celduin::ids::size(celduin::ids::ID id)
+std::streamsize jonen::ids::size(jonen::ids::ID id)
 {
     if (id >= 0x80 && id <= 0xFE)
     {
@@ -77,12 +77,12 @@ std::streamsize celduin::ids::size(celduin::ids::ID id)
     }*/
     else
     {
-        throw celduin::InvalidEBMLID() << celduin::err_varint(id);
+        throw jonen::InvalidEBMLID() << jonen::err_varint(id);
     }
 }
 
 
-std::vector<char> celduin::ids::encode(ID id)
+std::vector<char> jonen::ids::encode(ID id)
 {
     std::streamsize c_size(size(id));
     std::vector<char> buffer(c_size, 0);
@@ -96,7 +96,7 @@ std::vector<char> celduin::ids::encode(ID id)
 }
 
 
-std::streamsize celduin::ids::write(celduin::ids::ID id, std::ostream& output)
+std::streamsize jonen::ids::write(jonen::ids::ID id, std::ostream& output)
 {
     std::streamsize c_size(size(id));
     // Write the remaining bytes
@@ -106,19 +106,19 @@ std::streamsize celduin::ids::write(celduin::ids::ID id, std::ostream& output)
     }
     if (!output)
     {
-        throw celduin::WriteError() << celduin::err_pos(output.tellp());
+        throw jonen::WriteError() << jonen::err_pos(output.tellp());
     }
 
     return c_size;
 }
 
 
-celduin::ids::DecodeResult celduin::ids::decode(std::vector<char> const& buffer)
+jonen::ids::DecodeResult jonen::ids::decode(std::vector<char> const& buffer)
 {
     assert(buffer.size() > 0);
 
     unsigned int to_copy(0);
-    celduin::ids::ID result(0);
+    jonen::ids::ID result(0);
 
     reinterpret_cast<char*>(&result)[0] = buffer[0];
     // Check the size
@@ -158,13 +158,13 @@ celduin::ids::DecodeResult celduin::ids::decode(std::vector<char> const& buffer)
     else
     {
         // All bits zero is invalid
-        throw celduin::InvalidVarInt();
+        throw jonen::InvalidVarInt();
     }
 
     if (buffer.size() < to_copy + 1)
     {
-        throw celduin::BufferTooSmall() << celduin::err_bufsize(buffer.size()) <<
-            celduin::err_reqsize(to_copy + 1);
+        throw jonen::BufferTooSmall() << jonen::err_bufsize(buffer.size()) <<
+            jonen::err_reqsize(to_copy + 1);
     }
 
     // Copy the remaining bytes
@@ -181,9 +181,9 @@ celduin::ids::DecodeResult celduin::ids::decode(std::vector<char> const& buffer)
 }
 
 
-celduin::ids::ReadResult celduin::ids::read(std::istream& input)
+jonen::ids::ReadResult jonen::ids::read(std::istream& input)
 {
-    celduin::ids::ID result(0);
+    jonen::ids::ID result(0);
     std::streamsize to_copy(0);
     uint8_t buffer[8];
 
@@ -191,7 +191,7 @@ celduin::ids::ReadResult celduin::ids::read(std::istream& input)
     input.read(reinterpret_cast<char*>(buffer), 1);
     if (!input)
     {
-        throw celduin::ReadError() << celduin::err_pos(input.tellg());
+        throw jonen::ReadError() << jonen::err_pos(input.tellg());
     }
     result = buffer[0];
     // Check the size
@@ -231,14 +231,14 @@ celduin::ids::ReadResult celduin::ids::read(std::istream& input)
     else
     {
         // All bits zero is invalid
-        throw celduin::InvalidVarInt();
+        throw jonen::InvalidVarInt();
     }
 
     // Copy the remaining bytes
     input.read(reinterpret_cast<char*>(&buffer[1]), to_copy);
     if (input.fail())
     {
-        throw celduin::ReadError() << celduin::err_pos(input.tellg());
+        throw jonen::ReadError() << jonen::err_pos(input.tellg());
     }
 
     for (std::streamsize ii(1); ii < to_copy + 1; ++ii)
@@ -255,7 +255,7 @@ celduin::ids::ReadResult celduin::ids::read(std::istream& input)
     }
     catch(boost::exception& e)
     {
-        e << celduin::err_pos(input.tellg());
+        e << jonen::err_pos(input.tellg());
         throw;
     }
     return std::make_pair(result, to_copy + 1);

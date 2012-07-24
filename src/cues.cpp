@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/cues.h>
+#include <jonen/cues.h>
 
 #include <boost/foreach.hpp>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // CueTrackPosition Constructors and destructors
@@ -101,7 +101,7 @@ void CueTrackPosition::block_num(uint64_t block_num)
 // CueTrackPosition operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(CueTrackPosition const& lhs, CueTrackPosition const& rhs)
+bool jonen::operator==(CueTrackPosition const& lhs, CueTrackPosition const& rhs)
 {
     return lhs.track_ == rhs.track_ &&
         lhs.cluster_pos_ == rhs.cluster_pos_ &&
@@ -284,7 +284,7 @@ CuePoint::CuePoint(uint64_t timecode)
 // CuePoint operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(CuePoint const& lhs, CuePoint const& rhs)
+bool jonen::operator==(CuePoint const& lhs, CuePoint const& rhs)
 {
     return lhs.timecode_ == rhs.timecode_ &&
         lhs.positions_ == rhs.positions_;
@@ -390,7 +390,7 @@ Cues::Cues()
 // Cues Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(Cues const& lhs, Cues const& rhs)
+bool jonen::operator==(Cues const& lhs, Cues const& rhs)
 {
     return lhs.cues_ == rhs.cues_;
 }

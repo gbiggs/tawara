@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/block_additions.h>
+#include <jonen/block_additions.h>
 
 #include <boost/foreach.hpp>
-#include <celduin/binary_element.h>
-#include <celduin/el_ids.h>
-#include <celduin/ebml_int.h>
-#include <celduin/exceptions.h>
-#include <celduin/uint_element.h>
-#include <celduin/vint.h>
+#include <jonen/binary_element.h>
+#include <jonen/el_ids.h>
+#include <jonen/ebml_int.h>
+#include <jonen/exceptions.h>
+#include <jonen/uint_element.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ void BlockAdditions::push_back(value_type const& value)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(BlockAdditions const& lhs, BlockAdditions const& rhs)
+bool jonen::operator==(BlockAdditions const& lhs, BlockAdditions const& rhs)
 {
     return lhs.additions_ == rhs.additions_;
 }

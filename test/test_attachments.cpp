@@ -37,10 +37,10 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/attachments.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/attachments.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
@@ -51,7 +51,7 @@
 
 TEST(AttachedFile, Create)
 {
-    celduin::AttachedFile f1;
+    jonen::AttachedFile f1;
     EXPECT_EQ("", f1.description());
     EXPECT_EQ("", f1.name());
     EXPECT_EQ("", f1.mime_type());
@@ -59,8 +59,8 @@ TEST(AttachedFile, Create)
     EXPECT_TRUE(!f1.data());
 
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f2("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f2("name", "mime", fd, 42);
     EXPECT_EQ("", f2.description());
     EXPECT_EQ("name", f2.name());
     EXPECT_EQ("mime", f2.mime_type());
@@ -71,7 +71,7 @@ TEST(AttachedFile, Create)
 
 TEST(AttachedFile, Description)
 {
-    celduin::AttachedFile f;
+    jonen::AttachedFile f;
     EXPECT_EQ("", f.description());
     f.description("desc");
     EXPECT_EQ("desc", f.description());
@@ -80,7 +80,7 @@ TEST(AttachedFile, Description)
 
 TEST(AttachedFile, Name)
 {
-    celduin::AttachedFile f;
+    jonen::AttachedFile f;
     EXPECT_EQ("", f.name());
     f.name("name");
     EXPECT_EQ("name", f.name());
@@ -89,7 +89,7 @@ TEST(AttachedFile, Name)
 
 TEST(AttachedFile, Mime)
 {
-    celduin::AttachedFile f;
+    jonen::AttachedFile f;
     EXPECT_EQ("", f.mime_type());
     f.mime_type("mime");
     EXPECT_EQ("mime", f.mime_type());
@@ -98,12 +98,12 @@ TEST(AttachedFile, Mime)
 
 TEST(AttachedFile, Data)
 {
-    celduin::AttachedFile f;
+    jonen::AttachedFile f;
     EXPECT_TRUE(!f.data());
-    celduin::FileData::Ptr data(new celduin::FileData(std::vector<char>()));
-    EXPECT_THROW(f.data(data), celduin::NoAttachedData);
+    jonen::FileData::Ptr data(new jonen::FileData(std::vector<char>()));
+    EXPECT_THROW(f.data(data), jonen::NoAttachedData);
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr data2(new celduin::FileData(*blob));
+    jonen::FileData::Ptr data2(new jonen::FileData(*blob));
     f.data(data2);
     EXPECT_TRUE(*data2 == *f.data());
 }
@@ -111,41 +111,41 @@ TEST(AttachedFile, Data)
 
 TEST(AttachedFile, UID)
 {
-    celduin::AttachedFile f;
+    jonen::AttachedFile f;
     EXPECT_EQ(1, f.uid());
     f.uid(42);
     EXPECT_EQ(42, f.uid());
-    EXPECT_THROW(f.uid(0), celduin::ValueOutOfRange);
+    EXPECT_THROW(f.uid(0), jonen::ValueOutOfRange);
 }
 
 
 TEST(AttachedFile, Size)
 {
-    celduin::StringElement desc(celduin::ids::FileDescription, "");
-    celduin::StringElement name(celduin::ids::FileName, "");
-    celduin::StringElement mime(celduin::ids::FileMimeType, "");
+    jonen::StringElement desc(jonen::ids::FileDescription, "");
+    jonen::StringElement name(jonen::ids::FileName, "");
+    jonen::StringElement mime(jonen::ids::FileMimeType, "");
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr data(new celduin::FileData(*blob));
-    celduin::UIntElement uid(celduin::ids::FileUID, 1);
+    jonen::FileData::Ptr data(new jonen::FileData(*blob));
+    jonen::UIntElement uid(jonen::ids::FileUID, 1);
 
-    celduin::AttachedFile f1;
+    jonen::AttachedFile f1;
     f1.data(data);
     std::streamsize body_size(name.size() + mime.size() + data->size() +
             uid.size());
-    EXPECT_EQ(celduin::ids::size(celduin::ids::AttachedFile) +
-            celduin::vint::size(body_size) + body_size, f1.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
+            jonen::vint::size(body_size) + body_size, f1.size());
 
     desc = "desc";
     name = "name";
     mime = "mime";
     uid = 42;
 
-    celduin::AttachedFile f2("name", "mime", data, 42);
+    jonen::AttachedFile f2("name", "mime", data, 42);
     f2.description("desc");
     body_size = desc.size() + name.size() + mime.size() +
             data->size() + uid.size();
-    EXPECT_EQ(celduin::ids::size(celduin::ids::AttachedFile) +
-            celduin::vint::size(body_size) + body_size, f2.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
+            jonen::vint::size(body_size) + body_size, f2.size());
 }
 
 
@@ -153,25 +153,25 @@ TEST(AttachedFile, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    celduin::StringElement desc(celduin::ids::FileDescription, "");
-    celduin::StringElement name(celduin::ids::FileName, "");
-    celduin::StringElement mime(celduin::ids::FileMimeType, "");
+    jonen::StringElement desc(jonen::ids::FileDescription, "");
+    jonen::StringElement name(jonen::ids::FileName, "");
+    jonen::StringElement mime(jonen::ids::FileMimeType, "");
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr data(new celduin::FileData(*blob));
-    celduin::UIntElement uid(celduin::ids::FileUID, 21);
+    jonen::FileData::Ptr data(new jonen::FileData(*blob));
+    jonen::UIntElement uid(jonen::ids::FileUID, 21);
 
-    celduin::AttachedFile f1;
+    jonen::AttachedFile f1;
     f1.data(data);
     std::streamsize body_size(name.size() + mime.size() + data->size() +
             uid.size());
-    celduin::ids::write(celduin::ids::AttachedFile, expected);
-    celduin::vint::write(body_size, expected);
+    jonen::ids::write(jonen::ids::AttachedFile, expected);
+    jonen::vint::write(body_size, expected);
     name.write(expected);
     mime.write(expected);
     data->write(expected);
     uid.write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::AttachedFile) +
-            celduin::vint::size(body_size) + body_size, f1.write(output));
+    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
+            jonen::vint::size(body_size) + body_size, f1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 
@@ -182,19 +182,19 @@ TEST(AttachedFile, Write)
 
     expected.str(std::string());
     output.str(std::string());
-    celduin::AttachedFile f2("name", "mime", data, 42);
+    jonen::AttachedFile f2("name", "mime", data, 42);
     f2.description("desc");
     body_size = desc.size() + name.size() + mime.size() + data->size() +
         uid.size();
-    celduin::ids::write(celduin::ids::AttachedFile, expected);
-    celduin::vint::write(body_size, expected);
+    jonen::ids::write(jonen::ids::AttachedFile, expected);
+    jonen::vint::write(body_size, expected);
     desc.write(expected);
     name.write(expected);
     mime.write(expected);
     data->write(expected);
     uid.write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::AttachedFile) +
-            celduin::vint::size(body_size) + body_size, f2.write(output));
+    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
+            jonen::vint::size(body_size) + body_size, f2.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 }
@@ -203,22 +203,22 @@ TEST(AttachedFile, Write)
 TEST(AttachedFile, Read)
 {
     std::stringstream input;
-    celduin::StringElement desc(celduin::ids::FileDescription, "");
-    celduin::StringElement name(celduin::ids::FileName, "");
-    celduin::StringElement mime(celduin::ids::FileMimeType, "");
+    jonen::StringElement desc(jonen::ids::FileDescription, "");
+    jonen::StringElement name(jonen::ids::FileName, "");
+    jonen::StringElement mime(jonen::ids::FileMimeType, "");
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr data(new celduin::FileData(*blob));
-    celduin::UIntElement uid(celduin::ids::FileUID, 21);
+    jonen::FileData::Ptr data(new jonen::FileData(*blob));
+    jonen::UIntElement uid(jonen::ids::FileUID, 21);
 
-    celduin::AttachedFile f;
+    jonen::AttachedFile f;
     std::streamsize body_size(name.size() + mime.size() + data->size() +
             uid.size());
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     name.write(input);
     mime.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size, f.read(input));
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size, f.read(input));
     EXPECT_EQ("", f.description());
     EXPECT_EQ("", f.name());
     EXPECT_EQ("", f.mime_type());
@@ -233,13 +233,13 @@ TEST(AttachedFile, Read)
     input.str(std::string());
     body_size = desc.size() + name.size() + mime.size() + data->size() +
         uid.size();
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     desc.write(input);
     name.write(input);
     mime.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size, f.read(input));
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size, f.read(input));
     EXPECT_EQ("desc", f.description());
     EXPECT_EQ("name", f.name());
     EXPECT_EQ("mime", f.mime_type());
@@ -248,50 +248,50 @@ TEST(AttachedFile, Read)
 
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     name.write(input);
     mime.write(input);
-    EXPECT_THROW(f.read(input), celduin::BadBodySize);
+    EXPECT_THROW(f.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(f.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(f.read(input), jonen::InvalidChildID);
     // No name
     input.str(std::string());
-    celduin::vint::write(mime.size() + data->size() + uid.size(), input);
+    jonen::vint::write(mime.size() + data->size() + uid.size(), input);
     mime.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), celduin::MissingChild);
+    EXPECT_THROW(f.read(input), jonen::MissingChild);
     // No MIME type
     input.str(std::string());
-    celduin::vint::write(name.size() + data->size() + uid.size(), input);
+    jonen::vint::write(name.size() + data->size() + uid.size(), input);
     name.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), celduin::MissingChild);
+    EXPECT_THROW(f.read(input), jonen::MissingChild);
     // No data
     input.str(std::string());
-    celduin::vint::write(name.size() + mime.size() + uid.size(), input);
+    jonen::vint::write(name.size() + mime.size() + uid.size(), input);
     name.write(input);
     mime.write(input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), celduin::MissingChild);
+    EXPECT_THROW(f.read(input), jonen::MissingChild);
     // No UID
     input.str(std::string());
-    celduin::vint::write(name.size() + mime.size() + data->size(), input);
+    jonen::vint::write(name.size() + mime.size() + data->size(), input);
     name.write(input);
     mime.write(input);
     data->write(input);
-    EXPECT_THROW(f.read(input), celduin::MissingChild);
+    EXPECT_THROW(f.read(input), jonen::MissingChild);
     // UID is zero
     input.str(std::string());
     uid = 0;
-    celduin::vint::write(uid.size(), input);
+    jonen::vint::write(uid.size(), input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(f.read(input), jonen::ValueOutOfRange);
 }
 
 
@@ -301,18 +301,18 @@ TEST(AttachedFile, Read)
 
 TEST(Attachments, Create)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     EXPECT_TRUE(a.empty());
 }
 
 
 TEST(Attachments, Assignment)
 {
-    celduin::Attachments a1;
-    celduin::Attachments a2;
+    jonen::Attachments a1;
+    jonen::Attachments a2;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
     a1.push_back(f);
 
     EXPECT_TRUE(a2.empty());
@@ -325,10 +325,10 @@ TEST(Attachments, Assignment)
 
 TEST(Attachments, At)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
     a.push_back(f);
     EXPECT_TRUE(a[0] == a.at(0));
     EXPECT_TRUE(*a.at(0).data() == *fd);
@@ -338,18 +338,18 @@ TEST(Attachments, At)
 
 TEST(Attachments, SubscriptOperator)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
     a.push_back(f);
     EXPECT_TRUE(a[0] == a.at(0));
     EXPECT_TRUE(*a[0].data() == *fd);
     EXPECT_NO_THROW(a[1]);
 
     boost::shared_ptr<std::vector<char> > blob2(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd2(new celduin::FileData(*blob));
-    celduin::AttachedFile f2("name2", "mime2", fd, 84);
+    jonen::FileData::Ptr fd2(new jonen::FileData(*blob));
+    jonen::AttachedFile f2("name2", "mime2", fd, 84);
     a[0] = f2;
     EXPECT_TRUE(a[0] == f2);
     EXPECT_TRUE(*a[0].data() == *fd2);
@@ -358,10 +358,10 @@ TEST(Attachments, SubscriptOperator)
 
 TEST(Attachments, BeginEnd)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
 
     EXPECT_TRUE(a.begin() == a.end());
     EXPECT_TRUE(a.rbegin() == a.rend());
@@ -373,10 +373,10 @@ TEST(Attachments, BeginEnd)
 
 TEST(Attachments, Counts)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
 
     EXPECT_TRUE(a.empty());
     a.push_back(f);
@@ -387,10 +387,10 @@ TEST(Attachments, Counts)
 
 TEST(Attachments, Clear)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
     a.push_back(f);
     EXPECT_FALSE(a.empty());
     a.clear();
@@ -400,13 +400,13 @@ TEST(Attachments, Clear)
 
 TEST(Attachments, push_back)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     boost::shared_ptr<std::vector<char> > blob1(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd1(new celduin::FileData(*blob1));
-    celduin::AttachedFile f1("name", "mime", fd1, 42);
+    jonen::FileData::Ptr fd1(new jonen::FileData(*blob1));
+    jonen::AttachedFile f1("name", "mime", fd1, 42);
     boost::shared_ptr<std::vector<char> > blob2(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd2(new celduin::FileData(*blob2));
-    celduin::AttachedFile f2("name", "mime", fd2, 42);
+    jonen::FileData::Ptr fd2(new jonen::FileData(*blob2));
+    jonen::AttachedFile f2("name", "mime", fd2, 42);
 
     EXPECT_TRUE(a.empty());
     a.push_back(f1);
@@ -422,13 +422,13 @@ TEST(Attachments, push_back)
 
 TEST(Attachments, Erase)
 {
-    celduin::Attachments a;
+    jonen::Attachments a;
     boost::shared_ptr<std::vector<char> > blob1(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd1(new celduin::FileData(*blob1));
-    celduin::AttachedFile f1("name", "mime", fd1, 42);
+    jonen::FileData::Ptr fd1(new jonen::FileData(*blob1));
+    jonen::AttachedFile f1("name", "mime", fd1, 42);
     boost::shared_ptr<std::vector<char> > blob2(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd2(new celduin::FileData(*blob2));
-    celduin::AttachedFile f2("name", "mime", fd2, 42);
+    jonen::FileData::Ptr fd2(new jonen::FileData(*blob2));
+    jonen::AttachedFile f2("name", "mime", fd2, 42);
 
     a.push_back(f1);
     a.push_back(f2);
@@ -448,10 +448,10 @@ TEST(Attachments, Erase)
 
 TEST(Attachments, Swap)
 {
-    celduin::Attachments a1, a2;
+    jonen::Attachments a1, a2;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
     a1.push_back(f);
 
     EXPECT_FALSE(a1.empty());
@@ -465,10 +465,10 @@ TEST(Attachments, Swap)
 
 TEST(Attachments, Equality)
 {
-    celduin::Attachments a1, a2;
+    jonen::Attachments a1, a2;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
 
     EXPECT_TRUE(a1 == a2);
     EXPECT_FALSE(a1 != a2);
@@ -482,13 +482,13 @@ TEST(Attachments, Equality)
 TEST(Attachments, Size)
 {
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
 
-    celduin::Attachments a;
+    jonen::Attachments a;
     a.push_back(f);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Attachments) +
-            celduin::vint::size(f.size()) + f.size(), a.size());
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Attachments) +
+            jonen::vint::size(f.size()) + f.size(), a.size());
 }
 
 
@@ -497,21 +497,21 @@ TEST(Attachments, Write)
     std::ostringstream output;
     std::stringstream expected;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
-    celduin::Attachments a;
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
+    jonen::Attachments a;
 
     // No attached files
-    EXPECT_THROW(a.write(output), celduin::NoAttachments);
+    EXPECT_THROW(a.write(output), jonen::NoAttachments);
 
     output.str(std::string());
     a.push_back(f);
     std::streamsize body_size(f.size());
-    celduin::ids::write(celduin::ids::Attachments, expected);
-    celduin::vint::write(body_size, expected);
+    jonen::ids::write(jonen::ids::Attachments, expected);
+    jonen::vint::write(body_size, expected);
     f.write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::Attachments) +
-            celduin::vint::size(body_size) + body_size, a.write(output));
+    EXPECT_EQ(jonen::ids::size(jonen::ids::Attachments) +
+            jonen::vint::size(body_size) + body_size, a.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 }
@@ -521,31 +521,31 @@ TEST(Attachments, Read)
 {
     std::stringstream input;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    celduin::FileData::Ptr fd(new celduin::FileData(*blob));
-    celduin::AttachedFile f("name", "mime", fd, 42);
+    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
+    jonen::AttachedFile f("name", "mime", fd, 42);
 
-    celduin::Attachments a;
+    jonen::Attachments a;
     std::streamsize body_size(f.size());
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     f.write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size, a.read(input));
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size, a.read(input));
     EXPECT_FALSE(a.empty());
     EXPECT_TRUE(*a[0].data() == *fd);
 
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     f.write(input);
-    EXPECT_THROW(a.read(input), celduin::BadBodySize);
+    EXPECT_THROW(a.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(a.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(a.read(input), jonen::InvalidChildID);
     // No attachments
     input.str(std::string());
-    celduin::vint::write(0, input);
-    EXPECT_THROW(a.read(input), celduin::NoAttachments);
+    jonen::vint::write(0, input);
+    EXPECT_THROW(a.read(input), jonen::NoAttachments);
 }
 

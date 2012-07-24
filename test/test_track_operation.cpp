@@ -38,33 +38,33 @@
 
 #include <boost/foreach.hpp>
 #include <gtest/gtest.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/track_operation.h>
-#include <celduin/uint_element.h>
-#include <celduin/vint.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/track_operation.h>
+#include <jonen/uint_element.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(TrackJoinBlocks, Create)
 {
-    celduin::TrackJoinBlocks e;
-    EXPECT_EQ(celduin::ids::TrackJoinBlocks, e.id());
+    jonen::TrackJoinBlocks e;
+    EXPECT_EQ(jonen::ids::TrackJoinBlocks, e.id());
     EXPECT_EQ(0, e.count());
 }
 
 
 TEST(TrackJoinBlocks, Type)
 {
-    celduin::TrackJoinBlocks e;
+    jonen::TrackJoinBlocks e;
     EXPECT_EQ(e.type(), "joinblocks");
 }
 
 
 TEST(TrackJoinBlocks, Append)
 {
-    celduin::TrackJoinBlocks e;
+    jonen::TrackJoinBlocks e;
     e.append(0xFFFF);
     ASSERT_EQ(1, e.count());
     e.append(0xC0C0);
@@ -72,13 +72,13 @@ TEST(TrackJoinBlocks, Append)
     EXPECT_EQ(0xFFFF, e[0]);
     EXPECT_EQ(0xC0C0, e[1]);
 
-    EXPECT_THROW(e.append(0), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.append(0), jonen::ValueOutOfRange);
 }
 
 
 TEST(TrackJoinBlocks, Remove)
 {
-    celduin::TrackJoinBlocks e;
+    jonen::TrackJoinBlocks e;
     e.append(0xFFFF);
     e.append(0xC0C0);
     ASSERT_EQ(2, e.count());
@@ -93,7 +93,7 @@ TEST(TrackJoinBlocks, Remove)
 
 TEST(TrackJoinBlocks, IndexOperator)
 {
-    celduin::TrackJoinBlocks e;
+    jonen::TrackJoinBlocks e;
     e.append(0xFFFF);
     e.append(0xC0C0);
     e.append(0x0101);
@@ -104,9 +104,9 @@ TEST(TrackJoinBlocks, IndexOperator)
 
 TEST(TrackJoinBlocks, Equality)
 {
-    celduin::TrackJoinBlocks e1;
+    jonen::TrackJoinBlocks e1;
     e1.append(0xFFFF);
-    celduin::TrackJoinBlocks e2;
+    jonen::TrackJoinBlocks e2;
     e2.append(0xFFFF);
     EXPECT_TRUE(e1 == e2);
     EXPECT_FALSE(e1 != e2);
@@ -119,26 +119,26 @@ TEST(TrackJoinBlocks, Equality)
 
 TEST(TrackJoinBlocks, Size)
 {
-    celduin::TrackJoinBlocks e;
+    jonen::TrackJoinBlocks e;
 
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackJoinBlocks) +
-            celduin::vint::size(0),
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackJoinBlocks) +
+            jonen::vint::size(0),
             e.size());
 
-    std::vector<celduin::UIntElement> children;
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0xFFFF));
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0xC0C0));
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0x0101));
+    std::vector<jonen::UIntElement> children;
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xFFFF));
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xC0C0));
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(celduin::UIntElement child, children)
+    BOOST_FOREACH(jonen::UIntElement child, children)
     {
         body_size += child.size();
         e.append(child.value());
     }
 
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackJoinBlocks) +
-            celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackJoinBlocks) +
+            jonen::vint::size(body_size) + body_size,
             e.size());
 }
 
@@ -148,28 +148,28 @@ TEST(TrackJoinBlocks, Write)
     std::ostringstream output;
     std::stringstream expected;
 
-    celduin::TrackJoinBlocks e;
+    jonen::TrackJoinBlocks e;
 
-    std::vector<celduin::UIntElement> children;
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0xFFFF));
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0xC0C0));
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0x0101));
+    std::vector<jonen::UIntElement> children;
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xFFFF));
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xC0C0));
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(celduin::UIntElement child, children)
+    BOOST_FOREACH(jonen::UIntElement child, children)
     {
         body_size += child.size();
         e.append(child.value());
     }
-    celduin::ids::write(celduin::ids::TrackJoinBlocks, expected);
-    celduin::vint::write(body_size, expected);
-    BOOST_FOREACH(celduin::UIntElement child, children)
+    jonen::ids::write(jonen::ids::TrackJoinBlocks, expected);
+    jonen::vint::write(body_size, expected);
+    BOOST_FOREACH(jonen::UIntElement child, children)
     {
         child.write(expected);
     }
 
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackJoinBlocks) +
-            celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackJoinBlocks) +
+            jonen::vint::size(body_size) + body_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -179,24 +179,24 @@ TEST(TrackJoinBlocks, Read)
 {
     std::stringstream input;
 
-    std::vector<celduin::UIntElement> children;
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0xFFFF));
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0xC0C0));
-    children.push_back(celduin::UIntElement(celduin::ids::TrackJoinUID, 0x0101));
+    std::vector<jonen::UIntElement> children;
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xFFFF));
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xC0C0));
+    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(celduin::UIntElement child, children)
+    BOOST_FOREACH(jonen::UIntElement child, children)
     {
         body_size += child.size();
     }
-    celduin::vint::write(body_size, input);
-    BOOST_FOREACH(celduin::UIntElement child, children)
+    jonen::vint::write(body_size, input);
+    BOOST_FOREACH(jonen::UIntElement child, children)
     {
         child.write(input);
     }
 
-    celduin::TrackJoinBlocks e;
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    jonen::TrackJoinBlocks e;
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(3, e.count());
     EXPECT_EQ(0xFFFF, e[0]);
@@ -205,21 +205,21 @@ TEST(TrackJoinBlocks, Read)
 
     // No children at all
     input.str(std::string());
-    celduin::vint::write(0, input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    jonen::vint::write(0, input);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
     // TrackJoinBlocks should be clearing its stored UIDs before reading, so
     // the previous test's index should not affect this result
     EXPECT_EQ(0, e.count());
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     children[0].write(input);
-    EXPECT_THROW(e.read(input), celduin::BadBodySize);
+    EXPECT_THROW(e.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
 }
 

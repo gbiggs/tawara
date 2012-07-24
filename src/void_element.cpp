@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/void_element.h>
+#include <jonen/void_element.h>
 
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ VoidElement::VoidElement(std::streamsize tgt_size, bool fill)
     // size and the ID size, will give the same size as size_. Start by
     // estimating the bytes required for the body size.
     size_ = tgt_size - 1;
-    size_ -= celduin::vint::size(size_);
+    size_ -= jonen::vint::size(size_);
     // Check if enough space is used
     if (size() != tgt_size)
     {
@@ -85,7 +85,7 @@ VoidElement::VoidElement(Element const& element, bool fill)
     // element.size(). Start by estimating the bytes required for the body
     // size.
     size_ = element.size() - 1;
-    size_ -= celduin::vint::size(size_);
+    size_ -= jonen::vint::size(size_);
     // Check if enough space is used
     if (size() != element.size())
     {
@@ -116,7 +116,7 @@ void VoidElement::set_size(std::streamsize tgt_size)
     // size and the ID size, will give the same size as size_. Start by
     // estimating the bytes required for the body size.
     size_ = tgt_size - 1;
-    size_ -= celduin::vint::size(size_);
+    size_ -= jonen::vint::size(size_);
     // Check if enough space is used
     if (size() != tgt_size)
     {
@@ -134,7 +134,7 @@ void VoidElement::set_size(std::streamsize tgt_size)
 std::streamsize VoidElement::size() const
 {
     // ID is always 1 byte
-    return 1 + celduin::vint::size(size_) + size_ + extra_size_;
+    return 1 + jonen::vint::size(size_) + size_ + extra_size_;
 }
 
 
@@ -156,8 +156,8 @@ std::streamsize VoidElement::write_body(std::ostream& output)
     std::streamsize result(0);
 
     // Write the body size value padded with extra bytes if necessary
-    result += celduin::vint::write(size_, output,
-            celduin::vint::size(size_) + extra_size_);
+    result += jonen::vint::write(size_, output,
+            jonen::vint::size(size_) + extra_size_);
     if (fill_)
     {
         std::vector<char> zeros(size_, 0);
@@ -187,11 +187,11 @@ std::streamsize VoidElement::read(std::istream& input)
     offset_ = static_cast<std::streamsize>(input.tellg()) -
         ids::size(id_);
     // Get the element's body size
-    vint::ReadResult result = celduin::vint::read(input);
+    vint::ReadResult result = jonen::vint::read(input);
     size_ = result.first;
     std::streamsize read_bytes(result.second);
     // Record the extra body size byte count for future writing
-    extra_size_ = result.second - celduin::vint::size(size_);
+    extra_size_ = result.second - jonen::vint::size(size_);
     return read_bytes + read_body(input, size_);
 }
 

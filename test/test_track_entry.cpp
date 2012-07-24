@@ -40,22 +40,22 @@
 #include <boost/foreach.hpp>
 #include <gtest/gtest.h>
 #include <numeric>
-#include <celduin/binary_element.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/float_element.h>
-#include <celduin/string_element.h>
-#include <celduin/track_entry.h>
-#include <celduin/uint_element.h>
-#include <celduin/vint.h>
+#include <jonen/binary_element.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/float_element.h>
+#include <jonen/string_element.h>
+#include <jonen/track_entry.h>
+#include <jonen/uint_element.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(TrackEntry, Create)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
-    EXPECT_EQ(celduin::ids::TrackEntry, e.id());
+    jonen::TrackEntry e(1, 2, "MDCC");
+    EXPECT_EQ(jonen::ids::TrackEntry, e.id());
     EXPECT_EQ(1, e.number());
     EXPECT_EQ(2, e.uid());
     EXPECT_EQ(0x70, e.type());
@@ -76,45 +76,45 @@ TEST(TrackEntry, Create)
     EXPECT_EQ(0, e.overlays().size());
     EXPECT_FALSE(e.is_virtual());
 
-    EXPECT_THROW(celduin::TrackEntry(0, 2, "MDCC"), celduin::ValueOutOfRange);
-    EXPECT_THROW(celduin::TrackEntry(1, 0, "MDCC"), celduin::ValueOutOfRange);
-    EXPECT_THROW(celduin::TrackEntry(1, 2, ""), celduin::ValueOutOfRange);
+    EXPECT_THROW(jonen::TrackEntry(0, 2, "MDCC"), jonen::ValueOutOfRange);
+    EXPECT_THROW(jonen::TrackEntry(1, 0, "MDCC"), jonen::ValueOutOfRange);
+    EXPECT_THROW(jonen::TrackEntry(1, 2, ""), jonen::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, Number)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(1, e.number());
     e.number(3);
     EXPECT_EQ(3, e.number());
-    EXPECT_THROW(e.number(0), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.number(0), jonen::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, UID)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(2, e.uid());
     e.uid(3);
     EXPECT_EQ(3, e.uid());
-    EXPECT_THROW(e.uid(0), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.uid(0), jonen::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, Type)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0x70, e.type());
     e.type(0x11);
     EXPECT_EQ(0x11, e.type());
-    EXPECT_THROW(e.type(0xFF), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.type(0xFF), jonen::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, Enabled)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_TRUE(e.enabled());
     e.enabled(false);
     EXPECT_FALSE(e.enabled());
@@ -123,7 +123,7 @@ TEST(TrackEntry, Enabled)
 
 TEST(TrackEntry, Forced)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_FALSE(e.forced());
     e.forced(true);
     EXPECT_TRUE(e.forced());
@@ -132,7 +132,7 @@ TEST(TrackEntry, Forced)
 
 TEST(TrackEntry, Lacing)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_TRUE(e.lacing());
     e.lacing(false);
     EXPECT_FALSE(e.lacing());
@@ -141,7 +141,7 @@ TEST(TrackEntry, Lacing)
 
 TEST(TrackEntry, MinCache)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.min_cache());
     e.min_cache(5);
     EXPECT_EQ(5, e.min_cache());
@@ -150,7 +150,7 @@ TEST(TrackEntry, MinCache)
 
 TEST(TrackEntry, MaxCache)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.max_cache());
     e.max_cache(5);
     EXPECT_EQ(5, e.max_cache());
@@ -159,7 +159,7 @@ TEST(TrackEntry, MaxCache)
 
 TEST(TrackEntry, DefaultDuration)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.default_duration());
     e.default_duration(5);
     EXPECT_EQ(5, e.default_duration());
@@ -168,18 +168,18 @@ TEST(TrackEntry, DefaultDuration)
 
 TEST(TrackEntry, TimecodeScale)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_DOUBLE_EQ(1.0, e.timecode_scale());
     e.timecode_scale(0.75);
     EXPECT_DOUBLE_EQ(0.75, e.timecode_scale());
-    EXPECT_THROW(e.timecode_scale(0.0), celduin::ValueOutOfRange);
-    EXPECT_THROW(e.timecode_scale(-1.0), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.timecode_scale(0.0), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.timecode_scale(-1.0), jonen::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, MaxBlockAddID)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.max_block_add_id());
     e.max_block_add_id(0xFFFF);
     EXPECT_EQ(0xFFFF, e.max_block_add_id());
@@ -188,7 +188,7 @@ TEST(TrackEntry, MaxBlockAddID)
 
 TEST(TrackEntry, Name)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ("", e.name());
     e.name("Blag");
     EXPECT_EQ("Blag", e.name());
@@ -197,17 +197,17 @@ TEST(TrackEntry, Name)
 
 TEST(TrackEntry, CodecID)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ("MDCC", e.codec_id());
     e.codec_id("SCDC");
     EXPECT_EQ("SCDC", e.codec_id());
-    EXPECT_THROW(e.codec_id(""), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.codec_id(""), jonen::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, CodecPrivate)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.codec_private().size());
     std::vector<char> priv_data;
     priv_data.push_back(0x00);
@@ -222,7 +222,7 @@ TEST(TrackEntry, CodecPrivate)
 
 TEST(TrackEntry, CodecName)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ("", e.codec_name());
     e.codec_name("Blag");
     EXPECT_EQ("Blag", e.codec_name());
@@ -231,7 +231,7 @@ TEST(TrackEntry, CodecName)
 
 TEST(TrackEntry, AttachmentLink)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.attachment_link());
     e.attachment_link(42);
     EXPECT_EQ(42, e.attachment_link());
@@ -240,7 +240,7 @@ TEST(TrackEntry, AttachmentLink)
 
 TEST(TrackEntry, DecodeAll)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_FALSE(e.decode_all());
     e.decode_all(true);
     EXPECT_TRUE(e.decode_all());
@@ -249,7 +249,7 @@ TEST(TrackEntry, DecodeAll)
 
 TEST(TrackEntry, Overlays)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.overlays().size());
     std::vector<uint64_t> overlays;
     overlays.push_back(0);
@@ -264,10 +264,10 @@ TEST(TrackEntry, Overlays)
 
 TEST(TrackEntry, Operation)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     EXPECT_FALSE(e.is_virtual());
     EXPECT_FALSE(e.operation());
-    boost::shared_ptr<celduin::TrackJoinBlocks> op(new celduin::TrackJoinBlocks);
+    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
     op->append(42);
     e.operation(op);
     EXPECT_TRUE(e.is_virtual());
@@ -277,8 +277,8 @@ TEST(TrackEntry, Operation)
 
 TEST(TrackEntry, Equality)
 {
-    celduin::TrackEntry e1(1, 2, "MDCC");
-    celduin::TrackEntry e2(1, 2, "MDCC");
+    jonen::TrackEntry e1(1, 2, "MDCC");
+    jonen::TrackEntry e2(1, 2, "MDCC");
     std::vector<uint64_t> overlays;
     overlays.push_back(0);
     overlays.push_back(1);
@@ -286,7 +286,7 @@ TEST(TrackEntry, Equality)
     overlays.push_back(3);
     e1.overlays(overlays);
     e2.overlays(overlays);
-    boost::shared_ptr<celduin::TrackJoinBlocks> op(new celduin::TrackJoinBlocks);
+    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
     op->append(42);
     e1.operation(op);
     e2.operation(op);
@@ -303,35 +303,35 @@ namespace test_track_entry
 {
 
 void DoSizeTest(std::vector<test_utils::ElPtr> const& els,
-        celduin::TrackEntry& e, std::string msg)
+        jonen::TrackEntry& e, std::string msg)
 {
     std::streamsize body_size(0);
     BOOST_FOREACH(test_utils::ElPtr el, els)
     {
         body_size += el->size();
     }
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackEntry) +
-            celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
+            jonen::vint::size(body_size) + body_size,
             e.size()) << msg;
 }
 
 
 void DoWriteTest(std::vector<test_utils::ElPtr> const& els,
-        celduin::TrackEntry& e, std::string msg)
+        jonen::TrackEntry& e, std::string msg)
 {
     std::ostringstream output;
     std::stringstream expected;
 
     std::streamsize expected_size(std::accumulate(els.begin(), els.end(), 0,
                 test_utils::TotalSizeOp()));
-    celduin::ids::write(celduin::ids::TrackEntry, expected);
-    celduin::vint::write(expected_size, expected);
+    jonen::ids::write(jonen::ids::TrackEntry, expected);
+    jonen::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, els)
     {
         el->write(expected);
     }
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackEntry) +
-            celduin::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
+            jonen::vint::size(expected_size) + expected_size,
             e.write(output)) << msg;
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str()) << msg;
@@ -343,13 +343,13 @@ std::vector<test_utils::ElPtr> default_children()
     std::vector<test_utils::ElPtr> result;
 
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackNumber, 1)));
+            jonen::UIntElement(jonen::ids::TrackNumber, 1)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackUID, 2)));
+            jonen::UIntElement(jonen::ids::TrackUID, 2)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackType, 0x70)));
+            jonen::UIntElement(jonen::ids::TrackType, 0x70)));
     result.push_back(test_utils::ElPtr(new
-            celduin::StringElement(celduin::ids::CodecID, "MDCC")));
+            jonen::StringElement(jonen::ids::CodecID, "MDCC")));
 
     return result;
 }
@@ -360,13 +360,13 @@ std::vector<test_utils::ElPtr> required_children()
     std::vector<test_utils::ElPtr> result;
 
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackNumber, 4)));
+            jonen::UIntElement(jonen::ids::TrackNumber, 4)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackUID, 42)));
+            jonen::UIntElement(jonen::ids::TrackUID, 42)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackType, 0x11)));
+            jonen::UIntElement(jonen::ids::TrackType, 0x11)));
     result.push_back(test_utils::ElPtr(new
-            celduin::StringElement(celduin::ids::CodecID, "SCDC")));
+            jonen::StringElement(jonen::ids::CodecID, "SCDC")));
 
     return result;
 }
@@ -377,41 +377,41 @@ std::vector<test_utils::ElPtr> possible_children()
     std::vector<test_utils::ElPtr> result;
 
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::FlagEnabled, 0)));
+            jonen::UIntElement(jonen::ids::FlagEnabled, 0)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::FlagForced, 1)));
+            jonen::UIntElement(jonen::ids::FlagForced, 1)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::FlagLacing, 0)));
+            jonen::UIntElement(jonen::ids::FlagLacing, 0)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::MinCache, 24)));
+            jonen::UIntElement(jonen::ids::MinCache, 24)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::MaxCache, 42)));
+            jonen::UIntElement(jonen::ids::MaxCache, 42)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::DefaultDuration, 37)));
+            jonen::UIntElement(jonen::ids::DefaultDuration, 37)));
     result.push_back(test_utils::ElPtr(new
-            celduin::FloatElement(celduin::ids::TrackTimecodeScale, 0.5)));
+            jonen::FloatElement(jonen::ids::TrackTimecodeScale, 0.5)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::MaxBlockAdditionID, 21)));
+            jonen::UIntElement(jonen::ids::MaxBlockAdditionID, 21)));
     result.push_back(test_utils::ElPtr(new
-            celduin::StringElement(celduin::ids::Name, "Blag")));
+            jonen::StringElement(jonen::ids::Name, "Blag")));
     std::vector<char> priv_data;
     priv_data.push_back(0x00);
     priv_data.push_back(0x01);
     priv_data.push_back(0x02);
     priv_data.push_back(0x03);
     result.push_back(test_utils::ElPtr(new
-            celduin::BinaryElement(celduin::ids::CodecPrivate, priv_data)));
+            jonen::BinaryElement(jonen::ids::CodecPrivate, priv_data)));
     result.push_back(test_utils::ElPtr(new
-            celduin::StringElement(celduin::ids::CodecName,
+            jonen::StringElement(jonen::ids::CodecName,
                 "Super-Cool Data Codec")));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::AttachmentLink, 84)));
+            jonen::UIntElement(jonen::ids::AttachmentLink, 84)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::CodecDecodeAll, 1)));
+            jonen::UIntElement(jonen::ids::CodecDecodeAll, 1)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackOverlay, 168)));
+            jonen::UIntElement(jonen::ids::TrackOverlay, 168)));
     result.push_back(test_utils::ElPtr(new
-            celduin::UIntElement(celduin::ids::TrackOverlay, 336)));
+            jonen::UIntElement(jonen::ids::TrackOverlay, 336)));
 
     return result;
 }
@@ -422,14 +422,14 @@ std::vector<test_utils::ElPtr> possible_children()
 
 TEST(TrackEntry, Size)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     std::streamsize body_size(0);
     BOOST_FOREACH(test_utils::ElPtr el, test_track_entry::required_children())
     {
         body_size += el->size();
     }
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackEntry) +
-            celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
+            jonen::vint::size(body_size) + body_size,
             e.size());
 
     std::vector<test_utils::ElPtr>
@@ -523,22 +523,22 @@ TEST(TrackEntry, Size)
     pos_children.erase(pos_children.begin());
     test_track_entry::DoSizeTest(used_children, e, "overlays");
 
-    boost::shared_ptr<celduin::TrackJoinBlocks> op(new celduin::TrackJoinBlocks);
+    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
     op->append(42);
     e.operation(op);
     body_size = std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp());
-    body_size += celduin::ids::size(celduin::ids::TrackOperation) +
-        celduin::vint::size(op->size()) + op->size();
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackEntry) +
-            celduin::vint::size(body_size) + body_size,
+    body_size += jonen::ids::size(jonen::ids::TrackOperation) +
+        jonen::vint::size(op->size()) + op->size();
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
+            jonen::vint::size(body_size) + body_size,
             e.size());
 }
 
 
 TEST(TrackEntry, Write)
 {
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
     test_track_entry::DoWriteTest(test_track_entry::default_children(), e,
             "empty");
 
@@ -634,24 +634,24 @@ TEST(TrackEntry, Write)
 
     std::ostringstream output;
     std::stringstream expected;
-    boost::shared_ptr<celduin::TrackJoinBlocks> op(new celduin::TrackJoinBlocks);
+    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
     op->append(42);
     e.operation(op);
     std::streamsize expected_size(std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp()));
-    expected_size += celduin::ids::size(celduin::ids::TrackOperation) +
-        celduin::vint::size(op->size()) + op->size();
-    celduin::ids::write(celduin::ids::TrackEntry, expected);
-    celduin::vint::write(expected_size, expected);
+    expected_size += jonen::ids::size(jonen::ids::TrackOperation) +
+        jonen::vint::size(op->size()) + op->size();
+    jonen::ids::write(jonen::ids::TrackEntry, expected);
+    jonen::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, used_children)
     {
         el->write(expected);
     }
-    celduin::ids::write(celduin::ids::TrackOperation, expected);
-    celduin::vint::write(op->size(), expected);
+    jonen::ids::write(jonen::ids::TrackOperation, expected);
+    jonen::vint::write(op->size(), expected);
     op->write(expected);
-    EXPECT_EQ(celduin::ids::size(celduin::ids::TrackEntry) +
-            celduin::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
+            jonen::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -664,16 +664,16 @@ TEST(TrackEntry, Read)
     std::vector<test_utils::ElPtr>
         used_children(test_track_entry::required_children());
 
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
 
     std::streamsize body_size(std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp()));
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(4, e.number());
     EXPECT_EQ(42, e.uid());
@@ -701,145 +701,145 @@ TEST(TrackEntry, Read)
         used_children.push_back(el);
         body_size = std::accumulate(used_children.begin(), used_children.end(),
                 0, test_utils::TotalSizeOp());
-        celduin::vint::write(body_size, input);
+        jonen::vint::write(body_size, input);
         BOOST_FOREACH(test_utils::ElPtr uel, used_children)
         {
             uel->write(input);
         }
-        EXPECT_EQ(celduin::vint::size(body_size) + body_size,
+        EXPECT_EQ(jonen::vint::size(body_size) + body_size,
             e.read(input));
     }
 
     // Body size value wrong (too small)
     input.str(std::string());
-    celduin::vint::write(2, input);
+    jonen::vint::write(2, input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), celduin::BadBodySize);
+    EXPECT_THROW(e.read(input), jonen::BadBodySize);
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
     // Missing children
     input.str(std::string());
-    celduin::vint::write(used_children[1]->size() +
+    jonen::vint::write(used_children[1]->size() +
             used_children[2]->size()+
             used_children[3]->size(), input);
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
     input.str(std::string());
-    celduin::vint::write(used_children[0]->size() +
+    jonen::vint::write(used_children[0]->size() +
             used_children[2]->size()+
             used_children[3]->size(), input);
     used_children[0]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
     input.str(std::string());
-    celduin::vint::write(used_children[0]->size() +
+    jonen::vint::write(used_children[0]->size() +
             used_children[1]->size()+
             used_children[3]->size(), input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
     input.str(std::string());
-    celduin::vint::write(used_children[0]->size() +
+    jonen::vint::write(used_children[0]->size() +
             used_children[1]->size()+
             used_children[2]->size(), input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[2]->write(input);
-    EXPECT_THROW(e.read(input), celduin::MissingChild);
+    EXPECT_THROW(e.read(input), jonen::MissingChild);
 }
 
 
 TEST(TrackEntry, ReadOutOfRangeValues)
 {
     std::stringstream input;
-    celduin::TrackEntry e(1, 2, "MDCC");
+    jonen::TrackEntry e(1, 2, "MDCC");
 
-    celduin::UIntElement bad(celduin::ids::TrackNumber, 0);
-    celduin::vint::write(bad.size(), input);
+    jonen::UIntElement bad(jonen::ids::TrackNumber, 0);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::TrackUID);
+    bad.id(jonen::ids::TrackUID);
     bad = 0;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::TrackType);
+    bad.id(jonen::ids::TrackType);
     bad = 255;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::FlagEnabled);
+    bad.id(jonen::ids::FlagEnabled);
     bad = 2;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::FlagForced);
+    bad.id(jonen::ids::FlagForced);
     bad = 2;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::FlagLacing);
+    bad.id(jonen::ids::FlagLacing);
     bad = 2;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::DefaultDuration);
+    bad.id(jonen::ids::DefaultDuration);
     bad = 0;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    celduin::FloatElement bad_f(celduin::ids::TrackTimecodeScale, 0.0);
-    celduin::vint::write(bad_f.size(), input);
+    jonen::FloatElement bad_f(jonen::ids::TrackTimecodeScale, 0.0);
+    jonen::vint::write(bad_f.size(), input);
     bad_f.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
     bad_f = -1.0;
-    celduin::vint::write(bad_f.size(), input);
+    jonen::vint::write(bad_f.size(), input);
     bad_f.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    celduin::StringElement bad_s(celduin::ids::CodecID, "");
-    celduin::vint::write(bad_s.size(), input);
+    jonen::StringElement bad_s(jonen::ids::CodecID, "");
+    jonen::vint::write(bad_s.size(), input);
     bad_s.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::AttachmentLink);
+    bad.id(jonen::ids::AttachmentLink);
     bad = 0;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(celduin::ids::CodecDecodeAll);
+    bad.id(jonen::ids::CodecDecodeAll);
     bad = 2;
-    celduin::vint::write(bad.size(), input);
+    jonen::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
 }
 

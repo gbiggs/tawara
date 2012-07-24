@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/ebml_element.h>
+#include <jonen/ebml_element.h>
 
-#include <celduin/exceptions.h>
-#include <celduin/celduin_config.h>
-#include <celduin/vint.h>
+#include <jonen/exceptions.h>
+#include <jonen/jonen_config.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,14 +51,14 @@ using namespace celduin;
 
 EBMLElement::EBMLElement(std::string const& doc_type)
     : MasterElement(ids::EBML),
-    ver_(ids::EBMLVersion, CelduinEBMLVersion, CelduinEBMLVersion),
-    read_ver_(ids::EBMLReadVersion, CelduinEBMLVersion, CelduinEBMLVersion),
+    ver_(ids::EBMLVersion, JonenEBMLVersion, JonenEBMLVersion),
+    read_ver_(ids::EBMLReadVersion, JonenEBMLVersion, JonenEBMLVersion),
     max_id_length_(ids::EBMLMaxIDLength, 4, 4),
     max_size_length_(ids::EBMLMaxSizeLength, 8, 8),
-    doc_type_(ids::DocType, doc_type, CelduinDocType),
-    doc_type_ver_(ids::DocTypeVersion, CelduinVersionMajor, CelduinVersionMajor),
-    doc_type_read_ver_(ids::DocTypeReadVersion, CelduinVersionMajor,
-            CelduinVersionMajor)
+    doc_type_(ids::DocType, doc_type, JonenDocType),
+    doc_type_ver_(ids::DocTypeVersion, JonenVersionMajor, JonenVersionMajor),
+    doc_type_read_ver_(ids::DocTypeReadVersion, JonenVersionMajor,
+            JonenVersionMajor)
 {
 }
 
@@ -159,12 +159,12 @@ std::streamsize EBMLElement::read_body(std::istream& input,
 
 void EBMLElement::set_defaults_()
 {
-    ver_.value(CelduinEBMLVersion);
-    read_ver_.value(CelduinEBMLVersion);
+    ver_.value(JonenEBMLVersion);
+    read_ver_.value(JonenEBMLVersion);
     max_id_length_.value(4);
     max_size_length_.value(8);
-    doc_type_.value(CelduinDocType);
-    doc_type_ver_.value(CelduinVersionMajor);
-    doc_type_read_ver_.value(CelduinVersionMajor);
+    doc_type_.value(JonenDocType);
+    doc_type_ver_.value(JonenVersionMajor);
+    doc_type_read_ver_.value(JonenVersionMajor);
 }
 

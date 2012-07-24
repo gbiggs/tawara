@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/seek_element.h>
+#include <jonen/seek_element.h>
 
-#include <celduin/vint.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ using namespace celduin;
 
 SeekElement::SeekElement(ids::ID id, std::streampos offset)
     : MasterElement(ids::Seek),
-    indexed_id_(ids::SeekID, celduin::ids::encode(id)),
+    indexed_id_(ids::SeekID, jonen::ids::encode(id)),
     offset_(ids::SeekPosition, offset)
 {
     assert(offset >= 0);

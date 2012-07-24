@@ -37,24 +37,24 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/block_additions.h>
-#include <celduin/el_ids.h>
-#include <celduin/ebml_int.h>
-#include <celduin/exceptions.h>
-#include <celduin/uint_element.h>
-#include <celduin/vint.h>
+#include <jonen/block_additions.h>
+#include <jonen/el_ids.h>
+#include <jonen/ebml_int.h>
+#include <jonen/exceptions.h>
+#include <jonen/uint_element.h>
+#include <jonen/vint.h>
 
 #include "test_utils.h"
 
 
 namespace test_block_add
 {
-    celduin::BlockAdditions::value_type make_add()
+    jonen::BlockAdditions::value_type make_add()
     {
         static unsigned int id(1);
         static size_t size(7);
-        return celduin::BlockAdditions::value_type(new
-                celduin::BlockAdditions::Addition(id++,
+        return jonen::BlockAdditions::value_type(new
+                jonen::BlockAdditions::Addition(id++,
                     *test_utils::make_blob(size)));
         size += 4;
         if (size > 50)
@@ -68,17 +68,17 @@ namespace test_block_add
 
 TEST(BlockAdditionals, Create)
 {
-    celduin::BlockAdditions b;
+    jonen::BlockAdditions b;
     EXPECT_TRUE(b.empty());
 }
 
 
 TEST(BlockAdditionals, Assignment)
 {
-    celduin::BlockAdditions b1;
-    celduin::BlockAdditions b2;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b1;
+    jonen::BlockAdditions b2;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
     b1.push_back(f1);
     b1.push_back(f2);
 
@@ -92,9 +92,9 @@ TEST(BlockAdditionals, Assignment)
 
 TEST(BlockAdditionals, At)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
     b.push_back(f1);
     b.push_back(f2);
     EXPECT_EQ(b[1], b.at(1));
@@ -105,16 +105,16 @@ TEST(BlockAdditionals, At)
 
 TEST(BlockAdditionals, SubscriptOperator)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
     b.push_back(f1);
     b.push_back(f2);
     EXPECT_EQ(b[1], b.at(1));
     EXPECT_EQ(b.at(1)->second.size(), f2->second.size());
     EXPECT_NO_THROW(b[2]);
 
-    celduin::BlockAdditions::value_type f3(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f3(test_block_add::make_add());
     b[1] = f3;
     EXPECT_EQ(b[1], f3);
     EXPECT_EQ(b[1]->first, f3->first);
@@ -124,8 +124,8 @@ TEST(BlockAdditionals, SubscriptOperator)
 
 TEST(BlockAdditionals, BeginEnd)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
 
     EXPECT_TRUE(b.begin() == b.end());
     EXPECT_TRUE(b.rbegin() == b.rend());
@@ -137,9 +137,9 @@ TEST(BlockAdditionals, BeginEnd)
 
 TEST(BlockAdditionals, Counts)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
 
     EXPECT_TRUE(b.empty());
     b.push_back(f1);
@@ -153,8 +153,8 @@ TEST(BlockAdditionals, Counts)
 
 TEST(BlockAdditionals, Clear)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
     b.push_back(f1);
     EXPECT_FALSE(b.empty());
     b.clear();
@@ -164,9 +164,9 @@ TEST(BlockAdditionals, Clear)
 
 TEST(BlockAdditionals, PushBack)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
 
     EXPECT_TRUE(b.empty());
     EXPECT_NO_THROW(b.push_back(f1));
@@ -175,17 +175,17 @@ TEST(BlockAdditionals, PushBack)
     EXPECT_NO_THROW(b.push_back(f2));
     EXPECT_EQ(2, b.count());
 
-    celduin::BlockAdditions::value_type zero(new
-            celduin::BlockAdditions::Addition(0,
+    jonen::BlockAdditions::value_type zero(new
+            jonen::BlockAdditions::Addition(0,
                 *test_utils::make_blob(5)));
-    EXPECT_THROW(b.push_back(zero), celduin::ValueOutOfRange);
+    EXPECT_THROW(b.push_back(zero), jonen::ValueOutOfRange);
 }
 
 
 TEST(BlockAdditionals, Erase)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
     b.push_back(f1);
 
     EXPECT_FALSE(b.empty());
@@ -201,10 +201,10 @@ TEST(BlockAdditionals, Erase)
 
 TEST(BlockAdditionals, Resize)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f3(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f3(test_block_add::make_add());
 
     EXPECT_NO_THROW(b.resize(2));
     EXPECT_EQ(2, b.count());
@@ -214,11 +214,11 @@ TEST(BlockAdditionals, Resize)
 
 TEST(BlockAdditionals, Swap)
 {
-    celduin::BlockAdditions b1;
-    celduin::BlockAdditions b2;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f3(test_block_add::make_add());
+    jonen::BlockAdditions b1;
+    jonen::BlockAdditions b2;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f3(test_block_add::make_add());
     b1.push_back(f1);
     b2.push_back(f2);
     b2.push_back(f3);
@@ -233,12 +233,12 @@ TEST(BlockAdditionals, Swap)
 
 TEST(BlockAdditionals, Equality)
 {
-    celduin::BlockAdditions b1;
-    celduin::BlockAdditions b2;
+    jonen::BlockAdditions b1;
+    jonen::BlockAdditions b2;
     EXPECT_TRUE(b1 == b2);
     EXPECT_FALSE(b1 != b2);
 
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
     b1.push_back(f1);
     EXPECT_FALSE(b1 == b2);
     EXPECT_TRUE(b1 != b2);
@@ -247,9 +247,9 @@ TEST(BlockAdditionals, Equality)
 
 TEST(BlockAdditionals, Size)
 {
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
     // Make sure we only have one value with an AddID of 1
     f1->first = 1;
     f2->first = 2;
@@ -259,18 +259,18 @@ TEST(BlockAdditionals, Size)
     std::streamsize body_size(0);
 
     // First value has a default BlockAddID
-    std::streamsize more_size_1 = celduin::ids::size(celduin::ids::BlockAdditional) +
-        celduin::vint::size(f1->second.size()) + f1->second.size();
-    std::streamsize more_size_2 = celduin::ids::size(celduin::ids::BlockAddID) +
-        celduin::vint::size(celduin::ebml_int::size_u(f1->first)) +
-        celduin::ebml_int::size_u(f1->first) +
-        celduin::ids::size(celduin::ids::BlockAdditional) +
-        celduin::vint::size(f2->second.size()) + f2->second.size();
-    body_size += celduin::ids::size(celduin::ids::BlockMore) * 2 +
-        celduin::vint::size(more_size_1) + more_size_1 +
-        celduin::vint::size(more_size_2) + more_size_2;
-    std::streamsize total_size = celduin::ids::size(celduin::ids::BlockAdditions) +
-        celduin::vint::size(body_size) + body_size;
+    std::streamsize more_size_1 = jonen::ids::size(jonen::ids::BlockAdditional) +
+        jonen::vint::size(f1->second.size()) + f1->second.size();
+    std::streamsize more_size_2 = jonen::ids::size(jonen::ids::BlockAddID) +
+        jonen::vint::size(jonen::ebml_int::size_u(f1->first)) +
+        jonen::ebml_int::size_u(f1->first) +
+        jonen::ids::size(jonen::ids::BlockAdditional) +
+        jonen::vint::size(f2->second.size()) + f2->second.size();
+    body_size += jonen::ids::size(jonen::ids::BlockMore) * 2 +
+        jonen::vint::size(more_size_1) + more_size_1 +
+        jonen::vint::size(more_size_2) + more_size_2;
+    std::streamsize total_size = jonen::ids::size(jonen::ids::BlockAdditions) +
+        jonen::vint::size(body_size) + body_size;
 
     EXPECT_EQ(total_size, b.size());
 }
@@ -281,44 +281,44 @@ TEST(BlockAdditionals, Write)
     std::ostringstream output;
     std::stringstream expected;
 
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
 
-    std::streamsize more_size_1 = celduin::ids::size(celduin::ids::BlockAdditional) +
-        celduin::vint::size(f1->second.size()) + f1->second.size();
-    std::streamsize more_size_2 = celduin::ids::size(celduin::ids::BlockAddID) +
-        celduin::vint::size(celduin::ebml_int::size_u(f1->first)) +
-        celduin::ebml_int::size_u(f1->first) +
-        celduin::ids::size(celduin::ids::BlockAdditional) +
-        celduin::vint::size(f2->second.size()) + f2->second.size();
-    std::streamsize body_size = celduin::ids::size(celduin::ids::BlockMore) * 2 +
-        celduin::vint::size(more_size_1) + more_size_1 +
-        celduin::vint::size(more_size_2) + more_size_2;
-    std::streamsize total_size = celduin::ids::size(celduin::ids::BlockAdditions) +
-        celduin::vint::size(body_size) + body_size;
+    std::streamsize more_size_1 = jonen::ids::size(jonen::ids::BlockAdditional) +
+        jonen::vint::size(f1->second.size()) + f1->second.size();
+    std::streamsize more_size_2 = jonen::ids::size(jonen::ids::BlockAddID) +
+        jonen::vint::size(jonen::ebml_int::size_u(f1->first)) +
+        jonen::ebml_int::size_u(f1->first) +
+        jonen::ids::size(jonen::ids::BlockAdditional) +
+        jonen::vint::size(f2->second.size()) + f2->second.size();
+    std::streamsize body_size = jonen::ids::size(jonen::ids::BlockMore) * 2 +
+        jonen::vint::size(more_size_1) + more_size_1 +
+        jonen::vint::size(more_size_2) + more_size_2;
+    std::streamsize total_size = jonen::ids::size(jonen::ids::BlockAdditions) +
+        jonen::vint::size(body_size) + body_size;
 
     // Make sure we only have one value with an AddID of 1
     f1->first = 1;
     f2->first = 2;
     b.push_back(f1);
     b.push_back(f2);
-    celduin::ids::write(celduin::ids::BlockAdditions, expected);
-    celduin::vint::write(body_size, expected);
+    jonen::ids::write(jonen::ids::BlockAdditions, expected);
+    jonen::vint::write(body_size, expected);
     // First child
-    celduin::ids::write(celduin::ids::BlockMore, expected);
-    celduin::vint::write(more_size_1, expected);
-    celduin::ids::write(celduin::ids::BlockAdditional, expected);
-    celduin::vint::write(f1->second.size(), expected);
+    jonen::ids::write(jonen::ids::BlockMore, expected);
+    jonen::vint::write(more_size_1, expected);
+    jonen::ids::write(jonen::ids::BlockAdditional, expected);
+    jonen::vint::write(f1->second.size(), expected);
     expected.write(&f1->second[0], f1->second.size());
     // Second child
-    celduin::ids::write(celduin::ids::BlockMore, expected);
-    celduin::vint::write(more_size_2, expected);
-    celduin::ids::write(celduin::ids::BlockAddID, expected);
-    celduin::vint::write(celduin::ebml_int::size_u(f2->first), expected);
-    celduin::ebml_int::write_u(f2->first, expected);
-    celduin::ids::write(celduin::ids::BlockAdditional, expected);
-    celduin::vint::write(f2->second.size(), expected);
+    jonen::ids::write(jonen::ids::BlockMore, expected);
+    jonen::vint::write(more_size_2, expected);
+    jonen::ids::write(jonen::ids::BlockAddID, expected);
+    jonen::vint::write(jonen::ebml_int::size_u(f2->first), expected);
+    jonen::ebml_int::write_u(f2->first, expected);
+    jonen::ids::write(jonen::ids::BlockAdditional, expected);
+    jonen::vint::write(f2->second.size(), expected);
     expected.write(&f2->second[0], f2->second.size());
     EXPECT_EQ(total_size, b.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
@@ -326,15 +326,15 @@ TEST(BlockAdditionals, Write)
 
     // No children
     b.clear();
-    EXPECT_THROW(b.write(output), celduin::EmptyBlockAdditionsElement);
+    EXPECT_THROW(b.write(output), jonen::EmptyBlockAdditionsElement);
 
     // Zero value in children
-    celduin::BlockAdditions::value_type zero(new
-            celduin::BlockAdditions::Addition(0,
+    jonen::BlockAdditions::value_type zero(new
+            jonen::BlockAdditions::Addition(0,
                 *test_utils::make_blob(5)));
     b.push_back(f1);
     b[0]->first = 0;
-    EXPECT_THROW(b.write(output), celduin::ValueOutOfRange);
+    EXPECT_THROW(b.write(output), jonen::ValueOutOfRange);
 }
 
 
@@ -342,40 +342,40 @@ TEST(BlockAdditionals, Read)
 {
     std::stringstream input;
 
-    celduin::BlockAdditions b;
-    celduin::BlockAdditions::value_type f1(test_block_add::make_add());
-    celduin::BlockAdditions::value_type f2(test_block_add::make_add());
+    jonen::BlockAdditions b;
+    jonen::BlockAdditions::value_type f1(test_block_add::make_add());
+    jonen::BlockAdditions::value_type f2(test_block_add::make_add());
     // Make sure we only have one value with an AddID of 1
     f1->first = 1;
     f2->first = 2;
 
-    std::streamsize more_size_1 = celduin::ids::size(celduin::ids::BlockAdditional) +
-        celduin::vint::size(f1->second.size()) + f1->second.size();
-    std::streamsize more_size_2 = celduin::ids::size(celduin::ids::BlockAddID) +
-        celduin::vint::size(celduin::ebml_int::size_u(f1->first)) +
-        celduin::ebml_int::size_u(f1->first) +
-        celduin::ids::size(celduin::ids::BlockAdditional) +
-        celduin::vint::size(f2->second.size()) + f2->second.size();
-    std::streamsize body_size = celduin::ids::size(celduin::ids::BlockMore) * 2 +
-        celduin::vint::size(more_size_1) + more_size_1 +
-        celduin::vint::size(more_size_2) + more_size_2;
-    std::streamsize total_size = celduin::vint::size(body_size) + body_size;
+    std::streamsize more_size_1 = jonen::ids::size(jonen::ids::BlockAdditional) +
+        jonen::vint::size(f1->second.size()) + f1->second.size();
+    std::streamsize more_size_2 = jonen::ids::size(jonen::ids::BlockAddID) +
+        jonen::vint::size(jonen::ebml_int::size_u(f1->first)) +
+        jonen::ebml_int::size_u(f1->first) +
+        jonen::ids::size(jonen::ids::BlockAdditional) +
+        jonen::vint::size(f2->second.size()) + f2->second.size();
+    std::streamsize body_size = jonen::ids::size(jonen::ids::BlockMore) * 2 +
+        jonen::vint::size(more_size_1) + more_size_1 +
+        jonen::vint::size(more_size_2) + more_size_2;
+    std::streamsize total_size = jonen::vint::size(body_size) + body_size;
 
-    celduin::vint::write(body_size, input);
+    jonen::vint::write(body_size, input);
     // First child
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(more_size_1, input);
-    celduin::ids::write(celduin::ids::BlockAdditional, input);
-    celduin::vint::write(f1->second.size(), input);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(more_size_1, input);
+    jonen::ids::write(jonen::ids::BlockAdditional, input);
+    jonen::vint::write(f1->second.size(), input);
     input.write(&f1->second[0], f1->second.size());
     // Second child
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(more_size_2, input);
-    celduin::ids::write(celduin::ids::BlockAddID, input);
-    celduin::vint::write(celduin::ebml_int::size_u(f2->first), input);
-    celduin::ebml_int::write_u(f2->first, input);
-    celduin::ids::write(celduin::ids::BlockAdditional, input);
-    celduin::vint::write(f2->second.size(), input);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(more_size_2, input);
+    jonen::ids::write(jonen::ids::BlockAddID, input);
+    jonen::vint::write(jonen::ebml_int::size_u(f2->first), input);
+    jonen::ebml_int::write_u(f2->first, input);
+    jonen::ids::write(jonen::ids::BlockAdditional, input);
+    jonen::vint::write(f2->second.size(), input);
     input.write(&f2->second[0], f2->second.size());
     EXPECT_EQ(total_size, b.read(input));
     EXPECT_EQ(2, b.count());
@@ -386,69 +386,69 @@ TEST(BlockAdditionals, Read)
 
     // No children
     input.str(std::string());
-    celduin::vint::write(0, input);
-    EXPECT_THROW(b.read(input), celduin::EmptyBlockAdditionsElement);
+    jonen::vint::write(0, input);
+    EXPECT_THROW(b.read(input), jonen::EmptyBlockAdditionsElement);
 
     // Missing child
-    celduin::vint::write(celduin::ids::size(celduin::ids::BlockMore) +
-            celduin::vint::size(0), input);
+    jonen::vint::write(jonen::ids::size(jonen::ids::BlockMore) +
+            jonen::vint::size(0), input);
     // First child
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(0, input);
-    EXPECT_THROW(b.read(input), celduin::MissingChild);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(0, input);
+    EXPECT_THROW(b.read(input), jonen::MissingChild);
 
     // Read error
     input.str(std::string());
-    celduin::vint::write(body_size, input);
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(more_size_1, input);
-    EXPECT_THROW(b.read(input), celduin::ReadError);
+    jonen::vint::write(body_size, input);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(more_size_1, input);
+    EXPECT_THROW(b.read(input), jonen::ReadError);
     input.clear();
 
     // Bad body size
     input.str(std::string());
-    celduin::vint::write(celduin::vint::size(more_size_1) + more_size_1 + 5, input);
+    jonen::vint::write(jonen::vint::size(more_size_1) + more_size_1 + 5, input);
     // First child
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(more_size_1, input);
-    celduin::ids::write(celduin::ids::BlockAdditional, input);
-    celduin::vint::write(f1->second.size(), input);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(more_size_1, input);
+    jonen::ids::write(jonen::ids::BlockAdditional, input);
+    jonen::vint::write(f1->second.size(), input);
     input.write(&f1->second[0], f1->second.size());
     // Second child
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(more_size_2, input);
-    celduin::ids::write(celduin::ids::BlockAddID, input);
-    celduin::vint::write(celduin::ebml_int::size_u(f2->first), input);
-    celduin::ebml_int::write_u(f2->first, input);
-    celduin::ids::write(celduin::ids::BlockAdditional, input);
-    celduin::vint::write(f2->second.size(), input);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(more_size_2, input);
+    jonen::ids::write(jonen::ids::BlockAddID, input);
+    jonen::vint::write(jonen::ebml_int::size_u(f2->first), input);
+    jonen::ebml_int::write_u(f2->first, input);
+    jonen::ids::write(jonen::ids::BlockAdditional, input);
+    jonen::vint::write(f2->second.size(), input);
     input.write(&f2->second[0], f2->second.size());
-    EXPECT_THROW(b.read(input), celduin::BadBodySize);
+    EXPECT_THROW(b.read(input), jonen::BadBodySize);
 
     // Invalid child
     input.str(std::string());
-    celduin::UIntElement ue(celduin::ids::EBML, 0xFFFF);
-    celduin::vint::write(ue.size(), input);
+    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(b.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(b.read(input), jonen::InvalidChildID);
     // Invalid child ID deeper down
     input.str(std::string());
-    celduin::vint::write(body_size, input);
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(ue.size(), input);
+    jonen::vint::write(body_size, input);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(b.read(input), celduin::InvalidChildID);
+    EXPECT_THROW(b.read(input), jonen::InvalidChildID);
     // Value out of range
     input.str(std::string());
-    celduin::vint::write(body_size, input);
-    celduin::ids::write(celduin::ids::BlockMore, input);
-    celduin::vint::write(more_size_2, input);
-    celduin::ids::write(celduin::ids::BlockAddID, input);
-    celduin::vint::write(celduin::ebml_int::size_u(0), input);
-    celduin::ebml_int::write_u(0, input);
-    celduin::ids::write(celduin::ids::BlockAdditional, input);
-    celduin::vint::write(f2->second.size(), input);
+    jonen::vint::write(body_size, input);
+    jonen::ids::write(jonen::ids::BlockMore, input);
+    jonen::vint::write(more_size_2, input);
+    jonen::ids::write(jonen::ids::BlockAddID, input);
+    jonen::vint::write(jonen::ebml_int::size_u(0), input);
+    jonen::ebml_int::write_u(0, input);
+    jonen::ids::write(jonen::ids::BlockAdditional, input);
+    jonen::vint::write(f2->second.size(), input);
     input.write(&f2->second[0], f2->second.size());
-    EXPECT_THROW(b.read(input), celduin::ValueOutOfRange);
+    EXPECT_THROW(b.read(input), jonen::ValueOutOfRange);
 }
 

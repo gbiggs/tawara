@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/uint_element.h>
+#include <jonen/uint_element.h>
 
-#include <celduin/ebml_int.h>
-#include <celduin/vint.h>
+#include <jonen/ebml_int.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,20 +81,20 @@ UIntElement& UIntElement::operator=(uint64_t const& rhs)
 
 std::streamsize UIntElement::body_size() const
 {
-    return celduin::ebml_int::size_u(value_);
+    return jonen::ebml_int::size_u(value_);
 }
 
 
 std::streamsize UIntElement::write_body(std::ostream& output)
 {
-    return celduin::ebml_int::write_u(value_, output);
+    return jonen::ebml_int::write_u(value_, output);
 }
 
 
 std::streamsize UIntElement::read_body(std::istream& input,
         std::streamsize size)
 {
-    value_ = celduin::ebml_int::read_u(input, size);
+    value_ = jonen::ebml_int::read_u(input, size);
     return size;
 }
 

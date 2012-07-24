@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/segment_info.h>
+#include <jonen/segment_info.h>
 
 #include <algorithm>
 #include <functional>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////

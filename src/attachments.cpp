@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/attachments.h>
+#include <jonen/attachments.h>
 
 #include <boost/foreach.hpp>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // AttachedFile constructors and destructors
@@ -99,7 +99,7 @@ void AttachedFile::data(FileData::Ptr& data)
 // AttachedFile operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(AttachedFile const& lhs, AttachedFile const& rhs)
+bool jonen::operator==(AttachedFile const& lhs, AttachedFile const& rhs)
 {
     bool data_eq(false);
     if (lhs.data_ && rhs.data_)
@@ -267,7 +267,7 @@ Attachments::Attachments()
 // Attachments operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool celduin::operator==(Attachments const& lhs, Attachments const& rhs)
+bool jonen::operator==(Attachments const& lhs, Attachments const& rhs)
 {
     return lhs.files_ == rhs.files_;
 }

@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/element.h>
+#include <jonen/element.h>
 
 #include <limits>
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -69,7 +69,7 @@ Element::Element(uint32_t id)
 std::streamsize Element::size() const
 {
     std::streamsize body(body_size());
-    return celduin::ids::size(id_) + celduin::vint::size(body) +
+    return jonen::ids::size(id_) + jonen::vint::size(body) +
         body;
 }
 
@@ -89,13 +89,13 @@ std::streamsize Element::write(std::ostream& output)
 
 std::streamsize Element::write_id(std::ostream& output)
 {
-    return celduin::ids::write(id_, output);
+    return jonen::ids::write(id_, output);
 }
 
 
 std::streamsize Element::write_size(std::ostream& output)
 {
-    return celduin::vint::write(body_size(), output);
+    return jonen::vint::write(body_size(), output);
 }
 
 
@@ -110,7 +110,7 @@ std::streamsize Element::read(std::istream& input)
     offset_ = static_cast<std::streamsize>(input.tellg()) -
         ids::size(id_);
     // Get the element's body size
-    vint::ReadResult result = celduin::vint::read(input);
+    vint::ReadResult result = jonen::vint::read(input);
     std::streamsize body_size(result.first);
     std::streamsize read_bytes(result.second);
     // The rest of the read is implemented by child classes
@@ -122,7 +122,7 @@ std::streamsize Element::read(std::istream& input)
 // Other functions in element.h
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize celduin::skip_read(std::istream& input, bool and_id)
+std::streamsize jonen::skip_read(std::istream& input, bool and_id)
 {
     std::streamsize skipped_bytes(0);
     if (and_id)
@@ -137,11 +137,11 @@ std::streamsize celduin::skip_read(std::istream& input, bool and_id)
 }
 
 
-std::streamsize celduin::skip_write(std::iostream& stream, bool and_id)
+std::streamsize jonen::skip_write(std::iostream& stream, bool and_id)
 {
     std::streampos cur_read(stream.tellg());
     stream.seekg(stream.tellp());
-    std::streamsize skipped_bytes = celduin::skip_read(stream, and_id);
+    std::streamsize skipped_bytes = jonen::skip_read(stream, and_id);
     stream.seekp(stream.tellg());
     stream.seekg(cur_read);
     return skipped_bytes;

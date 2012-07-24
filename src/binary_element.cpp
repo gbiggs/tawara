@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <celduin/binary_element.h>
+#include <jonen/binary_element.h>
 
-#include <celduin/exceptions.h>
-#include <celduin/vint.h>
+#include <jonen/exceptions.h>
+#include <jonen/vint.h>
 
-using namespace celduin;
+using namespace jonen;
 
 
 ///////////////////////////////////////////////////////////////////////////////

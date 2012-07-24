@@ -37,11 +37,11 @@
  */
 
 #include <gtest/gtest.h>
-#include <celduin/ebml_int.h>
-#include <celduin/el_ids.h>
-#include <celduin/exceptions.h>
-#include <celduin/int_element.h>
-#include <celduin/vint.h>
+#include <jonen/ebml_int.h>
+#include <jonen/el_ids.h>
+#include <jonen/exceptions.h>
+#include <jonen/int_element.h>
+#include <jonen/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -50,7 +50,7 @@
 namespace test_intel
 {
 
-std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, int64_t data,
+std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, int64_t data,
         bool write_id, bool write_size, bool write_body)
 {
     std::streamsize size(0), total(0);
@@ -58,20 +58,20 @@ std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, int64_t data,
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(celduin::ebml_int::encode_u(id));
+        std::vector<char> tmp(jonen::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_size)
     {
-        size = celduin::ebml_int::size_s(data);
-        std::vector<char> tmp(celduin::vint::encode(size));
+        size = jonen::ebml_int::size_s(data);
+        std::vector<char> tmp(jonen::vint::encode(size));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_body)
     {
-        std::vector<char> tmp(celduin::ebml_int::encode_s(data));
+        std::vector<char> tmp(jonen::ebml_int::encode_s(data));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -83,68 +83,68 @@ std::streamsize fill_buffer(std::string& b, celduin::ids::ID id, int64_t data,
 
 TEST(IntElement, Construction)
 {
-    EXPECT_EQ(celduin::ids::Null, celduin::IntElement(celduin::ids::Null, 1).id());
-    EXPECT_THROW(celduin::IntElement(0x00, 1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(0xFF, 1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(0xFFFF, 1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(0xFFFFFF, 1), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(0xFFFFFFFF, 1), celduin::InvalidElementID);
+    EXPECT_EQ(jonen::ids::Null, jonen::IntElement(jonen::ids::Null, 1).id());
+    EXPECT_THROW(jonen::IntElement(0x00, 1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(0xFF, 1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(0xFFFF, 1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(0xFFFFFF, 1), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(0xFFFFFFFF, 1), jonen::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(celduin::IntElement(0x00, 1, 1), celduin::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(0x00, 1, 1), jonen::InvalidElementID);
 }
 
 
 TEST(IntElement, CopyConstruction)
 {
-    EXPECT_EQ(celduin::ids::Null, celduin::IntElement(celduin::IntElement(celduin::ids::Null, 1)).id());
-    EXPECT_EQ(celduin::ids::Null, celduin::IntElement(celduin::IntElement(celduin::ids::Null, 1, 2)).id());
-    EXPECT_EQ(1, celduin::IntElement(celduin::IntElement(celduin::ids::Null, 1, 2)).value());
-    EXPECT_EQ(2, celduin::IntElement(celduin::IntElement(celduin::ids::Null, 1, 2)).get_default());
+    EXPECT_EQ(jonen::ids::Null, jonen::IntElement(jonen::IntElement(jonen::ids::Null, 1)).id());
+    EXPECT_EQ(jonen::ids::Null, jonen::IntElement(jonen::IntElement(jonen::ids::Null, 1, 2)).id());
+    EXPECT_EQ(1, jonen::IntElement(jonen::IntElement(jonen::ids::Null, 1, 2)).value());
+    EXPECT_EQ(2, jonen::IntElement(jonen::IntElement(jonen::ids::Null, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(celduin::IntElement(celduin::IntElement(0x00, 1)),
-            celduin::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(jonen::IntElement(0x00, 1)),
+            jonen::InvalidElementID);
 }
 
 
 TEST(IntElement, SetID)
 {
-    celduin::IntElement e(celduin::ids::Null, 1);
+    jonen::IntElement e(jonen::ids::Null, 1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(celduin::IntElement(1, 1).id(0x00), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(1, 1).id(0xFF), celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(1, 1).id(0xFFFF),
-            celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(1, 1).id(0xFFFFFF),
-            celduin::InvalidElementID);
-    EXPECT_THROW(celduin::IntElement(1, 1).id(0xFFFFFFFF),
-            celduin::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(1, 1).id(0x00), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(1, 1).id(0xFF), jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(1, 1).id(0xFFFF),
+            jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(1, 1).id(0xFFFFFF),
+            jonen::InvalidElementID);
+    EXPECT_THROW(jonen::IntElement(1, 1).id(0xFFFFFFFF),
+            jonen::InvalidElementID);
 }
 
 
 TEST(IntElement, Assignment)
 {
-    celduin::IntElement e1(1, 1), e2(2, 2);
+    jonen::IntElement e1(1, 1), e2(2, 2);
     e2 = e1;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    celduin::IntElement e3(1, 1, 1), e4(2, 2, 2);
+    jonen::IntElement e3(1, 1, 1), e4(2, 2, 2);
     e4 = e3;
     EXPECT_EQ(e3.value(), e4.value());
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_EQ(e3.get_default(), e4.get_default());
 
-    celduin::IntElement e5(1, 1, 1), e6(2, 2);
+    jonen::IntElement e5(1, 1, 1), e6(2, 2);
     e6 = e5;
     EXPECT_EQ(e5.value(), e6.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_EQ(e5.get_default(), e6.get_default());
 
-    celduin::IntElement e7(1, 1), e8(2, 2, 2);
+    jonen::IntElement e7(1, 1), e8(2, 2, 2);
     e8 = e7;
     EXPECT_EQ(e7.value(), e8.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -161,10 +161,10 @@ TEST(IntElement, Assignment)
 
 TEST(IntElement, Default)
 {
-    EXPECT_FALSE(celduin::IntElement(celduin::ids::Null, 1).has_default());
-    EXPECT_TRUE(celduin::IntElement(celduin::ids::Null, 1, 1).has_default());
+    EXPECT_FALSE(jonen::IntElement(jonen::ids::Null, 1).has_default());
+    EXPECT_TRUE(jonen::IntElement(jonen::ids::Null, 1, 1).has_default());
 
-    celduin::IntElement e1(celduin::ids::Null, 1, 1);
+    jonen::IntElement e1(jonen::ids::Null, 1, 1);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -173,7 +173,7 @@ TEST(IntElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    celduin::IntElement e2(celduin::ids::Null, 1);
+    jonen::IntElement e2(jonen::ids::Null, 1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -181,7 +181,7 @@ TEST(IntElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    celduin::IntElement e3(celduin::ids::Null, 1);
+    jonen::IntElement e3(jonen::ids::Null, 1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -194,17 +194,17 @@ TEST(IntElement, Default)
 
 TEST(IntElement, Value)
 {
-    EXPECT_EQ(1, celduin::IntElement(celduin::ids::Null, 1).value());
-    EXPECT_EQ(1, celduin::IntElement(celduin::ids::Null, 1));
-    EXPECT_EQ(1, celduin::IntElement(celduin::ids::Null, 1, 2).value());
-    EXPECT_EQ(1, celduin::IntElement(celduin::ids::Null, 1, 2));
+    EXPECT_EQ(1, jonen::IntElement(jonen::ids::Null, 1).value());
+    EXPECT_EQ(1, jonen::IntElement(jonen::ids::Null, 1));
+    EXPECT_EQ(1, jonen::IntElement(jonen::ids::Null, 1, 2).value());
+    EXPECT_EQ(1, jonen::IntElement(jonen::ids::Null, 1, 2));
 
-    celduin::IntElement e1(celduin::ids::Null, 1);
+    jonen::IntElement e1(jonen::ids::Null, 1);
     EXPECT_EQ(1, e1.value());
     e1.value(2);
     EXPECT_EQ(2, e1.value());
 
-    celduin::IntElement e2(celduin::ids::Null, 1, 2);
+    jonen::IntElement e2(jonen::ids::Null, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
 }
@@ -212,8 +212,8 @@ TEST(IntElement, Value)
 
 TEST(IntElement, Equality)
 {
-    celduin::IntElement e1(celduin::ids::Null, 1);
-    celduin::IntElement e2(celduin::ids::Null, 1);
+    jonen::IntElement e1(jonen::ids::Null, 1);
+    jonen::IntElement e2(jonen::ids::Null, 1);
 
     EXPECT_TRUE(e1 == e2);
     e2.value(2);
@@ -226,23 +226,23 @@ TEST(IntElement, Write)
     std::ostringstream output;
     std::string expected;
     int64_t value(2);
-    std::streamsize val_size(celduin::ebml_int::size_s(value));
+    std::streamsize val_size(jonen::ebml_int::size_s(value));
 
-    celduin::IntElement e1(0x80, value);
+    jonen::IntElement e1(0x80, value);
     output.str(std::string());
     std::string().swap(expected);
     test_intel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(celduin::ids::size(0x80) + celduin::vint::size(val_size) +
+    EXPECT_EQ(jonen::ids::size(0x80) + jonen::vint::size(val_size) +
             val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = -0x839F18AAl;
-    val_size = celduin::ebml_int::size_s(value);
+    val_size = jonen::ebml_int::size_s(value);
     e1.value(value);
     output.str(std::string());
     std::string().swap(expected);
     test_intel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(celduin::ids::size(0x80) + celduin::vint::size(val_size) +
+    EXPECT_EQ(jonen::ids::size(0x80) + jonen::vint::size(val_size) +
             val_size, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
@@ -253,17 +253,17 @@ TEST(IntElement, Read)
     std::istringstream input;
     std::string input_val;
     int64_t value(5);
-    std::streamsize val_size(celduin::ebml_int::size_s(value));
+    std::streamsize val_size(jonen::ebml_int::size_s(value));
 
-    celduin::IntElement e(0x80, 0);
+    jonen::IntElement e(0x80, 0);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(celduin::vint::size(val_size) + val_size, e.read(input));
+    EXPECT_EQ(jonen::vint::size(val_size) + val_size, e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_EQ(value, e.value());
 
     value = 0x3A958BCD99l;
-    val_size = celduin::ebml_int::size_s(value);
+    val_size = jonen::ebml_int::size_s(value);
     e.value(0);
     e.set_default(0);
     EXPECT_TRUE(e.has_default());
@@ -271,7 +271,7 @@ TEST(IntElement, Read)
     std::string().swap(input_val);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
-    EXPECT_EQ(celduin::vint::size(val_size) + val_size, e.read(input));
+    EXPECT_EQ(jonen::vint::size(val_size) + val_size, e.read(input));
     EXPECT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());
@@ -280,13 +280,13 @@ TEST(IntElement, Read)
     std::string().swap(input_val);
     test_intel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), celduin::ReadError);
+    EXPECT_THROW(e.read(input), jonen::ReadError);
 }
 
 
 TEST(IntElement, Size)
 {
-    celduin::IntElement e(0x80, 1);
+    jonen::IntElement e(0x80, 1);
     EXPECT_EQ(3, e.size());
 
     e.value(0x7FFFFF);

@@ -498,7 +498,7 @@ namespace jonen
              * The element is constructed in-place and called with the same
              * arguments as those supplied to this function. Iterators and
              * references to the elements between pos and the end of the
-             * container are invalidated. 
+             * container are invalidated.
              *
              * Requires C++11 support.
              */

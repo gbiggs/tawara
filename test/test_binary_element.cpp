@@ -71,7 +71,7 @@ namespace test_binary_el
             std::vector<char> b2;
             std::vector<char> b3;
             std::vector<char> b4;
-    }; // class TestBinaryElement
+    }; // class BinaryElementTest
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -322,10 +322,12 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('a', *(ee.begin()));
+        *(ee.begin()) = 'z';
+        EXPECT_EQ('z', *(ee.begin()));
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('a', *(ee.cbegin()));
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
-        BinaryElement ee_const(ids::Null, b1);
+        BinaryElement const ee_const(ids::Null, b1);
         EXPECT_EQ('a', *(ee_const.begin()));
     }
 
@@ -334,10 +336,12 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('h', *(ee.end() - 1));
+        *(ee.end() - 1) = 'z';
+        EXPECT_EQ('z', *(--ee.end()));
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('h', *(ee.cend() - 1));
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
-        BinaryElement ee_const(ids::Null, b1);
+        BinaryElement const ee_const(ids::Null, b1);
         EXPECT_EQ('h', *(ee_const.end() - 1));
     }
 
@@ -346,10 +350,12 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('h', *(ee.rbegin()));
+        *(ee.rbegin()) = 'z';
+        EXPECT_EQ('z', *(ee.rbegin()));
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('h', *(ee.crbegin()));
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
-        BinaryElement ee_const(ids::Null, b1);
+        BinaryElement const ee_const(ids::Null, b1);
         EXPECT_EQ('h', *(ee_const.rbegin()));
     }
 
@@ -358,10 +364,12 @@ namespace test_binary_el
     {
         BinaryElement ee(ids::Null, b1);
         EXPECT_EQ('a', *(ee.rend() - 1));
+        *(ee.rend() - 1) = 'z';
+        EXPECT_EQ('z', *(ee.rend() - 1));
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ('a', *(ee.crend() - 1));
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
-        BinaryElement ee_const(ids::Null, b1);
+        BinaryElement const ee_const(ids::Null, b1);
         EXPECT_EQ('a', *(ee_const.rend() - 1));
     }
 
@@ -463,14 +471,14 @@ namespace test_binary_el
     }
 
 
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
     TEST_F(BinaryElementTest, Emplace)
     {
-#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         BinaryElement ee(ids::Null, b1);
         ee.emplace(ee.begin(), 'm');
         EXPECT_EQ('m', ee[0]);
-#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
     TEST_F(BinaryElementTest, Erase)

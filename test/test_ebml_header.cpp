@@ -38,12 +38,12 @@
 
 #include <gtest/gtest.h>
 #include <jonen/binary_element.h>
-#include <jonen/jonen_config.h>
 #include <jonen/ebml_header.h>
 #include <jonen/element.h>
 #include <jonen/exceptions.h>
 #include <jonen/ids.h>
 #include <jonen/integer_elements.h>
+#include <jonen/jonen_config.h>
 #include <jonen/string_element.h>
 #include <jonen/vint.h>
 
@@ -823,11 +823,11 @@ namespace test_ebml_header
 
         std::streamsize written_bytes = write(ee1, io);
         // Skip the ID
-        io.seekg(4, std::ios::beg);
+        io.seekg(ids::size(ids::EBML), std::ios::beg);
         EBMLHeader ee2;
         std::streamsize read_bytes = read(ee2, io);
 
-        EXPECT_EQ(written_bytes - 4, read_bytes);
+        EXPECT_EQ(written_bytes - ids::size(ids::EBML), read_bytes);
         EXPECT_EQ(JonenEBMLVersion, ee2.version());
         EXPECT_EQ(JonenEBMLVersion, ee2.read_version());
         EXPECT_EQ(5, ee2.max_id_length());

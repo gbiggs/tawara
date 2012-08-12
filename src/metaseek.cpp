@@ -40,6 +40,9 @@
 
 #include <jonen/ids.h>
 #include <jonen/master_element_impl.h>
+#include <jonen/seek.h>
+
+#include <boost/foreach.hpp>
 
 using namespace jonen;
 
@@ -57,15 +60,37 @@ class Metaseek::Impl
 
         std::streamsize body_size() const
         {
-            return master_impl_.crc_size();
+            std::streamsize map_size(0);
+            BOOST_FOREACH(Metaseek::value_type v, map_)
+            {
+                // Size of a child element is the ID size, the space to store
+                // the body size, and the body size
+                std::streamsize id_size = ids::size(ids::SeekID) +
+                    vint::size(ids::size(v.first)) + ids::size(v.first);
+                std::streamsize offset_size = ids::size(ids::SeekID) +
+                    vint::size(ebml_int::size_u(v.second)) +
+                    ebml_int::size_u(v.second);
+                // Total size of the Seek element
+                map_size += ids::size(ids::Seek) +
+                    vint::size(id_size + offset_size) + id_size + offset_size;
+            }
+            return map_size + master_impl_.crc_size();
         }
 
         bool operator==(Impl const& rhs)
         {
-            return master_impl_.crc_enabled() ==
+            return map_ == rhs.map_ &&
+                master_impl_.crc_enabled() ==
                 rhs.master_impl_.crc_enabled();
         }
 
+
+        bool operator<(Impl const& rhs)
+        {
+            return map_ < rhs.map_;
+        }
+
+        Metaseek::storage_type_ map_;
         impl::MasterElementImpl master_impl_;
 };
 
@@ -132,15 +157,310 @@ bool Metaseek::operator==(Metaseek const& rhs)
 }
 
 
+bool Metaseek::operator<(Metaseek const& rhs)
+{
+    return *pimpl_ < *rhs.pimpl_;
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::value_type jonen::make_ms_entry(Metaseek::key_type&& key,
+        Metaseek::mapped_type&& offset)
+{
+    return std::make_pair(key, offset);
+}
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::value_type jonen::make_ms_entry(Metaseek::key_type key,
+        Metaseek::mapped_type offset)
+{
+    return std::make_pair(key, offset);
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
 std::ostream& jonen::operator<<(std::ostream& o, Metaseek const& rhs)
 {
-    return o << "Metaseek with " << "???" << " entries";
+    o << "Metaseek with " << rhs.size() << " entries: [";
+    BOOST_FOREACH(Metaseek::value_type v, rhs)
+    {
+        o << v.first << ':' << v.second << ", ";
+    }
+    return o << ']';
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Metaseek interface
 ///////////////////////////////////////////////////////////////////////////////
+
+Metaseek::allocator_type Metaseek::get_allocator() const
+{
+    return pimpl_->map_.get_allocator();
+}
+
+
+Metaseek::iterator Metaseek::begin()
+{
+    return pimpl_->map_.begin();
+}
+
+
+Metaseek::const_iterator Metaseek::begin() const
+{
+    return pimpl_->map_.begin();
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::const_iterator Metaseek::cbegin() const
+{
+    return pimpl_->map_.cbegin();
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+Metaseek::iterator Metaseek::end()
+{
+    return pimpl_->map_.end();
+}
+
+
+Metaseek::const_iterator Metaseek::end() const
+{
+    return pimpl_->map_.end();
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::const_iterator Metaseek::cend() const
+{
+    return pimpl_->map_.cend();
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+Metaseek::reverse_iterator Metaseek::rbegin()
+{
+    return pimpl_->map_.rbegin();
+}
+
+
+Metaseek::const_reverse_iterator Metaseek::rbegin() const
+{
+    return pimpl_->map_.rbegin();
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::const_reverse_iterator Metaseek::crbegin() const
+{
+    return pimpl_->map_.crbegin();
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+Metaseek::reverse_iterator Metaseek::rend()
+{
+    return pimpl_->map_.rend();
+}
+
+
+Metaseek::const_reverse_iterator Metaseek::rend() const
+{
+    return pimpl_->map_.rend();
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::const_reverse_iterator Metaseek::crend() const
+{
+    return pimpl_->map_.crend();
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+bool Metaseek::empty() const
+{
+    return pimpl_->map_.empty();
+}
+
+
+Metaseek::size_type Metaseek::size() const
+{
+    return pimpl_->map_.size();
+}
+
+
+Metaseek::size_type Metaseek::max_size() const
+{
+    return pimpl_->map_.max_size();
+}
+
+
+void Metaseek::clear()
+{
+    pimpl_->map_.clear();
+}
+
+
+Metaseek::iterator Metaseek::insert(Metaseek::value_type const& value)
+{
+    return pimpl_->map_.insert(value);
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::insert(Metaseek::value_type&& value)
+{
+    return pimpl_->map_.insert(value);
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::insert(Metaseek::const_iterator hint,
+        Metaseek::value_type const& value)
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::insert(Metaseek::iterator hint,
+        Metaseek::value_type const& value)
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+{
+    return pimpl_->map_.insert(hint, value);
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::insert(Metaseek::const_iterator hint,
+        Metaseek::value_type&& value)
+{
+    return pimpl_->map.insert(hint, value);
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+void Metaseek::insert(Metaseek::const_iterator first,
+        Metaseek::const_iterator last)
+{
+    pimpl_->map_.insert(first, last);
+}
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::emplace(Metaseek::key_type id,
+        Metaseek::mapped_type offset)
+{
+    return pimpl_->map_.emplace(id, offset);
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::emplace_hint(Metaseek::const_iterator hint,
+        Metaseek::key_type id, Metaseek::mapped_type offset)
+{
+    return pimpl_->map_.emplace_hint(hint, id, offset);
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::erase(Metaseek::const_iterator position)
+{
+    return pimpl_->map_.erase(position);
+}
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
+void Metaseek::erase(Metaseek::iterator position)
+{
+    pimpl_->map_.erase(position);
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+Metaseek::iterator Metaseek::erase(Metaseek::const_iterator first,
+        Metaseek::const_iterator last)
+{
+    return pimpl_->map_.erase(first, last);
+}
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
+void Metaseek::erase(Metaseek::iterator first, Metaseek::iterator last)
+{
+    pimpl_->map_.erase(first, last);
+}
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+Metaseek::size_type Metaseek::erase(Metaseek::key_type id)
+{
+    return pimpl_->map_.erase(id);
+}
+
+
+Metaseek::size_type Metaseek::count(Metaseek::key_type id) const
+{
+    return pimpl_->map_.count(id);
+}
+
+
+Metaseek::iterator Metaseek::find(Metaseek::key_type id)
+{
+    return pimpl_->map_.find(id);
+}
+
+
+Metaseek::const_iterator Metaseek::find(Metaseek::key_type id) const
+{
+    return pimpl_->map_.find(id);
+}
+
+
+std::pair<Metaseek::iterator, Metaseek::iterator> Metaseek::equal_range(
+        Metaseek::key_type id)
+{
+    return pimpl_->map_.equal_range(id);
+}
+
+
+std::pair<Metaseek::const_iterator, Metaseek::const_iterator> Metaseek::equal_range(
+        Metaseek::key_type id) const
+{
+    return pimpl_->map_.equal_range(id);
+}
+
+
+Metaseek::iterator Metaseek::lower_bound(Metaseek::key_type id)
+{
+    return pimpl_->map_.lower_bound(id);
+}
+
+
+Metaseek::const_iterator Metaseek::lower_bound(Metaseek::key_type id) const
+{
+    return pimpl_->map_.lower_bound(id);
+}
+
+
+Metaseek::iterator Metaseek::upper_bound(Metaseek::key_type id)
+{
+    return pimpl_->map_.upper_bound(id);
+}
+
+
+Metaseek::const_iterator Metaseek::upper_bound(Metaseek::key_type id) const
+{
+    return pimpl_->map_.upper_bound(id);
+}
+
+
+Metaseek::key_compare Metaseek::key_comp() const
+{
+    return pimpl_->map_.key_comp();
+}
+
+
+Metaseek::value_compare Metaseek::value_comp() const
+{
+    return pimpl_->map_.value_comp();
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -174,8 +494,14 @@ std::streamsize Metaseek::read_body(std::istream& i, std::streamsize size)
         ids::ReadResult id_res = ids::read(body_ss);
         ids::ID id(id_res.first);
         body_read += id_res.second;
+        impl::Seek seek_entry(ids::Null, 0);
         switch(id)
         {
+            case ids::Seek:
+                body_read += seek_entry.read(body_ss);
+                new_pimpl->map_.insert(make_ms_entry(seek_entry.element_id(),
+                            seek_entry.segment_offset().value()));
+                break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
                     // The cast here makes Apple's LLVM compiler happy
@@ -201,6 +527,11 @@ std::streamsize Metaseek::start_body(std::iostream& io) const
     // Write the body data to a stringstream first. This can be used to
     // calculate the CRC32 value if necessary.
     std::stringstream body_ss;
+    BOOST_FOREACH(Metaseek::value_type v, pimpl_->map_)
+    {
+        impl::Seek seek_entry(v.first, v.second);
+        write(seek_entry, body_ss);
+    }
     // TODO: This is a lot of copying around just to get things in the right
     // data type.
     std::string body_str(body_ss.str());

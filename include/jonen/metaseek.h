@@ -204,12 +204,80 @@ namespace jonen
              * \return The iterator at the position where the offset was added.
              */
             iterator insert(value_type const& value);
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+            /** \brief Insert a new index entry.
+             *
+             * If an index entry already exists with the same ID, the new
+             * offset is entered into the index after it. No index entries are
+             * overwritten.
+             *
+             * \param[in] value The offset to insert and its ID.
+             *
+             * \return The iterator at the position where the offset was added.
+             */
+            iterator insert(value_type&& value);
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+            /** \brief Insert a new index entry.
+             *
+             * The new entry is inserted as close as possible and before the
+             * given hint. No index entries are overwritten.
+             *
+             * \param[in] hint The insert position hint.
+             * \param[in] value The offset to insert and its ID.
+             *
+             * \return The iterator at the position where the offset was added.
+             */
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+            iterator insert(const_iterator hint, value_type const& value);
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
+            iterator insert(iterator hint, value_type const& value);
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+            /** \brief Insert a new index entry.
+             *
+             * The new entry is inserted as close as possible and before the
+             * given hint. No index entries are overwritten.
+             *
+             * \param[in] hint The insert position hint.
+             * \param[in] value The offset to insert and its ID.
+             *
+             * \return The iterator at the position where the offset was added.
+             */
+            iterator insert(const_interator hint, value_type&& value);
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
             /** \brief Insert a range of offsets.
              *
              * \param[in] first The start of the range.
              * \param[in] last The end of the range.
              */
             void insert(const_iterator first, const_iterator last);
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+            /** \brief Insert a new index entry.
+             *
+             * The new index entry is constructed in-place. No iterators or
+             * references are invalidated.
+             *
+             * \param[in] id The ID for the index entry.
+             * \param[in] offset The byte-offset of the element with the ID.
+             *
+             * \return The iterator at the position where the offset was added.
+             */
+            iterator emplace(key_type id, mapped_type offset);
+            /** \brief Insert a new index entry.
+             *
+             * The new index entry is constructed in-place using hint as a
+             * suggestion for where to put it. No iterators or references are
+             * invalidated.
+             *
+             * \param[in] hint The insert position hint.
+             * \param[in] id The ID for the index entry.
+             * \param[in] offset The byte-offset of the element with the ID.
+             *
+             * \return The iterator at the position where the offset was added.
+             */
+            iterator emplace_hint(const_iterator hint, key_type id,
+                    mapped_type offset);
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
             /** \brief Erase the index entry at the specified iterator.
              *
@@ -245,7 +313,7 @@ namespace jonen
              * \param[in] id The ID to erase.
              * \return The number of entries erased.
              */
-            size_type erase(key_type const& id);
+            size_type erase(key_type id);
             /** \brief Swap this element with another.
              *
              * \param[in] other The other element to swap with.
@@ -256,7 +324,7 @@ namespace jonen
              *
              * \param[in] id The ID to search for.
              */
-            size_type count(key_type const& id) const;
+            size_type count(key_type id) const;
             /** \brief Search for the index entry with the given ID.
              *
              * If multiple offsets exist for the ID, the first one inserted
@@ -266,14 +334,14 @@ namespace jonen
              * \return An iterator to the matching offset, or end() if
              * there is no index entry with that ID.
              */
-            iterator find(key_type const& id);
+            iterator find(key_type id);
             /** \brief Search for the index entry with the given ID.
              *
              * \param[in] id The ID to search for.
              * \return An iterator to the matching offset, or end() if
              * there is no index entry with that ID.
              */
-            const_iterator find(key_type const& id) const;
+            const_iterator find(key_type id) const;
             /** \brief Get a range containing all elements with the given ID.
              *
              * The range is defined by two iterators. One points to the first
@@ -285,7 +353,7 @@ namespace jonen
              *
              * \param[in] id The ID to search for.
              */
-            std::pair<iterator, iterator> equal_range(key_type const& id);
+            std::pair<iterator, iterator> equal_range(key_type id);
             /** \brief Get a range containing all elements with the given ID.
              *
              * The range is defined by two iterators. One points to the first
@@ -298,27 +366,27 @@ namespace jonen
              * \param[in] id The ID to search for.
              */
             std::pair<const_iterator, const_iterator> equal_range(
-                    key_type const& id) const;
+                    key_type id) const;
             /** \brief Find the first element not less than the given ID.
              *
              * \param[in] id The ID to search for.
              */
-            iterator lower_bound(key_type const& id);
+            iterator lower_bound(key_type id);
             /** \brief Find the first element not less than the given ID.
              *
              * \param[in] id The ID to search for.
              */
-            const_iterator lower_bound(key_type const& id) const;
+            const_iterator lower_bound(key_type id) const;
             /** \brief Find the first element greater than the given ID.
              *
              * \param[in] id The ID to search for.
              */
-            iterator upper_bound(key_type const& id);
+            iterator upper_bound(key_type id);
             /** \brief Find the first element greater than the given ID.
              *
              * \param[in] id The ID to search for.
              */
-            const_iterator upper_bound(key_type const& id) const;
+            const_iterator upper_bound(key_type id) const;
 
             /// \brief Get the function used to compare IDs.
             key_compare key_comp() const;
@@ -360,6 +428,20 @@ namespace jonen
 
             bool crc_enabled_impl() const;
     }; // class Metaseek
+
+
+    /** \brief Create an index entry.
+     *
+     * \param[in] id The element ID of the index entry.
+     * \param[in] offset The byte-offset in the stream of the element.
+     */
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
+    Metaseek::value_type make_ms_entry(Metaseek::key_type&& key,
+            Metaseek::mapped_type&& offset);
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
+    Metaseek::value_type make_ms_entry(Metaseek::key_type key,
+            Metaseek::mapped_type offset);
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
     /// \brief Swap EBML header elements

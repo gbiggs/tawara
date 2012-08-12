@@ -32,7 +32,8 @@ set(srcs
     test_string_element.cpp
     test_ebml_header.cpp
     test_seek.cpp
-    test_metaseek.cpp)
+    test_metaseek.cpp
+    test_segment_info.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

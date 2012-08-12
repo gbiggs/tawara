@@ -15,7 +15,8 @@ set(srcs
     master_element_impl.cpp
     ebml_header.cpp
     seek.cpp
-    metaseek.cpp)
+    metaseek.cpp
+    segment_info.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

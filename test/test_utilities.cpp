@@ -38,7 +38,16 @@
 
 #include "test_utilities.h"
 
+#include <boost/crc.hpp>
+#include <boost/foreach.hpp>
 #include <gtest/gtest.h>
+#include <jonen/binary_element.h>
+#include <jonen/ebml_integer.h>
+#include <jonen/vint.h>
+
+using namespace jonen;
+using namespace test_utils;
+
 
 ::testing::AssertionResult test_utils::std_strings_eq(char const* b1_expr,
         char const* b2_expr, std::string const& b1, std::string const& b2)
@@ -125,5 +134,84 @@
         return ::testing::AssertionFailure() << v1_expr << ": 0x" <<
             v1_str.str() << '\t' << v2_expr << ": 0x" << v2_str.str();
     }
+}
+
+
+std::streamsize test_utils::children_size(std::vector<ElPtr> const& children)
+{
+    std::streamsize body_size(0);
+    BOOST_FOREACH(ElPtr el, children)
+    {
+        body_size += el->stored_size();
+    }
+    return body_size;
+}
+
+
+std::streamsize test_utils::fill_buffer(std::string& b, jonen::ids::ID id,
+        std::vector<ElPtr> const& children, bool write_id, bool write_size,
+        bool write_body, bool use_crc)
+{
+    char temp[8];
+    std::streamsize total(0);
+    if (write_id)
+    {
+        // Cheating on the IDs a bit - there is no protection here against
+        // invalid IDs
+        std::vector<char> tmp(ebml_int::encode_u(id));
+        b.append(&tmp[0], 0, tmp.size());
+        total += tmp.size();
+    }
+    if (write_size)
+    {
+        int crc_size(0);
+        if (use_crc)
+        {
+            crc_size = 6;
+        }
+        std::vector<char> tmp(vint::encode(children_size(children) +
+                    crc_size));
+        b.append(&tmp[0], 0, tmp.size());
+        total += tmp.size();
+    }
+    if (write_body)
+    {
+        std::stringstream ss;
+        BOOST_FOREACH(ElPtr el, children)
+        {
+            total += write(*el, ss);
+        }
+        if (use_crc)
+        {
+            boost::crc_32_type crc;
+            crc.process_bytes(ss.str().c_str(), ss.str().length());
+            BinaryElement crc_el(ids::CRC32, std::vector<char>());
+            crc_el.push_back((crc.checksum() & 0x000000FF));
+            crc_el.push_back((crc.checksum() & 0x0000FF00) >> 8);
+            crc_el.push_back((crc.checksum() & 0x00FF0000) >> 16);
+            crc_el.push_back((crc.checksum() & 0xFF000000) >> 24);
+            std::stringstream crc_ss;
+            total += write(crc_el, crc_ss);
+            b += crc_ss.str();
+        }
+        b += ss.str();
+    }
+    return total;
+}
+
+
+std::streamsize test_utils::write_except(std::stringstream& ss,
+        std::vector<ElPtr> const& children, int except)
+{
+    std::streamsize body_size(0);
+    for (int ii(0); ii < children.size(); ++ii)
+    {
+        if (ii == except)
+        {
+            continue;
+        }
+        body_size += write(*children[ii], ss);
+    }
+    return body_size;
 }
 

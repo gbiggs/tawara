@@ -436,10 +436,10 @@ namespace jonen
      * \param[in] offset The byte-offset in the stream of the element.
      */
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
-    Metaseek::value_type make_ms_entry(Metaseek::key_type&& key,
+    Metaseek::value_type make_ms_entry(Metaseek::key_type&& id,
             Metaseek::mapped_type&& offset);
 #else // defined(JONEN_CPLUSPLUS11_SUPPORT)
-    Metaseek::value_type make_ms_entry(Metaseek::key_type key,
+    Metaseek::value_type make_ms_entry(Metaseek::key_type id,
             Metaseek::mapped_type offset);
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 

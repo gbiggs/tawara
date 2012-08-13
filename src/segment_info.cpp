@@ -44,6 +44,7 @@
 
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/uuid/random_generator.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <set>
 
@@ -179,9 +180,14 @@ class SegmentInfo::Impl
 ///////////////////////////////////////////////////////////////////////////////
 
 SegmentInfo::SegmentInfo()
-    : ElementBase<SegmentInfo>(ids::EBML),
-    pimpl_(new Impl()), id_(ids::EBML), offset_(0), writing_(false)
+    : ElementBase<SegmentInfo>(ids::Info),
+    pimpl_(new Impl()), id_(ids::Info), offset_(0), writing_(false)
 {
+    // Set a default UID (done here to lighten constructing Pimpl instances)
+    boost::uuids::random_generator gen;
+    boost::uuids::uuid u = gen();
+    pimpl_->uid_.reserve(16);
+    std::copy(u.begin(), u.end(), pimpl_->uid_.begin());
 }
 
 
@@ -357,7 +363,7 @@ void SegmentInfo::next_fn(std::string const& next_fn)
 }
 
 
-std::vector<std::vector<char> > SegmentInfo::family() const
+std::vector<std::vector<char> > SegmentInfo::families() const
 {
     std::vector<std::vector<char> > result;
     BOOST_FOREACH(BinaryElement const& uid, pimpl_->families_)

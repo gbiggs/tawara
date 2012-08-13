@@ -60,8 +60,27 @@ namespace jonen
 {
     /** \brief The Segment Information element.
      *
-     * This element stores a segment's meta-data, such as its UID and the time
-     * code scale.
+     * The Segment Information element provides the important meta-data about a
+     * segment in a Jonen document, such as the title, date, timecode scale
+     * and links to other segments.
+     *
+     * Some values in the Segment Information cannot be written until after the
+     * segment's data is known:
+     *  - Duration
+     * When writing a segment, it may be necessary to write part of the Segment
+     * Information after the segment's data has been written. When writing,
+     * enough space should be left at the start of the file to write the
+     * Segment Information after filling in the segment's data. Often the
+     * Segment Information can be written with a place-holder value for the
+     * Duration at the start of writing, and then over-written with the correct
+     * value after the segment's data has been written.
+     *
+     * A UID will be generated automatically for new SegmentInfo instances. It
+     * can be retrieved as a binary blob for use in other segments.
+     *
+     * Most values in the Segment Information element are not required. For a
+     * list of which values will not be written to the file unless set, see the
+     * Jonen format specification.
      *
      * The SegmentInfo element uses a CRC32 value by default.
      *
@@ -161,7 +180,7 @@ namespace jonen
              *
              * A segment may be a member of multiple families.
              */
-            std::vector<std::vector<char> > family() const;
+            std::vector<std::vector<char> > families() const;
             /// \brief Add a segment family UID.
             void add_family(BinaryElement const& family);
             /// \brief Add a segment family UID.

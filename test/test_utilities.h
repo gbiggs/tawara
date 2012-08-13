@@ -39,7 +39,10 @@
 #if !defined(TEST_UTILITIES_H_)
 #define TEST_UTILITIES_H_
 
+#include <boost/shared_ptr.hpp>
 #include <gtest/gtest.h>
+#include <jonen/element.h>
+#include <jonen/ids.h>
 #include <vector>
 
 
@@ -49,14 +52,35 @@ namespace test_utils
     ::testing::AssertionResult std_strings_eq(char const* b1_expr,
             char const* b2_expr, std::string const& b1, std::string const& b2);
 
+
     // Tests if two std::string buffers are equal.
     ::testing::AssertionResult std_buffers_eq(char const* b1_expr,
             char const* b2_expr, std::string const& b1, std::string const& b2);
+
 
     // Tests if two std::vector<char> buffers are equal.
     ::testing::AssertionResult std_vectors_eq(char const* v1_expr,
             char const* v2_expr, std::vector<char> const& v1,
             std::vector<char> const& v2);
+
+
+    // A pointer to an element
+    typedef boost::shared_ptr<jonen::Element> ElPtr;
+
+
+    // Calculates the size of a bunch of elements
+    std::streamsize children_size(std::vector<ElPtr> const& children);
+
+
+    // Fills a buffer with the equivalent of a master element
+    std::streamsize fill_buffer(std::string& b, jonen::ids::ID id,
+            std::vector<ElPtr> const& children, bool write_id, bool write_size,
+            bool write_body, bool use_crc=false);
+
+
+    // Writes all elements in a list to a buffer except for one
+    std::streamsize write_except(std::stringstream& ss,
+            std::vector<ElPtr> const& children, int except);
 }; // test_utils
 
 #endif // !defined(TEST_UTILITIES_H_)

@@ -571,10 +571,10 @@ namespace test_segment_info
 
         // Reading all values
         std::string buffer;
-        std::streamsize body_size = fill_buffer(buffer, ids::Info, children,
+        std::streamsize read_size = fill_buffer(buffer, ids::Info, children,
                 false, true, true, true);
         input.str(buffer);
-        EXPECT_EQ(vint::size(body_size) + body_size, ee.read(input));
+        EXPECT_EQ(read_size, ee.read(input));
         check_children_match(ee, children);
 
         // Body size value wrong (too small)
@@ -597,7 +597,8 @@ namespace test_segment_info
 
         // No time code scale should cause the default to be used
         input.str(std::string());
-        body_size = write_except(input, children, 8); // 8 = timecode scale
+        // 8 = timecode scale
+        std::streampos body_size = write_except(input, children, 8);
         input.str(std::string());
         vint::write(body_size, input);
         write_except(input, children, 8); // 8 = timecode scale
@@ -660,6 +661,7 @@ namespace test_segment_info
                 true);
 
         SegmentInfo ee;
+        populate_element(ee, children);
         ee.disable_crc();
         std::stringstream input(buffer);
         EXPECT_EQ(read_size, read(ee, input));
@@ -669,8 +671,8 @@ namespace test_segment_info
         std::string().swap(buffer);
         fill_buffer(buffer, ids::Info, children, false, true, true, true);
         // Corrupt the CRC
-        buffer[3] = 0x00;
-        buffer[4] = 0x00;
+        buffer[5] = 0x00;
+        buffer[6] = 0x00;
         // Attempt to read
         input.str(buffer);
         EXPECT_THROW(read(ee, input), BadCRC);
@@ -695,7 +697,6 @@ namespace test_segment_info
         using boost::dynamic_pointer_cast;
 
         std::stringstream output, expected_ss;
-        std::string expected;
         SegmentInfo ee;
         ee.disable_crc();
 
@@ -716,9 +717,10 @@ namespace test_segment_info
                 output.tellp());
 
         // Write with everything set
+        output.str(std::string());
         populate_element(ee, children);
+        std::string expected;
         fill_buffer(expected, ids::Info, children, true, true, true);
-
         body_size = children_size(children);
         EXPECT_EQ(ids::size(ids::Info) + vint::size(body_size) + body_size,
                 ee.start_write(output));
@@ -734,7 +736,6 @@ namespace test_segment_info
         using boost::dynamic_pointer_cast;
 
         std::stringstream output, expected_ss;
-        std::string expected;
         SegmentInfo ee;
         ee.disable_crc();
 
@@ -761,9 +762,10 @@ namespace test_segment_info
                 output.tellp());
 
         // Write with everything set
+        output.str(std::string());
         populate_element(ee, children);
+        std::string expected;
         fill_buffer(expected, ids::Info, children, true, true, true);
-
         body_size = children_size(children);
         ee.start_write(output);
         EXPECT_EQ(ids::size(ids::Info) + vint::size(body_size) + body_size,
@@ -783,7 +785,6 @@ namespace test_segment_info
         using boost::dynamic_pointer_cast;
 
         std::stringstream output, expected_ss;
-        std::string expected;
         SegmentInfo ee;
         ee.disable_crc();
 
@@ -796,7 +797,6 @@ namespace test_segment_info
         ids::write(ids::Info, expected_ss);
         vint::write(body_size, expected_ss);
         write(*children[8], expected_ss);
-        ee.start_write(output);
         EXPECT_EQ(ids::size(ids::Info) + vint::size(body_size) + body_size,
                 write(ee, output));
         EXPECT_PRED_FORMAT2(std_buffers_eq, output.str(), expected_ss.str());
@@ -805,11 +805,11 @@ namespace test_segment_info
                 output.tellp());
 
         // Write with everything set
+        output.str(std::string());
         populate_element(ee, children);
+        std::string expected;
         fill_buffer(expected, ids::Info, children, true, true, true);
-
         body_size = children_size(children);
-        ee.start_write(output);
         EXPECT_EQ(ids::size(ids::Info) + vint::size(body_size) + body_size,
                 write(ee, output));
         EXPECT_PRED_FORMAT2(std_buffers_eq, output.str(), expected);
@@ -823,7 +823,7 @@ namespace test_segment_info
     {
         using boost::dynamic_pointer_cast;
 
-        std::stringstream output, expected_ss;
+        std::stringstream output;
         std::string expected;
         SegmentInfo ee;
 
@@ -833,16 +833,13 @@ namespace test_segment_info
 
         ee.enable_crc();
         populate_element(ee, children);
-        std::streamsize body_size(0);
-        body_size = fill_buffer(expected, ids::Info, children, true, true,
+        std::streamsize written_size(0);
+        written_size = fill_buffer(expected, ids::Info, children, true, true,
                 true, true);
-        ee.start_write(output);
-        EXPECT_EQ(ids::size(ids::Info) + vint::size(body_size) + body_size,
-                write(ee, output));
-        EXPECT_PRED_FORMAT2(std_buffers_eq, output.str(), expected_ss.str());
+        EXPECT_EQ(written_size, write(ee, output));
+        EXPECT_PRED_FORMAT2(std_buffers_eq, output.str(), expected);
         // Post-condition test
-        EXPECT_EQ(ids::size(ids::Info) + vint::size(body_size) + body_size,
-                output.tellp());
+        EXPECT_EQ(written_size, output.tellp());
     }
 
 

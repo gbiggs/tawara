@@ -32,7 +32,8 @@ set(hdrs ${config_h}
     ebml_header.h
     seek.h
     metaseek.h
-    segment_info.h)
+    segment_info.h
+    attached_file.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

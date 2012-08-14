@@ -690,7 +690,7 @@ Element name         Level EBML ID     Ma Mu Rng   Default T Description
 ==================== ===== =========== == == ===== ======= = ===========
 Attachments          1     19 41 A4 69                     m Contains attached data.
 AttachedFile         2     61 A7       \* \*               m An attached file.
-FileDescription      3     46 7E                           s A human-friendly name for the attached file.
+FileDescription      3     46 7E                           s A human-friendly description for the attached file.
 FileName             3     46 6E       \*                  s File name of the attached file.
 FileMimeType         3     46 60       \*                  s MIME type of the file.
 FileData             3     46 5C       \*                  b The data of the file.

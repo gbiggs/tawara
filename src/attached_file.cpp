@@ -112,9 +112,9 @@ class AttachedFile::Impl
 AttachedFile::AttachedFile(std::string const& name,
         std::string const& mime_type, std::vector<char> const& data,
         unsigned long long int uid, std::string const& desc)
-    : ElementBase<AttachedFile>(ids::Info),
+    : ElementBase<AttachedFile>(ids::AttachedFile),
     pimpl_(new Impl(name, mime_type, data, uid, desc)),
-    id_(ids::Info), offset_(0), writing_(false)
+    id_(ids::AttachedFile), offset_(0), writing_(false)
 {
     if (name.empty())
     {
@@ -331,6 +331,8 @@ std::streamsize AttachedFile::read_body(std::istream& i, std::streamsize size)
 {
     std::streamsize read_bytes(0);
 
+    bool no_name(true), no_mime(true), no_data(true), no_uid(true);
+
     // Start with a clean slate
     boost::scoped_ptr<Impl> new_pimpl(new Impl());
 
@@ -356,15 +358,19 @@ std::streamsize AttachedFile::read_body(std::istream& i, std::streamsize size)
                 break;
             case ids::FileName:
                 body_read += new_pimpl->name_.read(body_ss);
+                no_name = false;
                 break;
             case ids::FileMimeType:
                 body_read += new_pimpl->mime_.read(body_ss);
+                no_mime = false;
                 break;
             case ids::FileData:
                 body_read += new_pimpl->data_.read(body_ss);
+                no_data = false;
                 break;
             case ids::FileUID:
                 body_read += new_pimpl->uid_.read(body_ss);
+                no_uid = false;
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
@@ -378,6 +384,11 @@ std::streamsize AttachedFile::read_body(std::istream& i, std::streamsize size)
         // Read more than was specified by the body size value
         throw BadBodySize() << err_id(id_) << err_el_size(size) <<
             err_pos(offset_);
+    }
+    if (no_name || no_mime || no_data || no_uid)
+    {
+        // Missing child
+        throw MissingChild() << err_par_id(id_) << err_pos(offset_);
     }
 
     pimpl_.swap(new_pimpl);

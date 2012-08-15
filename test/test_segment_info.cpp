@@ -201,6 +201,7 @@ namespace test_segment_info
         populate_element(ee1, children);
 
         SegmentInfo ee2;
+        EXPECT_FALSE(ee1 == ee2);
         ee2 = ee1;
         EXPECT_TRUE(ee1 == ee2);
     }
@@ -572,7 +573,7 @@ namespace test_segment_info
         // Reading all values
         std::string buffer;
         std::streamsize read_size = fill_buffer(buffer, ids::Info, children,
-                false, true, true, true);
+                false, true, true);
         input.str(buffer);
         EXPECT_EQ(read_size, ee.read(input));
         check_children_match(ee, children);

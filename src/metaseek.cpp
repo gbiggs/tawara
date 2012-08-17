@@ -80,8 +80,7 @@ class Metaseek::Impl
         bool operator==(Impl const& rhs)
         {
             return map_ == rhs.map_ &&
-                master_impl_.crc_enabled() ==
-                rhs.master_impl_.crc_enabled();
+                master_impl_.crc_enabled() == rhs.master_impl_.crc_enabled();
         }
 
 

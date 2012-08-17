@@ -228,6 +228,7 @@ namespace jonen
                     return value_.back();
                 }
 
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /// \brief Get a pointer to the underlying array.
                 char* data()
                 {
@@ -238,6 +239,7 @@ namespace jonen
                 {
                     return value_.data();
                 }
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /// \brief Get an iterator to the first element of the container.
                 iterator begin()
@@ -249,7 +251,7 @@ namespace jonen
                 {
                     return value_.begin();
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Get an iterator to the first element of the container.
                  *
                  * Requires C++11 support.
@@ -258,7 +260,7 @@ namespace jonen
                 {
                     return value_.cbegin();
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /** \brief Get an iterator to the element following the last
                  * element of the container.
@@ -274,7 +276,7 @@ namespace jonen
                 {
                     return value_.end();
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Get an iterator to the element following the last
                  * element of the container.
                  *
@@ -284,7 +286,7 @@ namespace jonen
                 {
                     return value_.cend();
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /** \brief Get a reverse iterator to the first element of the
                  * reversed container.
@@ -300,7 +302,7 @@ namespace jonen
                 {
                     return value_.rbegin();
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Get a reverse iterator to the first element of the
                  * reversed container.
                  *
@@ -310,7 +312,7 @@ namespace jonen
                 {
                     return value_.crbegin();
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /** \brief Get a reverse iterator to the element following the
                  * last element of the reversed container.
@@ -326,7 +328,7 @@ namespace jonen
                 {
                     return value_.rend();
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Get a reverse iterator to the element following the
                  * last element of the reversed container.
                  *
@@ -336,7 +338,7 @@ namespace jonen
                 {
                     return value_.crend();
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /// \brief Check if the container is empty.
                 bool empty() const
@@ -374,7 +376,7 @@ namespace jonen
                     return value_.capacity();
                 }
 
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Request the removal of unused capacity.
                  *
                  * This is non-binding: the request is not guaranteed to be
@@ -386,7 +388,7 @@ namespace jonen
                 {
                     value_.shrink_to_fit();
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /** \brief Remove all elements from the container.
                  *
@@ -402,7 +404,7 @@ namespace jonen
                 {
                     return value_.insert(pos, value);
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert value before the element pointed to by pos.
                  *
                  * Requires C++11 support.
@@ -411,8 +413,8 @@ namespace jonen
                 {
                     return value_.insert(pos, value);
                 }
-#endif // __cplusplus > 199711L
-#if __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert value before the element pointed to by pos.
                  *
                  * Requires C++11 support.
@@ -421,7 +423,7 @@ namespace jonen
                 {
                     return value_.insert(pos, value);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert count copies of the value before the element
                  * pointed to by pos.
                  */
@@ -429,7 +431,7 @@ namespace jonen
                 {
                     value_.insert(pos, count, value);
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert count copies of the value before the element
                  * pointed to by pos.
                  *
@@ -439,7 +441,7 @@ namespace jonen
                 {
                     return value_.insert(pos, count, value);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert elements from the range [first, last) before the
                  * element pointed to by pos.
                  */
@@ -448,7 +450,7 @@ namespace jonen
                 {
                     value_.insert(pos, first, last);
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert elements from the range [first, last) before the
                  * element pointed to by pos.
                  *
@@ -460,8 +462,8 @@ namespace jonen
                 {
                     return value_.insert(pos, first, last);
                 }
-#endif // __cplusplus > 199711L
-#if __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert elements from the initialiser list ilist.
                  *
                  * Requires C++11 support.
@@ -471,9 +473,9 @@ namespace jonen
                 {
                     return value_.insert(pos, ilist);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Insert a new element at the specified position in the
                  * container.
                  *
@@ -489,7 +491,7 @@ namespace jonen
                 {
                     return value_.emplace(pos, args);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 #if !defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /// \brief Removes the element at pos.
@@ -498,7 +500,7 @@ namespace jonen
                     return value_.erase(pos);
                 }
 #endif // !defined(JONEN_CPLUSPLUS11_SUPPORT)
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Removes the element at pos.
                  *
                  * Requires C++11 support.
@@ -507,7 +509,7 @@ namespace jonen
                 {
                     return value_.erase(pos);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 #if !defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /// \brief Removes the elements in the range [first, last).
                 iterator erase(iterator first, iterator last)
@@ -515,7 +517,7 @@ namespace jonen
                     return value_.erase(first, last);
                 }
 #endif // !defined(JONEN_CPLUSPLUS11_SUPPORT)
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Removes the elements in the range [first, last).
                  *
                  * Requires C++11 support.
@@ -524,7 +526,7 @@ namespace jonen
                 {
                     return value_.erase(first, last);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /** \brief Appends the given element to the end of the container.
                  *
@@ -536,7 +538,7 @@ namespace jonen
                 {
                     return value_.push_back(value);
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Appends the given element to the end of the container.
                  *
                  * If size() is not larger than capacity(), no iterators or
@@ -549,9 +551,9 @@ namespace jonen
                 {
                     value_.push_back(value);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Appends a new element to the end of the container.
                  *
                  * The element is constructed in place, and called with the same
@@ -568,7 +570,7 @@ namespace jonen
                 {
                     value_.emplace_back(args);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
                 /** \brief Removes the last element of the container.
                  *
@@ -591,7 +593,7 @@ namespace jonen
                 {
                     value_.resize(count, value);
                 }
-#if __cplusplus > 199711L
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Resizes the container to contain count elements.
                  *
                  * If the current size is less than count, additional elements are
@@ -606,8 +608,8 @@ namespace jonen
                 {
                     value_.resize(count);
                 }
-#endif // __cplusplus > 199711L
-#if __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
                 /** \brief Resizes the container to contain count elements.
                  *
                  * If the current size is less than count, additional elements are
@@ -622,7 +624,7 @@ namespace jonen
                 {
                     value_.resize(count, value);
                 }
-#endif // __cplusplus > 199711L
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
             private:
                 ///////////////////////////////////////////////////////////////////

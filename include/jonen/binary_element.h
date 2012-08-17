@@ -98,7 +98,8 @@ namespace jonen
              * \param[in] id The ID of the element.
              * \param[in] value The value of the element.
              */
-            BinaryElement(ids::ID id, std::vector<char> const& value);
+            BinaryElement(ids::ID id,
+                    std::vector<BinaryElement::value_type> const& value);
 
             /** \brief Constructor.
              *
@@ -106,8 +107,9 @@ namespace jonen
              * \param[in] value The value of the element.
              * \param[in] default_val The default value of the element.
              */
-            BinaryElement(jonen::ids::ID id, std::vector<char> const& value,
-                    std::vector<char> const& default_val);
+            BinaryElement(jonen::ids::ID id,
+                    std::vector<BinaryElement::value_type> const& value,
+                    std::vector<BinaryElement::value_type> const& default_val);
 
             /** \brief Swap this element with another.
              *
@@ -123,14 +125,14 @@ namespace jonen
              *
              * \param[in] other The other value to swap with.
              */
-            void swap(std::vector<char>& other);
+            void swap(std::vector<value_type>& other);
 
             /** \brief Assignment-to-value operator.
              *
              * This operator assigns just the value of the element. The ID and
              * default value are left unchanged.
              */
-            BinaryElement& operator=(std::vector<char> const& rhs)
+            BinaryElement& operator=(std::vector<value_type> const& rhs)
             {
                 value(rhs);
                 return *this;
@@ -145,14 +147,14 @@ namespace jonen
 
             /// \brief Less-than comparison operator.
             friend bool operator<(BinaryElement const& lhs,
-                    std::vector<char> const& rhs)
+                    std::vector<value_type> const& rhs)
             {
                 return lhs.value() < rhs;
             }
 
             /// \brief Greater-than comparison operator.
             friend bool operator>(BinaryElement const& lhs,
-                    std::vector<char> const& rhs)
+                    std::vector<value_type> const& rhs)
             {
                 return lhs.value() > rhs;
             }
@@ -165,7 +167,7 @@ namespace jonen
             // Vector interface member functions
 
             /// \brief Replace the contents of the container.
-            void assign(size_type count, char value)
+            void assign(size_type count, value_type value)
             {
                 return impl_.assign(count, value);
             }
@@ -240,16 +242,18 @@ namespace jonen
                 return impl_.back();
             }
 
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
             /// \brief Get a pointer to the underlying array.
-            char* data()
+            value_type* data()
             {
                 return impl_.data();
             }
             /// \brief Get a pointer to the underlying array.
-            char const* data() const
+            value_type const* data() const
             {
                 return impl_.data();
             }
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
             /// \brief Get an iterator to the first element of the container.
             iterator begin()
@@ -411,7 +415,7 @@ namespace jonen
 
 #if !defined(JONEN_CPLUSPLUS11_SUPPORT)
             /// \brief Insert value before the element pointed to by pos.
-            iterator insert(iterator pos, char const& value)
+            iterator insert(iterator pos, value_type value)
             {
                 return impl_.insert(pos, value);
             }
@@ -421,7 +425,7 @@ namespace jonen
              *
              * Requires C++11 support.
              */
-            iterator insert(const_iterator pos, char const& value)
+            iterator insert(const_iterator pos, value_type value)
             {
                 return impl_.insert(pos, value);
             }
@@ -431,7 +435,7 @@ namespace jonen
              *
              * Requires C++11 support.
              */
-            iterator insert(const_iterator pos, char&& value)
+            iterator insert(const_iterator pos, value_type&& value)
             {
                 return impl_.insert(pos, value);
             }
@@ -440,7 +444,7 @@ namespace jonen
             /** \brief Insert count copies of the value before the element
              * pointed to by pos.
              */
-            void insert(iterator pos, size_type count, char const& value)
+            void insert(iterator pos, size_type count, value_type value)
             {
                 impl_.insert(pos, count, value);
             }
@@ -451,7 +455,7 @@ namespace jonen
              *
              * Requires C++11 support.
              */
-            iterator insert(const_iterator pos, size_type count, char const& value)
+            iterator insert(const_iterator pos, size_type count, value_type value)
             {
                 return impl_.insert(pos, count, value);
             }
@@ -485,7 +489,7 @@ namespace jonen
              * Requires C++11 support.
              */
             iterator insert(const_iterator pos,
-                    std::initializer_list<char> ilist)
+                    std::initializer_list<value_type> ilist)
             {
                 return impl_.insert(pos, ilist);
             }
@@ -550,7 +554,7 @@ namespace jonen
              * references are invalidated. Otherwise all iterators and
              * references are invalidated.
              */
-            void push_back(char value)
+            void push_back(value_type value)
             {
                 return impl_.push_back(value);
             }
@@ -563,7 +567,7 @@ namespace jonen
              *
              * Requires C++11 support.
              */
-            void push_back(char&& value)
+            void push_back(value_type&& value)
             {
                 impl_.push_back(value);
             }
@@ -605,7 +609,7 @@ namespace jonen
              * If the current size is greater than count, the container is
              * reduced to its first count elements.
              */
-            void resize(size_type count, char value = '\0')
+            void resize(size_type count, value_type value = '\0')
             {
                 impl_.resize(count, value);
             }
@@ -649,14 +653,14 @@ namespace jonen
 
             // TODO: Fix the PrimitiveElement virtual functions to use
             // references automatically where appropriate.
-            virtual std::vector<char> value_impl() const
+            virtual std::vector<value_type> value_impl() const
             {
                 return impl_.value();
             }
 
             // TODO: Fix the PrimitiveElement virtual functions to use
             // references automatically where appropriate.
-            virtual void value_impl(std::vector<char> value)
+            virtual void value_impl(std::vector<value_type> value)
             {
                 impl_.value(value);
             }
@@ -668,21 +672,21 @@ namespace jonen
 
             // TODO: Fix the PrimitiveElement virtual functions to use
             // references automatically where appropriate.
-            virtual std::vector<char> get_default_impl() const
+            virtual std::vector<value_type> get_default_impl() const
             {
                 return impl_.get_default();
             }
 
             // TODO: Fix the PrimitiveElement virtual functions to use
             // references automatically where appropriate.
-            virtual void set_default_impl(std::vector<char> default_value)
+            virtual void set_default_impl(std::vector<value_type> default_value)
             {
                 impl_.set_default(default_value);
             }
 
             // TODO: Fix the PrimitiveElement virtual functions to use
             // references automatically where appropriate.
-            virtual std::vector<char> remove_default_impl()
+            virtual std::vector<value_type> remove_default_impl()
             {
                 return impl_.remove_default();
             }
@@ -718,7 +722,7 @@ namespace jonen
      * Only the value is swapped. The ID and default value are left
      * unchanged.
      */
-    void swap(BinaryElement& a, std::vector<char>& b);
+    void swap(BinaryElement& a, std::vector<BinaryElement::value_type>& b);
 
 
     /// \brief Stream output operator.

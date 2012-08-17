@@ -309,6 +309,7 @@ namespace test_binary_el
     }
 
 
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
     TEST_F(BinaryElementTest, Data)
     {
         BinaryElement ee(ids::Null, b1);
@@ -316,6 +317,7 @@ namespace test_binary_el
         BinaryElement const ee_const(ids::Null, b1);
         EXPECT_EQ('a', *ee_const.data());
     }
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
     TEST_F(BinaryElementTest, Begin)

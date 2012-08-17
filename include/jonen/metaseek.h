@@ -444,7 +444,7 @@ namespace jonen
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
-    /// \brief Swap EBML header elements
+    /// \brief Swap elements
     void swap(Metaseek& a, Metaseek& b);
 
 

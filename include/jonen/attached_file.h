@@ -61,6 +61,10 @@ namespace jonen
      * This element contains a file attached to a segment. Attached files have
      * a file name and a MIME type to identify the type of data stored.
      *
+     * AttachedFile elements are compared based only on their UID. Two
+     * AttachedFile elements with the same UID are considered equal, even if
+     * the stored data is different.
+     *
      * The AttachedFile element uses a CRC32 value by default.
      *
      * This class implements the Element interface.
@@ -70,7 +74,8 @@ namespace jonen
     class JONEN_EXPORT AttachedFile
         : public ElementBase<AttachedFile>,
         public MasterElement,
-        boost::equality_comparable<AttachedFile>
+        boost::equality_comparable<AttachedFile>,
+        boost::less_than_comparable<AttachedFile>
     {
         friend class ElementBase<AttachedFile>;
 
@@ -105,9 +110,6 @@ namespace jonen
              * \param[in] other The other element to swap with.
              */
             void swap(AttachedFile& other);
-
-            /// \brief Equality operator
-            bool operator==(AttachedFile const& rhs);
 
             /// \brief Get the human-friendly name for the file.
             StringElement const& description() const;
@@ -203,6 +205,14 @@ namespace jonen
 
             bool crc_enabled_impl() const;
     }; // class SegmentInfo
+
+
+    /// \brief Equality operator
+    bool operator==(AttachedFile const& lhs, AttachedFile const& rhs);
+
+
+    /// \brief Less-than operator.
+    bool operator<(AttachedFile const& lhs, AttachedFile const& rhs);
 
 
     /// \brief Swap elements

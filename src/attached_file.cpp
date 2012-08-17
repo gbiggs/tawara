@@ -96,6 +96,11 @@ class AttachedFile::Impl
                 master_impl_.crc_enabled() == rhs.master_impl_.crc_enabled();
         }
 
+        bool operator<(Impl const& rhs)
+        {
+            return uid_ < rhs.uid_;
+        }
+
         StringElement desc_;
         StringElement name_;
         StringElement mime_;
@@ -180,9 +185,15 @@ void jonen::swap(AttachedFile& a, AttachedFile& b)
 }
 
 
-bool AttachedFile::operator==(AttachedFile const& rhs)
+bool jonen::operator==(AttachedFile const& lhs, AttachedFile const& rhs)
 {
-    return *pimpl_ == *rhs.pimpl_;
+    return lhs.uid() == rhs.uid();
+}
+
+
+bool jonen::operator<(AttachedFile const& lhs, AttachedFile const& rhs)
+{
+    return lhs.uid() < rhs.uid();
 }
 
 

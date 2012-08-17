@@ -202,12 +202,67 @@ namespace test_attached_file
 
     TEST(AttachedFile, Equal)
     {
-        AttachedFile ee1("name", "mime", std::vector<char>(42, 42), 42,
-                "desc");
-        AttachedFile ee2("name", "mime", std::vector<char>(42, 42), 42,
-                "desc");
+        AttachedFile ee1("a", "a", std::vector<char>(4, 1), 1, "a");
+        AttachedFile ee2("b", "b", std::vector<char>(4, 2), 1, "b");
+        AttachedFile ee3("a", "a", std::vector<char>(4, 2), 2, "a");
 
         EXPECT_TRUE(ee1 == ee2);
+        EXPECT_FALSE(ee1 == ee3);
+    }
+
+
+    TEST(AttachedFile, LessThan)
+    {
+        AttachedFile ee1("a", "a", std::vector<char>(4, 2), 1, "a");
+        AttachedFile ee2("a", "a", std::vector<char>(4, 2), 2, "a");
+
+        EXPECT_TRUE(ee1 < ee2);
+        EXPECT_FALSE(ee2 < ee1);
+    }
+
+
+    TEST(AttachedFile, LessThanEqual)
+    {
+        AttachedFile ee1("a", "a", std::vector<char>(4, 2), 1, "a");
+        AttachedFile ee2("a", "a", std::vector<char>(4, 2), 1, "a");
+        AttachedFile ee3("a", "a", std::vector<char>(4, 2), 2, "a");
+
+        EXPECT_TRUE(ee1 <= ee2);
+        EXPECT_TRUE(ee1 <= ee3);
+        EXPECT_FALSE(ee3 <= ee2);
+    }
+
+
+    TEST(AttachedFile, NotEqual)
+    {
+        AttachedFile ee1("a", "a", std::vector<char>(4, 2), 1, "a");
+        AttachedFile ee2("a", "a", std::vector<char>(4, 2), 1, "a");
+        AttachedFile ee3("a", "a", std::vector<char>(4, 2), 2, "a");
+
+        EXPECT_FALSE(ee1 != ee2);
+        EXPECT_TRUE(ee1 != ee3);
+    }
+
+
+    TEST(AttachedFile, GreaterThanEqual)
+    {
+        AttachedFile ee1("a", "a", std::vector<char>(4, 2), 2, "a");
+        AttachedFile ee2("a", "a", std::vector<char>(4, 2), 2, "a");
+        AttachedFile ee3("a", "a", std::vector<char>(4, 2), 1, "a");
+
+        EXPECT_TRUE(ee1 >= ee2);
+        EXPECT_TRUE(ee1 >= ee3);
+        EXPECT_FALSE(ee3 >= ee2);
+    }
+
+
+    TEST(AttachedFile, GreaterThan)
+    {
+        AttachedFile ee1("a", "a", std::vector<char>(4, 2), 2, "a");
+        AttachedFile ee2("a", "a", std::vector<char>(4, 2), 1, "a");
+
+        EXPECT_TRUE(ee1 > ee2);
+        EXPECT_FALSE(ee2 > ee1);
     }
 
 

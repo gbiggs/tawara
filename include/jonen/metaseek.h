@@ -279,14 +279,14 @@ namespace jonen
                     mapped_type offset);
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
-            /** \brief Erase the index entry at the specified iterator.
+            /** \brief Erase the index entry at the specified position.
              *
              * \param[in] position The position to erase at.
              * \return An iterator following the removed element.
              */
             iterator erase(const_iterator position);
 #else // defined(JONEN_CPLUSPLUS11_SUPPORT)
-            /** \brief Erase the index entry at the specified iterator.
+            /** \brief Erase the index entry at the specified position.
              *
              * \param[in] position The position to erase at.
              */

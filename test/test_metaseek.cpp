@@ -109,6 +109,17 @@ namespace test_metaseek
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Multimap interface tests
+    ///////////////////////////////////////////////////////////////////////////
+
+
+    TEST(Metaseek, GetAllocator)
+    {
+        // TODO: How can this be tested?
+    }
+
+
     TEST(Metaseek, Equal)
     {
         Metaseek ee1;
@@ -124,14 +135,71 @@ namespace test_metaseek
     }
 
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Multimap interface tests
-    ///////////////////////////////////////////////////////////////////////////
-
-
-    TEST(Metaseek, GetAllocator)
+    TEST(Metaseek, LessThan)
     {
-        // TODO: How can this be tested?
+        Metaseek ee1;
+        ee1.insert(make_ms_entry(ids::Null, 1));
+        Metaseek ee2;
+        ee2.insert(make_ms_entry(ids::Null, 2));
+
+        EXPECT_TRUE(ee1 < ee2);
+        EXPECT_FALSE(ee2 < ee1);
+    }
+
+
+    TEST(Metaseek, LessThanEqual)
+    {
+        Metaseek ee1;
+        ee1.insert(make_ms_entry(ids::Null, 1));
+        Metaseek ee2;
+        ee2.insert(make_ms_entry(ids::Null, 1));
+        Metaseek ee3;
+        ee3.insert(make_ms_entry(ids::Null, 2));
+
+        EXPECT_TRUE(ee1 <= ee2);
+        EXPECT_TRUE(ee1 <= ee3);
+        EXPECT_FALSE(ee3 <= ee2);
+    }
+
+
+    TEST(Metaseek, NotEqual)
+    {
+        Metaseek ee1;
+        ee1.insert(make_ms_entry(ids::Null, 1));
+        Metaseek ee2;
+        ee2.insert(make_ms_entry(ids::Null, 1));
+        Metaseek ee3;
+        ee3.insert(make_ms_entry(ids::Null, 2));
+
+        EXPECT_FALSE(ee1 != ee2);
+        EXPECT_TRUE(ee1 != ee3);
+    }
+
+
+    TEST(Metaseek, GreaterThanEqual)
+    {
+        Metaseek ee1;
+        ee1.insert(make_ms_entry(ids::Null, 2));
+        Metaseek ee2;
+        ee2.insert(make_ms_entry(ids::Null, 2));
+        Metaseek ee3;
+        ee3.insert(make_ms_entry(ids::Null, 1));
+
+        EXPECT_TRUE(ee1 >= ee2);
+        EXPECT_TRUE(ee1 >= ee3);
+        EXPECT_FALSE(ee3 >= ee2);
+    }
+
+
+    TEST(Metaseek, GreaterThan)
+    {
+        Metaseek ee1;
+        ee1.insert(make_ms_entry(ids::Null, 2));
+        Metaseek ee2;
+        ee2.insert(make_ms_entry(ids::Null, 1));
+
+        EXPECT_TRUE(ee1 > ee2);
+        EXPECT_FALSE(ee2 > ee1);
     }
 
 

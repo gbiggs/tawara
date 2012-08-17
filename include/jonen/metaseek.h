@@ -394,10 +394,10 @@ namespace jonen
             value_compare value_comp() const;
 
             /// \brief Equality operator.
-            bool operator==(Metaseek const& rhs);
+            friend bool operator==(Metaseek const& lhs, Metaseek const& rhs);
 
             /// \brief Less-than operator.
-            bool operator<(Metaseek const& rhs);
+            friend bool operator<(Metaseek const& lhs, Metaseek const& rhs);
 
         private:
             // Pimpl member
@@ -442,6 +442,14 @@ namespace jonen
     Metaseek::value_type make_ms_entry(Metaseek::key_type id,
             Metaseek::mapped_type offset);
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
+
+
+    /// \brief Equality comparison operator.
+    bool operator==(Metaseek const& lhs, Metaseek const& rhs);
+
+
+    /// \brief Less-than comparison operator.
+    bool operator<(Metaseek const& lhs, Metaseek const& rhs);
 
 
     /// \brief Swap elements

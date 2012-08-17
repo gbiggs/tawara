@@ -150,15 +150,15 @@ void jonen::swap(Metaseek& a, Metaseek& b)
 }
 
 
-bool Metaseek::operator==(Metaseek const& rhs)
+bool jonen::operator==(Metaseek const& lhs, Metaseek const& rhs)
 {
-    return *pimpl_ == *rhs.pimpl_;
+    return *lhs.pimpl_ == *rhs.pimpl_;
 }
 
 
-bool Metaseek::operator<(Metaseek const& rhs)
+bool jonen::operator<(Metaseek const& lhs, Metaseek const& rhs)
 {
-    return *pimpl_ < *rhs.pimpl_;
+    return *lhs.pimpl_ < *rhs.pimpl_;
 }
 
 

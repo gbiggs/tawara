@@ -17,7 +17,8 @@ set(srcs
     seek.cpp
     metaseek.cpp
     segment_info.cpp
-    attached_file.cpp)
+    attached_file.cpp
+    attachments.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

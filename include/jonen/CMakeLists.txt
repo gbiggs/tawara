@@ -33,7 +33,8 @@ set(hdrs ${config_h}
     seek.h
     metaseek.h
     segment_info.h
-    attached_file.h)
+    attached_file.h
+    attachments.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

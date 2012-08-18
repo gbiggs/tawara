@@ -327,9 +327,13 @@ namespace test_metaseek
         ee.insert(make_ms_entry(ids::Null, 1234));
         EXPECT_EQ(1234, ee.find(ids::Null)->second);
 
+#if defined(JONEN_CPLUSPLUS11_SUPPORT)
         // Move version under C++11
+        ee.insert(Metaseek::value_type(ids::CRC32, 5678));
+#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
         Metaseek::value_type entry(ids::CRC32, 5678);
         ee.insert(entry);
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
         EXPECT_EQ(5678, ee.find(ids::CRC32)->second);
 
         // Insert with hint
@@ -808,6 +812,9 @@ namespace test_metaseek
         // Post-condition test
         EXPECT_EQ(ids::size(ids::Metaseek) + vint::size(body_size) + body_size,
                 output.tellp());
+
+        // Test for double-finish raising an exception
+        EXPECT_THROW(ee.finish_write(output), NotWriting);
     }
 
     TEST(Metaseek, WriteWithCRC)

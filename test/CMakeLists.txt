@@ -34,7 +34,8 @@ set(srcs
     test_seek.cpp
     test_metaseek.cpp
     test_segment_info.cpp
-    test_attached_file.cpp)
+    test_attached_file.cpp
+    test_attachments.cpp)
 
 set(test_consts "${CMAKE_CURRENT_BINARY_DIR}/test_consts.h")
 configure_file("test_consts.h.in" ${test_consts})

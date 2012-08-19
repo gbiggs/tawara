@@ -314,9 +314,7 @@ Note that, as before, the ordering of most elements is optional.
   |       |                  |               +------------------------------------+
   |       |                  |               |SourceInformation                   |
   |       |                  |               +-----------------+------------------+
-  |       |                  |               |TrackOperation   |TrackJoinBlocks   |
-  |       |                  |               +-----------------+------------------+
-  |       |                  |               |                 |TrackJoinUID      |
+  |       |                  |               |TrackOperation   |TrackJoinBlocks.. |
   |       +------------------+---------------+-----------------+------------------+
   |       |Chapters          |EditionEntry   |EditionUID                          |
   |       |                  |               +------------------------------------+

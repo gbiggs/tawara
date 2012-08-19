@@ -34,7 +34,8 @@ set(hdrs ${config_h}
     metaseek.h
     segment_info.h
     attached_file.h
-    attachments.h)
+    attachments.h
+    track_join_blocks.h)
 
 install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
     COMPONENT library)

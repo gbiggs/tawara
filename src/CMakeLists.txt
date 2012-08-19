@@ -18,7 +18,8 @@ set(srcs
     metaseek.cpp
     segment_info.cpp
     attached_file.cpp
-    attachments.cpp)
+    attachments.cpp
+    track_join_blocks.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)

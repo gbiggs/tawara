@@ -161,7 +161,7 @@ namespace jonen
                  * written.
                  */
                 std::streamsize write_crc(std::vector<char> const& body,
-                        std::iostream& io);
+                        std::iostream& io) const;
 
                 /** \brief Calculate and write the CRC value and element body.
                  *
@@ -178,7 +178,7 @@ namespace jonen
                  * of the element's body.
                  */
                 std::streamsize write_with_crc(std::vector<char> const& body,
-                        std::iostream& io);
+                        std::iostream& io) const;
             private:
                 ///////////////////////////////////////////////////////////////////
                 // MasterElementBase CRTP required members

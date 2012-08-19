@@ -43,6 +43,7 @@
 #include <jonen/element_base.h>
 #include <jonen/jonen_config.h>
 #include <jonen/master_element.h>
+#include <jonen/master_element_impl.h>
 #include <jonen/win_dll.h>
 
 #include <boost/operators.hpp>
@@ -239,9 +240,17 @@ namespace jonen
              * \param[in] last The attached file \e after the last to insert.
              */
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
-            iterator insert(const_iterator pos, InputIt first, InputIt last);
+            template<typename InputIt>
+            iterator insert(const_iterator pos, InputIt first, InputIt last)
+            {
+                return list_.insert(pos, first, last);
+            }
 #else // defined(JONEN_CPLUSPLUS11_SUPPORT)
-            void insert(iterator pos, iterator first, iterator last);
+            template<typename InputIt>
+            void insert(iterator pos, InputIt first, InputIt last)
+            {
+                list_.insert(pos, first, last);
+            }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
             /** \brief Insert attached files from an initialiser list.
@@ -422,11 +431,12 @@ namespace jonen
              *
              * No attached files are copied; the other list will be empty after
              * this operation.
-             *
-             * TODO Fix this so the template version can be used.
              */
             template<typename Compare>
-            void merge(Attachments& other, Compare comp);
+            void merge(Attachments& other, Compare comp)
+            {
+                list_.merge(other.list_, comp);
+            }
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
             /** \brief Merge two sorted lists of attached files.
              *
@@ -435,11 +445,12 @@ namespace jonen
              *
              * No attached files are copied; the other list will be empty after
              * this operation.
-             *
-             * TODO Fix this so the template version can be used.
              */
             template<typename Compare>
-            void merge(Attachments&& other, Compare comp);
+            void merge(Attachments&& other, Compare comp)
+            {
+                list_.merge(other.list_, comp);
+            }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
             /** \brief Move the attached files from the other list into this
@@ -502,12 +513,12 @@ namespace jonen
 
             /// \brief Remove all attached files equal to the one provided.
             void remove(value_type const& value);
-            /** \brief Remove all attached files matching the given predicate.
-             *
-             * TODO Fix this so the template version can be used.
-             */
+            /// \brief Remove all attached files matching the given predicate.
             template<typename UnaryPredicate>
-            void remove_if(UnaryPredicate p);
+            void remove_if(UnaryPredicate p)
+            {
+                list_.remove_if(p);
+            }
 
             /// \brief Reverse the order of the attached files.
             void reverse();
@@ -516,20 +527,22 @@ namespace jonen
             void unique();
             /** \brief Remove all consecutive duplicate attached files, using
              * the given predicate to determine equality.
-             *
-             * TODO Fix this so the template version can be used.
              */
             template<typename BinaryPredicate>
-            void unique(BinaryPredicate p);
+            void unique(BinaryPredicate p)
+            {
+                list_.unique(p);
+            }
 
             /// \brief Sort the attached files in ascending order.
             void sort();
             /** \brief Sort the attached files using the given predicate.
-             *
-             * TODO Fix this so the template version can be used.
              */
             template<typename Compare>
-            void sort(Compare comp);
+            void sort(Compare comp)
+            {
+                list_.sort(comp);
+            }
 
             /// \brief Equality operator.
             friend bool operator==(Attachments const& lhs,
@@ -540,9 +553,8 @@ namespace jonen
                     Attachments const& rhs);
 
         private:
-            // Pimpl member
-            class Impl;
-            boost::scoped_ptr<Impl> pimpl_;
+            storage_type_ list_;
+            impl::MasterElementImpl master_impl_;
             // Must be mutable to be updated in start_body()
             mutable std::streampos body_end_;
 

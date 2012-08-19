@@ -152,7 +152,7 @@ std::streamsize MasterElementImpl::read_with_crc(std::vector<char>& body,
 
 
 std::streamsize MasterElementImpl::write_crc(std::vector<char> const& body,
-        std::iostream& io)
+        std::iostream& io) const
 {
     std::streamsize result(0);
     if (use_crc_)
@@ -171,7 +171,7 @@ std::streamsize MasterElementImpl::write_crc(std::vector<char> const& body,
 
 
 std::streamsize MasterElementImpl::write_with_crc(
-        std::vector<char> const& body, std::iostream& io)
+        std::vector<char> const& body, std::iostream& io) const
 {
     std::streamsize result(0);
     result = write_crc(body, io);

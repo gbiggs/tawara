@@ -38,49 +38,9 @@
 
 #include <jonen/attachments.h>
 
-#include <jonen/master_element_impl.h>
-
 #include <boost/foreach.hpp>
 
 using namespace jonen;
-
-///////////////////////////////////////////////////////////////////////////////
-// Pimpl implementation
-///////////////////////////////////////////////////////////////////////////////
-
-class Attachments::Impl
-{
-    public:
-        Impl()
-            : master_impl_(true)
-        {
-        }
-
-        std::streamsize body_size() const
-        {
-            std::streamsize list_size(0);
-            BOOST_FOREACH(Attachments::value_type const& v, list_)
-            {
-                list_size += v.stored_size();
-            }
-            return list_size + master_impl_.crc_size();
-        }
-
-        bool operator==(Impl const& rhs)
-        {
-            return list_ == rhs.list_ &&
-                master_impl_.crc_enabled() == rhs.master_impl_.crc_enabled();
-        }
-
-
-        bool operator<(Impl const& rhs)
-        {
-            return list_ < rhs.list_;
-        }
-
-        Attachments::storage_type_ list_;
-        impl::MasterElementImpl master_impl_;
-};
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -88,15 +48,15 @@ class Attachments::Impl
 
 Attachments::Attachments()
     : ElementBase<Attachments>(ids::Attachments),
-    pimpl_(new Impl()), id_(ids::Attachments), offset_(0), writing_(false)
+    master_impl_(true), id_(ids::Attachments), offset_(0), writing_(false)
 {
 }
 
 
 Attachments::Attachments(Attachments const& rhs)
     : ElementBase<Attachments>(rhs.id_),
-    pimpl_(new Impl(*rhs.pimpl_)), id_(rhs.id_), offset_(rhs.offset_),
-    writing_(rhs.writing_)
+    list_(rhs.list_), master_impl_(rhs.master_impl_),
+    id_(rhs.id_), offset_(rhs.offset_), writing_(rhs.writing_)
 {
 }
 
@@ -113,7 +73,8 @@ Attachments::~Attachments()
 
 Attachments& Attachments::operator=(Attachments const& rhs)
 {
-    *pimpl_ = *rhs.pimpl_;
+    list_ = rhs.list_;
+    master_impl_ = rhs.master_impl_;
     id_ = rhs.id_;
     offset_ = rhs.offset_;
     writing_ = rhs.writing_;
@@ -126,7 +87,8 @@ void Attachments::swap(Attachments& other)
 {
     using std::swap;
 
-    swap(pimpl_, other.pimpl_);
+    swap(list_, other.list_);
+    swap(master_impl_, other.master_impl_);
     swap(id_, other.id_);
     swap(offset_, other.offset_);
     swap(writing_, other.writing_);
@@ -141,13 +103,13 @@ void jonen::swap(Attachments& a, Attachments& b)
 
 bool jonen::operator==(Attachments const& lhs, Attachments const& rhs)
 {
-    return *lhs.pimpl_ == *rhs.pimpl_;
+    return lhs.list_ == rhs.list_;
 }
 
 
 bool jonen::operator<(Attachments const& lhs, Attachments const& rhs)
 {
-    return *lhs.pimpl_ < *rhs.pimpl_;
+    return lhs.list_ < rhs.list_;
 }
 
 
@@ -168,148 +130,148 @@ std::ostream& jonen::operator<<(std::ostream& o, Attachments const& rhs)
 
 Attachments::allocator_type Attachments::get_allocator() const
 {
-    return pimpl_->list_.get_allocator();
+    return list_.get_allocator();
 }
 
 
 void Attachments::assign(size_type count, value_type const& value)
 {
-    pimpl_->list_.assign(count, value);
+    list_.assign(count, value);
 }
 
 
 template<typename InputIt>
 void Attachments::assign(InputIt first, InputIt last)
 {
-    pimpl_->list_.assign(first, last);
+    list_.assign(first, last);
 }
 
 
 Attachments::reference Attachments::front()
 {
-    return pimpl_->list_.front();
+    return list_.front();
 }
 
 
 Attachments::const_reference Attachments::front() const
 {
-    return pimpl_->list_.front();
+    return list_.front();
 }
 
 
 Attachments::reference Attachments::back()
 {
-    return pimpl_->list_.back();
+    return list_.back();
 }
 
 
 Attachments::const_reference Attachments::back() const
 {
-    return pimpl_->list_.back();
+    return list_.back();
 }
 
 
 Attachments::iterator Attachments::begin()
 {
-    return pimpl_->list_.begin();
+    return list_.begin();
 }
 
 
 Attachments::const_iterator Attachments::begin() const
 {
-    return pimpl_->list_.begin();
+    return list_.begin();
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 Attachments::const_iterator Attachments::cbegin() const
 {
-    return pimpl_->list_.cbegin();
+    return list_.cbegin();
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 Attachments::iterator Attachments::end()
 {
-    return pimpl_->list_.end();
+    return list_.end();
 }
 
 
 Attachments::const_iterator Attachments::end() const
 {
-    return pimpl_->list_.end();
+    return list_.end();
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 Attachments::const_iterator Attachments::cend() const
 {
-    return pimpl_->list_.cend();
+    return list_.cend();
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 Attachments::reverse_iterator Attachments::rbegin()
 {
-    return pimpl_->list_.rbegin();
+    return list_.rbegin();
 }
 
 
 Attachments::const_reverse_iterator Attachments::rbegin() const
 {
-    return pimpl_->list_.rbegin();
+    return list_.rbegin();
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 Attachments::const_reverse_iterator Attachments::crbegin() const
 {
-    return pimpl_->list_.crbegin();
+    return list_.crbegin();
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 Attachments::reverse_iterator Attachments::rend()
 {
-    return pimpl_->list_.rend();
+    return list_.rend();
 }
 
 
 Attachments::const_reverse_iterator Attachments::rend() const
 {
-    return pimpl_->list_.rend();
+    return list_.rend();
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 Attachments::const_reverse_iterator Attachments::crend() const
 {
-    return pimpl_->list_.crend();
+    return list_.crend();
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 bool Attachments::empty() const
 {
-    return pimpl_->list_.empty();
+    return list_.empty();
 }
 
 
 Attachments::size_type Attachments::size() const
 {
-    return pimpl_->list_.size();
+    return list_.size();
 }
 
 
 Attachments::size_type Attachments::max_size() const
 {
-    return pimpl_->list_.max_size();
+    return list_.max_size();
 }
 
 
 void Attachments::clear()
 {
-    pimpl_->list_.clear();
+    list_.clear();
 }
 
 
@@ -321,7 +283,7 @@ Attachments::iterator Attachments::insert(Attachments::iterator pos,
         Attachments::value_type const& value)
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 {
-    return pimpl_->list_.insert(pos, value);
+    return list_.insert(pos, value);
 }
 
 
@@ -329,7 +291,7 @@ Attachments::iterator Attachments::insert(Attachments::iterator pos,
 Attachments::iterator Attachments::insert(Attachments::const_iterator pos,
         Attachments::value_type&& value)
 {
-    return pimpl_->list_.insert(pos, value);
+    return list_.insert(pos, value);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -342,31 +304,15 @@ void Attachments::insert(Attachments::iterator pos,
         Attachments::size_type count, Attachments::value_type const& value)
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 {
-    return pimpl_->list_.insert(pos, count, value);
+    return list_.insert(pos, count, value);
 }
-
-
-// TODO Support templated iterators for this method
-#if defined(JONEN_CPLUSPLUS11_SUPPORT)
-Attachments::iterator Attachments::insert(Attachments::const_iterator pos,
-        Attachments::iterator first, Attachments::iterator last)
-{
-    return pimpl_->list_.insert(pos, first, last);
-}
-#else // defined(JONEN_CPLUSPLUS11_SUPPORT)
-void Attachments::insert(Attachments::iterator pos,
-        Attachments::iterator first, Attachments::iterator last)
-{
-    pimpl_->list_.insert(pos, first, last);
-}
-#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 Attachments::iterator Attachments::insert(Attachments::const_iterator pos,
         std::initializer_list<Attachments::value_type> ilist)
 {
-    return pimpl_->map.insert(pos, ilist);
+    return map.insert(pos, ilist);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -378,7 +324,7 @@ Attachments::iterator Attachments::emplace(Attachments::const_iterator pos,
         std::vector<char> const& data, unsigned long long int uid,
         std::string const& desc)
 {
-    return pimpl_->list_.emplace(pos, name, mime_type, data, uid, desc);
+    return list_.emplace(pos, name, mime_type, data, uid, desc);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -386,12 +332,12 @@ Attachments::iterator Attachments::emplace(Attachments::const_iterator pos,
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 Attachments::iterator Attachments::erase(Attachments::const_iterator position)
 {
-    return pimpl_->list_.erase(position);
+    return list_.erase(position);
 }
 #else // defined(JONEN_CPLUSPLUS11_SUPPORT)
 void Attachments::erase(Attachments::iterator position)
 {
-    pimpl_->list_.erase(position);
+    list_.erase(position);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -400,26 +346,26 @@ void Attachments::erase(Attachments::iterator position)
 Attachments::iterator Attachments::erase(Attachments::const_iterator first,
         Attachments::const_iterator last)
 {
-    return pimpl_->list_.erase(first, last);
+    return list_.erase(first, last);
 }
 #else // defined(JONEN_CPLUSPLUS11_SUPPORT)
 void Attachments::erase(Attachments::iterator first, Attachments::iterator last)
 {
-    pimpl_->list_.erase(first, last);
+    list_.erase(first, last);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 void Attachments::push_back(Attachments::value_type const& value)
 {
-    pimpl_->list_.push_back(value);
+    list_.push_back(value);
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 void Attachments::push_back(Attachments::value_type&& value)
 {
-    pimpl_->list_.push_back(value);
+    list_.push_back(value);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -430,27 +376,27 @@ void Attachments::emplace_back(std::string const& name,
                     std::vector<char> const& data, unsigned long long int uid,
                     std::string const& desc)
 {
-    pimpl_->list_.emplace_back(name, mime_type, data, uid, desc);
+    list_.emplace_back(name, mime_type, data, uid, desc);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 void Attachments::pop_back()
 {
-    pimpl_->list_.pop_back();
+    list_.pop_back();
 }
 
 
 void Attachments::push_front(Attachments::value_type const& value)
 {
-    pimpl_->list_.push_front(value);
+    list_.push_front(value);
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 void Attachments::push_front(Attachments::value_type&& value)
 {
-    pimpl_->list_.push_front(value);
+    list_.push_front(value);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -461,28 +407,28 @@ void Attachments::emplace_front(std::string const& name,
                     std::vector<char> const& data, unsigned long long int uid,
                     std::string const& desc)
 {
-    pimpl_->list_.emplace_front(name, mime_type, data, uid, desc);
+    list_.emplace_front(name, mime_type, data, uid, desc);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 void Attachments::pop_front()
 {
-    pimpl_->list_.pop_front();
+    list_.pop_front();
 }
 
 
 void Attachments::resize(Attachments::size_type count,
         Attachments::value_type value)
 {
-    pimpl_->list_.resize(count, value);
+    list_.resize(count, value);
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 void Attachments::resize(Attachments::size_type count)
 {
-    pimpl_->list_.resize(count);
+    list_.resize(count);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -491,51 +437,35 @@ void Attachments::resize(Attachments::size_type count)
 void Attachments::resize(Attachments::size_type count,
         Attachments::value_type const& value)
 {
-    pimpl_->list_.resize(count, value);
+    list_.resize(count, value);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 void Attachments::merge(Attachments& other)
 {
-    pimpl_->list_.merge(other.pimpl_->list_);
+    list_.merge(other.list_);
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 void Attachments::merge(Attachments&& other)
 {
-    pimpl_->list_.merge(other.pimpl_->list_);
-}
-#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
-
-
-template<typename Compare>
-void Attachments::merge(Attachments& other, Compare comp)
-{
-    pimpl_->list_.merge(other.pimpl_->list_, comp);
-}
-
-
-#if defined(JONEN_CPLUSPLUS11_SUPPORT)
-template<typename Compare>
-void Attachments::merge(Attachments&& other, Compare comp)
-{
-    pimpl_->list_.merge(other.pimpl_->list_, comp);
+    list_.merge(other.list_);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 void Attachments::splice(Attachments::iterator pos, Attachments& other)
 {
-    pimpl_->list_.splice(pos, other.pimpl_->list_);
+    list_.splice(pos, other.list_);
 }
 
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
 void Attachments::splice(Attachments::const_iterator pos, Attachments&& other)
 {
-    pimpl_->list_.splice(pos, other);
+    list_.splice(pos, other);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -543,7 +473,7 @@ void Attachments::splice(Attachments::const_iterator pos, Attachments&& other)
 void Attachments::splice(Attachments::iterator pos, Attachments& other,
         Attachments::iterator it)
 {
-    pimpl_->list_.splice(pos, other.pimpl_->list_, it);
+    list_.splice(pos, other.list_, it);
 }
 
 
@@ -551,7 +481,7 @@ void Attachments::splice(Attachments::iterator pos, Attachments& other,
 void Attachments::splice(Attachments::const_iterator pos, Attachments&& other,
         Attachments::const_iterator it)
 {
-    pimpl_->list_.splice(pos, other.pimpl_->list_, it);
+    list_.splice(pos, other.list_, it);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
@@ -559,7 +489,7 @@ void Attachments::splice(Attachments::const_iterator pos, Attachments&& other,
 void Attachments::splice(Attachments::iterator pos, Attachments& other,
         Attachments::iterator first, Attachments::iterator last)
 {
-    pimpl_->list_.splice(pos, other.pimpl_->list_, first, last);
+    list_.splice(pos, other.list_, first, last);
 }
 
 
@@ -567,53 +497,32 @@ void Attachments::splice(Attachments::iterator pos, Attachments& other,
 void Attachments::splice(Attachments::const_iterator pos, Attachments&& other,
         Attachments::const_iterator first, Attachments::const_iterator last)
 {
-    pimpl_->list_.splice(pos, other.pimpl_->list_, first, last);
+    list_.splice(pos, other.list_, first, last);
 }
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
 
 void Attachments::remove(Attachments::value_type const& value)
 {
-    pimpl_->list_.remove(value);
-}
-
-
-template<typename UnaryPredicate>
-void Attachments::remove_if(UnaryPredicate p)
-{
-    pimpl_->list_.remove_if(p);
+    list_.remove(value);
 }
 
 
 void Attachments::reverse()
 {
-    pimpl_->list_.reverse();
+    list_.reverse();
 }
 
 
 void Attachments::unique()
 {
-    pimpl_->list_.unique();
-}
-
-
-template<typename BinaryPredicate>
-void Attachments::unique(BinaryPredicate p)
-{
-    pimpl_->list_.unique(p);
+    list_.unique();
 }
 
 
 void Attachments::sort()
 {
-    pimpl_->list_.sort();
-}
-
-
-template<typename Compare>
-void Attachments::sort(Compare comp)
-{
-    pimpl_->list_.sort(comp);
+    list_.sort();
 }
 
 
@@ -623,7 +532,12 @@ void Attachments::sort(Compare comp)
 
 inline std::streamsize Attachments::body_stored_size() const
 {
-    return pimpl_->body_size();
+    std::streamsize list_size(0);
+    BOOST_FOREACH(value_type const& v, list_)
+    {
+        list_size += v.stored_size();
+    }
+    return list_size + master_impl_.crc_size();
 }
 
 
@@ -631,11 +545,12 @@ std::streamsize Attachments::read_body(std::istream& i, std::streamsize size)
 {
     std::streamsize read_bytes(0);
 
-    boost::scoped_ptr<Impl> new_pimpl(new Impl(*pimpl_));
+    storage_type_ new_list;
+    impl::MasterElementImpl new_master(crc_enabled());
 
     // Get the body via a CRC check
     std::vector<char> body;
-    read_bytes += new_pimpl->master_impl_.read_with_crc(body, i, size);
+    read_bytes += new_master.read_with_crc(body, i, size);
     // TODO: This is a lot of copying around just to get things in the right
     // data type.
     std::string temp_str(body.begin(), body.end());
@@ -653,7 +568,7 @@ std::streamsize Attachments::read_body(std::istream& i, std::streamsize size)
         {
             case ids::AttachedFile:
                 body_read += file.read(body_ss);
-                new_pimpl->list_.push_back(file);
+                new_list.push_back(file);
                 break;
             default:
                 throw InvalidChildID() << err_id(id) << err_par_id(id_) <<
@@ -669,7 +584,8 @@ std::streamsize Attachments::read_body(std::istream& i, std::streamsize size)
             err_pos(offset_);
     }
 
-    pimpl_.swap(new_pimpl);
+    list_.swap(new_list);
+    master_impl_.swap(new_master);
     return read_bytes;
 }
 
@@ -680,7 +596,7 @@ std::streamsize Attachments::start_body(std::iostream& io) const
     // Write the body data to a stringstream first. This can be used to
     // calculate the CRC32 value if necessary.
     std::stringstream body_ss;
-    BOOST_FOREACH(Attachments::value_type const& v, pimpl_->list_)
+    BOOST_FOREACH(Attachments::value_type const& v, list_)
     {
         write(v, body_ss);
     }
@@ -688,7 +604,7 @@ std::streamsize Attachments::start_body(std::iostream& io) const
     // data type.
     std::string body_str(body_ss.str());
     std::vector<char> body(body_str.begin(), body_str.end());
-    result = pimpl_->master_impl_.write_with_crc(body, io);
+    result = master_impl_.write_with_crc(body, io);
     // Record the position after this element's body for use in
     // finish_body().
     body_end_ = io.tellp();
@@ -712,18 +628,18 @@ std::streamsize Attachments::finish_body(std::iostream& io) const
 
 void Attachments::enable_crc_impl()
 {
-    pimpl_->master_impl_.enable_crc();
+    master_impl_.enable_crc();
 }
 
 
 void Attachments::disable_crc_impl()
 {
-    pimpl_->master_impl_.disable_crc();
+    master_impl_.disable_crc();
 }
 
 
 bool Attachments::crc_enabled_impl() const
 {
-    return pimpl_->master_impl_.crc_enabled();
+    return master_impl_.crc_enabled();
 }
 

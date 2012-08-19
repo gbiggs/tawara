@@ -423,12 +423,15 @@ namespace test_attachments
         EXPECT_EQ(3, ee.size());
         EXPECT_EQ(1, ee.begin()->uid());
 
-        std::vector<ElPtr> children;
-        populate_children(children);
-        Attachments ee2;
-        populate_element(ee2, children);
+        std::vector<AttachedFile> afs;
+        afs.push_back(AttachedFile("a", "a", std::vector<char>(4, 1), 1,
+                    "a"));
+        afs.push_back(AttachedFile("b", "b", std::vector<char>(4, 2), 2,
+                    "b"));
+        afs.push_back(AttachedFile("c", "c", std::vector<char>(4, 3), 3,
+                    "c"));
         ee.clear();
-        ee.insert(ee.begin(), ee2.begin(), ee2.end());
+        ee.insert(ee.begin(), afs.begin(), afs.end());
 
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee.clear();
@@ -601,7 +604,7 @@ namespace test_attachments
     }
 
 
-    bool MergeTestCmp(AttachedFile const& lhs, AttachedFile const& rhs)
+    bool LessThanPred(AttachedFile const& lhs, AttachedFile const& rhs)
     {
         return lhs < rhs;
     }
@@ -637,24 +640,23 @@ namespace test_attachments
         ee2.push_back(AttachedFile("d", "d", std::vector<char>(4, 4), 4));
 #endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
 
-        /* TODO Fix the interface so this test will compile
-        ee1.merge(ee2, MergeTestCmp);
+        ee1.merge(ee2, LessThanPred);
         EXPECT_EQ(5, ee1.size());
         EXPECT_EQ(1, ee1.begin()->uid());
-        EXPECT_EQ(2, ee1.begin()->uid());
+        EXPECT_EQ(2, (++ee1.begin())->uid());
 #if defined(JONEN_CPLUSPLUS11_SUPPORT)
         ee1.clear();
         ee1.push_back(AttachedFile("a", "a", std::vector<char>(4, 1), 1));
         ee1.push_back(AttachedFile("c", "c", std::vector<char>(4, 3), 3));
         ee1.push_back(AttachedFile("e", "e", std::vector<char>(4, 5), 5));
-        ee1.emerge(std::move(ee2), MergeTestCmp);
+        ee1.emerge(std::move(ee2), LessThanPred);
         EXPECT_EQ(5, ee1.size());
         EXPECT_EQ(1, ee1.begin()->uid());
-        EXPECT_EQ(2, ee1.begin()->uid());
+        EXPECT_EQ(2, (++ee1.begin())->uid());
         ee2.clear();
         ee2.push_back(AttachedFile("b", "b", std::vector<char>(4, 2), 2));
         ee2.push_back(AttachedFile("d", "d", std::vector<char>(4, 4), 4));
-#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)*/
+#endif // defined(JONEN_CPLUSPLUS11_SUPPORT)
     }
 
 
@@ -778,7 +780,6 @@ namespace test_attachments
 
     TEST(Attachments, RemoveIf)
     {
-        /* TODO Fix the interface so this test will compile
         using boost::dynamic_pointer_cast;
 
         std::vector<ElPtr> children;
@@ -788,8 +789,8 @@ namespace test_attachments
 
         ee.remove_if(RemoveIfPred);
         EXPECT_EQ(children.size() - 1, ee.size());
-        EXPECT_EQ(dynamic_pointer_cast<AttachedFile>(children[2])->uid(),
-                ee.begin()->uid());*/
+        EXPECT_EQ(dynamic_pointer_cast<AttachedFile>(children[1])->uid(),
+                ee.begin()->uid());
     }
 
 
@@ -828,7 +829,6 @@ namespace test_attachments
         EXPECT_EQ(3, ee.size());
         EXPECT_EQ(3, (++(++ee.begin()))->uid());
 
-        /* TODO Fix the interface so this test will compile
         ee.insert(++ee.begin(),
                 AttachedFile("b", "b", std::vector<char>(4, 2), 2));
         ee.insert(++ee.begin(),
@@ -836,7 +836,7 @@ namespace test_attachments
         EXPECT_EQ(5, ee.size());
         ee.unique(EqualPred);
         EXPECT_EQ(3, ee.size());
-        EXPECT_EQ(3, (++(++ee.begin()))->uid());*/
+        EXPECT_EQ(3, (++(++ee.begin()))->uid());
     }
 
 
@@ -854,17 +854,16 @@ namespace test_attachments
         EXPECT_EQ(3, (++(++ee.begin()))->uid());
         EXPECT_EQ(4, (++(++(++ee.begin())))->uid());
 
-        /* TODO Fix the interface so this test will compile
         ee.clear();
         ee.push_back(AttachedFile("c", "c", std::vector<char>(4, 3), 3));
         ee.push_back(AttachedFile("d", "d", std::vector<char>(4, 4), 4));
         ee.push_back(AttachedFile("b", "b", std::vector<char>(4, 2), 2));
         ee.push_back(AttachedFile("a", "a", std::vector<char>(4, 1), 1));
-        ee.sort(EqualPred);
+        ee.sort(LessThanPred);
         EXPECT_EQ(1, ee.begin()->uid());
         EXPECT_EQ(2, (++ee.begin())->uid());
         EXPECT_EQ(3, (++(++ee.begin()))->uid());
-        EXPECT_EQ(4, (++(++(++ee.begin())))->uid());*/
+        EXPECT_EQ(4, (++(++(++ee.begin())))->uid());
     }
 
 

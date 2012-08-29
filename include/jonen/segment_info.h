@@ -282,13 +282,20 @@ namespace jonen
     }; // class SegmentInfo
 
 
-    /// \brief Swap elements
-    void swap(SegmentInfo& a, SegmentInfo& b);
-
-
     /// \brief Stream output operator.
     std::ostream& operator<<(std::ostream& o, SegmentInfo const& rhs);
 }; // namespace jonen
+
+
+namespace std
+{
+    /// \brief Swap elements
+    template<> void swap<jonen::SegmentInfo>(jonen::SegmentInfo& a,
+            jonen::SegmentInfo& b)
+    {
+        a.swap(b);
+    }
+}; // namespace std
 
 /// @}
 // group elements

@@ -231,12 +231,6 @@ void SegmentInfo::swap(SegmentInfo& other)
 }
 
 
-void jonen::swap(SegmentInfo& a, SegmentInfo& b)
-{
-    a.swap(b);
-}
-
-
 bool SegmentInfo::operator==(SegmentInfo const& rhs)
 {
     return *pimpl_ == *rhs.pimpl_;

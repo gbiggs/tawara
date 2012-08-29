@@ -209,13 +209,9 @@ SegmentInfo::~SegmentInfo()
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-SegmentInfo& SegmentInfo::operator=(SegmentInfo const& rhs)
+SegmentInfo& SegmentInfo::operator=(SegmentInfo rhs)
 {
-    *pimpl_ = *rhs.pimpl_;
-    id_ = rhs.id_;
-    offset_ = rhs.offset_;
-    writing_ = rhs.writing_;
-
+    swap(rhs);
     return *this;
 }
 

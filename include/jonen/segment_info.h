@@ -103,7 +103,7 @@ namespace jonen
             SegmentInfo(SegmentInfo const& rhs);
 
             /// \brief Assignment operator.
-            SegmentInfo& operator=(SegmentInfo const& rhs);
+            SegmentInfo& operator=(SegmentInfo rhs);
 
             /// \brief Destructor.
             ~SegmentInfo();

@@ -54,7 +54,7 @@ namespace test_jonen
         {
             boost::filesystem::remove(path);
         }
-        boost::filesystem3::copy(src_path, path);
+        boost::filesystem::copy(src_path, path);
         file.open(path.string().c_str(),
                 std::ios::in|std::ios::out|std::ios::app);
         file.seekg(0, std::ios::beg);

@@ -36,16 +36,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/block_impl.h>
+#include <tawara/block_impl.h>
 
 #include <algorithm>
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -146,7 +146,7 @@ std::streamsize BlockImpl::size() const
     // Timecode (2) + flags (1)
     std::streamsize hdr_size(3);
 
-    hdr_size += jonen::vint::size(track_num_);
+    hdr_size += tawara::vint::size(track_num_);
 
     switch(lacing_)
     {
@@ -184,7 +184,7 @@ std::streamsize BlockImpl::size() const
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(BlockImpl const& lhs, BlockImpl const& rhs)
+bool tawara::operator==(BlockImpl const& lhs, BlockImpl const& rhs)
 {
     bool frames_equal(false);
     if (lhs.frames_.size() == rhs.frames_.size())
@@ -230,7 +230,7 @@ std::streamsize BlockImpl::write(std::ostream& output, uint8_t extra_flags)
     output.put(timecode_ & 0x00FF);
     if (!output)
     {
-        throw jonen::WriteError() << jonen::err_pos(output.tellp());
+        throw tawara::WriteError() << tawara::err_pos(output.tellp());
     }
     written += 2;
     // Prepare and write the flags
@@ -254,7 +254,7 @@ std::streamsize BlockImpl::write(std::ostream& output, uint8_t extra_flags)
     output.put(flags);
     if (!output)
     {
-        throw jonen::WriteError() << jonen::err_pos(output.tellp());
+        throw tawara::WriteError() << tawara::err_pos(output.tellp());
     }
     written += 1;
     // Write the lacing header
@@ -266,7 +266,7 @@ std::streamsize BlockImpl::write(std::ostream& output, uint8_t extra_flags)
             output.put(num_frames);
             if (!output)
             {
-                throw jonen::WriteError() << jonen::err_pos(output.tellp());
+                throw tawara::WriteError() << tawara::err_pos(output.tellp());
             }
             written += 1;
             // Write the first frame size as an unsigned integer
@@ -287,7 +287,7 @@ std::streamsize BlockImpl::write(std::ostream& output, uint8_t extra_flags)
             output.put(num_frames);
             if (!output)
             {
-                throw jonen::WriteError() << jonen::err_pos(output.tellp());
+                throw tawara::WriteError() << tawara::err_pos(output.tellp());
             }
             written += 1;
             break;
@@ -301,7 +301,7 @@ std::streamsize BlockImpl::write(std::ostream& output, uint8_t extra_flags)
         output.write(&(*frame)[0], frame->size());
         if (!output)
         {
-            throw jonen::WriteError() << jonen::err_pos(output.tellp());
+            throw tawara::WriteError() << tawara::err_pos(output.tellp());
         }
         written += frame->size();
     }
@@ -337,14 +337,14 @@ BlockImpl::ReadResult BlockImpl::read(std::istream& input,
     read += 2;
     if (input.fail())
     {
-        throw jonen::ReadError() << jonen::err_pos(input.tellg());
+        throw tawara::ReadError() << tawara::err_pos(input.tellg());
     }
     // Read and intepret the flags
     char flags;
     input.get(flags);
     if (input.fail())
     {
-        throw jonen::ReadError() << jonen::err_pos(input.tellg());
+        throw tawara::ReadError() << tawara::err_pos(input.tellg());
     }
     read += 1;
     if (flags & 0x10)
@@ -386,7 +386,7 @@ BlockImpl::ReadResult BlockImpl::read(std::istream& input,
             input.get(frame_count);
             if (input.fail())
             {
-                throw jonen::ReadError() << jonen::err_pos(input.tellg());
+                throw tawara::ReadError() << tawara::err_pos(input.tellg());
             }
             read += 1;
             read += read_fixed_frames(input, size - read, frame_count);
@@ -461,7 +461,7 @@ std::streamsize BlockImpl::read_ebml_laced_frames(std::istream& input,
     input.get(frame_count);
     if (input.fail())
     {
-        throw jonen::ReadError() << jonen::err_pos(input.tellg());
+        throw tawara::ReadError() << tawara::err_pos(input.tellg());
     }
     read += 1;
 

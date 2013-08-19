@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/date_element.h>
+#include <tawara/date_element.h>
 
 #include <gtest/gtest.h>
-#include <jonen/el_ids.h>
-#include <jonen/ebml_int.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/ebml_int.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -51,7 +51,7 @@
 namespace test_datel
 {
 
-std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, int64_t data,
+std::streamsize fill_buffer(std::string& b, tawara::ids::ID id, int64_t data,
         bool write_id, bool write_size, bool write_body)
 {
     std::streamsize total(0);
@@ -59,13 +59,13 @@ std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, int64_t data,
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(jonen::ebml_int::encode_u(id));
+        std::vector<char> tmp(tawara::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_size)
     {
-        std::vector<char> tmp(jonen::vint::encode(8));
+        std::vector<char> tmp(tawara::vint::encode(8));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -85,68 +85,68 @@ std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, int64_t data,
 
 TEST(DateElement, Construction)
 {
-    EXPECT_EQ(jonen::ids::Null, jonen::DateElement(jonen::ids::Null, 1).id());
-    EXPECT_THROW(jonen::DateElement(0x00, 1), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(0xFF, 1), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(0xFFFF, 1), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(0xFFFFFF, 1), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(0xFFFFFFFF, 1), jonen::InvalidElementID);
+    EXPECT_EQ(tawara::ids::Null, tawara::DateElement(tawara::ids::Null, 1).id());
+    EXPECT_THROW(tawara::DateElement(0x00, 1), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(0xFF, 1), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(0xFFFF, 1), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(0xFFFFFF, 1), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(0xFFFFFFFF, 1), tawara::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(jonen::DateElement(0x00, 1, 1), jonen::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(0x00, 1, 1), tawara::InvalidElementID);
 }
 
 
 TEST(DateElement, CopyConstruction)
 {
-    EXPECT_EQ(jonen::ids::Null, jonen::DateElement(jonen::DateElement(jonen::ids::Null, 1)).id());
-    EXPECT_EQ(jonen::ids::Null, jonen::DateElement(jonen::DateElement(jonen::ids::Null, 1, 2)).id());
-    EXPECT_EQ(1, jonen::DateElement(jonen::DateElement(jonen::ids::Null, 1, 2)).value());
-    EXPECT_EQ(2, jonen::DateElement(jonen::DateElement(jonen::ids::Null, 1, 2)).get_default());
+    EXPECT_EQ(tawara::ids::Null, tawara::DateElement(tawara::DateElement(tawara::ids::Null, 1)).id());
+    EXPECT_EQ(tawara::ids::Null, tawara::DateElement(tawara::DateElement(tawara::ids::Null, 1, 2)).id());
+    EXPECT_EQ(1, tawara::DateElement(tawara::DateElement(tawara::ids::Null, 1, 2)).value());
+    EXPECT_EQ(2, tawara::DateElement(tawara::DateElement(tawara::ids::Null, 1, 2)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(jonen::DateElement(jonen::DateElement(0x00, 1)),
-            jonen::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(tawara::DateElement(0x00, 1)),
+            tawara::InvalidElementID);
 }
 
 
 TEST(DateElement, SetID)
 {
-    jonen::DateElement e(jonen::ids::Null, 1);
+    tawara::DateElement e(tawara::ids::Null, 1);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(jonen::DateElement(1, 1).id(0x00), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(1, 1).id(0xFF), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(1, 1).id(0xFFFF),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(1, 1).id(0xFFFFFF),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::DateElement(1, 1).id(0xFFFFFFFF),
-            jonen::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(1, 1).id(0x00), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(1, 1).id(0xFF), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(1, 1).id(0xFFFF),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(1, 1).id(0xFFFFFF),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::DateElement(1, 1).id(0xFFFFFFFF),
+            tawara::InvalidElementID);
 }
 
 
 TEST(DateElement, Assignment)
 {
-    jonen::DateElement e1(1, 1), e2(2, 2);
+    tawara::DateElement e1(1, 1), e2(2, 2);
     e2 = e1;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    jonen::DateElement e3(1, 1, 1), e4(2, 2, 2);
+    tawara::DateElement e3(1, 1, 1), e4(2, 2, 2);
     e4 = e3;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_EQ(e3.get_default(), e4.get_default());
 
-    jonen::DateElement e5(1, 1, 1), e6(2, 2);
+    tawara::DateElement e5(1, 1, 1), e6(2, 2);
     e6 = e5;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_EQ(e5.get_default(), e6.get_default());
 
-    jonen::DateElement e7(1, 1), e8(2, 2, 2);
+    tawara::DateElement e7(1, 1), e8(2, 2, 2);
     e8 = e7;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -163,10 +163,10 @@ TEST(DateElement, Assignment)
 
 TEST(DateElement, Default)
 {
-    EXPECT_FALSE(jonen::DateElement(jonen::ids::Null, 1).has_default());
-    EXPECT_TRUE(jonen::DateElement(jonen::ids::Null, 1, 1).has_default());
+    EXPECT_FALSE(tawara::DateElement(tawara::ids::Null, 1).has_default());
+    EXPECT_TRUE(tawara::DateElement(tawara::ids::Null, 1, 1).has_default());
 
-    jonen::DateElement e1(jonen::ids::Null, 1, 1);
+    tawara::DateElement e1(tawara::ids::Null, 1, 1);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -175,7 +175,7 @@ TEST(DateElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    jonen::DateElement e2(jonen::ids::Null, 1);
+    tawara::DateElement e2(tawara::ids::Null, 1);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -183,7 +183,7 @@ TEST(DateElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    jonen::DateElement e3(jonen::ids::Null, 1);
+    tawara::DateElement e3(tawara::ids::Null, 1);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -196,17 +196,17 @@ TEST(DateElement, Default)
 
 TEST(DateElement, Value)
 {
-    EXPECT_EQ(1, jonen::DateElement(jonen::ids::Null, 1).value());
-    EXPECT_EQ(1, jonen::DateElement(jonen::ids::Null, 1));
-    EXPECT_EQ(1, jonen::DateElement(jonen::ids::Null, 1, 2).value());
-    EXPECT_EQ(1, jonen::DateElement(jonen::ids::Null, 1, 2));
+    EXPECT_EQ(1, tawara::DateElement(tawara::ids::Null, 1).value());
+    EXPECT_EQ(1, tawara::DateElement(tawara::ids::Null, 1));
+    EXPECT_EQ(1, tawara::DateElement(tawara::ids::Null, 1, 2).value());
+    EXPECT_EQ(1, tawara::DateElement(tawara::ids::Null, 1, 2));
 
-    jonen::DateElement e1(jonen::ids::Null, 1);
+    tawara::DateElement e1(tawara::ids::Null, 1);
     EXPECT_EQ(1, e1.value());
     e1.value(2);
     EXPECT_EQ(2, e1.value());
 
-    jonen::DateElement e2(jonen::ids::Null, 1, 2);
+    tawara::DateElement e2(tawara::ids::Null, 1, 2);
     e2.value(3);
     EXPECT_EQ(3, e2.value());
 }
@@ -214,8 +214,8 @@ TEST(DateElement, Value)
 
 TEST(DateElement, Equality)
 {
-    jonen::DateElement e1(jonen::ids::Null, 1);
-    jonen::DateElement e2(jonen::ids::Null, 1);
+    tawara::DateElement e1(tawara::ids::Null, 1);
+    tawara::DateElement e2(tawara::ids::Null, 1);
 
     EXPECT_TRUE(e1 == e2);
     e2.value(2);
@@ -229,10 +229,10 @@ TEST(DateElement, Write)
     std::string expected;
     int64_t value(2);
 
-    jonen::DateElement e1(0x80, value);
+    tawara::DateElement e1(0x80, value);
 
     test_datel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(jonen::ids::size(0x80) + 1 + 8, e1.write(output));
+    EXPECT_EQ(tawara::ids::size(0x80) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = -0x839F18AAl;
@@ -240,7 +240,7 @@ TEST(DateElement, Write)
     output.str(std::string());
     std::string().swap(expected);
     test_datel::fill_buffer(expected, 0x80, value, true, true, true);
-    EXPECT_EQ(jonen::ids::size(0x80) + 1 + 8, e1.write(output));
+    EXPECT_EQ(tawara::ids::size(0x80) + 1 + 8, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -251,7 +251,7 @@ TEST(DateElement, Read)
     std::string input_val;
     int64_t value(5);
 
-    jonen::DateElement e(0x80, 0);
+    tawara::DateElement e(0x80, 0);
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + 8, e.read(input));
@@ -276,18 +276,18 @@ TEST(DateElement, Read)
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input_val[0] = 0x05;
     input.str(input_val);
-    EXPECT_THROW(e.read(input), jonen::BadElementLength);
+    EXPECT_THROW(e.read(input), tawara::BadElementLength);
     // Test for ReadError exception
     std::string().swap(input_val);
     test_datel::fill_buffer(input_val, 0x80, value, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), jonen::ReadError);
+    EXPECT_THROW(e.read(input), tawara::ReadError);
 }
 
 
 TEST(DateElement, Size)
 {
-    jonen::DateElement e(0x80, 1);
+    tawara::DateElement e(0x80, 1);
     EXPECT_EQ(10, e.size());
 
     e.value(0x7FFFFF);

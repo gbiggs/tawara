@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/ebml_int.h>
-#include <jonen/exceptions.h>
+#include <tawara/ebml_int.h>
+#include <tawara/exceptions.h>
 
 
-std::streamsize jonen::ebml_int::size_u(uint64_t integer)
+std::streamsize tawara::ebml_int::size_u(uint64_t integer)
 {
     if (integer == 0)
     {
@@ -81,7 +81,7 @@ std::streamsize jonen::ebml_int::size_u(uint64_t integer)
 }
 
 
-std::streamsize jonen::ebml_int::size_s(int64_t integer)
+std::streamsize tawara::ebml_int::size_s(int64_t integer)
 {
     if (integer == 0)
     {
@@ -122,7 +122,7 @@ std::streamsize jonen::ebml_int::size_s(int64_t integer)
 }
 
 
-std::vector<char> jonen::ebml_int::encode_u(uint64_t integer)
+std::vector<char> tawara::ebml_int::encode_u(uint64_t integer)
 {
     std::vector<char> buffer;
     if (integer == 0)
@@ -142,7 +142,7 @@ std::vector<char> jonen::ebml_int::encode_u(uint64_t integer)
 }
 
 
-std::vector<char> jonen::ebml_int::encode_s(int64_t integer)
+std::vector<char> tawara::ebml_int::encode_s(int64_t integer)
 {
     std::vector<char> buffer;
     if (integer == 0)
@@ -162,7 +162,7 @@ std::vector<char> jonen::ebml_int::encode_s(int64_t integer)
 }
 
 
-std::streamsize jonen::ebml_int::write_u(uint64_t integer, std::ostream& output)
+std::streamsize tawara::ebml_int::write_u(uint64_t integer, std::ostream& output)
 {
     std::vector<char> buffer(encode_u(integer));
 
@@ -171,14 +171,14 @@ std::streamsize jonen::ebml_int::write_u(uint64_t integer, std::ostream& output)
         output.write(&buffer[0], buffer.size());
         if (!output)
         {
-            throw jonen::WriteError() << jonen::err_pos(output.tellp());
+            throw tawara::WriteError() << tawara::err_pos(output.tellp());
         }
     }
     return buffer.size();
 }
 
 
-std::streamsize jonen::ebml_int::write_s(int64_t integer, std::ostream& output)
+std::streamsize tawara::ebml_int::write_s(int64_t integer, std::ostream& output)
 {
     std::vector<char> buffer(encode_s(integer));
     if (buffer.size() != 0)
@@ -186,14 +186,14 @@ std::streamsize jonen::ebml_int::write_s(int64_t integer, std::ostream& output)
         output.write(&buffer[0], buffer.size());
         if (!output)
         {
-            throw jonen::WriteError() << jonen::err_pos(output.tellp());
+            throw tawara::WriteError() << tawara::err_pos(output.tellp());
         }
     }
     return buffer.size();
 }
 
 
-uint64_t jonen::ebml_int::decode_u(std::vector<char> const& buffer)
+uint64_t tawara::ebml_int::decode_u(std::vector<char> const& buffer)
 {
     assert(buffer.size() <= 8);
 
@@ -213,7 +213,7 @@ uint64_t jonen::ebml_int::decode_u(std::vector<char> const& buffer)
 }
 
 
-int64_t jonen::ebml_int::decode_s(std::vector<char> const& buffer)
+int64_t tawara::ebml_int::decode_s(std::vector<char> const& buffer)
 {
     assert(buffer.size() <= 8);
 
@@ -238,7 +238,7 @@ int64_t jonen::ebml_int::decode_s(std::vector<char> const& buffer)
 }
 
 
-uint64_t jonen::ebml_int::read_u(std::istream& input, std::streamsize n)
+uint64_t tawara::ebml_int::read_u(std::istream& input, std::streamsize n)
 {
     assert(n <= 8);
 
@@ -246,13 +246,13 @@ uint64_t jonen::ebml_int::read_u(std::istream& input, std::streamsize n)
     input.read(&tmp[0], n);
     if (!input)
     {
-        throw jonen::ReadError() << jonen::err_pos(input.tellg());
+        throw tawara::ReadError() << tawara::err_pos(input.tellg());
     }
-    return jonen::ebml_int::decode_u(tmp);
+    return tawara::ebml_int::decode_u(tmp);
 }
 
 
-int64_t jonen::ebml_int::read_s(std::istream& input, std::streamsize n)
+int64_t tawara::ebml_int::read_s(std::istream& input, std::streamsize n)
 {
     assert(n <= 8);
 
@@ -260,8 +260,8 @@ int64_t jonen::ebml_int::read_s(std::istream& input, std::streamsize n)
     input.read(&tmp[0], n);
     if (!input)
     {
-        throw jonen::ReadError() << jonen::err_pos(input.tellg());
+        throw tawara::ReadError() << tawara::err_pos(input.tellg());
     }
-    return jonen::ebml_int::decode_s(tmp);
+    return tawara::ebml_int::decode_s(tmp);
 }
 

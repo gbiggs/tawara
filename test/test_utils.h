@@ -36,23 +36,23 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(JONEN_TEST_UTILS_H_)
-#define JONEN_TEST_UTILS_H_
+#if !defined(TAWARA_TEST_UTILS_H_)
+#define TAWARA_TEST_UTILS_H_
 
 #include <boost/shared_ptr.hpp>
 #include <functional>
 #include <gtest/gtest.h>
 #include <stdint.h>
 #include <string>
-#include <jonen/element.h>
-#include <jonen/prim_element.h>
+#include <tawara/element.h>
+#include <tawara/prim_element.h>
 #include <vector>
 
 
 namespace test_utils
 {
 
-typedef boost::shared_ptr<jonen::Element> ElPtr;
+typedef boost::shared_ptr<tawara::Element> ElPtr;
 
 // Adds the total size of an element to a value
 struct TotalSizeOp
@@ -102,5 +102,5 @@ boost::shared_ptr<std::vector<char> > make_blob(size_t size);
 
 }; // test_utils
 
-#endif // JONEN_TEST_UTILS_H_
+#endif // TAWARA_TEST_UTILS_H_
 

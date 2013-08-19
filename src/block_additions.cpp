@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/block_additions.h>
+#include <tawara/block_additions.h>
 
 #include <boost/foreach.hpp>
-#include <jonen/binary_element.h>
-#include <jonen/el_ids.h>
-#include <jonen/ebml_int.h>
-#include <jonen/exceptions.h>
-#include <jonen/uint_element.h>
-#include <jonen/vint.h>
+#include <tawara/binary_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/ebml_int.h>
+#include <tawara/exceptions.h>
+#include <tawara/uint_element.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ void BlockAdditions::push_back(value_type const& value)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(BlockAdditions const& lhs, BlockAdditions const& rhs)
+bool tawara::operator==(BlockAdditions const& lhs, BlockAdditions const& rhs)
 {
     return lhs.additions_ == rhs.additions_;
 }

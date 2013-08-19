@@ -37,41 +37,41 @@
  */
 
 #include <gtest/gtest.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/memory_cluster.h>
-#include <jonen/segment.h>
-#include <jonen/segment_info.h>
-#include <jonen/track_entry.h>
-#include <jonen/tracks.h>
-#include <jonen/vint.h>
-#include <jonen/void_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/memory_cluster.h>
+#include <tawara/segment.h>
+#include <tawara/segment_info.h>
+#include <tawara/track_entry.h>
+#include <tawara/tracks.h>
+#include <tawara/vint.h>
+#include <tawara/void_element.h>
 
 #include "test_utils.h"
 
 
 TEST(Segment, Create)
 {
-    EXPECT_NO_THROW(jonen::Segment s);
+    EXPECT_NO_THROW(tawara::Segment s);
 }
 
 
 TEST(Segment, Offsetting)
 {
-    jonen::Segment s;
+    tawara::Segment s;
     // For a new segment, the offset is zero
-    EXPECT_EQ(42 - jonen::ids::size(jonen::ids::Segment) - 8,
+    EXPECT_EQ(42 - tawara::ids::size(tawara::ids::Segment) - 8,
             s.to_segment_offset(42));
-    EXPECT_EQ(42 + jonen::ids::size(jonen::ids::Segment) + 8,
+    EXPECT_EQ(42 + tawara::ids::size(tawara::ids::Segment) + 8,
             s.to_stream_offset(42));
 }
 
 
 TEST(Segment, Size)
 {
-    jonen::Segment s;
+    tawara::Segment s;
     // Segment size always 8 bytes
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Segment) + 8 +
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Segment) + 8 +
             s.pad_size(), s.size());
 }
 
@@ -81,48 +81,48 @@ TEST(Segment, Write)
     std::stringstream output;
     std::stringstream start_write;
     std::stringstream expected;
-    jonen::Segment s;
+    tawara::Segment s;
     std::streamsize body_size(0), expected_size(0);
 
-    jonen::SeekHead index;
-    index.insert(std::make_pair(jonen::ids::Tracks, s.pad_size()));
-    index.insert(std::make_pair(jonen::ids::Cluster, 5000));
-    jonen::SegmentInfo info;
+    tawara::SeekHead index;
+    index.insert(std::make_pair(tawara::ids::Tracks, s.pad_size()));
+    index.insert(std::make_pair(tawara::ids::Cluster, 5000));
+    tawara::SegmentInfo info;
     info.date(12345);
     info.title("test segment");
     body_size = index.size() + info.size();
 
-    s.index.insert(std::make_pair(jonen::ids::Tracks, s.pad_size()));
-    s.index.insert(std::make_pair(jonen::ids::Cluster, 5000));
+    s.index.insert(std::make_pair(tawara::ids::Tracks, s.pad_size()));
+    s.index.insert(std::make_pair(tawara::ids::Cluster, 5000));
     s.info.date(12345);
     s.info.title("test segment");
 
-    jonen::VoidElement ve(s.pad_size(), true);
-    jonen::ids::write(jonen::ids::Segment, start_write);
-    jonen::vint::write(s.pad_size(), start_write, 8);
+    tawara::VoidElement ve(s.pad_size(), true);
+    tawara::ids::write(tawara::ids::Segment, start_write);
+    tawara::vint::write(s.pad_size(), start_write, 8);
     ve.write(start_write);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Segment) + 8 + s.pad_size(),
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Segment) + 8 + s.pad_size(),
             s.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, start_write.str(),
             output.str());
 
     output.str(std::string());
-    expected_size = jonen::ids::write(jonen::ids::Segment, expected);
-    expected_size += jonen::vint::write(s.pad_size(), expected, 8);
+    expected_size = tawara::ids::write(tawara::ids::Segment, expected);
+    expected_size += tawara::vint::write(s.pad_size(), expected, 8);
     expected_size += s.pad_size();
     ve.write(expected); // Need to have a void element to overwrite
-    expected.seekp(jonen::ids::size(jonen::ids::Segment) + 8);
+    expected.seekp(tawara::ids::size(tawara::ids::Segment) + 8);
     index.write(expected);
     info.write(expected);
     // The output doesnt just start as blank this time
     s.write(output);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Segment) + 8 + s.pad_size(),
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Segment) + 8 + s.pad_size(),
             s.finalise(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 
     // Not writing
-    EXPECT_THROW(s.finalise(output), jonen::NotWriting);
+    EXPECT_THROW(s.finalise(output), tawara::NotWriting);
 
     // TODO: test the case where there is not enough padding for the SeekHead
     // or the SegmentInfo or both.
@@ -134,87 +134,87 @@ TEST(Segment, Read)
     std::stringstream input;
 
     // Reading with a complete index
-    jonen::SeekHead index;
-    index.insert(std::make_pair(jonen::ids::Tracks, 4500));
-    index.insert(std::make_pair(jonen::ids::Cluster, 5000));
-    jonen::SegmentInfo info;
+    tawara::SeekHead index;
+    index.insert(std::make_pair(tawara::ids::Tracks, 4500));
+    index.insert(std::make_pair(tawara::ids::Cluster, 5000));
+    tawara::SegmentInfo info;
     info.date(12345);
     info.title("test segment");
-    jonen::VoidElement ve(2000, true);
-    jonen::Tracks tracks;
-    jonen::TrackEntry::Ptr track_entry(new jonen::TrackEntry(1, 2, "MDCC"));
+    tawara::VoidElement ve(2000, true);
+    tawara::Tracks tracks;
+    tawara::TrackEntry::Ptr track_entry(new tawara::TrackEntry(1, 2, "MDCC"));
     tracks.insert(track_entry);
-    jonen::MemoryCluster cluster;
+    tawara::MemoryCluster cluster;
     std::streamsize body_size(index.size() + info.size() + ve.size() +
             tracks.size() + cluster.size());
 
-    jonen::ids::write(jonen::ids::Segment, input);
-    input.seekg(jonen::ids::size(jonen::ids::Segment));
-    jonen::vint::write(body_size, input, 8);
+    tawara::ids::write(tawara::ids::Segment, input);
+    input.seekg(tawara::ids::size(tawara::ids::Segment));
+    tawara::vint::write(body_size, input, 8);
     index.write(input);
     info.write(input);
     ve.write(input);
     tracks.write(input);
     cluster.write(input);
-    jonen::Segment s;
+    tawara::Segment s;
     EXPECT_EQ(8 + index.size() + info.size(), s.read(input));
-    EXPECT_TRUE(s.index.find(jonen::ids::Tracks) != s.index.end());
-    EXPECT_EQ(4500, s.index.find(jonen::ids::Tracks)->second);
-    EXPECT_TRUE(s.index.find(jonen::ids::Info) != s.index.end());
-    EXPECT_EQ(index.size(), s.index.find(jonen::ids::Info)->second);
+    EXPECT_TRUE(s.index.find(tawara::ids::Tracks) != s.index.end());
+    EXPECT_EQ(4500, s.index.find(tawara::ids::Tracks)->second);
+    EXPECT_TRUE(s.index.find(tawara::ids::Info) != s.index.end());
+    EXPECT_EQ(index.size(), s.index.find(tawara::ids::Info)->second);
 
     // Reading without an index
     input.str(std::string());
-    jonen::ids::write(jonen::ids::Segment, input);
-    input.seekg(jonen::ids::size(jonen::ids::Segment));
+    tawara::ids::write(tawara::ids::Segment, input);
+    input.seekg(tawara::ids::size(tawara::ids::Segment));
     body_size -= index.size();
-    jonen::vint::write(body_size, input, 8);
+    tawara::vint::write(body_size, input, 8);
     info.write(input);
     ve.write(input);
     tracks.write(input);
     cluster.write(input);
     EXPECT_EQ(8 + info.size(), s.read(input));
-    EXPECT_TRUE(s.index.find(jonen::ids::Tracks) != s.index.end());
+    EXPECT_TRUE(s.index.find(tawara::ids::Tracks) != s.index.end());
     EXPECT_EQ(info.size() + ve.size(),
-            s.index.find(jonen::ids::Tracks)->second);
-    EXPECT_TRUE(s.index.find(jonen::ids::Info) != s.index.end());
-    EXPECT_EQ(0, s.index.find(jonen::ids::Info)->second);
-    EXPECT_TRUE(s.index.find(jonen::ids::Cluster) != s.index.end());
+            s.index.find(tawara::ids::Tracks)->second);
+    EXPECT_TRUE(s.index.find(tawara::ids::Info) != s.index.end());
+    EXPECT_EQ(0, s.index.find(tawara::ids::Info)->second);
+    EXPECT_TRUE(s.index.find(tawara::ids::Cluster) != s.index.end());
     EXPECT_EQ(info.size() + ve.size() + tracks.size(),
-            s.index.find(jonen::ids::Cluster)->second);
+            s.index.find(tawara::ids::Cluster)->second);
 
     // No SegmentInfo
     input.str(std::string());
-    jonen::ids::write(jonen::ids::Segment, input);
-    input.seekg(jonen::ids::size(jonen::ids::Segment));
-    jonen::vint::write(body_size - info.size(), input, 8);
+    tawara::ids::write(tawara::ids::Segment, input);
+    input.seekg(tawara::ids::size(tawara::ids::Segment));
+    tawara::vint::write(body_size - info.size(), input, 8);
     ve.write(input);
     tracks.write(input);
     cluster.write(input);
-    EXPECT_THROW(s.read(input), jonen::NoSegmentInfo);
+    EXPECT_THROW(s.read(input), tawara::NoSegmentInfo);
     // No Tracks
     input.str(std::string());
-    jonen::ids::write(jonen::ids::Segment, input);
-    input.seekg(jonen::ids::size(jonen::ids::Segment));
-    jonen::vint::write(body_size - tracks.size(), input, 8);
+    tawara::ids::write(tawara::ids::Segment, input);
+    input.seekg(tawara::ids::size(tawara::ids::Segment));
+    tawara::vint::write(body_size - tracks.size(), input, 8);
     info.write(input);
     ve.write(input);
     cluster.write(input);
-    EXPECT_THROW(s.read(input), jonen::NoTracks);
+    EXPECT_THROW(s.read(input), tawara::NoTracks);
     // No clusters
     input.str(std::string());
-    jonen::ids::write(jonen::ids::Segment, input);
-    input.seekg(jonen::ids::size(jonen::ids::Segment));
-    jonen::vint::write(body_size - cluster.size(), input, 8);
+    tawara::ids::write(tawara::ids::Segment, input);
+    input.seekg(tawara::ids::size(tawara::ids::Segment));
+    tawara::vint::write(body_size - cluster.size(), input, 8);
     info.write(input);
     ve.write(input);
     tracks.write(input);
-    EXPECT_THROW(s.read(input), jonen::NoClusters);
+    EXPECT_THROW(s.read(input), tawara::NoClusters);
     // Size too small
     input.str(std::string());
-    jonen::ids::write(jonen::ids::Segment, input);
-    input.seekg(jonen::ids::size(jonen::ids::Segment));
-    jonen::vint::write(4, input, 8);
-    EXPECT_THROW(s.read(input), jonen::BadBodySize);
+    tawara::ids::write(tawara::ids::Segment, input);
+    input.seekg(tawara::ids::size(tawara::ids::Segment));
+    tawara::vint::write(4, input, 8);
+    EXPECT_THROW(s.read(input), tawara::BadBodySize);
 }
 

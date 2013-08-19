@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/segment.h>
+#include <tawara/segment.h>
 
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/seek_element.h>
-#include <jonen/vint.h>
-#include <jonen/void_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/seek_element.h>
+#include <tawara/vint.h>
+#include <tawara/void_element.h>
 
-using namespace jonen;
+using namespace tawara;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -140,7 +140,7 @@ std::streamsize Segment::to_stream_offset(std::streamsize seg_offset) const
 std::streamsize Segment::size() const
 {
     // The size of a segment is always written using 8 bytes
-    return jonen::ids::size(id_) + 8 + body_size();
+    return tawara::ids::size(id_) + 8 + body_size();
 }
 
 

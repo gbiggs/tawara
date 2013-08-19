@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/master_element.h>
+#include <tawara/master_element.h>
 
-#include <jonen/exceptions.h>
+#include <tawara/exceptions.h>
 
-using namespace jonen;
+using namespace tawara;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

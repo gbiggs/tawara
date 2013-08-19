@@ -37,29 +37,29 @@
  */
 
 #include <gtest/gtest.h>
-#include <jonen/block_element.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/memory_cluster.h>
-#include <jonen/simple_block.h>
-#include <jonen/vint.h>
+#include <tawara/block_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/memory_cluster.h>
+#include <tawara/simple_block.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(MemoryCluster, Create)
 {
-    jonen::MemoryCluster e;
+    tawara::MemoryCluster e;
     EXPECT_TRUE(e.empty());
 }
 
 
 TEST(MemoryCluster, Empty)
 {
-    jonen::MemoryCluster c;
+    tawara::MemoryCluster c;
     EXPECT_TRUE(c.empty());
-    jonen::BlockElement::Ptr b(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
     c.push_back(b);
     EXPECT_FALSE(c.empty());
 }
@@ -67,12 +67,12 @@ TEST(MemoryCluster, Empty)
 
 TEST(MemoryCluster, Count)
 {
-    jonen::MemoryCluster c;
+    tawara::MemoryCluster c;
     EXPECT_EQ(0, c.count());
-    jonen::BlockElement::Ptr b1(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
-    jonen::BlockElement::Ptr b2(new jonen::SimpleBlock(2, 26262,
-                jonen::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b1(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b2(new tawara::SimpleBlock(2, 26262,
+                tawara::Block::LACING_NONE));
     c.push_back(b1);
     c.push_back(b2);
     EXPECT_EQ(2, c.count());
@@ -81,9 +81,9 @@ TEST(MemoryCluster, Count)
 
 TEST(MemoryCluster, Clear)
 {
-    jonen::MemoryCluster c;
-    jonen::BlockElement::Ptr b(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
+    tawara::MemoryCluster c;
+    tawara::BlockElement::Ptr b(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
     c.push_back(b);
     EXPECT_FALSE(c.empty());
     c.clear();
@@ -93,11 +93,11 @@ TEST(MemoryCluster, Clear)
 
 TEST(MemoryCluster, Erase)
 {
-    jonen::MemoryCluster c;
-    jonen::BlockElement::Ptr b1(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
-    jonen::BlockElement::Ptr b2(new jonen::SimpleBlock(2, 26262,
-                jonen::Block::LACING_NONE));
+    tawara::MemoryCluster c;
+    tawara::BlockElement::Ptr b1(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b2(new tawara::SimpleBlock(2, 26262,
+                tawara::Block::LACING_NONE));
     c.push_back(b1);
     c.push_back(b2);
     EXPECT_EQ(2, c.count());
@@ -106,10 +106,10 @@ TEST(MemoryCluster, Erase)
     EXPECT_EQ(1, c.count());
     EXPECT_TRUE(b2 == *c.begin());
 
-    jonen::BlockElement::Ptr b3(new jonen::SimpleBlock(3, 12345,
-                jonen::Block::LACING_NONE));
-    jonen::BlockElement::Ptr b4(new jonen::SimpleBlock(4, 26262,
-                jonen::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b3(new tawara::SimpleBlock(3, 12345,
+                tawara::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b4(new tawara::SimpleBlock(4, 26262,
+                tawara::Block::LACING_NONE));
     c.push_back(b3);
     c.push_back(b4);
     EXPECT_EQ(3, c.count());
@@ -121,11 +121,11 @@ TEST(MemoryCluster, Erase)
 
 TEST(MemoryCluster, PushBack)
 {
-    jonen::MemoryCluster c;
-    jonen::BlockElement::Ptr b1(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
-    jonen::BlockElement::Ptr b2(new jonen::SimpleBlock(2, 26262,
-                jonen::Block::LACING_NONE));
+    tawara::MemoryCluster c;
+    tawara::BlockElement::Ptr b1(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b2(new tawara::SimpleBlock(2, 26262,
+                tawara::Block::LACING_NONE));
     c.push_back(b1);
     EXPECT_TRUE(b1 == *c.begin());
     c.push_back(b2);
@@ -135,13 +135,13 @@ TEST(MemoryCluster, PushBack)
 
 TEST(MemoryCluster, Iterators)
 {
-    jonen::MemoryCluster c;
+    tawara::MemoryCluster c;
     EXPECT_TRUE(c.begin() == c.end());
 
-    jonen::BlockElement::Ptr b1(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
-    jonen::BlockElement::Ptr b2(new jonen::SimpleBlock(2, 26262,
-                jonen::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b1(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b2(new tawara::SimpleBlock(2, 26262,
+                tawara::Block::LACING_NONE));
     c.push_back(b1);
     EXPECT_FALSE(c.begin() == c.end());
     EXPECT_TRUE(b1 == *c.begin());
@@ -152,10 +152,10 @@ TEST(MemoryCluster, Iterators)
 
 TEST(MemoryCluster, Size)
 {
-    jonen::MemoryCluster c;
-    jonen::UIntElement tc(jonen::ids::Timecode, 0);
+    tawara::MemoryCluster c;
+    tawara::UIntElement tc(tawara::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + body_size, c.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + body_size, c.size());
 }
 
 
@@ -163,22 +163,22 @@ TEST(MemoryCluster, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    jonen::UIntElement tc(jonen::ids::Timecode, 0);
-    jonen::BlockElement::Ptr b1(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
-    jonen::BlockElement::Ptr b2(new jonen::SimpleBlock(2, 26262,
-                jonen::Block::LACING_NONE));
-    jonen::Block::value_type f1(test_utils::make_blob(5));
+    tawara::UIntElement tc(tawara::ids::Timecode, 0);
+    tawara::BlockElement::Ptr b1(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b2(new tawara::SimpleBlock(2, 26262,
+                tawara::Block::LACING_NONE));
+    tawara::Block::value_type f1(test_utils::make_blob(5));
     b1->push_back(f1);
-    jonen::Block::value_type f2(test_utils::make_blob(10));
+    tawara::Block::value_type f2(test_utils::make_blob(10));
     b2->push_back(f2);
-    jonen::MemoryCluster c;
+    tawara::MemoryCluster c;
 
     std::streamsize expected_size(tc.size());
-    jonen::ids::write(jonen::ids::Cluster, expected);
-    jonen::vint::write(expected_size, expected, 8);
+    tawara::ids::write(tawara::ids::Cluster, expected);
+    tawara::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + expected_size,
             c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -187,17 +187,17 @@ TEST(MemoryCluster, Write)
     expected.str(std::string());
     c.push_back(b1);
     c.push_back(b2);
-    jonen::ids::write(jonen::ids::Cluster, expected);
-    jonen::vint::write(expected_size, expected, 8);
+    tawara::ids::write(tawara::ids::Cluster, expected);
+    tawara::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + expected_size,
             c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
     expected_size += b1->size() + b2->size();
     b1->write(expected);
     b2->write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + expected_size,
             c.finalise(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -207,37 +207,37 @@ TEST(MemoryCluster, Write)
 TEST(MemoryCluster, Read)
 {
     std::stringstream input;
-    jonen::UIntElement tc(jonen::ids::Timecode, 42);
-    jonen::BlockElement::Ptr b1(new jonen::SimpleBlock(1, 12345,
-                jonen::Block::LACING_NONE));
-    jonen::BlockElement::Ptr b2(new jonen::SimpleBlock(2, 26262,
-                jonen::Block::LACING_NONE));
-    jonen::Block::value_type f1(test_utils::make_blob(5));
+    tawara::UIntElement tc(tawara::ids::Timecode, 42);
+    tawara::BlockElement::Ptr b1(new tawara::SimpleBlock(1, 12345,
+                tawara::Block::LACING_NONE));
+    tawara::BlockElement::Ptr b2(new tawara::SimpleBlock(2, 26262,
+                tawara::Block::LACING_NONE));
+    tawara::Block::value_type f1(test_utils::make_blob(5));
     b1->push_back(f1);
-    jonen::Block::value_type f2(test_utils::make_blob(10));
+    tawara::Block::value_type f2(test_utils::make_blob(10));
     b2->push_back(f2);
-    jonen::MemoryCluster c;
+    tawara::MemoryCluster c;
 
     std::streamsize body_size(tc.size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     tc.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             c.read(input));
     EXPECT_EQ(42, c.timecode());
 
     input.str(std::string());
     body_size += b1->size() + b2->size();
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     tc.write(input);
     b1->write(input);
     b2->write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             c.read(input));
     EXPECT_EQ(42, c.timecode());
     EXPECT_EQ(2, c.count());
-    EXPECT_TRUE((*boost::static_pointer_cast<jonen::SimpleBlock>(b1)) ==
-            (*boost::static_pointer_cast<jonen::SimpleBlock>(*c.begin())));
-    EXPECT_TRUE((*boost::static_pointer_cast<jonen::SimpleBlock>(b2)) ==
-            (*boost::static_pointer_cast<jonen::SimpleBlock>(*(++c.begin()))));
+    EXPECT_TRUE((*boost::static_pointer_cast<tawara::SimpleBlock>(b1)) ==
+            (*boost::static_pointer_cast<tawara::SimpleBlock>(*c.begin())));
+    EXPECT_TRUE((*boost::static_pointer_cast<tawara::SimpleBlock>(b2)) ==
+            (*boost::static_pointer_cast<tawara::SimpleBlock>(*(++c.begin()))));
 }
 

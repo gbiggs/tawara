@@ -36,9 +36,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/block.h>
+#include <tawara/block.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////

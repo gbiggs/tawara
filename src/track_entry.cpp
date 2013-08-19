@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/track_entry.h>
+#include <tawara/track_entry.h>
 
 #include <boost/foreach.hpp>
-#include <jonen/el_ids.h>
-#include <jonen/element.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/element.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -161,7 +161,7 @@ void TrackEntry::overlays(std::vector<uint64_t> const& uids)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
+bool tawara::operator==(TrackEntry const& lhs, TrackEntry const& rhs)
 {
     return lhs.number_ == rhs.number_ &&
         lhs.uid_ == rhs.uid_ &&
@@ -254,8 +254,8 @@ std::streamsize TrackEntry::body_size() const
     }
     if (operation_)
     {
-        size += jonen::ids::size(ids::TrackOperation) +
-            jonen::vint::size(operation_->size()) +
+        size += tawara::ids::size(ids::TrackOperation) +
+            tawara::vint::size(operation_->size()) +
             operation_->size();
     }
     return size;
@@ -336,8 +336,8 @@ std::streamsize TrackEntry::write_body(std::ostream& output)
     }
     if (operation_)
     {
-        written += jonen::ids::write(ids::TrackOperation, output);
-        written += jonen::vint::write(operation_->size(), output);
+        written += tawara::ids::write(ids::TrackOperation, output);
+        written += tawara::vint::write(operation_->size(), output);
         written += operation_->write(output);
     }
     return written;

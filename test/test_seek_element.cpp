@@ -37,19 +37,19 @@
  */
 
 #include <gtest/gtest.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/seek_element.h>
-#include <jonen/uint_element.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/seek_element.h>
+#include <tawara/uint_element.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(Seek, Create)
 {
-    jonen::SeekElement e(0x80, 2);
-    EXPECT_EQ(jonen::ids::Seek, e.id());
+    tawara::SeekElement e(0x80, 2);
+    EXPECT_EQ(tawara::ids::Seek, e.id());
     EXPECT_EQ(0x80, e.indexed_id());
     EXPECT_EQ(2, e.offset());
 }
@@ -57,18 +57,18 @@ TEST(Seek, Create)
 
 TEST(Seek, ID)
 {
-    jonen::SeekElement e(0x80, 0);
+    tawara::SeekElement e(0x80, 0);
     EXPECT_EQ(0x80, e.indexed_id());
     e.indexed_id(0x9F);
     EXPECT_EQ(0x9F, e.indexed_id());
     EXPECT_EQ(0, e.offset());
-    EXPECT_EQ(jonen::ids::Seek, e.id());
+    EXPECT_EQ(tawara::ids::Seek, e.id());
 }
 
 
 TEST(Seek, Offset)
 {
-    jonen::SeekElement e(0x80, 0);
+    tawara::SeekElement e(0x80, 0);
     EXPECT_EQ(0, e.offset());
     e.offset(12345);
     EXPECT_EQ(12345, e.offset());
@@ -78,15 +78,15 @@ TEST(Seek, Offset)
 
 TEST(Seek, Size)
 {
-    jonen::BinaryElement be(jonen::ids::SeekID,
+    tawara::BinaryElement be(tawara::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            jonen::ids::encode(jonen::ids::SeekHead));
-    jonen::UIntElement ue(jonen::ids::SeekPosition, 0x1010);
+            tawara::ids::encode(tawara::ids::SeekHead));
+    tawara::UIntElement ue(tawara::ids::SeekPosition, 0x1010);
     std::streamsize body_size(be.size() + ue.size());
 
-    jonen::SeekElement se(jonen::ids::SeekHead, 0x1010);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Seek) +
-            jonen::vint::size(body_size) + body_size,
+    tawara::SeekElement se(tawara::ids::SeekHead, 0x1010);
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Seek) +
+            tawara::vint::size(body_size) + body_size,
             se.size());
 }
 
@@ -96,18 +96,18 @@ TEST(Seek, Write)
     std::ostringstream output;
     std::stringstream expected;
 
-    jonen::BinaryElement be(jonen::ids::SeekID,
+    tawara::BinaryElement be(tawara::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            jonen::ids::encode(jonen::ids::SeekHead));
-    jonen::UIntElement ue(jonen::ids::SeekPosition, 12345);
+            tawara::ids::encode(tawara::ids::SeekHead));
+    tawara::UIntElement ue(tawara::ids::SeekPosition, 12345);
     std::streamsize expected_size(be.size() + ue.size());
-    jonen::SeekElement se(jonen::ids::SeekHead, 12345);
-    jonen::ids::write(jonen::ids::Seek, expected);
-    jonen::vint::write(expected_size, expected);
+    tawara::SeekElement se(tawara::ids::SeekHead, 12345);
+    tawara::ids::write(tawara::ids::Seek, expected);
+    tawara::vint::write(expected_size, expected);
     be.write(expected);
     ue.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Seek) +
-            jonen::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Seek) +
+            tawara::vint::size(expected_size) + expected_size,
             se.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -117,66 +117,66 @@ TEST(Seek, Read)
 {
     std::stringstream input;
 
-    jonen::BinaryElement be(jonen::ids::SeekID,
+    tawara::BinaryElement be(tawara::ids::SeekID,
             // SeekHead is a nice, long ID to test with
-            jonen::ids::encode(jonen::ids::SeekHead));
-    jonen::UIntElement ue(jonen::ids::SeekPosition, 12345);
+            tawara::ids::encode(tawara::ids::SeekHead));
+    tawara::UIntElement ue(tawara::ids::SeekPosition, 12345);
     std::streamsize body_size(be.size() + ue.size());
 
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     be.write(input);
     ue.write(input);
 
-    jonen::SeekElement e(0x80, 0);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    tawara::SeekElement e(0x80, 0);
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
         e.read(input));
-    EXPECT_EQ(jonen::ids::SeekHead, e.indexed_id());
+    EXPECT_EQ(tawara::ids::SeekHead, e.indexed_id());
     EXPECT_EQ(12345, e.offset());
 
     input.str(std::string());
-    be.value(jonen::ids::encode(jonen::ids::EBML));
+    be.value(tawara::ids::encode(tawara::ids::EBML));
     ue.value(54321);
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     // Note the reversed order this time
     ue.write(input);
     be.write(input);
 
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
         e.read(input));
-    EXPECT_EQ(jonen::ids::EBML, e.indexed_id());
+    EXPECT_EQ(tawara::ids::EBML, e.indexed_id());
     EXPECT_EQ(54321, e.offset());
 
     // No SeekID child
     input.str(std::string());
-    jonen::vint::write(ue.size(), input);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
     // No SeekPosition child
     input.str(std::string());
-    jonen::vint::write(be.size(), input);
+    tawara::vint::write(be.size(), input);
     be.write(input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
     // No children at all
     input.str(std::string());
-    jonen::vint::write(0, input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    tawara::vint::write(0, input);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
     // Body size value wrong (too big)
     input.str(std::string());
-    jonen::vint::write(ue.size() + be.size() + 5, input);
+    tawara::vint::write(ue.size() + be.size() + 5, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read(input), jonen::BadBodySize);
+    EXPECT_THROW(e.read(input), tawara::BadBodySize);
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     ue.write(input);
     be.write(input);
-    EXPECT_THROW(e.read(input), jonen::BadBodySize);
+    EXPECT_THROW(e.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue2(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue2.size(), input);
+    tawara::UIntElement ue2(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue2.size(), input);
     ue2.write(input);
-    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(e.read(input), tawara::InvalidChildID);
 }
 

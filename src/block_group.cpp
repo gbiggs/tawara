@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/block_group.h>
+#include <tawara/block_group.h>
 
 #include <boost/foreach.hpp>
-#include <jonen/el_ids.h>
-#include <jonen/ebml_int.h>
-#include <jonen/int_element.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/ebml_int.h>
+#include <tawara/int_element.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ using namespace jonen;
 
 BlockGroup::BlockGroup(uint64_t track_number, int16_t timecode,
         LacingType lacing, uint64_t duration, uint64_t ref_priority)
-    : BlockElement(jonen::ids::BlockGroup, track_number, timecode, lacing),
+    : BlockElement(tawara::ids::BlockGroup, track_number, timecode, lacing),
     duration_(ids::BlockDuration, duration),
     ref_priority_(ids::ReferencePriority, ref_priority, 0),
     codec_state_(ids::CodecState, std::vector<char>()),
@@ -81,7 +81,7 @@ void BlockGroup::swap(BlockGroup& other)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(BlockGroup const& lhs, BlockGroup const& rhs)
+bool tawara::operator==(BlockGroup const& lhs, BlockGroup const& rhs)
 {
     return lhs.additions_ == rhs.additions_ &&
         lhs.duration_ == rhs.duration_ &&

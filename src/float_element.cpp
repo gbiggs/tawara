@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/float_element.h>
+#include <tawara/float_element.h>
 
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 #include <vector>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -37,18 +37,18 @@
  */
 
 #include <gtest/gtest.h>
-#include <jonen/el_ids.h>
-#include <jonen/element.h>
-#include <jonen/exceptions.h>
-#include <jonen/uint_element.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/element.h>
+#include <tawara/exceptions.h>
+#include <tawara/uint_element.h>
+#include <tawara/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
 
 
 // Fake Element implementation
-class FakeElement : public jonen::Element
+class FakeElement : public tawara::Element
 {
     public:
         FakeElement(uint32_t id)
@@ -81,11 +81,11 @@ class FakeElement : public jonen::Element
 TEST(Element, Construction)
 {
     EXPECT_EQ(1234, FakeElement(1234).id());
-    EXPECT_THROW(FakeElement(0x00), jonen::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFFFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFFFFFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakeElement(0xFFFFFFFF), jonen::InvalidElementID);
+    EXPECT_THROW(FakeElement(0x00), tawara::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFFFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFFFFFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakeElement(0xFFFFFFFF), tawara::InvalidElementID);
 }
 
 
@@ -94,7 +94,7 @@ TEST(Element, CopyConstruction)
     EXPECT_EQ(1234, FakeElement(FakeElement(1234)).id());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(FakeElement(FakeElement(0x00)), jonen::InvalidElementID);
+    EXPECT_THROW(FakeElement(FakeElement(0x00)), tawara::InvalidElementID);
 }
 
 
@@ -108,9 +108,9 @@ TEST(Element, Assignment)
 
 TEST(Element, Size)
 {
-    FakeElement e(jonen::ids::EBML);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::EBML) +
-            jonen::vint::size(0), e.size());
+    FakeElement e(tawara::ids::EBML);
+    EXPECT_EQ(tawara::ids::size(tawara::ids::EBML) +
+            tawara::vint::size(0), e.size());
 }
 
 
@@ -122,17 +122,17 @@ TEST(Element, Write)
 
     // Place some dummy data at the start to test the element recording its
     // write position.
-    jonen::vint::write(dummy, output);
-    jonen::vint::write(dummy, expected);
+    tawara::vint::write(dummy, output);
+    tawara::vint::write(dummy, expected);
 
-    FakeElement e(jonen::ids::EBML);
-    jonen::ids::write(jonen::ids::EBML, expected);
-    jonen::vint::write(0, expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::EBML) +
-            jonen::vint::size(0), e.write(output));
+    FakeElement e(tawara::ids::EBML);
+    tawara::ids::write(tawara::ids::EBML, expected);
+    tawara::vint::write(0, expected);
+    EXPECT_EQ(tawara::ids::size(tawara::ids::EBML) +
+            tawara::vint::size(0), e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
-    EXPECT_EQ(jonen::vint::size(dummy), e.offset());
+    EXPECT_EQ(tawara::vint::size(dummy), e.offset());
 }
 
 
@@ -140,16 +140,16 @@ TEST(Element, Read)
 {
     std::stringstream input;
     unsigned int dummy(0xFFFF);
-    FakeElement e(jonen::ids::EBML);
+    FakeElement e(tawara::ids::EBML);
 
-    jonen::vint::write(dummy, input);
-    jonen::ids::write(jonen::ids::Info, input);
-    jonen::vint::write(0, input);
-    input.seekg(jonen::vint::size(dummy) +
-            jonen::ids::size(jonen::ids::Info), std::ios::beg);
+    tawara::vint::write(dummy, input);
+    tawara::ids::write(tawara::ids::Info, input);
+    tawara::vint::write(0, input);
+    input.seekg(tawara::vint::size(dummy) +
+            tawara::ids::size(tawara::ids::Info), std::ios::beg);
 
-    EXPECT_EQ(jonen::vint::size(0), e.read(input));
-    EXPECT_EQ(jonen::vint::size(dummy),
+    EXPECT_EQ(tawara::vint::size(0), e.read(input));
+    EXPECT_EQ(tawara::vint::size(dummy),
             e.offset());
 }
 
@@ -158,20 +158,20 @@ TEST(ElementUtils, SkipRead)
 {
     std::stringstream input;
 
-    jonen::UIntElement ue1(jonen::ids::Null, 0xFFFFFFFF);
-    jonen::UIntElement ue2(jonen::ids::Null, 0xFFFFFFFF);
-    jonen::UIntElement ue3(jonen::ids::Null, 0xFFFFFFFF);
+    tawara::UIntElement ue1(tawara::ids::Null, 0xFFFFFFFF);
+    tawara::UIntElement ue2(tawara::ids::Null, 0xFFFFFFFF);
+    tawara::UIntElement ue3(tawara::ids::Null, 0xFFFFFFFF);
     ue1.write(input);
     ue2.write(input);
     ue3.write(input);
     input.seekp(0);
     input.seekg(0);
 
-    jonen::skip_read(input, true);
+    tawara::skip_read(input, true);
     EXPECT_EQ(ue1.size(), input.tellg());
     EXPECT_EQ(0, input.tellp());
-    jonen::ids::read(input);
-    jonen::skip_read(input, false);
+    tawara::ids::read(input);
+    tawara::skip_read(input, false);
     EXPECT_EQ(ue1.size() + ue2.size(), input.tellg());
     EXPECT_EQ(0, input.tellp());
 }
@@ -181,20 +181,20 @@ TEST(ElementUtils, SkipWrite)
 {
     std::stringstream input;
 
-    jonen::UIntElement ue1(jonen::ids::Null, 0xFFFFFFFF);
-    jonen::UIntElement ue2(jonen::ids::Null, 0xFFFFFFFF);
-    jonen::UIntElement ue3(jonen::ids::Null, 0xFFFFFFFF);
+    tawara::UIntElement ue1(tawara::ids::Null, 0xFFFFFFFF);
+    tawara::UIntElement ue2(tawara::ids::Null, 0xFFFFFFFF);
+    tawara::UIntElement ue3(tawara::ids::Null, 0xFFFFFFFF);
     ue1.write(input);
     ue2.write(input);
     ue3.write(input);
     input.seekp(0);
     input.seekg(0);
 
-    jonen::skip_write(input, true);
+    tawara::skip_write(input, true);
     EXPECT_EQ(ue1.size(), input.tellp());
     EXPECT_EQ(0, input.tellg());
-    input.seekp(jonen::ids::size(jonen::ids::Null), std::ios::cur);
-    jonen::skip_write(input, false);
+    input.seekp(tawara::ids::size(tawara::ids::Null), std::ios::cur);
+    tawara::skip_write(input, false);
     EXPECT_EQ(ue1.size() + ue2.size(), input.tellp());
     EXPECT_EQ(0, input.tellg());
 }

@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/date_element.h>
+#include <tawara/date_element.h>
 
-#include <jonen/ebml_int.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/ebml_int.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////

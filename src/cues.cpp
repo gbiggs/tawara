@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/cues.h>
+#include <tawara/cues.h>
 
 #include <boost/foreach.hpp>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 ///////////////////////////////////////////////////////////////////////////////
 // CueTrackPosition Constructors and destructors
@@ -101,7 +101,7 @@ void CueTrackPosition::block_num(uint64_t block_num)
 // CueTrackPosition operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(CueTrackPosition const& lhs, CueTrackPosition const& rhs)
+bool tawara::operator==(CueTrackPosition const& lhs, CueTrackPosition const& rhs)
 {
     return lhs.track_ == rhs.track_ &&
         lhs.cluster_pos_ == rhs.cluster_pos_ &&
@@ -284,7 +284,7 @@ CuePoint::CuePoint(uint64_t timecode)
 // CuePoint operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(CuePoint const& lhs, CuePoint const& rhs)
+bool tawara::operator==(CuePoint const& lhs, CuePoint const& rhs)
 {
     return lhs.timecode_ == rhs.timecode_ &&
         lhs.positions_ == rhs.positions_;
@@ -390,7 +390,7 @@ Cues::Cues()
 // Cues Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(Cues const& lhs, Cues const& rhs)
+bool tawara::operator==(Cues const& lhs, Cues const& rhs)
 {
     return lhs.cues_ == rhs.cues_;
 }

@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/attachments.h>
+#include <tawara/attachments.h>
 
 #include <boost/foreach.hpp>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
 
-using namespace jonen;
+using namespace tawara;
 
 ///////////////////////////////////////////////////////////////////////////////
 // AttachedFile constructors and destructors
@@ -99,7 +99,7 @@ void AttachedFile::data(FileData::Ptr& data)
 // AttachedFile operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(AttachedFile const& lhs, AttachedFile const& rhs)
+bool tawara::operator==(AttachedFile const& lhs, AttachedFile const& rhs)
 {
     bool data_eq(false);
     if (lhs.data_ && rhs.data_)
@@ -267,7 +267,7 @@ Attachments::Attachments()
 // Attachments operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(Attachments const& lhs, Attachments const& rhs)
+bool tawara::operator==(Attachments const& lhs, Attachments const& rhs)
 {
     return lhs.files_ == rhs.files_;
 }

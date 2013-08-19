@@ -36,17 +36,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/tracks.h>
+#include <tawara/tracks.h>
 
 #include <algorithm>
 #include <boost/foreach.hpp>
 #include <functional>
 #include <stdexcept>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors
@@ -112,7 +112,7 @@ void Tracks::insert(const_iterator first, const_iterator last)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(Tracks const& lhs, Tracks const& rhs)
+bool tawara::operator==(Tracks const& lhs, Tracks const& rhs)
 {
     return lhs.entries_ == rhs.entries_;
 }

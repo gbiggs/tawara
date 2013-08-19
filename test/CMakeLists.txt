@@ -21,7 +21,7 @@ set(srcs test_utils.cpp
     test_binary_element.cpp
     test_void_element.cpp
     test_ebml_element.cpp
-    test_jonen.cpp
+    test_tawara.cpp
     test_seek_element.cpp
     test_metaseek.cpp
     test_segment_info.cpp
@@ -44,7 +44,7 @@ configure_file("test_consts.h.in" ${test_consts})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(all_tests ${srcs} ${test_consts})
-target_link_libraries(all_tests jonen ${Boost_LIBRARIES} ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(all_tests tawara ${Boost_LIBRARIES} ${GTEST_BOTH_LIBRARIES})
 if(CMAKE_VERSION VERSION_LESS 2.8.4)
     add_test(AllTests all_tests)
 else(CMAKE_VERSION VERSION_LESS 2.8.4)

@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/binary_element.h>
+#include <tawara/binary_element.h>
 
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/string_element.h>
+#include <tawara/string_element.h>
 
 #include <gtest/gtest.h>
-#include <jonen/el_ids.h>
-#include <jonen/ebml_int.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/ebml_int.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -51,7 +51,7 @@
 namespace test_strel
 {
 
-std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, std::string data,
+std::streamsize fill_buffer(std::string& b, tawara::ids::ID id, std::string data,
         uint64_t padding, bool write_id, bool write_size, bool write_body)
 {
     std::streamsize total(0);
@@ -59,13 +59,13 @@ std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, std::string data,
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(jonen::ebml_int::encode_u(id));
+        std::vector<char> tmp(tawara::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
     if (write_size)
     {
-        std::vector<char> tmp(jonen::vint::encode(data.size() + padding));
+        std::vector<char> tmp(tawara::vint::encode(data.size() + padding));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -87,66 +87,66 @@ std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, std::string data,
 
 TEST(StringElement, Construction)
 {
-    EXPECT_EQ(jonen::ids::Null, jonen::StringElement(jonen::ids::Null, "string 1").id());
-    EXPECT_THROW(jonen::StringElement(0x00, "string 1"),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(0xFF, "string 1"),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(0xFFFF, "string 1"),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(0xFFFFFF, "string 1"),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(0xFFFFFFFF, "string 1"),
-            jonen::InvalidElementID);
+    EXPECT_EQ(tawara::ids::Null, tawara::StringElement(tawara::ids::Null, "string 1").id());
+    EXPECT_THROW(tawara::StringElement(0x00, "string 1"),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(0xFF, "string 1"),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(0xFFFF, "string 1"),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(0xFFFFFF, "string 1"),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(0xFFFFFFFF, "string 1"),
+            tawara::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(jonen::StringElement(0x00, "string 1", "default string"),
-            jonen::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(0x00, "string 1", "default string"),
+            tawara::InvalidElementID);
 }
 
 
 TEST(StringElement, CopyConstruction)
 {
-    EXPECT_EQ(jonen::ids::Null, jonen::StringElement(jonen::StringElement(jonen::ids::Null,
+    EXPECT_EQ(tawara::ids::Null, tawara::StringElement(tawara::StringElement(tawara::ids::Null,
                     "string 1")).id());
-    EXPECT_EQ(jonen::ids::Null, jonen::StringElement(jonen::StringElement(jonen::ids::Null, "string 1",
+    EXPECT_EQ(tawara::ids::Null, tawara::StringElement(tawara::StringElement(tawara::ids::Null, "string 1",
                     "string 2")).id());
-    EXPECT_EQ("string 1", jonen::StringElement(jonen::StringElement(jonen::ids::Null,
+    EXPECT_EQ("string 1", tawara::StringElement(tawara::StringElement(tawara::ids::Null,
                     "string 1", "string 2")).value());
-    EXPECT_EQ("string 2", jonen::StringElement(jonen::StringElement(jonen::ids::Null,
+    EXPECT_EQ("string 2", tawara::StringElement(tawara::StringElement(tawara::ids::Null,
                     "string 1", "string 2")).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(jonen::StringElement(jonen::StringElement(0x00, "string 1")),
-            jonen::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(tawara::StringElement(0x00, "string 1")),
+            tawara::InvalidElementID);
 }
 
 
 TEST(StringElement, SetID)
 {
-    jonen::StringElement e(jonen::ids::Null, "string 1");
+    tawara::StringElement e(tawara::ids::Null, "string 1");
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(jonen::StringElement(1, "string 1").id(0x00),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(1, "string 1").id(0xFF),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(1, "string 1").id(0xFFFF),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(1, "string 1").id(0xFFFFFF),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::StringElement(1, "string 1").id(0xFFFFFFFF),
-            jonen::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(1, "string 1").id(0x00),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(1, "string 1").id(0xFF),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(1, "string 1").id(0xFFFF),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(1, "string 1").id(0xFFFFFF),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::StringElement(1, "string 1").id(0xFFFFFFFF),
+            tawara::InvalidElementID);
 }
 
 
 TEST(StringElement, Assignment)
 {
-    jonen::StringElement e1(1, "string 1"), e2(2, "string 2");
+    tawara::StringElement e1(1, "string 1"), e2(2, "string 2");
     e2 = e1;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
 
-    jonen::StringElement e3(1, "string 1", "string 1"), e4(2, "string 2",
+    tawara::StringElement e3(1, "string 1", "string 1"), e4(2, "string 2",
             "string 2");
     e4 = e3;
     EXPECT_EQ(e1.value(), e2.value());
@@ -154,14 +154,14 @@ TEST(StringElement, Assignment)
     EXPECT_EQ(e3.has_default(), e4.has_default());
     EXPECT_EQ(e3.get_default(), e4.get_default());
 
-    jonen::StringElement e5(1, "string 1", "string 1"), e6(2, "string 2");
+    tawara::StringElement e5(1, "string 1", "string 1"), e6(2, "string 2");
     e6 = e5;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.has_default(), e6.has_default());
     EXPECT_EQ(e5.get_default(), e6.get_default());
 
-    jonen::StringElement e7(1, "string 1"), e8(2, "string 2", "string 2");
+    tawara::StringElement e7(1, "string 1"), e8(2, "string 2", "string 2");
     e8 = e7;
     EXPECT_EQ(e1.value(), e2.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -178,11 +178,11 @@ TEST(StringElement, Assignment)
 
 TEST(StringElement, Default)
 {
-    EXPECT_FALSE(jonen::StringElement(jonen::ids::Null, "string 1").has_default());
-    EXPECT_TRUE(jonen::StringElement(jonen::ids::Null, "string 1",
+    EXPECT_FALSE(tawara::StringElement(tawara::ids::Null, "string 1").has_default());
+    EXPECT_TRUE(tawara::StringElement(tawara::ids::Null, "string 1",
                 "string 1").has_default());
 
-    jonen::StringElement e1(jonen::ids::Null, "string 1", "string 1");
+    tawara::StringElement e1(tawara::ids::Null, "string 1", "string 1");
     EXPECT_EQ("string 1", e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -191,7 +191,7 @@ TEST(StringElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ("string 2", e1.get_default());
 
-    jonen::StringElement e2(jonen::ids::Null, "string 1");
+    tawara::StringElement e2(tawara::ids::Null, "string 1");
     EXPECT_FALSE(e2.has_default());
     e2.set_default("string 1");
     EXPECT_TRUE(e2.has_default());
@@ -199,7 +199,7 @@ TEST(StringElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    jonen::StringElement e3(jonen::ids::Null, "string 1");
+    tawara::StringElement e3(tawara::ids::Null, "string 1");
     EXPECT_FALSE(e3.is_default());
     e3.set_default("string 1");
     EXPECT_TRUE(e3.is_default());
@@ -212,16 +212,16 @@ TEST(StringElement, Default)
 
 TEST(StringElement, Value)
 {
-    EXPECT_EQ("string 1", jonen::StringElement(jonen::ids::Null, "string 1").value());
-    EXPECT_EQ("string 1", jonen::StringElement(jonen::ids::Null, "string 1",
+    EXPECT_EQ("string 1", tawara::StringElement(tawara::ids::Null, "string 1").value());
+    EXPECT_EQ("string 1", tawara::StringElement(tawara::ids::Null, "string 1",
                 "string 2").value());
 
-    jonen::StringElement e1(jonen::ids::Null, "string 1");
+    tawara::StringElement e1(tawara::ids::Null, "string 1");
     EXPECT_EQ("string 1", e1.value());
     e1.value("string 2");
     EXPECT_EQ("string 2", e1.value());
 
-    jonen::StringElement e2(jonen::ids::Null, "string 1", "string 2");
+    tawara::StringElement e2(tawara::ids::Null, "string 1", "string 2");
     e2.value("string 3");
     EXPECT_EQ("string 3", e2.value());
 }
@@ -229,10 +229,10 @@ TEST(StringElement, Value)
 
 TEST(StringElement, Padding)
 {
-    EXPECT_EQ(0, jonen::StringElement(jonen::ids::Null, "string 1").padding());
-    EXPECT_EQ(0, jonen::StringElement(jonen::ids::Null, "string 1", "string 2").padding());
+    EXPECT_EQ(0, tawara::StringElement(tawara::ids::Null, "string 1").padding());
+    EXPECT_EQ(0, tawara::StringElement(tawara::ids::Null, "string 1", "string 2").padding());
 
-    jonen::StringElement e1(jonen::ids::Null, "string 1");
+    tawara::StringElement e1(tawara::ids::Null, "string 1");
     EXPECT_EQ(0, e1.padding());
     e1.padding(30);
     EXPECT_EQ(30, e1.padding());
@@ -241,8 +241,8 @@ TEST(StringElement, Padding)
 
 TEST(StringElement, Equality)
 {
-    jonen::StringElement e1(jonen::ids::Null, "string 1");
-    jonen::StringElement e2(jonen::ids::Null, "string 1");
+    tawara::StringElement e1(tawara::ids::Null, "string 1");
+    tawara::StringElement e2(tawara::ids::Null, "string 1");
 
     EXPECT_TRUE(e1 == e2);
     e2.value("string 2");
@@ -254,13 +254,13 @@ TEST(StringElement, Write)
 {
     std::ostringstream output;
     std::string expected;
-    std::string value("jonen::ids::Null5");
+    std::string value("tawara::ids::Null5");
     uint64_t padding(0);
 
-    jonen::StringElement e1(jonen::ids::Null, value);
+    tawara::StringElement e1(tawara::ids::Null, value);
     e1.padding(padding);
-    test_strel::fill_buffer(expected, jonen::ids::Null, value, padding, true, true, true);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Null) + 1 + value.size() + padding,
+    test_strel::fill_buffer(expected, tawara::ids::Null, value, padding, true, true, true);
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Null) + 1 + value.size() + padding,
             e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -270,9 +270,9 @@ TEST(StringElement, Write)
     e1.padding(padding);
     output.str(std::string());
     std::string().swap(expected);
-    test_strel::fill_buffer(expected, jonen::ids::Null, value, padding, true,
+    test_strel::fill_buffer(expected, tawara::ids::Null, value, padding, true,
             true, true);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Null) + 1 + value.size() +
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Null) + 1 + value.size() +
             padding, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -283,9 +283,9 @@ TEST(StringElement, Write)
     e1.padding(padding);
     output.str(std::string());
     std::string().swap(expected);
-    test_strel::fill_buffer(expected, jonen::ids::Null, value, padding, true,
+    test_strel::fill_buffer(expected, tawara::ids::Null, value, padding, true,
             true, true);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Null) + 1 + value.size() +
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Null) + 1 + value.size() +
             padding, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
@@ -296,9 +296,9 @@ TEST(StringElement, Write)
     e1.padding(padding);
     output.str(std::string());
     std::string().swap(expected);
-    test_strel::fill_buffer(expected, jonen::ids::Null, value, padding, true,
+    test_strel::fill_buffer(expected, tawara::ids::Null, value, padding, true,
             true, true);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Null) + 1 + value.size() +
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Null) + 1 + value.size() +
             padding, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
@@ -308,10 +308,10 @@ TEST(StringElement, Read)
 {
     std::istringstream input;
     std::string input_val;
-    std::string value("jonen::ids::Null5");
+    std::string value("tawara::ids::Null5");
     uint64_t padding(0);
 
-    jonen::StringElement e(0x80, "");
+    tawara::StringElement e(0x80, "");
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val);
     EXPECT_EQ(1 + value.size() + padding, e.read(input));
@@ -320,7 +320,7 @@ TEST(StringElement, Read)
     EXPECT_EQ(padding, e.padding());
 
     // String without padding
-    value = "jonen::ids::Null567890";
+    value = "tawara::ids::Null567890";
     padding = 0;
     std::string value_padded(value);
     value_padded.append(padding, '\0');
@@ -339,7 +339,7 @@ TEST(StringElement, Read)
     EXPECT_FALSE(e.is_default());
 
     // String with padding
-    value = "jonen::ids::Null567890";
+    value = "tawara::ids::Null567890";
     padding = 5;
     value_padded = value;
     value_padded.append(padding, '\0');
@@ -396,17 +396,17 @@ TEST(StringElement, Read)
     EXPECT_FALSE(e.is_default());
 
     // Test for ReadError exception
-    value = "jonen::ids::Null5";
+    value = "tawara::ids::Null5";
     std::string().swap(input_val);
     test_strel::fill_buffer(input_val, 0x80, value, padding, false, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), jonen::ReadError);
+    EXPECT_THROW(e.read(input), tawara::ReadError);
 }
 
 
 TEST(StringElement, Size)
 {
-    jonen::StringElement e(0x80, "12345");
+    tawara::StringElement e(0x80, "12345");
     EXPECT_EQ(7, e.size());
 
     e.value("1234567890");

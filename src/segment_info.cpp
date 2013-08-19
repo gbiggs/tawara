@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/segment_info.h>
+#include <tawara/segment_info.h>
 
 #include <algorithm>
 #include <functional>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////

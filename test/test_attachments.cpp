@@ -37,10 +37,10 @@
  */
 
 #include <gtest/gtest.h>
-#include <jonen/attachments.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/attachments.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
@@ -51,7 +51,7 @@
 
 TEST(AttachedFile, Create)
 {
-    jonen::AttachedFile f1;
+    tawara::AttachedFile f1;
     EXPECT_EQ("", f1.description());
     EXPECT_EQ("", f1.name());
     EXPECT_EQ("", f1.mime_type());
@@ -59,8 +59,8 @@ TEST(AttachedFile, Create)
     EXPECT_TRUE(!f1.data());
 
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f2("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f2("name", "mime", fd, 42);
     EXPECT_EQ("", f2.description());
     EXPECT_EQ("name", f2.name());
     EXPECT_EQ("mime", f2.mime_type());
@@ -71,7 +71,7 @@ TEST(AttachedFile, Create)
 
 TEST(AttachedFile, Description)
 {
-    jonen::AttachedFile f;
+    tawara::AttachedFile f;
     EXPECT_EQ("", f.description());
     f.description("desc");
     EXPECT_EQ("desc", f.description());
@@ -80,7 +80,7 @@ TEST(AttachedFile, Description)
 
 TEST(AttachedFile, Name)
 {
-    jonen::AttachedFile f;
+    tawara::AttachedFile f;
     EXPECT_EQ("", f.name());
     f.name("name");
     EXPECT_EQ("name", f.name());
@@ -89,7 +89,7 @@ TEST(AttachedFile, Name)
 
 TEST(AttachedFile, Mime)
 {
-    jonen::AttachedFile f;
+    tawara::AttachedFile f;
     EXPECT_EQ("", f.mime_type());
     f.mime_type("mime");
     EXPECT_EQ("mime", f.mime_type());
@@ -98,12 +98,12 @@ TEST(AttachedFile, Mime)
 
 TEST(AttachedFile, Data)
 {
-    jonen::AttachedFile f;
+    tawara::AttachedFile f;
     EXPECT_TRUE(!f.data());
-    jonen::FileData::Ptr data(new jonen::FileData(std::vector<char>()));
-    EXPECT_THROW(f.data(data), jonen::NoAttachedData);
+    tawara::FileData::Ptr data(new tawara::FileData(std::vector<char>()));
+    EXPECT_THROW(f.data(data), tawara::NoAttachedData);
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr data2(new jonen::FileData(*blob));
+    tawara::FileData::Ptr data2(new tawara::FileData(*blob));
     f.data(data2);
     EXPECT_TRUE(*data2 == *f.data());
 }
@@ -111,41 +111,41 @@ TEST(AttachedFile, Data)
 
 TEST(AttachedFile, UID)
 {
-    jonen::AttachedFile f;
+    tawara::AttachedFile f;
     EXPECT_EQ(1, f.uid());
     f.uid(42);
     EXPECT_EQ(42, f.uid());
-    EXPECT_THROW(f.uid(0), jonen::ValueOutOfRange);
+    EXPECT_THROW(f.uid(0), tawara::ValueOutOfRange);
 }
 
 
 TEST(AttachedFile, Size)
 {
-    jonen::StringElement desc(jonen::ids::FileDescription, "");
-    jonen::StringElement name(jonen::ids::FileName, "");
-    jonen::StringElement mime(jonen::ids::FileMimeType, "");
+    tawara::StringElement desc(tawara::ids::FileDescription, "");
+    tawara::StringElement name(tawara::ids::FileName, "");
+    tawara::StringElement mime(tawara::ids::FileMimeType, "");
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr data(new jonen::FileData(*blob));
-    jonen::UIntElement uid(jonen::ids::FileUID, 1);
+    tawara::FileData::Ptr data(new tawara::FileData(*blob));
+    tawara::UIntElement uid(tawara::ids::FileUID, 1);
 
-    jonen::AttachedFile f1;
+    tawara::AttachedFile f1;
     f1.data(data);
     std::streamsize body_size(name.size() + mime.size() + data->size() +
             uid.size());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
-            jonen::vint::size(body_size) + body_size, f1.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::AttachedFile) +
+            tawara::vint::size(body_size) + body_size, f1.size());
 
     desc = "desc";
     name = "name";
     mime = "mime";
     uid = 42;
 
-    jonen::AttachedFile f2("name", "mime", data, 42);
+    tawara::AttachedFile f2("name", "mime", data, 42);
     f2.description("desc");
     body_size = desc.size() + name.size() + mime.size() +
             data->size() + uid.size();
-    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
-            jonen::vint::size(body_size) + body_size, f2.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::AttachedFile) +
+            tawara::vint::size(body_size) + body_size, f2.size());
 }
 
 
@@ -153,25 +153,25 @@ TEST(AttachedFile, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    jonen::StringElement desc(jonen::ids::FileDescription, "");
-    jonen::StringElement name(jonen::ids::FileName, "");
-    jonen::StringElement mime(jonen::ids::FileMimeType, "");
+    tawara::StringElement desc(tawara::ids::FileDescription, "");
+    tawara::StringElement name(tawara::ids::FileName, "");
+    tawara::StringElement mime(tawara::ids::FileMimeType, "");
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr data(new jonen::FileData(*blob));
-    jonen::UIntElement uid(jonen::ids::FileUID, 21);
+    tawara::FileData::Ptr data(new tawara::FileData(*blob));
+    tawara::UIntElement uid(tawara::ids::FileUID, 21);
 
-    jonen::AttachedFile f1;
+    tawara::AttachedFile f1;
     f1.data(data);
     std::streamsize body_size(name.size() + mime.size() + data->size() +
             uid.size());
-    jonen::ids::write(jonen::ids::AttachedFile, expected);
-    jonen::vint::write(body_size, expected);
+    tawara::ids::write(tawara::ids::AttachedFile, expected);
+    tawara::vint::write(body_size, expected);
     name.write(expected);
     mime.write(expected);
     data->write(expected);
     uid.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
-            jonen::vint::size(body_size) + body_size, f1.write(output));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::AttachedFile) +
+            tawara::vint::size(body_size) + body_size, f1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 
@@ -182,19 +182,19 @@ TEST(AttachedFile, Write)
 
     expected.str(std::string());
     output.str(std::string());
-    jonen::AttachedFile f2("name", "mime", data, 42);
+    tawara::AttachedFile f2("name", "mime", data, 42);
     f2.description("desc");
     body_size = desc.size() + name.size() + mime.size() + data->size() +
         uid.size();
-    jonen::ids::write(jonen::ids::AttachedFile, expected);
-    jonen::vint::write(body_size, expected);
+    tawara::ids::write(tawara::ids::AttachedFile, expected);
+    tawara::vint::write(body_size, expected);
     desc.write(expected);
     name.write(expected);
     mime.write(expected);
     data->write(expected);
     uid.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::AttachedFile) +
-            jonen::vint::size(body_size) + body_size, f2.write(output));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::AttachedFile) +
+            tawara::vint::size(body_size) + body_size, f2.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 }
@@ -203,22 +203,22 @@ TEST(AttachedFile, Write)
 TEST(AttachedFile, Read)
 {
     std::stringstream input;
-    jonen::StringElement desc(jonen::ids::FileDescription, "");
-    jonen::StringElement name(jonen::ids::FileName, "");
-    jonen::StringElement mime(jonen::ids::FileMimeType, "");
+    tawara::StringElement desc(tawara::ids::FileDescription, "");
+    tawara::StringElement name(tawara::ids::FileName, "");
+    tawara::StringElement mime(tawara::ids::FileMimeType, "");
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr data(new jonen::FileData(*blob));
-    jonen::UIntElement uid(jonen::ids::FileUID, 21);
+    tawara::FileData::Ptr data(new tawara::FileData(*blob));
+    tawara::UIntElement uid(tawara::ids::FileUID, 21);
 
-    jonen::AttachedFile f;
+    tawara::AttachedFile f;
     std::streamsize body_size(name.size() + mime.size() + data->size() +
             uid.size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     name.write(input);
     mime.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size, f.read(input));
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size, f.read(input));
     EXPECT_EQ("", f.description());
     EXPECT_EQ("", f.name());
     EXPECT_EQ("", f.mime_type());
@@ -233,13 +233,13 @@ TEST(AttachedFile, Read)
     input.str(std::string());
     body_size = desc.size() + name.size() + mime.size() + data->size() +
         uid.size();
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     desc.write(input);
     name.write(input);
     mime.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size, f.read(input));
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size, f.read(input));
     EXPECT_EQ("desc", f.description());
     EXPECT_EQ("name", f.name());
     EXPECT_EQ("mime", f.mime_type());
@@ -248,50 +248,50 @@ TEST(AttachedFile, Read)
 
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     name.write(input);
     mime.write(input);
-    EXPECT_THROW(f.read(input), jonen::BadBodySize);
+    EXPECT_THROW(f.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(f.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(f.read(input), tawara::InvalidChildID);
     // No name
     input.str(std::string());
-    jonen::vint::write(mime.size() + data->size() + uid.size(), input);
+    tawara::vint::write(mime.size() + data->size() + uid.size(), input);
     mime.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), jonen::MissingChild);
+    EXPECT_THROW(f.read(input), tawara::MissingChild);
     // No MIME type
     input.str(std::string());
-    jonen::vint::write(name.size() + data->size() + uid.size(), input);
+    tawara::vint::write(name.size() + data->size() + uid.size(), input);
     name.write(input);
     data->write(input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), jonen::MissingChild);
+    EXPECT_THROW(f.read(input), tawara::MissingChild);
     // No data
     input.str(std::string());
-    jonen::vint::write(name.size() + mime.size() + uid.size(), input);
+    tawara::vint::write(name.size() + mime.size() + uid.size(), input);
     name.write(input);
     mime.write(input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), jonen::MissingChild);
+    EXPECT_THROW(f.read(input), tawara::MissingChild);
     // No UID
     input.str(std::string());
-    jonen::vint::write(name.size() + mime.size() + data->size(), input);
+    tawara::vint::write(name.size() + mime.size() + data->size(), input);
     name.write(input);
     mime.write(input);
     data->write(input);
-    EXPECT_THROW(f.read(input), jonen::MissingChild);
+    EXPECT_THROW(f.read(input), tawara::MissingChild);
     // UID is zero
     input.str(std::string());
     uid = 0;
-    jonen::vint::write(uid.size(), input);
+    tawara::vint::write(uid.size(), input);
     uid.write(input);
-    EXPECT_THROW(f.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(f.read(input), tawara::ValueOutOfRange);
 }
 
 
@@ -301,18 +301,18 @@ TEST(AttachedFile, Read)
 
 TEST(Attachments, Create)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     EXPECT_TRUE(a.empty());
 }
 
 
 TEST(Attachments, Assignment)
 {
-    jonen::Attachments a1;
-    jonen::Attachments a2;
+    tawara::Attachments a1;
+    tawara::Attachments a2;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
     a1.push_back(f);
 
     EXPECT_TRUE(a2.empty());
@@ -325,10 +325,10 @@ TEST(Attachments, Assignment)
 
 TEST(Attachments, At)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
     a.push_back(f);
     EXPECT_TRUE(a[0] == a.at(0));
     EXPECT_TRUE(*a.at(0).data() == *fd);
@@ -338,18 +338,18 @@ TEST(Attachments, At)
 
 TEST(Attachments, SubscriptOperator)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
     a.push_back(f);
     EXPECT_TRUE(a[0] == a.at(0));
     EXPECT_TRUE(*a[0].data() == *fd);
     EXPECT_NO_THROW(a[1]);
 
     boost::shared_ptr<std::vector<char> > blob2(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd2(new jonen::FileData(*blob));
-    jonen::AttachedFile f2("name2", "mime2", fd, 84);
+    tawara::FileData::Ptr fd2(new tawara::FileData(*blob));
+    tawara::AttachedFile f2("name2", "mime2", fd, 84);
     a[0] = f2;
     EXPECT_TRUE(a[0] == f2);
     EXPECT_TRUE(*a[0].data() == *fd2);
@@ -358,10 +358,10 @@ TEST(Attachments, SubscriptOperator)
 
 TEST(Attachments, BeginEnd)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
 
     EXPECT_TRUE(a.begin() == a.end());
     EXPECT_TRUE(a.rbegin() == a.rend());
@@ -373,10 +373,10 @@ TEST(Attachments, BeginEnd)
 
 TEST(Attachments, Counts)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
 
     EXPECT_TRUE(a.empty());
     a.push_back(f);
@@ -387,10 +387,10 @@ TEST(Attachments, Counts)
 
 TEST(Attachments, Clear)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
     a.push_back(f);
     EXPECT_FALSE(a.empty());
     a.clear();
@@ -400,13 +400,13 @@ TEST(Attachments, Clear)
 
 TEST(Attachments, push_back)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     boost::shared_ptr<std::vector<char> > blob1(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd1(new jonen::FileData(*blob1));
-    jonen::AttachedFile f1("name", "mime", fd1, 42);
+    tawara::FileData::Ptr fd1(new tawara::FileData(*blob1));
+    tawara::AttachedFile f1("name", "mime", fd1, 42);
     boost::shared_ptr<std::vector<char> > blob2(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd2(new jonen::FileData(*blob2));
-    jonen::AttachedFile f2("name", "mime", fd2, 42);
+    tawara::FileData::Ptr fd2(new tawara::FileData(*blob2));
+    tawara::AttachedFile f2("name", "mime", fd2, 42);
 
     EXPECT_TRUE(a.empty());
     a.push_back(f1);
@@ -422,13 +422,13 @@ TEST(Attachments, push_back)
 
 TEST(Attachments, Erase)
 {
-    jonen::Attachments a;
+    tawara::Attachments a;
     boost::shared_ptr<std::vector<char> > blob1(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd1(new jonen::FileData(*blob1));
-    jonen::AttachedFile f1("name", "mime", fd1, 42);
+    tawara::FileData::Ptr fd1(new tawara::FileData(*blob1));
+    tawara::AttachedFile f1("name", "mime", fd1, 42);
     boost::shared_ptr<std::vector<char> > blob2(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd2(new jonen::FileData(*blob2));
-    jonen::AttachedFile f2("name", "mime", fd2, 42);
+    tawara::FileData::Ptr fd2(new tawara::FileData(*blob2));
+    tawara::AttachedFile f2("name", "mime", fd2, 42);
 
     a.push_back(f1);
     a.push_back(f2);
@@ -448,10 +448,10 @@ TEST(Attachments, Erase)
 
 TEST(Attachments, Swap)
 {
-    jonen::Attachments a1, a2;
+    tawara::Attachments a1, a2;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
     a1.push_back(f);
 
     EXPECT_FALSE(a1.empty());
@@ -465,10 +465,10 @@ TEST(Attachments, Swap)
 
 TEST(Attachments, Equality)
 {
-    jonen::Attachments a1, a2;
+    tawara::Attachments a1, a2;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
 
     EXPECT_TRUE(a1 == a2);
     EXPECT_FALSE(a1 != a2);
@@ -482,13 +482,13 @@ TEST(Attachments, Equality)
 TEST(Attachments, Size)
 {
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
 
-    jonen::Attachments a;
+    tawara::Attachments a;
     a.push_back(f);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Attachments) +
-            jonen::vint::size(f.size()) + f.size(), a.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Attachments) +
+            tawara::vint::size(f.size()) + f.size(), a.size());
 }
 
 
@@ -497,21 +497,21 @@ TEST(Attachments, Write)
     std::ostringstream output;
     std::stringstream expected;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
-    jonen::Attachments a;
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
+    tawara::Attachments a;
 
     // No attached files
-    EXPECT_THROW(a.write(output), jonen::NoAttachments);
+    EXPECT_THROW(a.write(output), tawara::NoAttachments);
 
     output.str(std::string());
     a.push_back(f);
     std::streamsize body_size(f.size());
-    jonen::ids::write(jonen::ids::Attachments, expected);
-    jonen::vint::write(body_size, expected);
+    tawara::ids::write(tawara::ids::Attachments, expected);
+    tawara::vint::write(body_size, expected);
     f.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Attachments) +
-            jonen::vint::size(body_size) + body_size, a.write(output));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Attachments) +
+            tawara::vint::size(body_size) + body_size, a.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 }
@@ -521,31 +521,31 @@ TEST(Attachments, Read)
 {
     std::stringstream input;
     boost::shared_ptr<std::vector<char> > blob(test_utils::make_blob(5));
-    jonen::FileData::Ptr fd(new jonen::FileData(*blob));
-    jonen::AttachedFile f("name", "mime", fd, 42);
+    tawara::FileData::Ptr fd(new tawara::FileData(*blob));
+    tawara::AttachedFile f("name", "mime", fd, 42);
 
-    jonen::Attachments a;
+    tawara::Attachments a;
     std::streamsize body_size(f.size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     f.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size, a.read(input));
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size, a.read(input));
     EXPECT_FALSE(a.empty());
     EXPECT_TRUE(*a[0].data() == *fd);
 
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     f.write(input);
-    EXPECT_THROW(a.read(input), jonen::BadBodySize);
+    EXPECT_THROW(a.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(a.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(a.read(input), tawara::InvalidChildID);
     // No attachments
     input.str(std::string());
-    jonen::vint::write(0, input);
-    EXPECT_THROW(a.read(input), jonen::NoAttachments);
+    tawara::vint::write(0, input);
+    EXPECT_THROW(a.read(input), tawara::NoAttachments);
 }
 

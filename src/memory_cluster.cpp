@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/memory_cluster.h>
+#include <tawara/memory_cluster.h>
 
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <jonen/block_group.h>
-#include <jonen/exceptions.h>
-#include <jonen/simple_block.h>
+#include <tawara/block_group.h>
+#include <tawara/exceptions.h>
+#include <tawara/simple_block.h>
 
-using namespace jonen;
+using namespace tawara;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructors and destructors

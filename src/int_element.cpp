@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/int_element.h>
-#include <jonen/ebml_int.h>
-#include <jonen/vint.h>
+#include <tawara/int_element.h>
+#include <tawara/ebml_int.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -80,20 +80,20 @@ IntElement& IntElement::operator=(int64_t const& rhs)
 
 std::streamsize IntElement::body_size() const
 {
-    return jonen::ebml_int::size_s(value_);
+    return tawara::ebml_int::size_s(value_);
 }
 
 
 std::streamsize IntElement::write_body(std::ostream& output)
 {
-    return jonen::ebml_int::write_s(value_, output);
+    return tawara::ebml_int::write_s(value_, output);
 }
 
 
 std::streamsize IntElement::read_body(std::istream& input,
         std::streamsize size)
 {
-    value_ = jonen::ebml_int::read_s(input, size);
+    value_ = tawara::ebml_int::read_s(input, size);
     return size;
 }
 

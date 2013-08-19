@@ -36,14 +36,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/metaseek.h>
+#include <tawara/metaseek.h>
 
 #include <boost/foreach.hpp>
 #include <numeric>
-#include <jonen/seek_element.h>
-#include <jonen/vint.h>
+#include <tawara/seek_element.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ SeekHead::SeekHead()
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(SeekHead const& lhs, SeekHead const& rhs)
+bool tawara::operator==(SeekHead const& lhs, SeekHead const& rhs)
 {
     return lhs.index_ == rhs.index_;
 }
@@ -74,7 +74,7 @@ bool jonen::operator==(SeekHead const& lhs, SeekHead const& rhs)
 // Element interface
 ///////////////////////////////////////////////////////////////////////////////
 
-std::streamsize add_size(std::streamsize x, jonen::SeekHead::value_type v)
+std::streamsize add_size(std::streamsize x, tawara::SeekHead::value_type v)
 {
     SeekElement se(v.first, v.second);
     return x + se.size();
@@ -109,7 +109,7 @@ std::streamsize SeekHead::read_body(std::istream& input,
     while (read_bytes < size)
     {
         // Read the ID
-        ids::ReadResult id_res = jonen::ids::read(input);
+        ids::ReadResult id_res = tawara::ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
         if (id != ids::Seek)

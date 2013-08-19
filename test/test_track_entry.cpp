@@ -40,22 +40,22 @@
 #include <boost/foreach.hpp>
 #include <gtest/gtest.h>
 #include <numeric>
-#include <jonen/binary_element.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/float_element.h>
-#include <jonen/string_element.h>
-#include <jonen/track_entry.h>
-#include <jonen/uint_element.h>
-#include <jonen/vint.h>
+#include <tawara/binary_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/float_element.h>
+#include <tawara/string_element.h>
+#include <tawara/track_entry.h>
+#include <tawara/uint_element.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(TrackEntry, Create)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
-    EXPECT_EQ(jonen::ids::TrackEntry, e.id());
+    tawara::TrackEntry e(1, 2, "MDCC");
+    EXPECT_EQ(tawara::ids::TrackEntry, e.id());
     EXPECT_EQ(1, e.number());
     EXPECT_EQ(2, e.uid());
     EXPECT_EQ(0x70, e.type());
@@ -76,45 +76,45 @@ TEST(TrackEntry, Create)
     EXPECT_EQ(0, e.overlays().size());
     EXPECT_FALSE(e.is_virtual());
 
-    EXPECT_THROW(jonen::TrackEntry(0, 2, "MDCC"), jonen::ValueOutOfRange);
-    EXPECT_THROW(jonen::TrackEntry(1, 0, "MDCC"), jonen::ValueOutOfRange);
-    EXPECT_THROW(jonen::TrackEntry(1, 2, ""), jonen::ValueOutOfRange);
+    EXPECT_THROW(tawara::TrackEntry(0, 2, "MDCC"), tawara::ValueOutOfRange);
+    EXPECT_THROW(tawara::TrackEntry(1, 0, "MDCC"), tawara::ValueOutOfRange);
+    EXPECT_THROW(tawara::TrackEntry(1, 2, ""), tawara::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, Number)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(1, e.number());
     e.number(3);
     EXPECT_EQ(3, e.number());
-    EXPECT_THROW(e.number(0), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.number(0), tawara::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, UID)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(2, e.uid());
     e.uid(3);
     EXPECT_EQ(3, e.uid());
-    EXPECT_THROW(e.uid(0), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.uid(0), tawara::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, Type)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0x70, e.type());
     e.type(0x11);
     EXPECT_EQ(0x11, e.type());
-    EXPECT_THROW(e.type(0xFF), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.type(0xFF), tawara::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, Enabled)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_TRUE(e.enabled());
     e.enabled(false);
     EXPECT_FALSE(e.enabled());
@@ -123,7 +123,7 @@ TEST(TrackEntry, Enabled)
 
 TEST(TrackEntry, Forced)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_FALSE(e.forced());
     e.forced(true);
     EXPECT_TRUE(e.forced());
@@ -132,7 +132,7 @@ TEST(TrackEntry, Forced)
 
 TEST(TrackEntry, Lacing)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_TRUE(e.lacing());
     e.lacing(false);
     EXPECT_FALSE(e.lacing());
@@ -141,7 +141,7 @@ TEST(TrackEntry, Lacing)
 
 TEST(TrackEntry, MinCache)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.min_cache());
     e.min_cache(5);
     EXPECT_EQ(5, e.min_cache());
@@ -150,7 +150,7 @@ TEST(TrackEntry, MinCache)
 
 TEST(TrackEntry, MaxCache)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.max_cache());
     e.max_cache(5);
     EXPECT_EQ(5, e.max_cache());
@@ -159,7 +159,7 @@ TEST(TrackEntry, MaxCache)
 
 TEST(TrackEntry, DefaultDuration)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.default_duration());
     e.default_duration(5);
     EXPECT_EQ(5, e.default_duration());
@@ -168,18 +168,18 @@ TEST(TrackEntry, DefaultDuration)
 
 TEST(TrackEntry, TimecodeScale)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_DOUBLE_EQ(1.0, e.timecode_scale());
     e.timecode_scale(0.75);
     EXPECT_DOUBLE_EQ(0.75, e.timecode_scale());
-    EXPECT_THROW(e.timecode_scale(0.0), jonen::ValueOutOfRange);
-    EXPECT_THROW(e.timecode_scale(-1.0), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.timecode_scale(0.0), tawara::ValueOutOfRange);
+    EXPECT_THROW(e.timecode_scale(-1.0), tawara::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, MaxBlockAddID)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.max_block_add_id());
     e.max_block_add_id(0xFFFF);
     EXPECT_EQ(0xFFFF, e.max_block_add_id());
@@ -188,7 +188,7 @@ TEST(TrackEntry, MaxBlockAddID)
 
 TEST(TrackEntry, Name)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ("", e.name());
     e.name("Blag");
     EXPECT_EQ("Blag", e.name());
@@ -197,17 +197,17 @@ TEST(TrackEntry, Name)
 
 TEST(TrackEntry, CodecID)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ("MDCC", e.codec_id());
     e.codec_id("SCDC");
     EXPECT_EQ("SCDC", e.codec_id());
-    EXPECT_THROW(e.codec_id(""), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.codec_id(""), tawara::ValueOutOfRange);
 }
 
 
 TEST(TrackEntry, CodecPrivate)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.codec_private().size());
     std::vector<char> priv_data;
     priv_data.push_back(0x00);
@@ -222,7 +222,7 @@ TEST(TrackEntry, CodecPrivate)
 
 TEST(TrackEntry, CodecName)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ("", e.codec_name());
     e.codec_name("Blag");
     EXPECT_EQ("Blag", e.codec_name());
@@ -231,7 +231,7 @@ TEST(TrackEntry, CodecName)
 
 TEST(TrackEntry, AttachmentLink)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.attachment_link());
     e.attachment_link(42);
     EXPECT_EQ(42, e.attachment_link());
@@ -240,7 +240,7 @@ TEST(TrackEntry, AttachmentLink)
 
 TEST(TrackEntry, DecodeAll)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_FALSE(e.decode_all());
     e.decode_all(true);
     EXPECT_TRUE(e.decode_all());
@@ -249,7 +249,7 @@ TEST(TrackEntry, DecodeAll)
 
 TEST(TrackEntry, Overlays)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_EQ(0, e.overlays().size());
     std::vector<uint64_t> overlays;
     overlays.push_back(0);
@@ -264,10 +264,10 @@ TEST(TrackEntry, Overlays)
 
 TEST(TrackEntry, Operation)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     EXPECT_FALSE(e.is_virtual());
     EXPECT_FALSE(e.operation());
-    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
+    boost::shared_ptr<tawara::TrackJoinBlocks> op(new tawara::TrackJoinBlocks);
     op->append(42);
     e.operation(op);
     EXPECT_TRUE(e.is_virtual());
@@ -277,8 +277,8 @@ TEST(TrackEntry, Operation)
 
 TEST(TrackEntry, Equality)
 {
-    jonen::TrackEntry e1(1, 2, "MDCC");
-    jonen::TrackEntry e2(1, 2, "MDCC");
+    tawara::TrackEntry e1(1, 2, "MDCC");
+    tawara::TrackEntry e2(1, 2, "MDCC");
     std::vector<uint64_t> overlays;
     overlays.push_back(0);
     overlays.push_back(1);
@@ -286,7 +286,7 @@ TEST(TrackEntry, Equality)
     overlays.push_back(3);
     e1.overlays(overlays);
     e2.overlays(overlays);
-    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
+    boost::shared_ptr<tawara::TrackJoinBlocks> op(new tawara::TrackJoinBlocks);
     op->append(42);
     e1.operation(op);
     e2.operation(op);
@@ -303,35 +303,35 @@ namespace test_track_entry
 {
 
 void DoSizeTest(std::vector<test_utils::ElPtr> const& els,
-        jonen::TrackEntry& e, std::string msg)
+        tawara::TrackEntry& e, std::string msg)
 {
     std::streamsize body_size(0);
     BOOST_FOREACH(test_utils::ElPtr el, els)
     {
         body_size += el->size();
     }
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
-            jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackEntry) +
+            tawara::vint::size(body_size) + body_size,
             e.size()) << msg;
 }
 
 
 void DoWriteTest(std::vector<test_utils::ElPtr> const& els,
-        jonen::TrackEntry& e, std::string msg)
+        tawara::TrackEntry& e, std::string msg)
 {
     std::ostringstream output;
     std::stringstream expected;
 
     std::streamsize expected_size(std::accumulate(els.begin(), els.end(), 0,
                 test_utils::TotalSizeOp()));
-    jonen::ids::write(jonen::ids::TrackEntry, expected);
-    jonen::vint::write(expected_size, expected);
+    tawara::ids::write(tawara::ids::TrackEntry, expected);
+    tawara::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, els)
     {
         el->write(expected);
     }
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
-            jonen::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackEntry) +
+            tawara::vint::size(expected_size) + expected_size,
             e.write(output)) << msg;
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str()) << msg;
@@ -343,13 +343,13 @@ std::vector<test_utils::ElPtr> default_children()
     std::vector<test_utils::ElPtr> result;
 
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackNumber, 1)));
+            tawara::UIntElement(tawara::ids::TrackNumber, 1)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackUID, 2)));
+            tawara::UIntElement(tawara::ids::TrackUID, 2)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackType, 0x70)));
+            tawara::UIntElement(tawara::ids::TrackType, 0x70)));
     result.push_back(test_utils::ElPtr(new
-            jonen::StringElement(jonen::ids::CodecID, "MDCC")));
+            tawara::StringElement(tawara::ids::CodecID, "MDCC")));
 
     return result;
 }
@@ -360,13 +360,13 @@ std::vector<test_utils::ElPtr> required_children()
     std::vector<test_utils::ElPtr> result;
 
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackNumber, 4)));
+            tawara::UIntElement(tawara::ids::TrackNumber, 4)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackUID, 42)));
+            tawara::UIntElement(tawara::ids::TrackUID, 42)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackType, 0x11)));
+            tawara::UIntElement(tawara::ids::TrackType, 0x11)));
     result.push_back(test_utils::ElPtr(new
-            jonen::StringElement(jonen::ids::CodecID, "SCDC")));
+            tawara::StringElement(tawara::ids::CodecID, "SCDC")));
 
     return result;
 }
@@ -377,41 +377,41 @@ std::vector<test_utils::ElPtr> possible_children()
     std::vector<test_utils::ElPtr> result;
 
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::FlagEnabled, 0)));
+            tawara::UIntElement(tawara::ids::FlagEnabled, 0)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::FlagForced, 1)));
+            tawara::UIntElement(tawara::ids::FlagForced, 1)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::FlagLacing, 0)));
+            tawara::UIntElement(tawara::ids::FlagLacing, 0)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::MinCache, 24)));
+            tawara::UIntElement(tawara::ids::MinCache, 24)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::MaxCache, 42)));
+            tawara::UIntElement(tawara::ids::MaxCache, 42)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::DefaultDuration, 37)));
+            tawara::UIntElement(tawara::ids::DefaultDuration, 37)));
     result.push_back(test_utils::ElPtr(new
-            jonen::FloatElement(jonen::ids::TrackTimecodeScale, 0.5)));
+            tawara::FloatElement(tawara::ids::TrackTimecodeScale, 0.5)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::MaxBlockAdditionID, 21)));
+            tawara::UIntElement(tawara::ids::MaxBlockAdditionID, 21)));
     result.push_back(test_utils::ElPtr(new
-            jonen::StringElement(jonen::ids::Name, "Blag")));
+            tawara::StringElement(tawara::ids::Name, "Blag")));
     std::vector<char> priv_data;
     priv_data.push_back(0x00);
     priv_data.push_back(0x01);
     priv_data.push_back(0x02);
     priv_data.push_back(0x03);
     result.push_back(test_utils::ElPtr(new
-            jonen::BinaryElement(jonen::ids::CodecPrivate, priv_data)));
+            tawara::BinaryElement(tawara::ids::CodecPrivate, priv_data)));
     result.push_back(test_utils::ElPtr(new
-            jonen::StringElement(jonen::ids::CodecName,
+            tawara::StringElement(tawara::ids::CodecName,
                 "Super-Cool Data Codec")));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::AttachmentLink, 84)));
+            tawara::UIntElement(tawara::ids::AttachmentLink, 84)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::CodecDecodeAll, 1)));
+            tawara::UIntElement(tawara::ids::CodecDecodeAll, 1)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackOverlay, 168)));
+            tawara::UIntElement(tawara::ids::TrackOverlay, 168)));
     result.push_back(test_utils::ElPtr(new
-            jonen::UIntElement(jonen::ids::TrackOverlay, 336)));
+            tawara::UIntElement(tawara::ids::TrackOverlay, 336)));
 
     return result;
 }
@@ -422,14 +422,14 @@ std::vector<test_utils::ElPtr> possible_children()
 
 TEST(TrackEntry, Size)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     std::streamsize body_size(0);
     BOOST_FOREACH(test_utils::ElPtr el, test_track_entry::required_children())
     {
         body_size += el->size();
     }
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
-            jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackEntry) +
+            tawara::vint::size(body_size) + body_size,
             e.size());
 
     std::vector<test_utils::ElPtr>
@@ -523,22 +523,22 @@ TEST(TrackEntry, Size)
     pos_children.erase(pos_children.begin());
     test_track_entry::DoSizeTest(used_children, e, "overlays");
 
-    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
+    boost::shared_ptr<tawara::TrackJoinBlocks> op(new tawara::TrackJoinBlocks);
     op->append(42);
     e.operation(op);
     body_size = std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp());
-    body_size += jonen::ids::size(jonen::ids::TrackOperation) +
-        jonen::vint::size(op->size()) + op->size();
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
-            jonen::vint::size(body_size) + body_size,
+    body_size += tawara::ids::size(tawara::ids::TrackOperation) +
+        tawara::vint::size(op->size()) + op->size();
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackEntry) +
+            tawara::vint::size(body_size) + body_size,
             e.size());
 }
 
 
 TEST(TrackEntry, Write)
 {
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
     test_track_entry::DoWriteTest(test_track_entry::default_children(), e,
             "empty");
 
@@ -634,24 +634,24 @@ TEST(TrackEntry, Write)
 
     std::ostringstream output;
     std::stringstream expected;
-    boost::shared_ptr<jonen::TrackJoinBlocks> op(new jonen::TrackJoinBlocks);
+    boost::shared_ptr<tawara::TrackJoinBlocks> op(new tawara::TrackJoinBlocks);
     op->append(42);
     e.operation(op);
     std::streamsize expected_size(std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp()));
-    expected_size += jonen::ids::size(jonen::ids::TrackOperation) +
-        jonen::vint::size(op->size()) + op->size();
-    jonen::ids::write(jonen::ids::TrackEntry, expected);
-    jonen::vint::write(expected_size, expected);
+    expected_size += tawara::ids::size(tawara::ids::TrackOperation) +
+        tawara::vint::size(op->size()) + op->size();
+    tawara::ids::write(tawara::ids::TrackEntry, expected);
+    tawara::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, used_children)
     {
         el->write(expected);
     }
-    jonen::ids::write(jonen::ids::TrackOperation, expected);
-    jonen::vint::write(op->size(), expected);
+    tawara::ids::write(tawara::ids::TrackOperation, expected);
+    tawara::vint::write(op->size(), expected);
     op->write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackEntry) +
-            jonen::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackEntry) +
+            tawara::vint::size(expected_size) + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -664,16 +664,16 @@ TEST(TrackEntry, Read)
     std::vector<test_utils::ElPtr>
         used_children(test_track_entry::required_children());
 
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
 
     std::streamsize body_size(std::accumulate(used_children.begin(),
                 used_children.end(), 0, test_utils::TotalSizeOp()));
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(4, e.number());
     EXPECT_EQ(42, e.uid());
@@ -701,145 +701,145 @@ TEST(TrackEntry, Read)
         used_children.push_back(el);
         body_size = std::accumulate(used_children.begin(), used_children.end(),
                 0, test_utils::TotalSizeOp());
-        jonen::vint::write(body_size, input);
+        tawara::vint::write(body_size, input);
         BOOST_FOREACH(test_utils::ElPtr uel, used_children)
         {
             uel->write(input);
         }
-        EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+        EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             e.read(input));
     }
 
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), jonen::BadBodySize);
+    EXPECT_THROW(e.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(e.read(input), tawara::InvalidChildID);
     // Missing children
     input.str(std::string());
-    jonen::vint::write(used_children[1]->size() +
+    tawara::vint::write(used_children[1]->size() +
             used_children[2]->size()+
             used_children[3]->size(), input);
     used_children[1]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
     input.str(std::string());
-    jonen::vint::write(used_children[0]->size() +
+    tawara::vint::write(used_children[0]->size() +
             used_children[2]->size()+
             used_children[3]->size(), input);
     used_children[0]->write(input);
     used_children[2]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
     input.str(std::string());
-    jonen::vint::write(used_children[0]->size() +
+    tawara::vint::write(used_children[0]->size() +
             used_children[1]->size()+
             used_children[3]->size(), input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
     input.str(std::string());
-    jonen::vint::write(used_children[0]->size() +
+    tawara::vint::write(used_children[0]->size() +
             used_children[1]->size()+
             used_children[2]->size(), input);
     used_children[0]->write(input);
     used_children[1]->write(input);
     used_children[2]->write(input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
 }
 
 
 TEST(TrackEntry, ReadOutOfRangeValues)
 {
     std::stringstream input;
-    jonen::TrackEntry e(1, 2, "MDCC");
+    tawara::TrackEntry e(1, 2, "MDCC");
 
-    jonen::UIntElement bad(jonen::ids::TrackNumber, 0);
-    jonen::vint::write(bad.size(), input);
+    tawara::UIntElement bad(tawara::ids::TrackNumber, 0);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::TrackUID);
+    bad.id(tawara::ids::TrackUID);
     bad = 0;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::TrackType);
+    bad.id(tawara::ids::TrackType);
     bad = 255;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::FlagEnabled);
+    bad.id(tawara::ids::FlagEnabled);
     bad = 2;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::FlagForced);
+    bad.id(tawara::ids::FlagForced);
     bad = 2;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::FlagLacing);
+    bad.id(tawara::ids::FlagLacing);
     bad = 2;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::DefaultDuration);
+    bad.id(tawara::ids::DefaultDuration);
     bad = 0;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    jonen::FloatElement bad_f(jonen::ids::TrackTimecodeScale, 0.0);
-    jonen::vint::write(bad_f.size(), input);
+    tawara::FloatElement bad_f(tawara::ids::TrackTimecodeScale, 0.0);
+    tawara::vint::write(bad_f.size(), input);
     bad_f.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
     bad_f = -1.0;
-    jonen::vint::write(bad_f.size(), input);
+    tawara::vint::write(bad_f.size(), input);
     bad_f.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    jonen::StringElement bad_s(jonen::ids::CodecID, "");
-    jonen::vint::write(bad_s.size(), input);
+    tawara::StringElement bad_s(tawara::ids::CodecID, "");
+    tawara::vint::write(bad_s.size(), input);
     bad_s.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::AttachmentLink);
+    bad.id(tawara::ids::AttachmentLink);
     bad = 0;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 
     input.str(std::string());
-    bad.id(jonen::ids::CodecDecodeAll);
+    bad.id(tawara::ids::CodecDecodeAll);
     bad = 2;
-    jonen::vint::write(bad.size(), input);
+    tawara::vint::write(bad.size(), input);
     bad.write(input);
-    EXPECT_THROW(e.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.read(input), tawara::ValueOutOfRange);
 }
 

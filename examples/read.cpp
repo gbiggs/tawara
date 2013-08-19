@@ -42,15 +42,15 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <iostream>
-#include <jonen/jonen_config.h>
-#include <jonen/ebml_element.h>
-#include <jonen/el_ids.h>
-#include <jonen/memory_cluster.h>
-#include <jonen/segment.h>
-#include <jonen/simple_block.h>
-#include <jonen/jonen_impl.h>
-#include <jonen/tracks.h>
-#include <jonen/track_entry.h>
+#include <tawara/tawara_config.h>
+#include <tawara/ebml_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/memory_cluster.h>
+#include <tawara/segment.h>
+#include <tawara/simple_block.h>
+#include <tawara/tawara_impl.h>
+#include <tawara/tracks.h>
+#include <tawara/track_entry.h>
 
 namespace bpt = boost::posix_time;
 
@@ -64,30 +64,30 @@ int main(int argc, char** argv)
     }
 
     // Open the file and check for the EBML header. This confirms that the file
-    // is an EBML file, and is a Jonen document.
+    // is an EBML file, and is a Tawara document.
     std::ifstream stream(argv[1], std::ios::in);
-    jonen::ids::ReadResult id = jonen::ids::read(stream);
-    if (id.first != jonen::ids::EBML)
+    tawara::ids::ReadResult id = tawara::ids::read(stream);
+    if (id.first != tawara::ids::EBML)
     {
         std::cerr << "File does not begin with an EBML header.\n";
         return 1;
     }
-    jonen::EBMLElement ebml_el;
+    tawara::EBMLElement ebml_el;
     ebml_el.read(stream);
-    if (ebml_el.doc_type() != jonen::JonenDocType)
+    if (ebml_el.doc_type() != tawara::TawaraDocType)
     {
-        std::cerr << "Specified EBML file is not a Jonen document.\n";
+        std::cerr << "Specified EBML file is not a Tawara document.\n";
         return 1;
     }
-    if (ebml_el.read_version() > jonen::JonenEBMLVersion)
+    if (ebml_el.read_version() > tawara::TawaraEBMLVersion)
     {
-        std::cerr << "This Jonen document requires read version " <<
+        std::cerr << "This Tawara document requires read version " <<
             ebml_el.read_version() << ".\n";
         return 1;
     }
-    if (ebml_el.doc_read_version() > jonen::JonenVersionMajor)
+    if (ebml_el.doc_read_version() > tawara::TawaraVersionMajor)
     {
-        std::cerr << "This Jonen document requires doc read version " <<
+        std::cerr << "This Tawara document requires doc read version " <<
             ebml_el.read_version() << ".\n";
         return 1;
     }
@@ -97,13 +97,13 @@ int main(int argc, char** argv)
     // and read (or build, if necessary) an index of the level 1 elements. With
     // this index, we will be able to quickly jump to important elements such
     // as the Tracks and the first Cluster.
-    id = jonen::ids::read(stream);
-    if (id.first != jonen::ids::Segment)
+    id = tawara::ids::read(stream);
+    if (id.first != tawara::ids::Segment)
     {
         std::cerr << "Segment element not found\n";
         return 1;
     }
-    jonen::Segment segment;
+    tawara::Segment segment;
     segment.read(stream);
     // Inspect the segment for some interesting information.
     std::cerr << "Segment information:\n\tUUID: ";
@@ -132,18 +132,18 @@ int main(int argc, char** argv)
     // one will exist).
     // We can guarantee that there is at least one in the index because
     // otherwise the call to segment.read() would have thrown an error.
-    std::streampos tracks_pos(segment.index.find(jonen::ids::Tracks)->second);
+    std::streampos tracks_pos(segment.index.find(tawara::ids::Tracks)->second);
     stream.seekg(segment.to_stream_offset(tracks_pos));
     // To be sure, we can check it really is a Tracks element, but this is
     // usually not necessary.
-    id = jonen::ids::read(stream);
-    if (id.first != jonen::ids::Tracks)
+    id = tawara::ids::read(stream);
+    if (id.first != tawara::ids::Tracks)
     {
         std::cerr << "Tracks element not at indicated position.\n";
         return 1;
     }
     // Read the tracks
-    jonen::Tracks tracks;
+    tawara::Tracks tracks;
     tracks.read(stream);
     // Now we can introspect the tracks available in the file.
     if (tracks.empty())
@@ -152,7 +152,7 @@ int main(int argc, char** argv)
         return 1;
     }
     std::cerr << "Tracks:\n";
-    BOOST_FOREACH(jonen::Tracks::value_type track, tracks)
+    BOOST_FOREACH(tawara::Tracks::value_type track, tracks)
     {
         std::cerr << "\tNumber: " << track.second->number() << '\n';
         std::cerr << "\tName: " << track.second->name() << '\n';
@@ -176,7 +176,7 @@ int main(int argc, char** argv)
     // larger quantities of data, using the in-file cluster implementation is
     // typically better.
     int cluster_num(0);
-    for (jonen::Segment::MemClusterIterator cluster(segment.clusters_begin_mem(stream));
+    for (tawara::Segment::MemClusterIterator cluster(segment.clusters_begin_mem(stream));
             cluster != segment.clusters_end_mem(stream); ++cluster)
     {
         std::cerr << "Cluster " << cluster_num++ << '\n';
@@ -186,7 +186,7 @@ int main(int argc, char** argv)
             cluster->timecode() << ")\n";
         std::cerr << "\tBlock count: " << cluster->count() << '\n';
         std::cerr << "\tFrames:\n";
-        for (jonen::MemoryCluster::Iterator block(cluster->begin());
+        for (tawara::MemoryCluster::Iterator block(cluster->begin());
                 block != cluster->end(); ++block)
         {
             // Some blocks may actually contain multiple frames in a lace. In
@@ -194,8 +194,8 @@ int main(int argc, char** argv)
             // there is only one frame per block. This is the general case;
             // lacing is typically only used when the frame size is very small
             // to reduce overhead.
-            jonen::BlockElement::Ptr first_block(*block);
-            jonen::BlockElement::FramePtr frame_data(*(first_block->begin()));
+            tawara::BlockElement::Ptr first_block(*block);
+            tawara::BlockElement::FramePtr frame_data(*(first_block->begin()));
             std::string frame(frame_data->begin(), frame_data->end());
             std::cerr << "\t\t" << frame << '\n';
             std::cerr << "\t\t\tTrack number: " << first_block->track_number() <<
@@ -210,10 +210,10 @@ int main(int argc, char** argv)
     // Do the same thing, using the all-blocks-in-a-segment iterator and the
     // in-file cluster implementation.
     std::cerr << "All blocks in the segment:\n";
-    for (jonen::Segment::FileBlockIterator block(segment.blocks_begin_file(stream));
+    for (tawara::Segment::FileBlockIterator block(segment.blocks_begin_file(stream));
             block != segment.blocks_end_file(stream); ++block)
     {
-        jonen::BlockElement::FramePtr frame_data(*block->begin());
+        tawara::BlockElement::FramePtr frame_data(*block->begin());
         std::string frame(frame_data->begin(), frame_data->end());
         std::cerr << "\t" << frame << '\n';
         std::cerr << "\t\tTrack number: " << block->track_number() <<

@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/track_operation.h>
+#include <tawara/track_operation.h>
 
 #include <boost/foreach.hpp>
-#include <jonen/vint.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ std::streamsize TrackJoinBlocks::read_body(std::istream& input,
     while (read_bytes < size)
     {
         // Read the ID
-        ids::ReadResult id_res = jonen::ids::read(input);
+        ids::ReadResult id_res = tawara::ids::read(input);
         ids::ID id(id_res.first);
         read_bytes += id_res.second;
         if (id != ids::TrackJoinUID)

@@ -1,4 +1,4 @@
-Jonen - Japanese
+Tawara - Japanese
 ==================
 
 .. toctree::
@@ -10,7 +10,7 @@ Jonen - Japanese
 Introduction
 ============
 
-Jonen is a library for recording and playing back data indexed along a
+Tawara is a library for recording and playing back data indexed along a
 single axis, typically time. It is not described as "for storing and
 retrieving;" the library is optimised for data streams, not data tables.
 It is particularly suited to applications that must record one or more
@@ -22,13 +22,13 @@ those streams back in real-time later on for testing software.
 Requirements
 ============
 
-Jonen uses the `CMake build system`_. You will need at least version
+Tawara uses the `CMake build system`_. You will need at least version
 2.8 to be able to build the component.
 
 .. _`CMake build system`:
    http://www.cmake.org/
 
-Jonen runs on Linux, Mac OS X and Windows.
+Tawara runs on Linux, Mac OS X and Windows.
 
 Installation
 ============
@@ -41,17 +41,17 @@ No binary installers are currently available.
 From source
 -----------
 
-Follow these steps to install Jonen from source in any operating
+Follow these steps to install Tawara from source in any operating
 system:
 
 - Download the source, either from the repository or a source archive,
   and extract it somewhere::
 
-    tar -xvzf jonen-1.0.0.tar.gz
+    tar -xvzf tawara-1.0.0.tar.gz
 
 - Change to the directory containing the extracted source::
 
-    cd jonen-1.0.0
+    cd tawara-1.0.0
 
 - Create a directory called ``build``::
 
@@ -82,11 +82,11 @@ system:
 The library is now ready to use. You can use it in your own CMake projects with
 the following line::
 
-  find_package(jonen)
+  find_package(tawara)
 
 If you are not using CMake, a pkg-config file is available,
-``jonen.pc``.  Be sure to add the pkg-config location below the
-Jonen install prefix to the ``PKG_CONFIG_PATH`` environment variable.
+``tawara.pc``.  Be sure to add the pkg-config location below the
+Tawara install prefix to the ``PKG_CONFIG_PATH`` environment variable.
 If you installed into ``/usr/local``, this will be::
 
   /usr/local/lib/pkgconfig
@@ -99,21 +99,21 @@ or::
 APIs
 ====
 
-Jonen features two APIs for the programmer:
+Tawara features two APIs for the programmer:
 
   Tide
     This is the element-level API. It requires working with the EBML
-    elements used in the Jonen format directly. It allows significant
-    flexibility in how a Jonen document is written to disc or read
-    from disc.  A reasonable knowledge of the Jonen format
+    elements used in the Tawara format directly. It allows significant
+    flexibility in how a Tawara document is written to disc or read
+    from disc.  A reasonable knowledge of the Tawara format
     specification (:doc:`available here <specification>`) is necessary
     to use this interface effectively.
 
   HighTide
     This is the high-level API, providing an abstract interface into
-    Jonen documents. For example, channels are abstracted into streams
+    Tawara documents. For example, channels are abstracted into streams
     of data that can be individually iterated through. No knowledge of
-    the Jonen format specification is necessary to use this API.
+    the Tawara format specification is necessary to use this API.
 
 
 Documentation
@@ -132,7 +132,7 @@ Click here_ to access the API documentation.
 The documentation is also `available online`_.
 
 .. _`available online`:
-   http://gbiggs.github.com/jonen/
+   http://gbiggs.github.com/tawara/
 
 
 Examples
@@ -140,20 +140,20 @@ Examples
 
 Simple usage examples are provided in the ``examples/`` directory of the
 source. For more complex examples, see the sourcecode of the tools
-included with Jonen.
+included with Tawara.
 
 
 Tools
 =====
 
-Jonen includes several useful tools. These tools are designed to
-introspect and manipulate Jonen objects.
+Tawara includes several useful tools. These tools are designed to
+introspect and manipulate Tawara objects.
 
 
 Format specification
 ====================
 
-The Jonen format specification is :doc:`available online
+The Tawara format specification is :doc:`available online
 <specification>`.
 
 

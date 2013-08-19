@@ -37,20 +37,20 @@
  */
 
 #include <gtest/gtest.h>
-#include <jonen/cluster.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/cluster.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
 
 // Fake Cluster implementation
-class FakeCluster : public jonen::Cluster
+class FakeCluster : public tawara::Cluster
 {
     public:
         FakeCluster(uint64_t tc=0)
-            : jonen::Cluster(tc)
+            : tawara::Cluster(tc)
         {
         }
 
@@ -59,7 +59,7 @@ class FakeCluster : public jonen::Cluster
             return true;
         }
 
-        jonen::Cluster::size_type count() const
+        tawara::Cluster::size_type count() const
         {
             return 0;
         }
@@ -68,7 +68,7 @@ class FakeCluster : public jonen::Cluster
         {
         }
 
-        void push_back(jonen::Cluster::value_type const&)
+        void push_back(tawara::Cluster::value_type const&)
         {
         }
 
@@ -111,7 +111,7 @@ TEST(BaseCluster, SilentTracks)
 {
     FakeCluster e;
     EXPECT_TRUE(e.silent_tracks().empty());
-    e.silent_tracks().push_back(jonen::SilentTrackNumber(15));
+    e.silent_tracks().push_back(tawara::SilentTrackNumber(15));
     EXPECT_FALSE(e.silent_tracks().empty());
     EXPECT_EQ(e.silent_tracks()[0], 15);
 }
@@ -120,7 +120,7 @@ TEST(BaseCluster, SilentTracks)
 TEST(BaseCluster, Position)
 {
     FakeCluster e;
-    EXPECT_THROW(e.position(), jonen::NotImplemented);
+    EXPECT_THROW(e.position(), tawara::NotImplemented);
 }
 
 
@@ -136,23 +136,23 @@ TEST(BaseCluster, PreviousSize)
 TEST(BaseCluster, Size)
 {
     FakeCluster e;
-    jonen::UIntElement tc(jonen::ids::Timecode, 0);
+    tawara::UIntElement tc(tawara::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + body_size, e.size());
 
-    jonen::UIntElement st1(jonen::ids::SilentTrackNumber, 1);
-    jonen::UIntElement st2(jonen::ids::SilentTrackNumber, 2);
-    body_size += jonen::ids::size(jonen::ids::SilentTracks) +
-        jonen::vint::size(st1.size() + st2.size()) +
+    tawara::UIntElement st1(tawara::ids::SilentTrackNumber, 1);
+    tawara::UIntElement st2(tawara::ids::SilentTrackNumber, 2);
+    body_size += tawara::ids::size(tawara::ids::SilentTracks) +
+        tawara::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size();
-    e.silent_tracks().push_back(jonen::SilentTrackNumber(1));
-    e.silent_tracks().push_back(jonen::SilentTrackNumber(2));
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + body_size, e.size());
+    e.silent_tracks().push_back(tawara::SilentTrackNumber(1));
+    e.silent_tracks().push_back(tawara::SilentTrackNumber(2));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + body_size, e.size());
 
-    jonen::UIntElement ps(jonen::ids::PrevSize, 0x1234);
+    tawara::UIntElement ps(tawara::ids::PrevSize, 0x1234);
     body_size += ps.size();
     e.previous_size(0x1234);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + body_size, e.size());
 }
 
 
@@ -160,38 +160,38 @@ TEST(BaseCluster, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    jonen::UIntElement tc(jonen::ids::Timecode, 0);
-    jonen::UIntElement st1(jonen::ids::SilentTrackNumber, 1);
-    jonen::UIntElement st2(jonen::ids::SilentTrackNumber, 2);
-    jonen::UIntElement ps(jonen::ids::PrevSize, 0x1234);
+    tawara::UIntElement tc(tawara::ids::Timecode, 0);
+    tawara::UIntElement st1(tawara::ids::SilentTrackNumber, 1);
+    tawara::UIntElement st2(tawara::ids::SilentTrackNumber, 2);
+    tawara::UIntElement ps(tawara::ids::PrevSize, 0x1234);
 
     FakeCluster e;
     std::streamsize expected_size(tc.size());
-    jonen::ids::write(jonen::ids::Cluster, expected);
-    jonen::vint::write(expected_size, expected, 8);
+    tawara::ids::write(tawara::ids::Cluster, expected);
+    tawara::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 
-    expected_size += jonen::ids::size(jonen::ids::SilentTracks) +
-        jonen::vint::size(st1.size() + st2.size()) +
+    expected_size += tawara::ids::size(tawara::ids::SilentTracks) +
+        tawara::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
-    e.silent_tracks().push_back(jonen::SilentTrackNumber(1));
-    e.silent_tracks().push_back(jonen::SilentTrackNumber(2));
+    e.silent_tracks().push_back(tawara::SilentTrackNumber(1));
+    e.silent_tracks().push_back(tawara::SilentTrackNumber(2));
     e.previous_size(0x1234);
     output.str(std::string());
     expected.str(std::string());
-    jonen::ids::write(jonen::ids::Cluster, expected);
-    jonen::vint::write(expected_size, expected, 8);
+    tawara::ids::write(tawara::ids::Cluster, expected);
+    tawara::vint::write(expected_size, expected, 8);
     tc.write(expected);
-    jonen::ids::write(jonen::ids::SilentTracks, expected);
-    jonen::vint::write(st1.size() + st2.size(), expected);
+    tawara::ids::write(tawara::ids::SilentTracks, expected);
+    tawara::vint::write(st1.size() + st2.size(), expected);
     st1.write(expected);
     st2.write(expected);
     ps.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cluster) + 8 + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cluster) + 8 + expected_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
@@ -201,32 +201,32 @@ TEST(BaseCluster, Write)
 TEST(BaseCluster, Read)
 {
     std::stringstream input;
-    jonen::UIntElement tc(jonen::ids::Timecode, 42);
-    jonen::UIntElement st1(jonen::ids::SilentTrackNumber, 1);
-    jonen::UIntElement st2(jonen::ids::SilentTrackNumber, 2);
-    jonen::UIntElement ps(jonen::ids::PrevSize, 0x1234);
+    tawara::UIntElement tc(tawara::ids::Timecode, 42);
+    tawara::UIntElement st1(tawara::ids::SilentTrackNumber, 1);
+    tawara::UIntElement st2(tawara::ids::SilentTrackNumber, 2);
+    tawara::UIntElement ps(tawara::ids::PrevSize, 0x1234);
 
     FakeCluster e;
     std::streamsize body_size(tc.size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     tc.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_TRUE(e.silent_tracks().empty());
     EXPECT_EQ(0, e.previous_size());
 
-    body_size += jonen::ids::size(jonen::ids::SilentTracks) +
-        jonen::vint::size(st1.size() + st2.size()) +
+    body_size += tawara::ids::size(tawara::ids::SilentTracks) +
+        tawara::vint::size(st1.size() + st2.size()) +
         st1.size() + st2.size() + ps.size();
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     tc.write(input);
-    jonen::ids::write(jonen::ids::SilentTracks, input);
-    jonen::vint::write(st1.size() + st2.size(), input);
+    tawara::ids::write(tawara::ids::SilentTracks, input);
+    tawara::vint::write(st1.size() + st2.size(), input);
     st1.write(input);
     st2.write(input);
     ps.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(42, e.timecode());
     EXPECT_FALSE(e.silent_tracks().empty());
@@ -234,20 +234,20 @@ TEST(BaseCluster, Read)
 
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     tc.write(input);
     ps.write(input);
-    EXPECT_THROW(e.read(input), jonen::BadBodySize);
+    EXPECT_THROW(e.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(e.read(input), tawara::InvalidChildID);
     // Missing timecode
     input.str(std::string());
-    jonen::vint::write(ps.size(), input);
+    tawara::vint::write(ps.size(), input);
     ps.write(input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
 }
 

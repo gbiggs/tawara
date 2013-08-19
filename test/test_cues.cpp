@@ -37,10 +37,10 @@
  */
 
 #include <gtest/gtest.h>
-#include <jonen/cues.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/cues.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
@@ -51,14 +51,14 @@
 
 TEST(CueTrackPosition, Create)
 {
-    jonen::CueTrackPosition p1;
+    tawara::CueTrackPosition p1;
     EXPECT_EQ(1, p1.track());
     EXPECT_EQ(0, p1.cluster_pos());
     EXPECT_EQ(1, p1.block_num());
     EXPECT_EQ(0, p1.codec_state());
     EXPECT_TRUE(p1.reference_times().empty());
 
-    jonen::CueTrackPosition p2(4, 2);
+    tawara::CueTrackPosition p2(4, 2);
     EXPECT_EQ(4, p2.track());
     EXPECT_EQ(2, p2.cluster_pos());
     EXPECT_EQ(1, p2.block_num());
@@ -69,8 +69,8 @@ TEST(CueTrackPosition, Create)
 
 TEST(CueTrackPosition, Assignment)
 {
-    jonen::CueTrackPosition p1(4, 2);
-    jonen::CueTrackPosition p2;
+    tawara::CueTrackPosition p1(4, 2);
+    tawara::CueTrackPosition p2;
     p1.block_num(8);
     p1.codec_state(16);
     p1.reference_times().push_back(42);
@@ -84,7 +84,7 @@ TEST(CueTrackPosition, Assignment)
 
 TEST(CueTrackPosition, Track)
 {
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     EXPECT_EQ(1, p.track());
     p.track(21);
     EXPECT_EQ(21, p.track());
@@ -93,7 +93,7 @@ TEST(CueTrackPosition, Track)
 
 TEST(CueTrackPosition, ClusterPos)
 {
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     EXPECT_EQ(0, p.cluster_pos());
     p.cluster_pos(21);
     EXPECT_EQ(21, p.cluster_pos());
@@ -102,7 +102,7 @@ TEST(CueTrackPosition, ClusterPos)
 
 TEST(CueTrackPosition, BlockNum)
 {
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     EXPECT_EQ(1, p.block_num());
     p.block_num(21);
     EXPECT_EQ(21, p.block_num());
@@ -111,7 +111,7 @@ TEST(CueTrackPosition, BlockNum)
 
 TEST(CueTrackPosition, CodecState)
 {
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     EXPECT_EQ(0, p.codec_state());
     p.codec_state(21);
     EXPECT_EQ(21, p.codec_state());
@@ -120,7 +120,7 @@ TEST(CueTrackPosition, CodecState)
 
 TEST(CueTrackPosition, ReferenceTimes)
 {
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     EXPECT_TRUE(p.reference_times().empty());
     p.reference_times().push_back(42);
     EXPECT_FALSE(p.reference_times().empty());
@@ -130,8 +130,8 @@ TEST(CueTrackPosition, ReferenceTimes)
 
 TEST(CueTrackPosition, Equality)
 {
-    jonen::CueTrackPosition p1(4, 2);
-    jonen::CueTrackPosition p2;
+    tawara::CueTrackPosition p1(4, 2);
+    tawara::CueTrackPosition p2;
     p1.block_num(8);
     p1.codec_state(16);
 
@@ -146,25 +146,25 @@ TEST(CueTrackPosition, Equality)
 
 TEST(CueTrackPosition, Size)
 {
-    jonen::UIntElement track(jonen::ids::CueTrack, 1);
-    jonen::UIntElement cluster_pos(jonen::ids::CueClusterPosition, 0);
-    jonen::UIntElement block_num(jonen::ids::CueBlockNumber, 2);
-    jonen::UIntElement codec_state(jonen::ids::CueCodecState, 2);
-    jonen::UIntElement ref_time(jonen::ids::CueRefTime, 42);
+    tawara::UIntElement track(tawara::ids::CueTrack, 1);
+    tawara::UIntElement cluster_pos(tawara::ids::CueClusterPosition, 0);
+    tawara::UIntElement block_num(tawara::ids::CueBlockNumber, 2);
+    tawara::UIntElement codec_state(tawara::ids::CueCodecState, 2);
+    tawara::UIntElement ref_time(tawara::ids::CueRefTime, 42);
 
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     std::streamsize body_size(track.size() + cluster_pos.size());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::CueTrackPosition) +
-            jonen::vint::size(body_size) + body_size, p.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::CueTrackPosition) +
+            tawara::vint::size(body_size) + body_size, p.size());
 
     p.block_num(block_num);
     p.codec_state(codec_state);
     p.reference_times().push_back(42);
     body_size += block_num.size() + codec_state.size() +
-        jonen::ids::size(jonen::ids::CueReference) +
-        jonen::vint::size(ref_time.size()) + ref_time.size();
-    EXPECT_EQ(jonen::ids::size(jonen::ids::CueTrackPosition) +
-            jonen::vint::size(body_size) + body_size, p.size());
+        tawara::ids::size(tawara::ids::CueReference) +
+        tawara::vint::size(ref_time.size()) + ref_time.size();
+    EXPECT_EQ(tawara::ids::size(tawara::ids::CueTrackPosition) +
+            tawara::vint::size(body_size) + body_size, p.size());
 }
 
 
@@ -172,20 +172,20 @@ TEST(CueTrackPosition, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    jonen::UIntElement track(jonen::ids::CueTrack, 1);
-    jonen::UIntElement cluster_pos(jonen::ids::CueClusterPosition, 0);
-    jonen::UIntElement block_num(jonen::ids::CueBlockNumber, 2);
-    jonen::UIntElement codec_state(jonen::ids::CueCodecState, 2);
-    jonen::UIntElement ref_time(jonen::ids::CueRefTime, 42);
+    tawara::UIntElement track(tawara::ids::CueTrack, 1);
+    tawara::UIntElement cluster_pos(tawara::ids::CueClusterPosition, 0);
+    tawara::UIntElement block_num(tawara::ids::CueBlockNumber, 2);
+    tawara::UIntElement codec_state(tawara::ids::CueCodecState, 2);
+    tawara::UIntElement ref_time(tawara::ids::CueRefTime, 42);
 
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     std::streamsize body_size(track.size() + cluster_pos.size());
-    jonen::ids::write(jonen::ids::CueTrackPosition, expected);
-    jonen::vint::write(body_size, expected);
+    tawara::ids::write(tawara::ids::CueTrackPosition, expected);
+    tawara::vint::write(body_size, expected);
     track.write(expected);
     cluster_pos.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::CueTrackPosition) +
-            jonen::vint::size(body_size) + body_size, p.write(output));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::CueTrackPosition) +
+            tawara::vint::size(body_size) + body_size, p.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 
@@ -200,19 +200,19 @@ TEST(CueTrackPosition, Write)
     expected.str(std::string());
     output.str(std::string());
     body_size = track.size() + cluster_pos.size() + block_num.size() +
-        codec_state.size() + jonen::ids::size(jonen::ids::CueReference) +
-        jonen::vint::size(ref_time.size()) + ref_time.size();
-    jonen::ids::write(jonen::ids::CueTrackPosition, expected);
-    jonen::vint::write(body_size, expected);
+        codec_state.size() + tawara::ids::size(tawara::ids::CueReference) +
+        tawara::vint::size(ref_time.size()) + ref_time.size();
+    tawara::ids::write(tawara::ids::CueTrackPosition, expected);
+    tawara::vint::write(body_size, expected);
     track.write(expected);
     cluster_pos.write(expected);
     block_num.write(expected);
     codec_state.write(expected);
-    jonen::ids::write(jonen::ids::CueReference, expected);
-    jonen::vint::write(ref_time.size(), expected);
+    tawara::ids::write(tawara::ids::CueReference, expected);
+    tawara::vint::write(ref_time.size(), expected);
     ref_time.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::CueTrackPosition) +
-            jonen::vint::size(body_size) + body_size, p.write(output));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::CueTrackPosition) +
+            tawara::vint::size(body_size) + body_size, p.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, expected.str(),
             output.str());
 }
@@ -221,18 +221,18 @@ TEST(CueTrackPosition, Write)
 TEST(CueTrackPosition, Read)
 {
     std::stringstream input;
-    jonen::UIntElement track(jonen::ids::CueTrack, 1);
-    jonen::UIntElement cluster_pos(jonen::ids::CueClusterPosition, 0);
-    jonen::UIntElement block_num(jonen::ids::CueBlockNumber, 2);
-    jonen::UIntElement codec_state(jonen::ids::CueCodecState, 2);
-    jonen::UIntElement ref_time(jonen::ids::CueRefTime, 42);
+    tawara::UIntElement track(tawara::ids::CueTrack, 1);
+    tawara::UIntElement cluster_pos(tawara::ids::CueClusterPosition, 0);
+    tawara::UIntElement block_num(tawara::ids::CueBlockNumber, 2);
+    tawara::UIntElement codec_state(tawara::ids::CueCodecState, 2);
+    tawara::UIntElement ref_time(tawara::ids::CueRefTime, 42);
 
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     std::streamsize body_size(track.size() + cluster_pos.size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     track.write(input);
     cluster_pos.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size, p.read(input));
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size, p.read(input));
     EXPECT_EQ(1, p.track());
     EXPECT_EQ(0, p.cluster_pos());
     EXPECT_EQ(1, p.block_num());
@@ -244,17 +244,17 @@ TEST(CueTrackPosition, Read)
 
     input.str(std::string());
     body_size = track.size() + cluster_pos.size() + block_num.size() +
-        codec_state.size() + jonen::ids::size(jonen::ids::CueReference) +
-        jonen::vint::size(ref_time.size()) + ref_time.size();
-    jonen::vint::write(body_size, input);
+        codec_state.size() + tawara::ids::size(tawara::ids::CueReference) +
+        tawara::vint::size(ref_time.size()) + ref_time.size();
+    tawara::vint::write(body_size, input);
     track.write(input);
     cluster_pos.write(input);
     block_num.write(input);
     codec_state.write(input);
-    jonen::ids::write(jonen::ids::CueReference, input);
-    jonen::vint::write(ref_time.size(), input);
+    tawara::ids::write(tawara::ids::CueReference, input);
+    tawara::vint::write(ref_time.size(), input);
     ref_time.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size, p.read(input));
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size, p.read(input));
     EXPECT_EQ(5, p.track());
     EXPECT_EQ(10, p.cluster_pos());
     EXPECT_EQ(2, p.block_num());
@@ -264,44 +264,44 @@ TEST(CueTrackPosition, Read)
 
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     track.write(input);
     cluster_pos.write(input);
-    EXPECT_THROW(p.read(input), jonen::BadBodySize);
+    EXPECT_THROW(p.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(p.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(p.read(input), tawara::InvalidChildID);
     // No track
     input.str(std::string());
-    jonen::vint::write(cluster_pos.size(), input);
+    tawara::vint::write(cluster_pos.size(), input);
     cluster_pos.write(input);
-    EXPECT_THROW(p.read(input), jonen::MissingChild);
+    EXPECT_THROW(p.read(input), tawara::MissingChild);
     // No cluster position
     input.str(std::string());
-    jonen::vint::write(track.size(), input);
+    tawara::vint::write(track.size(), input);
     track.write(input);
-    EXPECT_THROW(p.read(input), jonen::MissingChild);
+    EXPECT_THROW(p.read(input), tawara::MissingChild);
     // Track is zero
     input.str(std::string());
     track = 0;
     body_size = track.size() + cluster_pos.size();
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     track.write(input);
     cluster_pos.write(input);
-    EXPECT_THROW(p.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(p.read(input), tawara::ValueOutOfRange);
     // Block number is zero
     input.str(std::string());
     track = 1;
     block_num = 0;
     body_size = track.size() + cluster_pos.size() + block_num.size();
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     track.write(input);
     cluster_pos.write(input);
     block_num.write(input);
-    EXPECT_THROW(p.read(input), jonen::ValueOutOfRange);
+    EXPECT_THROW(p.read(input), tawara::ValueOutOfRange);
 }
 
 
@@ -311,7 +311,7 @@ TEST(CueTrackPosition, Read)
 
 TEST(CuePoint, Create)
 {
-    jonen::CuePoint c;
+    tawara::CuePoint c;
     EXPECT_EQ(0, c.timecode());
     EXPECT_TRUE(c.empty());
 }
@@ -319,7 +319,7 @@ TEST(CuePoint, Create)
 
 TEST(CuePoint, Timecode)
 {
-    jonen::CuePoint c;
+    tawara::CuePoint c;
     EXPECT_EQ(0, c.timecode());
     c.timecode(42);
     EXPECT_EQ(42, c.timecode());
@@ -328,9 +328,9 @@ TEST(CuePoint, Timecode)
 
 TEST(CuePoint, Assignment)
 {
-    jonen::CuePoint c1;
-    jonen::CuePoint c2;
-    jonen::CueTrackPosition p(2, 4);
+    tawara::CuePoint c1;
+    tawara::CuePoint c2;
+    tawara::CueTrackPosition p(2, 4);
     c1.push_back(p);
 
     EXPECT_TRUE(c2.empty());
@@ -342,9 +342,9 @@ TEST(CuePoint, Assignment)
 
 TEST(CuePoint, Empty)
 {
-    jonen::CuePoint c;
+    tawara::CuePoint c;
     EXPECT_TRUE(c.empty());
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     c.push_back(p);
     EXPECT_FALSE(c.empty());
 }
@@ -352,10 +352,10 @@ TEST(CuePoint, Empty)
 
 TEST(CuePoint, Count)
 {
-    jonen::CuePoint c;
+    tawara::CuePoint c;
     EXPECT_EQ(0, c.count());
-    jonen::CueTrackPosition p1;
-    jonen::CueTrackPosition p2;
+    tawara::CueTrackPosition p1;
+    tawara::CueTrackPosition p2;
     c.push_back(p1);
     c.push_back(p2);
     EXPECT_EQ(2, c.count());
@@ -364,8 +364,8 @@ TEST(CuePoint, Count)
 
 TEST(CuePoint, Clear)
 {
-    jonen::CuePoint c;
-    jonen::CueTrackPosition p;
+    tawara::CuePoint c;
+    tawara::CueTrackPosition p;
     c.push_back(p);
     EXPECT_FALSE(c.empty());
     c.clear();
@@ -375,9 +375,9 @@ TEST(CuePoint, Clear)
 
 TEST(CuePoint, Erase)
 {
-    jonen::CuePoint c;
-    jonen::CueTrackPosition p1(1, 2);
-    jonen::CueTrackPosition p2(2, 4);
+    tawara::CuePoint c;
+    tawara::CueTrackPosition p1(1, 2);
+    tawara::CueTrackPosition p2(2, 4);
     c.push_back(p1);
     c.push_back(p2);
     EXPECT_EQ(2, c.count());
@@ -386,8 +386,8 @@ TEST(CuePoint, Erase)
     EXPECT_EQ(1, c.count());
     EXPECT_TRUE(p2 == *c.begin());
 
-    jonen::CueTrackPosition p3(4, 8);
-    jonen::CueTrackPosition p4(8, 16);
+    tawara::CueTrackPosition p3(4, 8);
+    tawara::CueTrackPosition p4(8, 16);
     c.push_back(p3);
     c.push_back(p4);
     EXPECT_EQ(3, c.count());
@@ -399,9 +399,9 @@ TEST(CuePoint, Erase)
 
 TEST(CuePoint, PushBack)
 {
-    jonen::CuePoint c;
-    jonen::CueTrackPosition p1(1, 2);
-    jonen::CueTrackPosition p2(2, 4);
+    tawara::CuePoint c;
+    tawara::CueTrackPosition p1(1, 2);
+    tawara::CueTrackPosition p2(2, 4);
     c.push_back(p1);
     EXPECT_TRUE(p1 == *c.begin());
     c.push_back(p2);
@@ -411,11 +411,11 @@ TEST(CuePoint, PushBack)
 
 TEST(CuePoint, Iterators)
 {
-    jonen::CuePoint c;
+    tawara::CuePoint c;
     EXPECT_TRUE(c.begin() == c.end());
 
-    jonen::CueTrackPosition p1(1, 2);
-    jonen::CueTrackPosition p2(2, 4);
+    tawara::CueTrackPosition p1(1, 2);
+    tawara::CueTrackPosition p2(2, 4);
     c.push_back(p1);
     EXPECT_FALSE(c.begin() == c.end());
     EXPECT_TRUE(p1 == *c.begin());
@@ -426,12 +426,12 @@ TEST(CuePoint, Iterators)
 
 TEST(CuePoint, Equality)
 {
-    jonen::CuePoint c1;
-    jonen::CuePoint c2;
+    tawara::CuePoint c1;
+    tawara::CuePoint c2;
     EXPECT_TRUE(c1 == c2);
     EXPECT_FALSE(c1 != c2);
 
-    jonen::CueTrackPosition p(1, 2);
+    tawara::CueTrackPosition p(1, 2);
     c1.push_back(p);
     EXPECT_FALSE(c1 == c2);
     EXPECT_TRUE(c1 != c2);
@@ -440,17 +440,17 @@ TEST(CuePoint, Equality)
 
 TEST(CuePoint, Size)
 {
-    jonen::CuePoint c;
-    jonen::UIntElement tc(jonen::ids::Timecode, 0);
+    tawara::CuePoint c;
+    tawara::UIntElement tc(tawara::ids::Timecode, 0);
     std::streamsize body_size(tc.size());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::CuePoint) +
-            jonen::vint::size(body_size) + body_size, c.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::CuePoint) +
+            tawara::vint::size(body_size) + body_size, c.size());
 
-    jonen::CueTrackPosition p;
+    tawara::CueTrackPosition p;
     body_size += p.size();
     c.push_back(p);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::CuePoint) +
-            jonen::vint::size(body_size) + body_size, c.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::CuePoint) +
+            tawara::vint::size(body_size) + body_size, c.size());
 }
 
 
@@ -458,25 +458,25 @@ TEST(CuePoint, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    jonen::UIntElement tc(jonen::ids::CueTime, 0);
+    tawara::UIntElement tc(tawara::ids::CueTime, 0);
 
-    jonen::CuePoint c;
-    EXPECT_THROW(c.write(output), jonen::EmptyCuePointElement);
+    tawara::CuePoint c;
+    EXPECT_THROW(c.write(output), tawara::EmptyCuePointElement);
 
     expected.str(std::string());
     output.str(std::string());
-    jonen::CueTrackPosition p1(1, 2);
-    jonen::CueTrackPosition p2(2, 4);
+    tawara::CueTrackPosition p1(1, 2);
+    tawara::CueTrackPosition p2(2, 4);
     c.push_back(p1);
     c.push_back(p2);
     std::streamsize body_size(tc.size() + p1.size() + p2.size());
-    jonen::ids::write(jonen::ids::CuePoint, expected);
-    jonen::vint::write(body_size, expected);
+    tawara::ids::write(tawara::ids::CuePoint, expected);
+    tawara::vint::write(body_size, expected);
     tc.write(expected);
     p1.write(expected);
     p2.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::CuePoint) +
-            jonen::vint::size(body_size) + body_size, c.write(output));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::CuePoint) +
+            tawara::vint::size(body_size) + body_size, c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 }
@@ -485,17 +485,17 @@ TEST(CuePoint, Write)
 TEST(CuePoint, Read)
 {
     std::stringstream input;
-    jonen::UIntElement tc(jonen::ids::CueTime, 42);
-    jonen::CueTrackPosition p1(1, 2);
-    jonen::CueTrackPosition p2(2, 4);
+    tawara::UIntElement tc(tawara::ids::CueTime, 42);
+    tawara::CueTrackPosition p1(1, 2);
+    tawara::CueTrackPosition p2(2, 4);
 
-    jonen::CuePoint c;
+    tawara::CuePoint c;
     std::streamsize body_size(tc.size() + p1.size() + p2.size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     tc.write(input);
     p1.write(input);
     p2.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             c.read(input));
     EXPECT_EQ(42, c.timecode());
     EXPECT_EQ(2, c.count());
@@ -504,25 +504,25 @@ TEST(CuePoint, Read)
 
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     tc.write(input);
-    EXPECT_THROW(c.read(input), jonen::BadBodySize);
+    EXPECT_THROW(c.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(c.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(c.read(input), tawara::InvalidChildID);
     // No timecode
     input.str(std::string());
-    jonen::vint::write(p1.size(), input);
+    tawara::vint::write(p1.size(), input);
     p1.write(input);
-    EXPECT_THROW(c.read(input), jonen::MissingChild);
+    EXPECT_THROW(c.read(input), tawara::MissingChild);
     // No CueTrackPositions
     input.str(std::string());
-    jonen::vint::write(tc.size(), input);
+    tawara::vint::write(tc.size(), input);
     tc.write(input);
-    EXPECT_THROW(c.read(input), jonen::EmptyCuePointElement);
+    EXPECT_THROW(c.read(input), tawara::EmptyCuePointElement);
 }
 
 
@@ -532,16 +532,16 @@ TEST(CuePoint, Read)
 
 TEST(Cues, Create)
 {
-    jonen::Cues c;
+    tawara::Cues c;
     EXPECT_TRUE(c.empty());
 }
 
 
 TEST(Cues, Assignment)
 {
-    jonen::Cues c1;
-    jonen::Cues c2;
-    jonen::CuePoint cp(42);
+    tawara::Cues c1;
+    tawara::Cues c2;
+    tawara::CuePoint cp(42);
     c1.insert(cp);
 
     EXPECT_TRUE(c2.empty());
@@ -553,8 +553,8 @@ TEST(Cues, Assignment)
 
 TEST(Cues, At)
 {
-    jonen::Cues c;
-    jonen::CuePoint cp(42);
+    tawara::Cues c;
+    tawara::CuePoint cp(42);
     c.insert(cp);
     EXPECT_TRUE(c[42] == c.at(42));
     EXPECT_TRUE(c.at(42) == cp);
@@ -564,16 +564,16 @@ TEST(Cues, At)
 
 TEST(Cues, SubscriptOperator)
 {
-    jonen::Cues c;
-    jonen::CuePoint cp(42);
+    tawara::Cues c;
+    tawara::CuePoint cp(42);
     c.insert(cp);
     EXPECT_TRUE(c[42] == c.at(42));
     EXPECT_TRUE(c[42] == cp);
     EXPECT_EQ(0, c[42].count());
     EXPECT_NO_THROW(c[2]);
 
-    jonen::CuePoint cp2(42);
-    jonen::CueTrackPosition ctp;
+    tawara::CuePoint cp2(42);
+    tawara::CueTrackPosition ctp;
     cp2.push_back(ctp);
     c[42] = cp2;
     EXPECT_TRUE(c[42] == cp2);
@@ -583,8 +583,8 @@ TEST(Cues, SubscriptOperator)
 
 TEST(Cues, BeginEnd)
 {
-    jonen::Cues c;
-    jonen::CuePoint cp(42);
+    tawara::Cues c;
+    tawara::CuePoint cp(42);
 
     EXPECT_TRUE(c.begin() == c.end());
     EXPECT_TRUE(c.rbegin() == c.rend());
@@ -596,8 +596,8 @@ TEST(Cues, BeginEnd)
 
 TEST(Cues, Counts)
 {
-    jonen::Cues c;
-    jonen::CuePoint cp(42);
+    tawara::Cues c;
+    tawara::CuePoint cp(42);
 
     EXPECT_TRUE(c.empty());
     c.insert(cp);
@@ -608,8 +608,8 @@ TEST(Cues, Counts)
 
 TEST(Cues, Clear)
 {
-    jonen::Cues c;
-    jonen::CuePoint cp(42);
+    tawara::Cues c;
+    tawara::CuePoint cp(42);
     c.insert(cp);
     EXPECT_FALSE(c.empty());
     c.clear();
@@ -619,13 +619,13 @@ TEST(Cues, Clear)
 
 TEST(Cues, Insert)
 {
-    jonen::Cues c1;
-    jonen::CuePoint cp1(42);
-    jonen::CuePoint cp2(84);
+    tawara::Cues c1;
+    tawara::CuePoint cp1(42);
+    tawara::CuePoint cp2(84);
 
     // Single insert
     EXPECT_TRUE(c1.empty());
-    std::pair<jonen::Cues::iterator, bool> res;
+    std::pair<tawara::Cues::iterator, bool> res;
     res = c1.insert(cp1);
     EXPECT_TRUE(res.first == c1.begin());
     EXPECT_TRUE(res.second);
@@ -645,7 +645,7 @@ TEST(Cues, Insert)
     EXPECT_EQ(2, c1.count());
 
     // Range insert
-    jonen::Cues c2;
+    tawara::Cues c2;
     EXPECT_TRUE(c2.empty());
     c2.insert(c1.begin(), c1.end());
     EXPECT_FALSE(c2.empty());
@@ -656,8 +656,8 @@ TEST(Cues, Insert)
 
 TEST(Cues, Erase)
 {
-    jonen::Cues c;
-    jonen::CuePoint cp(42);
+    tawara::Cues c;
+    tawara::CuePoint cp(42);
     c.insert(cp);
 
     EXPECT_FALSE(c.empty());
@@ -679,8 +679,8 @@ TEST(Cues, Erase)
 
 TEST(Cues, Swap)
 {
-    jonen::Cues c1, c2;
-    jonen::CuePoint cp(42);
+    tawara::Cues c1, c2;
+    tawara::CuePoint cp(42);
     c1.insert(cp);
 
     EXPECT_FALSE(c1.empty());
@@ -694,8 +694,8 @@ TEST(Cues, Swap)
 
 TEST(Cues, Find)
 {
-    jonen::Cues c;
-    jonen::CuePoint cp(42);
+    tawara::Cues c;
+    tawara::CuePoint cp(42);
     c.insert(cp);
 
     EXPECT_TRUE(c.find(42) == c.begin());
@@ -705,12 +705,12 @@ TEST(Cues, Find)
 
 TEST(Cues, Equality)
 {
-    jonen::Cues c1;
-    jonen::Cues c2;
+    tawara::Cues c1;
+    tawara::Cues c2;
     EXPECT_TRUE(c1 == c2);
     EXPECT_FALSE(c1 != c2);
 
-    jonen::CuePoint cp(42);
+    tawara::CuePoint cp(42);
     c1.insert(cp);
     EXPECT_FALSE(c1 == c2);
     EXPECT_TRUE(c1 != c2);
@@ -719,14 +719,14 @@ TEST(Cues, Equality)
 
 TEST(Cues, Size)
 {
-    jonen::Cues c;
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cues) +
-            jonen::vint::size(0),
+    tawara::Cues c;
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cues) +
+            tawara::vint::size(0),
             c.size());
 
-    jonen::CuePoint cp(42);
+    tawara::CuePoint cp(42);
     c.insert(cp);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cues) + jonen::vint::size(cp.size()) +
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cues) + tawara::vint::size(cp.size()) +
             cp.size(), c.size());
 }
 
@@ -735,27 +735,27 @@ TEST(Cues, Write)
 {
     std::ostringstream output;
     std::stringstream expected;
-    jonen::CueTrackPosition p1(1, 2);
-    jonen::CueTrackPosition p2(2, 4);
-    jonen::Cues c;
+    tawara::CueTrackPosition p1(1, 2);
+    tawara::CueTrackPosition p2(2, 4);
+    tawara::Cues c;
 
     // No cue points
-    EXPECT_THROW(c.write(output), jonen::EmptyCuesElement);
+    EXPECT_THROW(c.write(output), tawara::EmptyCuesElement);
 
     output.str(std::string());
-    jonen::CuePoint cp1(42);
+    tawara::CuePoint cp1(42);
     cp1.push_back(p1);
-    jonen::CuePoint cp2(84);
+    tawara::CuePoint cp2(84);
     cp2.push_back(p2);
     c.insert(cp1);
     c.insert(cp2);
     std::streamsize body_size(cp1.size() + cp2.size());
-    jonen::ids::write(jonen::ids::Cues, expected);
-    jonen::vint::write(body_size, expected);
+    tawara::ids::write(tawara::ids::Cues, expected);
+    tawara::vint::write(body_size, expected);
     cp1.write(expected);
     cp2.write(expected);
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Cues) +
-            jonen::vint::size(body_size) + body_size, c.write(output));
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Cues) +
+            tawara::vint::size(body_size) + body_size, c.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str());
 }
@@ -764,36 +764,36 @@ TEST(Cues, Write)
 TEST(Cues, Read)
 {
     std::stringstream input;
-    jonen::CueTrackPosition p1(1, 2);
-    jonen::CueTrackPosition p2(2, 4);
-    jonen::CuePoint cp1(42);
+    tawara::CueTrackPosition p1(1, 2);
+    tawara::CueTrackPosition p2(2, 4);
+    tawara::CuePoint cp1(42);
     cp1.push_back(p1);
-    jonen::CuePoint cp2(84);
+    tawara::CuePoint cp2(84);
     cp2.push_back(p2);
-    jonen::Cues c;
+    tawara::Cues c;
 
     std::streamsize body_size(cp1.size() + cp2.size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     cp1.write(input);
     cp2.write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             c.read(input));
     EXPECT_TRUE(c[42] == cp1);
     EXPECT_TRUE(c[84] == cp2);
 
     // No cue points
-    jonen::vint::write(0, input);
-    EXPECT_THROW(c.read(input), jonen::EmptyCuesElement);
+    tawara::vint::write(0, input);
+    EXPECT_THROW(c.read(input), tawara::EmptyCuesElement);
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     cp1.write(input);
-    EXPECT_THROW(c.read(input), jonen::BadBodySize);
+    EXPECT_THROW(c.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(c.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(c.read(input), tawara::InvalidChildID);
 }
 

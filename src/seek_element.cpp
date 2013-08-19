@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/seek_element.h>
+#include <tawara/seek_element.h>
 
-#include <jonen/vint.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ using namespace jonen;
 
 SeekElement::SeekElement(ids::ID id, std::streampos offset)
     : MasterElement(ids::Seek),
-    indexed_id_(ids::SeekID, jonen::ids::encode(id)),
+    indexed_id_(ids::SeekID, tawara::ids::encode(id)),
     offset_(ids::SeekPosition, offset)
 {
     assert(offset >= 0);

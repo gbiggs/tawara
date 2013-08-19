@@ -1,5 +1,5 @@
 set(PKG_DEPS "")
-set(PKG_LIBS -ljonen)
+set(PKG_LIBS -ltawara)
 set(pkg_conf_file ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}.pc)
 configure_file(${PROJECT_NAME_LOWER}.pc.in ${pkg_conf_file} @ONLY)
 install(FILES ${pkg_conf_file}

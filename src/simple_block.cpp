@@ -36,11 +36,11 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/simple_block.h>
+#include <tawara/simple_block.h>
 
-#include <jonen/el_ids.h>
+#include <tawara/el_ids.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ using namespace jonen;
 
 SimpleBlock::SimpleBlock(uint64_t track_number, int16_t timecode,
         LacingType lacing)
-    : BlockElement(jonen::ids::SimpleBlock, track_number, timecode, lacing),
+    : BlockElement(tawara::ids::SimpleBlock, track_number, timecode, lacing),
     keyframe_(false), discardable_(false),
     block_(track_number, timecode, lacing)
 {
@@ -72,7 +72,7 @@ void SimpleBlock::swap(SimpleBlock& other)
 // Operators
 ///////////////////////////////////////////////////////////////////////////////
 
-bool jonen::operator==(SimpleBlock const& lhs, SimpleBlock const& rhs)
+bool tawara::operator==(SimpleBlock const& lhs, SimpleBlock const& rhs)
 {
     return lhs.keyframe_ == rhs.keyframe_ &&
         lhs.discardable_ == rhs.discardable_ &&

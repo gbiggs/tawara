@@ -36,12 +36,12 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/uint_element.h>
+#include <tawara/uint_element.h>
 
-#include <jonen/ebml_int.h>
-#include <jonen/vint.h>
+#include <tawara/ebml_int.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,20 +81,20 @@ UIntElement& UIntElement::operator=(uint64_t const& rhs)
 
 std::streamsize UIntElement::body_size() const
 {
-    return jonen::ebml_int::size_u(value_);
+    return tawara::ebml_int::size_u(value_);
 }
 
 
 std::streamsize UIntElement::write_body(std::ostream& output)
 {
-    return jonen::ebml_int::write_u(value_, output);
+    return tawara::ebml_int::write_u(value_, output);
 }
 
 
 std::streamsize UIntElement::read_body(std::istream& input,
         std::streamsize size)
 {
-    value_ = jonen::ebml_int::read_u(input, size);
+    value_ = tawara::ebml_int::read_u(input, size);
     return size;
 }
 

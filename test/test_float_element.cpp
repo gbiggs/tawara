@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/float_element.h>
+#include <tawara/float_element.h>
 
 #include <gtest/gtest.h>
-#include <jonen/el_ids.h>
-#include <jonen/ebml_int.h>
-#include <jonen/exceptions.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/ebml_int.h>
+#include <tawara/exceptions.h>
+#include <tawara/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -51,7 +51,7 @@
 namespace test_flel
 {
 
-std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, double data,
+std::streamsize fill_buffer(std::string& b, tawara::ids::ID id, double data,
         bool write_id, bool write_size, bool write_body, bool double_prec)
 {
     char temp[8];
@@ -60,7 +60,7 @@ std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, double data,
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(jonen::ebml_int::encode_u(id));
+        std::vector<char> tmp(tawara::ebml_int::encode_u(id));
         b.append(&tmp[0], 0, tmp.size());
         total += tmp.size();
     }
@@ -68,13 +68,13 @@ std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, double data,
     {
         if (double_prec)
         {
-            std::vector<char> tmp(jonen::vint::encode(8));
+            std::vector<char> tmp(tawara::vint::encode(8));
             b.append(&tmp[0], 0, tmp.size());
             total += tmp.size();
         }
         else
         {
-            std::vector<char> tmp(jonen::vint::encode(4));
+            std::vector<char> tmp(tawara::vint::encode(4));
             b.append(&tmp[0], 0, tmp.size());
             total += tmp.size();
         }
@@ -103,54 +103,54 @@ std::streamsize fill_buffer(std::string& b, jonen::ids::ID id, double data,
 
 TEST(FloatElement, Construction)
 {
-    EXPECT_EQ(jonen::ids::Null, jonen::FloatElement(jonen::ids::Null, 1.0).id());
-    EXPECT_THROW(jonen::FloatElement(0x00, 1.0), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(0xFF, 1.0), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(0xFFFF, 1.0), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(0xFFFFFF, 1.0), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(0xFFFFFFFF, 1.0), jonen::InvalidElementID);
+    EXPECT_EQ(tawara::ids::Null, tawara::FloatElement(tawara::ids::Null, 1.0).id());
+    EXPECT_THROW(tawara::FloatElement(0x00, 1.0), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(0xFF, 1.0), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(0xFFFF, 1.0), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(0xFFFFFF, 1.0), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(0xFFFFFFFF, 1.0), tawara::InvalidElementID);
     // Test with a default as well
-    EXPECT_THROW(jonen::FloatElement(0x00, 1.0, 1.0), jonen::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(0x00, 1.0, 1.0), tawara::InvalidElementID);
 }
 
 
 TEST(FloatElement, CopyConstruction)
 {
-    EXPECT_EQ(jonen::ids::Null, jonen::FloatElement(jonen::FloatElement(jonen::ids::Null, 1.0)).id());
-    EXPECT_EQ(jonen::ids::Null,
-        jonen::FloatElement(jonen::FloatElement(jonen::ids::Null, 1.0, 2.0)).id());
+    EXPECT_EQ(tawara::ids::Null, tawara::FloatElement(tawara::FloatElement(tawara::ids::Null, 1.0)).id());
+    EXPECT_EQ(tawara::ids::Null,
+        tawara::FloatElement(tawara::FloatElement(tawara::ids::Null, 1.0, 2.0)).id());
     EXPECT_DOUBLE_EQ(1.0,
-        jonen::FloatElement(jonen::FloatElement(jonen::ids::Null, 1.0, 2.0)).value());
+        tawara::FloatElement(tawara::FloatElement(tawara::ids::Null, 1.0, 2.0)).value());
     EXPECT_EQ(2.0,
-        jonen::FloatElement(jonen::FloatElement(jonen::ids::Null, 1.0, 2.0)).get_default());
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_SINGLE,
-            jonen::FloatElement(jonen::FloatElement(jonen::ids::Null, 1.0, 2.0,
-                    jonen::EBML_FLOAT_PREC_SINGLE)).precision());
+        tawara::FloatElement(tawara::FloatElement(tawara::ids::Null, 1.0, 2.0)).get_default());
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_SINGLE,
+            tawara::FloatElement(tawara::FloatElement(tawara::ids::Null, 1.0, 2.0,
+                    tawara::EBML_FLOAT_PREC_SINGLE)).precision());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(jonen::FloatElement(jonen::FloatElement(0x00, 1.0)),
-            jonen::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(tawara::FloatElement(0x00, 1.0)),
+            tawara::InvalidElementID);
 }
 
 
 TEST(FloatElement, SetID)
 {
-    jonen::FloatElement e(jonen::ids::Null, 1.0);
+    tawara::FloatElement e(tawara::ids::Null, 1.0);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(jonen::FloatElement(1, 1.0).id(0x00), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(1, 1.0).id(0xFF), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(1, 1.0).id(0xFFFF), jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(1, 1.0).id(0xFFFFFF),
-            jonen::InvalidElementID);
-    EXPECT_THROW(jonen::FloatElement(1, 1.0).id(0xFFFFFFFF),
-            jonen::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(1, 1.0).id(0x00), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(1, 1.0).id(0xFF), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(1, 1.0).id(0xFFFF), tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(1, 1.0).id(0xFFFFFF),
+            tawara::InvalidElementID);
+    EXPECT_THROW(tawara::FloatElement(1, 1.0).id(0xFFFFFFFF),
+            tawara::InvalidElementID);
 }
 
 
 TEST(FloatElement, Assignment)
 {
-    jonen::FloatElement e1(1, 1.0), e2(2, 2.0);
+    tawara::FloatElement e1(1, 1.0), e2(2, 2.0);
     e2 = e1;
     EXPECT_DOUBLE_EQ(e1.value(), e2.value());
     EXPECT_EQ(e1.id(), e2.id());
@@ -158,7 +158,7 @@ TEST(FloatElement, Assignment)
     EXPECT_EQ(e1.get_default(), e2.get_default());
     EXPECT_EQ(e1.precision(), e2.precision());
 
-    jonen::FloatElement e3(1, 1.0, 1.0), e4(2, 2.0, 2.0);
+    tawara::FloatElement e3(1, 1.0, 1.0), e4(2, 2.0, 2.0);
     e4 = e3;
     EXPECT_DOUBLE_EQ(e1.value(), e2.value());
     EXPECT_EQ(e3.id(), e4.id());
@@ -166,7 +166,7 @@ TEST(FloatElement, Assignment)
     EXPECT_EQ(e3.get_default(), e4.get_default());
     EXPECT_EQ(e3.precision(), e4.precision());
 
-    jonen::FloatElement e5(1, 1.0, 1.0), e6(2, 2.0);
+    tawara::FloatElement e5(1, 1.0, 1.0), e6(2, 2.0);
     e6 = e5;
     EXPECT_DOUBLE_EQ(e1.value(), e2.value());
     EXPECT_EQ(e5.id(), e6.id());
@@ -174,7 +174,7 @@ TEST(FloatElement, Assignment)
     EXPECT_EQ(e5.get_default(), e6.get_default());
     EXPECT_EQ(e5.precision(), e6.precision());
 
-    jonen::FloatElement e7(1, 1.0), e8(2, 2.0, 2.0);
+    tawara::FloatElement e7(1, 1.0), e8(2, 2.0, 2.0);
     e8 = e7;
     EXPECT_DOUBLE_EQ(e1.value(), e2.value());
     EXPECT_EQ(e7.id(), e8.id());
@@ -182,8 +182,8 @@ TEST(FloatElement, Assignment)
     EXPECT_EQ(e7.get_default(), e8.get_default());
     EXPECT_EQ(e7.precision(), e8.precision());
 
-    jonen::FloatElement e9(1, 1.0, jonen::EBML_FLOAT_PREC_SINGLE),
-        e10(2, 2.0, jonen::EBML_FLOAT_PREC_DOUBLE);
+    tawara::FloatElement e9(1, 1.0, tawara::EBML_FLOAT_PREC_SINGLE),
+        e10(2, 2.0, tawara::EBML_FLOAT_PREC_DOUBLE);
     e10 = e9;
     EXPECT_DOUBLE_EQ(e9.value(), e10.value());
     EXPECT_EQ(e9.id(), e10.id());
@@ -201,10 +201,10 @@ TEST(FloatElement, Assignment)
 
 TEST(FloatElement, Default)
 {
-    EXPECT_FALSE(jonen::FloatElement(jonen::ids::Null, 1.0).has_default());
-    EXPECT_TRUE(jonen::FloatElement(jonen::ids::Null, 1.0, 1.0).has_default());
+    EXPECT_FALSE(tawara::FloatElement(tawara::ids::Null, 1.0).has_default());
+    EXPECT_TRUE(tawara::FloatElement(tawara::ids::Null, 1.0, 1.0).has_default());
 
-    jonen::FloatElement e1(jonen::ids::Null, 1.0, 1.0);
+    tawara::FloatElement e1(tawara::ids::Null, 1.0, 1.0);
     EXPECT_EQ(1, e1.get_default());
     EXPECT_TRUE(e1.has_default());
     e1.remove_default();
@@ -213,7 +213,7 @@ TEST(FloatElement, Default)
     EXPECT_TRUE(e1.has_default());
     EXPECT_EQ(2, e1.get_default());
 
-    jonen::FloatElement e2(jonen::ids::Null, 1.0);
+    tawara::FloatElement e2(tawara::ids::Null, 1.0);
     EXPECT_FALSE(e2.has_default());
     e2.set_default(1);
     EXPECT_TRUE(e2.has_default());
@@ -221,7 +221,7 @@ TEST(FloatElement, Default)
     e2.remove_default();
     EXPECT_FALSE(e2.has_default());
 
-    jonen::FloatElement e3(jonen::ids::Null, 1.0);
+    tawara::FloatElement e3(tawara::ids::Null, 1.0);
     EXPECT_FALSE(e3.is_default());
     e3.set_default(1);
     EXPECT_TRUE(e3.is_default());
@@ -234,17 +234,17 @@ TEST(FloatElement, Default)
 
 TEST(FloatElement, Value)
 {
-    EXPECT_DOUBLE_EQ(1.0, jonen::FloatElement(jonen::ids::Null, 1.0).value());
-    EXPECT_DOUBLE_EQ(1.0, jonen::FloatElement(jonen::ids::Null, 1.0));
-    EXPECT_DOUBLE_EQ(1.0, jonen::FloatElement(jonen::ids::Null, 1.0, 2.0).value());
-    EXPECT_DOUBLE_EQ(1.0, jonen::FloatElement(jonen::ids::Null, 1.0, 2.0));
+    EXPECT_DOUBLE_EQ(1.0, tawara::FloatElement(tawara::ids::Null, 1.0).value());
+    EXPECT_DOUBLE_EQ(1.0, tawara::FloatElement(tawara::ids::Null, 1.0));
+    EXPECT_DOUBLE_EQ(1.0, tawara::FloatElement(tawara::ids::Null, 1.0, 2.0).value());
+    EXPECT_DOUBLE_EQ(1.0, tawara::FloatElement(tawara::ids::Null, 1.0, 2.0));
 
-    jonen::FloatElement e1(jonen::ids::Null, 1.0);
+    tawara::FloatElement e1(tawara::ids::Null, 1.0);
     EXPECT_DOUBLE_EQ(1.0, e1.value());
     e1.value(294.2984e4);
     EXPECT_DOUBLE_EQ(294.2984e4, e1.value());
 
-    jonen::FloatElement e2(jonen::ids::Null, 1.0, 2.0);
+    tawara::FloatElement e2(tawara::ids::Null, 1.0, 2.0);
     e2.value(3.03489529);
     EXPECT_DOUBLE_EQ(3.03489529, e2.value());
 }
@@ -252,39 +252,39 @@ TEST(FloatElement, Value)
 
 TEST(FloatElement, Precision)
 {
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_SINGLE,
-            jonen::FloatElement(jonen::ids::Null, 1.0,
-                jonen::EBML_FLOAT_PREC_SINGLE).precision());
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_DOUBLE,
-            jonen::FloatElement(jonen::ids::Null, 1.0,
-                jonen::EBML_FLOAT_PREC_DOUBLE).precision());
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_SINGLE,
+            tawara::FloatElement(tawara::ids::Null, 1.0,
+                tawara::EBML_FLOAT_PREC_SINGLE).precision());
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_DOUBLE,
+            tawara::FloatElement(tawara::ids::Null, 1.0,
+                tawara::EBML_FLOAT_PREC_DOUBLE).precision());
 
-    jonen::FloatElement e1(jonen::ids::Null, 1.0);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_DOUBLE, e1.precision());
-    e1.precision(jonen::EBML_FLOAT_PREC_SINGLE);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_SINGLE, e1.precision());
+    tawara::FloatElement e1(tawara::ids::Null, 1.0);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_DOUBLE, e1.precision());
+    e1.precision(tawara::EBML_FLOAT_PREC_SINGLE);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_SINGLE, e1.precision());
 
-    jonen::FloatElement e2(jonen::ids::Null, 1.0, 2.0);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_DOUBLE, e2.precision());
-    e2.precision(jonen::EBML_FLOAT_PREC_SINGLE);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_SINGLE, e2.precision());
+    tawara::FloatElement e2(tawara::ids::Null, 1.0, 2.0);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_DOUBLE, e2.precision());
+    e2.precision(tawara::EBML_FLOAT_PREC_SINGLE);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_SINGLE, e2.precision());
 
-    jonen::FloatElement e3(jonen::ids::Null, 1.0, jonen::EBML_FLOAT_PREC_SINGLE);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_SINGLE, e3.precision());
-    e3.precision(jonen::EBML_FLOAT_PREC_DOUBLE);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_DOUBLE, e3.precision());
+    tawara::FloatElement e3(tawara::ids::Null, 1.0, tawara::EBML_FLOAT_PREC_SINGLE);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_SINGLE, e3.precision());
+    e3.precision(tawara::EBML_FLOAT_PREC_DOUBLE);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_DOUBLE, e3.precision());
 
-    jonen::FloatElement e4(jonen::ids::Null, 1.0, 2.0, jonen::EBML_FLOAT_PREC_SINGLE);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_SINGLE, e4.precision());
-    e4.precision(jonen::EBML_FLOAT_PREC_DOUBLE);
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_DOUBLE, e4.precision());
+    tawara::FloatElement e4(tawara::ids::Null, 1.0, 2.0, tawara::EBML_FLOAT_PREC_SINGLE);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_SINGLE, e4.precision());
+    e4.precision(tawara::EBML_FLOAT_PREC_DOUBLE);
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_DOUBLE, e4.precision());
 }
 
 
 TEST(FloatElement, Equality)
 {
-    jonen::FloatElement e1(jonen::ids::Null, 1.0);
-    jonen::FloatElement e2(jonen::ids::Null, 1.0);
+    tawara::FloatElement e1(tawara::ids::Null, 1.0);
+    tawara::FloatElement e2(tawara::ids::Null, 1.0);
 
     EXPECT_TRUE(e1 == e2);
     e2.value(2.0);
@@ -298,18 +298,18 @@ TEST(FloatElement, Write)
     std::string expected;
     double value(2.7182818284590451);
 
-    jonen::FloatElement e1(0x80, value, jonen::EBML_FLOAT_PREC_DOUBLE);
+    tawara::FloatElement e1(0x80, value, tawara::EBML_FLOAT_PREC_DOUBLE);
     test_flel::fill_buffer(expected, 0x80, value, true, true, true, true);
-    EXPECT_EQ(jonen::ids::size(0x80) + 9, e1.write(output));
+    EXPECT_EQ(tawara::ids::size(0x80) + 9, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 
     value = 3.14159;
     e1.value(value);
-    e1.precision(jonen::EBML_FLOAT_PREC_SINGLE);
+    e1.precision(tawara::EBML_FLOAT_PREC_SINGLE);
     output.str(std::string());
     std::string().swap(expected);
     test_flel::fill_buffer(expected, 0x80, value, true, true, true, false);
-    EXPECT_EQ(jonen::ids::size(0x80) + 5, e1.write(output));
+    EXPECT_EQ(tawara::ids::size(0x80) + 5, e1.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected);
 }
 
@@ -320,13 +320,13 @@ TEST(FloatElement, Read)
     std::string input_val;
     double value(23.14069);
 
-    jonen::FloatElement e(0x80, 0);
+    tawara::FloatElement e(0x80, 0);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val);
     EXPECT_EQ(9, e.read(input));
     EXPECT_EQ(0x80, e.id());
     EXPECT_DOUBLE_EQ(value, e.value());
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_DOUBLE, e.precision());
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_DOUBLE, e.precision());
 
     value = 22.45916;
     e.value(0);
@@ -340,32 +340,32 @@ TEST(FloatElement, Read)
     EXPECT_FLOAT_EQ(value, e.value());
     EXPECT_EQ(0, e.get_default());
     EXPECT_FALSE(e.is_default());
-    EXPECT_EQ(jonen::EBML_FLOAT_PREC_SINGLE, e.precision());
+    EXPECT_EQ(tawara::EBML_FLOAT_PREC_SINGLE, e.precision());
 
     // Test for ReadError exception
     std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), jonen::ReadError);
+    EXPECT_THROW(e.read(input), tawara::ReadError);
     // Test for ReadError exception
     std::string().swap(input_val);
     test_flel::fill_buffer(input_val, 0x01, value, false, true, true, true);
     input.str(input_val.substr(0, 4));
-    EXPECT_THROW(e.read(input), jonen::ReadError);
+    EXPECT_THROW(e.read(input), tawara::ReadError);
 }
 
 
 TEST(FloatElement, Size)
 {
-    jonen::FloatElement e(0x80, 1.0, jonen::EBML_FLOAT_PREC_SINGLE);
+    tawara::FloatElement e(0x80, 1.0, tawara::EBML_FLOAT_PREC_SINGLE);
     EXPECT_EQ(6, e.size());
-    e.precision(jonen::EBML_FLOAT_PREC_DOUBLE);
+    e.precision(tawara::EBML_FLOAT_PREC_DOUBLE);
     EXPECT_EQ(10, e.size());
 
-    e.precision(jonen::EBML_FLOAT_PREC_SINGLE);
+    e.precision(tawara::EBML_FLOAT_PREC_SINGLE);
     e.value(3.15149);
     EXPECT_EQ(6, e.size());
-    e.precision(jonen::EBML_FLOAT_PREC_DOUBLE);
+    e.precision(tawara::EBML_FLOAT_PREC_DOUBLE);
     EXPECT_EQ(10, e.size());
 }
 

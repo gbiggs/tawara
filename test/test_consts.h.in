@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(JONEN_TEST_CONSTS_H_)
-#define JONEN_TEST_CONSTS_H
+#if !defined(TAWARA_TEST_CONSTS_H_)
+#define TAWARA_TEST_CONSTS_H
 
 #include <boost/filesystem.hpp>
 
 const boost::filesystem::path test_source_dir("${CMAKE_CURRENT_SOURCE_DIR}");
 const boost::filesystem::path test_bin_dir("${CMAKE_CURRENT_BINARY_DIR}");
 
-#endif // JONEN_TEST_CONSTS_H
+#endif // TAWARA_TEST_CONSTS_H
 

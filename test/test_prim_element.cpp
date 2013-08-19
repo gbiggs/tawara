@@ -36,16 +36,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/prim_element.h>
+#include <tawara/prim_element.h>
 
 #include <gtest/gtest.h>
-#include <jonen/exceptions.h>
+#include <tawara/exceptions.h>
 
 #include "test_consts.h"
 
 
 // Fake PrimitiveElement implementation
-class FakePrimElement : public jonen::PrimitiveElement<int>
+class FakePrimElement : public tawara::PrimitiveElement<int>
 {
     public:
         FakePrimElement(uint32_t id)
@@ -78,11 +78,11 @@ class FakePrimElement : public jonen::PrimitiveElement<int>
 TEST(PrimElement, Construction)
 {
     EXPECT_EQ(1234, FakePrimElement(1234).id());
-    EXPECT_THROW(FakePrimElement(0x00), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(0xFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(0xFFFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(0xFFFFFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(0xFFFFFFFF), jonen::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0x00), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFFFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFFFFFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(0xFFFFFFFF), tawara::InvalidElementID);
 }
 
 
@@ -93,7 +93,7 @@ TEST(PrimElement, CopyConstruction)
     EXPECT_EQ(55, FakePrimElement(FakePrimElement(1234, 16, 55)).get_default());
     // The exception actually comes from the inner constructor, but just to be
     // sure it makes it out...
-    EXPECT_THROW(FakePrimElement(FakePrimElement(0x00)), jonen::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(FakePrimElement(0x00)), tawara::InvalidElementID);
 }
 
 
@@ -102,11 +102,11 @@ TEST(PrimElement, SetID)
     FakePrimElement e(1234);
     e.id(9999999);
     EXPECT_EQ(9999999, e.id());
-    EXPECT_THROW(FakePrimElement(1).id(0x00), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(1).id(0xFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(1).id(0xFFFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(1).id(0xFFFFFF), jonen::InvalidElementID);
-    EXPECT_THROW(FakePrimElement(1).id(0xFFFFFFFF), jonen::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0x00), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFFFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFFFFFF), tawara::InvalidElementID);
+    EXPECT_THROW(FakePrimElement(1).id(0xFFFFFFFF), tawara::InvalidElementID);
 }
 
 

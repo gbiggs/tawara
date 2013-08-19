@@ -36,15 +36,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/void_element.h>
+#include <tawara/void_element.h>
 
 #include <gtest/gtest.h>
-#include <jonen/binary_element.h>
-#include <jonen/el_ids.h>
-#include <jonen/ebml_int.h>
-#include <jonen/exceptions.h>
-#include <jonen/string_element.h>
-#include <jonen/vint.h>
+#include <tawara/binary_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/ebml_int.h>
+#include <tawara/exceptions.h>
+#include <tawara/string_element.h>
+#include <tawara/vint.h>
 
 #include "test_consts.h"
 #include "test_utils.h"
@@ -61,7 +61,7 @@ std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::stre
     {
         // Cheating on the IDs a bit - there is no protection here against
         // invalid IDs
-        std::vector<char> tmp(jonen::ebml_int::encode_u(jonen::ids::Void));
+        std::vector<char> tmp(tawara::ebml_int::encode_u(tawara::ids::Void));
         b.append(&tmp[0], 0, tmp.size());
         written += tmp.size();
     }
@@ -72,7 +72,7 @@ std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::stre
     }
     if (write_body)
     {
-        std::vector<char> tmp(jonen::vint::encode(void_size - written - 1));
+        std::vector<char> tmp(tawara::vint::encode(void_size - written - 1));
         b.append(&tmp[0], 0, tmp.size());
         written += tmp.size();
         int remaining(total_size - written);
@@ -102,18 +102,18 @@ std::streamsize fill_buffer(std::string& b, std::streamsize void_size, std::stre
 
 TEST(VoidElement, Construction)
 {
-    jonen::VoidElement ve1(8);
-    EXPECT_EQ(jonen::ids::Void, ve1.id());
+    tawara::VoidElement ve1(8);
+    EXPECT_EQ(tawara::ids::Void, ve1.id());
     EXPECT_EQ(8, ve1.size());
     EXPECT_FALSE(ve1.fill());
 
-    jonen::VoidElement ve2(8, true);
-    EXPECT_EQ(jonen::ids::Void, ve2.id());
+    tawara::VoidElement ve2(8, true);
+    EXPECT_EQ(tawara::ids::Void, ve2.id());
     EXPECT_EQ(8, ve2.size());
     EXPECT_TRUE(ve2.fill());
 
-    jonen::VoidElement ve3(8, false);
-    EXPECT_EQ(jonen::ids::Void, ve3.id());
+    tawara::VoidElement ve3(8, false);
+    EXPECT_EQ(tawara::ids::Void, ve3.id());
     EXPECT_EQ(8, ve3.size());
     EXPECT_FALSE(ve3.fill());
 }
@@ -121,33 +121,33 @@ TEST(VoidElement, Construction)
 
 TEST(VoidElement, CopyConstruction)
 {
-    jonen::VoidElement ve1(8);
-    EXPECT_EQ(jonen::ids::Void, jonen::VoidElement(ve1).id());
-    EXPECT_EQ(8, jonen::VoidElement(ve1).size());
-    EXPECT_FALSE(jonen::VoidElement(ve1).fill());
+    tawara::VoidElement ve1(8);
+    EXPECT_EQ(tawara::ids::Void, tawara::VoidElement(ve1).id());
+    EXPECT_EQ(8, tawara::VoidElement(ve1).size());
+    EXPECT_FALSE(tawara::VoidElement(ve1).fill());
 
-    jonen::VoidElement ve2(8, true);
-    EXPECT_EQ(jonen::ids::Void, jonen::VoidElement(ve2).id());
-    EXPECT_EQ(8, jonen::VoidElement(ve2).size());
-    EXPECT_TRUE(jonen::VoidElement(ve2).fill());
+    tawara::VoidElement ve2(8, true);
+    EXPECT_EQ(tawara::ids::Void, tawara::VoidElement(ve2).id());
+    EXPECT_EQ(8, tawara::VoidElement(ve2).size());
+    EXPECT_TRUE(tawara::VoidElement(ve2).fill());
 
-    jonen::VoidElement ve3(8, false);
-    EXPECT_EQ(jonen::ids::Void, jonen::VoidElement(ve3).id());
-    EXPECT_EQ(8, jonen::VoidElement(ve3).size());
-    EXPECT_FALSE(jonen::VoidElement(ve3).fill());
+    tawara::VoidElement ve3(8, false);
+    EXPECT_EQ(tawara::ids::Void, tawara::VoidElement(ve3).id());
+    EXPECT_EQ(8, tawara::VoidElement(ve3).size());
+    EXPECT_FALSE(tawara::VoidElement(ve3).fill());
 }
 
 
 TEST(VoidElement, CopyElement)
 {
-    jonen::StringElement se(0x80, "12345");
+    tawara::StringElement se(0x80, "12345");
 
     std::streamsize se_size(se.size());
-    jonen::VoidElement ve1(se);
+    tawara::VoidElement ve1(se);
     EXPECT_EQ(se_size, ve1.size());
     EXPECT_FALSE(ve1.fill());
 
-    jonen::VoidElement ve2(se, true);
+    tawara::VoidElement ve2(se, true);
     EXPECT_EQ(se_size, ve2.size());
     EXPECT_TRUE(ve2.fill());
 
@@ -155,8 +155,8 @@ TEST(VoidElement, CopyElement)
     // the body size
     for (int ii(0); ii < 10; ++ii)
     {
-        jonen::BinaryElement be(0x81, std::vector<char>(0x3FFB + ii, 0xC0));
-        jonen::VoidElement ve3(be);
+        tawara::BinaryElement be(0x81, std::vector<char>(0x3FFB + ii, 0xC0));
+        tawara::VoidElement ve3(be);
         EXPECT_EQ(be.size(), ve3.size());
     }
 }
@@ -164,19 +164,19 @@ TEST(VoidElement, CopyElement)
 
 TEST(VoidElement, Assignment)
 {
-    jonen::VoidElement e1(8), e2(16);
+    tawara::VoidElement e1(8), e2(16);
     e2 = e1;
     EXPECT_EQ(e1.id(), e2.id());
     EXPECT_EQ(e1.size(), e2.size());
     EXPECT_EQ(e1.fill(), e2.fill());
 
-    jonen::VoidElement e3(8, true), e4(16, false);
+    tawara::VoidElement e3(8, true), e4(16, false);
     e3 = e4;
     EXPECT_EQ(e3.id(), e4.id());
     EXPECT_EQ(e3.size(), e4.size());
     EXPECT_EQ(e3.fill(), e4.fill());
 
-    jonen::VoidElement e5(8, false), e6(16, true);
+    tawara::VoidElement e5(8, false), e6(16, true);
     e5 = e6;
     EXPECT_EQ(e5.id(), e6.id());
     EXPECT_EQ(e5.size(), e6.size());
@@ -186,7 +186,7 @@ TEST(VoidElement, Assignment)
 
 TEST(VoidElement, Size)
 {
-    jonen::VoidElement e1(8);
+    tawara::VoidElement e1(8);
     EXPECT_EQ(8, e1.size());
     e1.set_size(16000);
     EXPECT_EQ(16000, e1.size());
@@ -197,19 +197,19 @@ TEST(VoidElement, Size)
 
 TEST(VoidElement, Fill)
 {
-    jonen::VoidElement e1(8);
+    tawara::VoidElement e1(8);
     EXPECT_FALSE(e1.fill());
     e1.fill(true);
     EXPECT_TRUE(e1.fill());
     e1.fill(false);
     EXPECT_FALSE(e1.fill());
 
-    jonen::VoidElement e2(8, true);
+    tawara::VoidElement e2(8, true);
     EXPECT_TRUE(e2.fill());
     e2.fill(false);
     EXPECT_FALSE(e2.fill());
 
-    jonen::VoidElement e3(8, false);
+    tawara::VoidElement e3(8, false);
     EXPECT_FALSE(e3.fill());
     e3.fill(true);
     EXPECT_TRUE(e3.fill());
@@ -229,7 +229,7 @@ TEST(VoidElement, Write)
         c0.push_back(0xC0);
     }
 
-    jonen::VoidElement v(size);
+    tawara::VoidElement v(size);
     output.str(c0);
     std::string().swap(expected);
     test_vel::fill_buffer(expected, size, f_size, fill, true, true);
@@ -266,30 +266,30 @@ TEST(VoidElement, Read)
     std::streamsize size(5), f_size(20);
     bool fill(false);
 
-    jonen::VoidElement v(2);
+    tawara::VoidElement v(2);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
-    EXPECT_EQ(size - jonen::ids::size(jonen::ids::Void), v.read(input));
-    EXPECT_EQ(jonen::ids::Void, v.id());
+    EXPECT_EQ(size - tawara::ids::size(tawara::ids::Void), v.read(input));
+    EXPECT_EQ(tawara::ids::Void, v.id());
     EXPECT_EQ(size, v.size());
     // Subtract the ID size because it wasn't written to input
-    EXPECT_EQ(v.size() - jonen::ids::size(jonen::ids::Void),
+    EXPECT_EQ(v.size() - tawara::ids::size(tawara::ids::Void),
             input.tellg());
 
     fill = true;
     std::string().swap(input_val);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
-    EXPECT_EQ(size - jonen::ids::size(jonen::ids::Void), v.read(input));
-    EXPECT_EQ(jonen::ids::Void, v.id());
+    EXPECT_EQ(size - tawara::ids::size(tawara::ids::Void), v.read(input));
+    EXPECT_EQ(tawara::ids::Void, v.id());
     EXPECT_EQ(size, v.size());
     // Subtract the ID size because it wasn't written to input
-    EXPECT_EQ(v.size() - jonen::ids::size(jonen::ids::Void),
+    EXPECT_EQ(v.size() - tawara::ids::size(tawara::ids::Void),
             input.tellg());
 
     // Offset test
     input_val = "ab";
-    input_val.push_back(jonen::ids::Void);
+    input_val.push_back(tawara::ids::Void);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val);
     input.seekg(3);
@@ -300,6 +300,6 @@ TEST(VoidElement, Read)
     std::string().swap(input_val);
     test_vel::fill_buffer(input_val, size, f_size, fill, false, true);
     input.str(input_val.substr(0, 3));
-    EXPECT_THROW(v.read(input), jonen::ReadError);
+    EXPECT_THROW(v.read(input), tawara::ReadError);
 }
 

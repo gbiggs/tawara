@@ -38,33 +38,33 @@
 
 #include <boost/foreach.hpp>
 #include <gtest/gtest.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/track_operation.h>
-#include <jonen/uint_element.h>
-#include <jonen/vint.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/track_operation.h>
+#include <tawara/uint_element.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(TrackJoinBlocks, Create)
 {
-    jonen::TrackJoinBlocks e;
-    EXPECT_EQ(jonen::ids::TrackJoinBlocks, e.id());
+    tawara::TrackJoinBlocks e;
+    EXPECT_EQ(tawara::ids::TrackJoinBlocks, e.id());
     EXPECT_EQ(0, e.count());
 }
 
 
 TEST(TrackJoinBlocks, Type)
 {
-    jonen::TrackJoinBlocks e;
+    tawara::TrackJoinBlocks e;
     EXPECT_EQ(e.type(), "joinblocks");
 }
 
 
 TEST(TrackJoinBlocks, Append)
 {
-    jonen::TrackJoinBlocks e;
+    tawara::TrackJoinBlocks e;
     e.append(0xFFFF);
     ASSERT_EQ(1, e.count());
     e.append(0xC0C0);
@@ -72,13 +72,13 @@ TEST(TrackJoinBlocks, Append)
     EXPECT_EQ(0xFFFF, e[0]);
     EXPECT_EQ(0xC0C0, e[1]);
 
-    EXPECT_THROW(e.append(0), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.append(0), tawara::ValueOutOfRange);
 }
 
 
 TEST(TrackJoinBlocks, Remove)
 {
-    jonen::TrackJoinBlocks e;
+    tawara::TrackJoinBlocks e;
     e.append(0xFFFF);
     e.append(0xC0C0);
     ASSERT_EQ(2, e.count());
@@ -93,7 +93,7 @@ TEST(TrackJoinBlocks, Remove)
 
 TEST(TrackJoinBlocks, IndexOperator)
 {
-    jonen::TrackJoinBlocks e;
+    tawara::TrackJoinBlocks e;
     e.append(0xFFFF);
     e.append(0xC0C0);
     e.append(0x0101);
@@ -104,9 +104,9 @@ TEST(TrackJoinBlocks, IndexOperator)
 
 TEST(TrackJoinBlocks, Equality)
 {
-    jonen::TrackJoinBlocks e1;
+    tawara::TrackJoinBlocks e1;
     e1.append(0xFFFF);
-    jonen::TrackJoinBlocks e2;
+    tawara::TrackJoinBlocks e2;
     e2.append(0xFFFF);
     EXPECT_TRUE(e1 == e2);
     EXPECT_FALSE(e1 != e2);
@@ -119,26 +119,26 @@ TEST(TrackJoinBlocks, Equality)
 
 TEST(TrackJoinBlocks, Size)
 {
-    jonen::TrackJoinBlocks e;
+    tawara::TrackJoinBlocks e;
 
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackJoinBlocks) +
-            jonen::vint::size(0),
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackJoinBlocks) +
+            tawara::vint::size(0),
             e.size());
 
-    std::vector<jonen::UIntElement> children;
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xFFFF));
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xC0C0));
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0x0101));
+    std::vector<tawara::UIntElement> children;
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0xFFFF));
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0xC0C0));
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(jonen::UIntElement child, children)
+    BOOST_FOREACH(tawara::UIntElement child, children)
     {
         body_size += child.size();
         e.append(child.value());
     }
 
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackJoinBlocks) +
-            jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackJoinBlocks) +
+            tawara::vint::size(body_size) + body_size,
             e.size());
 }
 
@@ -148,28 +148,28 @@ TEST(TrackJoinBlocks, Write)
     std::ostringstream output;
     std::stringstream expected;
 
-    jonen::TrackJoinBlocks e;
+    tawara::TrackJoinBlocks e;
 
-    std::vector<jonen::UIntElement> children;
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xFFFF));
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xC0C0));
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0x0101));
+    std::vector<tawara::UIntElement> children;
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0xFFFF));
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0xC0C0));
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(jonen::UIntElement child, children)
+    BOOST_FOREACH(tawara::UIntElement child, children)
     {
         body_size += child.size();
         e.append(child.value());
     }
-    jonen::ids::write(jonen::ids::TrackJoinBlocks, expected);
-    jonen::vint::write(body_size, expected);
-    BOOST_FOREACH(jonen::UIntElement child, children)
+    tawara::ids::write(tawara::ids::TrackJoinBlocks, expected);
+    tawara::vint::write(body_size, expected);
+    BOOST_FOREACH(tawara::UIntElement child, children)
     {
         child.write(expected);
     }
 
-    EXPECT_EQ(jonen::ids::size(jonen::ids::TrackJoinBlocks) +
-            jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::TrackJoinBlocks) +
+            tawara::vint::size(body_size) + body_size,
             e.write(output));
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(), expected.str());
 }
@@ -179,24 +179,24 @@ TEST(TrackJoinBlocks, Read)
 {
     std::stringstream input;
 
-    std::vector<jonen::UIntElement> children;
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xFFFF));
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0xC0C0));
-    children.push_back(jonen::UIntElement(jonen::ids::TrackJoinUID, 0x0101));
+    std::vector<tawara::UIntElement> children;
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0xFFFF));
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0xC0C0));
+    children.push_back(tawara::UIntElement(tawara::ids::TrackJoinUID, 0x0101));
 
     std::streamsize body_size(0);
-    BOOST_FOREACH(jonen::UIntElement child, children)
+    BOOST_FOREACH(tawara::UIntElement child, children)
     {
         body_size += child.size();
     }
-    jonen::vint::write(body_size, input);
-    BOOST_FOREACH(jonen::UIntElement child, children)
+    tawara::vint::write(body_size, input);
+    BOOST_FOREACH(tawara::UIntElement child, children)
     {
         child.write(input);
     }
 
-    jonen::TrackJoinBlocks e;
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    tawara::TrackJoinBlocks e;
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_EQ(3, e.count());
     EXPECT_EQ(0xFFFF, e[0]);
@@ -205,21 +205,21 @@ TEST(TrackJoinBlocks, Read)
 
     // No children at all
     input.str(std::string());
-    jonen::vint::write(0, input);
-    EXPECT_THROW(e.read(input), jonen::MissingChild);
+    tawara::vint::write(0, input);
+    EXPECT_THROW(e.read(input), tawara::MissingChild);
     // TrackJoinBlocks should be clearing its stored UIDs before reading, so
     // the previous test's index should not affect this result
     EXPECT_EQ(0, e.count());
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     children[0].write(input);
-    EXPECT_THROW(e.read(input), jonen::BadBodySize);
+    EXPECT_THROW(e.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(e.read(input), tawara::InvalidChildID);
 }
 

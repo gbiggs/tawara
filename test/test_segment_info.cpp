@@ -40,22 +40,22 @@
 #include <boost/foreach.hpp>
 #include <gtest/gtest.h>
 #include <numeric>
-#include <jonen/binary_element.h>
-#include <jonen/date_element.h>
-#include <jonen/el_ids.h>
-#include <jonen/exceptions.h>
-#include <jonen/float_element.h>
-#include <jonen/segment_info.h>
-#include <jonen/uint_element.h>
-#include <jonen/vint.h>
+#include <tawara/binary_element.h>
+#include <tawara/date_element.h>
+#include <tawara/el_ids.h>
+#include <tawara/exceptions.h>
+#include <tawara/float_element.h>
+#include <tawara/segment_info.h>
+#include <tawara/uint_element.h>
+#include <tawara/vint.h>
 
 #include "test_utils.h"
 
 
 TEST(SegmentInfo, Create)
 {
-    jonen::SegmentInfo e;
-    EXPECT_EQ(jonen::ids::Info, e.id());
+    tawara::SegmentInfo e;
+    EXPECT_EQ(tawara::ids::Info, e.id());
     EXPECT_TRUE(e.uid().empty());
     EXPECT_TRUE(e.filename().empty());
     EXPECT_TRUE(e.prev_uid().empty());
@@ -74,14 +74,14 @@ TEST(SegmentInfo, Create)
 
 TEST(SegmentInfo, UID)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.uid().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.uid(uid), jonen::ValueSizeOutOfRange);
+    EXPECT_THROW(e.uid(uid), tawara::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -100,15 +100,15 @@ TEST(SegmentInfo, UID)
     EXPECT_NO_THROW(e.uid(uid));
     EXPECT_TRUE(e.uid().empty());
     uid.assign(16, 0x00);
-    EXPECT_THROW(e.uid(uid), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.uid(uid), tawara::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, SegmentFileName)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_TRUE(e.filename().empty());
-    std::string fn("a_file.jonen");
+    std::string fn("a_file.tawara");
     EXPECT_NO_THROW(e.filename(fn));
     EXPECT_EQ(fn, e.filename());
     fn.clear();
@@ -119,14 +119,14 @@ TEST(SegmentInfo, SegmentFileName)
 
 TEST(SegmentInfo, PrevUID)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.prev_uid().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.prev_uid(uid), jonen::ValueSizeOutOfRange);
+    EXPECT_THROW(e.prev_uid(uid), tawara::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -145,15 +145,15 @@ TEST(SegmentInfo, PrevUID)
     EXPECT_NO_THROW(e.prev_uid(uid));
     EXPECT_TRUE(e.prev_uid().empty());
     uid.assign(8, 0x00);
-    EXPECT_THROW(e.prev_uid(uid), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.prev_uid(uid), tawara::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, PrevFileName)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_TRUE(e.prev_filename().empty());
-    std::string fn("a_file.jonen");
+    std::string fn("a_file.tawara");
     EXPECT_NO_THROW(e.prev_filename(fn));
     EXPECT_EQ(fn, e.prev_filename());
     fn.clear();
@@ -164,14 +164,14 @@ TEST(SegmentInfo, PrevFileName)
 
 TEST(SegmentInfo, NextUID)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.next_uid().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.next_uid(uid), jonen::ValueSizeOutOfRange);
+    EXPECT_THROW(e.next_uid(uid), tawara::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -190,15 +190,15 @@ TEST(SegmentInfo, NextUID)
     EXPECT_NO_THROW(e.next_uid(uid));
     EXPECT_TRUE(e.next_uid().empty());
     uid.assign(16, 0x00);
-    EXPECT_THROW(e.next_uid(uid), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.next_uid(uid), tawara::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, NextFileName)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_TRUE(e.next_filename().empty());
-    std::string fn("a_file.jonen");
+    std::string fn("a_file.tawara");
     EXPECT_NO_THROW(e.next_filename(fn));
     EXPECT_EQ(fn, e.next_filename());
     fn.clear();
@@ -209,14 +209,14 @@ TEST(SegmentInfo, NextFileName)
 
 TEST(SegmentInfo, SegmentFamily)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     std::vector<char> uid;
     EXPECT_TRUE(e.segment_family().empty());
     uid.push_back(0x01);
     uid.push_back(0x02);
     uid.push_back(0x03);
     uid.push_back(0x04);
-    EXPECT_THROW(e.segment_family(uid), jonen::ValueSizeOutOfRange);
+    EXPECT_THROW(e.segment_family(uid), tawara::ValueSizeOutOfRange);
     uid.push_back(0x05);
     uid.push_back(0x06);
     uid.push_back(0x07);
@@ -235,13 +235,13 @@ TEST(SegmentInfo, SegmentFamily)
     EXPECT_NO_THROW(e.segment_family(uid));
     EXPECT_TRUE(e.segment_family().empty());
     uid.assign(16, 0x00);
-    EXPECT_THROW(e.segment_family(uid), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.segment_family(uid), tawara::ValueOutOfRange);
 }
 
 
 TEST(SegmentInfo, TimecodeScale)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_EQ(1000000, e.timecode_scale());
     EXPECT_NO_THROW(e.timecode_scale(314159));
     EXPECT_EQ(314159, e.timecode_scale());
@@ -252,12 +252,12 @@ TEST(SegmentInfo, TimecodeScale)
 
 TEST(SegmentInfo, Duration)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_TRUE(e.duration() > 0);
     EXPECT_NO_THROW(e.duration(314159));
     EXPECT_EQ(314159, e.duration());
-    EXPECT_THROW(e.duration(-314159), jonen::ValueOutOfRange);
-    EXPECT_THROW(e.duration(0), jonen::ValueOutOfRange);
+    EXPECT_THROW(e.duration(-314159), tawara::ValueOutOfRange);
+    EXPECT_THROW(e.duration(0), tawara::ValueOutOfRange);
     // Test 64-bit values to confirm range
     EXPECT_NO_THROW(e.duration(0xFFFFFFFFFFFFFFFF));
     EXPECT_EQ(0xFFFFFFFFFFFFFFFF, e.duration());
@@ -266,7 +266,7 @@ TEST(SegmentInfo, Duration)
 
 TEST(SegmentInfo, Date)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_EQ(e.date(), 0);
     EXPECT_NO_THROW(e.date(-314159));
     EXPECT_EQ(-314159, e.date());
@@ -284,9 +284,9 @@ TEST(SegmentInfo, Date)
 
 TEST(SegmentInfo, Title)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_TRUE(e.title().empty());
-    std::string fn("a_file.jonen");
+    std::string fn("a_file.tawara");
     EXPECT_NO_THROW(e.title(fn));
     EXPECT_EQ(fn, e.title());
     fn.clear();
@@ -297,9 +297,9 @@ TEST(SegmentInfo, Title)
 
 TEST(SegmentInfo, MuxingApp)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_TRUE(e.muxing_app().empty());
-    std::string fn("a_file.jonen");
+    std::string fn("a_file.tawara");
     EXPECT_NO_THROW(e.muxing_app(fn));
     EXPECT_EQ(fn, e.muxing_app());
     fn.clear();
@@ -310,9 +310,9 @@ TEST(SegmentInfo, MuxingApp)
 
 TEST(SegmentInfo, WritingApp)
 {
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     EXPECT_TRUE(e.writing_app().empty());
-    std::string fn("a_file.jonen");
+    std::string fn("a_file.tawara");
     EXPECT_NO_THROW(e.writing_app(fn));
     EXPECT_EQ(fn, e.writing_app());
     fn.clear();
@@ -325,21 +325,21 @@ namespace test_seg_info
 {
 
 void DoWriteTest(std::vector<test_utils::ElPtr> const& els,
-        jonen::SegmentInfo& e, std::string msg)
+        tawara::SegmentInfo& e, std::string msg)
 {
     std::ostringstream output;
     std::stringstream expected;
 
     std::streamsize expected_size(std::accumulate(els.begin(), els.end(), 0,
                 test_utils::TotalSizeOp()));
-    jonen::ids::write(jonen::ids::Info, expected);
-    jonen::vint::write(expected_size, expected);
+    tawara::ids::write(tawara::ids::Info, expected);
+    tawara::vint::write(expected_size, expected);
     BOOST_FOREACH(test_utils::ElPtr el, els)
     {
         el->write(expected);
     }
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(expected_size) + expected_size,
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(expected_size) + expected_size,
             e.write(output)) << msg;
     EXPECT_PRED_FORMAT2(test_utils::std_buffers_eq, output.str(),
             expected.str()) << msg;
@@ -353,42 +353,42 @@ TEST(SegmentInfo, Size)
     std::vector<test_utils::ElPtr> all_children, used_children;
 
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::SegmentUID, std::vector<char>(16,
+                tawara::BinaryElement(tawara::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::SegmentFileName,
+                tawara::StringElement(tawara::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::PrevUID,
+                tawara::BinaryElement(tawara::ids::PrevUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::PrevFileName,
+                tawara::StringElement(tawara::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::NextUID,
+                tawara::BinaryElement(tawara::ids::NextUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::NextFileName,
+                tawara::StringElement(tawara::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::SegmentFamily,
+                tawara::BinaryElement(tawara::ids::SegmentFamily,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::FloatElement(jonen::ids::Duration, 12345)));
+                tawara::FloatElement(tawara::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::DateElement(jonen::ids::DateUTC, 0xFFFFFFFFFF)));
+                tawara::DateElement(tawara::ids::DateUTC, 0xFFFFFFFFFF)));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::Title, "Title")));
+                tawara::StringElement(tawara::ids::Title, "Title")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::MuxingApp, "Muxer")));
+                tawara::StringElement(tawara::ids::MuxingApp, "Muxer")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::WritingApp, "Writer")));
+                tawara::StringElement(tawara::ids::WritingApp, "Writer")));
     used_children.push_back(test_utils::ElPtr(new
-                jonen::UIntElement(jonen::ids::TimecodeScale, 1000000)));
+                tawara::UIntElement(tawara::ids::TimecodeScale, 1000000)));
 
-    jonen::SegmentInfo e;
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(used_children[0]->size()) +
+    tawara::SegmentInfo e;
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(used_children[0]->size()) +
             used_children[0]->size(), e.size());
 
     std::streamsize body_size(0);
@@ -397,8 +397,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.filename("Segment filename");
@@ -406,8 +406,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.prev_uid(std::vector<char>(16, 0xC0));
@@ -415,8 +415,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.prev_filename("Previous filename");
@@ -424,8 +424,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.next_uid(std::vector<char>(16, 0xC0));
@@ -433,8 +433,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.next_filename("Next filename");
@@ -442,8 +442,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.segment_family(std::vector<char>(16, 0xC0));
@@ -451,8 +451,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.duration(12345);
@@ -460,8 +460,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.date(0xFFFFFFFFFF);
@@ -469,8 +469,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.title("Title");
@@ -478,8 +478,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.muxing_app("Muxer");
@@ -487,8 +487,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 
     body_size = 0;
     e.writing_app("Writer");
@@ -496,8 +496,8 @@ TEST(SegmentInfo, Size)
     all_children.erase(all_children.begin());
     body_size = std::accumulate(used_children.begin(), used_children.end(),
             0, test_utils::TotalSizeOp());
-    EXPECT_EQ(jonen::ids::size(jonen::ids::Info) +
-            jonen::vint::size(body_size) + body_size, e.size());
+    EXPECT_EQ(tawara::ids::size(tawara::ids::Info) +
+            tawara::vint::size(body_size) + body_size, e.size());
 }
 
 
@@ -505,40 +505,40 @@ TEST(SegmentInfo, Write)
 {
     std::vector<test_utils::ElPtr> all_children, used_children;
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::SegmentUID, std::vector<char>(16,
+                tawara::BinaryElement(tawara::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::SegmentFileName,
+                tawara::StringElement(tawara::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::PrevUID,
+                tawara::BinaryElement(tawara::ids::PrevUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::PrevFileName,
+                tawara::StringElement(tawara::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::NextUID,
+                tawara::BinaryElement(tawara::ids::NextUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::NextFileName,
+                tawara::StringElement(tawara::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::SegmentFamily,
+                tawara::BinaryElement(tawara::ids::SegmentFamily,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::FloatElement(jonen::ids::Duration, 12345)));
+                tawara::FloatElement(tawara::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::DateElement(jonen::ids::DateUTC, 0xFFFFFFFFFF)));
+                tawara::DateElement(tawara::ids::DateUTC, 0xFFFFFFFFFF)));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::Title, "Title")));
+                tawara::StringElement(tawara::ids::Title, "Title")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::MuxingApp, "Muxer")));
+                tawara::StringElement(tawara::ids::MuxingApp, "Muxer")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::WritingApp, "Writer")));
+                tawara::StringElement(tawara::ids::WritingApp, "Writer")));
     used_children.push_back(test_utils::ElPtr(new
-                jonen::UIntElement(jonen::ids::TimecodeScale, 1000000)));
+                tawara::UIntElement(tawara::ids::TimecodeScale, 1000000)));
 
-    jonen::SegmentInfo e;
+    tawara::SegmentInfo e;
     test_seg_info::DoWriteTest(used_children, e, "tc_scale");
 
     e.uid(std::vector<char>(16, 0xC0));
@@ -609,49 +609,49 @@ TEST(SegmentInfo, Read)
 
     std::vector<test_utils::ElPtr> all_children, used_children;
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::SegmentUID, std::vector<char>(16,
+                tawara::BinaryElement(tawara::ids::SegmentUID, std::vector<char>(16,
                         0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::SegmentFileName,
+                tawara::StringElement(tawara::ids::SegmentFileName,
                     "Segment filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::PrevUID,
+                tawara::BinaryElement(tawara::ids::PrevUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::PrevFileName,
+                tawara::StringElement(tawara::ids::PrevFileName,
                     "Previous filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::NextUID,
+                tawara::BinaryElement(tawara::ids::NextUID,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::NextFileName,
+                tawara::StringElement(tawara::ids::NextFileName,
                     "Next filename")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::BinaryElement(jonen::ids::SegmentFamily,
+                tawara::BinaryElement(tawara::ids::SegmentFamily,
                     std::vector<char>(16, 0xC0))));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::FloatElement(jonen::ids::Duration, 12345)));
+                tawara::FloatElement(tawara::ids::Duration, 12345)));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::DateElement(jonen::ids::DateUTC, 0xFFFFFFFFFF)));
+                tawara::DateElement(tawara::ids::DateUTC, 0xFFFFFFFFFF)));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::Title, "Title")));
+                tawara::StringElement(tawara::ids::Title, "Title")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::MuxingApp, "Muxer")));
+                tawara::StringElement(tawara::ids::MuxingApp, "Muxer")));
     all_children.push_back(test_utils::ElPtr(new
-                jonen::StringElement(jonen::ids::WritingApp, "Writer")));
+                tawara::StringElement(tawara::ids::WritingApp, "Writer")));
     used_children.push_back(test_utils::ElPtr(new
-                jonen::UIntElement(jonen::ids::TimecodeScale, 200000)));
+                tawara::UIntElement(tawara::ids::TimecodeScale, 200000)));
 
-    jonen::SegmentInfo e;
-    jonen::vint::write(0, input);
-    EXPECT_EQ(jonen::vint::size(0), e.read(input));
+    tawara::SegmentInfo e;
+    tawara::vint::write(0, input);
+    EXPECT_EQ(tawara::vint::size(0), e.read(input));
     EXPECT_EQ(1000000, e.timecode_scale());
 
     input.str(std::string());
     std::streamsize body_size(used_children[0]->size());
-    jonen::vint::write(body_size, input);
+    tawara::vint::write(body_size, input);
     used_children[0]->write(input);
-    EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+    EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             e.read(input));
     EXPECT_TRUE(e.uid().empty());
     EXPECT_TRUE(e.filename().empty());
@@ -672,26 +672,26 @@ TEST(SegmentInfo, Read)
         used_children.push_back(el);
         body_size = std::accumulate(used_children.begin(), used_children.end(),
                 0, test_utils::TotalSizeOp());
-        jonen::vint::write(body_size, input);
+        tawara::vint::write(body_size, input);
         BOOST_FOREACH(test_utils::ElPtr uel, used_children)
         {
             uel->write(input);
         }
-        EXPECT_EQ(jonen::vint::size(body_size) + body_size,
+        EXPECT_EQ(tawara::vint::size(body_size) + body_size,
             e.read(input));
     }
 
     // Body size value wrong (too small)
     input.str(std::string());
-    jonen::vint::write(2, input);
+    tawara::vint::write(2, input);
     used_children[0]->write(input);
     used_children[3]->write(input);
-    EXPECT_THROW(e.read(input), jonen::BadBodySize);
+    EXPECT_THROW(e.read(input), tawara::BadBodySize);
     // Invalid child
     input.str(std::string());
-    jonen::UIntElement ue(jonen::ids::EBML, 0xFFFF);
-    jonen::vint::write(ue.size(), input);
+    tawara::UIntElement ue(tawara::ids::EBML, 0xFFFF);
+    tawara::vint::write(ue.size(), input);
     ue.write(input);
-    EXPECT_THROW(e.read(input), jonen::InvalidChildID);
+    EXPECT_THROW(e.read(input), tawara::InvalidChildID);
 }
 

@@ -36,13 +36,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <jonen/ebml_element.h>
+#include <tawara/ebml_element.h>
 
-#include <jonen/exceptions.h>
-#include <jonen/jonen_config.h>
-#include <jonen/vint.h>
+#include <tawara/exceptions.h>
+#include <tawara/tawara_config.h>
+#include <tawara/vint.h>
 
-using namespace jonen;
+using namespace tawara;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,14 +51,14 @@ using namespace jonen;
 
 EBMLElement::EBMLElement(std::string const& doc_type)
     : MasterElement(ids::EBML),
-    ver_(ids::EBMLVersion, JonenEBMLVersion, JonenEBMLVersion),
-    read_ver_(ids::EBMLReadVersion, JonenEBMLVersion, JonenEBMLVersion),
+    ver_(ids::EBMLVersion, TawaraEBMLVersion, TawaraEBMLVersion),
+    read_ver_(ids::EBMLReadVersion, TawaraEBMLVersion, TawaraEBMLVersion),
     max_id_length_(ids::EBMLMaxIDLength, 4, 4),
     max_size_length_(ids::EBMLMaxSizeLength, 8, 8),
-    doc_type_(ids::DocType, doc_type, JonenDocType),
-    doc_type_ver_(ids::DocTypeVersion, JonenVersionMajor, JonenVersionMajor),
-    doc_type_read_ver_(ids::DocTypeReadVersion, JonenVersionMajor,
-            JonenVersionMajor)
+    doc_type_(ids::DocType, doc_type, TawaraDocType),
+    doc_type_ver_(ids::DocTypeVersion, TawaraVersionMajor, TawaraVersionMajor),
+    doc_type_read_ver_(ids::DocTypeReadVersion, TawaraVersionMajor,
+            TawaraVersionMajor)
 {
 }
 
@@ -159,12 +159,12 @@ std::streamsize EBMLElement::read_body(std::istream& input,
 
 void EBMLElement::set_defaults_()
 {
-    ver_.value(JonenEBMLVersion);
-    read_ver_.value(JonenEBMLVersion);
+    ver_.value(TawaraEBMLVersion);
+    read_ver_.value(TawaraEBMLVersion);
     max_id_length_.value(4);
     max_size_length_.value(8);
-    doc_type_.value(JonenDocType);
-    doc_type_ver_.value(JonenVersionMajor);
-    doc_type_read_ver_.value(JonenVersionMajor);
+    doc_type_.value(TawaraDocType);
+    doc_type_ver_.value(TawaraVersionMajor);
+    doc_type_read_ver_.value(TawaraVersionMajor);
 }
 
